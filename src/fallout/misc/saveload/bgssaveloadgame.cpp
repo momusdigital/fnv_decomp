@@ -355,7 +355,7 @@ struct SaveLoadFile
     void SeekCurrent(int);
     char* GetFileName();
     static SaveLoadFile* CreateFileA(char*, bool, unsigned int);
-    void SetSaveFileName(char*);
+    void SetMostRecentSaveGame(char*);
     char* GetSaveFileName();
     BSFile* QFile();
     unsigned int GetSimulatedFileSize();
@@ -502,7 +502,7 @@ unsigned int BGSSaveLoadGame::LoadFormRecord(::SaveLoadFile* apFile, BGSLoadForm
         pcell = 0;
         TESWorldSpace* pworld = 0;
         refData.GetCellAndWorld(pcell, pworld);
-        if ((pcell && g_TES->IsCellBuffered(pcell, false)) || (refData.cFlags & 2))
+        if ((pcell && g_TES->IsCellLoaded(pcell, false)) || (refData.cFlags & 2))
         {
             if (einitialDataType == 5)
             {
@@ -585,7 +585,7 @@ unsigned int BGSSaveLoadGame::LoadFormRecord(::SaveLoadFile* apFile, BGSLoadForm
                     TESObjectCELL* pcell = 0;
                     TESWorldSpace* pworld = 0;
                     refData.ReferenceInitialData_GetOriginalLocationCellAndWorld(pcell, pworld);
-                    if (pcell && g_TES->IsCellBuffered(pcell, false))
+                    if (pcell && g_TES->IsCellLoaded(pcell, false))
                     {
                         (*(ReconstructFormsH**)((char*)this + 0x20))->BGSReconstructFormsInAllFilesMap_AddReference(pcell, iformID, false);
                         apLoadGameBuffer->FUN_0042ce50(true);
@@ -619,7 +619,7 @@ unsigned int BGSSaveLoadGame::LoadFormRecord(::SaveLoadFile* apFile, BGSLoadForm
                         {
                             pcell = (TESObjectCELL*)pspace;
                         }
-                        if (!pcell || !g_TES->IsCellBuffered(pcell, false))
+                        if (!pcell || !g_TES->IsCellLoaded(pcell, false))
                             bdeleteRef = true;
                     }
                     if (bdeleteRef)
@@ -705,12 +705,13 @@ void BGSSaveLoadGame::Destroy()
 class SaveLoadGameFileLists : public BGSSaveLoadGame
 {
 public:
-    void SaveCompiledFileList(void*);
+    void BGSSaveLoadGame_SavePluginList(void*);
     bool ReadFileIndexMap(void*);
 };
 
 // @fnv 0x00847590
-void SaveLoadGameFileLists::SaveCompiledFileList(void* apFile)
+// src: COMMUNITY 0x00847590
+void SaveLoadGameFileLists::BGSSaveLoadGame_SavePluginList(void* apFile)
 {
     BGSSaveGameBuffer buffer;
     BGSSaveGameBuffer* pbuffer = &buffer;
@@ -718,7 +719,7 @@ void SaveLoadGameFileLists::SaveCompiledFileList(void* apFile)
     pbuffer->SaveData(&ucFileCount, 1, 0);
     for (unsigned int i = 0; i < ucFileCount; ++i)
     {
-        TESFile* pFile = reinterpret_cast<TESDataHandlerSaveLoad*>(g_dataHandler)->GetCompiledFileByIndex(i);
+        TESFile* pFile = reinterpret_cast<TESDataHandlerSaveLoad*>(g_dataHandler)->GetCompiledFile(i);
         const char* pFileName = pFile->GetName();
         pbuffer->SaveGameString(pFileName, 0);
     }
@@ -803,7 +804,8 @@ void __cdecl BGSSaveLoadHistory_Destroy(unsigned char);
 }  // namespace fnv_0084a840
 
 // @fnv 0x0084a840
-void BGSSaveLoadGame::ClearAllForms()
+// src: COMMUNITY 0x0084a840
+void BGSSaveLoadGame::RevertAllChanges()
 {
     SetDeferInitForms(true);
     fnv_0084a840::BGSSaveLoadHistory_Destroy(1);
@@ -1547,7 +1549,7 @@ void __cdecl SaveGameWarning(const char*, ...);
 struct SaveDataHandler
 {
     unsigned char GetCompiledFileCount();
-    TESFile* GetCompiledFileByIndex(unsigned int index);
+    TESFile* GetCompiledFile(unsigned int index);
 };
 
 
@@ -1571,7 +1573,7 @@ bool SaveLoadGameFileLists::ReadFileIndexMap(void* apData)
         bool bFound = false;
         for (unsigned int jA = 0; jA < cFileCount2; jA++)
         {
-            TESFile* _pFile = ((SaveDataHandler*)g_dataHandler)->GetCompiledFileByIndex(jA);
+            TESFile* _pFile = ((SaveDataHandler*)g_dataHandler)->GetCompiledFile(jA);
             if (!CompareSaveFileNames(acName, _pFile->GetFilename()))
             {
                 cFileIndexArray[aI] = jA;
@@ -1600,7 +1602,7 @@ struct W20File
 };
 struct W20Manager
 {
-    void EnsureFosExtension(char*, char*);
+    void GetFullFileName(char*, char*);
     void FUN_00851120(char*, int);
     unsigned int GetConstant27();
 };
@@ -1732,12 +1734,12 @@ void BGSSaveLoadGame::SaveGame(::SaveLoadFile* file)
     SetSaveGameSaving(true);
     char k[260];
     char ba[260];
-    fnv_00847850::DAT_011de134->EnsureFosExtension(((W20File*)file)->_ref_006815c0(), k);
+    fnv_00847850::DAT_011de134->GetFullFileName(((W20File*)file)->_ref_006815c0(), k);
     fnv_00847850::DAT_011de134->FUN_00851120(ba, 260);
     fnv_00847850::FUN_0084dff0(((W20History*)pHistory), "***Saving game: %s (%s)", k, ba);
     unsigned char j = fnv_00847850::DAT_011de134->GetConstant27();
     ForwardToShell(((W20File*)file), &j, 1);
-    ((SaveLoadGameFileLists*)this)->SaveCompiledFileList(((W20File*)file));
+    ((SaveLoadGameFileLists*)this)->BGSSaveLoadGame_SavePluginList(((W20File*)file));
     unsigned int e = ((W20File*)file)->FUN_00846400();
     W20Header c;
     c.ClearObject();
@@ -1912,7 +1914,7 @@ struct LoadManagerPrefix
 };
 struct LoadManagerMethods
 {
-    void EnsureFosExtension(char*);
+    void GetFullFileName(char*);
     void FUN_00851120(char*, unsigned int);
     void FUN_00850c20();
 };
@@ -2033,7 +2035,7 @@ bool BGSSaveLoadGame::LoadGame(SaveLoadFile* pSaveFile, bool restoreMode)
     ((FUN_0084ded0*&)pHistory) = new FUN_0084ded0;
     char finalName[260];
     char writeName[260];
-    ((LoadManagerMethods*)DAT_011de134)->EnsureFosExtension(((SaveFile*)pSaveFile)->FUN_006815c0(finalName));
+    ((LoadManagerMethods*)DAT_011de134)->GetFullFileName(((SaveFile*)pSaveFile)->FUN_006815c0(finalName));
     ((LoadManagerMethods*)DAT_011de134)->FUN_00851120(writeName, 260);
     FUN_0084dff0(((FUN_0084ded0*&)pHistory), DAT_0107f048, finalName, writeName);
     ReadFileIntoBuffer(((SaveFile*)pSaveFile), &cCurrentMinorVersion, 1);

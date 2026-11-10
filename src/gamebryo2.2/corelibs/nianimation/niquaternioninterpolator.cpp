@@ -42,7 +42,8 @@ extern int DAT_011f4210;
 extern int DAT_011f4214;
 
 // @fnv 0x00a48d70
-NiQuaternionInterpolator* __cdecl CreateNiQuaternionInterpolator()
+// src: EXE 0x00a48d70
+NiQuaternionInterpolator* __cdecl NiQuaternionInterpolator_CreateObject()
 {
     NiQuaternionInterpolator* p = (NiQuaternionInterpolator*)BSFadeNode::operator new(sizeof(NiQuaternionInterpolator));
     if (p)
@@ -96,7 +97,8 @@ void* __fastcall ReleaseQuaternionInterpolator(NiQuaternionInterpolator* self, v
 extern NiBound g_NiBoundDefault;
 
 // @fnv 0x00a48800
-bool __fastcall IsQuaternionPose(NiQuaternionInterpolator* self, void*, unsigned int nTime)
+// src: EXE 0x00a48800
+bool __fastcall NiQuaternionInterpolator_GetChannelPosed(NiQuaternionInterpolator* self, void*, unsigned int nTime)
 {
     if (self->m_spQuaternionData.m_pObject != 0)
         return false;
@@ -279,13 +281,13 @@ void* __cdecl NiViewerStrings_NiGetViewerString_Title(const void* value);
 void* __cdecl NiGetViewerString_00a7d5a0(const void* key, void* value);
 
 // The shared base does not declare its viewer-string override.
-void GetKeyBasedViewerStrings();
+void NiKeyBasedInterpolator_GetViewerStrings();
 
 // @fnv 0x00a48ea0
 void NiQuaternionInterpolator::GetViewerStrings(NiViewerStringsArray* strings)
 {
     Stream* stream = (Stream*)strings;
-    reinterpret_cast<void (__thiscall*)(NiKeyBasedInterpolator*, NiViewerStringsArray*)>(&GetKeyBasedViewerStrings)(this, strings);
+    reinterpret_cast<void (__thiscall*)(NiKeyBasedInterpolator*, NiViewerStringsArray*)>(&NiKeyBasedInterpolator_GetViewerStrings)(this, strings);
     void* value = NiViewerStrings_NiGetViewerString_Title(g_011f3f60);
     unsigned int index = stream->unk0a;
     if (index >= stream->unk08)

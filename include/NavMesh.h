@@ -60,7 +60,7 @@ public:
     void InitializeNavMeshData();
     void RebuildTriangleList();
     unsigned int CollectTriangleCells(unsigned short tri, OutArr& out);
-    void BuildPortalPOVs();
+    void CreatePOVs();
     void ComputeBounds(NiPoint3& outMin, NiPoint3& outMax);
     bool Validate(int);
     void GetTriangleVertexPositions(unsigned short, unsigned int*, unsigned int*, unsigned int*);
@@ -87,26 +87,26 @@ public:
     bool GetMatchingEdge_1(const NavMeshEdgeRef*, NavMeshEdgeOut*);
     bool GetMatchingEdge(unsigned short, int, NiPointer<NavMesh>&, int, int);
     unsigned short FindTriangleForLocation(const NiPoint3&, FindTriangleForLocationFilter*);
-    int FindCrossedEdge(unsigned short, int, const NiPoint3&, const NiPoint3&);
+    int FindIntersectingEdgeFast(unsigned short, int, const NiPoint3&, const NiPoint3&);
     bool MatchNavMesh(const NavMeshEdgeData&, NavMeshEdgeData&);
     unsigned int GetCurrentMoveModeType();
-    bool GetTriangleHeightAtPoint(unsigned short, const NiPoint3&, float, float, float&);
+    bool ComputeTriangleZForLocation(unsigned short, const NiPoint3&, float, float, float&);
     static void operator delete(void*, unsigned int);
     static void Deallocate(void*);
 
-    bool IsLocationOnNavMesh(const NiPoint3&, FindTriangleForLocationFilter*);
-    bool TestPointOnTriangle(unsigned short, const NiPoint3&, float&, FindTriangleForLocationFilter*);
-    bool TestPointOnTriangle(unsigned short, const NiPoint3*, float*, int);
-    int CollectTrianglePOVs(unsigned short, BSSimpleArray<unsigned short, 1024>*);
-    bool GetTriangleHeightAtPoint(unsigned short, const NiPoint3&, float, float, float*);
+    bool IsPointInsideNavmesh(const NiPoint3&, FindTriangleForLocationFilter*);
+    bool IsPointInsideTriangle(unsigned short, const NiPoint3&, float&, FindTriangleForLocationFilter*);
+    bool IsPointInsideTriangle(unsigned short, const NiPoint3*, float*, int);
+    int GetPOVsForTriangle(unsigned short, BSSimpleArray<unsigned short, 1024>*);
+    bool ComputeTriangleZForLocation(unsigned short, const NiPoint3&, float, float, float*);
     bool FindTriangleZ(const NiPoint3&, float, float, float*);
-    int FindCrossedEdge(unsigned short, int, const NiPoint3*, const NiPoint3*);
-    NavEdgeHit FindEdgeIntersection(unsigned short, int, const NiPoint3&, const NiPoint3&);
+    int FindIntersectingEdgeFast(unsigned short, int, const NiPoint3*, const NiPoint3*);
+    NavEdgeHit FindInterectingEdge2(unsigned short, int, const NiPoint3&, const NiPoint3&);
     NiPoint3 AdjustPointToNavMesh(const NiPoint3&, float);
     EdgeExtraInfo* GetOrCreateEdgeInfo(unsigned short, int);
     unsigned short AddEdgeInfo(const EdgeExtraInfo&);
     void SwapTriangleEdges(unsigned short);
-    void UpdateTriangleExtraInfo(unsigned short);
+    void DeleteExtraEdgeInfo(unsigned short);
     bool CheckNeighborCells();
     bool AddTrianglesToGrid(unsigned short, unsigned short);
     bool LinkMatchingEdges();
@@ -129,7 +129,7 @@ public:
     bool Navmesh_RemoveClosedDoor(unsigned int);
     unsigned int AppendTriangleVerticesInList(unsigned short, BSSimpleArray<unsigned short, 1024>*);
     void LookupPOVValueWithInitialization(unsigned short, unsigned int);
-    bool AddTrianglesToXYGridCells(unsigned short, unsigned short);
+    bool RemoveTrianglesFromGrid(unsigned short, unsigned short);
     void CreateGrid();
     bool FUN_006dcee0(void*, FindTriangleForLocationFilter*);
 

@@ -736,12 +736,12 @@ static inline float CamAbs(float fValue)
 
 struct FUN_00a6fdb0_t : public NiCamera
 {
-    bool ProjectPointToScreen(const NiPoint3& kPt, float& fBx, float& fBy, float& fBz, float fZeroTolerance) const;
+    bool NiCamera_WorldPtToScreenPt3(const NiPoint3& kPt, float& fBx, float& fBy, float& fBz, float fZeroTolerance) const;
 };
 
 // Projects a world-space point into camera/screen space using m_aafWorldToCam and m_kPort, writing the result to fBx, fBy, fBz.
 // @fnv 0x00a6fdb0
-bool FUN_00a6fdb0_t::ProjectPointToScreen(const NiPoint3& kPt, float& fBx, float& fBy, float& fBz,
+bool FUN_00a6fdb0_t::NiCamera_WorldPtToScreenPt3(const NiPoint3& kPt, float& fBx, float& fBy, float& fBz,
                                           float fZeroTolerance) const
 {
     bool bResult = false;

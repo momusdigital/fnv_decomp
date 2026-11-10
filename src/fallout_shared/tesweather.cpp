@@ -329,7 +329,7 @@ TESWeather::~TESWeather()
 void TESForm_AddChunkArray(unsigned int, void*, unsigned int);
 void TESForm_AddChunkArray_00485710(unsigned int, unsigned int*, unsigned int);
 void TESForm_AddChunk_00485910(unsigned int, int);
-void AppendChunk(unsigned int, void*, unsigned int);
+void TESForm___AddChunkData(unsigned int, void*, unsigned int);
 bool TESForm_QEndianSwapOnSave();
 class WeatherSave : public TESWeather
 {
@@ -340,7 +340,7 @@ class WeatherSave : public TESWeather
 // src: XBOX_PDB 0x005813d0
 void WeatherSave::TESWeather_Save()
 {
-    TESForm::BeginFormRecord();
+    TESForm::TESForm_StartForm();
     reinterpret_cast<WeatherImageSpaceFunctions*>(reinterpret_cast<char*>(this) + sizeof(TESForm))->ReleaseSoundSlots();
     unsigned int auiChunkIds[8] = {0x4d414e44, 0x4d414e43, 0x4d414e41, 0x4d414e42,
                                    0x4d414e45, 0x4d414e47, 0x4d414e4a, 0x4d414e4b};
@@ -357,7 +357,7 @@ void WeatherSave::TESWeather_Save()
         for (unsigned int j = 0; j < 2; ++j)
             m_akImageSpaceModifierParameters[j].Endian();
     }
-    AppendChunk(0x4d414e49, m_akImageSpaceModifierParameters, 304);
+    TESForm___AddChunkData(0x4d414e49, m_akImageSpaceModifierParameters, 304);
     if (TESForm_QEndianSwapOnSave())
     {
         for (unsigned int k = 0; k < 2; ++k)
@@ -368,11 +368,11 @@ void WeatherSave::TESWeather_Save()
     {
         if (TESForm_QEndianSwapOnSave())
             node->GetItem()->TwoValues_Endian();
-        AppendChunk(0x4d414e53, node->GetItem(), 8);
+        TESForm___AddChunkData(0x4d414e53, node->GetItem(), 8);
         if (TESForm_QEndianSwapOnSave())
             node->GetItem()->TwoValues_Endian();
     }
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_CloseForm();
 }
 
 extern "C" int memcmp(const void* buf1, const void* buf2, unsigned int count);

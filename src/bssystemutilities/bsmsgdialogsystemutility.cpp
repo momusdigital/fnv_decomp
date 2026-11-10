@@ -4,15 +4,16 @@
 #include "../../include/MemoryManagerGlobals.h"
 MemoryManager g_memoryManager;
 
-struct FUN_00af3440_shell
+struct BSMsgDialogSystemUtility
 {
     void __thiscall SetVirtualTable_00af3420();
-    void* FUN_00af3440(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_00af3420, then if bit 0 of flags is set deallocates this via g_memoryManager, and returns this.
 // @fnv 0x00af3440
-void* FUN_00af3440_shell::FUN_00af3440(unsigned int flags)
+// src: EXE 0x00af3440
+void* BSMsgDialogSystemUtility::ScalarDeletingDestructor(unsigned int flags)
 {
     SetVirtualTable_00af3420();
     if (flags & 1)

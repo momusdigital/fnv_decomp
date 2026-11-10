@@ -124,7 +124,7 @@ BGSTextureSet* __cdecl BGSTextureSet_GetNullTextureSet();
 void __cdecl _Deallocate(void*);
 struct S591140
 {
-    void FUN_00591170();
+    void MESSAGEBOX_BUTTON();
     void* FUN_00591140(unsigned int);
 };
 void __cdecl _delete(void*, unsigned int);

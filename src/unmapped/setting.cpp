@@ -47,12 +47,13 @@ namespace fnv_0044f6d0 {
 struct FUN_00877a10_Class
 {
     void __thiscall FUN_0044f650();
-    void* __thiscall FUN_0044f6d0(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 extern void __cdecl Deallocate(void*);
 // Calls FUN_0044f650, then deallocates this object if bit 0 of flags is set, and returns this.
 // @fnv 0x0044f6d0
-void* __thiscall FUN_00877a10_Class::FUN_0044f6d0(unsigned int flags)
+// src: EXE 0x0044f6d0
+void* __thiscall FUN_00877a10_Class::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0044f650();
     if (flags & 1)

@@ -11,7 +11,7 @@ struct LocationDescriptor
     LocationDescriptor();
     char pad[12];
     void __thiscall PackageLocation_Save(int);
-    void ResolveObject(BGSLoadFormBuffer*);
+    void PackageLocation_InitLoadGame(BGSLoadFormBuffer*);
     void PackageLocation_LoadGame_0067fbe0(BGSLoadFormBuffer*);
     void* FUN_00670b30(int aFlags);
     unsigned char __thiscall IsDifferentFrom(int a1);
@@ -34,7 +34,7 @@ void TESEatPackageData::ProcessState_0067bfa0(BGSLoadFormBuffer* apLoadGameBuffe
 {
     if (m_pPackageTarget != 0)
     {
-        m_pPackageTarget->ResolveObject(apLoadGameBuffer);
+        m_pPackageTarget->PackageLocation_InitLoadGame(apLoadGameBuffer);
     }
 }
 

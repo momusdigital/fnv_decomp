@@ -30,7 +30,7 @@ public:
     const unsigned char* Get();
     unsigned int* GetPtr();
     unsigned int GetUInt();
-    unsigned int GetFormatSize();
+    unsigned int Setting_DataSize();
     bool GetBoolValue();
     bool IsFlagSet_00403e60(unsigned int value);
 

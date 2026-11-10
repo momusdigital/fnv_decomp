@@ -142,7 +142,7 @@ SpellItem* TESLevSpell::GetLeveledSpell(void* a1, unsigned short a2)
     unsigned int aa = 0;
     unsigned int zz = 0;
     unsigned short word = 0;
-    this->SelectLeveledSpell(a1, a2, &zz, &word, 1);
+    this->CalculateCurrentForm(a1, a2, &zz, &word, 1);
     if (zz != 0)
     {
         aa = FUN_00ec43fb(zz, 0, &DAT_01183028, &DAT_01183060, 0);
@@ -319,7 +319,8 @@ struct FormHandle
     unsigned int EffectItemList_GetAssociatedSkill();
 };
 // @fnv 0x0050bd60
-void TESLevSpell::SelectLeveledSpell(void* desiredForm, unsigned short level, unsigned int* outForm,
+// src: COMMUNITY 0x0050bd60
+void TESLevSpell::CalculateCurrentForm(void* desiredForm, unsigned short level, unsigned int* outForm,
                                     unsigned short* outCount, unsigned char recurse)
 {
     *outForm = 0;
@@ -382,7 +383,7 @@ void TESLevSpell::SelectLeveledSpell(void* desiredForm, unsigned short level, un
             unsigned short recursiveCount;
             unsigned int recursiveForm = 0;
             recursiveCount = 0;
-            selectedEntry->SelectLeveledSpell(desiredForm, level, &recursiveForm, &recursiveCount, recurse);
+            selectedEntry->CalculateCurrentForm(desiredForm, level, &recursiveForm, &recursiveCount, recurse);
             foundForm = recursiveForm;
             nestedRecord *= recursiveCount;
         }

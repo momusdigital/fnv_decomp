@@ -96,7 +96,7 @@ int FUN_00d522b0_cls::AddVertexCommand(unsigned char aFlag, float aX, float aY)
     return iOldVertexCount;
 }
 
-struct FUN_00d52140_cls
+struct hkpConstraintConstructionKit
 {
     int unk00;
     int unk04;
@@ -113,7 +113,7 @@ struct FUN_00d52140_cls
 
 // @fnv 0x00d52140
 // src: HAVOK_LIB 0x00d52140
-int FUN_00d52140_cls::hkpConstraintConstructionKit_setPivotsHelper(char* a1, char* a2, const LocalM128* a3)
+int hkpConstraintConstructionKit::hkpConstraintConstructionKit_setPivotsHelper(char* a1, char* a2, const LocalM128* a3)
 {
     hkVector4 t1;
     hkVector4 t2;

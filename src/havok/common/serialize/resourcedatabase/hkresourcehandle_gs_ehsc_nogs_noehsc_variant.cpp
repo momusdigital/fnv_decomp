@@ -20,7 +20,7 @@ struct FUN_00e2df60_class
 };
 extern int DAT_010eb19c;
 void __cdecl Deallocate(void*);
-struct FUN_00e2def0_class
+struct hkResourceMap
 {
     void* m_p;
     int __thiscall InitAndMaybeFree(int flags);
@@ -83,7 +83,7 @@ struct FUN_00e2ea40_class
 struct FUN_00e2f210_class : public FUN_00e2ea40_class
 {
     unsigned short m_handle;
-    void* __thiscall FUN_00e2f210(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 struct FUN_00e2df50_Obj
 {

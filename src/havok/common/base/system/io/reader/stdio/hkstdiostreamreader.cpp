@@ -27,14 +27,14 @@ extern int DAT_0102e388;
 extern int DAT_010ce6c0;
 extern int __cdecl _fclose(int);
 
-struct FUN_00d2bda0_cls
+struct hkStdioStreamReader
 {
     void __thiscall DestroyFileHandle();
 };
 
 // Resets the vtable pointers and closes the stored file handle if present.
 // @fnv 0x00d2bda0
-void __thiscall FUN_00d2bda0_cls::DestroyFileHandle()
+void __thiscall hkStdioStreamReader::DestroyFileHandle()
 {
     int file = *(int*)((char*)this + 0xc);
     *(int*)this = (int)&DAT_010ce6c0;
@@ -158,14 +158,15 @@ struct FUN_00cb0a70_Class
 {
     void ReturnSelf(int);
 };
-struct FUN_00d2c7e0_class : Prefix
+struct hkpAction : Prefix
 {
     FUN_00cb0a70_Class sub;
-    FUN_00d2c7e0_class(int value);
+    hkpAction(int value);
 };
 // Sets the vtable pointer and forwards value to the sub-object's FUN_00cb0a70.
 // @fnv 0x00d2c7e0
-FUN_00d2c7e0_class::FUN_00d2c7e0_class(int value)
+// src: EXE 0x00d2c7e0
+hkpAction::hkpAction(int value)
 {
     vtable = (int)&DAT_010cc2fc;
     sub.ReturnSelf(value);

@@ -452,12 +452,13 @@ struct BufferedReaderHeap
 struct BufferedReaderDeletionView : hkBufferedStreamReader
 {
     void Destroy();
-    hkBufferedStreamReader* FUN_00d2bca0(unsigned int);
+    hkBufferedStreamReader* ScalarDeletingDestructor(unsigned int);
 };
 
 // Calls FUN_00d2bc70, and if flags has bit 0 set, releases this block via the memory router's heap ReleaseBlock, then returns this.
 // @fnv 0x00d2bca0
-hkBufferedStreamReader* BufferedReaderDeletionView::FUN_00d2bca0(unsigned int flags)
+// src: EXE 0x00d2bca0
+hkBufferedStreamReader* BufferedReaderDeletionView::ScalarDeletingDestructor(unsigned int flags)
 {
     Destroy();
     if (flags & 1)

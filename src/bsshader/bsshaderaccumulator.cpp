@@ -3097,7 +3097,7 @@ void S00b66050_cls::RemoveEntry(unsigned int key)
 class RenderQuery
 {
   public:
-    unsigned char BSOcclusionQuery_GetResultNoWait(unsigned int* result, int wait);
+    unsigned char BSOcclusionQuery_GetResultNoWait(unsigned int* result, int hkSemaphore_release);
     void ProcessState_00c4ed40();
 };
 extern double DAT_010737c8;

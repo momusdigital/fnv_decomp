@@ -19,7 +19,7 @@ struct IdvSplineInputCursor
     int consumed;
     const char* data;
 };
-int IsIntegerString(const char*);
+int IsStringInteger(const char*);
 int IsAFloat(const char*);
 int Warning(const char*, ...);
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);

@@ -14,7 +14,7 @@
 // src: XBOX_PDB 0x00527ce0
 void __thiscall ExteriorCellLoaderTask::Finish_00527ce0()
 {
-    ((IOManager*)this)->SubmitTask();
+    ((IOManager*)this)->IOTask_AddToPostProcessQueue();
 }
 
 struct IntPoint2D
@@ -60,7 +60,7 @@ bool FUN_005287e0_shell::BSTask_IsCompleted()
 
 extern int DAT_0102d078;
 
-struct FUN_00528800_shell
+struct LockFreeMapIterator
 {
     int m_val;
     void UpdateFields_00528800();
@@ -68,7 +68,7 @@ struct FUN_00528800_shell
 
 // @fnv 0x00528800
 // src: GUESS 0x00528800 (confidence: low)
-void FUN_00528800_shell::UpdateFields_00528800()
+void LockFreeMapIterator::UpdateFields_00528800()
 {
     m_val = (int)&DAT_0102d078;
 }
@@ -122,19 +122,20 @@ extern DH* g_dataHandler;
 // @fnv 0x00527d80
 void ExteriorCellLoaderTask::Cancel(BS_TASK_STATE, void*)
 {
-    if (*(int*)(*(char**)((char*)this + 0x1c) + 0xc) && ((TES*)g_TES)->IsCellBuffered((TESObjectCELL*)*(int*)(*(char**)((char*)this + 0x1c) + 0xc), false))
+    if (*(int*)(*(char**)((char*)this + 0x1c) + 0xc) && ((TES*)g_TES)->IsCellLoaded((TESObjectCELL*)*(int*)(*(char**)((char*)this + 0x1c) + 0xc), false))
         g_dataHandler->DeleteObject((TESObjectCELL*)*(int*)(*(char**)((char*)this + 0x1c) + 0xc));
     (*(TESWorldSpace**)((char*)this + 0x18))->GetCellAtGridCoord(((IntPoint2D*)*(void**)((char*)this + 0x1c))->iX, ((IntPoint2D*)*(void**)((char*)this + 0x1c))->iY);
 }
 
-struct FUN_00528840_shell : public FUN_00528800_shell
+struct FUN_00528840_shell : public LockFreeMapIterator
 {
-    void* FUN_00528840(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_00528800, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x00528840
-void* FUN_00528840_shell::FUN_00528840(unsigned int flags)
+// src: EXE 0x00528840
+void* FUN_00528840_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     UpdateFields_00528800();
     if (flags & 1)
@@ -191,7 +192,7 @@ struct LandscapeEffects
 // This adds no fields or virtual functions to the shared cell layout.
 struct CellEffects : TESObjectCELL
 {
-    void __thiscall GetOrCreateWidget();
+    void __thiscall TESObjectCELL_Load3D();
     LandscapeEffects* __thiscall TESObjectCELL_GetLand();
     LandscapeEffects* __thiscall TESObjectCELL_GetLand(NiPoint2* outPosition);
     bool __thiscall TESClimate_GetVolatilityIndex();
@@ -232,7 +233,7 @@ void CellLoader::ExteriorCellLoader_LoadCellData(CellLoadData* pLoadData)
             pLoadData->cell = pLoadData->worldSpace->TESWorldSpace_LoadCell(pLoadData->iX, pLoadData->iY);
         if (pLoadData->cell == 0)
             pLoadData->cell = DAT_011c3f2c->FUN_00461330(0, pLoadData->iX, pLoadData->iY, pLoadData->worldSpace);
-        pLoadData->cell->GetOrCreateWidget();
+        pLoadData->cell->TESObjectCELL_Load3D();
         LandscapeEffects* pLandscape = pLoadData->cell->TESObjectCELL_GetLand();
         if (pLandscape != 0)
         {

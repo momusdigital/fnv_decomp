@@ -16,12 +16,12 @@ struct P : TESPackage
 {
     int GetPackType();
     bool FUN_00678610();
-    bool HasFlag400000();
+    bool GetDefensive();
     bool TESPackage_GetDrawWeaponFlag();
     bool FUN_00441b00();
-    void SetPackageType(int);
+    void SetPackType(int);
     void SetDrawWeaponFlag(bool);
-    void SetFlag200000(bool);
+    void TESPackage_SetForceUnequipWeapon(bool);
     void SetMustReachLocation(bool);
     void SetMustComplete(bool);
     void SetPackageLocation(Loc*);
@@ -874,7 +874,7 @@ void A::Actor_InitiateAlarm(A* source, int value, bool react, A* target)
     if (package2 && package2->FUN_00678610())
         package2 = ((Extra*)BSFile_GetDevice())->ExtraDataList_GetPackageExtra();
     if ((Actor_IsInCombat() || IsState(0) || Actor_IsFleeing(0) ||
-         (package2 && package2->HasFlag400000() && source &&
+         (package2 && package2->GetDefensive() && source &&
           source->FUN_0044ddc0() != (unsigned int)process->GetTarget())) &&
         react)
     {
@@ -911,11 +911,11 @@ void A::Actor_InitiateAlarm(A* source, int value, bool react, A* target)
         P* tmp = GetCurrentProcess()->GetAssignedPackage();
         Created* current;
         current = new Created(source);
-        current->SetPackageType(21);
+        current->SetPackType(21);
         if (tmp)
         {
             current->SetDrawWeaponFlag(tmp->TESPackage_GetDrawWeaponFlag());
-            current->SetFlag200000(tmp->FUN_00441b00());
+            current->TESPackage_SetForceUnequipWeapon(tmp->FUN_00441b00());
         }
         current->SetMustReachLocation(true);
         current->SetMustComplete(true);

@@ -63,7 +63,7 @@ struct NavMeshPtr
 
 extern ::BSStringT<char> g_011daed8;
 void __cdecl TextInputCloseHook();
-struct FUN_007e66a0_cls
+struct TextEditMenu
 {
     char _0[0x28];
     void __thiscall TextEditMenu_HandleClick(int a, int b);
@@ -142,7 +142,7 @@ struct Tile
 struct Menu
 {
     virtual ~Menu();  // the original class is polymorphic (rtti_variants.py)
-    void __thiscall LoadMenuData();
+    void __thiscall StartFadeOut();
 };
 struct SimpleList
 {
@@ -1035,7 +1035,7 @@ extern IntSetting g_011db75c;
 extern StringSetting g_011db744;
 extern "C" int __cdecl rand();
 void __cdecl LoadTexture(const char*, bool, Ref&, bool, bool);
-struct FUN_007ffec0
+struct FOVATSEffectManager
 {
     int unk000;
     Pair first;
@@ -1125,7 +1125,7 @@ struct FUN_007ffec0
     Ref unk2c4;
     int unk2c8;
     Ref unk2cc;
-    FUN_007ffec0();
+    FOVATSEffectManager();
 };
 struct RemoveTile
 {

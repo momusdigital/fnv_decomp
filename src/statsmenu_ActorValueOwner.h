@@ -19,7 +19,7 @@ class ActorValueOwner
     virtual TESForm* GetActorValueOwnerForm();
     virtual unsigned short GetActorValueOwnerType();
     Actor* GetActorOwner();
-    int GetActorValueAsInteger(ActorValue::Index value);
+    int GetClampedActorValueI(ActorValue::Index value);
 };
 FNV_STATIC_ASSERT(sizeof(ActorValueOwner) == 0x4);
 #endif

@@ -814,7 +814,7 @@ struct FUN_00c04030_renderer
     virtual void vf2c();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3c();
     virtual void vf40();
     virtual void vf44();
@@ -823,7 +823,7 @@ struct FUN_00c04030_renderer
     virtual void vf50();
     virtual void vf54();
     virtual void vf58();
-    virtual void vf5c();
+    virtual void applyForce();
     virtual void vf60();
     virtual void vf64();
     virtual void vf68();
@@ -863,7 +863,7 @@ struct FUN_00c04030_class
     virtual void vf2c();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3c();
     virtual void vf40();
     virtual void vf44();
@@ -872,7 +872,7 @@ struct FUN_00c04030_class
     virtual void vf50();
     virtual void vf54();
     virtual void vf58();
-    virtual void vf5c();
+    virtual void applyForce();
     virtual void vf60();
     virtual void vf64();
     virtual void vf68();
@@ -2709,7 +2709,7 @@ struct FUN_00c1cf20 : CountedObjectBase
     FUN_00c1cf20();
     virtual ~FUN_00c1cf20();
 };
-struct FUN_00c1f4e0_cls
+struct NiPSysModifier
 {
     int unk00;
     int unk04;
@@ -4563,7 +4563,7 @@ struct P440Renderer
     unsigned int unk18c;
     unsigned int unk190;
     P440Camera* camera;
-    const P440Vector& GetCameraPosition() const
+    const P440Vector& GetTargetPos() const
     {
         return camera->position;
     }

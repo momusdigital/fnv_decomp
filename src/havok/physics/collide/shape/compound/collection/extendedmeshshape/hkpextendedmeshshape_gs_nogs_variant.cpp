@@ -297,7 +297,7 @@ struct Group
     int unk38;
     unsigned int m_3c;
 };
-struct FUN_00d55a90_cls
+struct hkpExtendedMeshShape
 {
     int unk00;
     int unk04;

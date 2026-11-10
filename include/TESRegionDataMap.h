@@ -16,5 +16,5 @@ public:
     virtual bool LoadRegionMapData(TESFile* apFile);
     virtual void vf10(BSStringT<char>& apMapName);
     virtual const char* GetRegionMapName();
-    virtual bool vf12(const char* apMapName);
+    virtual bool SetMapName(const char* apMapName);
 };

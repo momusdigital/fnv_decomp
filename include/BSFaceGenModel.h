@@ -29,9 +29,9 @@ public:
     bool ApplyFaceGenMorphs(FaceGenCoordinate*, NiTriBasedGeom*, bool);
     bool ApplyFaceGenMorphs(FaceGenData*, NiPointer<NiTriBasedGeom>&);
     bool ApplyFaceGenMorphs(FaceGenCoord (*)[4], NiTriBasedGeom*, bool);
-    bool ApplyTextureCoordinate(FaceGenCoordinates*, NiPointer<NiTexture>&, unsigned int);
-    bool ApplyTextureCoordinate(FaceGenCoordinates*, GO&, unsigned int);
-    void ClearTextureData();
+    bool ApplyCoordinateTexturingToMesh(FaceGenCoordinates*, NiPointer<NiTexture>&, unsigned int);
+    bool ApplyCoordinateTexturingToMesh(FaceGenCoordinates*, GO&, unsigned int);
+    void UnloadEGTData();
     bool CloneTriBasedGeom(NiPointer<NiTriBasedGeom>& out);
     bool HasMorphs();
     bool NiAdditionalGeometryData_GetDataStream(int, void*, void*, void*, void*, void*, void*);

@@ -137,9 +137,9 @@ public:
     void SetTileAlpha(void*, float);
     void SetAlphaRecursive(NiNode*, float);
     void ToggleFlagBit(int);
-    void UpdateLoadingScreenText(bool);
-    void UpdateLoadingScreenText(int);
-    void UpdateLoadingScreens();
+    void SetScreenInfo(bool);
+    void SetScreenInfo(int);
+    void MakeLoadScreenList();
     bool UpdateLoadingScreen();
     void ApplyLoadingScreenTexture(bool);
     void ApplyLoadingScreenTexture(int);

@@ -58,7 +58,7 @@ struct S_Out
     int unk4;
     int unk8;
     int unkc;
-    S_Out* FUN_00dda690(S_Arr* a);
+    S_Out* hkDisplaySerializeOStream(S_Arr* a);
     S_Out* FUN_00dda6e0(const char* name);
     void hkOArchive_write8u(unsigned v);
     void WriteInt(unsigned v);
@@ -115,7 +115,7 @@ int WriteCompilerInfo(const char* name)
     buffer.size = 0;
     buffer.cap = 0x80000000;
     S_Out outStream;
-    outStream.FUN_00dda690(&buffer);
+    outStream.hkDisplaySerializeOStream(&buffer);
     outStream.hkOArchive_write8u(0x90);
     outStream.WriteInt(DAT_011b5dc0);
     outStream.WriteInt(DAT_011b5dbc);

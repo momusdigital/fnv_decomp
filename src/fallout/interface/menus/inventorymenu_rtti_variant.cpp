@@ -237,7 +237,7 @@ struct InventoryMenuListOperations : ListBoxBase
 struct InventoryMenuChanges : InventoryChanges
 {
     void FindEntriesByType(void*, void*);
-    int FindFirstItemOfType(int, int*);
+    int InventoryChanges_GetObjectByType(int, int*);
 };
 
 
@@ -388,7 +388,7 @@ void InventoryMenu_UpdateInventoryMenu()
             ((InventoryMenuListOperations*)&((InventoryMenu*)(void*)(unsigned int)DAT_011d9ea4)->m_kItemList)->PopulateInventoryList(g_thePlayer, 0, 0, (void*)&UpdateItemLabel, 0, 0);
             if (ea)
             {
-                if (ea->FindFirstItemOfType(0x2e, &df))
+                if (ea->InventoryChanges_GetObjectByType(0x2e, &df))
                 {
                     Tile* tt;
                     tt = ((InventoryMenuListOperations*)&((InventoryMenu*)(void*)(unsigned int)DAT_011d9ea4)->m_kItemList)->ListBox_ItemChange_AddItem(0, ((Setting*)&DAT_011d3b20)->FUN_00403df0(), 0, 0);

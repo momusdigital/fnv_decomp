@@ -8,6 +8,7 @@ struct FUN_00e4ae20_MemoryManager
 {
     // Virtual destructor for the memory manager; performs no work.
 // @fnv 0x00e4ae20
+// src: EXE 0x00e4ae20
     virtual ~FUN_00e4ae20_MemoryManager()
     {}
     virtual void Unused()
@@ -29,10 +30,10 @@ struct FUN_00e4ae20_Object
     unsigned short m_iElementCount;
 
     void ClearArrays();
-    FUN_00e4ae20_Object* FUN_00e4ae20(unsigned int flags);
+    FUN_00e4ae20_Object* ScalarDeletingDestructor(unsigned int flags);
 };
 
-FUN_00e4ae20_Object* FUN_00e4ae20_Object::FUN_00e4ae20(unsigned int flags)
+FUN_00e4ae20_Object* FUN_00e4ae20_Object::ScalarDeletingDestructor(unsigned int flags)
 {
     this->ClearArrays();
 

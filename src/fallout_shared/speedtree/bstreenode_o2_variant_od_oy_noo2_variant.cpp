@@ -862,7 +862,7 @@ struct TlsGuard_t
         g_tlsBlock.m_2b4 = m_saved;
     }
 };
-struct FUN_00c88210_cls
+struct bhkPCollisionObject
 {
     void __thiscall bhkNiCollisionObject_CopyMembers(BSFadeNode* node, unsigned int flags);
     BSFadeNode* bhkPCollisionObject_CreateClone(unsigned int flags);

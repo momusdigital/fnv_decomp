@@ -13,13 +13,13 @@ class BSMultiBoundStreamOperations : public BSMultiBound
 public:
     void LoadBinary(NiStream* stream);
     void LinkObject(NiStream& stream);
-    void RegisterShape(NiStream& stream);
-    bool IsSameBound(BSMultiBound* other);
+    void BSMultiBound_SaveBinary(NiStream& stream);
+    bool BSMultiBound_IsEqual(BSMultiBound* other);
     void* Delete(unsigned int flags);
     const NiRTTI* GetRTTI() const;
-    BSMultiBound* CloneBound(int context);
+    BSMultiBound* BSMultiBound_CreateClone(int context);
     void CopyBound(BSMultiBound* target, int context);
-    void* GetViewerEntries(int argument);
+    void* BSMultiBound_GetViewerStrings(int argument);
     void* AppendCameraPathEntries(int argument);
 };
 
@@ -40,7 +40,8 @@ void BSMultiBoundStreamOperations::LinkObject(NiStream& stream)
 }
 
 // @fnv 0x00c36220
-void* BSMultiBoundStreamOperations::GetViewerEntries(int arg)
+// src: EXE 0x00c36220
+void* BSMultiBoundStreamOperations::BSMultiBound_GetViewerStrings(int arg)
 {
     return AppendCameraPathEntries(arg);
 }
@@ -83,7 +84,8 @@ const NiRTTI* BSMultiBoundStreamOperations::GetRTTI() const
 }
 
 // @fnv 0x00c35f50
-BSMultiBound* BSMultiBoundStreamOperations::CloneBound(int a)
+// src: EXE 0x00c35f50
+BSMultiBound* BSMultiBoundStreamOperations::BSMultiBound_CreateClone(int a)
 {
     BSMultiBound* t = new BSMultiBound;
     CopyBound(t, a);
@@ -100,7 +102,8 @@ BSMultiBound* BSMultiBound_CreateObject()
 }
 
 // @fnv 0x00c36130
-bool BSMultiBoundStreamOperations::IsSameBound(BSMultiBound* arg)
+// src: EXE 0x00c36130
+bool BSMultiBoundStreamOperations::BSMultiBound_IsEqual(BSMultiBound* arg)
 {
     bool result = IsSameAs(arg);
     BSMultiBound* other = arg;
@@ -121,7 +124,8 @@ bool BSMultiBoundStreamOperations::IsSameBound(BSMultiBound* arg)
 }
 
 // @fnv 0x00c360f0
-void BSMultiBoundStreamOperations::RegisterShape(NiStream& s)
+// src: EXE 0x00c360f0
+void BSMultiBoundStreamOperations::BSMultiBound_SaveBinary(NiStream& s)
 {
     NiObject::LinkObject(s);
     const void* object = pShape.m_pObject;

@@ -45,10 +45,10 @@ template <typename T, typename A> __forceinline hkArray<T, A>::~hkArray()
     this->m_iCapacityState = 0x80000000;
 }
 
-class FUN_00dff6a0
+class PhysicsSystem
 {
   public:
-    ~FUN_00dff6a0() throw();
+    ~PhysicsSystem() throw();
 
     hkReferencedObject m_kBase;
     hkArray<hkDFF6::ReferenceCountedPointer<hkReferencedObject> > m_kChildList;
@@ -57,5 +57,6 @@ class FUN_00dff6a0
 
 // Destructor for a DFF6 node that releases its child list and owner reference.
 // @fnv 0x00dff6a0
-FUN_00dff6a0::~FUN_00dff6a0() throw()
+// src: GUESS 0x00dff6a0 (confidence: high)
+PhysicsSystem::~PhysicsSystem() throw()
 {}

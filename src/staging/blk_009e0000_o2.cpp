@@ -160,10 +160,11 @@ struct FUN_009f9f70_class
 };
 struct FUN_009fbb30_class
 {
-    void* __thiscall FUN_009fbb30(int flag);
+    void* __thiscall ScalarDeletingDestructor(int flag);
 };
 // @fnv 0x009fbb30
-void* __thiscall FUN_009fbb30_class::FUN_009fbb30(int aiFlags)
+// src: EXE 0x009fbb30
+void* __thiscall FUN_009fbb30_class::ScalarDeletingDestructor(int aiFlags)
 {
     ((FUN_009f9f70_class*)this)->FUN_009f9f70();
     if (aiFlags & 1)
@@ -280,7 +281,7 @@ FUN_009fddd0_class* __thiscall FUN_009fddd0_class::FUN_009fddd0(int a)
     return this;
 }
 
-void __fastcall FUN_009fdc10(void*);
+void __fastcall CAsyncReader(void*);
 void __cdecl _Deallocate(void*);
 
 struct FUN_009fdeb0_class
@@ -291,7 +292,7 @@ struct FUN_009fdeb0_class
 // @fnv 0x009fdeb0
 int __thiscall FUN_009fdeb0_class::FUN_009fdeb0(int flag)
 {
-    FUN_009fdc10(this);
+    CAsyncReader(this);
     if (flag & 1)
         _Deallocate(this);
     return (int)this;
@@ -489,13 +490,13 @@ extern void(__stdcall* DAT_00fdf07c)(int*);
 
 struct FUN_009fe0c0_class
 {
-    int __thiscall CloseStoredHandles();
+    int __thiscall CAsyncIo_CloseThread();
 };
 
 // Calls DAT_00fdf0d0 on the pointer at this+0x7c, then if the handle at this+0x80 is set, calls DAT_00fdf1c8 and DAT_00fdf07c on it and clears it; returns 0.
 // @fnv 0x009fe0c0
 // src: GUESS 0x009fe0c0 (confidence: medium)
-int __thiscall FUN_009fe0c0_class::CloseStoredHandles()
+int __thiscall FUN_009fe0c0_class::CAsyncIo_CloseThread()
 {
     DAT_00fdf0d0((int*)*(int**)((char*)this + 0x7c));
     int handle = *(int*)((char*)this + 0x80);
@@ -803,13 +804,13 @@ void __thiscall FUN_009fae70_class::ReleaseAndClearMember34()
     }
 }
 
-struct FUN_009fc580_class
+struct CMemAllocator
 {
     void ProcessState_009fb1c0();
-    FUN_009fc580_class* Destroy(bool);
+    CMemAllocator* Destroy(bool);
 };
 // @fnv 0x009fc580
-FUN_009fc580_class* FUN_009fc580_class::Destroy(bool abFree)
+CMemAllocator* CMemAllocator::Destroy(bool abFree)
 {
     ProcessState_009fb1c0();
     if (abFree & 1)
@@ -873,7 +874,7 @@ FUN_009fd120_class::FUN_009fd120_class(int)
     m_14 = 0;
 }
 
-struct FUN_009fd140_class
+struct CBaseList
 {
     FUN_009fd100_node* m_pFirstNode;
     int m_uiItemCount;
@@ -883,7 +884,7 @@ struct FUN_009fd140_class
 };
 
 // @fnv 0x009fd140
-void __thiscall FUN_009fd140_class::ClearList()
+void __thiscall CBaseList::ClearList()
 {
     FUN_009fd100_node* node = m_pFirstNode;
     while (node != 0)
@@ -1085,10 +1086,10 @@ class FUN_009f9f70_member
     int unk00;
 };
 
-class FUN_009f9f70_cls
+class CEnumPins
 {
   public:
-    virtual ~FUN_009f9f70_cls();
+    virtual ~CEnumPins();
     int unk04;
     int unk08;
     FUN_009f9f70_holder* m_0c;
@@ -1099,7 +1100,8 @@ class FUN_009f9f70_cls
 
 // Destructor that fetches the leaf callback from m_0c and invokes it with the leaf and the holder's m_0c address.
 // @fnv 0x009f9f70
-FUN_009f9f70_cls::~FUN_009f9f70_cls()
+// src: EXE 0x009f9f70
+CEnumPins::~CEnumPins()
 {
     FUN_009f9f70_holder* pLeafHolder = m_0c;
     FUN_009f9f70_leaf* pLeaf = pLeafHolder->m_0c;
@@ -1242,7 +1244,7 @@ struct VkInner
     VkCallback* m_pCallback;
 };
 
-struct FUN_009fa100_cls
+struct CEnumMediaTypes
 {
     void* m_pVTable;
     int m_iUnknown04;
@@ -1251,7 +1253,7 @@ struct FUN_009fa100_cls
 };
 
 // @fnv 0x009fa100
-void FUN_009fa100_cls::InitVTableAndInvokeCallback()
+void CEnumMediaTypes::InitVTableAndInvokeCallback()
 {
     m_pVTable = DAT_01093c74;
 
@@ -1619,7 +1621,7 @@ class C9FB250BaseObject
     const char* m_pName;
 };
 
-class FUN_009fb250 : public C9FB250BaseObject, public C9FB250Unknown
+class CUnknown : public C9FB250BaseObject, public C9FB250Unknown
 {
   public:
     virtual long __stdcall QueryInterface(const C9FB250GUID& riid, void** ppv);
@@ -1629,7 +1631,7 @@ class FUN_009fb250 : public C9FB250BaseObject, public C9FB250Unknown
 
 // DECLARE_IUNKNOWN
 // @fnv 0x009fb250
-unsigned long __stdcall FUN_009fb250::AddRef()
+unsigned long __stdcall CUnknown::AddRef()
 {
     return m_pUnknown->AddRef();
 }
@@ -1937,12 +1939,12 @@ struct S_009fd390_Base
 
 struct FUN_009fd390_cls : S_009fd390_Base
 {
-    int __thiscall RemoveNode_Thunk();
+    int __thiscall CBaseList_RemoveHead();
 };
 
 // @fnv 0x009fd390
 // src: GUESS 0x009fd390 (confidence: medium)
-int __thiscall FUN_009fd390_cls::RemoveNode_Thunk()
+int __thiscall FUN_009fd390_cls::CBaseList_RemoveHead()
 {
     return RemoveNode(m_00);
 }
@@ -2332,7 +2334,7 @@ class FDC10InterfaceB
     virtual long __stdcall QueryInterface(const void* riid, void** ppv);
 };
 
-class FUN_009fdc10 : public FDC10BaseFilter, public FDC10InterfaceA, public FDC10InterfaceB
+class CAsyncReader : public FDC10BaseFilter, public FDC10InterfaceA, public FDC10InterfaceB
 {
   public:
     int unk014;
@@ -2355,12 +2357,13 @@ class FUN_009fdc10 : public FDC10BaseFilter, public FDC10InterfaceA, public FDC1
     FDC10ListB m_kListB;
     FDC10ListC m_kListC;
 
-    virtual ~FUN_009fdc10();
+    virtual ~CAsyncReader();
 };
 
 // Destructor for the filter object; the body is empty, member destructors run automatically.
 // @fnv 0x009fdc10
-FUN_009fdc10::~FUN_009fdc10()
+// src: EXE 0x009fdc10
+CAsyncReader::~CAsyncReader()
 {}
 
 struct FUN_009fded0_cls
@@ -2375,12 +2378,12 @@ struct FUN_009fded0_cls
     int m_1c;
     int m_20;
     int m_24;
-    int __thiscall UpdateState_009fded0(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9);
+    int __thiscall CAsyncRequest_Request(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9);
 };
 
 // @fnv 0x009fded0
-// src: GUESS 0x009fded0 (confidence: low)
-int __thiscall FUN_009fded0_cls::UpdateState_009fded0(int aiField00, int aiField04, int aiField08, int aiField0c, int aiField14,
+// src: GUESS 0x009fded0 (confidence: high)
+int __thiscall FUN_009fded0_cls::CAsyncRequest_Request(int aiField00, int aiField04, int aiField08, int aiField0c, int aiField14,
                                               int aiField10, int aiField18, int aiField1c, int aiField20)
 {
     m_00 = aiField00;
@@ -2553,14 +2556,14 @@ struct FUN_009fe3f0_class
     int m_68;
     int m_6c;
 
-    int __thiscall EvaluateValue_009fe3f0(int);
+    int __thiscall CAsyncIo_PutWorkItem(int);
 };
 
 extern void(__stdcall* DAT_00fdf0d0)(void*);
 
 // @fnv 0x009fe3f0
-// src: GUESS 0x009fe3f0 (confidence: low)
-int __thiscall FUN_009fe3f0_class::EvaluateValue_009fe3f0(int value)
+// src: GUESS 0x009fe3f0 (confidence: high)
+int __thiscall FUN_009fe3f0_class::CAsyncIo_PutWorkItem(int value)
 {
     if (m_50.AddNode(value))
     {
@@ -3965,13 +3968,13 @@ class FUN_009fc0b0_cls
     int unk20;
     unsigned short unk24;
     unsigned char m_26;
-    int ProcessEntries_009fc0b0(void* arg1, void* arg2);
+    int CBasePin_AgreeMediaType(void* arg1, void* arg2);
 };
 
 // Returns Call9fbf00(arg1, arg2) if arg2's Call9f9a50() is 0; else tries twice (vtable slot 12 on arg1 or &m_0c, then Call9fbfc0), returning 0 or an HRESULT.
 // @fnv 0x009fc0b0
-// src: GUESS 0x009fc0b0 (confidence: low)
-int FUN_009fc0b0_cls::ProcessEntries_009fc0b0(void* arg1, void* arg2)
+// src: GUESS 0x009fc0b0 (confidence: medium)
+int FUN_009fc0b0_cls::CBasePin_AgreeMediaType(void* arg1, void* arg2)
 {
     void* out = 0;
     int hr;
@@ -4325,13 +4328,13 @@ struct FUN_009fc780
     long m_lRefCount;
 
     FUN_009fc780(CBasePin_9fc7e0* pPin, FUN_009fc780* pEnumMediaTypes);
-    long __stdcall CreatePinEnumeratorIfVersionMatches(FUN_009fc780** ppEnum);
+    long __stdcall CEnumMediaTypes_Clone(FUN_009fc780** ppEnum);
 };
 
 // Stores a new FUN_009fc780 built from m_pPin and this in *ppEnum if the pin's version equals m_iCurrentPinIndex; otherwise sets it null and returns an error.
 // @fnv 0x009fc7e0
-// src: GUESS 0x009fc7e0 (confidence: medium)
-long __stdcall FUN_009fc780::CreatePinEnumeratorIfVersionMatches(FUN_009fc780** ppEnumMediaTypes)
+// src: GUESS 0x009fc7e0 (confidence: high)
+long __stdcall FUN_009fc780::CEnumMediaTypes_Clone(FUN_009fc780** ppEnumMediaTypes)
 {
     if (ppEnumMediaTypes == 0)
         return 0x80004003;
@@ -4792,7 +4795,7 @@ struct Node9FD320
 class FUN_009fd320
 {
   public:
-    FUN_009fd140_class m_uiBufferCapacity;
+    CBaseList m_uiBufferCapacity;
     Node9FD320 m_kNodePool;
 
     ~FUN_009fd320();
@@ -5319,13 +5322,13 @@ class FUN_009fdf20_cls
     void* m_1c;
     int m_20;
     int m_24;
-    int ProcessAndReturnValue_009fdf20();
+    int CAsyncRequest_Complete();
 };
 
 // Calls m_04 methods unk05, unk01 and unk02, updates m_14 from the returned out value, and returns the status in m_24 (1 if m_14 changed).
 // @fnv 0x009fdf20
-// src: GUESS 0x009fdf20 (confidence: low)
-int FUN_009fdf20_cls::ProcessAndReturnValue_009fdf20()
+// src: GUESS 0x009fdf20 (confidence: high)
+int FUN_009fdf20_cls::CAsyncRequest_Complete()
 {
     int out;
     m_04->unk05();
@@ -5367,7 +5370,7 @@ void __cdecl Runtime_ForwardCall_009fdfd0()
     FUN_009fd320();
 }
 
-int __stdcall ProcessAndReturnValue_009fdf20(void);
+int __stdcall CAsyncRequest_Complete(void);
 
 struct Ctx : FUN_009fded0_cls
 {
@@ -5400,12 +5403,12 @@ int __thiscall Fdfe0Cls::ProcessAndReturnValue_009fdfe0(unsigned int p0, unsigne
             if ((p3 & (align - 1)) == 0)
             {
                 Ctx ctx;
-                int hr = ctx.UpdateState_009fded0((int)this, (int)unk18, (int)p0, (int)p1, (int)p2, 1, (int)p3, (int)p5, 0);
+                int hr = ctx.CAsyncRequest_Request((int)this, (int)unk18, (int)p0, (int)p1, (int)p2, 1, (int)p3, (int)p5, 0);
                 if (hr < 0)
                 {
                     return hr;
                 }
-                int r = ProcessAndReturnValue_009fdf20();
+                int r = CAsyncRequest_Complete();
                 *out = (unsigned int)ctx.m_14;
                 return r;
             }
@@ -5654,7 +5657,7 @@ class FUN_009fe870
   public:
     ~FUN_009fe870();
     void FlushPendingWorkAndWait();
-    void CloseStoredHandles();
+    void CAsyncIo_CloseThread();
 
     OwnedLock m_kLockA;              // +0x00
     OwnedLock m_kLockB;              // +0x1c
@@ -5673,7 +5676,7 @@ class FUN_009fe870
 FUN_009fe870::~FUN_009fe870()
 {
     FlushPendingWorkAndWait();
-    CloseStoredHandles();
+    CAsyncIo_CloseThread();
     void* pvPos = m_kListB.m_pvHead;
     while (pvPos)
         FormHeapFreeAndLog_00401030(m_kListB.PopAndGetValue(pvPos));
@@ -7229,7 +7232,7 @@ struct SyncRequest
     int m_1c;
     int m_20;
     int m_24;
-    int UpdateState_009fded0(void* owner, AlignSource* src, __int64 position, unsigned int length, int aligned,
+    int CAsyncRequest_Request(void* owner, AlignSource* src, __int64 position, unsigned int length, int aligned,
                      unsigned char* buffer, void* context, unsigned int user);
 };
 
@@ -7259,16 +7262,16 @@ int SyncReader::ProcessAndReturnValue_009fe100(__int64 position, unsigned int le
     else
     {
         SyncRequest ctx;
-        int hr = ctx.UpdateState_009fded0(this, m_18, position, length, 0, buffer, 0, 0);
+        int hr = ctx.CAsyncRequest_Request(this, m_18, position, length, 0, buffer, 0, 0);
         if (hr >= 0)
-            return ProcessAndReturnValue_009fdf20();
+            return CAsyncRequest_Complete();
         return hr;
     }
 }
 
 struct S_009fd390_Class
 {
-    int __thiscall RemoveNode_Thunk();
+    int __thiscall CBaseList_RemoveHead();
 
     int unk00;
     int unk04;
@@ -7331,7 +7334,7 @@ int S_009fe370_Class::LockAndProcess()
 {
     S_009fe370_AutoLock lock(&unk1c);
 
-    int result = unk50.RemoveNode_Thunk();
+    int result = unk50.CBaseList_RemoveHead();
 
     if (unk50.unk08 == 0)
     {
@@ -7346,7 +7349,7 @@ int S_009fe370_Class::LockAndProcess()
 
 struct S_009fe420_Item
 {
-    void __thiscall ProcessAndReturnValue_009fdf20();
+    void __thiscall CAsyncRequest_Complete();
 };
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void*);
@@ -7414,7 +7417,7 @@ struct S_009fe420_Cls
     void* unk78;
 
     S_009fe420_Item* __thiscall ProbeUnderLockAndResetEvent();
-    void __thiscall EvaluateValue_009fe3f0(S_009fe420_Item* item);
+    void __thiscall CAsyncIo_PutWorkItem(S_009fe420_Item* item);
     void __thiscall ProcessItems();
 };
 
@@ -7432,10 +7435,10 @@ void __thiscall S_009fe420_Cls::ProcessItems()
                 break;
             unk70 += 1;
         }
-        item->ProcessAndReturnValue_009fdf20();
+        item->CAsyncRequest_Complete();
         {
             S_009fe420_Lock lock(&unk1C);
-            EvaluateValue_009fe3f0(item);
+            CAsyncIo_PutWorkItem(item);
             if (--unk70 == 0 && unk74)
                 SetEvent(unk78);
         }
@@ -8582,15 +8585,16 @@ int __stdcall Object_ProcessAndReturnValue_009fc300(::PinIface* self)
     return disconnect(reinterpret_cast< ::FUN_009fa380_cls*>(PinOwnerFromInterface(self)));
 }
 
-struct FUN_009fc5a0 : FUN_009fcee0
+struct CBSAReader : FUN_009fcee0
 {
     int m14, m18, m1c, m20, m24, m28, m2c, m30, m34, m38, m3c, m40, m44, m48;
-    FUN_009fc5a0(int b, int c, int d, int* e, int f);
+    CBSAReader(int b, int c, int d, int* e, int f);
 };
 
-// Initializes a FUN_009fc5a0 object by zeroing several fields, copying four values from e into m28-m34, and storing d in m38.
+// Initializes a CBSAReader object by zeroing several fields, copying four values from e into m28-m34, and storing d in m38.
 // @fnv 0x009fc5a0
-FUN_009fc5a0::FUN_009fc5a0(int b, int c, int d, int* apIntArray, int f) : FUN_009fcee0(b, c)
+// src: GUESS 0x009fc5a0 (confidence: medium)
+CBSAReader::CBSAReader(int b, int c, int d, int* apIntArray, int f) : FUN_009fcee0(b, c)
 {
     m14 = 0;
     m18 = 0;

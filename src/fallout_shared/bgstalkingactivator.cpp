@@ -82,7 +82,8 @@ FNV_STATIC_ASSERT(sizeof(RadioPathingPath) == 56);
 FNV_STATIC_ASSERT(sizeof(ParentSpaceNode) == 12);
 
 // @fnv 0x004ff1a0
-void BGSTalkingActivator::FindRadioStations(TESObjectREFR* ref, BSSimpleList<TESObjectREFR*>* stations,
+// src: COMMUNITY 0x004ff1a0
+void BGSTalkingActivator::GetRadioStationsInRangeOfRef(TESObjectREFR* ref, BSSimpleList<TESObjectREFR*>* stations,
                                             BSSimpleList<float>* distances)
 {
     if (!stations || !ref || !ref->GetParentCell())

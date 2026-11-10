@@ -85,14 +85,14 @@ unsigned int __thiscall FUN_00866450_shell::GetAdjustedValue()
 }
 
 void __cdecl ReadValueBySizeType(void* a1, unsigned int* a2, unsigned int a3);
-struct FUN_008663e0_shell
+struct BGSUnloadedFormBuffer
 {
     char* pBuffer;
     unsigned int BGSUnloadedFormBuffer_GetSize();
 };
 // @fnv 0x008663e0
 // src: COMMUNITY 0x008663e0
-unsigned int FUN_008663e0_shell::BGSUnloadedFormBuffer_GetSize()
+unsigned int BGSUnloadedFormBuffer::BGSUnloadedFormBuffer_GetSize()
 {
     unsigned int uiOut;
     if (pBuffer == 0)

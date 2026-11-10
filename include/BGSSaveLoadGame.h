@@ -58,7 +58,7 @@ public:
     bool IsFormChanged(TESForm*);
     void ClearFormChangeFlags(TESForm*, FormChangeMask);
     void HasFormChanges(TESForm*);
-    void ClearAllForms();
+    void RevertAllChanges();
     void CleanupExpiredData();
     void ProcessSubBuffer(int, BGSLoadFormBuffer*, TESForm*);
     void ClearForm(TESForm*);

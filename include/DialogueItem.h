@@ -31,7 +31,7 @@ public:
     DialogueResponse* GetActiveResponse();
     DialogueResponse* GetCurrentItem();
     DialogueResponse* GetResponseByIndex(short index);
-    short GetResponseIndex(DialogueResponse*);
+    short GetDialogueResponseIndex(DialogueResponse*);
     TESTopicInfo* GetInfo();
     TESQuest* GetQuest();
     TESTopic* GetAudioBackendData();

@@ -33,9 +33,9 @@ class BSTempEffectSimpleDecal : public BSTempEffect
     virtual bool Update(float afTime);
     virtual NiAVObject* Get3D();
 
-    bool ReleaseTextureObject();
+    bool CheckOcclusionQueryResults();
     bool CreateDecalTexture();
-    void SetDecalTint(NiColorA& color, bool enabled);
+    void CreateDebugBox(NiColorA& color, bool enabled);
     bool GetByteAt2D();
     TESTopicInfoData* BSTempEffectSimpleDecal_GetDecalParent();
     void CleanUpMemory();
@@ -45,20 +45,20 @@ class BSTempEffectSimpleDecal : public BSTempEffect
                           DecalPoint* attributes);
     bool AddDecalGeometry(int count, unsigned int* indices, NiPoint3* positions,
                           NiPoint3* attributes);
-    void ProcessDecalTriangles(NiAVObject* object);
-    void ProcessDecalTriangles(Geometry* geometry);
-    void ProcessDecalTriangles(Param* object);
+    void ClipMesh(NiAVObject* object);
+    void ClipMesh(Geometry* geometry);
+    void ClipMesh(Param* object);
     bool ProcessGeometry(NiAVObject* object);
     bool ProcessGeometry(unsigned int object);
     bool ProcessGeometry(Param* object);
     int CreateTriData_0068ca90();
     void ResizeMeshBuffers();
-    int ClipPolygonByPlanes(int count, const int* indices, const NiPoint3* positions,
+    int ClipPolygon(int count, const int* indices, const NiPoint3* positions,
                             const NiPoint3* attributes, int* outIndices,
                             NiPoint3* outPositions, NiPoint3* outAttributes);
-    int ClipPolygonByPlanes(int count, float* apInVerts, NiPoint3* apInB, NiPoint3* apInC,
+    int ClipPolygon(int count, float* apInVerts, NiPoint3* apInB, NiPoint3* apInC,
                             float* apOutB, NiPoint3* apOutPos, NiPoint3* apOutC);
-    int ClipPolygonByPlanes(int count, unsigned int* indices, NiPoint3* positions,
+    int ClipPolygon(int count, unsigned int* indices, NiPoint3* positions,
                             NiPoint3* attributes, unsigned int* outIndices,
                             NiPoint3* outPositions, NiPoint3* outAttributes);
 

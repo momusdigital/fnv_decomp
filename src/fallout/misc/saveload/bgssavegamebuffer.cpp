@@ -15,7 +15,7 @@ public:
     void GrowBuffer();
 };
 
-struct FUN_0043aa40_shell
+struct DoorTeleportData
 {
     int m_00;
     int m_04;
@@ -25,13 +25,13 @@ struct FUN_0043aa40_shell
     int m_14;
     int m_18;
     int m_1c;
-    void __thiscall SaveFields_0043aa40(BGSSaveFormBuffer* apBuffer);
+    void __thiscall DoorTeleportData_SaveGame(BGSSaveFormBuffer* apBuffer);
 };
 
 // Writes three ranges of this object (offsets 4, 0x10, 0x1c) and the form at m_00 into the save buffer.
 // @fnv 0x0043aa40
-// src: GUESS 0x0043aa40 (confidence: medium)
-void FUN_0043aa40_shell::SaveFields_0043aa40(BGSSaveFormBuffer* apBuffer)
+// src: COMMUNITY 0x0043aa40
+void DoorTeleportData::DoorTeleportData_SaveGame(BGSSaveFormBuffer* apBuffer)
 {
     apBuffer->SaveData((void*)((char*)this + 4), 0xc, 0);
     apBuffer->SaveData((void*)((char*)this + 0x10), 0xc, 0);
@@ -41,7 +41,7 @@ void FUN_0043aa40_shell::SaveFields_0043aa40(BGSSaveFormBuffer* apBuffer)
 
 extern BGSSaveLoadManager* DAT_011de134;
 
-struct FUN_00846330_shell
+struct BGSSaveLoadFile
 {
     void __thiscall WriteToFile(int a, int b);
 };
@@ -53,14 +53,14 @@ void BGSSaveGameBuffer::Save(SaveLoadFile* a1, unsigned int a2)
     {
         if (a2)
         {
-            ((FUN_00846330_shell*)a1)->WriteToFile(0, a2);
+            ((BGSSaveLoadFile*)a1)->WriteToFile(0, a2);
         }
     }
     else
     {
         if (pBuffer && a2)
         {
-            ((FUN_00846330_shell*)a1)->WriteToFile((int)pBuffer, a2);
+            ((BGSSaveLoadFile*)a1)->WriteToFile((int)pBuffer, a2);
         }
     }
 }
@@ -96,7 +96,7 @@ void BGSSaveGameBuffer::SaveVariableSizedValue(unsigned int aiVariableValue)
     }
 }
 
-struct FUN_00835f10_shell
+struct FalloutRadio_FORadioReceiver
 {
     void __thiscall DynamicRadio_Save(BGSSaveFormBuffer* apBuffer);
 };
@@ -104,7 +104,7 @@ struct FUN_00835f10_shell
 // Writes the object's pointer to the save buffer, then saves four consecutive one-byte fields at offsets 0x1c through 0x1f.
 // @fnv 0x00835f10
 // src: COMMUNITY 0x00835f10
-void __thiscall FUN_00835f10_shell::DynamicRadio_Save(BGSSaveFormBuffer* apBuffer)
+void __thiscall FalloutRadio_FORadioReceiver::DynamicRadio_Save(BGSSaveFormBuffer* apBuffer)
 {
     apBuffer->SerializeFormData(*(void**)this, 0);
     apBuffer->SaveData((char*)this + 0x1c, 1, 0);
@@ -132,14 +132,14 @@ void __thiscall FUN_009f3850_shell::SandBoxChoiceListItem_SaveGame(BGSSaveFormBu
     apBuffer->SerializeFormData(m_00, 0);
 }
 
-struct FUN_006e2350_shell
+struct PathingNode
 {
     void __thiscall SaveState_006e2350(BGSSaveFormBuffer* apBuffer);
 };
 
 // @fnv 0x006e2350
 // src: GUESS 0x006e2350 (confidence: medium)
-void __thiscall FUN_006e2350_shell::SaveState_006e2350(BGSSaveFormBuffer* apBuffer)
+void __thiscall PathingNode::SaveState_006e2350(BGSSaveFormBuffer* apBuffer)
 {
     apBuffer->SaveData(this, 4, 0);
     apBuffer->SaveData((char*)this + 0x2c, 12, 0);
@@ -148,7 +148,7 @@ void __thiscall FUN_006e2350_shell::SaveState_006e2350(BGSSaveFormBuffer* apBuff
                                                                                               apBuffer);
 }
 
-struct FUN_006f50b0_shell
+struct VirtualPathingNode
 {
     int m_00;
     int m_04;
@@ -158,12 +158,12 @@ struct FUN_006f50b0_shell
 // Saves 4 bytes of this object, saves the pointer at offset 0x2c, then calls the virtual save on the sub-object at offset 4.
 // @fnv 0x006f50b0
 // src: COMMUNITY 0x006f50b0
-void __thiscall FUN_006f50b0_shell::VirtualPathingNode_Save(BGSSaveFormBuffer* apBuffer)
+void __thiscall VirtualPathingNode::VirtualPathingNode_Save(BGSSaveFormBuffer* apBuffer)
 {
     apBuffer->SaveData(this, 4, 0);
     apBuffer->SerializeFormData(*(void**)((char*)this + 0x2c), 0);
-    ((void(__thiscall*)(FUN_006f50b0_shell*, BGSSaveFormBuffer*))(*(void**)(*(void**)((char*)this + 4))))(
-        (FUN_006f50b0_shell*)((char*)this + 4), apBuffer);
+    ((void(__thiscall*)(VirtualPathingNode*, BGSSaveFormBuffer*))(*(void**)(*(void**)((char*)this + 4))))(
+        (VirtualPathingNode*)((char*)this + 4), apBuffer);
 }
 
 struct Flt
@@ -171,14 +171,14 @@ struct Flt
     operator unsigned int();
 };
 
-struct FUN_0083d690_shell
+struct DialogueResponse
 {
     void __thiscall DialogueResponse_SaveGame(BGSSaveFormBuffer* apBuffer);
 };
 
 // @fnv 0x0083d690
 // src: COMMUNITY 0x0083d690
-void __thiscall FUN_0083d690_shell::DialogueResponse_SaveGame(BGSSaveFormBuffer* apBuffer)
+void __thiscall DialogueResponse::DialogueResponse_SaveGame(BGSSaveFormBuffer* apBuffer)
 {
     apBuffer->SaveGameString((const char*)((Flt*)this)->operator unsigned int(), 0);
     apBuffer->SaveGameString((const char*)((Flt*)((char*)this + 0x10))->operator unsigned int(), 0);
@@ -195,7 +195,7 @@ struct FUN_00857bd0
     void __thiscall Init(unsigned int);
 };
 void* __cdecl __memcpy(void* a1, const void* a2, unsigned int a3);
-struct FUN_008579b0_shell
+struct TESSaveLoadGame
 {
     int m_00;
     int m_04;
@@ -210,7 +210,7 @@ struct FUN_008579b0_shell
 // Copies a2 bytes from a1 into the buffer at this+0x14, then calls Init with a2.
 // @fnv 0x008579b0
 // src: XBOX_PDB 0x008579b0
-void __thiscall FUN_008579b0_shell::TESSaveLoadGame_SaveGameDataOLD(void* apSource, unsigned int uiSize)
+void __thiscall TESSaveLoadGame::TESSaveLoadGame_SaveGameDataOLD(void* apSource, unsigned int uiSize)
 {
     __memcpy(*(void**)((char*)this + 0x14), apSource, uiSize);
     ((FUN_00857bd0*)this)->Init(uiSize);
@@ -232,11 +232,11 @@ BGSSaveGameBuffer::~BGSSaveGameBuffer()
     _Deallocate(p);
 }
 
-void __cdecl ForwardToShell(FUN_00846330_shell*, void*, int);
+void __cdecl ForwardToShell(BGSSaveLoadFile*, void*, int);
 // @fnv 0x00865c40
 void BGSSaveGameBuffer::Save(SaveLoadFile* apFile)
 {
-    ForwardToShell((FUN_00846330_shell*)apFile, &iBufferPosition, 4);
+    ForwardToShell((BGSSaveLoadFile*)apFile, &iBufferPosition, 4);
     Save(apFile, iBufferPosition);
 }
 
@@ -308,14 +308,14 @@ unsigned int BGSSaveGameBuffer::StartVariableSizedValue()
     return iposition;
 }
 
-struct FUN_0083fb10_shell
+struct MenuTopic
 {
-    void __thiscall SaveState_0083fb10(BGSSaveFormBuffer* apBuffer);
+    void __thiscall MenuTopic_SaveGame(BGSSaveFormBuffer* apBuffer);
 };
 
 // @fnv 0x0083fb10
-// src: GUESS 0x0083fb10 (confidence: medium)
-void __thiscall FUN_0083fb10_shell::SaveState_0083fb10(BGSSaveFormBuffer* apBuffer)
+// src: COMMUNITY 0x0083fb10
+void __thiscall MenuTopic::MenuTopic_SaveGame(BGSSaveFormBuffer* apBuffer)
 {
     apBuffer->SaveGameString((const char*)(unsigned int)*(Flt*)this, 0);
     apBuffer->SaveData((char*)this + 8, 1, 0);

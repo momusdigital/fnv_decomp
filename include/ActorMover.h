@@ -120,7 +120,7 @@ public:
     void ResetMoverState(int);
     bool HasPathingSolution();
     void SetMoveTarget(NiPoint3 target);
-    bool GetPathCoordinate(NiPoint3* position);
+    bool GetCurrentGoal(NiPoint3* position);
     int UpdatePathHandler();
     void ResetPathing();
     void SetPathFailed(bool failed);

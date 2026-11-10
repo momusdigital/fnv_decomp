@@ -22,9 +22,9 @@ public:
     void SelectTile(int aiTile, bool abForce);  // 0x007557d0
     void SetButtonAsHighlighted(float afAngle);           // selects the tile under the stick angle
     void SetTileText(const char* apText);       // 0x00755d90
-    void ToggleFollowersTacticsDistance();      // 0x007560c0
+    void Do_ToggleNearFar();      // 0x007560c0
     void ToggleRelatedTopic();                  // 0x007562b0
-    void ToggleFollowerWait();                  // 0x007563a0
+    void Do_ToggleStayFollow();                  // 0x007563a0
     void ToggleAggressive();                    // 0x007561b0
     void HealCompanion();                       // 0x00756490
     void CompanionWheelMenu_Do_OpenInventory();

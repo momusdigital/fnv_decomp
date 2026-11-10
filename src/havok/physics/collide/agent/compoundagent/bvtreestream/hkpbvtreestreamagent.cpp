@@ -397,13 +397,13 @@ int SearchObject::UpdateState_00d2ed70(unsigned int arg0, unsigned int arg1, uns
 struct FUN_00d43cd0_class
 {
     void __thiscall ProcessCollisionEntries(void* a, void* b, void* c, void* d);
-    void __thiscall UpdateState_00d2ed90(void* a1, void* a2, void* a3, void* a4);
+    void __thiscall hkpSymmetricAgent_getPenetrations(void* a1, void* a2, void* a3, void* a4);
 };
 
 // Builds a flip-body collector holding a4 and forwards a2, a1, a3 and the collector to ProcessCollisionEntries.
 // @fnv 0x00d2ed90
-// src: GUESS 0x00d2ed90 (confidence: low)
-void __thiscall FUN_00d43cd0_class::UpdateState_00d2ed90(void* a1, void* a2, void* a3, void* apPayload)
+// src: GUESS 0x00d2ed90 (confidence: medium)
+void __thiscall FUN_00d43cd0_class::hkpSymmetricAgent_getPenetrations(void* a1, void* a2, void* a3, void* apPayload)
 {
     unsigned int storage[sizeof(hkpSymmetricAgentFlipBodyCollector) / sizeof(unsigned int)];
     hkpSymmetricAgentFlipBodyCollector& collector = *(hkpSymmetricAgentFlipBodyCollector*)storage;

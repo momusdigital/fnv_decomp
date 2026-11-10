@@ -65,7 +65,7 @@ public:
     void ReadTypedData(void* value, unsigned int count);
 
     char* LoadString(char* string);
-    int ReadElementCount();
+    int LoadVariableSizedValue();
     void AdvanceBuffer(unsigned int bytes);
     void ReadElementData(void* data, unsigned int size, unsigned int flags);
     void ReadDataBlock(void* data, unsigned int size);

@@ -105,7 +105,7 @@ void hkpGravityGun::gravityGunPush(int dirSlot, int viewSlot, int p3Slot)
     }
     else
     {
-        hkpRigidBody* body = FindVisibleRigidBodyToGrab(dirSlot, viewSlot, p3Slot);
+        hkpRigidBody* body = pickBody(dirSlot, viewSlot, p3Slot);
         if (body)
         {
             __m128 dir = *(const __m128*)dirSlot;

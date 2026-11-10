@@ -38,13 +38,13 @@ void FUN_0044bbc0_Class::ActorCause_IncRefCount()
     InitScriptRunLock((char*)this + 0x18);
 }
 
-struct FUN_0044c1c0_Class
+struct LockFreeMap
 {
     bool __thiscall IsGreaterOrEqual(unsigned int a, unsigned int b);
 };
 
 // @fnv 0x0044c1c0
-bool __thiscall FUN_0044c1c0_Class::IsGreaterOrEqual(unsigned int auiValue, unsigned int auiThreshold)
+bool __thiscall LockFreeMap::IsGreaterOrEqual(unsigned int auiValue, unsigned int auiThreshold)
 {
     return auiValue >= auiThreshold;
 }

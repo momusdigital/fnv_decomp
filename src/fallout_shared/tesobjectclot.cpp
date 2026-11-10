@@ -35,7 +35,7 @@ struct FUN_00485e00_shell
 // src: XBOX_PDB 0x00515f40
 void TESObjectCLOT::Save_00515f40()
 {
-    TESForm::BeginFormRecord();
+    TESForm::TESForm_StartForm();
     TESFullName::Save_00487010();
     TESScriptableForm::Save_0048cca0();
     TESEnchantableForm::Save();
@@ -43,7 +43,7 @@ void TESObjectCLOT::Save_00515f40()
     BGSDestructibleObjectForm::Save();
     BGSEquipType::Save();
     reinterpret_cast<FUN_00485e00_shell*>(this)->TESForm_SaveData();
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_CloseForm();
 }
 
 void __cdecl operator delete(void*);
@@ -112,7 +112,7 @@ struct RecordReader
     int TESFile_GetTESChunk();
     bool FUN_004726f0();
     unsigned int GetField25C();
-    void ReadChunkInt(unsigned int*);
+    void TESFile_Read32(unsigned int*);
     void ReadChunkData(unsigned short*);
     void FUN_00472890(void*, unsigned int);
     unsigned short FUN_00403570();
@@ -164,7 +164,7 @@ bool ClothingLoader::ReadFromStream(RecordReader* reader)
         }
         case 0x49524353: {
             unsigned int formID = 0;
-            reader->ReadChunkInt(&formID);
+            reader->TESFile_Read32(&formID);
             TESScriptableForm::FUN_006ecd40(formID);
             TESScriptableForm::InitItem(this);
             break;
@@ -172,7 +172,7 @@ bool ClothingLoader::ReadFromStream(RecordReader* reader)
         case 0x4d544945:
         case 0x4d414e45: {
             unsigned int formID = 0;
-            reader->ReadChunkInt(&formID);
+            reader->TESFile_Read32(&formID);
             reinterpret_cast<TESEnchantableForm*>(reinterpret_cast<char*>(this) + 0x48)->SetFormEnchanting(reinterpret_cast<EnchantmentItem*>(formID));
             break;
         }
@@ -303,7 +303,7 @@ bool ClothingLoader::ReadFromStream(RecordReader* reader)
         }
         case 0x50595445: {
             unsigned int equipID = 0;
-            reader->ReadChunkInt(&equipID);
+            reader->TESFile_Read32(&equipID);
             reinterpret_cast<BGSEquipType*>(reinterpret_cast<char*>(this) + 0x14c)->SetEquipType(static_cast<int>(equipID));
             break;
         }

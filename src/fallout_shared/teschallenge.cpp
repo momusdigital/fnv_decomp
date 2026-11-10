@@ -213,7 +213,7 @@ bool ChallengeManager::UpdateChallengeProgress(CHALLENGE_TYPE type, int count, T
             if (challenge->GetProgressValue() >= challenge->GetThreshold())
             {
                 if (challenge->GetScript())
-                    challenge->GetScript()->ExecuteScript(reinterpret_cast<TESObjectREFR*>(g_thePlayer), 0);
+                    challenge->GetScript()->RunScriptEffectStart(reinterpret_cast<TESObjectREFR*>(g_thePlayer), 0);
                 if (challenge->GetChallengeType() != CHALLENGE_TYPE_CHALLENGE_TYPE_MISC_STAT ||
                     challenge->GetSpecialOne() != 27)
                     TopicMenuController::IncrementMiscStat(27);
@@ -466,7 +466,7 @@ void __cdecl TESForm_AddChunk_00485910(unsigned int, unsigned int);
 // @fnv 0x005f5540
 void __thiscall TESChallenge::Initialize()
 {
-    TESForm::BeginFormRecord();
+    TESForm::TESForm_StartForm();
     TESFullName::Save_00487010();
     TESIcon::Save(0x4e4f4349);
     BGSMessageIcon::Save(0x4f43494d);
@@ -487,7 +487,7 @@ void __thiscall TESChallenge::Initialize()
         unsigned int v2 = ((TESForm**)((char*)this + 0x78))[0]->GetFormID();
         TESForm_AddChunk_00485910(0x4d414e58, v2);
     }
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_CloseForm();
 }
 
 

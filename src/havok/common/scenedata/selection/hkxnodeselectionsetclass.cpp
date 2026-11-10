@@ -124,11 +124,12 @@ struct CpuObject
     int unk00;
     unsigned short unk04;
     void ProcessState_00e01d40();
-    CpuObject* FUN_00e01dd0(bool enabled);
+    CpuObject* ScalarDeletingDestructor(bool enabled);
 };
 // Calls FUN_00e01d40, and if enabled dispatches this object with unk04 through the audio system's interface, then returns this.
 // @fnv 0x00e01dd0
-CpuObject* CpuObject::FUN_00e01dd0(bool enabled)
+// src: EXE 0x00e01dd0
+CpuObject* CpuObject::ScalarDeletingDestructor(bool enabled)
 {
     ProcessState_00e01d40();
     if (enabled & 1)

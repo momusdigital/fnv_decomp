@@ -58,7 +58,7 @@ TESRegionData::TESRegionData(const TESRegionData& other)
 
 #include <string.h>
 bool __cdecl TESForm_QEndianSwapOnSave();
-void __cdecl AppendChunk(unsigned int, const void*, unsigned int);
+void __cdecl TESForm___AddChunkData(unsigned int, const void*, unsigned int);
 
 struct RegionSaveData
 {
@@ -87,7 +87,7 @@ void TESRegionData::Save()
     data.m_ucRegionPriority = static_cast<RegionDataAccess*>(this)->TESRegionData_GetPriority();
     if (TESForm_QEndianSwapOnSave())
         data.QuestPerkEntryData_Endian();
-    AppendChunk(0x54414452, &data, sizeof(data));
+    TESForm___AddChunkData(0x54414452, &data, sizeof(data));
     if (TESForm_QEndianSwapOnSave())
         data.QuestPerkEntryData_Endian();
 }

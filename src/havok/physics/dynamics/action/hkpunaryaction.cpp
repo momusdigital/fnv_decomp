@@ -75,12 +75,13 @@ struct Action
     virtual void FUN_00d4d950_2() = 0;
     unsigned short size;
 
-    Action* FUN_00d4d950(unsigned char flags);
+    Action* ScalarDeletingDestructor(unsigned char flags);
 };
 
 // Calls FUN_00d2b2b0, then if flags bit 0 is set frees this via the memory router's memory manager, and returns this.
 // @fnv 0x00d4d950
-Action* Action::FUN_00d4d950(unsigned char flags)
+// src: EXE 0x00d4d950
+Action* Action::ScalarDeletingDestructor(unsigned char flags)
 {
     ReleaseReference_00d2b2b0();
 

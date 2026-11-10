@@ -101,9 +101,9 @@ struct LandscapeOperations : TESRegionDataLandscape
 {
     bool HasModel();
     void SetFullName(BSStringT<char>& aDest);
-    void SaveLandscapeData();
+    void TESRegionDataLandscape_Save();
     bool SetTextureName(const Flt& aName);
-    LandscapeCopy* CloneLandscapeData();
+    LandscapeCopy* TESRegionDataLandscape_CreateCopy();
 };
 
 // Returns true if the landscape texture has a non-empty path.
@@ -125,7 +125,8 @@ void LandscapeOperations::SetFullName(BSStringT<char>& aDest)
 }
 
 // @fnv 0x004f29f0
-void __thiscall LandscapeOperations::SaveLandscapeData()
+// src: EXE 0x004f29f0
+void __thiscall LandscapeOperations::TESRegionDataLandscape_Save()
 {
     TESRegionData::Save();
     m_pLandscapeTexture->Save(0x4E4F4349);
@@ -162,7 +163,8 @@ extern GO g_011c7f0c;
 float RandomFloat(float, float);
 // Creates a 64x64 random RGBA NiPixelData, wraps it in a texturing property named DefaultFullMaskTextureProp, caches it in g_011c7f0c and returns it.
 // @fnv 0x004f2ee0
-NiTexturingProperty* GetDefaultFullMaskTextureProperty()
+// src: COMMUNITY 0x004f2ee0
+NiTexturingProperty* TESRegionDataLandscape_GetDefaultFullMaskTextureProp()
 {
     NiPixelData* ppixeldata;
     unsigned char* ppixels;
@@ -203,7 +205,8 @@ class LandscapeCopy : public TESRegionData
 
 // Allocates a copy of this landscape region and its texture.
 // @fnv 0x004f2b10
-LandscapeCopy* LandscapeOperations::CloneLandscapeData()
+// src: COMMUNITY 0x004f2b10
+LandscapeCopy* LandscapeOperations::TESRegionDataLandscape_CreateCopy()
 {
     LandscapeCopy* pdata = new LandscapeCopy(*(const LandscapeCopy*)this);
     return pdata;

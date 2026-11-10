@@ -129,7 +129,8 @@ void NiPSysCollider::LinkObject(NiStream& stream)
 
 extern const char* const g_012026a0_arg1;
 // @fnv 0x00c327e0
-const NiRTTI* __fastcall GetColliderRTTI(const NiPSysCollider*, void*)
+// src: EXE 0x00c327e0
+const NiRTTI* __fastcall NiPSysCollider_GetRTTI(const NiPSysCollider*, void*)
 {
     return reinterpret_cast<const NiRTTI*>(&g_012026a0_arg1);
 }
@@ -241,7 +242,8 @@ void NiPSysCollider::vf36(float fTime, NiPSysData* pkData, unsigned int uiIndex)
 // The shared collider lacks a RegisterStreamables override declaration. This
 // entry uses its real layout; the unused register preserves the member-call ABI.
 // @fnv 0x00c32680
-bool __fastcall RegisterColliderStreamables(NiPSysCollider* collider, void*, NiStream& stream)
+// src: EXE 0x00c32680
+bool __fastcall NiPSysCollider_RegisterStreamables(NiPSysCollider* collider, void*, NiStream& stream)
 {
     if (!collider->NiObject::RegisterStreamables(stream))
     {
@@ -257,7 +259,8 @@ bool __fastcall RegisterColliderStreamables(NiPSysCollider* collider, void*, NiS
 
 // NiPSysCollider's IsEqual override is not declared in the shared header.
 // @fnv 0x00c326b0
-bool __fastcall IsColliderEqual(const NiPSysCollider* collider, void*, NiObject* pkObject)
+// src: EXE 0x00c326b0
+bool __fastcall NiPSysCollider_IsEqual(const NiPSysCollider* collider, void*, NiObject* pkObject)
 {
     if (!collider->NiObject::IsEqual(pkObject))
         return false;
@@ -320,7 +323,8 @@ template <class T> inline void SaveBinaryValue(NiStream& kStream, const T& value
 // NiPSysCollider's SaveBinary override is not declared in the shared header.
 // Save the bounce factor, collision flags and three object links.
 // @fnv 0x00c32900
-void __fastcall SaveColliderBinary(NiPSysCollider* collider, void*, NiStream& kStream)
+// src: EXE 0x00c32900
+void __fastcall NiPSysCollider_SaveBinary(NiPSysCollider* collider, void*, NiStream& kStream)
 {
     collider->NiObject::SaveBinary(kStream);
     SaveBinaryValue(kStream, collider->m_fBounceFactor);

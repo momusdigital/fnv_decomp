@@ -30,7 +30,8 @@
 #include "../../include/BSCullingProcess.h"
 
 // @fnv 0x004a0030
-void BGSDecalManager::RenderDecals()
+// src: COMMUNITY 0x004a0030
+void BGSDecalManager::UpdateSimpleDecals()
 {
     if (reinterpret_cast<BSSimpleArray<ParentSpaceNode, 1024>*>(&m_kSimpleDecalList)->GetSize() > 0)
     {
@@ -60,7 +61,7 @@ void BGSDecalManager::RenderDecals()
 
                 if (decal->m_pRenderQuery != 0)
                 {
-                    if (decal->ReleaseTextureObject())
+                    if (decal->CheckOcclusionQueryResults())
                     {
                         if (decal->m_uiTextureReferenceCount > 0)
                         {
@@ -95,12 +96,12 @@ void BGSDecalManager::RenderDecals()
                         if (DAT_011c57f4 & 1)
                         {
                             NiColorA color(0.0f, 1.0f, 0.0f, 1.0f);
-                            decal->SetDecalTint(reinterpret_cast<NiColorA&>(color), true);
+                            decal->CreateDebugBox(reinterpret_cast<NiColorA&>(color), true);
                         }
                         if (DAT_011c57f4 & 2)
                         {
                             NiColorA color(0.0f, 1.0f, 0.0f, 0.25f);
-                            decal->SetDecalTint(reinterpret_cast<NiColorA&>(color), false);
+                            decal->CreateDebugBox(reinterpret_cast<NiColorA&>(color), false);
                         }
                     }
                     else if (DAT_011c57f4 & 0x10)
@@ -108,12 +109,12 @@ void BGSDecalManager::RenderDecals()
                         if (DAT_011c57f4 & 1)
                         {
                             NiColorA color(1.0f, 0.0f, 0.0f, 1.0f);
-                            decal->SetDecalTint(reinterpret_cast<NiColorA&>(color), true);
+                            decal->CreateDebugBox(reinterpret_cast<NiColorA&>(color), true);
                         }
                         if (DAT_011c57f4 & 2)
                         {
                             NiColorA color(1.0f, 0.0f, 0.0f, 0.25f);
-                            decal->SetDecalTint(reinterpret_cast<NiColorA&>(color), false);
+                            decal->CreateDebugBox(reinterpret_cast<NiColorA&>(color), false);
                         }
                     }
                     reinterpret_cast<DecalNiTPointerListBase<DecalNiTPointerAllocator<unsigned int>, DecalNiPointer<NiProperty> >*>(
@@ -500,7 +501,7 @@ struct BhkPickData : public WorldRayCastInput, public WorldRayCastOutput
     char _pad_ad[3];
 };
 typedef char _sizecheck_bhkPickData[sizeof(BhkPickData) == 176 ? 1 : -1];
-struct FUN_004a3da0_shell : public BhkPickData
+struct bhkPickData : public BhkPickData
 {
     void bhkPickData_SetFrom(void*);
 };
@@ -516,7 +517,7 @@ hkVector4& __cdecl NI2HK(hkVector4&, NiPoint3 const&);
 // Converts the NiPoint3 at arFrom into a hkVector4 and passes it to FUN_0056d340 on this object.
 // @fnv 0x004a3da0
 // src: XBOX_PDB 0x004a3da0
-void FUN_004a3da0_shell::bhkPickData_SetFrom(void* arFrom)
+void bhkPickData::bhkPickData_SetFrom(void* arFrom)
 {
     // Raw storage preserves the original initialization call and stack protection.
     __declspec(align(16)) char hkv[16];
@@ -880,12 +881,12 @@ struct FUN_004a4440
 {
     ~FUN_004a4440();
 };
-struct FUN_004a3ae0
+struct hkpRayHitCollector
 {
-    virtual ~FUN_004a3ae0();
+    virtual ~hkpRayHitCollector();
     char pad04[0xc];
 };
-class FUN_004a3bc0 : public FUN_004a3ae0
+class FUN_004a3bc0 : public hkpRayHitCollector
 {
   public:
     FUN_004a4440 hits;
@@ -1108,7 +1109,7 @@ struct S004a03f0
 void __fastcall BGSDecalManager_UpdateDecals(BGSDecalManager* p)
 {
     BGSDecalManager_ClearDecalsThisFrame();
-    p->RenderDecals();
+    p->UpdateSimpleDecals();
     ((S004a03f0*)p)->CleanupDecalEmitters();
 }
 
@@ -1131,7 +1132,8 @@ void* StandIn::FUN_004a0490(unsigned int flags)
 void _Deallocate(void*);
 // Calls FUN_004a0f60, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x004a0ff0
-void* BSCullingProcess::FUN_004a0ff0(unsigned int flags)
+// src: EXE 0x004a0ff0
+void* BSCullingProcess::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_004a0f60();
     if (flags & 1)
@@ -1153,16 +1155,16 @@ void __thiscall Unk::DecalCaster_SetCollision(int aiArg, unsigned char b)
 
 namespace fnv_004a3b00 {
 void _Deallocate(void*);
-struct FUN_004a3ae0
+struct hkpRayHitCollector
 {
-    virtual ~FUN_004a3ae0();
+    virtual ~hkpRayHitCollector();
     void* DestroyAndFree(unsigned int);
 };
 // Runs the destructor and, when bit 0 of flags is set, deallocates this object; returns this.
 // @fnv 0x004a3b00
-void* FUN_004a3ae0::DestroyAndFree(unsigned int flags)
+void* hkpRayHitCollector::DestroyAndFree(unsigned int flags)
 {
-    this->FUN_004a3ae0::~FUN_004a3ae0();
+    this->hkpRayHitCollector::~hkpRayHitCollector();
     if (flags & 1)
         _Deallocate(this);
     return this;
@@ -1270,7 +1272,7 @@ void NiGeometry::CalculateNormals()
 
 namespace fnv_004a2c00 {
 
-struct FUN_004a2c00_shell
+struct BSTempEffectGeometryDecal
 {
     char pad[0x34];
     GO m_go;
@@ -1278,7 +1280,7 @@ struct FUN_004a2c00_shell
 };
 
 // @fnv 0x004a2c00
-void FUN_004a2c00_shell::AssignGo(void* arg)
+void BSTempEffectGeometryDecal::AssignGo(void* arg)
 {
     m_go = arg;
 }
@@ -1721,7 +1723,8 @@ class Refr_C
 
 // Returns false when the reference's acoustic space form type is 35, 42, 43 or 51; otherwise returns true.
 // @fnv 0x004a1060
-bool __cdecl IsAcousticSpaceFormTypeAllowed(Refr_C* apRef, int aiArg)
+// src: COMMUNITY 0x004a1060
+bool __cdecl BGSDecalManager_IsValidDecalImpact(Refr_C* apRef, int aiArg)
 {
     int iUnused = aiArg;
     switch (apRef->GetAcousticSpace()->GetFormType())
@@ -2105,7 +2108,7 @@ void __cdecl ProgramFlow(const char* apText, int aiFlags);
 float __cdecl BSMAX_00404010(float a, float b);
 DecalEmitter* __cdecl FUN_00622a70(float afSize, int aiFlags);
 void* __cdecl TESObjectREFR_FindReferenceFor3D(DecalNode* apNode);
-bool __cdecl IsAcousticSpaceFormTypeAllowed(void* apGeometry, int aiFlags);
+bool __cdecl BGSDecalManager_IsValidDecalImpact(void* apGeometry, int aiFlags);
 
 static const char s_szSourceFile[] = "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout Shared\\BGSDecalManager.cpp";
 static const char s_szSimpleDecal[] = "DECAL: Simple Decal Instantiated";
@@ -2236,7 +2239,7 @@ void DecalManager::AddGeometryDecal(DecalRequest* apRequest, int aiType, bool ab
                     kHitNormal.Unitize_004a0c10();
                     void* m_pShaderGeometry = TESObjectREFR_FindReferenceFor3D(pHitTmp);
                     if (pHitTmp->NiAVObject_GetNoDecals() || !m_pShaderGeometry ||
-                        !IsAcousticSpaceFormTypeAllowed(m_pShaderGeometry, 1))
+                        !BGSDecalManager_IsValidDecalImpact(m_pShaderGeometry, 1))
                         continue;
                     if (!kHits.FUN_0049c680(&pHitTmp, 0))
                     {

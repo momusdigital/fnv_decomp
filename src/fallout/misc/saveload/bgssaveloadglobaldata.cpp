@@ -176,7 +176,7 @@ bool SaveGameLoader::LoadFormType(unsigned int type, BGSLoadGameBuffer* buffer)
 // @fnv 0x0084d070
 void SaveGameLoader::LoadEffects(BGSLoadGameBuffer* buffer)
 {
-    unsigned int count = buffer->ReadElementCount();
+    unsigned int count = buffer->LoadVariableSizedValue();
     for (unsigned int i = 0; i < count; ++i)
     {
         float strength = 0.0f;
@@ -498,7 +498,7 @@ struct FormLoadContext
 int __cdecl ReadValueBySizeType(const char* apBuffer, unsigned int* apValue, int aiSize);
 void __cdecl WriteValueByType(SaveLoadFile* apFile, unsigned int auiValue, int aiSize);
 
-struct FUN_00866200_owner
+struct BGSUnloadedFormBuffer
 {
     char* pBuffer;
     void BGSUnloadedFormBuffer_Save(SaveLoadFile* apFile, unsigned int auiFormID, BGSSaveLoadChangeFlags aChangeFlags);
@@ -506,7 +506,7 @@ struct FUN_00866200_owner
 
 // @fnv 0x00866200
 // src: COMMUNITY 0x00866200
-void FUN_00866200_owner::BGSUnloadedFormBuffer_Save(SaveLoadFile* apFile, unsigned int auiFormID, BGSSaveLoadChangeFlags aChangeFlags)
+void BGSUnloadedFormBuffer::BGSUnloadedFormBuffer_Save(SaveLoadFile* apFile, unsigned int auiFormID, BGSSaveLoadChangeFlags aChangeFlags)
 {
     char* pData = pBuffer;
     char* pCurrent = pBuffer + 2;
@@ -726,7 +726,7 @@ void LoadPlayerLocation(BGSLoadGameBuffer* apLoadGameBuffer)
                 centerGridLocation.x = (float)(icurrentGridX << 12);
                 centerGridLocation.y = (float)(icurrentGridY << 12);
                 centerGridLocation.z = 0.0f;
-                g_TES->FindCellAtPosition((const NiPoint3*)&centerGridLocation, false);
+                g_TES->UpdateCurrentGridCell((const NiPoint3*)&centerGridLocation, false);
                 g_TES->RefreshWorldState(1, plocation, 0);
                 icellX = TruncateFloatToInt(playerLocation.x) >> 12;
                 icellY = TruncateFloatToInt(playerLocation.y) >> 12;
@@ -942,7 +942,7 @@ void BGSSaveLoadGlobalData_LoadGlobals(BGSLoadGameBuffer* pLoadBuffer)
         node2 = node2->GetNext();
     }
     {
-        unsigned int count8 = pLoadBuffer->ReadElementCount();
+        unsigned int count8 = pLoadBuffer->LoadVariableSizedValue();
         for (unsigned int aI = 0; aI < count8; aI++)
         {
             TESGlobal* loaded =

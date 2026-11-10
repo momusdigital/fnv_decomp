@@ -170,13 +170,13 @@ unsigned short FUN_00645c20_Class::GetShortAtOffset1C0()
     return *reinterpret_cast<unsigned short*>(reinterpret_cast<char*>(this) + 0x1c0);
 }
 
-struct FUN_00645c80_Class
+struct TESObjectWEAP
 {
     bool __thiscall IsFlagSet() const;
 };
 
 // @fnv 0x00645c80
-bool __thiscall FUN_00645c80_Class::IsFlagSet() const
+bool __thiscall TESObjectWEAP::IsFlagSet() const
 {
     return (*(reinterpret_cast<const unsigned int*>(this) + 75) & 0x200) ? true : false;
 }
@@ -228,12 +228,12 @@ unsigned char FUN_00647ac0_Class::GetByteAt0x62()
 struct FUN_0064db00_class
 {
     int GetFieldAtOffset10();
-    bool ForwardCall_0064db00();
+    bool vector_empty();
 };
 
 // @fnv 0x0064db00
-// src: GUESS 0x0064db00 (confidence: low)
-bool FUN_0064db00_class::ForwardCall_0064db00()
+// src: GUESS 0x0064db00 (confidence: medium)
+bool FUN_0064db00_class::vector_empty()
 {
     return !GetFieldAtOffset10();
 }
@@ -469,13 +469,13 @@ extern "C" void __cdecl Range_ProcessWithMoveCategory_00658bd0(int a1, int a2, i
 
 struct FUN_00657ff0_Class
 {
-    void ForwardCall_00657ff0(int a1, int a2);
+    void vector__Destroy(int a1, int a2);
 };
 
 // Calls FUN_00658bd0 with the two arguments and a pointer to this object's offset 8.
 // @fnv 0x00657ff0
-// src: GUESS 0x00657ff0 (confidence: low)
-void FUN_00657ff0_Class::ForwardCall_00657ff0(int a1, int a2)
+// src: GUESS 0x00657ff0 (confidence: medium)
+void FUN_00657ff0_Class::vector__Destroy(int a1, int a2)
 {
     Range_ProcessWithMoveCategory_00658bd0(a1, a2, (int)this + 8);
 }
@@ -521,13 +521,13 @@ extern "C" void __cdecl Object_DispatchIteratorRange_00658c60(int, int, int);
 
 struct FUN_00658060_Class
 {
-    void __thiscall ForwardCall_00658060(int a, int b);
+    void __thiscall vector__Destroy(int a, int b);
 };
 
 // Calls FUN_00658c60 with the two arguments and a pointer to this object's offset 8.
 // @fnv 0x00658060
-// src: GUESS 0x00658060 (confidence: low)
-void __thiscall FUN_00658060_Class::ForwardCall_00658060(int a, int b)
+// src: GUESS 0x00658060 (confidence: medium)
+void __thiscall FUN_00658060_Class::vector__Destroy(int a, int b)
 {
     Object_DispatchIteratorRange_00658c60(a, b, (int)this + 8);
 }
@@ -694,12 +694,12 @@ void FUN_00659540_class::ForwardCall_00659540()
 
 struct FUN_0065cc30_class
 {
-    int __thiscall EvaluateValue_0065cc30();
+    int __thiscall vector_size();
 };
 
 // @fnv 0x0065cc30
-// src: GUESS 0x0065cc30 (confidence: low)
-int __thiscall FUN_0065cc30_class::EvaluateValue_0065cc30()
+// src: GUESS 0x0065cc30 (confidence: medium)
+int __thiscall FUN_0065cc30_class::vector_size()
 {
     return (*reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x10) -
             *reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0xc)) /
@@ -720,12 +720,12 @@ int FUN_0065cc50_Class::GetFieldAtOffset10()
 
 struct FUN_0065cea0_class
 {
-    int __thiscall GetPointerSpanCount_0065cea0();
+    int __thiscall vector_size();
 };
 
 // @fnv 0x0065cea0
-// src: GUESS 0x0065cea0 (confidence: low)
-int __thiscall FUN_0065cea0_class::GetPointerSpanCount_0065cea0()
+// src: GUESS 0x0065cea0 (confidence: medium)
+int __thiscall FUN_0065cea0_class::vector_size()
 {
     return (*(int*)((char*)this + 0x10) - *(int*)((char*)this + 0xc)) / 0x58;
 }
@@ -757,7 +757,7 @@ void __thiscall FUN_0065cfb0_Class::ForwardCall_0065cfb0()
     FUN_0065d6e0();
 }
 
-struct FUN_0065db40_class
+struct _Vector_const_iterator
 {
     void FaceGenData_Iterator_ClearsData();
     void* FaceGenData_Iterator_Clears();
@@ -766,7 +766,7 @@ struct FUN_0065db40_class
 // Calls FUN_0064de50, sets the field at offset 4 to 0, and returns this.
 // @fnv 0x0065db40
 // src: COMMUNITY 0x0065db40
-void* FUN_0065db40_class::FaceGenData_Iterator_Clears()
+void* _Vector_const_iterator::FaceGenData_Iterator_Clears()
 {
     FaceGenData_Iterator_ClearsData();
     *(int*)((char*)this + 4) = 0;
@@ -777,44 +777,44 @@ void __cdecl Runtime_UpdateState_0065e2d0(int, int, int);
 
 struct FUN_0065db60_class
 {
-    void __thiscall ForwardCall_0065db60(int a, int b);
+    void __thiscall vector__Destroy(int a, int b);
 };
 
 // Calls FUN_0065e2d0 with the two arguments and a pointer to this object's offset 8.
 // @fnv 0x0065db60
-// src: GUESS 0x0065db60 (confidence: low)
-void __thiscall FUN_0065db60_class::ForwardCall_0065db60(int aiArg1, int aiArg2)
+// src: GUESS 0x0065db60 (confidence: medium)
+void __thiscall FUN_0065db60_class::vector__Destroy(int aiArg1, int aiArg2)
 {
     Runtime_UpdateState_0065e2d0(aiArg1, aiArg2, (int)this + 8);
 }
 
 struct FUN_0065e020_class
 {
-    void __thiscall ComputeValue_0065e020();
+    void __thiscall vector_max_size();
 };
 
 struct FUN_0065db90_class
 {
-    void __thiscall ForwardCall_0065db90();
+    void __thiscall vector_max_size();
 };
 
 // @fnv 0x0065db90
-// src: GUESS 0x0065db90 (confidence: low)
-void __thiscall FUN_0065db90_class::ForwardCall_0065db90()
+// src: GUESS 0x0065db90 (confidence: medium)
+void __thiscall FUN_0065db90_class::vector_max_size()
 {
-    ((FUN_0065e020_class*)((char*)this + 8))->ComputeValue_0065e020();
+    ((FUN_0065e020_class*)((char*)this + 8))->vector_max_size();
 }
 
 extern "C" void __cdecl Array_AllocateElements12Checked(int, int);
 
 struct FUN_0065dbb0_class
 {
-    void __thiscall ForwardCall_0065dbb0(int arg);
+    void __thiscall allocator_allocate(int arg);
 };
 
 // @fnv 0x0065dbb0
-// src: GUESS 0x0065dbb0 (confidence: low)
-void __thiscall FUN_0065dbb0_class::ForwardCall_0065dbb0(int arg)
+// src: GUESS 0x0065dbb0 (confidence: medium)
+void __thiscall FUN_0065dbb0_class::allocator_allocate(int arg)
 {
     Array_AllocateElements12Checked(arg, 0);
 }
@@ -836,12 +836,12 @@ extern "C" void __cdecl Object_UpdateFields_0065e3a0(int, int);
 
 struct FUN_0065dc20_class
 {
-    void __thiscall ForwardCall_0065dc20(int a);
+    void __thiscall allocator_allocate(int a);
 };
 
 // @fnv 0x0065dc20
-// src: GUESS 0x0065dc20 (confidence: low)
-void __thiscall FUN_0065dc20_class::ForwardCall_0065dc20(int a)
+// src: GUESS 0x0065dc20 (confidence: medium)
+void __thiscall FUN_0065dc20_class::allocator_allocate(int a)
 {
     Object_UpdateFields_0065e3a0(a, 0);
 }
@@ -850,13 +850,13 @@ extern "C" void __cdecl Runtime_UpdateState_0065e3f0(int a, int b, int c);
 
 struct FUN_0065dc60Class
 {
-    void ForwardCall_0065dc60(int a, int b);
+    void vector__Destroy(int a, int b);
 };
 
 // Calls FUN_0065e3f0 with the two arguments and a pointer to this object's offset 8.
 // @fnv 0x0065dc60
-// src: GUESS 0x0065dc60 (confidence: low)
-void FUN_0065dc60Class::ForwardCall_0065dc60(int aiArg1, int aiArg2)
+// src: GUESS 0x0065dc60 (confidence: medium)
+void FUN_0065dc60Class::vector__Destroy(int aiArg1, int aiArg2)
 {
     Runtime_UpdateState_0065e3f0(aiArg1, aiArg2, (int)this + 8);
 }
@@ -865,26 +865,26 @@ extern "C" void __cdecl Runtime_UpdateState_0065e430(int, int);
 
 struct FUN_0065dd50_Class
 {
-    void __thiscall ForwardCall_0065dd50(int a);
+    void __thiscall allocator_allocate(int a);
 };
 
 // @fnv 0x0065dd50
-// src: GUESS 0x0065dd50 (confidence: low)
-void __thiscall FUN_0065dd50_Class::ForwardCall_0065dd50(int a)
+// src: GUESS 0x0065dd50 (confidence: medium)
+void __thiscall FUN_0065dd50_Class::allocator_allocate(int a)
 {
     Runtime_UpdateState_0065e430(a, 0);
 }
 
 struct FUN_0065dd70_Class
 {
-    void __thiscall Helper_0065dd70();
+    void __thiscall vector_max_size();
 };
 
 extern "C" void __cdecl UpdateState_0065e0b0(void*);
 
 // @fnv 0x0065dd70
-// src: GUESS 0x0065dd70 (confidence: low)
-void __thiscall FUN_0065dd70_Class::Helper_0065dd70()
+// src: GUESS 0x0065dd70 (confidence: medium)
+void __thiscall FUN_0065dd70_Class::vector_max_size()
 {
     ((void(__thiscall*)(void*))UpdateState_0065e0b0)((char*)this + 8);
 }
@@ -893,19 +893,19 @@ extern "C" void __cdecl Object_AllocateElementStorage(int, int);
 
 struct FUN_0065ddc0_class
 {
-    void __thiscall ForwardCall_0065ddc0(int a);
+    void __thiscall allocator_allocate(int a);
 };
 
 // @fnv 0x0065ddc0
-// src: GUESS 0x0065ddc0 (confidence: low)
-void __thiscall FUN_0065ddc0_class::ForwardCall_0065ddc0(int a)
+// src: GUESS 0x0065ddc0 (confidence: medium)
+void __thiscall FUN_0065ddc0_class::allocator_allocate(int a)
 {
     Object_AllocateElementStorage(a, 0);
 }
 
 struct FUN_0065dde0_Class
 {
-    void ComputeValue_0065e0e0();
+    void vector_max_size();
     void ForwardCall_0065dde0();
 };
 
@@ -913,20 +913,20 @@ struct FUN_0065dde0_Class
 // src: GUESS 0x0065dde0 (confidence: low)
 void FUN_0065dde0_Class::ForwardCall_0065dde0()
 {
-    ((FUN_0065dde0_Class*)((char*)this + 8))->ComputeValue_0065e0e0();
+    ((FUN_0065dde0_Class*)((char*)this + 8))->vector_max_size();
 }
 
 extern "C" void __cdecl Range_ProcessWithMoveCategory_0065e510(int, int, int);
 
 struct FUN_0065de00_Class
 {
-    void ForwardCall_0065de00(int a, int b);
+    void vector__Destroy(int a, int b);
 };
 
 // Calls FUN_0065e510 with the two arguments and a pointer to this object's offset 8.
 // @fnv 0x0065de00
-// src: GUESS 0x0065de00 (confidence: low)
-void FUN_0065de00_Class::ForwardCall_0065de00(int aiArg1, int aiArg2)
+// src: GUESS 0x0065de00 (confidence: medium)
+void FUN_0065de00_Class::vector__Destroy(int aiArg1, int aiArg2)
 {
     Range_ProcessWithMoveCategory_0065e510(aiArg1, aiArg2, (int)this + 8);
 }
@@ -935,13 +935,13 @@ extern "C" void __cdecl Object_DispatchIteratorRange_0065e5a0(int, int, int);
 
 struct FUN_0065de80_Class
 {
-    void ForwardCall_0065de80(int a, int b);
+    void vector__Destroy(int a, int b);
 };
 
 // Calls FUN_0065e5a0 with the two arguments and a pointer to this object's offset 8.
 // @fnv 0x0065de80
-// src: GUESS 0x0065de80 (confidence: low)
-void FUN_0065de80_Class::ForwardCall_0065de80(int aiArg1, int aiArg2)
+// src: GUESS 0x0065de80 (confidence: medium)
+void FUN_0065de80_Class::vector__Destroy(int aiArg1, int aiArg2)
 {
     Object_DispatchIteratorRange_0065e5a0(aiArg1, aiArg2, (int)this + 8);
 }
@@ -950,12 +950,12 @@ extern "C" void __cdecl Object_ProcessAndReturnValue_0065e5e0(int, int);
 
 struct FUN_0065deb0_Class
 {
-    void __thiscall ForwardCall_0065deb0(int arg);
+    void __thiscall allocator_allocate(int arg);
 };
 
 // @fnv 0x0065deb0
-// src: GUESS 0x0065deb0 (confidence: low)
-void __thiscall FUN_0065deb0_Class::ForwardCall_0065deb0(int arg)
+// src: GUESS 0x0065deb0 (confidence: medium)
+void __thiscall FUN_0065deb0_Class::allocator_allocate(int arg)
 {
     Object_ProcessAndReturnValue_0065e5e0(arg, 0);
 }
@@ -964,12 +964,12 @@ extern "C" void __cdecl Runtime_ForwardCall_0065e630(void*, void*, void*);
 
 struct FUN_0065df10_class
 {
-    void __thiscall ForwardCall_0065df10(void* b, void* c);
+    void __thiscall vector__Destroy(void* b, void* c);
 };
 
 // @fnv 0x0065df10
-// src: GUESS 0x0065df10 (confidence: low)
-void __thiscall FUN_0065df10_class::ForwardCall_0065df10(void* apFirst, void* apSecond)
+// src: GUESS 0x0065df10 (confidence: medium)
+void __thiscall FUN_0065df10_class::vector__Destroy(void* apFirst, void* apSecond)
 {
     Runtime_ForwardCall_0065e630(apFirst, apSecond, (char*)this + 8);
 }
@@ -978,19 +978,19 @@ void __cdecl Runtime_UpdateState_0065e670(int a, int b);
 
 struct FUN_0065df40_class
 {
-    void __thiscall ForwardCall_0065df40(int a);
+    void __thiscall allocator_allocate(int a);
 };
 
 // @fnv 0x0065df40
-// src: GUESS 0x0065df40 (confidence: low)
-void __thiscall FUN_0065df40_class::ForwardCall_0065df40(int a)
+// src: GUESS 0x0065df40 (confidence: medium)
+void __thiscall FUN_0065df40_class::allocator_allocate(int a)
 {
     Runtime_UpdateState_0065e670(a, 0);
 }
 
 struct FUN_0065df60_class
 {
-    void UpdateState_0065e170();
+    void vector_max_size();
     void ForwardCall_0065df60();
 };
 
@@ -998,20 +998,20 @@ struct FUN_0065df60_class
 // src: GUESS 0x0065df60 (confidence: low)
 void FUN_0065df60_class::ForwardCall_0065df60()
 {
-    ((FUN_0065df60_class*)((char*)this + 8))->UpdateState_0065e170();
+    ((FUN_0065df60_class*)((char*)this + 8))->vector_max_size();
 }
 
 extern "C" void __cdecl CallWithByteResult(int, int, int);
 
 struct FUN_0065df80_class
 {
-    void __thiscall CallWithByteResult_Thunk(int a, int b);
+    void __thiscall vector__Destroy(int a, int b);
 };
 
 // Calls CallWithByteResult with the two arguments and a pointer to this object's offset 8.
 // @fnv 0x0065df80
 // src: GUESS 0x0065df80 (confidence: medium)
-void __thiscall FUN_0065df80_class::CallWithByteResult_Thunk(int aiArg1, int aiArg2)
+void __thiscall FUN_0065df80_class::vector__Destroy(int aiArg1, int aiArg2)
 {
     CallWithByteResult(aiArg1, aiArg2, (int)this + 8);
 }
@@ -1219,12 +1219,12 @@ extern "C" void __cdecl Object_DispatchIteratorRange_0065f9a0(int, int, int);
 
 struct FUN_0065f400_class
 {
-    void __thiscall ForwardCall_0065f400(int a, int b);
+    void __thiscall vector__Destroy(int a, int b);
 };
 
 // @fnv 0x0065f400
-// src: GUESS 0x0065f400 (confidence: low)
-void __thiscall FUN_0065f400_class::ForwardCall_0065f400(int aiArg1, int aiArg2)
+// src: GUESS 0x0065f400 (confidence: medium)
+void __thiscall FUN_0065f400_class::vector__Destroy(int aiArg1, int aiArg2)
 {
     Object_DispatchIteratorRange_0065f9a0(aiArg1, aiArg2, (int)this + 8);
 }
@@ -1568,12 +1568,12 @@ unsigned int __thiscall FUN_0064e2d0_Holder::UpdateState_0064e2d0() const
 
 struct FUN_0064e300_Class
 {
-    int __thiscall GetPointerSpanCount_0064e300();
+    int __thiscall vector_capacity();
 };
 // Returns 0 when the pointer at offset 0xc is null, otherwise the difference between the values at offsets 0x14 and 0xc shifted right by 4.
 // @fnv 0x0064e300
-// src: GUESS 0x0064e300 (confidence: low)
-int __thiscall FUN_0064e300_Class::GetPointerSpanCount_0064e300()
+// src: GUESS 0x0064e300 (confidence: medium)
+int __thiscall FUN_0064e300_Class::vector_capacity()
 {
     return !*(int*)((char*)this + 0xc) ? 0 : (*(int*)((char*)this + 0x14) - *(int*)((char*)this + 0xc)) >> 4;
 }
@@ -1691,12 +1691,12 @@ struct Holder00aad6b0
     void __thiscall ProcessEntries_00aad6b0();
 };
 // @fnv 0x00652fc0
-// src: GUESS 0x00652fc0 (confidence: low)
-void __cdecl Object_ProcessState_00652fc0(float a1, int a2, int a3)
+// src: COMMUNITY 0x00652fc0
+void __cdecl BSFaceGenManager_RandomizeFaceGenetic(float a1, int a2, int a3)
 {
     if (a3 != 0 && a2 != 0)
     {
-        ((Holder00aad6b0*)((char*)BSFaceGenManager::GetFaceGenManager(a1, a2, a3) + 0x118))->ProcessEntries_00aad6b0();
+        ((Holder00aad6b0*)((char*)BSFaceGenManager::GetInstance(a1, a2, a3) + 0x118))->ProcessEntries_00aad6b0();
     }
 }
 
@@ -1755,11 +1755,12 @@ struct FUN_00658bb0_Class
 };
 struct FUN_00658d00_Class
 {
-    void* __thiscall FUN_00658d00(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_00658bb0 on this, deletes this when flags has bit 0 set, and returns this.
 // @fnv 0x00658d00
-void* __thiscall FUN_00658d00_Class::FUN_00658d00(unsigned int flags)
+// src: EXE 0x00658d00
+void* __thiscall FUN_00658d00_Class::ScalarDeletingDestructor(unsigned int flags)
 {
     reinterpret_cast<FUN_00658bb0_Class*>(this)->FUN_00658bb0();
     if (flags & 1)
@@ -1960,15 +1961,16 @@ struct FaceGenMatrixStorage
 {
     ~FaceGenMatrixStorage();
 };
-struct FUN_006593e0_Class
+struct FanLinCtlS
 {
     FaceGenMatrixStorage m_iWordAt00;
     char m_20[28];
     NarrowString m_40;
-    ~FUN_006593e0_Class();
+    ~FanLinCtlS();
 };
 // @fnv 0x006593e0
-FUN_006593e0_Class::~FUN_006593e0_Class()
+// src: GUESS 0x006593e0 (confidence: high)
+FanLinCtlS::~FanLinCtlS()
 {}
 
 namespace fnv_00659440 {
@@ -2022,12 +2024,12 @@ struct FUN_0065cc70_Holder
     int m_iWordAt04;
     int m_8;
     int m_C;
-    int __thiscall GetElementChecked_0065cc70(unsigned int param);
+    int __thiscall vector_at(unsigned int param);
 };
 // Bounds-checks param against the holder's count, then returns the int stored at offset 0xc plus param.
 // @fnv 0x0065cc70
 // src: GUESS 0x0065cc70 (confidence: medium)
-int __thiscall FUN_0065cc70_Holder::GetElementChecked_0065cc70(unsigned int uiIndex)
+int __thiscall FUN_0065cc70_Holder::vector_at(unsigned int uiIndex)
 {
     if (uiIndex >= ((FUN_0065cc50_Class*)this)->GetFieldAtOffset10())
         FUN_00ec7c56();
@@ -2039,7 +2041,7 @@ int __thiscall FUN_0065cc70_Holder::GetElementChecked_0065cc70(unsigned int uiIn
 
 struct TextureBasis
 {
-    unsigned int GetPointerSpanCount_0065cea0();
+    unsigned int vector_size();
 };
 unsigned int __cdecl FUN_00ec7c56();
 struct Holder : TextureBasis
@@ -2050,7 +2052,7 @@ struct Holder : TextureBasis
 // src: GUESS 0x0065cec0 (confidence: low)
 int Holder::ProcessEntries_0065cec0(unsigned int auiIndex)
 {
-    if (auiIndex >= TextureBasis::GetPointerSpanCount_0065cea0())
+    if (auiIndex >= TextureBasis::vector_size())
         FUN_00ec7c56();
     do
     {
@@ -2121,7 +2123,7 @@ void __thiscall FUN_0065d330Class::ClearAndFreeArray()
 {
     if (m_iThirdValue)
     {
-        ((FUN_0065dc60Class*)this)->ForwardCall_0065dc60(m_iThirdValue, m_10);
+        ((FUN_0065dc60Class*)this)->vector__Destroy(m_iThirdValue, m_10);
         ((FUN_0064df10_helper*)((char*)this + 8))->deallocate((void*)m_iThirdValue, (unsigned int)((m_14 - m_iThirdValue) >> 5));
     }
     m_iThirdValue = 0;
@@ -2136,12 +2138,12 @@ struct FUN_0065dd90_Class
     int m_iWordAt00;
     int m_iWordAt04;
     int m_8;
-    void __thiscall ForwardCall_0065dd90(int a1, int a2);
+    void __thiscall vector__Destroy(int a1, int a2);
 };
 // Forwards the two arguments and the address of m_8 to FUN_0065e480.
 // @fnv 0x0065dd90
-// src: GUESS 0x0065dd90 (confidence: low)
-void __thiscall FUN_0065dd90_Class::ForwardCall_0065dd90(int aiArg1, int aiArg2)
+// src: GUESS 0x0065dd90 (confidence: medium)
+void __thiscall FUN_0065dd90_Class::vector__Destroy(int aiArg1, int aiArg2)
 {
     Object_DispatchIteratorRange_0065e480(aiArg1, aiArg2, &m_8);
 }
@@ -2165,11 +2167,11 @@ _Out_0044a170* __thiscall FUN_0065ded0_Class::std_vector_float_std_allocator_flo
 
 struct FUN_0065e020_Cls
 {
-    int __thiscall ComputeValue_0065e020();
+    int __thiscall vector_max_size();
 };
 // @fnv 0x0065e020
-// src: GUESS 0x0065e020 (confidence: low)
-int __thiscall FUN_0065e020_Cls::ComputeValue_0065e020()
+// src: GUESS 0x0065e020 (confidence: medium)
+int __thiscall FUN_0065e020_Cls::vector_max_size()
 {
     unsigned int val = 0x15555555;
     return val > 0 ? val : 1;
@@ -2177,11 +2179,11 @@ int __thiscall FUN_0065e020_Cls::ComputeValue_0065e020()
 
 struct FUN_0065e050_Holder
 {
-    int __thiscall UpdateState_0065e050();
+    int __thiscall vector_max_size();
 };
 // @fnv 0x0065e050
-// src: GUESS 0x0065e050 (confidence: low)
-int __thiscall FUN_0065e050_Holder::UpdateState_0065e050()
+// src: GUESS 0x0065e050 (confidence: medium)
+int __thiscall FUN_0065e050_Holder::vector_max_size()
 {
     unsigned int x = 0x1fffffff;
     return x > 0 ? x : 1;
@@ -2189,11 +2191,11 @@ int __thiscall FUN_0065e050_Holder::UpdateState_0065e050()
 
 struct FUN_0065e080_S
 {
-    int __thiscall ComputeValue_0065e080();
+    int __thiscall vector_max_size();
 };
 // @fnv 0x0065e080
-// src: GUESS 0x0065e080 (confidence: low)
-int __thiscall FUN_0065e080_S::ComputeValue_0065e080()
+// src: GUESS 0x0065e080 (confidence: medium)
+int __thiscall FUN_0065e080_S::vector_max_size()
 {
     unsigned int x = 0x7FFFFFF;
     return x > 0 ? x : 1;
@@ -2236,11 +2238,11 @@ unsigned int S_0065e140::ComputeValue_0065e140()
 
 struct FUN_0065e170_Cls
 {
-    unsigned __thiscall UpdateState_0065e170();
+    unsigned __thiscall vector_max_size();
 };
 // @fnv 0x0065e170
-// src: GUESS 0x0065e170 (confidence: low)
-unsigned __thiscall FUN_0065e170_Cls::UpdateState_0065e170()
+// src: GUESS 0x0065e170 (confidence: medium)
+unsigned __thiscall FUN_0065e170_Cls::vector_max_size()
 {
     unsigned int value = 0x2e8ba2e;
     return value > 0 ? value : 1;
@@ -2639,12 +2641,12 @@ struct FUN_0065f4b0_Class
     int m_C;
     int m_10;
     int m_14;
-    int GetPointerRangeLengthOrZero();
+    int vector_capacity();
 };
 // Returns 0 when m_C is zero, otherwise returns m_14 minus m_C.
 // @fnv 0x0065f4b0
 // src: GUESS 0x0065f4b0 (confidence: medium)
-int FUN_0065f4b0_Class::GetPointerRangeLengthOrZero()
+int FUN_0065f4b0_Class::vector_capacity()
 {
     return m_C == 0 ? 0 : m_14 - m_C;
 }
@@ -2797,7 +2799,7 @@ struct PropHelper
 void* DynamicCastByRTTI(const NiRTTI*, NiProperty*);
 extern int DAT_011f49e0;
 extern const char* const DAT_012005b8;
-struct FUN_00642940_class
+struct Sun
 {
     int a;
     int b;
@@ -2819,7 +2821,7 @@ struct FUN_00642940_class
 };
 // @fnv 0x00642940
 // src: COMMUNITY 0x00642940
-void FUN_00642940_class::Sun_RemoveTextures()
+void Sun::Sun_RemoveTextures()
 {
     void* pProperty;
     SkyShaderProperty* obj;
@@ -2880,15 +2882,15 @@ struct FUN_00657e60_Class
     int m_iThirdValue;
     int m_10;
     int m_14;
-    void __thiscall ReleaseStorage_00657e60();
+    void __thiscall vector__Tidy();
 };
 // @fnv 0x00657e60
 // src: GUESS 0x00657e60 (confidence: medium)
-void __thiscall FUN_00657e60_Class::ReleaseStorage_00657e60()
+void __thiscall FUN_00657e60_Class::vector__Tidy()
 {
     if (m_iThirdValue)
     {
-        ((FUN_00658060_Class*)this)->ForwardCall_00658060(m_iThirdValue, m_10);
+        ((FUN_00658060_Class*)this)->vector__Destroy(m_iThirdValue, m_10);
         ((FUN_0064df10_helper*)((char*)this + 8))->deallocate((void*)m_iThirdValue, (unsigned int)((m_14 - m_iThirdValue) / 0x88));
     }
     m_iThirdValue = 0;
@@ -2922,15 +2924,15 @@ struct FUN_0065d460_Class
     void* m_iThirdValue;
     void* m_10;
     void* m_14;
-    void __thiscall ReleaseStorage_0065d460();
+    void __thiscall vector__Tidy();
 };
 // @fnv 0x0065d460
 // src: GUESS 0x0065d460 (confidence: medium)
-void __thiscall FUN_0065d460_Class::ReleaseStorage_0065d460()
+void __thiscall FUN_0065d460_Class::vector__Tidy()
 {
     if (m_iThirdValue)
     {
-        ((FUN_0065dd90_Class*)this)->ForwardCall_0065dd90((int)m_iThirdValue, (int)m_10);
+        ((FUN_0065dd90_Class*)this)->vector__Destroy((int)m_iThirdValue, (int)m_10);
         ((FUN_0064df10_helper*)((char*)this + 8))->deallocate(m_iThirdValue, (unsigned int)(((int)m_14 - (int)m_iThirdValue) / 44));
     }
     m_iThirdValue = 0;
@@ -2946,15 +2948,15 @@ struct FUN_0065d660_Class
     int m_iThirdValue;
     int m_10;
     int m_14;
-    void __thiscall ReleaseStorage_0065d660();
+    void __thiscall vector__Tidy();
 };
 // @fnv 0x0065d660
 // src: GUESS 0x0065d660 (confidence: medium)
-void __thiscall FUN_0065d660_Class::ReleaseStorage_0065d660()
+void __thiscall FUN_0065d660_Class::vector__Tidy()
 {
     if (m_iThirdValue)
     {
-        ((FUN_0065de80_Class*)this)->ForwardCall_0065de80(m_iThirdValue, m_10);
+        ((FUN_0065de80_Class*)this)->vector__Destroy(m_iThirdValue, m_10);
         ((FUN_0064df10_helper*)((char*)this + 8))->deallocate((void*)m_iThirdValue, (unsigned int)((m_14 - m_iThirdValue) / 0x38));
     }
     m_iThirdValue = 0;
@@ -2970,15 +2972,15 @@ struct FUN_0065d860_class
     void* m_iThirdValue;
     void* m_10;
     void* m_14;
-    void __thiscall ReleaseStorage_0065d860();
+    void __thiscall vector__Tidy();
 };
 // @fnv 0x0065d860
 // src: GUESS 0x0065d860 (confidence: medium)
-void __thiscall FUN_0065d860_class::ReleaseStorage_0065d860()
+void __thiscall FUN_0065d860_class::vector__Tidy()
 {
     if (m_iThirdValue)
     {
-        ((FUN_0065df10_class*)this)->ForwardCall_0065df10(m_iThirdValue, m_10);
+        ((FUN_0065df10_class*)this)->vector__Destroy(m_iThirdValue, m_10);
         ((FUN_0064df10_helper*)((char*)this + 8))->deallocate(m_iThirdValue, (int)((int)m_14 - (int)m_iThirdValue) / 0x1c);
     }
     m_iThirdValue = 0;
@@ -3022,7 +3024,7 @@ Vec_65eed0* Vec_65eed0::AssignVectorContents(Vec_65eed0* _Right)
         else if ((unsigned int)Object_GetPointerSpanCount_00657bc0((EGMDeltaList*)_Right) <= (unsigned int)Object_GetPointerSpanCount_00657bc0((EGMDeltaList*)this))
         {
             Elem_65eed0* _Ptr = Object_DispatchIteratorRange_0065f820(_Right->_Myfirst, _Right->_Mylast, _Myfirst);
-            ((FUN_0065f400_class*)this)->ForwardCall_0065f400((int)_Ptr, (int)_Mylast);
+            ((FUN_0065f400_class*)this)->vector__Destroy((int)_Ptr, (int)_Mylast);
             _Mylast = _Myfirst + Object_GetPointerSpanCount_00657bc0((EGMDeltaList*)_Right);
         }
         else if ((unsigned int)Object_GetPointerSpanCount_00657bc0((EGMDeltaList*)_Right) <= (unsigned int)((S_0065f2e0*)this)->GetPointerSpanCount_0065f2e0())
@@ -3035,7 +3037,7 @@ Vec_65eed0* Vec_65eed0::AssignVectorContents(Vec_65eed0* _Right)
         {
             if (_Myfirst != 0)
             {
-                ((FUN_0065f400_class*)this)->ForwardCall_0065f400((int)_Myfirst, (int)_Mylast);
+                ((FUN_0065f400_class*)this)->vector__Destroy((int)_Myfirst, (int)_Mylast);
                 _Alval.deallocate(_Myfirst, _Myend - _Myfirst);
             }
             if (ProcessAndReturnValue_0065f380(Object_GetPointerSpanCount_00657bc0((EGMDeltaList*)_Right)))
@@ -3053,15 +3055,15 @@ struct FUN_0065f430_class
     void* m_iThirdValue;
     int m_10;
     int m_14;
-    void UpdateState_0065f430();
+    void vector__Tidy();
 };
 // @fnv 0x0065f430
 // src: GUESS 0x0065f430 (confidence: low)
-void FUN_0065f430_class::UpdateState_0065f430()
+void FUN_0065f430_class::vector__Tidy()
 {
     if (m_iThirdValue)
     {
-        ((FUN_0065f400_class*)this)->ForwardCall_0065f400((int)m_iThirdValue, m_10);
+        ((FUN_0065f400_class*)this)->vector__Destroy((int)m_iThirdValue, m_10);
         ((FUN_0064df10_helper*)((char*)this + 8))->deallocate(m_iThirdValue, (unsigned int)((m_14 - (int)m_iThirdValue) / 6));
     }
     m_iThirdValue = 0;
@@ -3126,7 +3128,7 @@ void FUN_0065d050::Clear_0065d050()
 {
     if (m_iThirdValue)
     {
-        ((FUN_0065db60_class*)this)->ForwardCall_0065db60(m_iThirdValue, m_10);
+        ((FUN_0065db60_class*)this)->vector__Destroy(m_iThirdValue, m_10);
         ((FUN_0064df10_helper*)((char*)this + 8))->deallocate((void*)m_iThirdValue, (m_14 - m_iThirdValue) / 0xc);
     }
     m_iThirdValue = 0;
@@ -3333,7 +3335,7 @@ void FUN_0065d560_Class::ClearAndFreeBuffer()
 {
     if (*(int*)((char*)this + 0xc) != 0)
     {
-        ((FUN_0065de00_Class*)this)->ForwardCall_0065de00(*(int*)((char*)this + 0xc), *(int*)((char*)this + 0x10));
+        ((FUN_0065de00_Class*)this)->vector__Destroy(*(int*)((char*)this + 0xc), *(int*)((char*)this + 0x10));
         ((FUN_0064df10_helper*)((char*)this + 8))
             ->deallocate(*(void**)((char*)this + 0xc),
                          (*(int*)((char*)this + 0x14) - *(int*)((char*)this + 0xc)) / 0x34);
@@ -3345,15 +3347,15 @@ void FUN_0065d560_Class::ClearAndFreeBuffer()
 
 struct FUN_0065da00_class
 {
-    void ReleaseStorage_0065da00();
+    void vector__Tidy();
 };
 // @fnv 0x0065da00
 // src: GUESS 0x0065da00 (confidence: medium)
-void FUN_0065da00_class::ReleaseStorage_0065da00()
+void FUN_0065da00_class::vector__Tidy()
 {
     if (*(int*)((char*)this + 0xc) != 0)
     {
-        ((FUN_0065df80_class*)this)->CallWithByteResult_Thunk(*(int*)((char*)this + 0xc), *(int*)((char*)this + 0x10));
+        ((FUN_0065df80_class*)this)->vector__Destroy(*(int*)((char*)this + 0xc), *(int*)((char*)this + 0x10));
         ((FUN_0064df10_helper*)((char*)this + 8))
             ->deallocate(*(void**)((char*)this + 0xc),
                          (*(int*)((char*)this + 0x14) - *(int*)((char*)this + 0xc)) / 0x58);
@@ -3367,13 +3369,13 @@ struct FUN_0065dbd0_Class
 {
     int a0;
     int a4;
-    int ForwardCall_0065dbd0();
+    int vector_max_size();
 };
 // @fnv 0x0065dbd0
-// src: GUESS 0x0065dbd0 (confidence: low)
-int FUN_0065dbd0_Class::ForwardCall_0065dbd0()
+// src: GUESS 0x0065dbd0 (confidence: medium)
+int FUN_0065dbd0_Class::vector_max_size()
 {
-    return ((FUN_0065e050_Holder*)((char*)this + 8))->UpdateState_0065e050();
+    return ((FUN_0065e050_Holder*)((char*)this + 8))->vector_max_size();
 }
 
 struct FUN_0065dc40_Class
@@ -3383,19 +3385,19 @@ struct FUN_0065dc40_Class
 // @fnv 0x0065dc40
 int FUN_0065dc40_Class::CallNestedMethod()
 {
-    return ((FUN_0065e080_S*)((char*)this + 8))->ComputeValue_0065e080();
+    return ((FUN_0065e080_S*)((char*)this + 8))->vector_max_size();
 }
 
 struct FUN_0065de60_Class
 {
     int m_iWordAt00;
     int m_iWordAt04;
-    int GetPositiveValue_Thunk();
+    int vector_max_size();
 };
 
 // @fnv 0x0065de60
 // src: GUESS 0x0065de60 (confidence: medium)
-int FUN_0065de60_Class::GetPositiveValue_Thunk()
+int FUN_0065de60_Class::vector_max_size()
 {
     return ((FUN_0065e110_Holder*)((char*)this + 8))->GetPositiveValue();
 }
@@ -3404,11 +3406,11 @@ struct FUN_0065def0_class
 {
     int m_iWordAt00;
     int m_iWordAt04;
-    unsigned int ForwardCall_0065def0();
+    unsigned int vector_max_size();
 };
 // @fnv 0x0065def0
-// src: GUESS 0x0065def0 (confidence: low)
-unsigned int FUN_0065def0_class::ForwardCall_0065def0()
+// src: GUESS 0x0065def0 (confidence: medium)
+unsigned int FUN_0065def0_class::vector_max_size()
 {
     return ((S_0065e140*)((char*)this + 8))->ComputeValue_0065e140();
 }
@@ -3874,7 +3876,7 @@ struct FUN_0064bda0_Class
     virtual void vf2c();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3c();
     virtual void vf40();
     virtual void vf44();
@@ -3883,7 +3885,7 @@ struct FUN_0064bda0_Class
     virtual void vf50();
     virtual void vf54();
     virtual void vf58();
-    virtual void vf5c();
+    virtual void applyForce();
     virtual void vf60();
     virtual void vf64();
     virtual void vf68();
@@ -3931,7 +3933,7 @@ inline void FUN_0064bda0_Class::vf30()
 {}
 inline void FUN_0064bda0_Class::vf34()
 {}
-inline void FUN_0064bda0_Class::vf38()
+inline void FUN_0064bda0_Class::PrintInfo()
 {}
 inline void FUN_0064bda0_Class::vf3c()
 {}
@@ -3949,7 +3951,7 @@ inline void FUN_0064bda0_Class::vf54()
 {}
 inline void FUN_0064bda0_Class::vf58()
 {}
-inline void FUN_0064bda0_Class::vf5c()
+inline void FUN_0064bda0_Class::applyForce()
 {}
 inline void FUN_0064bda0_Class::vf60()
 {}
@@ -4019,7 +4021,7 @@ struct FUN_0064be40_shell
     bool BSFaceGenAnimationData_UpdateEyeTracking(float elapsed, int unused);
     int BSFaceGenAnimationData_GetCurrentExpression();
     void FUN_0064bf90(int deltaY, float* deltaX, float* limit, float elapsed);
-    void SetEyeHeadingAndPitch(float x, float y);
+    void BSFaceGenAnimationData_SetEyePosition(float x, float y);
 };
 struct FUN_00403e20_setting
 {
@@ -4049,7 +4051,7 @@ bool FUN_0064be40_shell::BSFaceGenAnimationData_UpdateEyeTracking(float elapsed,
         BSClamp_float(&stage, -desiredY, desiredY);
         *(float*)((char*)this + 0x140) += desiredX;
         *(float*)((char*)this + 0x144) += stage;
-        SetEyeHeadingAndPitch(*(float*)((char*)this + 0x140), *(float*)((char*)this + 0x144));
+        BSFaceGenAnimationData_SetEyePosition(*(float*)((char*)this + 0x140), *(float*)((char*)this + 0x144));
     }
     ((FUN_0040fbf0_lock*)((char*)this + 0x1a0))->BSSpinLock_Unlock();
     return updateNeeded;
@@ -4122,18 +4124,19 @@ struct S_0064ccf0_Member
     S_0064ccf0_Member();
     ~S_0064ccf0_Member();
 };
-struct FUN_0064ccf0 : S_0064ccf0_Base
+struct BSFaceGenImage : S_0064ccf0_Base
 {
     S_0064ccf0_Ptr unk08;
     S_0064ccf0_Member unk0c;
     int unk24;
     int unk28;
-    FUN_0064ccf0(S_0064ccf0_Obj* a);
-    virtual ~FUN_0064ccf0();
+    BSFaceGenImage(S_0064ccf0_Obj* a);
+    virtual ~BSFaceGenImage();
 };
 // Stores the given object pointer and, if non-null, caches its vfn_94 and vfn_98 results in unk24 and unk28; otherwise zeroes both.
 // @fnv 0x0064ccf0
-FUN_0064ccf0::FUN_0064ccf0(S_0064ccf0_Obj* pObj) : unk08(0)
+// src: EXE 0x0064ccf0
+BSFaceGenImage::BSFaceGenImage(S_0064ccf0_Obj* pObj) : unk08(0)
 {
     unk08 = pObj;
     if (unk08)
@@ -4510,7 +4513,7 @@ struct FUN_0064fcd0_Other
     float __thiscall BSFaceGenKeyframeMultiple_GetQuantity(unsigned int index);
 };
 
-struct FUN_0064fcd0_Self
+struct BSFaceGenKeyframeMultiple
 {
     virtual int v00();
     virtual int v01();
@@ -4538,12 +4541,12 @@ struct FUN_0064fcd0_Self
     int unk0c;
     unsigned int m_uiItemCount;
     void __thiscall SetQuantity_0064a4d0(unsigned int index, float value);
-    FUN_0064fcd0_Self* __thiscall CopyFrom(FUN_0064fcd0_Other* other);
+    BSFaceGenKeyframeMultiple* __thiscall CopyFrom(FUN_0064fcd0_Other* other);
 };
 
 // If the other object's v01 matches, copies its v03, its FUN_0044edb0(1) result and each FUN_005dd4e0 value into this object, then returns this.
 // @fnv 0x0064fcd0
-FUN_0064fcd0_Self* FUN_0064fcd0_Self::CopyFrom(FUN_0064fcd0_Other* other)
+BSFaceGenKeyframeMultiple* BSFaceGenKeyframeMultiple::CopyFrom(FUN_0064fcd0_Other* other)
 {
     if (this->v01() != other->v01())
     {
@@ -4651,7 +4654,7 @@ void S_006503b0_Owner::BSFaceGenModelMap_RemoveAllUnusedModels()
 
 struct ModelHelper
 {
-    void EnsureMorphData();
+    void BSFaceGenModel_LoadEGMData();
 };
 struct InnerPointer
 {
@@ -4706,7 +4709,7 @@ bool Target::BSFaceGenModelMap_LoadEGMData(FileNames* pFileNames)
     {
         a.Modelloader_GetReferencedThis()->time = gm_GetTickCount();
         BSFaceGenModelMap_VerifyData(a.Modelloader_GetReferencedThis());
-        a.Modelloader_GetReferencedThis()->model.Modelloader_GetReferencedThis()->EnsureMorphData();
+        a.Modelloader_GetReferencedThis()->model.Modelloader_GetReferencedThis()->BSFaceGenModel_LoadEGMData();
         dirty = true;
         p = true;
     }
@@ -4810,12 +4813,12 @@ struct FUN_00657d50_cls
     int m_0c;
     int m_10;
     int m_14;
-    void __thiscall UpdateState_00657d50();
+    void __thiscall vector__Tidy();
 };
 
 struct FUN_00657d50_callee_a
 {
-    void __thiscall ForwardCall_00657ff0(int a1, int a2);
+    void __thiscall vector__Destroy(int a1, int a2);
 };
 
 struct FUN_00657d50_callee_b
@@ -4824,12 +4827,12 @@ struct FUN_00657d50_callee_b
 };
 
 // @fnv 0x00657d50
-// src: GUESS 0x00657d50 (confidence: low)
-void FUN_00657d50_cls::UpdateState_00657d50()
+// src: GUESS 0x00657d50 (confidence: medium)
+void FUN_00657d50_cls::vector__Tidy()
 {
     if (m_0c != 0)
     {
-        reinterpret_cast<FUN_00657d50_callee_a*>(this)->ForwardCall_00657ff0(m_0c, m_10);
+        reinterpret_cast<FUN_00657d50_callee_a*>(this)->vector__Destroy(m_0c, m_10);
         reinterpret_cast<FUN_00657d50_callee_b*>(&m_08)->FUN_0064df10(m_0c, (m_14 - m_0c) / 60);
     }
     m_0c = 0;
@@ -4854,12 +4857,12 @@ struct FUN_00657dd0_cls
     char* m_10;
     char* m_14;
     unsigned int GetCount();
-    bool UpdateState_00657dd0(unsigned int index);
+    bool vector__Buy(unsigned int index);
 };
 
 // @fnv 0x00657dd0
-// src: GUESS 0x00657dd0 (confidence: low)
-bool FUN_00657dd0_cls::UpdateState_00657dd0(unsigned int index)
+// src: GUESS 0x00657dd0 (confidence: medium)
+bool FUN_00657dd0_cls::vector__Buy(unsigned int index)
 {
     m_0c = 0;
     m_10 = 0;
@@ -4901,12 +4904,12 @@ struct FUN_00657ee0_cls
 
     unsigned int __thiscall Count();
     static void __cdecl Grow();
-    bool __thiscall AllocateElementStorage(unsigned int a);
+    bool __thiscall vector__Buy(unsigned int a);
 };
 
 // @fnv 0x00657ee0
 // src: GUESS 0x00657ee0 (confidence: medium)
-bool FUN_00657ee0_cls::AllocateElementStorage(unsigned int a)
+bool FUN_00657ee0_cls::vector__Buy(unsigned int a)
 {
     m_0c = 0;
     m_10 = 0;
@@ -5130,15 +5133,16 @@ struct PacketScope
     ~PacketScope();
 };
 void __cdecl Object_ProcessEntries_00ab2640(PacketScope* scope, void* owner, PacketEntry* begin, PacketEntry* next);
-struct FUN_00659670
+struct EGTData
 {
     unsigned int mode;
     PacketEntry entries[2];
-    FUN_00659670(unsigned int selector);
+    EGTData(unsigned int selector);
 };
 // Constructs a PacketScope from selector and calls FUN_00ab2640 with it, this, and the two entries.
 // @fnv 0x00659670
-FUN_00659670::FUN_00659670(unsigned int selector)
+// src: GUESS 0x00659670 (confidence: high)
+EGTData::EGTData(unsigned int selector)
 {
     PacketScope scope(selector);
     Object_ProcessEntries_00ab2640(&scope, this, &entries[0], &entries[1]);
@@ -5275,13 +5279,13 @@ struct Mem_65ca30
 struct FUN_0065ca30
 {
     Mem_65ca30 m_mem;
-    void ReleaseStorage_0065d460();
+    void vector__Tidy();
     ~FUN_0065ca30();
 };
 // @fnv 0x0065ca30
 FUN_0065ca30::~FUN_0065ca30()
 {
-    ReleaseStorage_0065d460();
+    vector__Tidy();
 }
 
 struct FUN_006815c0
@@ -5298,13 +5302,13 @@ struct FUN_0065d3a0
 struct FUN_0065ca90 : FUN_0065d3a0
 {
     FUN_0065ca90();
-    void __thiscall AllocateElementStorage_0065d4e0(int value);
+    void __thiscall vector__Buy(int value);
 };
 // Constructs the base with a default value and initializes the object by calling FUN_0065d4e0 with 0.
 // @fnv 0x0065ca90
 FUN_0065ca90::FUN_0065ca90() : FUN_0065d3a0(FUN_006815c0())
 {
-    AllocateElementStorage_0065d4e0(0);
+    vector__Buy(0);
 }
 
 namespace fnv_0065cb00 {
@@ -5370,7 +5374,7 @@ struct FUN_0065cbd0 : FUN_0065cfb0
 // @fnv 0x0065cbd0
 FUN_0065cbd0::~FUN_0065cbd0()
 {
-    ((FUN_0065d660_Class*)this)->ReleaseStorage_0065d660();
+    ((FUN_0065d660_Class*)this)->vector__Tidy();
 }
 }  // namespace fnv_0065cbd0
 
@@ -5381,14 +5385,14 @@ struct FUN_0065cfb0_Base
 
 struct FUN_0065cd10 : FUN_0065cfb0_Base
 {
-    void ReleaseStorage_0065d860();
+    void vector__Tidy();
     ~FUN_0065cd10();
 };
 
 // @fnv 0x0065cd10
 FUN_0065cd10::~FUN_0065cd10()
 {
-    ReleaseStorage_0065d860();
+    vector__Tidy();
 }
 
 struct B65CD70ConstIterator
@@ -5595,7 +5599,7 @@ bool FUN_0065d0d0_cls::ReserveBuffers(unsigned int count)
 
 struct S_0065d1c0_Element
 {
-    int __thiscall ForwardCall_0065dc20(unsigned int a);
+    int __thiscall allocator_allocate(unsigned int a);
 };
 
 struct S_0065d1c0_Class
@@ -5607,7 +5611,7 @@ struct S_0065d1c0_Class
     int m_10;
     int m_14;
 
-    unsigned int __thiscall ForwardCall_0065dbd0();
+    unsigned int __thiscall vector_max_size();
     bool __thiscall AllocateElements(unsigned int a);
 };
 
@@ -5625,13 +5629,13 @@ bool __thiscall S_0065d1c0_Class::AllocateElements(unsigned int a)
     {
         return false;
     }
-    else if (ForwardCall_0065dbd0() < a)
+    else if (vector_max_size() < a)
     {
         ThrowVectorTooLong();
     }
     else
     {
-        m_iThirdValue = m_8.ForwardCall_0065dc20(a);
+        m_iThirdValue = m_8.allocator_allocate(a);
         m_10 = m_iThirdValue;
         m_14 = m_iThirdValue + a * 8;
     }
@@ -5656,13 +5660,13 @@ struct FUN_0065d2b0_cls
     int m_10;
     int m_14;
     unsigned int GetCount();
-    bool UpdateState_0065d2b0(int n);
+    bool vector__Buy(int n);
 };
 
 // Resets the three fields, then either calls ThrowVectorTooLong when the count is below n or allocates n and sets the range from the result.
 // @fnv 0x0065d2b0
-// src: GUESS 0x0065d2b0 (confidence: low)
-bool FUN_0065d2b0_cls::UpdateState_0065d2b0(int aiCount)
+// src: GUESS 0x0065d2b0 (confidence: medium)
+bool FUN_0065d2b0_cls::vector__Buy(int aiCount)
 {
     m_iThirdValue = 0;
     m_10 = 0;
@@ -5690,7 +5694,7 @@ bool FUN_0065d2b0_cls::UpdateState_0065d2b0(int aiCount)
 struct S_0065d3e0_Pool
 {
     int unk00;
-    char* ForwardCall_0065ddc0(unsigned n);
+    char* allocator_allocate(unsigned n);
 };
 void __cdecl ThrowVectorTooLong();
 struct S_0065d3e0_Class
@@ -5701,7 +5705,7 @@ struct S_0065d3e0_Class
     char* unk0c;
     char* unk10;
     char* unk14;
-    unsigned Helper_0065dd70();
+    unsigned vector_max_size();
     bool AllocateBuffer(unsigned n);
 };
 
@@ -5717,13 +5721,13 @@ bool S_0065d3e0_Class::AllocateBuffer(unsigned n)
     }
     else
     {
-        if (Helper_0065dd70() < n)
+        if (vector_max_size() < n)
         {
             ThrowVectorTooLong();
         }
         else
         {
-            unk0c = unk08.ForwardCall_0065ddc0(n);
+            unk0c = unk08.allocator_allocate(n);
             unk10 = unk0c;
             unk14 = unk0c + n * 0x2c;
         }
@@ -5749,14 +5753,14 @@ class FUN_0065d4e0_cls
     unsigned int m_14;
 
     unsigned int GetCount();
-    bool AllocateElementStorage_0065d4e0(unsigned int n);
+    bool vector__Buy(unsigned int n);
 };
 
 void FUN_0065d4e0_GrowFail();
 
 // @fnv 0x0065d4e0
 // src: GUESS 0x0065d4e0 (confidence: medium)
-bool FUN_0065d4e0_cls::AllocateElementStorage_0065d4e0(unsigned int n)
+bool FUN_0065d4e0_cls::vector__Buy(unsigned int n)
 {
     m_0c = 0;
     m_10 = 0;
@@ -5847,13 +5851,13 @@ class FUN_0065d740_cls
     unsigned int unk0C;
     unsigned int m_10;
     void std_vector_float_std_allocator_float_Make_iter(FNVPair8* out, unsigned int a, unsigned int b);
-    void ForwardCall_0065df10(unsigned int a, unsigned int b);
-    FNVPair8* ProcessAndReturnValue_0065d740(FNVPair8* out, unsigned int a, unsigned int b, unsigned int c, unsigned int d);
+    void vector__Destroy(unsigned int a, unsigned int b);
+    FNVPair8* vector_erase(FNVPair8* out, unsigned int a, unsigned int b, unsigned int c, unsigned int d);
 };
 
 // @fnv 0x0065d740
-// src: GUESS 0x0065d740 (confidence: low)
-FNVPair8* FUN_0065d740_cls::ProcessAndReturnValue_0065d740(FNVPair8* out, unsigned int a, unsigned int b, unsigned int c, unsigned int d)
+// src: GUESS 0x0065d740 (confidence: medium)
+FNVPair8* FUN_0065d740_cls::vector_erase(FNVPair8* out, unsigned int a, unsigned int b, unsigned int c, unsigned int d)
 {
     FNVPair8 local1;
     FNVPair8 local7;
@@ -5863,7 +5867,7 @@ FNVPair8* FUN_0065d740_cls::ProcessAndReturnValue_0065d740(FNVPair8* out, unsign
     if (local1.Compare(&local7))
     {
         unsigned int t = Runtime_UpdateState_0065e1f0(local7.hi, m_10, local1.hi);
-        ForwardCall_0065df10(t, m_10);
+        vector__Destroy(t, m_10);
         m_10 = t;
     }
     *out = local1;
@@ -6012,12 +6016,12 @@ FUN_0065dae0_cls* __thiscall FUN_0065dae0_cls::FaceGenData_Iterator_IncBy6()
 
 struct FUN_0065e0e0_cls
 {
-    unsigned int ComputeValue_0065e0e0();
+    unsigned int vector_max_size();
 };
 
 // @fnv 0x0065e0e0
-// src: GUESS 0x0065e0e0 (confidence: low)
-unsigned int FUN_0065e0e0_cls::ComputeValue_0065e0e0()
+// src: GUESS 0x0065e0e0 (confidence: medium)
+unsigned int FUN_0065e0e0_cls::vector_max_size()
 {
     unsigned int count = 0x4ec4ec4;
     return count > 0 ? count : 1;
@@ -6374,7 +6378,7 @@ struct Vec_65eed0_callees_b6530
 {
     Pair8_b6530* CallWithSelf(Pair8_b6530* out);
     Pair8_b6530* SetIteratorDataAndOwner(Pair8_b6530* out);
-    void ProcessAndReturnValue_0065f5a0(Pair8_b6530* out, Pair8_b6530 a, Pair8_b6530 b);
+    void vector_erase(Pair8_b6530* out, Pair8_b6530 a, Pair8_b6530 b);
 };
 
 // Reads two pairs via CallWithSelf and FUN_0044a170, then passes them to FUN_0065f5a0 to produce a result.
@@ -6390,7 +6394,7 @@ void Vec_65eed0::UpdateFields_0065f320()
 
     first = *((Vec_65eed0_callees_b6530*)this)->CallWithSelf(&firstTmp4);
     second3 = *((Vec_65eed0_callees_b6530*)this)->SetIteratorDataAndOwner(&secondTmp);
-    ((Vec_65eed0_callees_b6530*)this)->ProcessAndReturnValue_0065f5a0(&result, second3, first);
+    ((Vec_65eed0_callees_b6530*)this)->vector_erase(&result, second3, first);
 }
 
 namespace fnv_0065f4f0 {
@@ -6443,13 +6447,13 @@ class FUN_0065f5a0_cls
     int unk0c;
     int m_10;
     FNVPair8* std_vector_float_std_allocator_float_Make_iter(FNVPair8* out, int a, int b);
-    void ForwardCall_0065f400(int a, int b);
-    FNVPair8* ProcessAndReturnValue_0065f5a0(FNVPair8* out, int a, int b, int c, int d);
+    void vector__Destroy(int a, int b);
+    FNVPair8* vector_erase(FNVPair8* out, int a, int b, int c, int d);
 };
 
 // @fnv 0x0065f5a0
-// src: GUESS 0x0065f5a0 (confidence: low)
-FNVPair8* FUN_0065f5a0_cls::ProcessAndReturnValue_0065f5a0(FNVPair8* out, int a, int b, int c, int d)
+// src: GUESS 0x0065f5a0 (confidence: medium)
+FNVPair8* FUN_0065f5a0_cls::vector_erase(FNVPair8* out, int a, int b, int c, int d)
 {
     FNVPair8 A5;
     FNVPair8 B;
@@ -6459,7 +6463,7 @@ FNVPair8* FUN_0065f5a0_cls::ProcessAndReturnValue_0065f5a0(FNVPair8* out, int a,
     if (A5.IsNotIdentical(&B))
     {
         int t = (int)Object_DispatchIteratorRange_0065f820((Elem_65eed0*)B.hi, (Elem_65eed0*)m_10, (Elem_65eed0*)A5.hi);
-        ForwardCall_0065f400(t, m_10);
+        vector__Destroy(t, m_10);
         m_10 = t;
     }
     *out = A5;
@@ -6780,7 +6784,7 @@ struct CloneVector
 {
     float x, y, z;
 };
-struct FUN_00649680 : NiMemObject
+struct BSFaceGenAnimationData : NiMemObject
 {
     int value00, value04, value08;
     FUN_0064ec10_obj* extra;
@@ -6837,14 +6841,14 @@ struct FUN_00649680 : NiMemObject
     int value1b4;
     int value1b8;
     int value1bc;
-    FUN_00649680();
-    FUN_00649680* BSFaceGenAnimationData_CreateCopyBS();
+    BSFaceGenAnimationData();
+    BSFaceGenAnimationData* BSFaceGenAnimationData_CreateCopyBS();
 };
 // @fnv 0x0064c5a0
 // src: COMMUNITY 0x0064c5a0
-FUN_00649680* FUN_00649680::BSFaceGenAnimationData_CreateCopyBS()
+BSFaceGenAnimationData* BSFaceGenAnimationData::BSFaceGenAnimationData_CreateCopyBS()
 {
-    FUN_00649680* copy = new FUN_00649680;
+    BSFaceGenAnimationData* copy = new BSFaceGenAnimationData;
     copy->member10.CopyFrom(&member10);
     copy->member24.CopyFrom(&member24);
     copy->member74.CopyFrom(&member74);
@@ -7056,7 +7060,7 @@ struct FUN_00657a80 : FUN_0065d3a0
 // @fnv 0x00657a80
 FUN_00657a80::FUN_00657a80() : FUN_0065d3a0(FUN_006815c0())
 {
-    ((FUN_00657dd0_cls*)this)->UpdateState_00657dd0(0);
+    ((FUN_00657dd0_cls*)this)->vector__Buy(0);
 }
 
 // Destructor: clear the contents, then the base container is destroyed.
@@ -7376,7 +7380,7 @@ struct FUN_0065ee70 : FUN_0065cfb0
 // @fnv 0x0065ee70
 FUN_0065ee70::~FUN_0065ee70()
 {
-    ((FUN_0065f430_class*)this)->UpdateState_0065f430();
+    ((FUN_0065f430_class*)this)->vector__Tidy();
 }
 
 // Copy-style range helper: unwrap both iterators and forward them with the iterator-category and range tags.
@@ -7409,7 +7413,7 @@ struct FUN_00657b50 : FUN_0065d3a0
 // @fnv 0x00657b50
 FUN_00657b50::FUN_00657b50() : FUN_0065d3a0(FUN_006815c0())
 {
-    ((FUN_00657ee0_cls*)this)->AllocateElementStorage(0);
+    ((FUN_00657ee0_cls*)this)->vector__Buy(0);
 }
 
 namespace c820 {
@@ -7604,7 +7608,7 @@ bool BSFaceGenModel::CloneTriBasedGeom(NiPointer<NiTriBasedGeom>& out)
     out = (NiTriBasedGeom*)m_pGeometryModel->spGeom->Clone();
 
     NiPointer<NiObject> spDataCopy3(0);
-    m_pGeometryModel->spGeom->GetModelData()->ResolveObjectPointer(spDataCopy3);
+    m_pGeometryModel->spGeom->GetModelData()->CreateDeepCopy(spDataCopy3);
     spModelData = (NiGeometryData*)(NiObject*)spDataCopy3;
     out->ReplaceModelData(spModelData);
 
@@ -7612,7 +7616,7 @@ bool BSFaceGenModel::CloneTriBasedGeom(NiPointer<NiTriBasedGeom>& out)
     if (pObjectInstance && pObjectInstance->NiObjectNET_GetControllers())
     {
         NiPointer<NiObject> spPartitionCopy(0);
-        pObjectInstance->NiObjectNET_GetControllers()->ResolveObjectPointer(spPartitionCopy);
+        pObjectInstance->NiObjectNET_GetControllers()->CreateDeepCopy(spPartitionCopy);
         spSkinPartition = (NiSkinPartition*)(NiObject*)spPartitionCopy;
         pObjectInstance->BSMultiBound_SetShape(spSkinPartition);
     }
@@ -7698,10 +7702,10 @@ struct S_0065fb10_Base
     ~S_0065fb10_Base();
     unsigned int Object_GetPointerSpanCount_00657bc0() const;
     bool ProcessAndReturnValue_0065f380(unsigned int n);
-    S_0065fb10_Iter EvaluateValue_0065fd10() const;
-    S_0065fb10_Iter ProcessAndReturnValue_0065fd40() const;
+    S_0065fb10_Iter vector_begin() const;
+    S_0065fb10_Iter vector_end() const;
     S_0065fb10_Elem* ForwardCall_0065ff30(S_0065fb10_Iter first, S_0065fb10_Iter last, S_0065fb10_Elem* dest);
-    void UpdateState_0065f430();
+    void vector__Tidy();
 };
 struct FUN_0065fb10 : S_0065fb10_Base
 {
@@ -7714,11 +7718,11 @@ FUN_0065fb10::FUN_0065fb10(const FUN_0065fb10& other) : S_0065fb10_Base(other._A
     {
         try
         {
-            _Mylast = ForwardCall_0065ff30(other.EvaluateValue_0065fd10(), other.ProcessAndReturnValue_0065fd40(), _Myfirst);
+            _Mylast = ForwardCall_0065ff30(other.vector_begin(), other.vector_end(), _Myfirst);
         }
         catch (...)
         {
-            UpdateState_0065f430();
+            vector__Tidy();
             throw;
         }
     }
@@ -7835,26 +7839,26 @@ struct FUN_0065fc10 : FUN_0065d3a0
     int* m_last;
     int* m_kRayEnd;
     int GetFieldAtOffset10();
-    bool AllocateElementStorage(unsigned int n);
-    ItQ ProcessAndReturnValue_0065fd40();
-    ItQ EvaluateValue_0065fd10();
+    bool vector__Buy(unsigned int n);
+    ItQ vector_end();
+    ItQ vector_begin();
     int* ForwardCall_0065ff60(ItQ f, ItQ l, int* d);
-    void ReleaseStorage_00657f60();
+    void vector__Tidy();
     FUN_0065fc10(FUN_0065fc10& r);
 };
 // Constructs the base from r.m_al; if FUN_00657ee0(r.FUN_0065cc50()) is true, sets m_last via FUN_0065ff60, calling FUN_00657f60 on exception.
 // @fnv 0x0065fc10
 FUN_0065fc10::FUN_0065fc10(FUN_0065fc10& arSource) : FUN_0065d3a0(*(FUN_006815c0*)&arSource.m_al)
 {
-    if (AllocateElementStorage(arSource.GetFieldAtOffset10()))
+    if (vector__Buy(arSource.GetFieldAtOffset10()))
     {
         try
         {
-            m_last = ForwardCall_0065ff60(arSource.EvaluateValue_0065fd10(), arSource.ProcessAndReturnValue_0065fd40(), m_pHeadNode);
+            m_last = ForwardCall_0065ff60(arSource.vector_begin(), arSource.vector_end(), m_pHeadNode);
         }
         catch (...)
         {
-            ReleaseStorage_00657f60();
+            vector__Tidy();
             FUN_00ec7894(0, 0);
         }
     }
@@ -7897,7 +7901,7 @@ struct FUN_0065d3a0
 {
     FUN_0065d3a0(FUN_006815c0 al) throw();
     ~FUN_0065d3a0();
-    void UpdateState_0065d2b0(int value);
+    void vector__Buy(int value);
 };
 
 struct FUN_0065c8f0 : FUN_0065d3a0
@@ -7909,7 +7913,7 @@ struct FUN_0065c8f0 : FUN_0065d3a0
 // @fnv 0x0065c8f0
 FUN_0065c8f0::FUN_0065c8f0() : FUN_0065d3a0(FUN_006815c0())
 {
-    UpdateState_0065d2b0(0);
+    vector__Buy(0);
 }
 
 }

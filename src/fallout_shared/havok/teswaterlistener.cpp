@@ -25,7 +25,7 @@
 
 struct FUN_0062e750_shell
 {
-    void* __thiscall FUN_0062e750(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
     void __thiscall FUN_0062e860();
 };
 
@@ -33,7 +33,8 @@ void __cdecl _Deallocate(void* p);
 
 // Calls FUN_0062e860, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x0062e750
-void* FUN_0062e750_shell::FUN_0062e750(unsigned int flags)
+// src: EXE 0x0062e750
+void* FUN_0062e750_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0062e860();
     if (flags & 1)
@@ -126,14 +127,14 @@ float __cdecl SignOfFloat(float afValue)
     return result;
 }
 
-struct FUN_005631e0_shell
+struct bhkWorldObject
 {
     int __thiscall MaskWithField(int a);
     bool __thiscall IsNonZero(int a);
 };
 
 // @fnv 0x005631e0
-bool __thiscall FUN_005631e0_shell::IsNonZero(int aiValue)
+bool __thiscall bhkWorldObject::IsNonZero(int aiValue)
 {
     return MaskWithField(aiValue) != 0;
 }
@@ -184,7 +185,7 @@ void __thiscall FUN_0062e940_shell::ProcessAndForward(const void* p)
     ((FUN_00c9a520_shell*)this)->bhkEntityListener_RemoveEntity(q);
 }
 
-struct FUN_00576830_shell
+struct BGSZoneTargetListener
 {
     void* __thiscall BGSZoneTargetListener_GetZoneEntry(BSOcclusionPlane* pPlane);
 };
@@ -197,7 +198,7 @@ void* TESWaterListener_FindWater(BSOcclusionPlane* pPlane)
     void* result = 0;
     unsigned int cull = GetOcclusionPlaneThreadID(pPlane);
     if (cull)
-        result = reinterpret_cast<FUN_00576830_shell*>(reinterpret_cast<char*>(cull) + 0x14)->BGSZoneTargetListener_GetZoneEntry(pPlane);
+        result = reinterpret_cast<BGSZoneTargetListener*>(reinterpret_cast<char*>(cull) + 0x14)->BGSZoneTargetListener_GetZoneEntry(pPlane);
     return result;
 }
 
@@ -455,7 +456,7 @@ FUN_00631230_shell* FUN_00631180_shell::TESWaterListener_CreateZoneEntry(TESObje
 {
     FUN_00631230_shell* apWZone = new FUN_00631230_shell(apRef, apCol);
     apWZone->pGroup = ((TESWaterSystem*)(void*)((EffectSetting*)g_TES)->GetEffectID())
-                          ->GetWaterZone(apRef, (TESObjectREFR*)0, 0.0f);
+                          ->FindWaterGroup(apRef, (TESObjectREFR*)0, 0.0f);
     return apWZone;
 }
 
@@ -553,9 +554,9 @@ struct SpawnedSub
     void FUN_007cb2e0(const int* a);
 };
 
-struct FUN_0062e590 : SpawnedBase
+struct WaterTargetEntry : SpawnedBase
 {
-    FUN_0062e590(int a1, int a2);
+    WaterTargetEntry(int a1, int a2);
     unsigned int unk04;
     unsigned int unk08;
     unsigned int unk0c;
@@ -580,7 +581,8 @@ struct FUN_0062e590 : SpawnedBase
 
 // Constructs the base with a1 and zero, then initializes m_50 from a2, falling back to FUN_007cb2e0 when FUN_00719b20 returns -1.
 // @fnv 0x0062e590
-FUN_0062e590::FUN_0062e590(int a1, int aiValue) : SpawnedBase(a1, 0), m_50()
+// src: EXE 0x0062e590
+WaterTargetEntry::WaterTargetEntry(int a1, int aiValue) : SpawnedBase(a1, 0), m_50()
 {
     if (m_50.FUN_00719b20(&aiValue, 0, Actor_AreReferencedValuesEqual) == -1)
     {
@@ -610,7 +612,7 @@ struct FUN_0048f200
     FUN_0048f200();
     ~FUN_0048f200();
 };
-struct FUN_0062e630 : FUN_00cb75d0, FUN_0061ffb0
+struct TESWaterListener : FUN_00cb75d0, FUN_0061ffb0
 {
     float scale;
     int* data;
@@ -619,11 +621,12 @@ struct FUN_0062e630 : FUN_00cb75d0, FUN_0061ffb0
     int predecessor;
     int successor;
     FUN_0048f200 synchronization;
-    FUN_0062e630(float value);
+    TESWaterListener(float value);
 };
 // Initializes the object: sets scale to 1.0, enabled to 1, allocates data, calls SetValueAt with value, and clears predecessor and successor.
 // @fnv 0x0062e630
-FUN_0062e630::FUN_0062e630(float value) : scale(1.0f)
+// src: EXE 0x0062e630
+TESWaterListener::TESWaterListener(float value) : scale(1.0f)
 {
     enabled = 1;
     data = new int;
@@ -987,15 +990,15 @@ void __cdecl TESWaterListener_PlaySplashEffects(float a1, NiPoint3 aPosition)
 }
 
 #include <xmmintrin.h>
-struct FUN_00630d30_cls
+struct hkVector4
 {
     __m128 m_vec;
-    void AddComponentProductInPlace(const __m128* a, const __m128* b);
+    void addMul(const __m128* a, const __m128* b);
 };
 // Adds the element-wise product of two vectors to m_vec using SSE intrinsics.
 // @fnv 0x00630d30
-// src: GUESS 0x00630d30 (confidence: high)
-void FUN_00630d30_cls::AddComponentProductInPlace(const __m128* apFirst, const __m128* apSecond)
+// src: GUESS 0x00630d30 (confidence: medium)
+void hkVector4::addMul(const __m128* apFirst, const __m128* apSecond)
 {
     m_vec = _mm_add_ps(m_vec, _mm_mul_ps(*apFirst, *apSecond));
 }
@@ -1013,18 +1016,19 @@ class B631230Base
     int unk14;
 };
 
-class FUN_00631230 : public B631230Base
+class WaterZone : public B631230Base
 {
   public:
     float m_fStartValue;
     int m_iArrayLength;
 
-    FUN_00631230(TESObjectREFR* pkActor, unsigned int uiType);
-    virtual ~FUN_00631230();
+    WaterZone(TESObjectREFR* pkActor, unsigned int uiType);
+    virtual ~WaterZone();
 };
 
 // @fnv 0x00631230
-FUN_00631230::FUN_00631230(TESObjectREFR* pkActor, unsigned int uiType) : B631230Base(pkActor, uiType)
+// src: EXE 0x00631230
+WaterZone::WaterZone(TESObjectREFR* pkActor, unsigned int uiType) : B631230Base(pkActor, uiType)
 {
     m_fStartValue = pkActor ? static_cast<const TESObjectREFR*>(pkActor)->GetPos()->z : 0.0f;
     m_iArrayLength = 0;

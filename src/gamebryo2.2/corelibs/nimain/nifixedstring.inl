@@ -22,7 +22,8 @@ NiFixedString& NiFixedString::operator=(const char* pcString)
 #include "nifixedstring_facegen.h"
 
 // @fnv 0x0065b410
-bool BSFaceGenModel::ApplyTextureCoordinate(FaceGenCoordinates* coord, NiPointer<NiTexture>& texture, unsigned int uiLimit)
+// src: COMMUNITY 0x0065b410
+bool BSFaceGenModel::ApplyCoordinateTexturingToMesh(FaceGenCoordinates* coord, NiPointer<NiTexture>& texture, unsigned int uiLimit)
 {
     // MSVC9 local allocation depends on these names and declaration scopes.
     unsigned int uiWidth; // EGT basis group selected for accumulation
@@ -56,7 +57,7 @@ bool BSFaceGenModel::ApplyTextureCoordinate(FaceGenCoordinates* coord, NiPointer
     }
     unsigned int kColor = 0; // texture width
     unsigned int uiHeight = 0;
-    if (m_kTextureSlots->m_pTextureData->basis[0].GetPointerSpanCount_0065cea0()) {
+    if (m_kTextureSlots->m_pTextureData->basis[0].vector_size()) {
         kColor = m_kTextureSlots->m_pTextureData->basis[0].ProcessEntries_0065cec0(0)->width;
         uiHeight = m_kTextureSlots->m_pTextureData->basis[0].ProcessEntries_0065cec0(0)->height;
     }
@@ -66,7 +67,7 @@ bool BSFaceGenModel::ApplyTextureCoordinate(FaceGenCoordinates* coord, NiPointer
     }
     unsigned int uiBasis;
     for (uiBasis = 0; uiBasis < 2; ++uiBasis) {
-        if (reinterpret_cast<unsigned int>(reinterpret_cast<NiAVObject*>(&reinterpret_cast<FaceGenCoordinateBasis*>(coord->data + 64)[uiBasis])->GetParent()) < m_kTextureSlots->m_pTextureData->basis[uiBasis].GetPointerSpanCount_0065cea0()) {
+        if (reinterpret_cast<unsigned int>(reinterpret_cast<NiAVObject*>(&reinterpret_cast<FaceGenCoordinateBasis*>(coord->data + 64)[uiBasis])->GetParent()) < m_kTextureSlots->m_pTextureData->basis[uiBasis].vector_size()) {
             Warning("MODELS: FaceGen - Tried to apply a coordinate that did not match the EGT basis.");
             BSFaceGenManager_UnlockFaceGenAccess();
             return false;
@@ -91,10 +92,10 @@ bool BSFaceGenModel::ApplyTextureCoordinate(FaceGenCoordinates* coord, NiPointer
     unsigned int ItemUpdateArray;
     if (uiLimit) {
         ItemUpdateArray = uiLimit;
-        if (ItemUpdateArray > m_kTextureSlots->m_pTextureData->basis[uiWidth].GetPointerSpanCount_0065cea0())
-            ItemUpdateArray = m_kTextureSlots->m_pTextureData->basis[uiWidth].GetPointerSpanCount_0065cea0();
+        if (ItemUpdateArray > m_kTextureSlots->m_pTextureData->basis[uiWidth].vector_size())
+            ItemUpdateArray = m_kTextureSlots->m_pTextureData->basis[uiWidth].vector_size();
     } else {
-        ItemUpdateArray = m_kTextureSlots->m_pTextureData->basis[uiWidth].GetPointerSpanCount_0065cea0();
+        ItemUpdateArray = m_kTextureSlots->m_pTextureData->basis[uiWidth].vector_size();
     }
     for (unsigned int mode = 0; mode < ItemUpdateArray; ++mode) {
         if (m_kTextureSlots->m_pTextureData->basis[uiWidth].ProcessEntries_0065cec0(mode)->width == uiRenderPassIndex) {}
@@ -109,7 +110,7 @@ bool BSFaceGenModel::ApplyTextureCoordinate(FaceGenCoordinates* coord, NiPointer
         for (unsigned int channel = 0; channel < 3; ++channel) {
             FaceGenChannelData channelData;
             channelData.scale = static_cast<int>(m_kTextureSlots->m_pTextureData->basis[uiWidth].ProcessEntries_0065cec0(mode)->scale * DAT_010231d8) * modeData.weight;
-            channelData.row = m_kTextureSlots->m_pTextureData->basis[uiWidth].ProcessEntries_0065cec0(mode)->rows[channel].GetElementChecked_0065cc70(0);
+            channelData.row = m_kTextureSlots->m_pTextureData->basis[uiWidth].ProcessEntries_0065cec0(mode)->rows[channel].vector_at(0);
             for (unsigned int y = 0; y < piAccum; ++y) {
                 for (unsigned int x = 0; x < uiRenderPassIndex; ++x)
                     uiOutWidth[(y * uiRenderPassIndex + x) * 3 + channel] += channelData.row[x] * channelData.scale;
@@ -134,7 +135,8 @@ bool BSFaceGenModel::ApplyTextureCoordinate(FaceGenCoordinates* coord, NiPointer
 }
 
 // @fnv 0x0065c3a0
-void BSFaceGenModel::ClearTextureData()
+// src: COMMUNITY 0x0065c3a0
+void BSFaceGenModel::UnloadEGTData()
 {
     if (m_kTextureSlots && m_kTextureSlots->m_pTextureData) {
         delete m_kTextureSlots->m_pTextureData;

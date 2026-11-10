@@ -480,7 +480,7 @@ struct DoorPart68
 
 struct FUN_0047b560_holder
 {
-    void LogFormIDs();
+    void BGSPickupPutdownSounds_Save();
 };
 
 struct S7010
@@ -511,7 +511,7 @@ void FUN_00504280_shell::TESCasinoChips_Save()
     reinterpret_cast<FUN_0048e370_obj*>(reinterpret_cast<char*>(this) + 0x5c)->TESTexture_Save(0x4e4f4349);
     reinterpret_cast<FUN_0047a240_shell*>(reinterpret_cast<char*>(this) + 0x68)->FUN_0047a240(0x4f43494d);
     reinterpret_cast<DoorPart68*>(reinterpret_cast<char*>(this) + 0x80)->FUN_00477f20();
-    reinterpret_cast<FUN_0047b560_holder*>(reinterpret_cast<char*>(this) + 0x88)->LogFormIDs();
+    reinterpret_cast<FUN_0047b560_holder*>(reinterpret_cast<char*>(this) + 0x88)->BGSPickupPutdownSounds_Save();
 
     if (reinterpret_cast<S7010*>(reinterpret_cast<char*>(this) + 0x94)->Length())
     {

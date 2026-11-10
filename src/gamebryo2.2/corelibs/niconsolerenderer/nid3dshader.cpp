@@ -185,7 +185,8 @@ void ResetGlobalString()
 }
 
 // @fnv 0x00e81420
-void __fastcall UseShaderDeclaration(NiD3DShader* shader, void*, NiD3DShaderDeclaration* pkShaderDecl)
+// src: EXE 0x00e81420
+void __fastcall NiD3DShader_SetShaderDecl(NiD3DShader* shader, void*, NiD3DShaderDeclaration* pkShaderDecl)
 {
     NiRefObject*& pObj = reinterpret_cast<NiRefObject*&>(shader->m_spShaderDecl.m_pObject);
     NiRefObject* pNew = reinterpret_cast<NiRefObject*>(pkShaderDecl);
@@ -202,7 +203,8 @@ void __fastcall UseShaderDeclaration(NiD3DShader* shader, void*, NiD3DShaderDecl
 extern const char* const g_0126f754_arg1;
 
 // @fnv 0x00e818c0
-void* __fastcall GetShaderInstanceDesc(NiD3DShaderInterface* shader, void*)
+// src: EXE 0x00e818c0
+void* __fastcall NiD3DShaderInterface_GetRTTI(NiD3DShaderInterface* shader, void*)
 {
     return (void*)&g_0126f754_arg1;
 }
@@ -244,7 +246,8 @@ struct StateStandIn
     void ApplyRenderModes(void*, void*, int);
 };
 // @fnv 0x00e81170
-unsigned int __fastcall SetupGeometryShader(NiD3DShader* shader, void*, void* a1, void* a2, void* a3, void* a4, void* a5, void* a6, void* a7)
+// src: EXE 0x00e81170
+unsigned int __fastcall NiD3DShader_PreProcessPipeline(NiD3DShader* shader, void*, void* a1, void* a2, void* a3, void* a4, void* a5, void* a6, void* a7)
 {
     if (!shader->m_bInitialized)
         return 0xFFFFFFFF;
@@ -316,7 +319,8 @@ void __fastcall BuildVertexShader(NiD3DShader* shader, void*)
 void __fastcall NiD3DRenderStateGroup_RestoreRenderStates(void*);
 
 // @fnv 0x00e805f0
-unsigned int __fastcall UpdateGeometryEffects(NiD3DShader* shader, void*, void* a1, void* a2, void* a3, void* a4, void* a5, void* a6, void* a7)
+// src: EXE 0x00e805f0
+unsigned int __fastcall NiD3DShader_PostProcessPipeline(NiD3DShader* shader, void*, void* a1, void* a2, void* a3, void* a4, void* a5, void* a6, void* a7)
 {
     void* decl = shader->m_pkRenderStateGroup;
     if (decl)
@@ -1454,7 +1458,7 @@ struct FUN_00ee8910
 };
 struct GeometryAccess
 {
-    void DeleteExtraDataByKey(char**);
+    void NiObjectNET_RemoveExtraData(char**);
     void* FUN_00a5bdd0(const NiFixedString&);
     bool SetExtraDataName(FUN_00ee8910*);
 };
@@ -1463,7 +1467,7 @@ void* __cdecl Object_DispatchCommandFour(unsigned int);
 extern "C" void __cdecl BindShaderConstants(NiD3DShader* shader, NiGeometry* geometry)
 {
     GeometryAccess* pGeometryAccess = reinterpret_cast<GeometryAccess*>(geometry);
-    pGeometryAccess->DeleteExtraDataByKey(&DAT_0126f750);
+    pGeometryAccess->NiObjectNET_RemoveExtraData(&DAT_0126f750);
     unsigned int vertexCount = 0;
     unsigned int pixelCount = 0;
     if (shader->m_spVertexConstantMap.m_pObject)

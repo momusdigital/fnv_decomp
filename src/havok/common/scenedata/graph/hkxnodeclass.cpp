@@ -78,16 +78,17 @@ template <class T, class A> __forceinline hkArray<T, A>::~hkArray()
     
 }
 
-class FUN_00dfd840 : public DFD840Base
+class hkxAttributeGroup : public DFD840Base
 {
   public:
-    ~FUN_00dfd840() throw();
+    ~hkxAttributeGroup() throw();
 
     hkArray<DFD840Entry> m_kEntries;
 };
 
 // @fnv 0x00dfd840
-FUN_00dfd840::~FUN_00dfd840() throw()
+// src: GUESS 0x00dfd840 (confidence: medium)
+hkxAttributeGroup::~hkxAttributeGroup() throw()
 {}
 
 struct CpuAllocator
@@ -109,13 +110,13 @@ struct CpuObject
 {
     unsigned int unk00;
     unsigned short size;
-    void FUN_00e3ed80();
+    void hkxNode();
     CpuObject* FUN_00dfd900(unsigned int flags);
 };
 // @fnv 0x00dfd900
 CpuObject* CpuObject::FUN_00dfd900(unsigned int flags)
 {
-    FUN_00e3ed80();
+    hkxNode();
     if (flags & 1)
     {
         CpuAllocatorHolder* holder = hkMemoryRouter_getInstance();
@@ -148,22 +149,23 @@ struct FUN_00dfd8d0_MemoryRouter
 
 extern "C" FUN_00dfd8d0_MemoryRouter& __cdecl hkMemoryRouter_getInstance();
 
-struct FUN_00dfd8d0
+struct hkxAttributeHolder
 {
     unsigned short m_usMemSizeAndFlags;
     short m_sReferenceCount;
 
-    FUN_00dfd8d0();
-    virtual ~FUN_00dfd8d0();
+    hkxAttributeHolder();
+    virtual ~hkxAttributeHolder();
 
     static void operator delete(void* p, unsigned int nbytes)
     {
-        FUN_00dfd8d0* b = static_cast<FUN_00dfd8d0*>(p);
+        hkxAttributeHolder* b = static_cast<hkxAttributeHolder*>(p);
         hkMemoryRouter_getInstance().heap().ReleaseBlock(p, b->m_usMemSizeAndFlags);
     }
 };
 
 // @fnv 0x00dfd8d0
-FUN_00dfd8d0::FUN_00dfd8d0()
+// src: EXE 0x00dfd8d0
+hkxAttributeHolder::hkxAttributeHolder()
 {}
 }  // namespace fnv_00dfd8d0

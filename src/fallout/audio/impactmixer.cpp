@@ -113,10 +113,11 @@ struct FUN_00541570_shell
 {
     char _pad[0x1c];
     unsigned char m_0x1c;
-    unsigned int GetField1C();
+    unsigned int TESLandTexture_GetHavokMaterialType();
 };
 // @fnv 0x00541570
-unsigned int FUN_00541570_shell::GetField1C()
+// src: COMMUNITY 0x00541570
+unsigned int FUN_00541570_shell::TESLandTexture_GetHavokMaterialType()
 {
     return m_0x1c;
 }
@@ -310,7 +311,7 @@ extern FootstepActor* g_player_011dea3c;
 
 struct MaterialRecord
 {
-    int GetField1C();
+    int TESLandTexture_GetHavokMaterialType();
 };
 
 struct NavQueryResult
@@ -398,7 +399,7 @@ void __cdecl PlayFootstepImpact(FootstepActor* pActor, int iMaterial)
         if (pMaterialTmp)
         {
             float m_fGlyphExtent = 0.0f;
-            iMaterial = pMaterialTmp->GetField1C();
+            iMaterial = pMaterialTmp->TESLandTexture_GetHavokMaterialType();
             if (pCell_->TESObjectCELL_GetLandHeight(reinterpret_cast<NiPoint3*>(&kPosOut), &m_fGlyphExtent))
                 kPosOut.z = m_fGlyphExtent;
         }
@@ -1101,10 +1102,10 @@ void PlayWeaponImpactSound(TESObjectREFR* ref, int type)
             switch (type)
             {
             case 9:
-                snd = weapon->GetField238();
+                snd = weapon->TESObjectWEAP_GetEquipSound();
                 break;
             case 10:
-                snd = weapon->GetField23C();
+                snd = weapon->TESObjectWEAP_GetUnequipSound();
                 break;
             }
             if (!snd || !FUN_0082eca0(snd, pos, 1.0f))
@@ -1179,7 +1180,7 @@ ListenerOps* __fastcall GetAudioListener(BSAudio* audio);
 
 struct SoundOps
 {
-    unsigned char GetField45();
+    unsigned char GetMaxDistance();
     unsigned int GetHavokWorldObjectCountInSceneGraph_0084e3a0();
     const char* TESSound_GetFilename();
 };
@@ -1510,7 +1511,7 @@ void PlayFootstepSound(FootstepActor* apActor, int foot)
             TESCreature* creature = dynamic_cast<TESCreature*>(base);
             SoundOps* creatureSound = creature->PickCreatureSound(foot);
             memory = creatureSound;
-            if (memory && armor <= memory->GetField45() * 100)
+            if (memory && armor <= memory->GetMaxDistance() * 100)
             {
                 primary = *reinterpret_cast<BSSoundHandle*>(&BSAudio::BSAudio_QInstance()->GetSoundHandleByFormID_00ad73b0(memory->GetHavokWorldObjectCountInSceneGraph_0084e3a0(), static_cast<unsigned int>(266)));
             }
@@ -1550,7 +1551,7 @@ void PlayFootstepSound(FootstepActor* apActor, int foot)
                     materialIndex = reinterpret_cast<SkinOps*>(material->FUN_009306d0())->material.FUN_0059bb30();
                 else if (result)
                 {
-                    materialIndex = result->GetField1C();
+                    materialIndex = result->TESLandTexture_GetHavokMaterialType();
                     if (cell->TESObjectCELL_GetLandHeight(reinterpret_cast<NiPoint3*>(&firstPerson), &record))
                         firstPerson.z = record;
                 }
@@ -1615,7 +1616,7 @@ void PlayFootstepSound(FootstepActor* apActor, int foot)
             else
             {
                 unsigned int flags = 0x410a;
-                if (memory && armor <= memory->GetField45() * 100)
+                if (memory && armor <= memory->GetMaxDistance() * 100)
                 {
                     primary = *reinterpret_cast<BSSoundHandle*>(&BSAudio::BSAudio_QInstance()->BSAudio_GetSoundHandleByFilename(memory->TESSound_GetFilename(), flags, reinterpret_cast<unsigned int>(memory)));
                     primary.SetPosition(firstPerson.x, firstPerson.y, firstPerson.z - 128.0);
@@ -1624,7 +1625,7 @@ void PlayFootstepSound(FootstepActor* apActor, int foot)
                     primary.SetVolume(FUN_00476b70(0.9f, 1.0f));
                     primary.Play(0);
                 }
-                if (sound && armor <= sound->GetField45() * 100)
+                if (sound && armor <= sound->GetMaxDistance() * 100)
                 {
                     secondary = *reinterpret_cast<BSSoundHandle*>(&BSAudio::BSAudio_QInstance()->BSAudio_GetSoundHandleByFilename(sound->TESSound_GetFilename(), flags, reinterpret_cast<unsigned int>(sound)));
                     secondary.SetPosition(firstPerson.x, firstPerson.y, firstPerson.z - 128.0);
@@ -1720,7 +1721,7 @@ void __cdecl ImpactMixer_PlayJump(TESObjectREFR* apRefr)
             impact1 = csnd;
             if (impact1)
             {
-                if ((float)(impact1->GetField45() * 100) >= distBX)
+                if ((float)(impact1->GetMaxDistance() * 100) >= distBX)
                 {
                     handle12 = *reinterpret_cast<BSSoundHandle*>(&BSAudio::BSAudio_QInstance()->GetSoundHandleByFormID_00ad73b0(impact1->GetHavokWorldObjectCountInSceneGraph_0084e3a0(), static_cast<unsigned int>(0x10a)));
                 }
@@ -1763,7 +1764,7 @@ void __cdecl ImpactMixer_PlayJump(TESObjectREFR* apRefr)
                     material6 = reinterpret_cast<SkinOps*>(pq->FUN_009306d0())->material.FUN_0059bb30();
                 else if (localA)
                 {
-                    material6 = localA->GetField1C();
+                    material6 = localA->TESLandTexture_GetHavokMaterialType();
                     if (cell8->TESObjectCELL_GetLandHeight((NiPoint3*)&pos20, &heightStepB))
                         pos20.z = heightStepB;
                 }
@@ -1819,7 +1820,7 @@ void __cdecl ImpactMixer_PlayJump(TESObjectREFR* apRefr)
                     return;
                 if (impact1)
                 {
-                    if ((float)(impact1->GetField45() * 100) >= distBX)
+                    if ((float)(impact1->GetMaxDistance() * 100) >= distBX)
                     {
                         handle12 = *reinterpret_cast<BSSoundHandle*>(&BSAudio::BSAudio_QInstance()->BSAudio_GetSoundHandleByFilename(impact1->TESSound_GetFilename(), flags2, reinterpret_cast<unsigned int>(impact1)));
                         handle12.SetPosition(pos20.x, pos20.y, (float)(pos20.z - 128.0));
@@ -1831,7 +1832,7 @@ void __cdecl ImpactMixer_PlayJump(TESObjectREFR* apRefr)
                 }
                 if (second9)
                 {
-                    if ((float)(second9->GetField45() * 100) >= distBX)
+                    if ((float)(second9->GetMaxDistance() * 100) >= distBX)
                     {
                         handle6 = *reinterpret_cast<BSSoundHandle*>(&BSAudio::BSAudio_QInstance()->BSAudio_GetSoundHandleByFilename(second9->TESSound_GetFilename(), flags2, reinterpret_cast<unsigned int>(second9)));
                         handle6.SetPosition(pos20.x, pos20.y, (float)(pos20.z - 128.0));

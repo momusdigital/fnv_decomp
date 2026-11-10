@@ -156,7 +156,7 @@ class Tile
     void UpdateEffectChanges(Tile* tile);
 
     Value* GetValue(int trait);
-    Value* GetOrCreateTraitValue(int trait);
+    Value* Tile_AddValue(int trait);
     float GetValue(unsigned int trait);
     float GetFloat(int trait);
     float GetFloat(int trait) const;
@@ -171,7 +171,7 @@ class Tile
     bool IsPointInside(float x, float y);
     bool IsMenuRendered();
     bool IsAllChildrenFlag0();
-    bool IsTraitNonZero(int trait);
+    bool Tile_IsTrue(int trait);
     bool GetSpeechChallengeFailure();
     void SetSpeechChallengeFailure(bool value);
 

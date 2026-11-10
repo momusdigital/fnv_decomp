@@ -12,7 +12,7 @@ public:
     virtual ~BSFaceGenModelExtraData();
 
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
 
     void IncRefCount();
     unsigned int DecRefCount();

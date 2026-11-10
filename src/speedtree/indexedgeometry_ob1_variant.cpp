@@ -78,8 +78,8 @@ public:
     float DotProduct(const LocalVec3* other) const;
     float Length() const;
     float LengthSquared() const;
-    float GetSquaredXYLength();
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength();
+    float NiPoint3_SqrXYLength() const;
     Elem16& expand(Allocator& allocator);
 
     void SetComponents(float x, float y, float z);
@@ -134,7 +134,7 @@ public:
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 struct FUN_00b30060_shell
 {
-    int GetIndexedValue_00b30060(float* p);
+    int PackColor(float* p);
 };
 struct FloatVec
 {
@@ -206,7 +206,7 @@ struct FUN_00b300c0_cls
     char m_pad89[0x17];
     FloatVec m_veca0;
 
-    void UpdateFields_00b300c0(const float* p);
+    void CIndexedGeometry_AddVertexCoord(const float* p);
 };
 struct FrameBuf
 {
@@ -312,7 +312,7 @@ class FUN_00b32c60_cls
     int m_last;
     int m_kRayEnd;
     void DestroyRange(int first, int last);
-    void UpdateFields_00b32c60();
+    void vector__Tidy();
 };
 struct K
 {
@@ -611,7 +611,7 @@ struct Lengths : Vector_StripJoin<unsigned short>
             insert(end(), value);
     }
 
-    void ProcessState_00b32540();
+    void vector_clear();
 };
 
 struct Strips : Vector_StripJoin<unsigned short*>
@@ -674,12 +674,12 @@ struct FUN_00b31350 : ValueBase<Lengths>
 
     ~FUN_00b31350()
     {
-        UpdateFields_00b32c60();
+        vector__Tidy();
     }
 
-    void UpdateFields_00b32c60();
+    void vector__Tidy();
 
-    Lengths* ProcessAndReturnValue_00b319a0(unsigned int);
+    Lengths* vector_at(unsigned int);
     __forceinline Lengths& operator[](unsigned int index)
     {
         if (index >= (unsigned int)((Lengths*)unk10 - (Lengths*)unkc))
@@ -740,7 +740,7 @@ struct FUN_00b31ad0 : ValueBase<Strips>
 
     void ReleaseStorage_00b331c0();
 
-    Strips* ProcessAndReturnValue_00b319a0(unsigned int);
+    Strips* vector_at(unsigned int);
     __forceinline Strips& operator[](unsigned int index)
     {
         if (index >= (unsigned int)((Strips*)unk10 - (Strips*)unkc))
@@ -850,7 +850,7 @@ void Mesh::CIndexedGeometry_CombineStrips(bool preserve)
             int combinedLength = 0;
             for (unsigned short index = 0;
                  index <
-                 ((short)group > -1 ? (unsigned short)strips.ProcessAndReturnValue_00b319a0((short)group)->size() : (unsigned short)0);
+                 ((short)group > -1 ? (unsigned short)strips.vector_at((short)group)->size() : (unsigned short)0);
                  ++index)
                 combinedLength += lengths[group][index];
             if (combinedLength > 0)
@@ -858,7 +858,7 @@ void Mesh::CIndexedGeometry_CombineStrips(bool preserve)
                 if (preserve)
                 {
                     for (unsigned short join = 0;
-                         join < ((short)group > -1 ? (unsigned short)strips.ProcessAndReturnValue_00b319a0((short)group)->size()
+                         join < ((short)group > -1 ? (unsigned short)strips.vector_at((short)group)->size()
                                                    : (unsigned short)0) -
                                     1;
                          ++join)
@@ -872,7 +872,7 @@ void Mesh::CIndexedGeometry_CombineStrips(bool preserve)
                 }
                 else
                 {
-                    int joins = ((short)group > -1 ? (unsigned short)strips.ProcessAndReturnValue_00b319a0((short)group)->size()
+                    int joins = ((short)group > -1 ? (unsigned short)strips.vector_at((short)group)->size()
                                                    : (unsigned short)0);
                     if (joins > 0)
                         joins--;
@@ -881,14 +881,14 @@ void Mesh::CIndexedGeometry_CombineStrips(bool preserve)
                 unsigned short* writer = new unsigned short[combinedLength];
                 unsigned short* joined = writer;
                 for (unsigned short strip = 0;
-                     strip < ((short)group > -1 ? (unsigned short)strips.ProcessAndReturnValue_00b319a0((short)group)->size()
+                     strip < ((short)group > -1 ? (unsigned short)strips.vector_at((short)group)->size()
                                                 : (unsigned short)0);
                      ++strip)
                 {
                     unsigned short copyLength = lengths[group][strip];
                     memcpy(joined, strips[group][strip], copyLength * sizeof(unsigned short));
                     joined += copyLength;
-                    if (strip < ((short)group > -1 ? (unsigned short)strips.ProcessAndReturnValue_00b319a0((short)group)->size()
+                    if (strip < ((short)group > -1 ? (unsigned short)strips.vector_at((short)group)->size()
                                                    : (unsigned short)0) -
                                     1)
                     {
@@ -922,8 +922,8 @@ void Mesh::CIndexedGeometry_CombineStrips(bool preserve)
             }
             else
             {
-                newLengths.ProcessAndReturnValue_00b319a0(group)->ProcessState_00b32540();
-                newStrips.ProcessAndReturnValue_00b319a0(group)->std_vector_clear();
+                newLengths.vector_at(group)->vector_clear();
+                newStrips.vector_at(group)->std_vector_clear();
                 *newCounts.EvaluateValue_00b31230(group) = 0;
             }
         }
@@ -1527,7 +1527,7 @@ template <class T> struct UIntVecT : VectorContainer
         return VecIterT<T>(where.ptr, this);
     }
 // src: GUESS 0x00b335c0 (confidence: low)
-    VecIterT<T> ProcessAndReturnValue_00b335c0(ConstIterT<T> a, ConstIterT<T> b)
+    VecIterT<T> vector_erase(ConstIterT<T> a, ConstIterT<T> b)
     {
         VecIterT<T> f = MakeIter(a);
         VecIterT<T> l = MakeIter(b);
@@ -1554,7 +1554,7 @@ template <> void UIntVecT<unsigned int>::ProcessState_00b333e0(unsigned int n, u
     if (size() < n)
         UpdateState_00b16070(end(), n - size(), val);
     else if (n < size())
-        ProcessAndReturnValue_00b335c0(begin() + n, end());
+        vector_erase(begin() + n, end());
 }
 
 inline void Dead8_acad60()
@@ -4238,13 +4238,13 @@ struct StateVector
         StateIterator it(last, this);
         return it;
     }
-    StateIterator ProcessAndReturnValue_00b335c0(StateIterator, StateIterator);
+    StateIterator vector_erase(StateIterator, StateIterator);
 // src: COMMUNITY 0x00b32350
     inline void std_vector_clear()
     {
         StateIterator stop = finish();
         StateIterator start = begin();
-        ProcessAndReturnValue_00b335c0(start, stop);
+        vector_erase(start, stop);
     }
     void UpdateState_00b15390(const int&);
 };

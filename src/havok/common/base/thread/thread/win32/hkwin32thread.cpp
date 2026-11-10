@@ -2,7 +2,7 @@
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
 #include <windows.h>
-class FUN_00d87920_cls
+class hkThread
 {
   public:
     void hkThread_stopThread();
@@ -12,7 +12,7 @@ class FUN_00d87920_cls
 
 // @fnv 0x00d87920
 // src: HAVOK_LIB 0x00d87920
-void FUN_00d87920_cls::hkThread_stopThread()
+void hkThread::hkThread_stopThread()
 {
     if (m_hHandle != 0)
     {

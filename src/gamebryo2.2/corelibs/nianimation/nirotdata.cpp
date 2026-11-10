@@ -54,10 +54,11 @@ struct Struct00a47ba0
 {
     int _0;
     void* _4;
-    void* FUN_00a47ba0(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 // @fnv 0x00a47ba0
-void* Struct00a47ba0::FUN_00a47ba0(unsigned int auiFlags)
+// src: EXE 0x00a47ba0
+void* Struct00a47ba0::ScalarDeletingDestructor(unsigned int auiFlags)
 {
     void* p = _4;
     ((void**)this)[0] = (void*)&DAT_0109844c;
@@ -243,7 +244,8 @@ void __fastcall BSShaderPPLightingProperty_CopyTo(S00b66600* p, int aiFirst, int
 extern void* DAT_011f3b10[];
 
 // @fnv 0x00a48160
-bool __fastcall IsRotDataEqual(NiRotData* self, int, NiObject* pkObject)
+// src: EXE 0x00a48160
+bool __fastcall NiRotData_IsEqual(NiRotData* self, int, NiObject* pkObject)
 {
     NiRotData* pkData = (NiRotData*)pkObject;
     if (!self->NiObject::IsEqual(pkObject))
@@ -411,7 +413,8 @@ extern FillDerivedValsFunction g_apfnFillDerived[];
 
 // Loads the key count and key type from the stream, creates and fills the key array, then stores it via FUN_00a48220.
 // @fnv 0x00a48380
-void __fastcall LoadRotData(NiRotData* self, int, NiStream& kStream)
+// src: EXE 0x00a48380
+void __fastcall NiRotData_LoadBinary(NiRotData* self, int, NiStream& kStream)
 {
     self->NiObject::LoadBinary(kStream);
 
@@ -460,7 +463,8 @@ extern KeyLinkFunction DAT_011f3a80[];
 
 // Loads the object header, key count, request type, and key array from the stream using the key link function table.
 // @fnv 0x00a48440
-void __fastcall LinkRotData(NiRotData* self, int, NiStream& kStream)
+// src: EXE 0x00a48440
+void __fastcall NiRotData_SaveBinary(NiRotData* self, int, NiStream& kStream)
 {
     self->NiObject::LinkObject(kStream);
     NiStreamLoadBinary2(kStream, self->m_uiNumKeys);
@@ -483,7 +487,7 @@ void __fastcall CopyRotData(NiRotData* self, int, float fTime, float fDuration, 
 {
     NiRotData* pNew = 0;
 
-    self->ResolveObjectPointer(reinterpret_cast<NiPointer<NiObject>&>(pNew));
+    self->CreateDeepCopy(reinterpret_cast<NiPointer<NiObject>&>(pNew));
 
     NiRotData* pCopy = pNew;
     if (pCopy != 0)

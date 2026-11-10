@@ -311,10 +311,11 @@ void __cdecl __Dummy_00b6fef0(void*, unsigned int);
 struct FUN_00a68800_shell
 {
     void DestroyGeometryData();
-    void* FUN_00a68800(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };
 // @fnv 0x00a68800
-void* FUN_00a68800_shell::FUN_00a68800(unsigned int flags)
+// src: EXE 0x00a68800
+void* FUN_00a68800_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     DestroyGeometryData();
     if (flags & 1)

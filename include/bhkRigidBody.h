@@ -36,7 +36,7 @@ public:
     unsigned int GetInstanceSize();
     const __m128& PositionVector();
     const __m128& RotationVector();
-    float GetBodyMass();
+    float GetDynamicMass();
     hkpMotion* hkpRigidBody_getStoredDynamicMotion();
     float bhkRigidBody_GetMass();
     void* bhkWorldObject_GethkWorldRw();

@@ -19,14 +19,15 @@ void DAFc80::hkpFlagCdBodyPairCollector_addCdBodyPair(int a, int b)
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance();
 
-struct FUN_00d34900
+struct hkpFlagCdBodyPairCollector
 {
     int m_i04;
 
-    FUN_00d34900();
+    hkpFlagCdBodyPairCollector();
 
 // @fnv 0x00d34900
-    virtual ~FUN_00d34900()
+// src: EXE 0x00d34900
+    virtual ~hkpFlagCdBodyPairCollector()
     {}
 
     static void operator delete(void* apMemory)
@@ -35,11 +36,11 @@ struct FUN_00d34900
         hkMemoryAllocator* pAllocator = reinterpret_cast<hkMemoryAllocator*>(pHolder->m_heap);
         typedef void (__thiscall* FreeFunction)(hkMemoryAllocator*, void*, unsigned int);
         FreeFunction pFree = reinterpret_cast<FreeFunction>((*reinterpret_cast<void***>(pAllocator))[2]);
-        pFree(pAllocator, apMemory, sizeof(FUN_00d34900));
+        pFree(pAllocator, apMemory, sizeof(hkpFlagCdBodyPairCollector));
     }
 };
 
-FUN_00d34900::FUN_00d34900()
+hkpFlagCdBodyPairCollector::hkpFlagCdBodyPairCollector()
 {
     m_i04 = 0;
 }

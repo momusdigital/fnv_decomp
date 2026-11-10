@@ -314,7 +314,7 @@ TESRecipe::TESRecipe()
 }
 
 // FUN_005bd580 : float member getter, returns *m_pIntegerData if present else 0.0f
-struct FUN_005bd580_cls
+struct Font
 {
     int m_i00;
     int m_i01;
@@ -336,7 +336,7 @@ struct FUN_005bd580_cls
 
 // @fnv 0x005bd580
 // src: COMMUNITY 0x005bd580
-float FUN_005bd580_cls::Font_GetFontSize()
+float Font::Font_GetFontSize()
 {
     return this->m_pIntegerData != 0 ? *this->m_pIntegerData : 0.0f;
 }
@@ -394,14 +394,14 @@ struct FUN_005a7a90_shell
 // src: COMMUNITY 0x005a7a90
 void FUN_005a7a90_shell::TESRecipeCategory_SaveAlt()
 {
-    ((TESForm*)this)->BeginFormRecord();
+    ((TESForm*)this)->TESForm_StartForm();
     ((TESFullName*)((char*)this + 0x18))->Save_00487010();
     if (TESForm_QEndianSwapOnSave())
         ((FUN_00483710_shell*)((char*)this + 0x24))->FUN_00483710();
     ((TESForm*)this)->TESForm___SaveData((char*)this + 0x24, 1);
     if (TESForm_QEndianSwapOnSave())
         ((FUN_00483710_shell*)((char*)this + 0x24))->FUN_00483710();
-    ((TESForm*)this)->FinishFormRecord();
+    ((TESForm*)this)->TESForm_CloseForm();
 }
 
 struct FUN_005a7b00_Record
@@ -470,7 +470,7 @@ struct CopyList
 };
 struct CopyString
 {
-    void CopyConditions(CopyString*, int);
+    void TESCondition_Copy(CopyString*, int);
 };
 struct CopyForm
 {
@@ -498,7 +498,7 @@ void CopyForm::CopyFrom(void* apSource)
     CopyForm* source3 = (CopyForm*)FUN_00ec43fb(apSource, 0, &DAT_01183028, &DAT_011864b0, 0);
     if (!source3)
         return;
-    NiAVObject_GetRotate_006a9540()->CopyConditions(source3->NiAVObject_GetRotate_006a9540(), 0);
+    NiAVObject_GetRotate_006a9540()->TESCondition_Copy(source3->NiAVObject_GetRotate_006a9540(), 0);
     memcpy(data + 0x24, source3->data + 0x24, 0x10);
     TESForm_CopyAllComponents(apSource);
     while (!ComputeValue_005a8080()->FUN_008256d0())
@@ -701,7 +701,7 @@ void TESForm_AddChunk_00485910(unsigned int type, unsigned int value);
 // src: COMMUNITY 0x005a8490
 void TESRecipe::SaveAlt_005a8490()
 {
-    BeginFormRecord();
+    TESForm_StartForm();
     TESFullName::Save_00487010();
     NiAVObject_GetRotate_006a9540()->ProcessItems();
     FUN_00430830()->category = reinterpret_cast<TESForm*>(GetField54() ? GetField54()->GetFormID() : 0);
@@ -729,7 +729,7 @@ void TESRecipe::SaveAlt_005a8490()
         TESForm_AddChunk_00485910(0x444f4352, item->FUN_00726070()->GetFormID());
         TESForm_AddChunk_00485910(0x59514352, item->Modelloader_GetReferencedThis());
     }
-    FinishFormRecord();
+    TESForm_CloseForm();
 }
 
 struct FUN_005a7870_cls

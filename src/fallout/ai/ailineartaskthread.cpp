@@ -39,7 +39,7 @@ void AILinearTaskThread::StartTaskThread()
     ((RouterAllocatorView_008c6ff0*)&ThreadMemory)->FUN_00984f60(((OSGlobals*)&ThreadMemory)->GetUptimeMilliseconds());
     m_pTaskMemory = ((hkMemoryAllocator*)((OSGlobals*)&ThreadMemory)->GetUptimeMilliseconds())->blockAlloc(0x32000);
     ((hkMemorySystem*)&((BSSimpleList<BGSPerkEntry*>*)&ThreadMemory)->GetItem())->GetMonitorStream(m_pTaskMemory, 0x32000);
-    g_dataHandler->BuildCompiledFileList();
+    g_dataHandler->CreateThreadSafeFiles();
 }
 
 void __cdecl operator delete(void*);

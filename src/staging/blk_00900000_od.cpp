@@ -99,14 +99,14 @@ void* p07::DelStandIn::Destroy_Thunk()
 
 extern "C" void __cdecl DAT_01088640();
 
-struct FUN_00906110_Class
+struct LockFreeMapIterator
 {
     void __thiscall SetVtableAndProcessState_00906110();
 };
 
 // @fnv 0x00906110
 // src: GUESS 0x00906110 (confidence: low)
-void __thiscall FUN_00906110_Class::SetVtableAndProcessState_00906110()
+void __thiscall LockFreeMapIterator::SetVtableAndProcessState_00906110()
 {
     *reinterpret_cast<void**>(this) = &DAT_01088640;
 }
@@ -169,7 +169,7 @@ struct BSSimpleArray_PathingAvoidNode_1024
 {
     void InitializeItems(PathingAvoidNode* pDest, unsigned int count);
 };
-struct FUN_00905450_StandIn
+struct PathingAvoidNodeArray
 {
     int m_iArrayLength;
     PathingAvoidNode* m_pData;
@@ -178,7 +178,7 @@ struct FUN_00905450_StandIn
 };
 // Appends a copy of the given node to the array and returns the index it was stored at.
 // @fnv 0x00905450
-unsigned int FUN_00905450_StandIn::AppendNode(PathingAvoidNode* apNode)
+unsigned int PathingAvoidNodeArray::AppendNode(PathingAvoidNode* apNode)
 {
     unsigned int count = GetNextIndex();
     ((BSSimpleArray_PathingAvoidNode_1024*)this)->InitializeItems(&m_pData[count], 1);
@@ -219,11 +219,12 @@ char FUN_00905510_Class::LockAndCall(int aiArg)
 struct FUN_00905690_Class
 {
     void __thiscall SetVtableAndProcessState_00905650();
-    void* __thiscall FUN_00905690(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 
 // @fnv 0x00905690
-void* FUN_00905690_Class::FUN_00905690(unsigned int flags)
+// src: EXE 0x00905690
+void* FUN_00905690_Class::ScalarDeletingDestructor(unsigned int flags)
 {
     SetVtableAndProcessState_00905650();
     if (flags & 1)
@@ -285,7 +286,7 @@ struct FUN_00906130_Class
 // @fnv 0x00906130
 void* FUN_00906130_Class::FUN_00906130(unsigned int flags)
 {
-    reinterpret_cast<FUN_00906110_Class*>(this)->SetVtableAndProcessState_00906110();
+    reinterpret_cast<LockFreeMapIterator*>(this)->SetVtableAndProcessState_00906110();
     if (flags & 1)
         Deallocate(this);
     return this;
@@ -366,12 +367,13 @@ struct _Base_00441d20
 {
     ~_Base_00441d20();
 };
-struct FUN_00905c30 : _Base_00441d20
+struct SkyTask : _Base_00441d20
 {
-    ~FUN_00905c30();
+    ~SkyTask();
 };
 // @fnv 0x00905c30
-FUN_00905c30::~FUN_00905c30()
+// src: GUESS 0x00905c30 (confidence: medium)
+SkyTask::~SkyTask()
 {}
 
 struct FUN_00906690_t
@@ -478,7 +480,7 @@ struct SpawnedObject_b9530
     {}
 };
 
-struct FUN_00905b00_cls
+struct ActorPathingMessage
 {
     char m00[0x14];
     void FUN_00483710();
@@ -487,7 +489,7 @@ struct FUN_00905b00_cls
 
 // Calls FUN_00483710, then placement-constructs a SpawnedObject_b9530 at this from a.
 // @fnv 0x00905b00
-void FUN_00905b00_cls::ConstructSpawnedObject(int a)
+void ActorPathingMessage::ConstructSpawnedObject(int a)
 {
     FUN_00483710();
     new (this) SpawnedObject_b9530(a);
@@ -537,7 +539,7 @@ struct Iterator9065
     bool ProcessEntry();
     bool ProcessEntries_00906c10();
 };
-struct FUN_00906570_Class
+struct LockFreeMap
 {
     int unk00;
     int unk04;
@@ -553,7 +555,7 @@ struct FUN_00906570_Class
     bool AdvanceRequest(Request9065*, void**, void*, bool);
 };
 // @fnv 0x00906570
-bool FUN_00906570_Class::AdvanceRequest(Request9065* request, void** ppOut, void* context, bool repeat)
+bool LockFreeMap::AdvanceRequest(Request9065* request, void** ppOut, void* context, bool repeat)
 {
     lock.Lock(0);
     bool success = false;
@@ -648,7 +650,7 @@ struct SubObject
     void __thiscall FreeMemory(OutRecord* pOut);
 };
 
-class FUN_00913910_cls
+class NiTMap
 {
   public:
     int unk00;
@@ -661,7 +663,7 @@ class FUN_00913910_cls
 // Initializes a LocalPair with 0, copies it into pOut->m_pair, then calls m_sub.FreeMemory(pOut).
 // @fnv 0x00913910
 // src: GUESS 0x00913910 (confidence: medium)
-void FUN_00913910_cls::ResetPairAndFreeEntry(OutRecord* pOut)
+void NiTMap::ResetPairAndFreeEntry(OutRecord* pOut)
 {
     LocalPair local;
     local.UpdateState_00913950(0);
@@ -830,7 +832,7 @@ struct FUN_0044ac40_Service
     void __thiscall BSTaskManager_CancelTask(unsigned int value);
 };
 extern FUN_0044ac40_Service* DAT_01202d98;
-struct FUN_00906050_Class
+struct LipSyncBackgroundManager
 {
     virtual void v0();
     virtual void v1();
@@ -841,7 +843,7 @@ struct FUN_00906050_Class
 // Creates a guard, calls v2 with the value and guard; if it succeeds, calls CallVirtual5 and passes the guard's flag result to DAT_01202d98.
 // @fnv 0x00906050
 // src: COMMUNITY 0x00906050
-void FUN_00906050_Class::LipSyncBackgroundManager_CancelLipFile(int value)
+void LipSyncBackgroundManager::LipSyncBackgroundManager_CancelLipFile(int value)
 {
     FUN_00528cb0_Guard guard(0);
     if (v2(value, &guard))

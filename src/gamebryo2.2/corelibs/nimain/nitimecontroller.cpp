@@ -504,7 +504,8 @@ inline bool CanSaveController(NiTimeController* controller)
     typedef bool (__thiscall* Query)(NiTimeController*);
     return reinterpret_cast<Query>((*reinterpret_cast<void***>(controller))[43])(controller);
 }
-void __fastcall SaveTimeController(NiTimeController* controller, int, NiStream& stream)
+// src: EXE 0x00a6d730
+void __fastcall NiTimeController_SaveBinary(NiTimeController* controller, int, NiStream& stream)
 {
     controller->NiObject::SaveBinary(stream);
     NiTimeController* next = controller->m_spNextController.m_pObject;
@@ -544,7 +545,8 @@ template <class T, class TAlloc> inline unsigned int NiTArray<T, TAlloc>::Add(co
 
 
 // @fnv 0x00a6d830
-void __fastcall GetTimeControllerViewerStrings(NiTimeController* controller, int, NiViewerStringsArray* pkViewerStrings)
+// src: EXE 0x00a6d830
+void __fastcall NiTimeController_GetViewerStrings(NiTimeController* controller, int, NiViewerStringsArray* pkViewerStrings)
 {
     pkViewerStrings->Add(NiViewerStrings_NiGetViewerString_Title(DAT_011f49e4));
     pkViewerStrings->Add(NiGetViewerString_00a7d550("m_fFrequency", controller->m_fFrequency));

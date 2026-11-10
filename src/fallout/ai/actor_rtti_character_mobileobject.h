@@ -79,7 +79,7 @@ class MobileObject : public TESObjectREFR
     virtual NiPoint3* GetPos() const;
     bool IsSwimming_005a2030() const;
     float GetRelevantWaterHeight() const;
-    float GetActorHeight() const;
+    float Actor_GetHeight() const;
 };
 #pragma pack(pop)
 FNV_STATIC_ASSERT(sizeof(MobileObject) == 0x88);

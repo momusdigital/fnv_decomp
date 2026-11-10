@@ -47,7 +47,8 @@ void* __cdecl _NiMalloc(unsigned int);
 int __cdecl _NiSprintf(char*, unsigned int, const char*, ...);
 // Allocates a string sized from the prefix length and formats the four floats as "(%g,%g,%g), %g", returning the buffer.
 // @fnv 0x00a69a60
-char* __fastcall NiPlaneGetFormattedString(const NiPlane* plane, void*, const char* pPrefix)
+// src: COMMUNITY 0x00a69a60
+char* __fastcall NiPlane_GetViewerString(const NiPlane* plane, void*, const char* pPrefix)
 {
     char* pBuffer;
     unsigned int uiPrefixLen;

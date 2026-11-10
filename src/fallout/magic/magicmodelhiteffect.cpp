@@ -101,8 +101,8 @@ bool MagicModelHitEffect::Init()
                                     targetManager->FindSequenceByName(NiFixedString(kMagicModelHitEffectName));
                                 if (targetSequence)
                                 {
-                                    targetManager->DeactivateAllSequences(0.0f);
-                                    targetManager->ActivateControllerSequence(targetSequence, 0, false, 1.0f, 0.0f, (NiControllerSequence*)0);
+                                    targetManager->DeactivateAll(0.0f);
+                                    targetManager->ActivateSequence(targetSequence, 0, false, 1.0f, 0.0f, (NiControllerSequence*)0);
                                     targetManager->FUN_0047aa40(true);
                                     if (this->m_fFirstFloatValue > 0.0f)
                                         targetSequence->SetSequenceTime(this->m_fFirstFloatValue, false);

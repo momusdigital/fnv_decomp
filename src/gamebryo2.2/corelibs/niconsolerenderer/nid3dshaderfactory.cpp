@@ -543,7 +543,7 @@ struct FakeFactory374
     virtual void* vf9();
     virtual void* vf10();
     virtual void* vf11();
-    virtual void* vf12();
+    virtual void* SetMapName();
     virtual void* vf13();
     virtual ShaderConstantInterface* GetVertexShaderConstantInterface();
     virtual ShaderConstantInterface* GetPixelShaderConstantInterface();
@@ -822,7 +822,7 @@ struct ShaderLibrary
     virtual void vf9();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -848,7 +848,7 @@ struct ShaderLibrary
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();

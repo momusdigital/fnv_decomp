@@ -21,14 +21,14 @@ struct SizeSource {
 struct SourceRef {
     SizeSource* m_p;
 };
-struct FUN_00d32060_Class {
+struct hkpHeightFieldAgent {
     void* m_vtbl;
     short m_usMemSizeAndFlags;
     short m_sReferenceCount;
     int m_flag;
     hkArray<unsigned short> m_aiIndexedValues;
 
-    FUN_00d32060_Class* Init(const SourceRef& src, int b, int c, int flag);
+    hkpHeightFieldAgent* Init(const SourceRef& src, int b, int c, int flag);
 };
 extern void __cdecl hkpHeightFieldAgent_staticGetClosestPoints(void*, void*, void*, void*);
 void __stdcall hkpHeightFieldAgent_getClosestPoints(void* a, void* b, void* c, void* d);
@@ -40,7 +40,7 @@ void Hkpheightfieldagent_UpdateState_00d323f0();
 void AllocateTargetObj();
 void hkpHeightFieldAgent_staticGetPenetrations();
 void hkpHeightFieldAgent_staticGetClosestPoints();
-void hkpHeightFieldAgent_ProcessSphereQueries();
+void hkpHeightFieldAgent_staticLinearCast();
 struct S_00d321e0_AgentFuncs {
     S_00d321e0_Func m_pCreateFunc;
     S_00d321e0_Func m_pQueryPenetrationsFunc;
@@ -89,12 +89,12 @@ struct Owner {
     int count;
     void NotifyAndClear(int value);
 };
-extern "C" void __cdecl hkpHeightFieldAgent_ProcessSphereQueries(void* arg0, void* arg1, void* arg2, void* arg3, void* arg4);
+extern "C" void __cdecl hkpHeightFieldAgent_staticLinearCast(void* arg0, void* arg1, void* arg2, void* arg3, void* arg4);
 // @fnv 0x00d32030
 // src: HAVOK_SRC 0x00d32030
 extern "C" void __stdcall hkpHeightFieldAgent_linearCast(void* arg0, void* arg1, void* arg2, void* arg3, void* arg4)
 {
-    hkpHeightFieldAgent_ProcessSphereQueries(arg0, arg1, arg2, arg3, arg4);
+    hkpHeightFieldAgent_staticLinearCast(arg0, arg1, arg2, arg3, arg4);
 }
 extern "C" void __cdecl hkpHeightFieldAgent_staticGetPenetrations(void* arg0, void* arg1, void* arg2, void* arg3);
 // @fnv 0x00d32150
@@ -212,8 +212,8 @@ static __forceinline void event(TimerStream* stream,const char* name) {
     }
 }
 // @fnv 0x00d31d30
-// src: GUESS 0x00d31d30 (confidence: medium)
-extern "C" void __cdecl hkpHeightFieldAgent_ProcessSphereQueries(void* arg0,void* arg1,void* arg2,void* arg3,void* arg4) {
+// src: COMMUNITY 0x00d31d30
+extern "C" void __cdecl hkpHeightFieldAgent_staticLinearCast(void* arg0,void* arg1,void* arg2,void* arg3,void* arg4) {
     TimerStream* stream=(TimerStream*)TlsGetValue(DAT_0126835c);
     TimerEvent* e=stream->current;
     if(e<stream->end) {

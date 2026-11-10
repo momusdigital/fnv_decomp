@@ -9,7 +9,8 @@
 
 // Calls FUN_006270f0, then deletes this with size 0x44 when flags has bit 0 set, and returns this.
 // @fnv 0x006270c0
-void* LoadedAreaBound::FUN_006270c0(unsigned int flags)
+// src: EXE 0x006270c0
+void* LoadedAreaBound::ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_006270f0();
     if (flags & 1)
@@ -776,14 +777,14 @@ struct Arg3
 
 struct FUN_00628df0_class
 {
-    void ProcessEntries_00628df0(Arg1* a1, Arg2* a2, Arg3* a3);
+    void LoadedAreaBound_CheckPhantomsOutsideAABB(Arg1* a1, Arg2* a2, Arg3* a3);
     void LoadedAreaBound_WarpActor(TESObjectREFR* r);
 };
 
 // For each a2 item with a string, calls a3's target vfunc_0x3c; if the a1 checks fail and the item type is 0x1e, passes its REFR to FUN_006295e0.
 // @fnv 0x00628df0
-// src: GUESS 0x00628df0 (confidence: low)
-void FUN_00628df0_class::ProcessEntries_00628df0(Arg1* a1, Arg2* apItems, Arg3* apTarget)
+// src: COMMUNITY 0x00628df0
+void FUN_00628df0_class::LoadedAreaBound_CheckPhantomsOutsideAABB(Arg1* a1, Arg2* apItems, Arg3* apTarget)
 {
     FUN_00437c10 tmp;
     for (int i = 0; i < apItems->FUN_00726070(); ++i)

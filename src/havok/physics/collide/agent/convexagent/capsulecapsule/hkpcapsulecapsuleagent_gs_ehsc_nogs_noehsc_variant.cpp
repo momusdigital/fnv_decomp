@@ -30,7 +30,7 @@ struct FUN_00d3b3d0_Class
 typedef void(__cdecl* HandlerFn)();
 void __cdecl hkpCapsuleCapsuleAgent_createCapsuleCapsuleAgent();
 void __cdecl hkpCapsuleCapsuleAgent_staticGetPenetrations();
-void __cdecl UpdateFields_00d3bd80();
+void __cdecl staticGetClosestPoints();
 void __cdecl Object_ProcessEntries_00daf8e0();
 struct HandlerSet
 {

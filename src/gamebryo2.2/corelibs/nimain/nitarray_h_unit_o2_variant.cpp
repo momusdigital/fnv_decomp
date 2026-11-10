@@ -26,7 +26,7 @@ inline unsigned int SetViewerStringAtGrow(StrArr* array, unsigned int index, cha
     return index;
 }
 
-struct FUN_00cc6540_Class
+struct hkRagdollLimitsConstraintCinfo
 {
     unsigned char m_auiShapeKeys[4];
     void* m_pUserData;
@@ -39,7 +39,7 @@ char* __cdecl NiGetViewerString_00a7d550(char const* name, float value);
 
 // @fnv 0x00cc6540
 // src: XBOX_PDB 0x00cc6540
-void FUN_00cc6540_Class::hkRagdollLimitsConstraintCinfo_GetViewerStrings(StrArr* array)
+void hkRagdollLimitsConstraintCinfo::hkRagdollLimitsConstraintCinfo_GetViewerStrings(StrArr* array)
 {
     hkConstraintCinfo_GetViewerStrings(array);
 
@@ -172,7 +172,7 @@ extern const char* g_pcC8AD40Name;
 
 char* __cdecl NiViewerStrings_NiGetViewerString_Title(const char* pcString);
 
-class FUN_00c8ad40_cls
+class bhkBinaryAction
 {
   public:
     void C8AD40BaseGetViewerStrings(StrArr* pkArray);
@@ -181,7 +181,7 @@ class FUN_00c8ad40_cls
 
 // @fnv 0x00c8ad40
 // src: XBOX_PDB 0x00c8ad40
-void FUN_00c8ad40_cls::bhkBinaryAction_GetViewerStrings(StrArr* pkArray)
+void bhkBinaryAction::bhkBinaryAction_GetViewerStrings(StrArr* pkArray)
 {
     BC8AD40AllocTagScope kScope(0x10);
     C8AD40BaseGetViewerStrings(pkArray);

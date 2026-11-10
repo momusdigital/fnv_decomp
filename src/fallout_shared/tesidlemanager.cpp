@@ -12,7 +12,8 @@
 #include "tesidlemanager_decls.h"
 
 // @fnv 0x006008f0
-TESObject* IdleAnimationManager::GetCurrentUsedItem()
+// src: COMMUNITY 0x006008f0
+TESObject* IdleAnimationManager::TESIdleManager_GetUsedItem()
 {
     return fnv_tesidlemanager_used_item;
 }
@@ -31,14 +32,15 @@ NiFormArray* IdleAnimationManager::GetIdleArray(TESForm* form)
 
     if (form)
     {
-        BuildIdlePath(TESModel::GetModelFilePath((TESObject*)form), buffer);
+        TESIdleManager_GetIdleDirName(TESModel::GetModelFilePath((TESObject*)form), buffer);
         result = GetIdleFormArray(buffer);
     }
     return result;
 }
 
 // @fnv 0x006007f0
-void IdleAnimationManager::BuildIdlePath(const char* source, char* destination)
+// src: COMMUNITY 0x006007f0
+void IdleAnimationManager::TESIdleManager_GetIdleDirName(const char* source, char* destination)
 {
     char buffer[260];
     char* match;
@@ -124,7 +126,7 @@ TESIdleForm* IdleAnimationManager::FindIdleFormForObject(TESObjectREFR* action, 
     {
         char buffer[264];
         {
-            BuildIdlePath(action->GetModelFilePath(), buffer);
+            TESIdleManager_GetIdleDirName(action->GetModelFilePath(), buffer);
             AnimData* anim = action->GetAnimData();
             idles = GetFormArrayForIdleDir(buffer);
             if (idles)
@@ -141,13 +143,14 @@ TESIdleForm* IdleAnimationManager::FindIdleFormForObject(TESObjectREFR* action, 
             }
         }
     }
-    if (result && result->TESIdleForm_GetAllowNoFile() && !result->IsIdleFile())
+    if (result && result->TESIdleForm_GetAllowNoFile() && !result->CheckIdleFile())
         result = 0;
     return result;
 }
 
 // @fnv 0x005ff950
-void IdleAnimationDirectoryEntry::SetWeaponFiles(BSSimpleList<const char*>* files)
+// src: COMMUNITY 0x005ff950
+void IdleAnimationDirectoryEntry::IDLE_ANIM_ROOT_AddRootFilenameList(BSSimpleList<const char*>* files)
 {
     if (!files)
         return;
@@ -206,7 +209,7 @@ IdleAnimationDirectoryEntry* IdleAnimationManager::ClearIdleData(const char* dir
                             TaskQueueInterface::CopyStringToBuffer(slash + 1, 128 - (slash - buffer) - 1,
                                                                    fnv_tesidlemanager_idle_anims);
                             supplied = new IdleAnimationDirectoryEntry(directory);
-                            supplied->SetWeaponFiles(g_modelLoader->FindNIFFileListEntry(files, 0));
+                            supplied->IDLE_ANIM_ROOT_AddRootFilenameList(g_modelLoader->FindNIFFileListEntry(files, 0));
                             InsertOrUpdate(buffer, supplied);
                             result = supplied;
                             return result;
@@ -214,7 +217,7 @@ IdleAnimationDirectoryEntry* IdleAnimationManager::ClearIdleData(const char* dir
                     }
                     fallback = new IdleAnimationDirectoryEntry(directory);
                     DAT_011cb71c = true;
-                    fallback->SetWeaponFiles(
+                    fallback->IDLE_ANIM_ROOT_AddRootFilenameList(
                         g_modelLoader->GetModelFileList(directory, true, false, ANIM_GROUP_WEAPON_ENUM_AGW_NONE));
                     DAT_011cb71c = false;
                     InsertOrUpdate(directory, fallback);
@@ -256,7 +259,7 @@ void __fastcall TESIdleManager_InitRootIdleArrays(void* thisPtr)
                     root->m_ppFileListsByWeapon[i] = 0;
                 }
             }
-            root->SetWeaponFiles(g_modelLoader->GetModelFileList(path, true, false, 0));
+            root->IDLE_ANIM_ROOT_AddRootFilenameList(g_modelLoader->GetModelFileList(path, true, false, 0));
         }
     }
 }
@@ -273,7 +276,7 @@ NiFormArray* FUN_006004f0_shell::GetFormArray(TESForm* apForm)
     if (apForm)
     {
         char idledir[260];
-        BuildIdlePath(TESModel::GetModelFilePath((TESObject*)apForm), idledir);
+        TESIdleManager_GetIdleDirName(TESModel::GetModelFilePath((TESObject*)apForm), idledir);
         pretarray = ClearIdleData(idledir, 0, false);
     }
     return (NiFormArray*)pretarray;
@@ -364,32 +367,32 @@ void TESIdleManager_SetUsedItemActivate(unsigned char value)
 void _Deallocate(void*);
 struct S005fff90
 {
-    void FUN_005fffc0();
+    void IDLE_ANIM_ROOT();
     void* FUN_005fff90(unsigned int);
 };
 // @fnv 0x005fff90
 void* S005fff90::FUN_005fff90(unsigned int flags)
 {
-    FUN_005fffc0();
+    IDLE_ANIM_ROOT();
     if (flags & 1)
         _Deallocate(this);
     return this;
 }
 
-struct FUN_006005c0_shell : public IdleAnimationManager
+struct TESIdleManager : public IdleAnimationManager
 {
     NiFormArray* _TESIdleManager_GetIdleAnimRoot(const char* path);
 };
 
 // @fnv 0x006005c0
 // src: COMMUNITY 0x006005c0
-NiFormArray* FUN_006005c0_shell::_TESIdleManager_GetIdleAnimRoot(const char* path)
+NiFormArray* TESIdleManager::_TESIdleManager_GetIdleAnimRoot(const char* path)
 {
     NiFormArray* result = 0;
     if (path)
     {
         char directory[260];
-        IdleAnimationManager::BuildIdlePath(TESModel::GetModelFilePath((TESObject*)path), directory);
+        IdleAnimationManager::TESIdleManager_GetIdleDirName(TESModel::GetModelFilePath((TESObject*)path), directory);
         result = GetFormArrayForIdleDir(directory);
     }
     return result;
@@ -402,17 +405,18 @@ struct S_005fffc0_C
     ~S_005fffc0_C();
 };
 
-struct FUN_005fffc0
+struct IDLE_ANIM_ROOT
 {
     NiFormArray unk00;
     NiFormArray unk18;
     S_005fffc0_C unk30;
-    ~FUN_005fffc0();
+    ~IDLE_ANIM_ROOT();
 };
 
 // Destroys the directory entry's form arrays and list data.
 // @fnv 0x005fffc0
-FUN_005fffc0::~FUN_005fffc0()
+// src: COMMUNITY 0x005fffc0
+IDLE_ANIM_ROOT::~IDLE_ANIM_ROOT()
 {}
 
 struct FilenameList
@@ -501,8 +505,8 @@ void IdleCleanup::DeleteAllOwnedForms()
 void __fastcall ClearIdleFormArray(NiFormArray* array);
 
 // @fnv 0x00600030
-// src: GUESS 0x00600030 (confidence: low)
-void IdleAnimationManager::ReleaseStorage_00600030()
+// src: COMMUNITY 0x00600030
+void IdleAnimationManager::TESIdleManager_DestroyRootIdleArrayForms()
 {
     void* a = ((NiTPointerMap<void*, NiFormArray*>*)this)->GetFirstPos();
     while (a != 0)

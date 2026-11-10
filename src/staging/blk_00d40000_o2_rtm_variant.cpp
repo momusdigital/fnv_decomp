@@ -68,31 +68,31 @@ void __cdecl FindEntryByKey();
 void __cdecl ForwardToTarget();
 void __cdecl hkPredGskAgent3_initAgentFunc(int* pObject);
 extern int DAT_010cf9a4;
-void __cdecl Runtime_UpdateState_00d48350(int* p);
+void __cdecl finishLoadedObject_hkpPhysicsData(int* p);
 struct FUN_00d49580_vtbl
 {
     virtual void v0(int);
 };
-void __cdecl Object_InvokeVirtualMethod_00d49580(FUN_00d49580_vtbl* p);
+void __cdecl cleanupLoadedObject_hkpStorageSampledHeightFieldShape(FUN_00d49580_vtbl* p);
 extern int DAT_010305a8;
 extern int DAT_010ce31c;
 extern int DAT_010cfb34;
-void __cdecl Object_UpdateFields_00d495a0(int* pObject, int b);
-void __cdecl Runtime_Helper_00d4b190(void* p);
+void __cdecl finishLoadedObject_hkpStorageSampledHeightFieldShape(int* pObject, int b);
+void __cdecl cleanupLoadedObject_hkpStorageExtendedMeshShapeMeshSubpartStorage(void* p);
 struct FUN_00d4b250_class
 {
-    void __thiscall Runtime_ForwardCall_00d4b250(int);
+    void __thiscall cleanupLoadedObject_hkpStorageExtendedMeshShape(int);
 };
 struct FUN_00d4b250_vt
 {
-    virtual void __thiscall Runtime_ForwardCall_00d4b250(int);
+    virtual void __thiscall cleanupLoadedObject_hkpStorageExtendedMeshShape(int);
 };
-void __cdecl Runtime_ForwardCall_00d4b250(FUN_00d4b250_vt* p);
+void __cdecl cleanupLoadedObject_hkpStorageExtendedMeshShape(FUN_00d4b250_vt* p);
 struct FUN_00d4be50_vt
 {
-    virtual void Runtime_ForwardCall_00d4be50(int);
+    virtual void cleanupLoadedObject_hkpStorageMeshShapeSubpartStorage(int);
 };
-void __cdecl Runtime_ForwardCall_00d4be50(FUN_00d4be50_vt* p);
+void __cdecl cleanupLoadedObject_hkpStorageMeshShapeSubpartStorage(FUN_00d4be50_vt* p);
 struct CollisionAgentFunctionTable
 {
     void* f0;
@@ -119,24 +119,24 @@ struct FUN_00d48330_vt
 {
     virtual void v0(int);
 };
-void __cdecl Runtime_ForwardCall_00d48330(FUN_00d48330_vt* p);
-void __cdecl Runtime_ForwardCall_00d49510(FUN_00d49580_vtbl* p);
+void __cdecl cleanupLoadedObject_hkpPhysicsData(FUN_00d48330_vt* p);
+void __cdecl cleanupLoadedObject_hkpRigidBody(FUN_00d49580_vtbl* p);
 struct FUN_00d4b1f0_vt
 {
-    virtual void __thiscall Runtime_ForwardCall_00d4b1f0(int);
+    virtual void __thiscall cleanupLoadedObject_hkpStorageExtendedMeshShapeShapeSubpartStorage(int);
 };
-void __cdecl Runtime_ForwardCall_00d4b1f0(FUN_00d4b1f0_vt* p);
+void __cdecl cleanupLoadedObject_hkpStorageExtendedMeshShapeShapeSubpartStorage(FUN_00d4b1f0_vt* p);
 struct FUN_00d4b320_vt
 {
     virtual void v0(int);
 };
-void __cdecl Object_InvokeVirtualMethod_00d4b320(FUN_00d4b320_vt* p);
-void __cdecl Runtime_ForwardCall_00d4beb0(FUN_00d49580_vtbl* p);
+void __cdecl cleanupLoadedObject_hkpExtendedMeshShape(FUN_00d4b320_vt* p);
+void __cdecl cleanupLoadedObject_hkpStorageMeshShape(FUN_00d49580_vtbl* p);
 struct FUN_00d4bf30_vt
 {
-    virtual void Runtime_ForwardCall_00d4bf30(int);
+    virtual void cleanupLoadedObject_hkpMeshShape(int);
 };
-void __cdecl Runtime_ForwardCall_00d4bf30(FUN_00d4bf30_vt* p);
+void __cdecl cleanupLoadedObject_hkpMeshShape(FUN_00d4bf30_vt* p);
 extern const char* const g_01268eb4_arg1;
 const char* const* __cdecl Object_GetGlobalObjectAddress_00d4bf60();
 struct FUN_00d4fe40_cls
@@ -289,7 +289,7 @@ struct FnvVtObj
 };
 extern int DAT_010cfd44;
 extern int DAT_010cfd20;
-struct FUN_00d49c50_cls
+struct hkpStorageExtendedMeshShape
 {
     volatile void* m_pVtbl;
     int m_unk04;
@@ -387,7 +387,7 @@ struct FUN_00d4a180_cls
 {
     void __thiscall FUN_00d4a180(int a);
 };
-void __cdecl Runtime_ProcessState_00d4b230(FUN_00d4a180_cls* pTarget, int aiValue);
+void __cdecl finishLoadedObject_hkpStorageExtendedMeshShape(FUN_00d4a180_cls* pTarget, int aiValue);
 extern int DAT_01268d4c;
 int* __cdecl Object_GetGlobalObjectAddress_00d4b280();
 extern int DAT_01268d94;
@@ -413,7 +413,7 @@ class FUN_00d4b300_cls
   public:
     void FUN_00d56f10(int a1);
 };
-void __cdecl Object_ProcessState_00d4b300(FUN_00d4b300_cls* pObject, int aiValue);
+void __cdecl finishLoadedObject_hkpExtendedMeshShape(FUN_00d4b300_cls* pObject, int aiValue);
 extern int DAT_01268e24;
 void* Runtime_GetDAT01268e24Address();
 struct TailTarget
@@ -426,7 +426,7 @@ void __cdecl Object_InvokeVirtualMethod_00d4b380(TailTarget* pTarget);
 // member state.
 extern int DAT_010d055c;
 extern int DAT_010d053c;
-struct FUN_00d4b3c0_cls
+struct hkpStorageMeshShape
 {
     volatile void* m_pVtbl;
     int m_unk04;
@@ -470,7 +470,7 @@ struct FUN_00d4ba30_class
 {
     void __thiscall FUN_00d4ba30(int);
 };
-void __cdecl Object_ProcessState_00d4be90(FUN_00d4ba30_class* pObject, int value);
+void __cdecl finishLoadedObject_hkpStorageMeshShape(FUN_00d4ba30_class* pObject, int value);
 extern int g_unk01268eb4;
 void* __cdecl Object_GetGlobalObjectAddress_00d4bee0();
 extern int g_unk01268efc;
@@ -489,7 +489,7 @@ class D4BF10Object
         return p;
     }
 };
-void Runtime_AllocateStorage_00d4bf10(void* apMemory, int finishing);
+void finishLoadedObject_hkpMeshShape(void* apMemory, int finishing);
 extern int DAT_01268f74;
 class FUN_00d50020_base
 {
@@ -1477,10 +1477,10 @@ class FUN_00d48320
   public:
     FUN_00d48320(FinishingFlag flag);
 };
-class FUN_00dcc160_cls
+class hkIstream
 {
   public:
-    FUN_00dcc160_cls* InitFromValue(void* pvSource);
+    hkIstream* InitFromValue(void* pvSource);
     void SetVirtualTable_00dcc160();
 
     int m_iUnk00;
@@ -1519,12 +1519,12 @@ struct hkContainerD539
     int* m_keys;
     int m_numKeys;
 };
-class FUN_00c89c80_obj
+class bhkConstraint
 {
   public:
     void CopyFromSource(unsigned int info) throw();
 };
-class hkShapeD539 : public FUN_00c89c80_obj
+class hkShapeD539 : public bhkConstraint
 {
   public:
     int unk00;
@@ -1636,7 +1636,7 @@ struct FUN_00d58ce0_DisplayObj
     virtual void vf04();
     virtual void vf08(int, int);
 };
-struct FUN_00d58ce0_Class
+struct hkDisplayGeometry
 {
     int unk00;
     unsigned short unk04;
@@ -1645,7 +1645,7 @@ struct FUN_00d58ce0_Class
 };
 extern "C" void __cdecl FUN_00da2560();
 extern double DAT_010229c0;
-struct FUN_00d5d660_cls
+struct hkPseudoRandomGenerator
 {
     int m_i00;
     int m_i04;
@@ -1894,11 +1894,11 @@ class FUN_00dd0420_Class
 
     int unk00;
 };
-class FUN_00d50c00
+class hkpGenericConstraintData
 {
   public:
-    FUN_00d50c00(FinishingFlag flag);
-    virtual ~FUN_00d50c00();
+    hkpGenericConstraintData(FinishingFlag flag);
+    virtual ~hkpGenericConstraintData();
 
     int unk04;
     int unk08;
@@ -3092,14 +3092,14 @@ class RefPtrD482
     FUN_00d46d40_s* hkRefVariant_getClass() const throw();
     void AssignObject(int iParam) throw();
 };
-class FUN_00d48250
+class NamedVariant
 {
   public:
     FUN_00cb0a60 m_name;
     FUN_00cb0a60 m_pClassName;
     RefPtrD482 m_object;
 
-    FUN_00d48250(const char* pcName, int iParam) throw();
+    NamedVariant(const char* pcName, int iParam) throw();
 };
 struct S_00d4f0f0_B1
 {
@@ -3132,7 +3132,7 @@ struct S_00d4f0f0_S
     __forceinline S_00d4f0f0_S() : unk40(6)
     {}
 };
-struct FUN_00d4f0f0 : S_00d4f0f0_B2
+struct hkpStiffSpringConstraintData : S_00d4f0f0_B2
 {
     S_00d4f0f0_H h;
     int unk14;
@@ -3142,7 +3142,7 @@ struct FUN_00d4f0f0 : S_00d4f0f0_B2
     hkVector4 unk30;
     S_00d4f0f0_S s;
     float unk44;
-    FUN_00d4f0f0();
+    hkpStiffSpringConstraintData();
     virtual void v0();
 };
 inline void setZero4(hkVector4& v)
@@ -3205,11 +3205,11 @@ struct hkpRagdollDataS : hkpConstraintData
 {
     void setConeStab(hkBool b);
 };
-struct FUN_00d4f2a0 : hkpRagdollDataS
+struct hkpRagdollLimitsData : hkpRagdollDataS
 {
     hkpRagdollAtomsS m_kBridgeAtoms;
-    FUN_00d4f2a0();
-    virtual ~FUN_00d4f2a0();
+    hkpRagdollLimitsData();
+    virtual ~hkpRagdollLimitsData();
 };
 extern int DAT_010d0be4;
 extern float DAT_0106b648;
@@ -3239,7 +3239,7 @@ struct Matrix
     }
 };
 }
-class FUN_00d52fc0
+class hkpHingeLimitsData
 {
   public:
     int* m_vptr;
@@ -3263,15 +3263,15 @@ class FUN_00d52fc0
     unsigned short m_90;
     unsigned char m_92;
 
-    FUN_00d52fc0();
+    hkpHingeLimitsData();
 };
 extern int DAT_010d0cd4;
 extern float DAT_0104da48;
 struct FUN_00ca9360_sub
 {
-    void __fastcall FindFloatTableIndex(int count, float* value);
+    void __fastcall SetReal(int count, float* value);
 };
-struct FUN_00d54290
+struct hkpBallAndSocketConstraintData
 {
     void* volatile m_vptr;
     unsigned short m_unk04;
@@ -3289,7 +3289,7 @@ struct FUN_00d54290
     volatile unsigned char m_byte42;
     FUN_00ca9360_sub m_data43;
     volatile float m_float44;
-    FUN_00d54290();
+    hkpBallAndSocketConstraintData();
 };
 static const float DAT_010181bc = 0.05f;
 static const float DAT_01011d78 = 0.0f;
@@ -3301,9 +3301,9 @@ static inline char& MoppInputSetBool(char& rcBool, bool b)
     rcBool = static_cast<char>(b);
     return rcBool;
 }
-struct FUN_00d54de0
+struct hkpMoppCompilerInput
 {
-    FUN_00d54de0();
+    hkpMoppCompilerInput();
 
     ::hkVector4 m_vector;
     float m_value10;
@@ -3417,7 +3417,7 @@ struct PointArray380
     }
 };
 
-struct FUN_00d59760 : ConvexBase380
+struct hkpConvexVerticesShape : ConvexBase380
 {
     hkVector4 halfExtents, center;
     PointArray380 vertices;
@@ -3426,10 +3426,11 @@ struct FUN_00d59760 : ConvexBase380
     Array380<hkVector4> planes;
     void* connectivity;
 
-    FUN_00d59760(TransposedPoints380*, int, hkVector4*, int, const hkAabb&, float);
+    hkpConvexVerticesShape(TransposedPoints380*, int, hkVector4*, int, const hkAabb&, float);
 };
 // @fnv 0x00d59760
-FUN_00d59760::FUN_00d59760(TransposedPoints380* vertexData, int count, hkVector4* planeData, int planeCount,
+// src: EXE 0x00d59760
+hkpConvexVerticesShape::hkpConvexVerticesShape(TransposedPoints380* vertexData, int count, hkVector4* planeData, int planeCount,
                            const hkAabb& bounds, float r)
     : ConvexBase380(r), vertices((vtable = DAT_010d0fc4, references = 1, vertexData), count), vertexCount(count),
       unk50(0), planes(planeData, planeCount), connectivity(0)

@@ -300,7 +300,7 @@ struct Cls
     int m_54;
     int m_58;
     int m_5c;
-    Cls* FUN_00cbb8b0(int flags);
+    Cls* ScalarDeletingDestructor(int flags);
     void ReleaseReference_00d2b2b0();
 };
 extern "C"

@@ -69,7 +69,8 @@ extern int vftable_NiColorData;
 
 // Allocates a 0x18-byte object, runs its constructor, installs the NiColorData vtable and zeroes three int fields at offsets 8, 0xc and 0x10.
 // @fnv 0x00a3d150
-void* CreateNiColorData()
+// src: EXE 0x00a3d150
+void* NiColorData_CreateObject()
 {
     NiColorData* p = (NiColorData*)NiMemObject::operator new(sizeof(NiColorData));
     if (p)
@@ -90,11 +91,12 @@ extern bool(__cdecl* DAT_011f3b28[])(ColorAnimationKey*, ColorAnimationKey*);
 // NiColorData.h lacks the key-comparison override; this adapter adds no storage.
 struct ColorDataEquality : public NiColorData
 {
-    bool CompareKeys(NiColorData* other);
+    bool NiColorData_IsEqual(NiColorData* other);
 };
 
 // @fnv 0x00a3d190
-bool ColorDataEquality::CompareKeys(NiColorData* other)
+// src: EXE 0x00a3d190
+bool ColorDataEquality::NiColorData_IsEqual(NiColorData* other)
 {
     if (!IsSameAs(other))
         return false;
@@ -148,12 +150,13 @@ extern ColorKeyCreateFunction g_apfnColorKeyCreateA3D[];
 class ColorDataBinaryLoader : public NiColorData
 {
   public:
-    void LoadColorKeys(NiStream& kStream);
+    void NiColorData_LoadBinary(NiStream& kStream);
 };
 
 // Loads the base object, reads the key count, and if nonzero reads the key type and creates and stores the color keys via the matching create function.
 // @fnv 0x00a3d370
-void ColorDataBinaryLoader::LoadColorKeys(NiStream& kStream)
+// src: EXE 0x00a3d370
+void ColorDataBinaryLoader::NiColorData_LoadBinary(NiStream& kStream)
 {
     NiObject::LoadBinary(kStream);
 
@@ -223,11 +226,12 @@ struct FUN_00a3d490_arr
 class ColorDataViewerStrings : public NiColorData
 {
   public:
-    void CollectViewerStrings(FUN_00a3d490_arr* arr);
+    void NiColorData_GetViewerStrings(FUN_00a3d490_arr* arr);
 };
 
 // @fnv 0x00a3d490
-void ColorDataViewerStrings::CollectViewerStrings(FUN_00a3d490_arr* arr)
+// src: EXE 0x00a3d490
+void ColorDataViewerStrings::NiColorData_GetViewerStrings(FUN_00a3d490_arr* arr)
 {
     NiObject::AddViewerStrings((NiViewerStringsArray*)arr);
     void* item = NiViewerStrings_NiGetViewerString_Title(DAT_011f3750);

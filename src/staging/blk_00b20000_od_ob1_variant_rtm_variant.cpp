@@ -81,7 +81,7 @@ struct FUN_00b27660_class
     int c2c;
     FUN_00b27660_class(int a);
 };
-struct FUN_00b373c0_class
+struct CWindEngine
 {
     float f0;
     float f4;
@@ -100,7 +100,7 @@ struct FUN_00b373c0_class
     int i38;
     float f3C;
     float f40;
-    FUN_00b373c0_class();
+    CWindEngine();
 };
 struct FUN_00b3c550_class
 {
@@ -142,10 +142,10 @@ struct FUN_00b3c470_class
     int i14;
     FUN_00b3c470_class();
 };
-struct FUN_00b3f030_Class
+struct CIdvCamera
 {
     int* vtbl;
-    FUN_00b3f030_Class();
+    CIdvCamera();
 };
 extern const int vftable_Random[];
 void _Deallocate(void*);
@@ -273,7 +273,7 @@ struct FUN_00b335c0_cls
     unsigned int unk08;
     unsigned int m_0c;
     unsigned int m_10;
-    ProbePair ProcessAndReturnValue_00b335c0(unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5);
+    ProbePair vector_erase(unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5);
 };
 struct FUN_00b33af0_pair
 {
@@ -306,7 +306,7 @@ struct FUN_00b33af0_cls
     unsigned int m_0c;
     unsigned int m_10;
     unsigned int m_14;
-    FUN_00b33af0_pair* UpdateState_00b33af0(FUN_00b33af0_pair* out, unsigned int unk0c, unsigned int a, unsigned int unk14,
+    FUN_00b33af0_pair* vector_erase(FUN_00b33af0_pair* out, unsigned int unk0c, unsigned int a, unsigned int unk14,
                                     unsigned int b);
 };
 extern "C" unsigned int __cdecl Runtime_EvaluateValue_00b35c30(unsigned int, unsigned int, unsigned int);
@@ -2569,7 +2569,7 @@ template <class _Ty> class vectorS : public _Vector_valS<_Ty>
 class FUN_00b32540_Vector : public vectorS<int>
 {
   public:
-    void ProcessState_00b32540();
+    void vector_clear();
 };
 // FUN_00b32ad0: vector<T(0x18 bytes), game allocator>::erase(first, last), checked iterators (VC9 _SECURE_SCL)
 struct Elem18

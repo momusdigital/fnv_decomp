@@ -86,10 +86,11 @@ struct FnvCpu_FUN_00cbc520_CpuObject
     unsigned int unk00;
     unsigned short size;
     void FUN_00cbc4a0();
-    FnvCpu_FUN_00cbc520_CpuObject* FUN_00cbc520(unsigned int flags);
+    FnvCpu_FUN_00cbc520_CpuObject* ScalarDeletingDestructor(unsigned int flags);
 };
 // @fnv 0x00cbc520
-FnvCpu_FUN_00cbc520_CpuObject* FnvCpu_FUN_00cbc520_CpuObject::FUN_00cbc520(unsigned int flags)
+// src: EXE 0x00cbc520
+FnvCpu_FUN_00cbc520_CpuObject* FnvCpu_FUN_00cbc520_CpuObject::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00cbc4a0();
     if (flags & 1)

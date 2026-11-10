@@ -68,7 +68,7 @@ void NiQuaternion::Slerp(float t, const NiQuaternion& a, const NiQuaternion& b)
     m_fVectorZ = fStart + warped * (b.m_fVectorZ - fStart);
     fStart = a.m_fScalarPart;
     m_fScalarPart = fStart + warped * (b.m_fScalarPart - fStart);
-    EnsureCanonicalSign();
+    FastNormalize();
 }
 
 inline float QuaternionSqrt(float value)
@@ -158,7 +158,8 @@ static inline float isqrt_approx_in_neighborhood(float s)
 }
 
 // @fnv 0x00a4ff00
-void NiQuaternion::EnsureCanonicalSign()
+// src: COMMUNITY 0x00a4ff00
+void NiQuaternion::FastNormalize()
 {
     float s =
         m_fVectorZ * m_fVectorZ + m_fVectorY * m_fVectorY + m_fScalarPart * m_fScalarPart + m_fVectorX * m_fVectorX;
@@ -211,7 +212,8 @@ static const float epsilon = 0.001f;
 
 // Computes the rotation angle from the quaternion's w component and normalizes the xyz vector into an axis, zeroing both when the vector length is below epsilon.
 // @fnv 0x00a6de50
-void NiQuaternion::GetAngleAxis(float* angle, NiPoint3* axisPoint)
+// src: COMMUNITY 0x00a6de50
+void NiQuaternion::ToAngleAxis(float* angle, NiPoint3* axisPoint)
 {
     float* axis = axisPoint->components;
     float fSquaredLength = m_fVectorY * m_fVectorY + m_fVectorZ * m_fVectorZ + m_fScalarPart * m_fScalarPart;

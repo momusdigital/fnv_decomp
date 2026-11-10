@@ -101,11 +101,11 @@ struct FUN_00e2f8b0_Obj
     int unk24;
     int unk28;
 
-    int GetUnk28();
+    int hkaWaveletCompressedAnimation_getNumOriginalFrames();
 };
 // @fnv 0x00e2f8b0
-// src: GUESS 0x00e2f8b0 (confidence: low)
-int FUN_00e2f8b0_Obj::GetUnk28()
+// src: GUESS 0x00e2f8b0 (confidence: high)
+int FUN_00e2f8b0_Obj::hkaWaveletCompressedAnimation_getNumOriginalFrames()
 {
     return unk28;
 }
@@ -180,7 +180,7 @@ struct e2f910_Cls
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual int vf40(int value);
 

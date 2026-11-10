@@ -81,7 +81,7 @@ struct FUN_00df8960_cls
 {
     int m_vptr;
 
-    FUN_00df8960_cls* FUN_00df8960(unsigned char acFlags);
+    FUN_00df8960_cls* ScalarDeletingDestructor(unsigned char acFlags);
 };
 struct AdjustedBase
 {

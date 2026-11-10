@@ -72,7 +72,7 @@ class BGSReconstructCellSubBlocksMap;
 
 extern int DAT_0107ea60;
 
-struct FUN_00843190_class
+struct BGSOffsetDataArray
 {
     void* vtbl;
     void FUN_00844f00(int, int, int);
@@ -82,7 +82,7 @@ struct FUN_00843190_class
 // Calls FUN_00844f00 with (0x20, 0, 0), sets vtbl to &DAT_0107ea60, and returns this.
 // @fnv 0x00843190
 // src: EXE 0x00843190
-void* FUN_00843190_class::BGSOffsetDataArray_BGSOffsetDataArray()
+void* BGSOffsetDataArray::BGSOffsetDataArray_BGSOffsetDataArray()
 {
     FUN_00844f00(0x20, 0, 0);
     vtbl = &DAT_0107ea60;
@@ -1560,13 +1560,13 @@ void* FUN_00853440_class::FUN_008534d0(unsigned int flags)
 }
 
 
-struct FUN_00854b80_class
+struct BGSSaveLoadStatsMap
 {
     void __thiscall BGSSaveLoadStatsMap_WriteFile(const char* p);
 };
 // @fnv 0x00854b80
 // src: XBOX_PDB 0x00854b80
-void __thiscall FUN_00854b80_class::BGSSaveLoadStatsMap_WriteFile(const char* pcString)
+void __thiscall BGSSaveLoadStatsMap::BGSSaveLoadStatsMap_WriteFile(const char* pcString)
 {
     if (*(int*)((char*)this + 0x18))
         ((BSFile*)*(int*)((char*)this + 0x18))->NiBinaryStream_Write(pcString, BSStringLength(pcString));
@@ -1760,7 +1760,7 @@ FUN_0084fe50_class::~FUN_0084fe50_class()
 
 struct FUN_0084fec0_shell
 {
-    void EnsureFosExtension(char* a, char* b);
+    void GetFullFileName(char* a, char* b);
 };
 struct FUN_0084ff30_shell
 {
@@ -1770,16 +1770,17 @@ int __cdecl strcat_s(char* dst, unsigned int size, const char* src);
 
 struct FUN_0084ff90_shell : FUN_0084fec0_shell
 {
-    void BuildWeaponPath(char* weapon, char* name, bool tmp);
+    void BGSSaveLoadManager_GetFullPath(char* weapon, char* name, bool tmp);
 };
 
 // Builds a path from the weapon and this object, copies it into name, appends the buffer, and adds ".tmp" when tmp is set.
 // @fnv 0x0084ff90
-void FUN_0084ff90_shell::BuildWeaponPath(char* weapon, char* name, bool tmp)
+// src: COMMUNITY 0x0084ff90
+void FUN_0084ff90_shell::BGSSaveLoadManager_GetFullPath(char* weapon, char* name, bool tmp)
 {
     char buffer[260];
     char path[260];
-    EnsureFosExtension(weapon, buffer);
+    GetFullFileName(weapon, buffer);
     ((FUN_0084ff30_shell*)this)->CreateScriptMessageDirectory(path);
     TaskQueueInterface::CopyStringToBuffer(name, 260, path);
     strcat_s(name, 260, buffer);
@@ -1890,11 +1891,12 @@ void __thiscall FUN_008431c0_Class::ConstructAndForward(void* pFirst, void* pSec
 
 struct FUN_008431f0_Class : FUN_00843220_Class
 {
-    void* __thiscall FUN_008431f0(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls the base constructor, then deallocates this if bit 0 of flags is set, and returns this.
 // @fnv 0x008431f0
-void* __thiscall FUN_008431f0_Class::FUN_008431f0(unsigned int flags)
+// src: EXE 0x008431f0
+void* __thiscall FUN_008431f0_Class::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00843220_Class::ForwardCall_00843220();
     if (flags & 1)
@@ -2667,7 +2669,7 @@ struct FUN_0084e4f0_triple
     unsigned int unk08;
 };
 
-class FUN_0084e4f0_cls
+class ReferenceInitialData
 {
   public:
     unsigned int m_00;
@@ -2684,7 +2686,7 @@ class FUN_0084e4f0_cls
 // Reads two values via FUN_00853500 from src and src+0x1c, zeroes m_08/m_0c/m_10, copies two triples from src+3 and src+0xf, and stores the byte at src+0x1b.
 // @fnv 0x0084e4f0
 // src: COMMUNITY 0x0084e4f0
-void FUN_0084e4f0_cls::ReferenceInitialData_Initialize_CREATED(void* pSource)
+void ReferenceInitialData::ReferenceInitialData_Initialize_CREATED(void* pSource)
 {
     m_00 = BGSNumericIDIndex_GetNumericID(pSource);
     m_04 = BGSNumericIDIndex_GetNumericID((char*)pSource + 0x1c);
@@ -2773,13 +2775,13 @@ struct FUN_00850360_class : public FUN_0084ff90_shell
 };
 
 
-// Builds a file path from weapon via BuildWeaponPath and deletes that file with DeleteFileA.
+// Builds a file path from weapon via BGSSaveLoadManager_GetFullPath and deletes that file with DeleteFileA.
 // @fnv 0x00850360
 void FUN_00850360_class::DeleteWeaponFile(char* weapon, int flags)
 {
     char path[260];
 
-    BuildWeaponPath(weapon, path, false);
+    BGSSaveLoadManager_GetFullPath(weapon, path, false);
     DeleteFileA(path);
 }
 
@@ -2931,10 +2933,11 @@ struct SaveGameReferenceReconstruction : public TESSaveLoadGame
     TESForm* TESSaveLoadGame_CreateReference(unsigned int key, BinaryRecord36* data);
     TESForm* TESSaveLoadGame_CreateReferenceFromFile(unsigned int key, BinaryRecord44* data);
     void TESSaveLoadGame_LoadForm(TESForm*);
-    void ProcessSourceItem(unsigned int key);
+    void TESSaveLoadGame_CreateChangedReference(unsigned int key);
 };
 // @fnv 0x008598d0
-void SaveGameReferenceReconstruction::ProcessSourceItem(unsigned int key)
+// src: COMMUNITY 0x008598d0
+void SaveGameReferenceReconstruction::TESSaveLoadGame_CreateChangedReference(unsigned int key)
 {
     SourceItem* item = reinterpret_cast<SourceItemMap*>(m_pChangesMap)->FUN_00855100(key);
     if (item != 0)
@@ -4099,7 +4102,7 @@ struct ProbeTarget
 
 unsigned int __cdecl BSstrlen(int value);
 
-struct FUN_00856300_cls
+struct SaveStats
 {
     int unk00;
 
@@ -4109,7 +4112,7 @@ struct FUN_00856300_cls
 // Computes a key from value, calls target->Probe with it, and returns true when Probe returns zero.
 // @fnv 0x00856300
 // src: COMMUNITY 0x00856300
-bool FUN_00856300_cls::SaveDataDebugInfo_Write(ProbeTarget* target, int value)
+bool SaveStats::SaveDataDebugInfo_Write(ProbeTarget* target, int value)
 {
     bool result = false;
     unsigned __int64 key = BSstrlen(value);
@@ -4267,7 +4270,7 @@ struct SaveGameCellReconstruction : public TESSaveLoadGame
 {
     bool FUN_0047c850();
     bool TESSaveLoadGame_LoadForm(Cell859*);
-    void ProcessSourceItem(unsigned);
+    void TESSaveLoadGame_CreateChangedReference(unsigned);
     bool TESSaveLoadGame_LoadCell(Cell859* cell);
 };
 // @fnv 0x00859690
@@ -4290,7 +4293,7 @@ bool SaveGameCellReconstruction::TESSaveLoadGame_LoadCell(Cell859* cell)
             Entry859* entry7 = *node2->FUN_006815c0();
             if (entry7)
             {
-                ProcessSourceItem((unsigned)entry7);
+                TESSaveLoadGame_CreateChangedReference((unsigned)entry7);
                 result5 = true;
             }
             node2 = node2->FUN_00726070();
@@ -4314,7 +4317,7 @@ bool SaveGameCellReconstruction::TESSaveLoadGame_LoadCell(Cell859* cell)
             Entry859* entryExterior2 = *nodeExterior8->FUN_006815c0();
             if (entryExterior2 && x7 == entryExterior2->x && y7 == entryExterior2->y)
             {
-                ProcessSourceItem(entryExterior2->key);
+                TESSaveLoadGame_CreateChangedReference(entryExterior2->key);
                 result5 = true;
                 if (_previous)
                 {
@@ -4348,7 +4351,7 @@ struct RestoredObject;
 struct RestoreAction
 {
     unsigned int x, y, z;
-    void SetPositionExtraData();
+    void ExtraDataList_SetStartingLocation();
     void SetStartingPosition();
 };
 struct RestoredObject
@@ -4494,9 +4497,9 @@ struct RestoreLink
 };
 struct RestoreForm
 {
-    int GetSourceFileCount();
+    int TESForm_GetFileCount();
     RestoreLink* FUN_00484e60(int);
-    bool SeekToCellInWorld(RestoreRef*, int, int);
+    bool TESWorldSpace_FindCellInFile(RestoreRef*, int, int);
 };
 struct RestoredActor
 {
@@ -4512,7 +4515,7 @@ extern char DAT_01183028, DAT_01183fb4, DAT_01183fd0, DAT_011841cc, DAT_011846d4
 extern const char DAT_01080958[], DAT_01080900[];
 extern void* __cdecl FUN_00ec43fb(void*, int, void*, void*, int);
 
-extern bool __cdecl HasFormInGroup(RestoreRef*, unsigned int);
+extern bool __cdecl TESObjectCELL_FindReferenceInFile(RestoreRef*, unsigned int);
 extern RestoredObject* __cdecl TESObjectREFR_CreateReference(unsigned char, int);
 extern void __cdecl FUN_004601d0(RestoredObject*, RestoreRef*);
 extern int __cdecl FloatToInt(float);
@@ -4537,11 +4540,11 @@ RestoredObject* ObjectRestorer::TESSaveLoadGame_CreateReferenceFromFile(unsigned
     int i;
     if (cellTmp)
     {
-        count9 = cellTmp->GetSourceFileCount();
+        count9 = cellTmp->TESForm_GetFileCount();
         for (i = 0; i < count9; ++i)
         {
             RestoreRef* reference = cellTmp->FUN_00484e60(i)->FUN_004739b0();
-            if (reference->FindForm(cellTmp) && HasFormInGroup(reference, id))
+            if (reference->FindForm(cellTmp) && TESObjectCELL_FindReferenceInFile(reference, id))
             {
                 unsigned int type = reference->FUN_00472660();
                 object5 = TESObjectREFR_CreateReference((unsigned char)type, 1);
@@ -4551,13 +4554,13 @@ RestoredObject* ObjectRestorer::TESSaveLoadGame_CreateReferenceFromFile(unsigned
     }
     else if (world)
     {
-        count9 = world->GetSourceFileCount();
+        count9 = world->TESForm_GetFileCount();
         x6 = FloatToInt(location->x) >> 12;
         y4 = FloatToInt(location->y) >> 12;
         for (i = 0; i < count9; ++i)
         {
             RestoreRef* reference = world->FUN_00484e60(i)->FUN_004739b0();
-            if (world->SeekToCellInWorld(reference, x6, y4) && HasFormInGroup(reference, id))
+            if (world->TESWorldSpace_FindCellInFile(reference, x6, y4) && TESObjectCELL_FindReferenceInFile(reference, id))
             {
                 unsigned int type = reference->FUN_00472660();
                 object5 = TESObjectREFR_CreateReference((unsigned char)type, 1);
@@ -4580,7 +4583,7 @@ RestoredObject* ObjectRestorer::TESSaveLoadGame_CreateReferenceFromFile(unsigned
         actor->SetPlacement(world, cellTmp, object5->Position(), object5->FUN_00430830()->z);
     else
     {
-        object5->BSFile_GetDevice(object5, *object5->Position()).SetPositionExtraData();
+        object5->BSFile_GetDevice(object5, *object5->Position()).ExtraDataList_SetStartingLocation();
         object5->BSFile_GetDevice(object5, *object5->FUN_00430830()).SetStartingPosition();
     }
     return object5;
@@ -5055,7 +5058,7 @@ struct FullPositionRecord
 
 struct DataHandler
 {
-    void PlaceObjectReference(TESBoundObject* pkBase, NiPoint3* pkPos, NiPoint3* pkAngle, TESObjectCELL* pkCell,
+    void TESDataHandler_CreateReferenceAtLocation(TESBoundObject* pkBase, NiPoint3* pkPos, NiPoint3* pkAngle, TESObjectCELL* pkCell,
                               TESWorldSpace* pkWorld, TESObjectREFR* pkRef, int iArg0, int iArg1);
 };
 
@@ -5120,7 +5123,7 @@ void RefLoader::LoadChange(TESForm* pkForm, unsigned int uiChangeFlags)
         if (kMoveData.m_iType != 2)
         {
             TESBoundObject* pkBase = dynamic_cast<TESBoundObject*>(TESForm_GetFormByNumericID(kMoveData.m_uiBaseID));
-            DAT_011c3f2c->PlaceObjectReference(pkBase, &kMoveData.m_kPos, &kMoveData.m_kAngle, pkCell, pkWorld, pkRef,
+            DAT_011c3f2c->TESDataHandler_CreateReferenceAtLocation(pkBase, &kMoveData.m_kPos, &kMoveData.m_kAngle, pkCell, pkWorld, pkRef,
                                                0, 0);
             TESSaveLoadGame_SafetyCheckReferencePositionAndAngle(pkRef);
         }

@@ -103,22 +103,23 @@ struct hkpCollisionDetailD4CE
     void* m_pCollisionAgent;
 };
 
-class FUN_00d4ce10 : public FUN_00c9ea40
+class hkpCachingShapePhantom : public FUN_00c9ea40
 {
   public:
     hkArray<hkpCollisionDetailD4CE> m_kCollisionDetails;
     hkBool m_bOrderDirty;
 
-    FUN_00d4ce10(const hkpShape* pkShape, const hkTransform& kTransform,
+    hkpCachingShapePhantom(const hkpShape* pkShape, const hkTransform& kTransform,
                  hkUint32 uiCollisionFilterInfo) throw();
-    virtual ~FUN_00d4ce10() throw();
+    virtual ~hkpCachingShapePhantom() throw();
 };
 
-typedef char fnv_check_d4ce10[(sizeof(FUN_00d4ce10) == 0x170) ? 1 : -1];
+typedef char fnv_check_d4ce10[(sizeof(hkpCachingShapePhantom) == 0x170) ? 1 : -1];
 
 // Constructs the object from a shape and transform, clears the bool flag, and stores the collision filter info in the collidable.
 // @fnv 0x00d4ce10
-FUN_00d4ce10::FUN_00d4ce10(const hkpShape* pkShape, const hkTransform& kTransform,
+// src: EXE 0x00d4ce10
+hkpCachingShapePhantom::hkpCachingShapePhantom(const hkpShape* pkShape, const hkTransform& kTransform,
                            hkUint32 uiCollisionFilterInfo) throw()
     : FUN_00c9ea40(pkShape, kTransform)
 {
@@ -189,7 +190,7 @@ struct S00c9e830_Owner
 
     void hkpWorld_queueOperation(S00c9e830_Operation* operation);
     void FUN_00c91120();
-    void UpdateFields_00c91140();
+    void hkpWorld_internalExecutePendingBodyOperations();
     __forceinline void unlockAndAttemptToExecutePendingOperations()
     {
         --unk94;
@@ -198,7 +199,7 @@ struct S00c9e830_Owner
             if (unk8C != 0)
                 FUN_00c91120();
             if (unkA4 == 1 && unk90 != 0)
-                UpdateFields_00c91140();
+                hkpWorld_internalExecutePendingBodyOperations();
         }
     }
 };
@@ -323,7 +324,7 @@ struct __declspec(align(16)) FUN_00c9e910_Temporary
     int unk1C;
 };
 
-class FUN_00c9e910_Class
+class hkpShapePhantom
 {
   public:
     void* m_pVtable;
@@ -382,7 +383,7 @@ class FUN_00c9e910_Class
 // Copies 16 floats from value into unkB0..unkE0; if unk08 is set, calls unk10's method with value and a scaled factor, then passes the result to FUN_00d07ec0.
 // @fnv 0x00c9e910
 // src: XBOX_PDB 0x00c9e910
-void FUN_00c9e910_Class::hkpShapePhantom_setTransform(int value)
+void hkpShapePhantom::hkpShapePhantom_setTransform(int value)
 {
     const float* pMatrixData = reinterpret_cast<const float*>(value);
 

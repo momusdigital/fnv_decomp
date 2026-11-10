@@ -112,7 +112,8 @@ void TESRace::InitItem()
 
 // Builds a "<raceID>_<rootID>ModBody<Male|Female>" or "<rootID>ModBody<Male|Female>" string from the race and the deepest template NPC's form IDs.
 // @fnv 0x006147e0
-void TESRace::BuildBodyTexturePath(TESNPC* npc, char* out)
+// src: COMMUNITY 0x006147e0
+void TESRace::GetBodyModTextureName(TESNPC* npc, char* out)
 {
     TESNPC* npcID = npc;
     char acRacePath[16];
@@ -160,7 +161,8 @@ TESModel* TESRace::GetBipedObjectModel(SEX sex, BIPED_OBJECT part)
 
 // Builds a model path for the given BIPED_OBJECT and sex, appending a first-person suffix for the player, and returns false if no model exists.
 // @fnv 0x00614640
-bool TESRace::GetBipedObjectModelPath(TESNPC* npc, BIPED_OBJECT part, char* out)
+// src: COMMUNITY 0x00614640
+bool TESRace::GetBodyTextureFileName(TESNPC* npc, BIPED_OBJECT part, char* out)
 {
     int sex = NormalizePartIndex(part);
     if (sex < 0 || sex >= 3)
@@ -195,7 +197,8 @@ TESRace::TESRace() : m_kFaceGenUndoList(0, 1)
 }
 
 // @fnv 0x00613fd0
-void TESRace::ClearFaceGenUndo()
+// src: COMMUNITY 0x00613fd0
+void TESRace::KillEGTData()
 {
     BSStringT<char> filename;
     char path[260];
@@ -207,7 +210,7 @@ void TESRace::ClearFaceGenUndo()
             TaskQueueInterface::CopyStringToBuffer(path, 260, "Meshes\\");
             strcat_s(path, 260, female->GetModelFilePath());
             BSFaceGenManager::BuildFaceGenModelPath(filename, path);
-            BSFaceGenManager::GetModelMap()->HasFaceGenData(
+            BSFaceGenManager::GetModelCache()->HasFaceGenData(
                 filename.String());
         }
         TESModel* male = GetHeadPartModel(SEX_SEX_FEMALE, i);
@@ -216,7 +219,7 @@ void TESRace::ClearFaceGenUndo()
             TaskQueueInterface::CopyStringToBuffer(path, 260, "Meshes\\");
             strcat_s(path, 260, male->GetModelFilePath());
             BSFaceGenManager::BuildFaceGenModelPath(filename, path);
-            BSFaceGenManager::GetModelMap()->HasFaceGenData(
+            BSFaceGenManager::GetModelCache()->HasFaceGenData(
                 filename.String());
         }
     }
@@ -417,10 +420,11 @@ struct List_009e03e0
 struct RaceEyeListAccess : public TESRace
 {
     void* GetBGSRecipeCategoryList();
-    void ClearRecipeCategoryList();
+    void TESRace_ClearEyeColorList();
 };
 // @fnv 0x00613950
-void RaceEyeListAccess::ClearRecipeCategoryList()
+// src: COMMUNITY 0x00613950
+void RaceEyeListAccess::TESRace_ClearEyeColorList()
 {
     ((List_009e03e0*)GetBGSRecipeCategoryList())->RemoveAll();
 }
@@ -471,22 +475,24 @@ float RaceMainClampAccess::TESRace_GetClampFaceGeoValue()
 extern double _gModifierZero;
 struct RaceFaceClampAccess : TESRace
 {
-    float GetFieldA4OrDefault();
+    float TESRace_GetClampFaceGeoValue2();
 };
 // Returns the face clamp when positive, otherwise 3.0f.
 // @fnv 0x00613160
-float RaceFaceClampAccess::GetFieldA4OrDefault()
+// src: COMMUNITY 0x00613160
+float RaceFaceClampAccess::TESRace_GetClampFaceGeoValue2()
 {
     return m_fFaceGenFaceClamp > _gModifierZero ? m_fFaceGenFaceClamp : 3.0f;
 }
 
 struct RaceHeadTextureAccess : TESRace
 {
-    TESTexture* GetHeadPartTexture(int a, int b);
+    TESTexture* TESRace_GetBodyPartTexture(int a, int b);
 };
 // Returns the head texture when the sex and part indices are in range.
 // @fnv 0x00613bb0
-TESTexture* RaceHeadTextureAccess::GetHeadPartTexture(int aiRow, int aiColumn)
+// src: COMMUNITY 0x00613bb0
+TESTexture* RaceHeadTextureAccess::TESRace_GetBodyPartTexture(int aiRow, int aiColumn)
 {
     if (aiRow < 0 || aiRow >= 2 || aiColumn < 0 || aiColumn >= 3)
         return 0;
@@ -496,7 +502,7 @@ TESTexture* RaceHeadTextureAccess::GetHeadPartTexture(int aiRow, int aiColumn)
 struct RaceCleanup : TESRace
 {
     void TESRace_ClearHairList();
-    void ClearRecipeCategoryList();
+    void TESRace_ClearEyeColorList();
     void TESRace_ClearData();
 };
 // @fnv 0x00610ac0
@@ -504,7 +510,7 @@ struct RaceCleanup : TESRace
 void RaceCleanup::TESRace_ClearData()
 {
     TESRace_ClearHairList();
-    ClearRecipeCategoryList();
+    TESRace_ClearEyeColorList();
     unsigned int uiOuterIndex, i;
     for (uiOuterIndex = 0; uiOuterIndex < 2; ++uiOuterIndex)
     {
@@ -680,7 +686,8 @@ void RaceCopyAccess::CopyFromRace(TESForm* apSource)
 }
 
 // @fnv 0x006139b0
-void TESRace::SetBodyModelPath(int aiRow, int aiColumn, const char* path)
+// src: COMMUNITY 0x006139b0
+void TESRace::SetHeadPartModel(int aiRow, int aiColumn, const char* path)
 {
     if (aiColumn < 0 || aiColumn >= 8 || aiRow < 0 || aiRow >= 2)
     {
@@ -692,7 +699,8 @@ void TESRace::SetBodyModelPath(int aiRow, int aiColumn, const char* path)
 }
 
 // @fnv 0x00613ad0
-void TESRace::SetBodyTextureModelPath(int aiIndex, const char* path)
+// src: COMMUNITY 0x00613ad0
+void TESRace::SetBodyTextureModel(int aiIndex, const char* path)
 {
     if (aiIndex < 0 || aiIndex >= 2)
         return;
@@ -795,9 +803,9 @@ struct FaceMatrix611e50
 };
 struct SaveRaceAccess : TESRace
 {
-    void BeginFormRecord();
+    void TESForm_StartForm();
     void TESForm___SaveData(void*, unsigned int);
-    void FinishFormRecord();
+    void TESForm_CloseForm();
     SaveList611e50* NiAVObject_GetWorldTranslate();
     SaveList611e50* GetBackTexture();
     void SaveRace();
@@ -805,7 +813,7 @@ struct SaveRaceAccess : TESRace
 // @fnv 0x00611e50
 void SaveRaceAccess::SaveRace()
 {
-    BeginFormRecord();
+    TESForm_StartForm();
     TESFullName::Save_00487010();
     TESDescription::Save_00482cb0();
     TESSpellList::TESSpellList_SaveSubRecord();
@@ -1001,7 +1009,7 @@ void SaveRaceAccess::SaveRace()
         }
         TESForm_AddChunk_00485950(0x4d414e53, m_usRaceAttribute);
     }
-    FinishFormRecord();
+    TESForm_CloseForm();
 }
 
 struct RaceListItem
@@ -1023,7 +1031,7 @@ struct RaceComparer : TESRace
     TESEyes* TESRace_GetDefaultHair(unsigned);
     char GetByteAtOffset(unsigned);
     float TESRace_GetClampFaceGeoValue();
-    float GetFieldA4OrDefault();
+    float TESRace_GetClampFaceGeoValue2();
     TESAttributes* GetData_004fadc0();
     TESAttributes* FUN_006130e0();
     TESModel* GetHeadPartModel_00613970(unsigned, unsigned);
@@ -1031,7 +1039,7 @@ struct RaceComparer : TESRace
     RaceList* NiAVObject_GetWorldTranslate();
     RaceList* GetBackTexture();
     int FindByKey(const char*);
-    int FindRecipeCategoryById(const char*);
+    int TESRace_GetRaceEyeColor(const char*);
     BGSVoiceType* TESRace_GetMeanFaceCoord(unsigned);
     unsigned short GetFaceCoordNum_00607350();
 };
@@ -1067,7 +1075,7 @@ bool RaceComparer::IsDifferentFrom(TESForm* form)
         return true;
     if (TESRace_GetClampFaceGeoValue() != pOtherRace->TESRace_GetClampFaceGeoValue())
         return true;
-    if (GetFieldA4OrDefault() != pOtherRace->GetFieldA4OrDefault())
+    if (TESRace_GetClampFaceGeoValue2() != pOtherRace->TESRace_GetClampFaceGeoValue2())
         return true;
     if (m_kMaleAttributes.CompareWithBase(pOtherRace->GetData_004fadc0()))
         return true;
@@ -1111,7 +1119,7 @@ bool RaceComparer::IsDifferentFrom(TESForm* form)
             return true;
         while (pEyesList && pEyesList->FUN_006815c0())
         {
-            if (!FindRecipeCategoryById(pEyesList->FUN_006815c0()->GetHavokWorldObjectCountInSceneGraph_0084e3a0()))
+            if (!TESRace_GetRaceEyeColor(pEyesList->FUN_006815c0()->GetHavokWorldObjectCountInSceneGraph_0084e3a0()))
                 return true;
             pEyesList = pEyesList->FUN_00726070();
         }
@@ -1132,7 +1140,8 @@ bool RaceComparer::IsDifferentFrom(TESForm* form)
 }
 
 // @fnv 0x00613a60
-void TESRace::SetHeadModelPath(int iRow, int iColumn, const char* path)
+// src: COMMUNITY 0x00613a60
+void TESRace::SetBodyPartModel(int iRow, int iColumn, const char* path)
 {
     if (iColumn < 0 || iColumn >= 3 || iRow < 0 || iRow >= 2)
         return;
@@ -1236,7 +1245,7 @@ struct NPCAppearanceAccess : TESNPC
     float GetHairLength();
     int TESDataHandler_GetRegionList();
     Part* FUN_00602150();
-    void CreatePartTexture(unsigned int, String&);
+    void TESNPC_GetHeadPartModTexture(unsigned int, String&);
     List* InterfaceManager_GetVATSEffect();
 };
 struct PlayerAppearanceAccess : PlayerCharacter
@@ -1263,11 +1272,12 @@ struct Race
     TESModel* GetHeadPartModel_00613970(int, unsigned int);
     TESTexture* GetBodyPartTexture(int, unsigned int);
     List* GetBackTexture();
-    void BuildAppearance(NPCAppearanceAccess*, Output*, int, bool);
+    void TESRace_GetFaceGenData(NPCAppearanceAccess*, Output*, int, bool);
 };
 // Fills an Output appearance record from an NPCAppearanceAccess or, when npc is null, from race defaults: hair, eyes, color, models, textures, slots, parts, mouth and teeth.
 // @fnv 0x006141f0
-void Race::BuildAppearance(NPCAppearanceAccess* npc, Output* apOutput, int sex, bool skip)
+// src: COMMUNITY 0x006141f0
+void Race::TESRace_GetFaceGenData(NPCAppearanceAccess* npc, Output* apOutput, int sex, bool skip)
 {
     bool special = false;
     if (npc)
@@ -1290,7 +1300,7 @@ void Race::BuildAppearance(NPCAppearanceAccess* npc, Output* apOutput, int sex, 
     }
     if (npc)
     {
-        if (special || !npc->FUN_00603b50() || !npc->FUN_00603b50()->IsHairValidForNPC(reinterpret_cast<TESNPC*>(npc)))
+        if (special || !npc->FUN_00603b50() || !npc->FUN_00603b50()->TESHair_CanBeHairForNPC(reinterpret_cast<TESNPC*>(npc)))
             apOutput->hair = TESRace_GetDefaultHair(sex);
         else
             apOutput->hair = npc->FUN_00603b50();
@@ -1312,7 +1322,7 @@ void Race::BuildAppearance(NPCAppearanceAccess* npc, Output* apOutput, int sex, 
         if (npc && *DAT_011cb99c.FUN_00408d60() && !skip)
         {
             String path(0);
-            npc->CreatePartTexture(i, path);
+            npc->TESNPC_GetHeadPartModTexture(i, path);
             apOutput->strings.Add(path);
         }
     }
@@ -1474,17 +1484,18 @@ struct FUN_006628c0_C
     virtual void v71(bool);
 };
 
-void __cdecl BuildCharacterParts(void*, void*, void*, bool);
+void __cdecl BSFaceGenManager_CreateFaceGenHead(void*, void*, void*, bool);
 void __cdecl ApplyFaceGenTextures(void*, void*);
 
 struct RaceFaceGenAccess : TESRace
 {
-    bool CreateFaceGenNodes(FUN_006628c0_C**, FUN_006628c0_C**, TESActorBase*, bool, bool, int);
-    void BuildAppearance(TESActorBase*, void*, int, bool);
+    bool TESRace_CreateHead(FUN_006628c0_C**, FUN_006628c0_C**, TESActorBase*, bool, bool, int);
+    void TESRace_GetFaceGenData(TESActorBase*, void*, int, bool);
 };
 
 // @fnv 0x00613c50
-bool RaceFaceGenAccess::CreateFaceGenNodes(FUN_006628c0_C** pA, FUN_006628c0_C** pB, TESActorBase* actor, bool fSwap,
+// src: COMMUNITY 0x00613c50
+bool RaceFaceGenAccess::TESRace_CreateHead(FUN_006628c0_C** pA, FUN_006628c0_C** pB, TESActorBase* actor, bool fSwap,
                                         bool fFlag, int sex)
 {
     AutoMemHelper mem3(0x37, true, DAT_0104b860, 0x623);
@@ -1502,8 +1513,8 @@ bool RaceFaceGenAccess::CreateFaceGenNodes(FUN_006628c0_C** pA, FUN_006628c0_C**
     (*pB)->v69(false);
     (*pB)->v71(false);
     FUN_005dd590_C obj;
-    BuildAppearance(actor, &obj, sex, false);
-    BuildCharacterParts(pA, pB, &obj, fFlag);
+    TESRace_GetFaceGenData(actor, &obj, sex, false);
+    BSFaceGenManager_CreateFaceGenHead(pA, pB, &obj, fFlag);
     if (fSwap)
     {
         ApplyFaceGenTextures(*pA, &obj);
@@ -1535,7 +1546,7 @@ class NpcCoords : public TESNPC
 };
 struct RaceTexture : TESRace
 {
-    bool ApplyBodyTexture(NiPointer<NiSourceTexture>&, NiPointer<NiTexture>&, TESNPC*, BIPED_OBJECT, bool);
+    bool TESRace_GetBodyTexture(NiPointer<NiSourceTexture>&, NiPointer<NiTexture>&, TESNPC*, BIPED_OBJECT, bool);
     void* TESRace_GetMeanFaceCoord(int);
 };
 int __cdecl strcpy_s(char*, unsigned int, const char*);
@@ -1543,7 +1554,7 @@ void __cdecl FNV_Warning(const char*, ...);
 NiTexture* __cdecl GetFaceGenManagerValue();
 bool __cdecl FindTextureByPath(char*, NiPointer<NiTexture>*);
 void __cdecl BSTexturePalette_RemoveTexture_0(char*);
-const char* __cdecl GetModelEgtFilename(BSStringT<char>*, const char*);
+const char* __cdecl BSFaceGenManager_GetAsEGTFile(BSStringT<char>*, const char*);
 BSFaceGenModel* __cdecl GetOrCreateFaceGenModel(int, int, int, const char*, int, int, int);
 void __cdecl BSFaceGenManager_MergeFaceGenCoord(void*, void*, void*, bool, float);
 void* __cdecl FUN_006521e0();
@@ -1553,7 +1564,8 @@ void __cdecl FUN_00a61c50(NiTexture*, int);
 
 // Creates or reuses a body texture for a biped part, building a FaceGen model and applying coordinates when needed.
 // @fnv 0x006149b0
-bool RaceTexture::ApplyBodyTexture(NiPointer<NiSourceTexture>& source, NiPointer<NiTexture>& texture, TESNPC* npc,
+// src: COMMUNITY 0x006149b0
+bool RaceTexture::TESRace_GetBodyTexture(NiPointer<NiSourceTexture>& source, NiPointer<NiTexture>& texture, TESNPC* npc,
                                    BIPED_OBJECT part, bool force)
 {
     NiPointer<BSFaceGenModel> model6(0);
@@ -1571,14 +1583,14 @@ bool RaceTexture::ApplyBodyTexture(NiPointer<NiSourceTexture>& source, NiPointer
     source = static_cast<NiSourceTexture*>(0);
     if (!force && (void*)npc != (void*)g_thePlayer->GetObjectReference())
         texture = GetFaceGenManagerValue();
-    if (!GetBipedObjectModelPath(npc, part, path20))
+    if (!GetBodyTextureFileName(npc, part, path20))
         return false;
     g_TES->CreateTextureImage(static_cast<const char*>(path20), source, false, false);
     if (!source)
         return false;
     if (!*g_011cb99c.FUN_00408d60())
         return true;
-    BuildBodyTexturePath(npc, buf26);
+    GetBodyModTextureName(npc, buf26);
     if (BuildBodyModTexturePath(npc, buf26, path3) && !force)
         g_TES->CreateTextureImage(static_cast<const char*>(path3), (NiPointer<NiSourceTexture>&)texture, true, false);
     if (texture == (NiTexture*)0 || force)
@@ -1597,7 +1609,7 @@ bool RaceTexture::ApplyBodyTexture(NiPointer<NiSourceTexture>& source, NiPointer
         }
         strcpy_s(modelPath_, 260, "Meshes\\");
         strcat_s(modelPath_, 260, modelX->GetModelFilePath());
-        model6 = GetOrCreateFaceGenModel(0, 0, 0, GetModelEgtFilename(&egt5, modelPath_), 1, -1, 0);
+        model6 = GetOrCreateFaceGenModel(0, 0, 0, BSFaceGenManager_GetAsEGTFile(&egt5, modelPath_), 1, -1, 0);
         if (!model6)
             return false;
         if (npc)
@@ -1613,7 +1625,7 @@ bool RaceTexture::ApplyBodyTexture(NiPointer<NiSourceTexture>& source, NiPointer
         }
         if (force)
             BSTexturePalette_RemoveTexture_0(path3);
-        ((BSFaceGenModel*)model6)->ApplyTextureCoordinate((FaceGenCoordinates*)coords9, texture, General_uiEGTClampSize_Get());
+        ((BSFaceGenModel*)model6)->ApplyCoordinateTexturingToMesh((FaceGenCoordinates*)coords9, texture, General_uiEGTClampSize_Get());
         if (!texture)
             return false;
         ((TextureAccess*)(NiTexture*)texture)->NiSourceTexture_SetFilePath(&NiFixedString(static_cast<const char*>(path3)));

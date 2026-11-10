@@ -19,7 +19,7 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(volatile lo
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(volatile long* value);
 extern int DAT_010a42b4;
 void* __cdecl _fnv_zlib_memset(void* p, int c, unsigned int n);
-struct FUN_00af30a0_Class
+struct BSSystemUtility
 {
     void* vtbl;
     char m_acCharacterBuffer[128];
@@ -77,7 +77,7 @@ struct FUN_00af3120_Class
     void __thiscall SetVirtualTable_00af3120();
 };
 extern int DAT_010a42cc;
-struct FUN_00af33f0_Class
+struct BSMsgDialogSystemUtility
 {
     void* vtbl;
     int x;
@@ -132,7 +132,7 @@ struct FUN_00afd960_Class
 {
     void* vtbl;
     int iField;
-    void ProcessState_00afd960();
+    void SwapEndian();
 };
 struct FileFinder
 {
@@ -144,26 +144,26 @@ struct FUN_00ad6f40_Class
 {
     void FUN_00ad6f40();
 };
-struct FUN_00aea1b0_Class
+struct BSWin32Audio
 {
     void* vtbl;
     int x;
     void* FUN_00ad6f40();
-    FUN_00aea1b0_Class();
+    BSWin32Audio();
 };
 extern int DAT_010a3b7c;
-struct FUN_00aea730_Class
+struct BSWin32AudioListener
 {
     void* vtbl;
     int m_kPointA;
     int m_kPointB;
-    FUN_00aea730_Class* BSWin32AudioListener_BSWin32AudioListener(int v);
+    BSWin32AudioListener* BSWin32AudioListener_BSWin32AudioListener(int v);
 };
 extern MemoryManager g_memoryManager;
 struct FUN_00aeaa80_Class
 {
     void __thiscall FUN_00aea770();
-    void* __thiscall FUN_00aeaa80(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 struct FUN_00aefcf0_Class
 {
@@ -185,14 +185,14 @@ struct FUN_00af2c50_Class
     bool return_0_5(int a, int b);
 };
 extern int DAT_010a42dc;
-struct FUN_00af3570_Class
+struct BSSystemUtilitiesStrings
 {
     void* vtbl;
     int a[8];
     void* __thiscall BSSystemUtilitiesStrings_BSSystemUtilitiesStrings();
 };
 void __cdecl _sprintf_s(char* dst, unsigned int size, const char* fmt, ...);
-struct FUN_00afd860_Class
+struct BSHash
 {
     unsigned char m_acCharacterBuffer[4];
     int iValue;
@@ -322,7 +322,7 @@ BSFileDelete::~BSFileDelete()
 {}
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject);
 extern int DAT_010a33d0;
-struct FUN_00ae78a0_cls
+struct BSAudioManagerThread
 {
     void* m_vtbl;
     int unk04;
@@ -722,7 +722,7 @@ struct FUN_00aea9d0_Listener
     {}
     virtual void vf34()
     {}
-    virtual void vf38()
+    virtual void PrintInfo()
     {}
     virtual void __stdcall vf3C(float value, int flag)
     {}
@@ -771,7 +771,7 @@ struct S_00aeaa10_Obj
     virtual void vf9();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -2357,7 +2357,7 @@ struct FUN_00afdb80_cls
     char pad00[8];
     unsigned int* m_08;
 
-    void UpdateFields_00afdb80();
+    void SwapEndian();
 };
 unsigned int* __cdecl FUN_00ec3bad(unsigned int* value);
 struct FUN_00afdc00_Item
@@ -2368,7 +2368,7 @@ struct FUN_00afdc00_Item
     unsigned int unk0C;
     bool Test(int idx);
 };
-class FUN_00afdc00_cls
+class BSArchive
 {
   public:
     unsigned int unk00;

@@ -102,18 +102,18 @@ struct FUN_00aa3760_entry
     unsigned int unkfc;
 };
 
-struct FUN_00aa3760_cls
+struct NiSmallObjectAllocator
 {
     FUN_00aa3760_entry m_entries[256];
     unsigned int m_10000;
 
-    FUN_00aa3760_cls* InitEntries(unsigned int a1);
+    NiSmallObjectAllocator* InitEntries(unsigned int a1);
 };
 
 // @fnv 0x00aa3760
-FUN_00aa3760_cls* FUN_00aa3760_cls::InitEntries(unsigned int auiValue)
+NiSmallObjectAllocator* NiSmallObjectAllocator::InitEntries(unsigned int auiValue)
 {
-    FUN_00aa3760_cls* self = this;
+    NiSmallObjectAllocator* self = this;
     void(__stdcall * pfnInit)(void*) = g_pfnEntryInit;
     int iRemaining = 0xff;
     FUN_00aa3760_entry* pEntry = m_entries;

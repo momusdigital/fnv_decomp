@@ -11,7 +11,7 @@ class NiDX9DynamicTextureData : public NiDX9TextureData
 {
 public:
     virtual ~NiDX9DynamicTextureData();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();

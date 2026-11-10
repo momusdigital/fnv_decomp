@@ -10,7 +10,7 @@ struct AudioObject
 {
     unsigned int unk00;
     unsigned short allocationSize;
-    void FUN_00e023c0();
+    void hkxIndexBuffer();
     static void operator delete(void* p)
     {
         BSAudio* audio = hkMemoryRouter_getInstance();
@@ -19,11 +19,11 @@ struct AudioObject
     }
     void* ReleaseIfFlagged(unsigned int flags);
 };
-// Calls FUN_00e023c0, then deletes this via operator delete when flags has bit 0 set, and returns this.
+// Calls hkxIndexBuffer, then deletes this via operator delete when flags has bit 0 set, and returns this.
 // @fnv 0x00e02430
 void* AudioObject::ReleaseIfFlagged(unsigned int flags)
 {
-    FUN_00e023c0();
+    hkxIndexBuffer();
     if (flags & 1)
         operator delete(this);
     return this;

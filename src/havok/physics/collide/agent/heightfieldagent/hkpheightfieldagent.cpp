@@ -186,19 +186,19 @@ __forceinline void hkArrayBase<T>::_setSize(hkMemoryAllocator& alloc, int n, con
     m_iElementCount = n;
 }
 
-struct FUN_00d32060_Class {
+struct hkpHeightFieldAgent {
     void* m_vtbl;
     short m_usMemSizeAndFlags;
     short m_sReferenceCount;
     int m_flag;
     hkArray<unsigned short> m_aiIndexedValues;
 
-    FUN_00d32060_Class* Init(const SourceRef& src, int b, int c, int flag);
+    hkpHeightFieldAgent* Init(const SourceRef& src, int b, int c, int flag);
 };
 
 // Sets the vtable, flag and count fields, initialises the array, and if flag is set fills it with 0xffff up to src.m_p->GetCount().
 // @fnv 0x00d32060
-FUN_00d32060_Class* FUN_00d32060_Class::Init(const SourceRef& aSource, int aiUnused1, int aiUnused2, int aiFlags)
+hkpHeightFieldAgent* hkpHeightFieldAgent::Init(const SourceRef& aSource, int aiUnused1, int aiUnused2, int aiFlags)
 {
     m_sReferenceCount = 1;
     m_flag = aiFlags;
@@ -246,7 +246,7 @@ void Hkpheightfieldagent_UpdateState_00d323f0();
 void AllocateTargetObj();
 void hkpHeightFieldAgent_staticGetPenetrations();
 void hkpHeightFieldAgent_staticGetClosestPoints();
-void hkpHeightFieldAgent_ProcessSphereQueries();
+void hkpHeightFieldAgent_staticLinearCast();
 
 struct S_00d321e0_AgentFuncs {
     S_00d321e0_Func m_pCreateFunc;
@@ -280,7 +280,7 @@ void hkpHeightFieldAgent_registerAgent(S_00d321e0_Dispatcher* dispatcher)
         af.m_pCreateFunc = AllocateTargetObj;
         af.m_pQueryPenetrationsFunc = hkpHeightFieldAgent_staticGetPenetrations;
         af.m_pGetPenetrationsFunc = hkpHeightFieldAgent_staticGetClosestPoints;
-        af.m_pLinearCastFunc = hkpHeightFieldAgent_ProcessSphereQueries;
+        af.m_pLinearCastFunc = hkpHeightFieldAgent_staticLinearCast;
         af.m_bIsFlipped = false;
         af.m_bIsPredictive = true;
         dispatcher->AppendRecordAndRegisterAgents(af, 0x1a, 0x19);
@@ -348,13 +348,13 @@ void Owner::NotifyAndClear(int value) {
     clear(1);
 }
 
-extern "C" void __cdecl hkpHeightFieldAgent_ProcessSphereQueries(void* arg0, void* arg1, void* arg2, void* arg3, void* arg4);
+extern "C" void __cdecl hkpHeightFieldAgent_staticLinearCast(void* arg0, void* arg1, void* arg2, void* arg3, void* arg4);
 // Forwards all five arguments unchanged to FUN_00d31d30.
 // @fnv 0x00d32030
 // src: HAVOK_SRC 0x00d32030
 extern "C" void __stdcall hkpHeightFieldAgent_linearCast(void* arg0, void* arg1, void* arg2, void* arg3, void* arg4)
 {
-    hkpHeightFieldAgent_ProcessSphereQueries(arg0, arg1, arg2, arg3, arg4);
+    hkpHeightFieldAgent_staticLinearCast(arg0, arg1, arg2, arg3, arg4);
 }
 
 extern "C" void __cdecl hkpHeightFieldAgent_staticGetPenetrations(void* arg0, void* arg1, void* arg2, void* arg3);
@@ -408,7 +408,7 @@ struct Argument {
 extern "C" const float DAT_0104da48;
 extern "C" const __m128 DAT_010c44d0;
 extern "C" const char UNK_010ce80c;
-extern "C" void __cdecl hkpHeightFieldAgent_ProcessSphereQueries(int, int, const CopyPacket*, const Argument*, const Argument*);
+extern "C" void __cdecl hkpHeightFieldAgent_staticLinearCast(int, int, const CopyPacket*, const Argument*, const Argument*);
 
 // Copies a CopyPacket with its orientation sign-flipped and calls FUN_00d31d30 with one or two Argument descriptors built from the source.
 // @fnv 0x00d323f0
@@ -430,9 +430,9 @@ void __cdecl Hkpheightfieldagent_UpdateState_00d323f0(int a, int b, const CopyPa
         second.scale = DAT_0104da48;
         second.orientation = source->orientation;
         second.identifier = id2;
-        hkpHeightFieldAgent_ProcessSphereQueries(b, a, &copy, &first, &second);
+        hkpHeightFieldAgent_staticLinearCast(b, a, &copy, &first, &second);
     } else {
-        hkpHeightFieldAgent_ProcessSphereQueries(b, a, &copy, &first, 0);
+        hkpHeightFieldAgent_staticLinearCast(b, a, &copy, &first, 0);
     }
 }
 }  // namespace fnv_00d323f0

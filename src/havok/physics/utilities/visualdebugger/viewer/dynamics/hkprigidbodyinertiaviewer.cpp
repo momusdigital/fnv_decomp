@@ -58,11 +58,12 @@ struct FUN_00d67020_class {
     Field28 field28;
     int field2c;
 
-    void VisitSubObjects(Arg* arg);
+    void hkpRigidBodyInertiaViewer_addWorld(Arg* arg);
 };
 
 // @fnv 0x00d67020
-void FUN_00d67020_class::VisitSubObjects(Arg* arg) {
+// src: COMMUNITY 0x00d67020
+void FUN_00d67020_class::hkpRigidBodyInertiaViewer_addWorld(Arg* arg) {
     arg->hkpWorld_addEntityListener(this ? &field28 : 0);
     arg->hkpWorld_addWorldPostSimulationListener(this ? &field2c : 0);
 
@@ -89,7 +90,7 @@ void FUN_00d67020_class::VisitSubObjects(Arg* arg) {
     }
 }
 
-struct Handler { void VisitSubObjects(int); };
+struct Handler { void hkpRigidBodyInertiaViewer_addWorld(int); };
 struct Collection {
     int unk00; int unk04; int unk08; int unk0C; int unk10; int unk14; int unk18; int unk1C;
     int unk20; int unk24; int unk28; int unk2C; int unk30; int unk34; int unk38; int unk3C;
@@ -103,7 +104,7 @@ struct Owner {
     Collection* collection;
     void __thiscall ProcessCollectionItems();
 };
-// Iterates the collection's items and passes each to VisitSubObjects on the Handler at this-8, if the collection exists.
+// Iterates the collection's items and passes each to hkpRigidBodyInertiaViewer_addWorld on the Handler at this-8, if the collection exists.
 // @fnv 0x00d67110
 void __thiscall Owner::ProcessCollectionItems() {
     if (collection != 0) {
@@ -111,7 +112,7 @@ void __thiscall Owner::ProcessCollectionItems() {
         int i = 0;
         if (0 < n) {
             do {
-                ((Handler*)((char*)this - 8))->VisitSubObjects(collection->items[i]);
+                ((Handler*)((char*)this - 8))->hkpRigidBodyInertiaViewer_addWorld(collection->items[i]);
                 i = i + 1;
             } while (i < n);
         }
@@ -126,14 +127,14 @@ struct SecondaryBase {
     void UpdateFields_00d67160();
 };
 struct CompleteObject : Prefix32, SecondaryBase {
-    void VisitSubObjects();
+    void hkpRigidBodyInertiaViewer_addWorld();
 };
-// Adjusts this to the enclosing CompleteObject and calls its VisitSubObjects method.
+// Adjusts this to the enclosing CompleteObject and calls its hkpRigidBodyInertiaViewer_addWorld method.
 // @fnv 0x00d67160
 // src: GUESS 0x00d67160 (confidence: low)
 void SecondaryBase::UpdateFields_00d67160() {
     CompleteObject* pCompleteObject = reinterpret_cast<CompleteObject*>(reinterpret_cast<char*>(this) - sizeof(Prefix32));
-    pCompleteObject->VisitSubObjects();
+    pCompleteObject->hkpRigidBodyInertiaViewer_addWorld();
 }
 
 template <typename T>
@@ -222,7 +223,7 @@ struct FUN_00d66f30_params {
     void ClearValue(void* apTarget);
 };
 
-struct FUN_00d66f30_cls {
+struct hkpRigidBodyInertiaViewer {
     int unk00;
     int unk04;
     int unk08;
@@ -236,12 +237,12 @@ struct FUN_00d66f30_cls {
     FUN_00d66f30_inner m_kInner;
     int m_iN;
 
-    void ProcessEntries_00d66f30(FUN_00d66f30_params* apParams);
+    void hkpRigidBodyInertiaViewer_removeWorld(FUN_00d66f30_params* apParams);
 };
 
 // @fnv 0x00d66f30
-// src: GUESS 0x00d66f30 (confidence: low)
-void FUN_00d66f30_cls::ProcessEntries_00d66f30(FUN_00d66f30_params* apParams)
+// src: COMMUNITY 0x00d66f30
+void hkpRigidBodyInertiaViewer::hkpRigidBodyInertiaViewer_removeWorld(FUN_00d66f30_params* apParams)
 {
     apParams->hkpWorld_removeEntityListener(this != 0 ? &m_kInner : 0);
     apParams->ClearValue(this != 0 ? &m_iN : 0);
@@ -269,7 +270,7 @@ void FUN_00d66f30_cls::ProcessEntries_00d66f30(FUN_00d66f30_params* apParams)
 }
 
 struct Outer {
-    void __thiscall ProcessEntries_00d66f30(void* arg);
+    void __thiscall hkpRigidBodyInertiaViewer_removeWorld(void* arg);
 };
 
 struct TargetClass {
@@ -279,7 +280,7 @@ struct TargetClass {
 // @fnv 0x00d67150
 // src: GUESS 0x00d67150 (confidence: low)
 void TargetClass::ForwardCall_00d67150(void* arg) {
-    ((Outer*)((char*)this - 0x20))->ProcessEntries_00d66f30(arg);
+    ((Outer*)((char*)this - 0x20))->hkpRigidBodyInertiaViewer_removeWorld(arg);
 }
 
 class D671F0ListenerA {
@@ -558,7 +559,7 @@ struct Viewer_d672 {
     int* m_vtbl2C;
     hkArray<int> m_ids;
     hkArray<DisplayGeometry_d672> m_geometries;
-    void ProcessEntries_00d66f30(Entity_d672* entity);
+    void hkpRigidBodyInertiaViewer_removeWorld(Entity_d672* entity);
     void FUN_00ddcc60();
     void ProcessEntries_00d67250();
 };
@@ -576,7 +577,7 @@ void Viewer_d672::ProcessEntries_00d67250()
     if (m_pOwningWorld) {
         int n = m_pOwningWorld->m_iActorEntryCount;
         for (int i = 0; i < n; i++)
-            ProcessEntries_00d66f30(m_pOwningWorld->m_kActorEntries[i]);
+            hkpRigidBodyInertiaViewer_removeWorld(m_pOwningWorld->m_kActorEntries[i]);
     }
     m_geometries.clearAndDeallocate();
     m_ids.clearAndDeallocate();
@@ -848,7 +849,7 @@ struct Body {
     Motion motion;
     __forceinline Motion* getRigidMotion() { return &motion; }
     __forceinline const Motion* getRigidMotionC() const { return &motion; }
-    __forceinline float GetMassValue() { return getRigidMotion()->FUN_00c86430(); }
+    __forceinline float getMass() { return getRigidMotion()->FUN_00c86430(); }
     __forceinline void GetInverseScaleMatrix(Inertia& m) { getRigidMotion()->getInertia(&m); }
     __forceinline const Transform& getTransform() const { return motion.transform; }
     __forceinline const Vec& getCenterOfMassLocal() const { return motion.centerOfMass; }
@@ -864,7 +865,7 @@ struct Shape {
     int type;
     int unk54, unk58, unk5c;
     ShapeVec4 halfExtents;
-    void FUN_00de1fc0();
+    void hkDisplayBox();
     void InitializeFields_00de2010(const Vec* dimensions, const Transform* transform);
 };
 void __cdecl hkArrayUtil__reserve(void* allocator, void* array, int capacity, int elementSize);
@@ -884,7 +885,7 @@ inline void destroyShapes(Shape* begin, int count) {
 inline void createShapes(Shape* begin, int count) {
     for (int k=0; k<count; ++k) {
         Shape* at = begin+k;
-        if (at) at->FUN_00de1fc0();
+        if (at) at->hkDisplayBox();
     }
 }
 template <>
@@ -934,7 +935,7 @@ void ViewerPart::ProcessEntries_00d67340(float unused) {
     shapes.setSize(bodyCount);
     int used = 0;
     for (int i = 0; i < bodyCount; ++i) {
-        float mass = bodies[i]->GetMassValue();
+        float mass = bodies[i]->getMass();
         if (mass != 0.0f) {
             Inertia inertia;
             bodies[i]->motion.getInertia(&inertia);

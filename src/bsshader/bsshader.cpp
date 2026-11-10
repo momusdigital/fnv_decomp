@@ -132,7 +132,8 @@ extern void __splitpath_s(const char*, char*, unsigned, char*, unsigned, char*, 
 extern void FUN_00ec825b(char*, unsigned, const char*, const char*, const char*, const char*);
 
 // @fnv 0x00be0c00
-void __cdecl BSShader::GetShaderPath(const char* path, char* result)
+// src: COMMUNITY 0x00be0c00
+void __cdecl BSShader::MakePath(const char* path, char* result)
 {
     char drive[0x10];
     char dir[0x104];
@@ -1317,14 +1318,14 @@ struct LodShaderBase
     void FUN_00e814b0();
 };
 
-struct FUN_00b71b90_class : LodShaderBase
+struct NiDX9FragmentShader : LodShaderBase
 {
     void NiDX9FragmentShader_RecreateRendererData();
 };
 
 // @fnv 0x00be08b0
 // src: XBOX_PDB 0x00be08b0
-void FUN_00b71b90_class::NiDX9FragmentShader_RecreateRendererData()
+void NiDX9FragmentShader::NiDX9FragmentShader_RecreateRendererData()
 {
     FUN_00e814b0();
 }

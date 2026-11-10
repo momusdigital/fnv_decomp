@@ -6,14 +6,15 @@ extern "C" void* const DAT_010a080c[];
 
 struct NiTexture_RendererData : NiRefObject
 {
-    void* __thiscall FUN_00a981a0(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 
 extern "C" void _delete(void* p, unsigned int size);
 
 // Sets the vtable pointer, calls the NiRefObject destructor, and frees the object with _delete when flags has bit 0 set; returns pThis.
 // @fnv 0x00a981a0
-void* __thiscall NiTexture_RendererData::FUN_00a981a0(unsigned int flags)
+// src: EXE 0x00a981a0
+void* __thiscall NiTexture_RendererData::ScalarDeletingDestructor(unsigned int flags)
 {
     NiTexture_RendererData* pThis = this;
     *reinterpret_cast<void**>(pThis) = (void*)DAT_010a080c;

@@ -133,7 +133,7 @@ ListWalker* ListWalker::InitWalker(ItemListRec* list, CtxRec* ctx)
     return this;
 }
 
-struct FUN_00d9e010_cls {
+struct hkpCollidableMediator {
     unsigned int unk00;
     unsigned int unk04;
     Child* child;
@@ -142,7 +142,7 @@ struct FUN_00d9e010_cls {
 
 // @fnv 0x00d9e010
 // src: HAVOK_LIB 0x00d9e010
-unsigned int FUN_00d9e010_cls::hkpCollidableMediator_getPrimitiveId(unsigned int index)
+unsigned int hkpCollidableMediator::hkpCollidableMediator_getPrimitiveId(unsigned int index)
 {
     unsigned int* table = (unsigned int*)child->unk00;
     return table[index];

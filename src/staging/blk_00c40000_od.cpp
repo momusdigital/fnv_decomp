@@ -528,7 +528,7 @@ void __thiscall FUN_00c4ada0_Class::BSDebrisNode_LoadBinary(int a)
 }
 
 namespace fnv_00c4adc0 {
-struct FUN_00c4adc0_class {
+struct BSDebrisNode {
     void __thiscall BSDebrisNode_LinkObject(int);
 };
 
@@ -538,7 +538,7 @@ struct FUN_00c452a0_class {
 
 // @fnv 0x00c4adc0
 // src: XBOX_PDB 0x00c4adc0
-void __thiscall FUN_00c4adc0_class::BSDebrisNode_LinkObject(int arg)
+void __thiscall BSDebrisNode::BSDebrisNode_LinkObject(int arg)
 {
     ((FUN_00c452a0_class*)this)->BSRangeNode_LinkObject(arg);
 }
@@ -608,14 +608,14 @@ void __thiscall FUN_00c4afa0_class::BSDamageStage_CopyMembers(int aiArg1, int ai
     CopyStateTo(aiArg1, aiArg2);
 }
 
-struct FUN_00c4b000_class {
+struct BSDamageStage {
     void __thiscall BSRangeNode_LoadBinary(int);
     void __thiscall BSDamageStage_LoadBinary(int a);
 };
 
 // @fnv 0x00c4b000
 // src: XBOX_PDB 0x00c4b000
-void __thiscall FUN_00c4b000_class::BSDamageStage_LoadBinary(int aiValue)
+void __thiscall BSDamageStage::BSDamageStage_LoadBinary(int aiValue)
 {
     BSRangeNode_LoadBinary(aiValue);
 }
@@ -844,12 +844,13 @@ FUN_00a744a0::FUN_00a744a0()
 {
 }
 
-struct FUN_00c5ceb0 : public FUN_00a744a0 {
-    FUN_00c5ceb0();
+struct BSScissorTriShape : public FUN_00a744a0 {
+    BSScissorTriShape();
 };
 
 // @fnv 0x00c5ceb0
-FUN_00c5ceb0::FUN_00c5ceb0()
+// src: EXE 0x00c5ceb0
+BSScissorTriShape::BSScissorTriShape()
 {
     vtbl = &DAT_010c2e7c;
 }
@@ -871,11 +872,12 @@ FUN_00c5cfb0::~FUN_00c5cfb0()
 
 struct Caller74690 {
     void FUN_00a74690(NiTPrimitiveArray<char*>*);
-    void ForwardTo74690(NiTPrimitiveArray<char*>* p);
+    void BSScissorTriShape_GetViewerStrings(NiTPrimitiveArray<char*>* p);
 };
 
 // @fnv 0x00c5d0f0
-void Caller74690::ForwardTo74690(NiTPrimitiveArray<char*>* pStrArr)
+// src: EXE 0x00c5d0f0
+void Caller74690::BSScissorTriShape_GetViewerStrings(NiTPrimitiveArray<char*>* pStrArr)
 {
     FUN_00a74690(pStrArr);
 }
@@ -1031,10 +1033,11 @@ void FUN_00c5eb60_Class::ResetAndFreeAlias()
 void __cdecl FUN_00c3f8c0();
 struct FUN_00c40930_Class {
     void __thiscall FUN_00c3f8c0();
-    void* __thiscall FUN_00c40930(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 // @fnv 0x00c40930
-void* __thiscall FUN_00c40930_Class::FUN_00c40930(unsigned int flags)
+// src: EXE 0x00c40930
+void* __thiscall FUN_00c40930_Class::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00c3f8c0();
     if (flags & 1)
@@ -1152,7 +1155,7 @@ void __cdecl CopyMainNameFromPath(int param_1, char* pDest)
 }
 
 void __cdecl EnsureArenaAllocated(void*);
-struct FUN_00c448f0_Class {
+struct BSParallelTaskThread {
     char pad[0x50];
     int m50;
     int m54;
@@ -1162,7 +1165,7 @@ struct FUN_00c448f0_Class {
 // Zeroes m50 and m54, copies the int at offset 0x24 into m58, then calls EnsureArenaAllocated with &m50.
 // @fnv 0x00c448f0
 // src: XBOX_PDB 0x00c448f0
-void __thiscall FUN_00c448f0_Class::BSParallelTaskThread_OnStartup()
+void __thiscall BSParallelTaskThread::BSParallelTaskThread_OnStartup()
 {
     m50 = 0;
     m54 = 0;
@@ -1320,13 +1323,13 @@ void* FUN_00c4a990_class::FUN_00c4a990(unsigned int flags)
 
 extern "C" void* g_01202e7c;
 extern "C" void* __cdecl NiViewerStrings_NiGetViewerString_Title(void*);
-struct FUN_00c4ab00_Class {
+struct BSBlastNode {
     void __thiscall BSRangeNode_GetViewerStrings(int);
     void __thiscall BSBlastNode_GetViewerStrings(int a);
 };
 // @fnv 0x00c4ab00
 // src: XBOX_PDB 0x00c4ab00
-void __thiscall FUN_00c4ab00_Class::BSBlastNode_GetViewerStrings(int pArray)
+void __thiscall BSBlastNode::BSBlastNode_GetViewerStrings(int pArray)
 {
     void* v;
     unsigned int x8;
@@ -1340,13 +1343,13 @@ void __thiscall FUN_00c4ab00_Class::BSBlastNode_GetViewerStrings(int pArray)
     ((NiTPrimitiveArray<unsigned int>*)pArray)->AddFirstEmpty(x8);
 }
 
-struct FUN_00c4f2d0_class {
+struct BSCullingProcess {
     void __thiscall BSCullingProcess_PopCullMode();
 };
 // Decrements the counter at offset 0xbc, reads the item at that index from the array at 0x94, and stores it at 0x90.
 // @fnv 0x00c4f2d0
 // src: COMMUNITY 0x00c4f2d0
-void __thiscall FUN_00c4f2d0_class::BSCullingProcess_PopCullMode()
+void __thiscall BSCullingProcess::BSCullingProcess_PopCullMode()
 {
     *(int*)((char*)this + 0xbc) = *(int*)((char*)this + 0xbc) - 1;
     int item = *(int*)((char*)this + 0x94 + *(int*)((char*)this + 0xbc) * 4);
@@ -1397,7 +1400,7 @@ int __thiscall FUN_00c50f30_class::GetEntryValue(int aiIndex)
 
 extern int DAT_0106c814;
 extern int DAT_010c256c;
-struct FUN_00c51640_Class {
+struct UpdateMasterPsysTaskletData {
     const char* s;
     int i;
     unsigned char b;
@@ -1409,7 +1412,7 @@ struct FUN_00c51640_Class {
 // Initializes the object's fields: clears the byte at offset 4, the int at offset 8, sets the byte at 0xc to 1, and clears the int at 0x10.
 // @fnv 0x00c51640
 // src: COMMUNITY 0x00c51640
-void* __thiscall FUN_00c51640_Class::UpdateMasterPsysTaskletData_UpdateMasterPsysTaskletData()
+void* __thiscall UpdateMasterPsysTaskletData::UpdateMasterPsysTaskletData_UpdateMasterPsysTaskletData()
 {
     s = (const char*)&DAT_0106c814;
     *(unsigned char*)((char*)this + 4) = 0;
@@ -1426,11 +1429,11 @@ struct FUN_00878690_shell {
     void __thiscall FUN_00c51df0();
 };
 void __cdecl operator delete(void* ptr, unsigned int size);
-struct FUN_00c52830_class {
+struct BSSceneGraph {
     void* __thiscall FUN_00c52830(unsigned int flags);
 };
 // @fnv 0x00c52830
-void* __thiscall FUN_00c52830_class::FUN_00c52830(unsigned int flags)
+void* __thiscall BSSceneGraph::FUN_00c52830(unsigned int flags)
 {
     reinterpret_cast<FUN_00878690_shell*>(this)->FUN_00c51df0();
     if (flags & 1)
@@ -1491,15 +1494,15 @@ namespace fnv_00c5bae0 {
 extern "C" void __cdecl operator delete(void*, unsigned int);
 
 struct FUN_00c5ac00_class {
-    void __thiscall FUN_00c5ac00();
+    void __thiscall BSPortalGraph();
     void* __thiscall FUN_00c5bae0(unsigned int flags);
 };
 
-// Calls FUN_00c5ac00, then frees this with operator delete when flags has bit 0 set, and returns this.
+// Calls BSPortalGraph, then frees this with operator delete when flags has bit 0 set, and returns this.
 // @fnv 0x00c5bae0
 void* __thiscall FUN_00c5ac00_class::FUN_00c5bae0(unsigned int flags)
 {
-    FUN_00c5ac00();
+    BSPortalGraph();
     if (flags & 1)
         operator delete(this, 0x78);
     return this;
@@ -2715,7 +2718,7 @@ char FUN_00c4ab80_class::BSBlastNode_RegisterStreamables(int a)
 
 unsigned int __cdecl _FUN_00a7d330(int a);
 
-struct FUN_00c4ad60_class : public FUN_00c4ab00_Class {
+struct FUN_00c4ad60_class : public BSBlastNode {
     void __thiscall AddFirstEmptyFromGlobal(int a);
 };
 
@@ -2756,7 +2759,7 @@ void __thiscall FUN_00c4afc0_class::AddValueToArray(NiTPrimitiveArray<unsigned i
     unsigned int p;
     void* value;
 
-    reinterpret_cast<FUN_00c4ab00_Class*>(this)->BSRangeNode_GetViewerStrings(reinterpret_cast<int>(array));
+    reinterpret_cast<BSBlastNode*>(this)->BSRangeNode_GetViewerStrings(reinterpret_cast<int>(array));
 
     value = *reinterpret_cast<void**>(&g_01202e8c);
     p = _FUN_00a7d330(value);
@@ -2868,7 +2871,7 @@ struct A51BF0Base {
     static void* __cdecl operator new(unsigned int size);
 };
 
-struct FUN_00c5da70 : public A51BF0Base {
+struct BSMasterParticleSystem : public A51BF0Base {
     char pad[0xdc];
 
     virtual void v00();
@@ -2930,23 +2933,23 @@ struct FUN_00c5da70 : public A51BF0Base {
 
     void BSMasterParticleSystem_UpdateParticleSystemList();
 
-    FUN_00c5da70();
+    BSMasterParticleSystem();
 };
 
-FUN_00c5da70::FUN_00c5da70()
+BSMasterParticleSystem::BSMasterParticleSystem()
 {
 }
 
 unsigned char __cdecl BSParticleSystemManager_CheckEmitterRecurse(int, int);
-void __cdecl SetParticleSystemTarget(int, FUN_00c5da70*);
+void __cdecl SetParticleSystemTarget(int, BSMasterParticleSystem*);
 
 // @fnv 0x00c513f0
-FUN_00c5da70* __cdecl CreateAndInitObject(int a)
+BSMasterParticleSystem* __cdecl CreateAndInitObject(int a)
 {
-    FUN_00c5da70* result = 0;
+    BSMasterParticleSystem* result = 0;
 
     if (BSParticleSystemManager_CheckEmitterRecurse(a, 0)) {
-        result = new FUN_00c5da70;
+        result = new BSMasterParticleSystem;
         SetParticleSystemTarget(a, result);
         result->v55(a, 1);
         result->BSMasterParticleSystem_UpdateParticleSystemList();
@@ -2963,9 +2966,9 @@ struct A51BF0Base {
 
 int _data_011c16bc;
 
-struct FUN_00c503d0 : public A51BF0Base {
+struct BSParticleSystemManager : public A51BF0Base {
     char pad[0xb8];
-    FUN_00c503d0();
+    BSParticleSystemManager();
 };
 
 struct FUN_00c514c0_Class : public FUN_00c51550 {
@@ -2976,7 +2979,7 @@ struct FUN_00c514c0_Class : public FUN_00c51550 {
 // src: XBOX_PDB 0x00c514c0
 void* __thiscall FUN_00c514c0_Class::BSParticleSystemManager_CreateClone(void* source)
 {
-    FUN_00c503d0* copy = new FUN_00c503d0;
+    BSParticleSystemManager* copy = new BSParticleSystemManager;
     Copy(reinterpret_cast<NiNode*>(copy), source);
     return copy;
 }
@@ -3056,24 +3059,24 @@ struct A51BF0Base {
     static void* __cdecl operator new(unsigned int size);
 };
 
-struct FUN_00c5da70 : public A51BF0Base {
+struct BSMasterParticleSystem : public A51BF0Base {
     char pad[0xe0];
 
-    FUN_00c5da70();
+    BSMasterParticleSystem();
 };
 
-FUN_00c5da70::FUN_00c5da70()
+BSMasterParticleSystem::BSMasterParticleSystem()
 {
 }
 
 struct FUN_00c5e4d0_class : public FUN_00c5e560_class {
-    FUN_00c5da70* __thiscall CreateNode(void*);
+    BSMasterParticleSystem* __thiscall CreateNode(void*);
 };
 
 // @fnv 0x00c5e4d0
-FUN_00c5da70* __thiscall FUN_00c5e4d0_class::CreateNode(void* arg)
+BSMasterParticleSystem* __thiscall FUN_00c5e4d0_class::CreateNode(void* arg)
 {
-    FUN_00c5da70* object = new FUN_00c5da70;
+    BSMasterParticleSystem* object = new BSMasterParticleSystem;
     this->NiNode_CopyMembers(reinterpret_cast<NiNode*>(object), arg);
     return object;
 }
@@ -4173,7 +4176,8 @@ struct NewObject_b9649 {
 
 // Allocates and constructs a NewObject_b9649 via its operator new and returns the pointer.
 // @fnv 0x00c46df0
-NewObject_b9649* CreateNewObject() {
+// src: EXE 0x00c46df0
+NewObject_b9649* BSMultiBoundNode_CreateObject() {
     return new NewObject_b9649();
 }
 
@@ -4815,7 +4819,7 @@ public:
     int z;
 };
 
-class FUN_00c47980_cls
+class BSCompoundFrustum
 {
 public:
     void InitFromArg(FUN_00c47980_arg* a1);
@@ -4862,7 +4866,7 @@ public:
 };
 
 // @fnv 0x00c47980
-void FUN_00c47980_cls::InitFromArg(FUN_00c47980_arg* a1)
+void BSCompoundFrustum::InitFromArg(FUN_00c47980_arg* a1)
 {
     if (a1 != 0)
     {
@@ -5756,14 +5760,15 @@ void* __cdecl FUN_00ec61c0(void*,int,unsigned int);
 struct WorkerTask { unsigned int value; };
 struct WorkerTaskManager { void GetTaskletValue(); };
 WorkerTaskManager& __stdcall FUN_00b00a00(WorkerTask*);
-struct FUN_00c503d0 : FUN_00a5ecb0 {
+struct BSParticleSystemManager : FUN_00a5ecb0 {
     unsigned int* data;
     unsigned int count;
     WorkerTask* task;
-    FUN_00c503d0();
+    BSParticleSystemManager();
 };
 // @fnv 0x00c503d0
-FUN_00c503d0::FUN_00c503d0() : FUN_00a5ecb0(0) {
+// src: EXE 0x00c503d0
+BSParticleSystemManager::BSParticleSystemManager() : FUN_00a5ecb0(0) {
     count = 10;
     void* allocated = DAT_011f6238.Allocate(40);
     data = (unsigned int*)allocated;
@@ -6049,11 +6054,12 @@ extern "C" void __cdecl FUN_00c516d0();
 extern "C" void __stdcall FUN_00ec5fce(void* objects, unsigned int objectSize, unsigned int count, void (__cdecl *destructor)());
 
 struct DynamicObject {
-    void FUN_00b00ec0();
-    void* FUN_00c515d0(unsigned int flags);
+    void BSWin32TaskletData();
+    void* VectorDeletingDestructor(unsigned int flags);
 };
 // @fnv 0x00c515d0
-void* DynamicObject::FUN_00c515d0(unsigned int flags)
+// src: EXE 0x00c515d0
+void* DynamicObject::VectorDeletingDestructor(unsigned int flags)
 {
     if (flags & 2) {
         FUN_00ec5fce(this, 0x20, *reinterpret_cast<unsigned int*>(reinterpret_cast<char*>(this) - 4), &FUN_00c516d0);
@@ -6062,7 +6068,7 @@ void* DynamicObject::FUN_00c515d0(unsigned int flags)
         }
         return reinterpret_cast<char*>(this) - 4;
     }
-    FUN_00b00ec0();
+    BSWin32TaskletData();
     if (flags & 1) {
         DAT_011f6238.MemoryManager_Deallocate(this);
     }
@@ -6271,14 +6277,15 @@ struct FNV_Base {
     ~FNV_Base();
 };
 
-struct FUN_00c53fa0_Class : public FNV_Base {
+struct BSFurnitureMarker : public FNV_Base {
     LocalInlineArrayDestructionView m_sub;    // +0x0c
-    ~FUN_00c53fa0_Class();
+    ~BSFurnitureMarker();
 };
 
 // Destructor: sets m_sub's vtable to FNV_vtbl_NiTArrayBase and deallocates m_sub.m_pBase via FNV_g_memoryManager.
 // @fnv 0x00c53fa0
-FUN_00c53fa0_Class::~FUN_00c53fa0_Class()
+// src: EXE 0x00c53fa0
+BSFurnitureMarker::~BSFurnitureMarker()
 {
     LocalInlineArrayDestructionView* p3 = &m_sub;
     p3->m_vtbl = &FNV_vtbl_NiTArrayBase;
@@ -6840,7 +6847,7 @@ bool RegStore::WriteSetting(Setting* pSetting)
             Open(true);
         hKey2 = hKey;
         if (hKey2 != 0) {
-            uiSize = pSetting->GetFormatSize();
+            uiSize = pSetting->Setting_DataSize();
             iType7 = Setting_DataType_00c33090((int)pName4);
             if (iType7 == 1) {
                 strcpy_s(acName, 64, pName4);
@@ -6888,7 +6895,7 @@ bool RegSettingCollection::ReadFromRegistry(Setting* pSetting) {
         {
             HKEY hCurKey5 = hKey;
             if (hCurKey5) {
-                dwSize3 = pSetting->GetFormatSize();
+                dwSize3 = pSetting->Setting_DataSize();
                 kDwType = GetStateResult((int*)pSetting);
                 if (kDwType == 1) {
                     strcpy_s(shortName6, 0x40, pName4);
@@ -7398,7 +7405,7 @@ struct SwitchChild {
     virtual void vf00(); virtual void vf04(); virtual void vf08(); virtual void vf0C();
     virtual void vf10(); virtual void vf14(); virtual void vf18(); virtual void vf1C();
     virtual void vf20(); virtual void vf24(); virtual void vf28(); virtual void vf2C();
-    virtual void vf30(); virtual void vf34(); virtual void vf38(); virtual void vf3C();
+    virtual void vf30(); virtual void vf34(); virtual void PrintInfo(); virtual void vf3C();
     virtual void vf40(); virtual void vf44(); virtual void vf48(); virtual void vf4C();
     virtual void vf50(); virtual void vf54(); virtual void vf58();
     virtual bool IsEqual(SwitchChild* pOther);
@@ -7556,7 +7563,8 @@ BSTextureData::~BSTextureData() {}
 
 // BSTextureData::CreateObject: allocates a BSTextureData and returns it as a NiObject pointer.
 // @fnv 0x00c5eed0
-NiObject* __cdecl CreateShaderAccumulator(void) {
+// src: EXE 0x00c5eed0
+NiObject* __cdecl BSTextureData_CreateObject(void) {
     NiObject* obj = (NiObject*)new BSTextureData();
     return obj;
 }
@@ -7762,7 +7770,8 @@ void FUN_00c5fd50_cls::UpdateState_00c5fd50()
 
 // Allocates a BSPSysStripUpdateModifier.
 // @fnv 0x00c5fee0
-BSPSysStripUpdateModifier* __cdecl CreatePositionModifierInstance() {
+// src: EXE 0x00c5fee0
+BSPSysStripUpdateModifier* __cdecl BSPSysStripUpdateModifier_CreateObject() {
     BSPSysStripUpdateModifier* instance = new BSPSysStripUpdateModifier;
     return instance;
 }
@@ -9134,14 +9143,14 @@ void FUN_00c5efb0_Class::BSTextureData_LinkObject(NiStream& stream)
 
 struct SinkSave { unsigned int data[15]; };
 
-struct FUN_00c43d00_Host {
+struct INISettingCollection {
     unsigned int SettingCollectionList_Setting_GetViewerStrings(NiTPrimitiveArray<unsigned int>& arr);
     unsigned int INISettingCollection_GetViewerStrings(NiTPrimitiveArray<unsigned int>& arr);
 };
 
 // @fnv 0x00c43d00
 // src: XBOX_PDB 0x00c43d00
-unsigned int FUN_00c43d00_Host::INISettingCollection_GetViewerStrings(NiTPrimitiveArray<unsigned int>& arr)
+unsigned int INISettingCollection::INISettingCollection_GetViewerStrings(NiTPrimitiveArray<unsigned int>& arr)
 {
     SinkSave save;
     unsigned int key = (unsigned int)NiViewerStrings_NiGetViewerString_Title("INISettings");
@@ -11174,7 +11183,7 @@ struct Base_00c452f0 {
 };
 
 
-struct FUN_00c452f0_fields {
+struct BSRangeNode {
     int m_00;
     int m_04;
     int m_08;
@@ -11228,7 +11237,7 @@ struct FUN_00c452f0_fields {
 // Calls the base class stream write, then writes field_ae, field_af, and field_ad to the NiStream via FUN_00a29550.
 // @fnv 0x00c452f0
 // src: XBOX_PDB 0x00c452f0
-void FUN_00c452f0_fields::BSRangeNode_SaveBinary(int apStream)
+void BSRangeNode::BSRangeNode_SaveBinary(int apStream)
 {
     unsigned char value;
 

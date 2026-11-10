@@ -75,7 +75,8 @@ char* __cdecl NiGetViewerString_00a7d4d0(char const*, int);
 
 // Appends the base viewer strings plus a formatted "m_iValue" entry to the string array, growing it as needed.
 // @fnv 0x00a99d70
-void __fastcall GetIntegerExtraDataViewerStrings(NiIntegerExtraData* data, void*, StrArr* apViewerStrings)
+// src: EXE 0x00a99d70
+void __fastcall NiIntegerExtraData_GetViewerStrings(NiIntegerExtraData* data, void*, StrArr* apViewerStrings)
 {
     typedef void (__thiscall* GetBaseViewerStrings)(NiExtraData*, StrArr*);
     reinterpret_cast<GetBaseViewerStrings>(&FUN_00a7b580)(data, apViewerStrings);

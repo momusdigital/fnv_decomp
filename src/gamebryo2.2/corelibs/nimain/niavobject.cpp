@@ -52,7 +52,7 @@ void __cdecl LinkNiObjectNET();
 // @fnv 0x00a5a030
 void __thiscall NiAVObject::UpdateControllers(NiUpdateData& data)
 {
-    NiAVObject::UpdateTimeControllers(data, true);
+    NiAVObject::UpdateObjectControllers(data, true);
 }
 
 extern char const* const g_011f4428_arg1;
@@ -76,7 +76,8 @@ const void* __cdecl BSFadeNode_GetRTTI()
 extern MemoryManager g_memoryManager;
 
 // @fnv 0x00a59dc0
-void __fastcall SetAVObjectBound(NiAVObject* object, void*, NiBound* apBound)
+// src: COMMUNITY 0x00a59dc0
+void __fastcall NiAVObject_SetBound(NiAVObject* object, void*, NiBound* apBound)
 {
     if (object->m_kWorldBound)
     {
@@ -104,7 +105,8 @@ void __thiscall NiAVObject::Update(NiUpdateData& aUpdateData)
 
 typedef void(__thiscall* FUN_00a59d00_Fn)(NiNode*, void*);
 // @fnv 0x00a59d00
-void __thiscall NiAVObject::AssignParent(NiNode* pkParent)
+// src: COMMUNITY 0x00a59d00
+void __thiscall NiAVObject::AttachParent(NiNode* pkParent)
 {
     NiNode* pkOldParent = m_pkParent;
     if (pkOldParent)
@@ -131,7 +133,8 @@ namespace fnv_00a59ec0 {
 void __cdecl ProcessPropertyClones();
 
 // @fnv 0x00a59ec0
-void __fastcall ProcessAVObjectClone(NiAVObject* object, void*, CloningProcess& kCloning)
+// src: EXE 0x00a59ec0
+void __fastcall NiAVObject_ProcessClone(NiAVObject* object, void*, CloningProcess& kCloning)
 {
     object->NiObjectNET::ProcessClone(kCloning);
     if (object->m_kPropertyList.m_kItemCount.m_uiCount)
@@ -201,7 +204,7 @@ void __thiscall Owner::SetSlot(Param* pParam)
 void __thiscall NiAVObject::UpdateDownwardPass(NiUpdateData& kData, unsigned int uiFlags)
 {
     if ((*reinterpret_cast<bool*>(&kData.pad1)))
-        UpdateTimeControllers(kData, true);
+        UpdateObjectControllers(kData, true);
     UpdateWorldData(kData);
     UpdateWorldBound();
 }
@@ -486,7 +489,8 @@ struct FUN_00a59f00_obj
 
 // Registers the base object, attached properties and collision object.
 // @fnv 0x00a59f00
-bool __fastcall RegisterAVObjectLinks(NiAVObject* object, void*, NiStream& stream)
+// src: EXE 0x00a59f00
+bool __fastcall NiAVObject_RegisterStreamables(NiAVObject* object, void*, NiStream& stream)
 {
     if (!reinterpret_cast<bool(__thiscall*)(NiObjectNET*, NiStream&)>(RegisterNiObjectLinks)(object, stream))
     {
@@ -518,7 +522,8 @@ inline NiObjectNET* const& GetNextData(NiTListItem<NiObjectNET*>*& pos)
 }
 
 // @fnv 0x00a5a140
-void __fastcall UpdateAVPropertyControllerFlag(NiAVObject* object, void*, int unused)
+// src: EXE 0x00a5a140
+void __fastcall NiAVObject_UpdatePropertiesDownward(NiAVObject* object, void*, int unused)
 {
     NiTListItem<NiObjectNET*>* pos = reinterpret_cast<NiTListItem<NiObjectNET*>*>(object->m_kPropertyList.m_pkHead);
     while (pos != 0)
@@ -558,7 +563,8 @@ struct Sub34
 
 // Saves base data, flags, local transform, property links and the collision link.
 // @fnv 0x00a5a900
-void __fastcall SaveAVObject(NiAVObject* object, void*, NiStream& kStream)
+// src: EXE 0x00a5a900
+void __fastcall NiAVObject_SaveBinary(NiAVObject* object, void*, NiStream& kStream)
 {
     reinterpret_cast<void(__thiscall*)(NiObjectNET*, NiStream&)>(SaveNiObjectLinks)(object, kStream);
     SerializeValue(kStream, object->m_uFlags);
@@ -629,16 +635,16 @@ NiAVObject* __fastcall ConstructAVObject(NiAVObject* object)
     return object;
 }
 
-struct FUN_00a71b70_cls
+struct NiFrustum
 {
     char _pad_00[0x18];
     unsigned char m_18;
-    FUN_00a71b70_cls* SetField18(unsigned char v);
+    NiFrustum* SetField18(unsigned char v);
 };
 
 // @fnv 0x00a71b70
 // src: GUESS 0x00a71b70 (confidence: low)
-FUN_00a71b70_cls* FUN_00a71b70_cls::SetField18(unsigned char v)
+NiFrustum* NiFrustum::SetField18(unsigned char v)
 {
     m_18 = v;
     return this;
@@ -739,7 +745,7 @@ FUN_00b4e150::FUN_00b4e150() : B4E150SortAdjustNode(0)
     m_iF = 0;
 }
 
-struct FUN_0040fbf0_shell
+struct BSSpinLock
 {
     void BSSpinLock_Lock(char* name);
 };
@@ -760,7 +766,7 @@ extern unsigned int DAT_011f6238;
 void NiAVObject::UpdateProperties()
 {
     NiPropertyState* ps = 0;
-    ((FUN_0040fbf0_shell*)&DAT_011f42a0)->BSSpinLock_Lock(0);
+    ((BSSpinLock*)&DAT_011f42a0)->BSSpinLock_Lock(0);
     if (reinterpret_cast<FUN_00a5e3a0_Helper*>(m_pkParent) != 0)
     {
         reinterpret_cast<FUN_00a5e3a0_Helper*>(m_pkParent)->NiNode_UpdatePropertiesUpward(ps);
@@ -961,7 +967,8 @@ extern char DAT_0109b1a0, DAT_0109b190, DAT_0109b184, DAT_0109b178, DAT_0109b164
 extern char DAT_0109b138, DAT_0109b124, DAT_0109b118, DAT_0109b10c;
 
 // @fnv 0x00a5ad00
-void __fastcall GetAVViewerStrings(NiAVObject* object, void*, Stream* stream)
+// src: EXE 0x00a5ad00
+void __fastcall NiAVObject_GetViewerStrings(NiAVObject* object, void*, Stream* stream)
 {
     NiObjectNET_GetViewerStrings(stream);
     stream->Add(NiViewerStrings_NiGetViewerString_Title(DAT_011f4280));
@@ -1087,7 +1094,7 @@ void NiAVObject::UpdateRigidDownwardPass(NiUpdateData& kData, unsigned int uiUnu
 {
     bool m_bUpdateEnabled = (*reinterpret_cast<bool*>(&kData.pad1));
     (*reinterpret_cast<bool*>(&kData.pad1)) = GetAVSelectiveTransforms(this);
-    UpdateTimeControllers(kData, true);
+    UpdateObjectControllers(kData, true);
     (*reinterpret_cast<bool*>(&kData.pad1)) = m_bUpdateEnabled;
 
     if (GetAVSelectiveUpdate(this) && !(*reinterpret_cast<bool*>(&kData.pad2)))
@@ -1139,7 +1146,7 @@ class TimeCtrlA5A4
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40();
     virtual void vf44();
@@ -1257,7 +1264,8 @@ inline A5a260CompareBase*& GetNext_a5a(NiTListItem<A5a260CompareBase*>*& pos)
 
 // Returns false when the flag bit, field comparison, property list, or collision comparison does not match.
 // @fnv 0x00a5a260
-bool __fastcall CompareAVObjects(NiAVObject* object, void*, NiObject* pkObject)
+// src: EXE 0x00a5a260
+bool __fastcall NiAVObject_IsEqual(NiAVObject* object, void*, NiObject* pkObject)
 {
     NiAVObject* other = static_cast<NiAVObject*>(pkObject);
 
@@ -1374,7 +1382,8 @@ LegacyData* __cdecl InvokeNamedFunction(const char*);
 
 // Reads flags, translation, rotation, and scale, then handles legacy collision data and version-dependent flag updates.
 // @fnv 0x00a5a510
-void __fastcall LoadAVObject(NiAVObject* object, void*, NiStream& stream)
+// src: EXE 0x00a5a510
+void __fastcall NiAVObject_LoadBinary(NiAVObject* object, void*, NiStream& stream)
 {
     reinterpret_cast<void(__thiscall*)(NiObjectNET*, NiStream&)>(LoadNiObjectNET)(object, stream);
     if (StreamField<unsigned int>(stream, 4) < 28)
@@ -1629,7 +1638,8 @@ struct A170Set
 
 // Copies attached properties into a new or existing property state.
 // @fnv 0x00a5a170
-void NiAVObject::BuildPropertyState(NiPropertyState* apSource, bool abAllocate, NiPropertyState*& apResult)
+// src: COMMUNITY 0x00a5a170
+void NiAVObject::PushLocalProperties(NiPropertyState* apSource, bool abAllocate, NiPropertyState*& apResult)
 {
     if (!this->m_kPropertyList.m_kItemCount.m_uiCount)
     {

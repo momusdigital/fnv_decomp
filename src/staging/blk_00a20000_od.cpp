@@ -525,12 +525,12 @@ void* _memmove(void* dst, const void* src, unsigned int count);
 
 struct FUN_00a25e20_Class
 {
-    void UpdateFields_00a25e20(int* a, int* b, void* src);
+    void WriteDWord(int* a, int* b, void* src);
 };
 
 // @fnv 0x00a25e20
-// src: GUESS 0x00a25e20 (confidence: low)
-void FUN_00a25e20_Class::UpdateFields_00a25e20(int* a, int* b, void* src)
+// src: GUESS 0x00a25e20 (confidence: medium)
+void FUN_00a25e20_Class::WriteDWord(int* a, int* b, void* src)
 {
     int size = 4;
     int* dst2 = (int*)*a;
@@ -543,12 +543,12 @@ void* __cdecl _memmove(void* dst, const void* src, unsigned int count);
 
 struct FUN_00a25e70_Class
 {
-    void UpdateState_00a25e70(int* a, int* b, int src);
+    void WriteByte(int* a, int* b, int src);
 };
 
 // @fnv 0x00a25e70
-// src: GUESS 0x00a25e70 (confidence: low)
-void FUN_00a25e70_Class::UpdateState_00a25e70(int* apBufferPtr, int* b, int aiValue)
+// src: GUESS 0x00a25e70 (confidence: medium)
+void FUN_00a25e70_Class::WriteByte(int* apBufferPtr, int* b, int aiValue)
 {
     int count = 1;
     int* dst = (int*)*apBufferPtr;
@@ -561,12 +561,12 @@ void* _memmove(void* dst, const void* src, unsigned int count);
 
 struct FUN_00a25ec0_Class
 {
-    void UpdateFields_00a25ec0(int* a, int* b, void* src);
+    void WriteDWord(int* a, int* b, void* src);
 };
 
 // @fnv 0x00a25ec0
-// src: GUESS 0x00a25ec0 (confidence: low)
-void FUN_00a25ec0_Class::UpdateFields_00a25ec0(int* a, int* b, void* src)
+// src: GUESS 0x00a25ec0 (confidence: medium)
+void FUN_00a25ec0_Class::WriteDWord(int* a, int* b, void* src)
 {
     int* dst;
     int size_2 = 4;

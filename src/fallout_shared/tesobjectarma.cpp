@@ -15,9 +15,9 @@ class ArmorAddonOperations : public TESObjectARMA
     void* DestroyIfFlagged(unsigned int flags);
     void SaveArmorGame(unsigned int flags);
     void LoadArmorGame(BGSLoadFormBuffer* buffer);
-    void CopyArmor(TESForm* apCopy);
-    bool CompareArmor(TESForm* apCompare);
-    void SaveArmor();
+    void TESObjectARMA_CopyFrom(TESForm* apCopy);
+    bool TESObjectARMA_Compare(TESForm* apCompare);
+    void TESObjectARMA_SaveForm();
 };
 
 #include "../../include/ENUM_FORM_ID.h"
@@ -287,7 +287,8 @@ struct FUN_005e78f0_t
 };
 // If apCopy is a TESObjectARMO, copies 0xc bytes at offset 0x178 from apCopy into this and calls FUN_004851b0(apCopy).
 // @fnv 0x005128e0
-void ArmorAddonOperations::CopyArmor(TESForm* apCopy)
+// src: EXE 0x005128e0
+void ArmorAddonOperations::TESObjectARMA_CopyFrom(TESForm* apCopy)
 {
     TESObjectARMO* parmo = dynamic_cast<TESObjectARMO*>(apCopy);
     if (parmo == 0)
@@ -317,7 +318,7 @@ struct FUN_00485680_shell
     void M();
 };
 bool __cdecl TESForm_QEndianSwapOnSave();
-void __cdecl AppendChunk(unsigned int size, void* apDest, unsigned int flags);
+void __cdecl TESForm___AddChunkData(unsigned int size, void* apDest, unsigned int flags);
 // The shared biped header has no declaration for its save routine.
 struct BipedModelSaveAccess
 {
@@ -325,7 +326,8 @@ struct BipedModelSaveAccess
 };
 
 // @fnv 0x00512840
-void ArmorAddonOperations::SaveArmor()
+// src: EXE 0x00512840
+void ArmorAddonOperations::TESObjectARMA_SaveForm()
 {
     ((FUN_004855a0_shell*)this)->M();
     ((S_00487010*)((char*)this + 0x30))->Save_00487010();
@@ -334,7 +336,7 @@ void ArmorAddonOperations::SaveArmor()
     ((FUN_00485e00_shell*)this)->TESForm_SaveData();
     if (TESForm_QEndianSwapOnSave())
         ((ArmorDataEndianAccess*)((char*)this + 0x178))->Endian();
-    AppendChunk(0x4d414e44, (char*)this + 0x178, 0xc);
+    TESForm___AddChunkData(0x4d414e44, (char*)this + 0x178, 0xc);
     if (TESForm_QEndianSwapOnSave())
         ((ArmorDataEndianAccess*)((char*)this + 0x178))->Endian();
     ((FUN_00485680_shell*)this)->M();
@@ -346,7 +348,8 @@ struct FUN_005e79a0_t
     bool TESForm_CompareAllComponents(TESForm*);
 };
 // @fnv 0x00512940
-bool ArmorAddonOperations::CompareArmor(TESForm* apCompare)
+// src: EXE 0x00512940
+bool ArmorAddonOperations::TESObjectARMA_Compare(TESForm* apCompare)
 {
     TESObjectARMA* pcomp = dynamic_cast<TESObjectARMA*>(apCompare);
     if (!pcomp)

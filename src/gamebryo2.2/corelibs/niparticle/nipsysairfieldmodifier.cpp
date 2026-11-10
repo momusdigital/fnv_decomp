@@ -83,7 +83,8 @@ NiObject* __thiscall NiPSysFieldModifier::Clone(CloningProcess& kCloning)
 }
 
 // @fnv 0x00c2f630
-void* __cdecl CreateAirTmp()
+// src: EXE 0x00c2f630
+void* __cdecl NiPSysAirFieldModifier_CreateObject()
 {
     AirTmp* p = (AirTmp*)BSFadeNode::operator new(0x68);
     if (p)

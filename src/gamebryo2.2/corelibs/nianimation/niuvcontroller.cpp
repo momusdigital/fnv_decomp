@@ -155,7 +155,8 @@ struct Base44
 
 // Keep the stream argument opaque across the approved and working NiStream tags.
 // @fnv 0x00a46070
-void __fastcall SaveUVController(NiUVController* controller, void*, MyStream* kStream)
+// src: EXE 0x00a46070
+void __fastcall NiUVController_SaveBinary(NiUVController* controller, void*, MyStream* kStream)
 {
     ((Base44*)controller)->FUN_00a6d730(kStream);
     kStream->m_pBackingStream->Write(&controller->m_usValue, 2);

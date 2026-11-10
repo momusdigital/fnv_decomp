@@ -38,10 +38,10 @@ class BSFaceGenAnimationData : public NiExtraData
     virtual void SetUpdated(bool value);
     virtual bool IsDead();
     virtual void SetStateFlags(bool, bool);
-    virtual void SetExpressionValue_00649be0(int, float);
-    virtual void SetModifierKeyframeValue(BS_FACEGEN_MODIFIER, float);
-    virtual void SetPhonemeValue_00649c40(int, float);
-    virtual void SetCustomMorphKeyframeValue(int, float);
+    virtual void SetAnimExpressionValue(int, float);
+    virtual void SetAnimModifierValue(BS_FACEGEN_MODIFIER, float);
+    virtual void SetAnimPhonemeValue(int, float);
+    virtual void SetAnimCustomMorphValue(int, float);
     virtual void InsertPhonemeKeyframe(float* phonemes, float duration);
     virtual void AddModifierKeyframe(float* modifiers, float duration);
     virtual void AddKeyframe(BS_FACEGEN_MORPH_TYPE type, float duration, bool clear);

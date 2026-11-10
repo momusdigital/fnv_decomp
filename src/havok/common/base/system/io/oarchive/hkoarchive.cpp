@@ -84,8 +84,8 @@ void __stdcall hkOArchive_write32u(const float* p)
 }
 
 // @fnv 0x00d60980
-// src: GUESS 0x00d609a0 (confidence: medium)
-void __fastcall hkOArchive_WriteBinaryData_Thunk(hkOArchive* self, void*, int aiValue, int aiUnused)
+// src: COMMUNITY 0x00d609a0
+void __fastcall hkOArchive_write64u(hkOArchive* self, void*, int aiValue, int aiUnused)
 {
     self->WriteBinaryData(&aiValue, 8, 1);
 }

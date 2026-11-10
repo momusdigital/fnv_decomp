@@ -59,8 +59,8 @@ struct StreamX
     StreamX();
     ~StreamX();
     bool BSStream_Load(int f);
-    RootX* GetStringAt(unsigned i);
-    unsigned GetRefAt21C();
+    RootX* NiStream_GetObjectAt(unsigned i);
+    unsigned NiStream_GetObjectCount();
 };
 extern Setting g_kTerrainChunkSetting;
 
@@ -76,10 +76,10 @@ void BGSTerrainChunkLoadTask::Run()
     if (kStreamVal.BSStream_Load(
             (this->*reinterpret_cast<int (QueuedFileEntry::*)(BSFile*)>(&QueuedFileEntry::GetFileName))(iFile)))
     {
-        RootX* pkRoot = kStreamVal.GetStringAt(0);
+        RootX* pkRoot = kStreamVal.NiStream_GetObjectAt(0);
         if (pkRoot->Fc())
         {
-            reinterpret_cast<PN&>(unk54).FUN_0066b0d0(kStreamVal.GetStringAt(0));
+            reinterpret_cast<PN&>(unk54).FUN_0066b0d0(kStreamVal.NiStream_GetObjectAt(0));
             reinterpret_cast<PV&>(unk48).FUN_0066b0d0(
                 reinterpret_cast<PN&>(unk54).Modelloader_GetReferencedThis()->FUN_0043b4a0(0));
             if (reinterpret_cast<PN&>(unk54).Modelloader_GetReferencedThis()->NiNode_GetChildCount() > 1 && *g_kTerrainChunkSetting.Bool())
@@ -96,9 +96,9 @@ void BGSTerrainChunkLoadTask::Run()
         }
         else
         {
-            reinterpret_cast<PV&>(unk48).FUN_0066b0d0(kStreamVal.GetStringAt(0));
-            if (kStreamVal.GetRefAt21C() > 1)
-                reinterpret_cast<PQ&>(unk4c).FUN_0066b0d0(kStreamVal.GetStringAt(1));
+            reinterpret_cast<PV&>(unk48).FUN_0066b0d0(kStreamVal.NiStream_GetObjectAt(0));
+            if (kStreamVal.NiStream_GetObjectCount() > 1)
+                reinterpret_cast<PQ&>(unk4c).FUN_0066b0d0(kStreamVal.NiStream_GetObjectAt(1));
         }
     }
 }

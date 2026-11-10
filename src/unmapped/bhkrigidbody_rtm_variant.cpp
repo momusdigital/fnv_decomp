@@ -605,7 +605,7 @@ struct HavokObject
     virtual void Virt0();
     virtual void Virt1();
     virtual void Virt2();
-    virtual NiNode* GetCellChildAt();
+    virtual NiNode* GetChildNode();
 
     unsigned int referenceCount;
     void* extraData;
@@ -1722,7 +1722,7 @@ class Constraint_eb20
     virtual void vf2c();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3c();
     virtual void vf40();
     virtual void vf44();
@@ -1731,7 +1731,7 @@ class Constraint_eb20
     virtual void vf50();
     virtual void vf54();
     virtual void vf58();
-    virtual void vf5c();
+    virtual void applyForce();
     virtual void vf60();
     virtual void vf64();
     virtual void vf68();

@@ -18,7 +18,8 @@ inline bool BSGameSound::IsPlaying()
 }
 
 // @fnv 0x00ae9f10
-inline bool BSGameSound::HasStatusFlag0x80000()
+// src: EXE 0x00ae9f10
+inline bool BSGameSound::IsInDecay()
 {
     return (iStateFlags & 0x80000) != 0;
 }
@@ -46,7 +47,7 @@ void BSGameSoundEmitCoveredFunctions()
     BSGameSound* sound = 0;
     // Qualified calls: keep the inline bodies in this object file.
     sound->BSGameSound::IsPlaying();
-    sound->BSGameSound::HasStatusFlag0x80000();
+    sound->BSGameSound::IsInDecay();
     sound->BSGameSound::IsPaused();
     sound->BSGameSound::GetVolume();
     sound->BSGameSound::SetListenerID(0);

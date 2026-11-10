@@ -2021,18 +2021,18 @@ struct FUN_00dce7e0_local
     int unk04;
     int unk08;
     int unk0c;
-    void __thiscall FUN_00dce840(void*, void*);
+    void __thiscall hkEntitySelectorListed(void*, void*);
     void __thiscall ProcessArgument(int);
     void __thiscall Object_DoNothing();
 };
-// Reads a value from *p, initializes a local via FUN_00dce840, calls FUN_00dcea10, then invokes two methods on the local using a value from FUN_00c85750.
+// Reads a value from *p, initializes a local via hkEntitySelectorListed, calls FUN_00dcea10, then invokes two methods on the local using a value from FUN_00c85750.
 // @fnv 0x00dce7e0
 // src: HAVOK_LIB 0x00dce7e0
 void __cdecl hkpSaveContactPointsUtil_loadContactPoints(int aiArg1, int aiArg2, int* p, int d)
 {
     FUN_00dce7e0_local local;
     int value = *(int*)(*p + 8);
-    local.FUN_00dce840(p, (void*)d);
+    local.hkEntitySelectorListed(p, (void*)d);
     hkpSaveContactPointsUtil_loadContactPointsInternal(aiArg1, aiArg2, value, &local);
     int object = hkMemoryRouter_getInstance();
     ((FUN_00dce7e0_local*)((char*)&local + 4))->ProcessArgument(*(int*)(object + 0x10));
@@ -2059,18 +2059,19 @@ struct DCE840PointerMap
     void insert(hkMemoryAllocator& alloc, void* key, int value);
 };
 
-struct FUN_00dce840
+struct hkEntitySelectorListed
 {
     virtual void vfunc00();
 
     DCE840PointerMap m_map;
 
-    FUN_00dce840(void* const* keys, int numKeys);
+    hkEntitySelectorListed(void* const* keys, int numKeys);
 };
 
 // Clears m_map, reserves room for numKeys entries, then inserts each key from keys with value 1.
 // @fnv 0x00dce840
-FUN_00dce840::FUN_00dce840(void* const* keys, int numKeys)
+// src: GUESS 0x00dce840 (confidence: medium)
+hkEntitySelectorListed::hkEntitySelectorListed(void* const* keys, int numKeys)
 {
     m_map.clear();
     m_map.reserve(hkMemoryRouter_getInstance().heap(), numKeys);
@@ -3172,15 +3173,16 @@ struct FUN_00e05d10_Base
     }
 };
 
-struct FUN_00dce9e0 : FUN_00e05d10_Base
+struct hkpSerializedAgentNnEntry : FUN_00e05d10_Base
 {
-    FUN_00dce9e0(int);
-    virtual ~FUN_00dce9e0();
+    hkpSerializedAgentNnEntry(int);
+    virtual ~hkpSerializedAgentNnEntry();
 };
 
 // Constructor taking an unused int argument; the written body is empty.
 // @fnv 0x00dce9e0
-FUN_00dce9e0::FUN_00dce9e0(int)
+// src: EXE 0x00dce9e0
+hkpSerializedAgentNnEntry::hkpSerializedAgentNnEntry(int)
 {}
 }  // namespace fnv_00dce9e0
 

@@ -129,7 +129,7 @@ void S_cd3b20_cls::hkpClosestCdPointCollector_addCdPoint(S_cd3b20_cls* src)
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance();
 
-struct FUN_00c6d9c0
+struct hkpClosestCdPointCollector
 {
     int m_i04;
     int m_i08;
@@ -163,10 +163,11 @@ struct FUN_00c6d9c0
     int m_i78;
     int m_i7c;
 
-    FUN_00c6d9c0();
+    hkpClosestCdPointCollector();
 
 // @fnv 0x00c6d9c0
-    virtual ~FUN_00c6d9c0()
+// src: EXE 0x00c6d9c0
+    virtual ~hkpClosestCdPointCollector()
     {}
 
     static void operator delete(void* apMemory)
@@ -177,11 +178,11 @@ struct FUN_00c6d9c0
         typedef void (__thiscall *FreeFunction)(hkMemoryAllocator*, void*, unsigned int);
         FreeFunction freeMemory = reinterpret_cast<FreeFunction>(
             (*reinterpret_cast<void***>(pAllocator))[2]);
-        freeMemory(pAllocator, apMemory, sizeof(FUN_00c6d9c0));
+        freeMemory(pAllocator, apMemory, sizeof(hkpClosestCdPointCollector));
     }
 };
 
-FUN_00c6d9c0::FUN_00c6d9c0()
+hkpClosestCdPointCollector::hkpClosestCdPointCollector()
 {
     m_i04 = 0;
 }

@@ -3,7 +3,7 @@
 
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
-struct FUN_00b18300_Class
+struct NiD3DHLSLPixelShader
 {
     char _pad00[0x48];
     void* m_p48;
@@ -12,7 +12,7 @@ struct FUN_00b18300_Class
 
 // @fnv 0x00b18300
 // src: COMMUNITY 0x00b18300
-void* FUN_00b18300_Class::CFrondEngine_GetLevel()
+void* NiD3DHLSLPixelShader::CFrondEngine_GetLevel()
 {
     return m_p48;
 }

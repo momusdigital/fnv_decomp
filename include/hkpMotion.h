@@ -60,7 +60,7 @@ public:
     virtual void ApplyImpulseAtPoint(const hkVector4& kImpulse, const hkVector4& kPoint);
     virtual void ApplyAngularImpulseToBodies(const hkVector4& kImpulse);
     virtual void vf58(float fTimestep, const hkVector4& kForce, const hkVector4& kPoint);
-    virtual void vf5c(float fTimestep, const hkVector4& kForce);
+    virtual void applyForce(float fTimestep, const hkVector4& kForce);
     virtual void StepMotion(float fTimestep, const hkVector4& kTorque);
     virtual void getMotionStateAndVelocitiesAndDeactivationType(hkpMotion* pDestination);
 
@@ -71,7 +71,7 @@ public:
     void incrementNumInactiveFramesMt(int iSelect, int iWorldDeactivationNumInactiveFramesSelectFlag);
     void zeroNumInactiveFramesMt(int iSelect, int iWorldDeactivationNumInactiveFramesSelectFlag);
     hkSimdReal getMassInv() const;
-    float GetMassValue();
+    float getMass();
     void SetFlagBits(int iFirst, int iSecond, int iCode);
     void SetFlagBits(unsigned int uFirst, unsigned int uSecond, int iCode);
 

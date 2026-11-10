@@ -90,10 +90,11 @@ void __fastcall NiBlendAccumTransformInterpolator_ReleaseStorage_00a39290(void*)
 void __cdecl _delete(void*, unsigned int);
 struct S_00a36490
 {
-    void* __thiscall FUN_00a36490(unsigned int);
+    void* __thiscall ScalarDeletingDestructor(unsigned int);
 };
 // @fnv 0x00a36490
-void* __thiscall S_00a36490::FUN_00a36490(unsigned int flag)
+// src: EXE 0x00a36490
+void* __thiscall S_00a36490::ScalarDeletingDestructor(unsigned int flag)
 {
     NiBlendAccumTransformInterpolator_ReleaseStorage_00a39290(this);
     if (flag & 1)
@@ -237,16 +238,17 @@ struct FUN_00a35a80_Obj
 {
     void BSMultiTargetTreadTransfController_AllocateStorage(int a1, int a2);
 };
-struct FUN_00a36070 : NiSingleInterpControllerBase
+struct BSMultiTargetTreadTransfController : NiSingleInterpControllerBase
 {
     void* m_spControllerInterpolator;
     unsigned short unk38;
     int unk3c;
     unsigned short unk40;
-    FUN_00a36070(int a1, int a2);
+    BSMultiTargetTreadTransfController(int a1, int a2);
 };
 // @fnv 0x00a36070
-FUN_00a36070::FUN_00a36070(int a1, int a2)
+// src: EXE 0x00a36070
+BSMultiTargetTreadTransfController::BSMultiTargetTreadTransfController(int a1, int a2)
 {
     m_spControllerInterpolator = 0;
     unk38 = 0;

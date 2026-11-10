@@ -600,7 +600,7 @@ struct ModelLoader
     void QueueTESModel(TESModel*, int, QueuedFile*, TESObjectREFR*);
     void QueueModelWithOptions(TESModel*, int, QueuedFile*, TESObjectREFR*, bool, bool);
     void QueueModelList(void*, FileEntryListCollection*, int, QueuedFile*, char*);
-    void QueueFileList(void*, int, QueuedFile*, char*);
+    void QueueKFList(void*, int, QueuedFile*, char*);
     void QueueReplacementKFList(void*, Animation*, int, QueuedFile*, char*);
     void QueueHead(TESNPC*, void*, int, QueuedFile*);
     void QueueBipedAnimation(BipedAnim*, void*, int, QueuedFile*, int);
@@ -654,7 +654,7 @@ struct ModelLoader
     unsigned int GetBackgroundCloningCount();
     unsigned int GetQueuedReferenceCount();
     unsigned int GetQueuedHelmetCount();
-    bool AddModel(char*, Model*);
+    bool Animation_AddAnimation(char*, Model*);
     bool AddKF(char*, KFModel*);
     NiNode* LoadFile(char*, int, bool, bool, bool, bool);
     KFModel* LoadKF(char*);
@@ -672,7 +672,7 @@ struct ModelLoader
     void SetLoadingEnabled(bool);
     void ReleaseFile(char*);
     void ReleaseKFFile(char*);
-    void UpdateReferenceNode(TESObjectREFR*, NiNode*);
+    void LoadAddonNodes(TESObjectREFR*, NiNode*);
     void UpdateModelNode(NiNode*);
     bool QHasDelayedFree();
     static int GetArchiveTypeIndexForIOFileIndex(int);
@@ -1357,7 +1357,7 @@ void FUN_005636e0_shell::TESObjectREFR_LoadAnimationBGS(BGSLoadFormBuffer* apLoa
         reinterpret_cast<FakeExtra*>(const_cast<ExtraDataList*>(reinterpret_cast<FakeREFR*>(this)->GetExtra()))
             ->ExtraDataList_SetLastFinishedSequence(plastFinishedSequence);
         bool bstartSequence = false;
-        if (BGSOpenCloseForm::HasOpenCloseComponent(reinterpret_cast<FakeREFR*>(this)->_FNV_GetObjectReference()))
+        if (BGSOpenCloseForm::IsOpenCloseForm(reinterpret_cast<FakeREFR*>(this)->_FNV_GetObjectReference()))
         {
             if ((_stricmp)(plastFinishedSequence, "Open") == 0)
             {
@@ -1931,7 +1931,7 @@ using ::BGSEncounterZone;
 // src: XBOX_PDB 0x00567ec0
 unsigned short __fastcall BGSEncounterZone_QZoneLevel(BGSEncounterZone* _this)
 {
-    return _this->GameData.m_usDetachRecordValue == 0 ? _this->GetCalculatedLevel() : _this->GameData.m_usDetachRecordValue;
+    return _this->GameData.m_usDetachRecordValue == 0 ? _this->GetCalcedZoneLevel() : _this->GameData.m_usDetachRecordValue;
 }
 }  // namespace fnv_00567ec0
 
@@ -1969,7 +1969,8 @@ typedef char _sizecheck_FurnitureMark[sizeof(FurnitureMark) == 16 ? 1 : -1];
 
 
 // @fnv 0x00568650
-float FurnitureMark::GetCurrentTargetDistance()
+// src: COMMUNITY 0x00568650
+float FurnitureMark::GetHeading()
 {
     return usHeading / 1000.0;
 }
@@ -2152,7 +2153,7 @@ struct LockExtraData
     bool IsLocked();
     void SetLocked(bool);
     bool MeetsMinimumLockLevel();
-    static int ConvertLockLevel(int);
+    static int REFR_LOCK_NumericValueToEnum(int);
     static int EnumToNumericValue(int);
     void Endian();
     unsigned char m_uiLockState;
@@ -2179,7 +2180,7 @@ struct TeleportableReference
     void SetLinkedDoor(TESObjectREFR*);
     void SetTeleportPosition(void*);
     void SetTeleportRotation(void*);
-    void SetLinkedDoorReference(TESObjectREFR*, bool);
+    void DoorTeleportData_SetConnectedCellsPublic(TESObjectREFR*, bool);
     void Save();
     void Load(TESFile*);
     bool InitItem(TESForm*);
@@ -2792,7 +2793,7 @@ void __fastcall bhkSphereShape_Init(_bhkSphereShape_vtbl_helper* pThis, float af
 }
 
 // This forwarding shell only needs the shared configuration base.
-struct FUN_0056ea90_shell : public hkSerializableCinfo
+struct hkSimpleShapePhantomCinfo : public hkSerializableCinfo
 {
     void ForwardCall_0056ea90();
 };
@@ -2801,7 +2802,7 @@ void __fastcall TESObjectREFR_ForwardCall_0056d730(void*);
 
 // @fnv 0x0056ea90
 // src: GUESS 0x0056ea90 (confidence: low)
-void FUN_0056ea90_shell::ForwardCall_0056ea90()
+void hkSimpleShapePhantomCinfo::ForwardCall_0056ea90()
 {
     TESObjectREFR_ForwardCall_0056d730(this);
 }
@@ -4775,14 +4776,14 @@ float Obj577::bhkRigidBody_GethkMaxLinearVelocity()
 
 struct Dummy_00577bd0
 {
-    void FindFloatTableIndex(float*);
+    void SetReal(float*);
 };
 
 // @fnv 0x00577bd0
 // src: COMMUNITY 0x00577bd0
 Dummy_00577bd0* __fastcall hkUFloat8_hkUFloat8(Dummy_00577bd0* thisPtr, float afValue)
 {
-    thisPtr->FindFloatTableIndex(&afValue);
+    thisPtr->SetReal(&afValue);
     return thisPtr;
 }
 
@@ -4871,7 +4872,7 @@ struct TeleportableReference
     void SetLinkedDoor(TESObjectREFR*);
     void SetTeleportPosition(void*);
     void SetTeleportRotation(void*);
-    void SetLinkedDoorReference(TESObjectREFR*, bool);
+    void DoorTeleportData_SetConnectedCellsPublic(TESObjectREFR*, bool);
     void Save();
     void Load(TESFile*);
     bool InitItem(TESForm*);
@@ -6793,7 +6794,7 @@ struct HealthForm
 struct ExtraL
 {
     void ExtraDataList_SetOwnership(void*);
-    void SetExtraDataValue(int);
+    void ExtraDataList_SetGlobal(int);
     void FUN_004198a0(int);
     void SetExtraHealth(float);
 };
@@ -6820,7 +6821,7 @@ void Fn40ea20::ContainerItemExtra_AddToExtraDataList(ExtraL* apExtra, HealthForm
             {
             case 0x2a:
                 if (count)
-                    apExtra->SetExtraDataValue(count);
+                    apExtra->ExtraDataList_SetGlobal(count);
                 break;
             case 8:
                 if (count != -1)
@@ -7674,7 +7675,7 @@ PathingLocation* __fastcall BSOcclusionPlane_UpdateState_006dcd70(PathingLocatio
         if (pcell == 0)
             pworld = g_TES->GetHitSound();
     }
-    pPathingLocation->SetLocationData(((void*(__thiscall*)(void*))(*(void***)aRefArg.p)[0x7d])(aRefArg.p),
+    pPathingLocation->SetupData(((void*(__thiscall*)(void*))(*(void***)aRefArg.p)[0x7d])(aRefArg.p),
                                       (TESObjectCELL*)pcell, pworld);
     return pPathingLocation;
 }
@@ -8481,11 +8482,11 @@ const void* S_0056e410::bhkPhantom_GetRTTI()
 extern char g_01268230_arg1;
 struct S_0056e450
 {
-    const void* GetField01268230Arg1Address();
+    const void* bhkShapePhantom_GetRTTI();
 };
 // @fnv 0x0056e450
-// src: GUESS 0x0056e450 (confidence: low)
-const void* S_0056e450::GetField01268230Arg1Address()
+// src: EXE 0x0056e450
+const void* S_0056e450::bhkShapePhantom_GetRTTI()
 {
     return &g_01268230_arg1;
 }
@@ -8504,11 +8505,11 @@ const void* S_0056e490::bhkSimpleShapePhantom_GetRTTI()
 
 struct S_0056e4a0
 {
-    unsigned int Return0x60();
+    unsigned int bhkSimpleShapePhantom_QCinfoSize();
 };
 // @fnv 0x0056e4a0
-// src: GUESS 0x0056e4a0 (confidence: high)
-unsigned int S_0056e4a0::Return0x60()
+// src: EXE 0x0056e4a0
+unsigned int S_0056e4a0::bhkSimpleShapePhantom_QCinfoSize()
 {
     return 0x60;
 }
@@ -9288,7 +9289,7 @@ void* bhkPhantom::FUN_0056e420(unsigned int flags)
     return this;
 }
 
-struct FUN_0056e4b0_Class
+struct bhkSimpleShapePhantom
 {
     void* FUN_0056e4b0(unsigned int flags);
 };
@@ -9301,7 +9302,7 @@ struct FUN_00c9eec0_Class
 void __cdecl __Dummy_00b6fef0(void* obj, unsigned int size);
 
 // @fnv 0x0056e4b0
-void* FUN_0056e4b0_Class::FUN_0056e4b0(unsigned int flags)
+void* bhkSimpleShapePhantom::FUN_0056e4b0(unsigned int flags)
 {
     reinterpret_cast<FUN_00c9eec0_Class*>(this)->FUN_00c9eec0();
     if (flags & 1)
@@ -9571,18 +9572,19 @@ void* bhkWorldObject::FUN_0056d4c0(unsigned int flags)
     return this;
 }
 
-struct FUN_0056e2a0
+struct bhkMatrix3
 {
     void bhkVector4_bhkVector4();
-    FUN_0056e2a0();
+    bhkMatrix3();
 };
 
 // @fnv 0x0056e2a0
-FUN_0056e2a0::FUN_0056e2a0()
+// src: GUESS 0x0056e2a0 (confidence: high)
+bhkMatrix3::bhkMatrix3()
 {
     bhkVector4_bhkVector4();
-    (reinterpret_cast<FUN_0056e2a0*>(reinterpret_cast<char*>(this) + 0x10))->bhkVector4_bhkVector4();
-    (reinterpret_cast<FUN_0056e2a0*>(reinterpret_cast<char*>(this) + 0x20))->bhkVector4_bhkVector4();
+    (reinterpret_cast<bhkMatrix3*>(reinterpret_cast<char*>(this) + 0x10))->bhkVector4_bhkVector4();
+    (reinterpret_cast<bhkMatrix3*>(reinterpret_cast<char*>(this) + 0x20))->bhkVector4_bhkVector4();
 }
 
 
@@ -9995,14 +9997,14 @@ struct Flt
     operator unsigned int();
 };
 
-struct FUN_006546e0_Class
+struct Explosion
 {
     unsigned int Explosion_GetActorCause();
 };
 
 // @fnv 0x006546e0
 // src: COMMUNITY 0x006546e0
-unsigned int FUN_006546e0_Class::Explosion_GetActorCause()
+unsigned int Explosion::Explosion_GetActorCause()
 {
     return ((Flt*)((char*)this + 0xd0))->operator unsigned int();
 }
@@ -10330,10 +10332,10 @@ bool FUN_00563d80_shell::TESObjectREFR_SetSequencePosition(NiControllerManager* 
             float foffset;
             UpdData UpdateData;
             float fkeyTime;
-            apManager->DeactivateAllSequences(0.0f);
+            apManager->DeactivateAll(0.0f);
             ((TaskQueueInterface*)apManager)->QueueReferenceStateTask(true);
             if (!pSequence->GetState())
-                apManager->ActivateControllerSequence(pSequence, 0, false, 1.0f, 0.0f, 0);
+                apManager->ActivateSequence(pSequence, 0, false, 1.0f, 0.0f, 0);
             fkeyTime = afPosition;
             foffset = afPosition;
             if ((FNV2062_NiControllerSequence_FUN_00759450)(pSequence) > afPosition)
@@ -10351,7 +10353,7 @@ bool FUN_00563d80_shell::TESObjectREFR_SetSequencePosition(NiControllerManager* 
             UpdateData.NiUpdateData(fkeyTime, true, false);
             ((NiNode*)pobj3D)->Update(*(NiUpdateData*)&UpdateData);
             ((FUN_005672c0_shell*)this)->TESObjectREFR_EndSequence(pSequence);
-            apManager->StopSequence(pSequence, 0.0f);
+            apManager->DeactivateSequence(pSequence, 0.0f);
             ((TaskQueueInterface*)apManager)->QueueReferenceStateTask(false);
             return true;
         }
@@ -10867,7 +10869,7 @@ int FUN_005682c0_shell::TESObjectREFR_GetFirstFreeMarkerIndex(bool abIgnoreReser
         {
             for (unsigned int i = 0; i < 30; i++)
             {
-                if (pfurn->IsMarkerEnabled(i) && (!pused || !pused->IsUsedMarker(i)))
+                if (pfurn->GetMarkerEnabled(i) && (!pused || !pused->IsUsedMarker(i)))
                 {
                     iretval = i;
                     break;
@@ -10878,7 +10880,7 @@ int FUN_005682c0_shell::TESObjectREFR_GetFirstFreeMarkerIndex(bool abIgnoreReser
         {
             for (unsigned int i = 0; i < 30; i++)
             {
-                if (pfurn->IsMarkerEnabled(i) && (!pused || !pused->IsUsedMarker(i)) &&
+                if (pfurn->GetMarkerEnabled(i) && (!pused || !pused->IsUsedMarker(i)) &&
                     (!preserved || !preserved->IsUsedMarker(i)))
                 {
                     iretval = i;
@@ -11030,21 +11032,21 @@ float FUN_00568cb0_shell::TESObjectREFR_GetRadius()
 }  // namespace fnv_00568cb0
 
 namespace fnv_0056e270 {
-struct FUN_0056e2a0
+struct bhkMatrix3
 {
     char _pad[0x30];
-    FUN_0056e2a0();
+    bhkMatrix3();
 };
 struct Mem4fa0
 {
     void bhkVector4_bhkVector4();
 };
-struct FUN_0056e270 : FUN_0056e2a0
+struct FUN_0056e270 : bhkMatrix3
 {
     Mem4fa0 m30;
     FUN_0056e270();
 };
-// Constructs the base FUN_0056e2a0 and then calls FUN_004b4fa0 on the m30 member.
+// Constructs the base bhkMatrix3 and then calls FUN_004b4fa0 on the m30 member.
 // @fnv 0x0056e270
 FUN_0056e270::FUN_0056e270()
 {
@@ -11224,7 +11226,7 @@ void TESObjectREFR_FilteredAddObject(TesobjectrefrOffset08View* apObj, UpdateArg
             pRef = (RefOps*)GetReferenceFromNiAVObject((NiAVObject*)pNiNode);
             if (pRef && pRef->_FNV_GetObjectReference())
             {
-                if (TESContainer::IsValidContainerType(pRef->_FNV_GetObjectReference()->_FNV_GetFormType()))
+                if (TESContainer::ContainerCanHoldType(pRef->_FNV_GetObjectReference()->_FNV_GetFormType()))
                     bQueue = false;
                 if (!bQueue && pRef->_FNV_GetObjectReference()->_FNV_GetFormType() == 0x1e)
                 {
@@ -12237,7 +12239,7 @@ void FUN_00562660_shell::TESObjectREFR_InitLoadGameBGS(BGSLoadFormBuffer* apLoad
     {
         N::TESWorldSpace* pworld = (N::TESWorldSpace*)((::TESObjectREFR*)this)->GetParentWorldSpace();
         if (pworld)
-            ((N::TerrainManager_r562660*)pworld->GetWorldTerrainManager())->FUN_006fcfa0(this, 1);
+            ((N::TerrainManager_r562660*)pworld->GetTerrainManager())->FUN_006fcfa0(this, 1);
     }
 }
 }  // namespace fnv_00562660
@@ -12460,7 +12462,7 @@ bool FUN_00568500_shell::TESObjectREFR_GetMarkerAtIndex(int aiIndex, FurnitureMa
                     NiMatrix3_TransformVertices(((FUN_0056fa00_shell*)this)->TESObjectREFR_GetOrientation(), (NiPoint3*)((VRef*)this)->V125(), 1, &loc,
                                  aOutMarker);
                     FurnitureMark_SetHeading(aOutMarker,
-                                 ((FurnitureMark*)aOutMarker)->GetCurrentTargetDistance() + ((TESRecipe*)this)->GetData()->field08);
+                                 ((FurnitureMark*)aOutMarker)->GetHeading() + ((TESRecipe*)this)->GetData()->field08);
                 }
             }
         }
@@ -12633,7 +12635,7 @@ void FUN_00574920_t::TESObjectREFR_ResetInventory(bool abLeveledOnly)
         }
         else
         {
-            ((XActor*)this)->GetExtra()->RemoveExtraDataType0x15();
+            ((XActor*)this)->GetExtra()->RemoveContainerChanges();
             pinventory = InventoryChanges::CreateForReference(this);
         }
         if (((RefV*)this)->v100())
@@ -12646,7 +12648,7 @@ void FUN_00574920_t::TESObjectREFR_ResetInventory(bool abLeveledOnly)
             (FNV2062_InventoryChanges_FUN_004d1610)(pinventory);
         (FNV2062_InventoryChanges_FUN_004d1960)(pinventory);
         if ((FNV2062_InventoryChanges_FUN_0042cde0)(pinventory))
-            ((XActor*)this)->GetExtra()->RemoveExtraDataType0x15();
+            ((XActor*)this)->GetExtra()->RemoveContainerChanges();
         pdroplist = ((XActor*)this)->GetExtra()->ExtraDataList_GetDroppedItemList();
         while (pdroplist && !pdroplist->FUN_008256d0())
         {
@@ -12706,7 +12708,7 @@ namespace fnv_0055d3b0 {
 struct ShellH
 {
     int ExtraDataList_GetLevCreaOriginalBase();
-    ShellH* GetFirstExtraData();
+    ShellH* ExtraDataList_GetLevCreaTemplate();
 };
 struct XActor
 {
@@ -12715,15 +12717,16 @@ struct XActor
 
 struct FUN_0055d3b0
 {
-    bool IsOfType(void* apObj);
+    bool TESObjectREFR_GetIsOfType(void* apObj);
 };
 // @fnv 0x0055d3b0
-bool FUN_0055d3b0::IsOfType(void* apObj)
+// src: COMMUNITY 0x0055d3b0
+bool FUN_0055d3b0::TESObjectREFR_GetIsOfType(void* apObj)
 {
     void* pbase;
     void* ptemplate;
     pbase = (void*)((int)((XActor*)this)->GetExtra()->ExtraDataList_GetLevCreaOriginalBase());
-    ptemplate = ((XActor*)this)->GetExtra()->GetFirstExtraData();
+    ptemplate = ((XActor*)this)->GetExtra()->ExtraDataList_GetLevCreaTemplate();
     return (((TESBoundObject*)this)->BGSSaveFormBuffer_GetForm() == apObj) || (pbase == apObj) || (ptemplate == apObj);
 }
 }  // namespace fnv_0055d3b0
@@ -13188,11 +13191,12 @@ struct FUN_0083c850
     int m10;
     int m14;
     int m18;
-    void AppendTopicInfo(int);
+    void DialogueItem_RunResult(int);
 };
 // If mInfo is set and passes the check, adds its topic list and runs its result script for ap with m18 as the character.
 // @fnv 0x0083c850
-void FUN_0083c850::AppendTopicInfo(int aiArg)
+// src: COMMUNITY 0x0083c850
+void FUN_0083c850::DialogueItem_RunResult(int aiArg)
 {
     if (mInfo && !TESTopicInfo_IsRunImmediately(reinterpret_cast<char const*>(mInfo)))
     {
@@ -14597,7 +14601,7 @@ class TgtOps
 class Dummy_00577bd0 : public TESDataHandler
 {
   public:
-    void FindFloatTableIndex(float* value);
+    void SetReal(float* value);
     void hkpEntity_setMaxLinearVelocity(float value);
 };
 
@@ -14607,7 +14611,7 @@ class Dummy_00577bd0 : public TESDataHandler
 void Dummy_00577bd0::hkpEntity_setMaxLinearVelocity(float value)
 {
     reinterpret_cast<Dummy_00577bd0*>(reinterpret_cast<char*>(reinterpret_cast<TgtOps*>(GetBGSRagdollList())->GetSourceFiles()) + 0xac)
-        ->FindFloatTableIndex(&value);
+        ->SetReal(&value);
 }
 }  // namespace fnv_00577c70
 
@@ -14934,7 +14938,7 @@ bool FUN_0057b790_StandIn::TESObjectREFR_IsCellLoaded()
     if (cell == 0)
         return false;
 
-    return reinterpret_cast<TES*>(g_TES)->IsCellBuffered((TESObjectCELL*)cell, false);
+    return reinterpret_cast<TES*>(g_TES)->IsCellLoaded((TESObjectCELL*)cell, false);
 }
 }  // namespace fnv_0057b790
 
@@ -14983,7 +14987,7 @@ struct HealthReference
     virtual void vf9();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -15009,7 +15013,7 @@ struct HealthReference
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();
@@ -16896,7 +16900,8 @@ extern void FNV2062_ReferenceIsValid();
 // Returns the reference's extra data, creating and storing it via CreateData569 when absent; returns null if the reference is invalid or deleted.
 // @fnv 0x00569920
 // The shared class lacks this method; keep its implementation as a helper with the reference in ECX.
-Data569* __fastcall EnsureReferenceData(TESObjectREFR* pThis)
+// src: COMMUNITY 0x00569920
+Data569* __fastcall TESObjectREFR_GetMultiBound(TESObjectREFR* pThis)
 {
     if (!((bool (__thiscall *)(TESObjectREFR*))FNV2062_ReferenceIsValid)(pThis))
         return 0;
@@ -17377,14 +17382,14 @@ FUN_0056e3e0_cls* FUN_0056e3e0_cls::bhkPhantom_bhkPhantom()
 
 void __cdecl FUN_00aa1460(void* pObject, unsigned int uSize);
 
-struct FUN_0056e460_cls
+struct bhkShapePhantom
 {
     void FUN_00c9eb30();
     void* FUN_0056e460(int iFlags);
 };
 
 // @fnv 0x0056e460
-void* FUN_0056e460_cls::FUN_0056e460(int iFlags)
+void* bhkShapePhantom::FUN_0056e460(int iFlags)
 {
     this->FUN_00c9eb30();
     if (iFlags & 1)
@@ -17474,17 +17479,17 @@ FUN_0056e860_cls* FUN_0056e860_cls::hkBoxShapeCinfo_hkBoxShapeCinfo()
 
 void __cdecl FUN_00aa1460(void* apMemory, unsigned int auiSize);
 
-struct FUN_0056e920_cls
+struct bhkBoxShape
 {
     int unk00;
 
     void BaseCleanup();
 
-    FUN_0056e920_cls* FUN_0056e920(unsigned int acFlags);
+    bhkBoxShape* FUN_0056e920(unsigned int acFlags);
 };
 
 // @fnv 0x0056e920
-FUN_0056e920_cls* FUN_0056e920_cls::FUN_0056e920(unsigned int acFlags)
+bhkBoxShape* bhkBoxShape::FUN_0056e920(unsigned int acFlags)
 {
     BaseCleanup();
     if (acFlags & 1)
@@ -24609,7 +24614,7 @@ struct Refr_s
     virtual void vf0f();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -24647,7 +24652,7 @@ struct Refr_s
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf3a();
     virtual void vf3b();
@@ -26519,14 +26524,14 @@ struct Self567b50 : public TESObjectREFR
 // src: XBOX_PDB 0x00567b50
 void Self567b50::TESObjectREFR_SetGlobal(TESObjectREFR* pRef)
 {
-    GetExtra()->SetExtraDataValue((int)pRef);
+    GetExtra()->ExtraDataList_SetGlobal((int)pRef);
     ((Ref567b50*)this)->v48(0x40);
     Holder567b50* p = FUN_00568e50();
     if (p)
     {
         if (p->GetRef())
         {
-            p->GetRef()->GetExtra()->SetExtraDataValue(0);
+            p->GetRef()->GetExtra()->ExtraDataList_SetGlobal(0);
             ((Ref567b50*)p->GetRef())->v48(0x40);
         }
     }
@@ -26565,7 +26570,7 @@ void* __fastcall Modelloader_GetReferencedThis(void* pThis);
 void FUN_00567c50_cls::TESObjectREFR_RemoveOwner()
 {
     ((ExtraL*)BSFile_GetDevice((TESObjectREFR*)this))->ExtraDataList_SetOwnership(0);
-    ((ExtraL*)BSFile_GetDevice((TESObjectREFR*)this))->SetExtraDataValue(0);
+    ((ExtraL*)BSFile_GetDevice((TESObjectREFR*)this))->ExtraDataList_SetGlobal(0);
     ((ExtraL*)BSFile_GetDevice((TESObjectREFR*)this))->FUN_004198a0(-1);
     this->v48(0x40);
 
@@ -26573,7 +26578,7 @@ void FUN_00567c50_cls::TESObjectREFR_RemoveOwner()
     if (obj != 0 && Modelloader_GetReferencedThis(obj) != 0)
     {
         ((ExtraL*)BSFile_GetDevice((TESObjectREFR*)Modelloader_GetReferencedThis(obj)))->ExtraDataList_SetOwnership(0);
-        ((ExtraL*)BSFile_GetDevice((TESObjectREFR*)Modelloader_GetReferencedThis(obj)))->SetExtraDataValue(0);
+        ((ExtraL*)BSFile_GetDevice((TESObjectREFR*)Modelloader_GetReferencedThis(obj)))->ExtraDataList_SetGlobal(0);
         ((ExtraL*)BSFile_GetDevice((TESObjectREFR*)Modelloader_GetReferencedThis(obj)))->FUN_004198a0(-1);
         ((FUN_00567c50_cls*)Modelloader_GetReferencedThis(obj))->v48(0x40);
     }
@@ -28520,7 +28525,7 @@ struct Reference
     bool TESObjectREFR_IsDead(int);
     NiPoint3* FUN_00430830();
     void TESObjectREFR_RestoreRagDollData(int);
-    void UpdateLightDescriptors(int);
+    void TESObjectREFR_ApplyAllDecals(int);
     void TESObjectREFR_PreCalcTriStripsShapeAabb(Scene*);
     bool TESObjectREFR_GetIsStingerLOD();
     bool TESObjectREFR_GetIsImposter();
@@ -28749,7 +28754,7 @@ Scene* Reference::TESObjectREFR_Load3D(unsigned char immediate)
                 if (TESHavokUtilities_Should3DRagDoll(this, scene.Modelloader_GetReferencedThis()))
                     TESObjectREFR_RestoreRagDollData(0);
                 BSFile_GetDevice()->ExtraDataList_RestoreSavedAnimation(this);
-                UpdateLightDescriptors(0);
+                TESObjectREFR_ApplyAllDecals(0);
                 TESObjectREFR_PreCalcTriStripsShapeAabb(scene.Modelloader_GetReferencedThis());
             }
         }
@@ -29356,7 +29361,7 @@ struct RefS
     virtual void vf9();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -29382,7 +29387,7 @@ struct RefS
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();
@@ -31063,7 +31068,7 @@ struct ExtraOps
 };
 struct EntryOps
 {
-    EntryOps* GetOrFallback(int);
+    EntryOps* TESObjectWEAP_GetProjectile(int);
     EntryOps* GetAVEffect();
     bool TESObjectWEAP_IsThrownWeapon();
     EntryOps* TESObjectWEAP_GetCurrentAmmo(RefOps*);
@@ -31264,8 +31269,8 @@ void RefOps::TESObjectREFR_AddReferenceItem(RefOps* source, int count, bool abAr
             {
                 EntryOps* base = 0;
                 EntryOps* entry = actor->Sky_GetMode();
-                if (entry->GetOrFallback(0) && entry->GetOrFallback(0)->GetAVEffect())
-                    entry = entry->GetOrFallback(0)->GetAVEffect();
+                if (entry->TESObjectWEAP_GetProjectile(0) && entry->TESObjectWEAP_GetProjectile(0)->GetAVEffect())
+                    entry = entry->TESObjectWEAP_GetProjectile(0)->GetAVEffect();
                 if (entry->TESObjectWEAP_IsThrownWeapon())
                     base = entry;
                 else
@@ -32180,7 +32185,7 @@ struct Ref577
     virtual void vf9();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -32206,7 +32211,7 @@ struct Ref577
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();
@@ -32301,7 +32306,7 @@ struct Ref577b
     virtual void vf9();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -32327,7 +32332,7 @@ struct Ref577b
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();
@@ -35950,7 +35955,7 @@ struct FUN_009d9f40_Virtual
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40();
     virtual void vf44(FUN_00561730_Obj* value);
@@ -37908,7 +37913,7 @@ struct ScaleReference
     virtual void slot03c();
     virtual void slot040();
     virtual void slot044();
-    virtual void MarkChanged(unsigned int);
+    virtual void TESObjectLIGH_SaveGame(unsigned int);
     virtual void slot04c();
     virtual void slot050();
     virtual void slot054();
@@ -38116,7 +38121,7 @@ void ScaleReference::TESObjectREFR_SetScale(float scale)
     if (scale > 10.0)
         scale = 10.0f;
     m_fObjectScale = scale;
-    MarkChanged(16);
+    TESObjectLIGH_SaveGame(16);
     scale = TESObjectREFR_GetScale_00567400();
     NiAVObject* node1;
     if (this == g_thePlayer)
@@ -38441,7 +38446,7 @@ struct LightDataX
     unsigned BGSSaveFormBuffer_GetForm();
     float ActorPackage_GetPackageStartTime();
     float FUN_0047c860();
-    bool GetMaskedValue4();
+    bool DecalData_GetAlphaTesting();
     bool ImpactDecalData_GetIsAlphaBlend();
     bool ImpactDecalData_GetIsParallax();
     float FUN_004a7bd0();
@@ -38514,11 +38519,12 @@ float __cdecl FUN_00476b70(float a, float b);
 // 0x0056a4a0 submits TESObjectREFR lights; the shared header lacks this method.
 struct ReferenceLightSubmission : ::TESObjectREFR
 {
-    void UpdateLightDescriptors(int iArg);
+    void TESObjectREFR_ApplyAllDecals(int iArg);
 };
 // Iterates the reference's light list, builds a DescX from each entry's position and light data, and submits it to the manager with type 4.
 // @fnv 0x0056a4a0
-void ReferenceLightSubmission::UpdateLightDescriptors(int iArg)
+// src: COMMUNITY 0x0056a4a0
+void ReferenceLightSubmission::TESObjectREFR_ApplyAllDecals(int iArg)
 {
     ((void (__thiscall *)(::TESObjectREFR*))FNV2062_Reference_FUN_0056a8d0)(this);
     IterX* pkIter = ((ListX*)GetExtraData())->ExtraDataList_GetDecalRefs();
@@ -38545,7 +38551,7 @@ void ReferenceLightSubmission::UpdateLightDescriptors(int iArg)
                                   (unsigned char)((pkDataVal->BGSSaveFormBuffer_GetForm() >> 16) & 0xff) / 255.0);
             kDesc.m40 = pkDataVal->ActorPackage_GetPackageStartTime();
             kDesc.m54 = pkDataVal->FUN_0047c860();
-            kDesc.b74 = pkDataVal->GetMaskedValue4();
+            kDesc.b74 = pkDataVal->DecalData_GetAlphaTesting();
             kDesc.b75 = pkDataVal->ImpactDecalData_GetIsAlphaBlend();
             if (pkDataVal->ImpactDecalData_GetIsParallax())
             {
@@ -45516,7 +45522,7 @@ bool xRefr::TESObjectREFR_IsCrimeToActivate()
     else if (((CrimeFormTypeView*)GetBaseX())->GetFormType() == 0x2b && xg_pPlayer->IsSneakingX())
     {
         TESCreature* pkCreature = dynamic_cast<TESCreature*>(GetBaseX());
-        if (pkCreature && static_cast<const TESCreature*>(pkCreature)->GetNoVATSranged() && !IsInCombat(0))
+        if (pkCreature && static_cast<const TESCreature*>(pkCreature)->GetAllowPCDialogue() && !IsInCombat(0))
             bResult = true;
     }
     if (!bResult && ((CrimeFormTypeView*)GetBaseX())->GetFormType() != 0x2b && GetOwnerX() &&
@@ -47977,7 +47983,7 @@ struct InvChanges_00577d50 : public InvChangesBase_00577d50
 
 struct ExtraList_00577d50
 {
-    void RemoveExtraDataType0x15();
+    void RemoveContainerChanges();
 };
 
 struct RefExtra_00577d50
@@ -48019,7 +48025,7 @@ int FUN_00577d50_shell::TESObjectREFR_GetGoldCount()
         if (pinventory->InventoryChanges_IsEmpty())
         {
             reinterpret_cast<ExtraList_00577d50*>(reinterpret_cast<RefExtra_00577d50*>(this)->GetExtra())
-                ->RemoveExtraDataType0x15();
+                ->RemoveContainerChanges();
         }
     }
 

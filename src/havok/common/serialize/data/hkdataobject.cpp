@@ -141,11 +141,11 @@ struct HkdataobjectInterfaceView
 struct FUN_00dba730_cls
 {
     HkdataobjectInterfaceView* ptr;
-    void ForwardCall_00dba730();
+    void hkDataClass_getNumMembers();
 };
 // @fnv 0x00dba730
-// src: GUESS 0x00dba730 (confidence: low)
-void FUN_00dba730_cls::ForwardCall_00dba730()
+// src: GUESS 0x00dba730 (confidence: high)
+void FUN_00dba730_cls::hkDataClass_getNumMembers()
 {
     ptr->f9();
 }
@@ -522,7 +522,7 @@ struct FUN_00dbab70_obj
     virtual ~FUN_00dbab70_obj();
 };
 
-struct FUN_00dbab70_cls
+struct hkDataArray
 {
     FUN_00dbab70_obj* m_pEntryObject;
     void ReleaseStorage_00dbab70();
@@ -530,7 +530,7 @@ struct FUN_00dbab70_cls
 
 // @fnv 0x00dbab70
 // src: GUESS 0x00dbab70 (confidence: low)
-void FUN_00dbab70_cls::ReleaseStorage_00dbab70()
+void hkDataArray::ReleaseStorage_00dbab70()
 {
     FUN_00dbab70_obj* pObj = m_pEntryObject;
     if (pObj)
@@ -641,11 +641,11 @@ struct FUN_00dbac70_cls
 {
     dbac70_Target* m_p;
     int m_f;
-    void __thiscall ForwardCall_00dbac70();
+    void __thiscall hkDataArray_Value_asString();
 };
 // @fnv 0x00dbac70
-// src: GUESS 0x00dbac70 (confidence: low)
-void FUN_00dbac70_cls::ForwardCall_00dbac70()
+// src: GUESS 0x00dbac70 (confidence: high)
+void FUN_00dbac70_cls::hkDataArray_Value_asString()
 {
     m_p->v10(m_f);
 }
@@ -696,7 +696,7 @@ struct S_00dbac90_Obj
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40(void* arg);
 };
@@ -1115,15 +1115,15 @@ DBAFB0Result DBAFB0Handle::GetResult()
     return DBAFB0Result(m_pObservedSource->getValue(m_key));
 }
 
-struct FUN_00dba650_cls
+struct hkDataClass
 {
     unsigned int m_00;
-    FUN_00dba650_cls* SetField00(unsigned int value);
+    hkDataClass* SetField00(unsigned int value);
 };
 
 // @fnv 0x00dba650
 // src: GUESS 0x00dba650 (confidence: low)
-FUN_00dba650_cls* FUN_00dba650_cls::SetField00(unsigned int value)
+hkDataClass* hkDataClass::SetField00(unsigned int value)
 {
     this->m_00 = value;
     return this;
@@ -1132,11 +1132,11 @@ FUN_00dba650_cls* FUN_00dba650_cls::SetField00(unsigned int value)
 struct CpuObject
 {
     int value;
-    bool TestValue();
+    bool hkDataClass_isNull();
 };
 // @fnv 0x00dba670
-// src: GUESS 0x00dba670 (confidence: low)
-bool CpuObject::TestValue()
+// src: COMMUNITY 0x00dba670
+bool CpuObject::hkDataClass_isNull()
 {
     return value == 0;
 }
@@ -1238,15 +1238,15 @@ struct RefObj
     int m_i08;
 };
 
-struct FUN_00dba780_cls
+struct hkDataObject
 {
     RefObj* m_pReference;
 
-    FUN_00dba780_cls* AssignRef(FUN_00dba780_cls* apOther);
+    hkDataObject* AssignRef(hkDataObject* apOther);
 };
 
 // @fnv 0x00dba780
-FUN_00dba780_cls* FUN_00dba780_cls::AssignRef(FUN_00dba780_cls* apOther)
+hkDataObject* hkDataObject::AssignRef(hkDataObject* apOther)
 {
     RefObj* pRef = apOther->m_pReference;
     m_pReference = pRef;
@@ -1585,17 +1585,17 @@ struct InnerObj
     virtual void* v13(void* a);
 };
 
-struct FUN_00dba9d0_cls
+struct hkDataObject_Value
 {
     InnerObj* m_00;
     void* m_04;
-    void* __thiscall GetWrappedDataObject(FUN_00dba760_cls* arg);
+    void* __thiscall asObject(FUN_00dba760_cls* arg);
 };
 
 // Calls v13 on m_00 with m_04, passes the result to arg's FUN_00dba760, and returns arg.
 // @fnv 0x00dba9d0
 // src: GUESS 0x00dba9d0 (confidence: medium)
-void* __thiscall FUN_00dba9d0_cls::GetWrappedDataObject(FUN_00dba760_cls* arg)
+void* __thiscall hkDataObject_Value::asObject(FUN_00dba760_cls* arg)
 {
     void* result = m_00->v13(m_04);
 
@@ -2258,7 +2258,7 @@ struct S_00dbaed0_Target
 struct S_00dbaed0_Obj
 {
     S_00dbaed0_Target* m_target;
-    int ForwardCall_00dba730();
+    int hkDataClass_getNumMembers();
     void DispatchItems(S_00dbaed0_Elem** items);
 };
 
@@ -2266,7 +2266,7 @@ struct S_00dbaed0_Obj
 // @fnv 0x00dbaed0
 void S_00dbaed0_Obj::DispatchItems(S_00dbaed0_Elem** items)
 {
-    int n = ForwardCall_00dba730();
+    int n = hkDataClass_getNumMembers();
     for (int i = 0; i < n; i++)
         m_target->vfn28(i, *items + i);
 }
@@ -2437,7 +2437,7 @@ struct Fnv299VTarget
     virtual void unk1C();
     virtual void unk20(int arg);
 };
-struct FUN_00dbac50_cls
+struct hkDataArray_Value
 {
     Fnv299VTarget* m_00;
     int m_04;
@@ -2445,7 +2445,7 @@ struct FUN_00dbac50_cls
 };
 typedef void(__thiscall* Fnv299Dispatch)(Fnv299VTarget*, int);
 // @fnv 0x00dbac50
-void FUN_00dbac50_cls::DispatchToVTableSlot8(int aiArg)
+void hkDataArray_Value::DispatchToVTableSlot8(int aiArg)
 {
     Fnv299VTarget* t = m_00;
     void* volatile* table = *(void* volatile**)t;
@@ -3059,7 +3059,7 @@ DataObjectHandle* DataObjectHandle::hkDataObject_hkDataObject(RefObj* apObject)
     return this;
 }
 
-struct DataClassResult : FUN_00dba650_cls
+struct DataClassResult : hkDataClass
 {
     DataClassResult* SetField00(unsigned int value);
     DataClassResult(unsigned int value)

@@ -644,7 +644,7 @@ struct SubRecord
     void hkMapBase_hkDataObject_Handle_void_Copier_HandleOps_resizeTable(int aiValue, int aiZero);
 };
 
-struct FUN_00dc4f20_cls
+struct Copier
 {
     ObjectRef* m_pReference;
     int m_i04;
@@ -655,11 +655,11 @@ struct FUN_00dc4f20_cls
     int unk28;
     unsigned int m_uFlags2c;
 
-    FUN_00dc4f20_cls* Construct(ObjectRef* apRef, int aiSecond);
+    Copier* Construct(ObjectRef* apRef, int aiSecond);
 };
 
 // @fnv 0x00dc4f20
-FUN_00dc4f20_cls* FUN_00dc4f20_cls::Construct(ObjectRef* apRef, int aiSecond)
+Copier* Copier::Construct(ObjectRef* apRef, int aiSecond)
 {
     if (apRef != 0)
     {
@@ -741,7 +741,7 @@ struct S_00dc58a0_Arr
 
 struct FUN_00dc58a0_cls
 {
-    void FillMissingMemberClassImplementations(S_00dc58a0_Arr& out, const S_00dc58a0_Obj& a, const S_00dc58a0_Obj& b) throw();
+    void Cloner_getClassMemberInfos(S_00dc58a0_Arr& out, const S_00dc58a0_Obj& a, const S_00dc58a0_Obj& b) throw();
     void Cloner_copyValue(S_00dc58a0_Src* a, S_00dc58a0_Src* b, S_00dc58a0_Item* item) throw();
     void ProcessSourcePair(S_00dc58a0_Src* a, S_00dc58a0_Src* b) throw();
 };
@@ -755,7 +755,7 @@ void FUN_00dc58a0_cls::ProcessSourcePair(S_00dc58a0_Src* pSourceA, S_00dc58a0_Sr
     arr.m_data = 0;
     arr.m_iElementCount = 0;
     arr.m_iCapacityState = 0x80000000;
-    FillMissingMemberClassImplementations(arr, ha, pSourceB->GetObjectValue());
+    Cloner_getClassMemberInfos(arr, ha, pSourceB->GetObjectValue());
     for (int i = 0; i < arr.m_iElementCount; i++)
         Cloner_copyValue(pSourceA, pSourceB, &arr.m_data[i]);
     arr.ClearAndRelease(GetBufferAllocator(*hkMemoryRouter_getInstance()));
@@ -841,7 +841,7 @@ struct Cloner
     int unk4;
     S_00dc5970_Map m_kHandleMap;
 
-    S_00dc5970_ClassImpl* CloneClassMembersRecursively(S_00dc5970_ClassImpl* srcClass) throw();  // copyClass
+    S_00dc5970_ClassImpl* findDestClass(S_00dc5970_ClassImpl* srcClass) throw();  // copyClass
     void ProcessSourcePair(S_00dc5970_Object& dstObj, const S_00dc5970_Object& srcObj) throw();
     S_00dc5970_Object CloneObject(const S_00dc5970_Object& srcObj) throw();
     void CopyValue(ValueQ dst, const ValueQ& src) throw();
@@ -859,7 +859,7 @@ S_00dc5970_Object Cloner::CloneObject(const S_00dc5970_Object& srcObj) throw()
         if (m_kHandleMap.get(srcObj.GetObjectHandle(), &dstHandle) == 0)
             return m_kSourceWorld.GetSelectionItem(dstHandle);
 
-        S_00dc5970_Class dstClass(CloneClassMembersRecursively(srcObj.GetVariantValue().getImplementation()));
+        S_00dc5970_Class dstClass(findDestClass(srcObj.GetVariantValue().getImplementation()));
         S_00dc5970_Object dstObj(m_kSourceWorld.GetObject(dstClass));
         m_kHandleMap.insert(srcObj.GetObjectHandle(), dstObj.GetObjectHandle());
         ProcessSourcePair(dstObj, srcObj);
@@ -1052,7 +1052,7 @@ struct ValueQ
     int ForwardCall_00dba990() const throw();
     float InvokeVirtualMethod_00dbaa00() const throw();
     const float* DispatchToInterface(int n) const throw();
-    S_00dc5970_Object GetWrappedDataObject() const throw();
+    S_00dc5970_Object asObject() const throw();
     const char* hkDataObject_Value_asString() const throw();
     void ForwardCall_00dbaa30(int i) throw();
     void DispatchFloatToVtbl(float r) throw();
@@ -1084,7 +1084,7 @@ void Cloner::CopyValue(ValueQ dst, const ValueQ& src) throw()
     }
     case 8:
     case 9:
-        dst.DispatchToObject(CloneObject(src.GetWrappedDataObject()));
+        dst.DispatchToObject(CloneObject(src.asObject()));
         break;
     case 10:
         dst.ForwardCall_00dbab30(src.hkDataObject_Value_asString());
@@ -1316,7 +1316,7 @@ struct DReader
 
     DKlass* Copier_getMemberClassAndCheck(DMember* member, DObj& obj) throw();
     int ReadObject(void* p, DObj& obj) throw();
-    DVariant FindOrCreateObjectMapEntry(DObj& obj, int flag) throw();
+    DVariant Copier_findOrCopy(DObj& obj, int flag) throw();
     int ReadValue(char** p, int type, DValue& v, int unk, int flag) throw();
 
     int ReadArray(DOutArray* out, DMember* member, DArray* arr) throw();
@@ -1590,7 +1590,7 @@ int DReader::ReadArray(DOutArray* out, DMember* member, DArray* apArray) throw()
             DObj o = apArray->CreateResultPair(i).CreateValueInto();
             if (!o.hkDataObject_isNull())
             {
-                DVariant v = FindOrCreateObjectMapEntry(o, flag);
+                DVariant v = Copier_findOrCopy(o, flag);
                 if (v.unk00 == 0)
                 {
                     result = 1;
@@ -1613,7 +1613,7 @@ int DReader::ReadArray(DOutArray* out, DMember* member, DArray* apArray) throw()
             DObj o = apArray->CreateResultPair(i).CreateValueInto();
             if (!o.hkDataObject_isNull())
             {
-                DVariant v = FindOrCreateObjectMapEntry(o, flag);
+                DVariant v = Copier_findOrCopy(o, flag);
                 if (v.unk00 == 0)
                 {
                     result = 1;
@@ -1707,7 +1707,7 @@ void DC3710Transform::InitializeFields_00dc3710(const DC3710Transform& akSource)
 struct S_00dc4a80_Reader
 {
     void* __thiscall DispatchToVTableSlot8(int count) throw();
-    const char* __thiscall ForwardCall_00dbac70() throw();
+    const char* __thiscall hkDataArray_Value_asString() throw();
     float __thiscall ApplyValue() throw();
     int __thiscall CallVirtualWithArg() throw();
     S_00dc5970_Object __thiscall CreateValueInto() throw();
@@ -1791,7 +1791,7 @@ struct S_00dc4a80
     StringHolder* unk04;
     int unk08;
 
-    void __thiscall FindOrCreateObjectMapEntry(S_00dc5970_Handle* out, const S_00dc5970_Object& obj, int arg4) throw();
+    void __thiscall Copier_findOrCopy(S_00dc5970_Handle* out, const S_00dc5970_Object& obj, int arg4) throw();
     int __thiscall ReadObject(void* out, const S_00dc5970_Object& obj) throw();
 
     int __thiscall ReadValue(void* out, int type, S_00dc4a80_Reader* reader, int arg3, int arg4) throw();
@@ -1851,7 +1851,7 @@ int __thiscall S_00dc4a80::ReadValue(void* out, int type, S_00dc4a80_Reader* rea
             if (!obj.GetObjectKind())
             {
                 __declspec(align(8)) S_00dc5970_Handle h;
-                FindOrCreateObjectMapEntry(&h, obj, arg4);
+                Copier_findOrCopy(&h, obj, arg4);
                 if (!h.p0)
                 {
                     return 1;
@@ -1897,9 +1897,9 @@ int __thiscall S_00dc4a80::ReadValue(void* out, int type, S_00dc4a80_Reader* rea
             return 1;
         }
         char* copy;
-        if (reader->ForwardCall_00dbac70())
+        if (reader->hkDataArray_Value_asString())
         {
-            copy = hkString_strDup_00cb1410(reader->ForwardCall_00dbac70());
+            copy = hkString_strDup_00cb1410(reader->hkDataArray_Value_asString());
             unk04->m_pStringFunctions.pushBack(copy);
         }
         else
@@ -1911,9 +1911,9 @@ int __thiscall S_00dc4a80::ReadValue(void* out, int type, S_00dc4a80_Reader* rea
     }
     case 33: {
         int val;
-        if (reader->ForwardCall_00dbac70())
+        if (reader->hkDataArray_Value_asString())
         {
-            char* copy = hkString_strDup_00cb1410(reader->ForwardCall_00dbac70());
+            char* copy = hkString_strDup_00cb1410(reader->hkDataArray_Value_asString());
             unk04->m_pStringFunctions.pushBack(copy);
             val = (int)copy;
         }
@@ -1939,7 +1939,7 @@ int __thiscall S_00dc4a80::ReadValue(void* out, int type, S_00dc4a80_Reader* rea
             if (!obj.GetObjectKind())
             {
                 __declspec(align(8)) S_00dc5970_Handle h;
-                FindOrCreateObjectMapEntry(&h, obj, arg4);
+                Copier_findOrCopy(&h, obj, arg4);
                 if (!h.p0)
                 {
                     return 1;
@@ -1963,7 +1963,7 @@ struct S_00dc4fa0_Reader
     const char* __thiscall hkDataObject_Value_asString() throw();
     float __thiscall InvokeVirtualMethod_00dbaa00() throw();
     int __thiscall ForwardCall_00dba990() throw();
-    S_00dc5970_Object __thiscall GetWrappedDataObject() throw();
+    S_00dc5970_Object __thiscall asObject() throw();
 };
 
 struct S_00dc4fa0_M3
@@ -2019,16 +2019,16 @@ struct S_00dc4fa0
     StringHolder* unk04;
     int unk08;
 
-    void __thiscall FindOrCreateObjectMapEntry(S_00dc5970_Handle* out, const S_00dc5970_Object& obj, int arg4) throw();
+    void __thiscall Copier_findOrCopy(S_00dc5970_Handle* out, const S_00dc5970_Object& obj, int arg4) throw();
     int __thiscall ReadObject(void* out, const S_00dc5970_Object& obj) throw();
 
-    int __thiscall ReadTypedValue(void* out, int type, S_00dc4fa0_Reader* reader, int arg3, int arg4) throw();
+    int __thiscall Copier_fillNativeSimpleMember_hkDataObject__Value_(void* out, int type, S_00dc4fa0_Reader* reader, int arg3, int arg4) throw();
 };
 
 // Reads a typed value from reader into out based on type, returning 1 on error or unsupported type.
 // @fnv 0x00dc4fa0
-// src: GUESS 0x00dc4fa0 (confidence: medium)
-int __thiscall S_00dc4fa0::ReadTypedValue(void* out, int type, S_00dc4fa0_Reader* reader, int aiFlag, int arg4) throw()
+// src: COMMUNITY 0x00dc4fa0
+int __thiscall S_00dc4fa0::Copier_fillNativeSimpleMember_hkDataObject__Value_(void* out, int type, S_00dc4fa0_Reader* reader, int aiFlag, int arg4) throw()
 {
     switch (type)
     {
@@ -2076,11 +2076,11 @@ int __thiscall S_00dc4fa0::ReadTypedValue(void* out, int type, S_00dc4fa0_Reader
     case 20:
         if (aiFlag)
         {
-            S_00dc5970_Object obj = reader->GetWrappedDataObject();
+            S_00dc5970_Object obj = reader->asObject();
             if (!obj.GetObjectKind())
             {
                 __declspec(align(8)) S_00dc5970_Handle h;
-                FindOrCreateObjectMapEntry(&h, obj, arg4);
+                Copier_findOrCopy(&h, obj, arg4);
                 if (!h.p0)
                 {
                     return 1;
@@ -2093,7 +2093,7 @@ int __thiscall S_00dc4fa0::ReadTypedValue(void* out, int type, S_00dc4fa0_Reader
         if (aiFlag)
         {
             bool err;
-            if (err = (ReadObject(out, reader->GetWrappedDataObject()) == 1))
+            if (err = (ReadObject(out, reader->asObject()) == 1))
             {
                 return 1;
             }
@@ -2164,11 +2164,11 @@ int __thiscall S_00dc4fa0::ReadTypedValue(void* out, int type, S_00dc4fa0_Reader
             return 1;
         }
         {
-            S_00dc5970_Object obj = reader->GetWrappedDataObject();
+            S_00dc5970_Object obj = reader->asObject();
             if (!obj.GetObjectKind())
             {
                 __declspec(align(8)) S_00dc5970_Handle h;
-                FindOrCreateObjectMapEntry(&h, obj, arg4);
+                Copier_findOrCopy(&h, obj, arg4);
                 if (!h.p0)
                 {
                     return 1;
@@ -2218,7 +2218,7 @@ struct DCIterator
     DCIterator(DCNode*) throw();
     ~DCIterator() throw();
     DCIterator SetShiftedValue() throw();
-    int TestValue() throw();
+    int hkDataClass_isNull() throw();
     DCNode* hkDataClass_getName() throw();
     void FillOutFromInterface(void*) throw();
 };
@@ -2267,8 +2267,8 @@ __forceinline void clearPart(int flags, int* cap, DCAlloc* other)
 }
 // Looks up srcClass in m_kSourceWorld; on a miss, walks nodes, adds collected entries, visits members recursively, and frees temporary array storage.
 // @fnv 0x00dc5440
-// src: GUESS 0x00dc5440 (confidence: medium)
-S_00dc5970_ClassImpl* Cloner::CloneClassMembersRecursively(S_00dc5970_ClassImpl* srcClass) throw()
+// src: COMMUNITY 0x00dc5440
+S_00dc5970_ClassImpl* Cloner::findDestClass(S_00dc5970_ClassImpl* srcClass) throw()
 {
 
     DCNode* arg = (DCNode*)srcClass;
@@ -2296,7 +2296,7 @@ S_00dc5970_ClassImpl* Cloner::CloneClassMembersRecursively(S_00dc5970_ClassImpl*
             DCEntry* out = a.data + a.size;
             a.size++;
             it.FillOutFromInterface(out);
-            node = it.SetShiftedValue().TestValue() ? 0 : it.SetShiftedValue().hkDataClass_getName();
+            node = it.SetShiftedValue().hkDataClass_isNull() ? 0 : it.SetShiftedValue().hkDataClass_getName();
         }
         for (int i = a.size - 1; i >= 0; --i)
             ((DCWorld*)&m_kSourceWorld)->add(a.data + i);
@@ -2309,7 +2309,7 @@ S_00dc5970_ClassImpl* Cloner::CloneClassMembersRecursively(S_00dc5970_ClassImpl*
             } member = {0, 0, 0, 0, 0};
             pClass->member(i, &member);
             if (member.x[3])
-                CloneClassMembersRecursively((S_00dc5970_ClassImpl*)((DCNode*)member.x[3])->get());
+                findDestClass((S_00dc5970_ClassImpl*)((DCNode*)member.x[3])->get());
         }
         srcClass = (S_00dc5970_ClassImpl*)((DCWorld*)&m_kSourceWorld)->find(arg);
         DCAlloc* heap = (DCAlloc*)((hkMemoryRouter*)hkMemoryRouter_getInstance())->m_temp;
@@ -2430,33 +2430,33 @@ struct DWC_MemberArray
 
 struct DWC_Class
 {
-    int ForwardCall_00dba730() const throw();
+    int hkDataClass_getNumMembers() const throw();
     void DispatchItems(DWC_MemberArray& infos) const throw();
 };
 
 struct DWC_Cloner
 {
-    DWC_ClassImpl* CloneClassMembersRecursively(DWC_ClassImpl* srcClass) throw();
-    void FillMissingMemberClassImplementations(DWC_MemberArray& dstInfos, const DWC_Class& dstClass, const DWC_Class& srcClass) throw();
+    DWC_ClassImpl* findDestClass(DWC_ClassImpl* srcClass) throw();
+    void Cloner_getClassMemberInfos(DWC_MemberArray& dstInfos, const DWC_Class& dstClass, const DWC_Class& srcClass) throw();
 };
 
 // Dispatches member info for both classes, then fills null destination m_class entries with cloned source implementations.
 // @fnv 0x00dc56f0
-// src: GUESS 0x00dc56f0 (confidence: medium)
-void DWC_Cloner::FillMissingMemberClassImplementations(DWC_MemberArray& dstInfos, const DWC_Class& dstClass, const DWC_Class& srcClass) throw()
+// src: COMMUNITY 0x00dc56f0
+void DWC_Cloner::Cloner_getClassMemberInfos(DWC_MemberArray& dstInfos, const DWC_Class& dstClass, const DWC_Class& srcClass) throw()
 {
     DWC_MemberArray srcInfos;
-    srcInfos.SetSizeAndGrow(srcClass.ForwardCall_00dba730());
+    srcInfos.SetSizeAndGrow(srcClass.hkDataClass_getNumMembers());
     srcClass.DispatchItems(srcInfos);
 
-    dstInfos.SetSizeAndGrow(dstClass.ForwardCall_00dba730());
+    dstInfos.SetSizeAndGrow(dstClass.hkDataClass_getNumMembers());
     dstClass.DispatchItems(dstInfos);
 
-    for (int i = 0; i < srcClass.ForwardCall_00dba730(); ++i)
+    for (int i = 0; i < srcClass.hkDataClass_getNumMembers(); ++i)
     {
         if (srcInfos[i].m_class && !dstInfos[i].m_class)
         {
-            dstInfos[i].m_class = (DWC_ClassSource*)CloneClassMembersRecursively(srcInfos[i].m_class->getImplementation());
+            dstInfos[i].m_class = (DWC_ClassSource*)findDestClass(srcInfos[i].m_class->getImplementation());
         }
     }
 }
@@ -2544,7 +2544,7 @@ struct Value355
     int index;
     Array355 GetResult() throw();
     Object355 CreateValueInto() throw();
-    Object355 GetWrappedDataObject() throw();
+    Object355 asObject() throw();
 };
 struct Object355
 {
@@ -2583,7 +2583,7 @@ struct NativeObjectCopier
     S_00dc3ce0* tracker;
     int restricted;
     int ReadObject(char* destination, Object355* object) throw();
-    int ReadTypedValue(char* destination, int type, Value355* value, void* metadata, int owned) throw();
+    int Copier_fillNativeSimpleMember_hkDataObject__Value_(char* destination, int type, Value355* value, void* metadata, int owned) throw();
     int ReadValue(char* destination, int type, Value355* value, void* metadata, int owned) throw();
     int ReadArray(char* destination, Member355* member, Array355* array) throw();
     int hkClassMember_UpdateState_00dc1bf0(char* destination, Member355* member, Value355* value, Class355* type) throw();
@@ -2647,7 +2647,7 @@ int NativeObjectCopier::ReadObject(char* destination, Object355* object) throw()
             case 33:
                 if (count == 1)
                 {
-                    result = ReadTypedValue(output, kind, &value, member->getClass(), owned);
+                    result = Copier_fillNativeSimpleMember_hkDataObject__Value_(output, kind, &value, member->getClass(), owned);
                 }
                 else
                 {
@@ -2670,7 +2670,7 @@ int NativeObjectCopier::ReadObject(char* destination, Object355* object) throw()
                 if (member->subtype == 2)
                 {
                     if (count == 1)
-                        result = ReadTypedValue(output, 29, &value, 0, owned);
+                        result = Copier_fillNativeSimpleMember_hkDataObject__Value_(output, 29, &value, 0, owned);
                     else
                     {
                         Array355 array = value.GetResult();
@@ -2687,7 +2687,7 @@ int NativeObjectCopier::ReadObject(char* destination, Object355* object) throw()
                     if (count == 1)
                     {
 
-                        result = ReadTypedValue(output, kind, &value, Copier_getMemberClassAndCheck(member, &value.GetWrappedDataObject()), owned);
+                        result = Copier_fillNativeSimpleMember_hkDataObject__Value_(output, kind, &value, Copier_getMemberClassAndCheck(member, &value.asObject()), owned);
                     }
                     else
                     {
@@ -2898,7 +2898,7 @@ struct S_Ctx
     {
         FUN_00dc43a0();
     }
-    __declspec(noalias) void FindOrCreateObjectMapEntry(S_T2* t, S_PH* h, int f) throw();
+    __declspec(noalias) void Copier_findOrCopy(S_T2* t, S_PH* h, int f) throw();
     void FUN_00dc43a0() throw();
 };
 
@@ -2912,7 +2912,7 @@ __forceinline S_Obj* S_toResource(S_Ctx* context, S_PH* object) throw()
         S_Obj* replacement = resource->hkPackfileData_hkPackfileData();
         context->m4 = replacement;
         S_T2 target;
-        context->FindOrCreateObjectMapEntry(&target, object, 0);
+        context->Copier_findOrCopy(&target, object, 0);
         if (target.f0 && target.f4)
         {
             S_PH temporary;
@@ -2978,7 +2978,7 @@ struct Element
     int CallVirtualWithArg() const throw();
     float ApplyValue() const throw();
     const float* DispatchToVTableSlot8(int) const throw();
-    const char* ForwardCall_00dbac70() const throw();
+    const char* hkDataArray_Value_asString() const throw();
     Object CreateValueInto() const throw();
     void InvokeOnInterface(int) throw();
     void Apply_Thunk(float) throw();
@@ -3015,7 +3015,7 @@ void Cloner::CopyValueByType(Element dst, const Element& src)
         break;
     }
     case 10:
-        dst.InvokeVirtualMethod_00dbadc0(src.ForwardCall_00dbac70());
+        dst.InvokeVirtualMethod_00dbadc0(src.hkDataArray_Value_asString());
         break;
     }
 }
@@ -3256,7 +3256,7 @@ struct S_00dc4710_Cls
     int unk08;
     S_00dc4710_Map m_map;
     hkMap_dc4710<S_00dc4710_Key, unsigned short*> m_entries;
-    S_00dc4710_Ret FindOrCreateObjectMapEntry(S_00dc4710_Obj* a1, int one) throw();
+    S_00dc4710_Ret Copier_findOrCopy(S_00dc4710_Obj* a1, int one) throw();
     S_00dc4710_Result* Copier_toObject(S_00dc4710_Obj* a1, S_00dc4710_Sink* a2) throw();
 };
 
@@ -3269,7 +3269,7 @@ S_00dc4710_Result* S_00dc4710_Cls::Copier_toObject(S_00dc4710_Obj* apObj, S_00dc
     if (m_thing && m_thing != t)
         m_thing->removeReference();
     m_thing = t;
-    S_00dc4710_Ret ret = FindOrCreateObjectMapEntry(apObj, 1);
+    S_00dc4710_Ret ret = Copier_findOrCopy(apObj, 1);
     S_00dc4710_World* world = apObj->GetObjectValue().hkDataClass_getWorld();
     if (ret.p == 0)
     {
@@ -3347,7 +3347,7 @@ struct DValue
     int CallVirtualWithArg() throw();
     float ApplyValue() throw();
     const float* DispatchToVTableSlot8(int n) throw();
-    const char* ForwardCall_00dbac70() throw();
+    const char* hkDataArray_Value_asString() throw();
     DObj CreateValueInto() throw();
     DArray GetMemberArrayValue() throw();
     void InvokeOnInterface(int v) throw();
@@ -3428,7 +3428,7 @@ struct DMembers
 struct DClass
 {
     int impl;
-    int ForwardCall_00dba730() throw();
+    int hkDataClass_getNumMembers() throw();
     void DispatchItems(DMembers& out) throw();
     void Object_DoNothing_00dba660() throw();
     __forceinline ~DClass() throw()
@@ -3492,7 +3492,7 @@ void DCloner::Cloner_copyArray(DArray& destination, const DArray& source, int ai
     case 9: {
         destination.Get_Thunk(aiCount);
         DClass pClassInfo = src.ProcessAndReturnValue_00dbac20();
-        int numMembers = pClassInfo.ForwardCall_00dba730();
+        int numMembers = pClassInfo.hkDataClass_getNumMembers();
         DMembers members(numMembers);
         members.setSizeUnchecked(numMembers);
         pClassInfo.DispatchItems(members);
@@ -3526,7 +3526,7 @@ void DCloner::Cloner_copyArray(DArray& destination, const DArray& source, int ai
     }
     case 10:
         for (int i = 0; i < aiCount; ++i)
-            destination.UpdateState_00dbab90(i).InvokeVirtualMethod_00dbadc0(src.CreateResultPair(i).ForwardCall_00dbac70());
+            destination.UpdateState_00dbab90(i).InvokeVirtualMethod_00dbadc0(src.CreateResultPair(i).hkDataArray_Value_asString());
         break;
     }
 }
@@ -3684,7 +3684,7 @@ struct DObjWrap
 {
     void* m_ptr;
     ~DObjWrap() throw();
-    int TestValue() throw();
+    int hkDataClass_isNull() throw();
     int hkDataClass_getName() throw();
     int ForwardCall_00dba690() throw();
 };
@@ -3812,13 +3812,13 @@ struct DC4430_Class
     KeyArrayLocalForm m_ppData;
 
     int ReadObject(void* mem, Arg1* arg1) throw();
-    RetDC4430 FindOrCreateObjectMapEntry(Arg1* arg1, int arg2) throw();
+    RetDC4430 Copier_findOrCopy(Arg1* arg1, int arg2) throw();
 };
 
 // Looks up or allocates a Map18 entry for arg1's key, optionally tracking it in m_ppData and m_map0c, returning the entry pointer and class info.
 // @fnv 0x00dc4430
-// src: GUESS 0x00dc4430 (confidence: medium)
-RetDC4430 DC4430_Class::FindOrCreateObjectMapEntry(Arg1* apArg, int aiFlag) throw()
+// src: COMMUNITY 0x00dc4430
+RetDC4430 DC4430_Class::Copier_findOrCopy(Arg1* apArg, int aiFlag) throw()
 {
     RetDC4430 result;
     result.first = 0;
@@ -3843,7 +3843,7 @@ RetDC4430 DC4430_Class::FindOrCreateObjectMapEntry(Arg1* apArg, int aiFlag) thro
     if (!apArg->hkDataObject_isNull())
     {
 
-        if (apArg->GetObjectValue().TestValue() || !apArg->GetObjectValue().hkDataClass_getName())
+        if (apArg->GetObjectValue().hkDataClass_isNull() || !apArg->GetObjectValue().hkDataClass_getName())
         {
             result.second = 0;
             return result;

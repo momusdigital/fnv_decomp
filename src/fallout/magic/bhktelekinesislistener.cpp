@@ -22,12 +22,12 @@ void* bhkTelekinesisListener::Destroy(unsigned int flags)
 struct FUN_00807da0_shell
 {
     unsigned short m_0006;
-    int GetMaskedValue0x3fff();
+    int hkArray_getCapacity();
 };
 
 // @fnv 0x00807da0
-// src: GUESS 0x00807da0 (confidence: medium)
-int FUN_00807da0_shell::GetMaskedValue0x3fff()
+// src: GUESS 0x00807da0 (confidence: high)
+int FUN_00807da0_shell::hkArray_getCapacity()
 {
     return *(unsigned short*)((char*)this + 6) & 0x3fff;
 }
@@ -149,27 +149,27 @@ Unk_807d10* Unk_807d10::InitializeFields()
 struct FUN_00807d40_shell
 {
     void ForwardCall_00807d40();
-    void ProcessState_00807d60();
+    void hkArray_clearAndDeallocate();
 };
 // @fnv 0x00807d40
 // src: GUESS 0x00807d40 (confidence: low)
 void FUN_00807d40_shell::ForwardCall_00807d40()
 {
-    ProcessState_00807d60();
+    hkArray_clearAndDeallocate();
 }
 
 int __cdecl Object_DispatchSizedBlock_00807dc0(int, int, int);
 struct FUN_00807d60_shell
 {
-    void ProcessState_00807d60();
+    void hkArray_clearAndDeallocate();
 };
 // If the high bit of the field at offset 6 is clear, calls FUN_00807dc0 with the int at offset 0, the result of FUN_00807da0, and 0x18.
 // @fnv 0x00807d60
-// src: GUESS 0x00807d60 (confidence: low)
-void FUN_00807d60_shell::ProcessState_00807d60()
+// src: GUESS 0x00807d60 (confidence: medium)
+void FUN_00807d60_shell::hkArray_clearAndDeallocate()
 {
     if ((*(unsigned short*)((char*)this + 6) & 0x8000) == 0)
-        Object_DispatchSizedBlock_00807dc0(*(int*)this, ((FUN_00807da0_shell*)this)->GetMaskedValue0x3fff(), 0x18);
+        Object_DispatchSizedBlock_00807dc0(*(int*)this, ((FUN_00807da0_shell*)this)->hkArray_getCapacity(), 0x18);
 }
 
 namespace fnv_00807dc0 {

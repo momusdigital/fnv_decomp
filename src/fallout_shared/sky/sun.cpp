@@ -229,7 +229,7 @@ struct QuantityData
 };
 struct FUN_00baf3c0_S
 {
-    void FUN_00baf3c0();
+    void BSShaderData();
 };
 struct FUN_00bb0180_S
 {
@@ -375,7 +375,7 @@ void Sun::Init(NiNode* apSkyRoot)
     ((NiPick*)((Sun*)this)->m_pSunGlarePick)->RadioEntry_Data_SetLastSignalStrength(true);
     ((NiPick*)((Sun*)this)->m_pSunGlarePick)->SetByteAtOffset17(true);
 
-    ((FUN_00baf3c0_S*)&bsshaderdata)->FUN_00baf3c0();
+    ((FUN_00baf3c0_S*)&bsshaderdata)->BSShaderData();
     bsshaderdata.m_iShaderType = 6;
     bsshaderdata.m_iShaderOptionIndex = 0;
     ((FUN_00bb0180_S*)&bsshaderdata)

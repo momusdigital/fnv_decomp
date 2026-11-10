@@ -223,7 +223,7 @@ public:
     virtual void vfn_868(Actor*, Actor*); // RTTI slot 538                                           // 0x00901c70 (slot 538)
     virtual void ProcessAvoidRadiation(Actor*); // RTTI slot 506                                     // 0x00904540 (slot 506)
     virtual bool CanAttackTarget(Actor* apActor, Actor* apTarget) const; // RTTI slot 126                             // 0x00901990
-    virtual bool IsCombatTargetForActor(Actor* apActor, Actor* apTarget) const; // RTTI slot 125                      // 0x00901800
+    virtual bool ComputeCanInitiateDialogueWithNPC(Actor* apActor, Actor* apTarget) const; // RTTI slot 125                      // 0x00901800
     virtual bool vfn_850(Actor*, Actor*); // RTTI slot 532                                           // 0x00901a20 (slot 532)
     virtual bool vfn_80c(Actor*, int); // RTTI slot 515                                              // 0x008ee220 (slot 515)
     virtual void ProcessAlarm(Actor*); // RTTI slot 497                                              // 0x008ecf20 (slot 497)
@@ -231,7 +231,7 @@ public:
     virtual void ProcessAcquire(Actor*); // RTTI slot 500                                            // 0x008ebc60 (slot 500)
     void LowProcess_ProcessKill(Actor*);                                              // 0x008ebbe0
     virtual int GetDetectionCount(Actor* apTarget, DetectionListType aeType) const; // RTTI slot 181   // 0x008f6990 (slot 181)
-    virtual void ClearPackageData(); // RTTI slot 400                                                // 0x009010f0 (slot 400)
+    virtual void ClearDefaultHeadTrackTarget(); // RTTI slot 400                                                // 0x009010f0 (slot 400)
     virtual void ProcessActorReferences(Actor* apActor, Actor* apTarget, Actor* apAlly); // RTTI slot 387                    // 0x00904000 (slot 387)
     void CleanUpAfterProcessUseWeapon(Actor*);                                              // 0x008f9180
     void MiddleHighProcess_ClearShootingAction(Actor*);                                              // 0x0092bf20
@@ -244,7 +244,7 @@ public:
     bool CheckTargetAndCombat(Actor*, float, bool);                         // 0x008f31d0
     bool ProcessEscortOneHour(Actor*, float);                                       // 0x008f2610
     virtual void ProcessCannibal(Actor* apActor);                           // slot 32 override, 0x00904da0
-    virtual int GetActorReferenceState(Actor* apActor, TESObjectREFR* apTarget);   // slot 185 override, 0x008f6ef0
+    virtual int GetEmotionsDispostion(Actor* apActor, TESObjectREFR* apTarget);   // slot 185 override, 0x008f6ef0
     void ClearNode();                                                       // 0x008e56b0
     int PlayerCharacter_GetNumberOfFollowers();                                                     // 0x00962620
     virtual void FinishDying(Actor* apActor); // RTTI slot 213                                               // 0x008f7350 (slot 213)
@@ -282,7 +282,7 @@ public:
     virtual void SetActorDetectionLevel(Actor* apActor, DetectionListType aeType); // RTTI slot 177
     virtual DetectionViewData* FindDetectionRecord(Actor* apActor, DETECTION_LEVEL aeDetectionLevel, bool abLineSight, int aiLevel, DetectionListType aeType, bool ab360View, bool abInCombat); // RTTI slot 60
     virtual void OnPackageChanged(Actor* apActor, TESPackage* apPackage); // RTTI slot 358
-    unsigned int UpdateHighProcessState(Actor*);
+    unsigned int TESPackage_GetLocationRadius(Actor*);
     virtual void UpdateActorReferences(Actor* apActor); // RTTI slot 451
     float GetCurrentActorValue(TESActorBase*, ActorValue::Index, Actor*);
     virtual PathingAvoidNodeArray* GetPathingAvoidNodeArray(Actor* apActor); // RTTI slot 149
@@ -402,7 +402,7 @@ public:
     void UpdateActorBehavior(Actor* apActor);                                         // 0x008f9180
     virtual void ProcessFleeNonCombat(Actor* apActor); // slot 505: 0x008ddac0
     InventoryStackRecord* CreateWeaponAcquireList(Actor*, unsigned int); // 0x008eebf0
-    virtual void RefreshActorMovement(Actor*, bool); // slot 119: 0x008f7070
+    virtual void CreateFollownoEscort(Actor*, bool); // slot 119: 0x008f7070
     virtual void ProcessSandman(Actor*); // slot 31: 0x00904f50
     virtual bool CanPerformActorAction(Actor*, float); // slot 29: 0x008f3940
     virtual void vfn_818(Actor*); // slot 518: 0x008e2b00

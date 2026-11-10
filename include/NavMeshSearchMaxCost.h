@@ -26,7 +26,7 @@ public:
     int GetField2048();
     bool IsGoalNode_006abb60(const SearchNode* apNode);
 
-    bool StartSearch(int aiSearchType, NavMeshSearchLocation* apStart,
+    bool BuildNodePath(int aiSearchType, NavMeshSearchLocation* apStart,
                      PathingLocation* apGoal, PathBuilderDetailedPathInfos* apInfos,
                      PathBuilderDetailedPathInfos* apAltInfos);
     void FUN_006a7c40();

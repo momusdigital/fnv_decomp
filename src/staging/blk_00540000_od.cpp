@@ -82,14 +82,14 @@ void TaskQueueInterface::SetTaskFlag(bool enabled)
 }
 
 
-struct FUN_00549610_Class
+struct BSPortal
 {
     void BSPortal_SetSharedGeometryNode(void* arg);
 };
 
 // @fnv 0x00549610
 // src: XBOX_PDB 0x00549610
-void FUN_00549610_Class::BSPortal_SetSharedGeometryNode(void* arg)
+void BSPortal::BSPortal_SetSharedGeometryNode(void* arg)
 {
     *(GO*)((char*)this + 0x104) = arg;
 }
@@ -103,10 +103,10 @@ void __cdecl Object_OurMemalign_Thunk(unsigned int blocksize)
     ourMemalign(16, blocksize);
 }
 
-struct FUN_00554590_Class
+struct TESWindListener
 {
     void* vtbl;
-    void __thiscall FUN_00c74760();
+    void __thiscall bhkWindListener();
     void* __thiscall SetVtableAndProcessState_00554590();
 };
 
@@ -114,9 +114,9 @@ extern int DAT_0102f10c;
 
 // @fnv 0x00554590
 // src: GUESS 0x00554590 (confidence: low)
-void* __thiscall FUN_00554590_Class::SetVtableAndProcessState_00554590()
+void* __thiscall TESWindListener::SetVtableAndProcessState_00554590()
 {
-    FUN_00c74760();
+    bhkWindListener();
     vtbl = &DAT_0102f10c;
     return this;
 }
@@ -132,7 +132,7 @@ void FUN_005545b0::Call()
     ForwardCall_005545d0();
 }
 
-struct FUN_005545d0_Class
+struct bhkEntityListener
 {
     void FUN_005545f0();
     void ForwardCall_005545d0();
@@ -140,30 +140,30 @@ struct FUN_005545d0_Class
 
 // @fnv 0x005545d0
 // src: GUESS 0x005545d0 (confidence: low)
-void FUN_005545d0_Class::ForwardCall_005545d0()
+void bhkEntityListener::ForwardCall_005545d0()
 {
     FUN_005545f0();
 }
 
-struct FUN_00554650_Class
+struct hkpEntityListener
 {
     void __thiscall UpdateState_00554650();
 };
 
 // @fnv 0x00554650
 // src: GUESS 0x00554650 (confidence: low)
-void __thiscall FUN_00554650_Class::UpdateState_00554650()
+void __thiscall hkpEntityListener::UpdateState_00554650()
 {
     *(char**)((char*)this) = "pFU";
 }
 
-void __cdecl WriteRenderStatsFile(int);
+void __cdecl TESObjectCELL_SaveRenderFailureData(int);
 
 // @fnv 0x005586c0
 // src: COMMUNITY 0x005586c0
 void __cdecl TESObjectCELL_DefaultRenderTestCallback(int a)
 {
-    WriteRenderStatsFile(a);
+    TESObjectCELL_SaveRenderFailureData(a);
 }
 
 extern int DAT_0102f448;
@@ -184,13 +184,13 @@ FUN_00559e50_Class* __thiscall FUN_00559e50_Class::InitializeWithGlobal(int arg)
 
 struct FUN_0055a020_Class
 {
-    void __thiscall CreateRuntimeWorkItem_Thunk();
+    void __thiscall NiTMap_NewItem();
     void __thiscall CreateRuntimeWorkItem();
 };
 
 // @fnv 0x0055a020
-// src: GUESS 0x0055a020 (confidence: medium)
-void __thiscall FUN_0055a020_Class::CreateRuntimeWorkItem_Thunk()
+// src: GUESS 0x0055a020 (confidence: high)
+void __thiscall FUN_0055a020_Class::NiTMap_NewItem()
 {
     ((FUN_0055a020_Class*)((char*)this + 0xc))->CreateRuntimeWorkItem();
 }
@@ -336,11 +336,12 @@ void __cdecl operator delete(void*);
 struct FUN_005407d0_Class
 {
     void FUN_005409b0();
-    void* __thiscall FUN_005407d0(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_005409b0, then deletes this if flags has bit 0 set, and returns this.
 // @fnv 0x005407d0
-void* __thiscall FUN_005407d0_Class::FUN_005407d0(unsigned int flags)
+// src: EXE 0x005407d0
+void* __thiscall FUN_005407d0_Class::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_005409b0();
     if (flags & 1)
@@ -405,7 +406,7 @@ void* FUN_00540aa0_Class::FUN_00540aa0(unsigned int flags)
 
 void __cdecl Deallocate(void*);
 
-struct FUN_00554670_Class : public FUN_00554650_Class
+struct FUN_00554670_Class : public hkpEntityListener
 {
     void* FUN_00554670(unsigned int flags);
 };
@@ -557,13 +558,13 @@ struct Flt
     int v;
     operator unsigned int();
 };
-struct FUN_00540570_Owner
+struct BSShaderPPLightingProperty
 {
     unsigned int GetFltValue(int);
 };
 // Returns the unsigned int value of the Flt element at index from the Flt array stored at offset 0xb0 of this object.
 // @fnv 0x00540570
-unsigned int FUN_00540570_Owner::GetFltValue(int index)
+unsigned int BSShaderPPLightingProperty::GetFltValue(int index)
 {
     return (*(Flt**)((char*)this + 0xb0))[index];
 }
@@ -658,7 +659,7 @@ void __thiscall FUN_00540b70_Class::hkArrayBase_unsigned_char_clearAndDeallocate
     m1 = 0x80000000;
 }
 
-struct FUN_00540c20_Holder
+struct hkThreadMemory
 {
     virtual void f0()
     {}
@@ -674,7 +675,7 @@ struct FUN_00540c20_Holder
 };
 // Calls the virtual function vf with the two arguments and returns.
 // @fnv 0x00540c20
-void __thiscall FUN_00540c20_Holder::CallVirtualWithArgs(int aiArg1, int aiArg2)
+void __thiscall hkThreadMemory::CallVirtualWithArgs(int aiArg1, int aiArg2)
 {
     int v = 1;
     vf(aiArg1, aiArg2);
@@ -1039,15 +1040,16 @@ void* __thiscall FUN_00559df0::FUN_00559e20(unsigned int flags)
     return this;
 }
 
-struct FUN_0055a0c0
+struct QUEUED_ATTACH
 {
     NiPointer<AnimIdle> a;
     NiPointer<BSFaceGenModelExtraData> b;
     char c;
-    FUN_0055a0c0(int);
+    QUEUED_ATTACH(int);
 };
 // @fnv 0x0055a0c0
-FUN_0055a0c0::FUN_0055a0c0(int) : a(0), b(0)
+// src: GUESS 0x0055a0c0 (confidence: medium)
+QUEUED_ATTACH::QUEUED_ATTACH(int) : a(0), b(0)
 {
     c = 0;
 }
@@ -1165,15 +1167,15 @@ struct FUN_0055a040_Class
     void* m0;
     void* m1;
     FUN_0055a2b0_Class m2;
-    void __thiscall ProcessState_0055a040(FUN_0055a240_Obj* a);
+    void __thiscall NiTMap_DeleteItem(FUN_0055a240_Obj* a);
 };
-// Constructs a temporary FUN_0055a0c0 with 0, passes it to a's AssignFrom at offset 8, then calls FUN_0055a1e0 on this+12 with a.
+// Constructs a temporary QUEUED_ATTACH with 0, passes it to a's AssignFrom at offset 8, then calls FUN_0055a1e0 on this+12 with a.
 // @fnv 0x0055a040
-// src: GUESS 0x0055a040 (confidence: low)
-void __thiscall FUN_0055a040_Class::ProcessState_0055a040(FUN_0055a240_Obj* a)
+// src: GUESS 0x0055a040 (confidence: high)
+void __thiscall FUN_0055a040_Class::NiTMap_DeleteItem(FUN_0055a240_Obj* a)
 {
     {
-        FUN_0055a0c0 t(0);
+        QUEUED_ATTACH t(0);
         ((FUN_00559900_Struct*)((char*)a + 8))->AssignFrom(*(FUN_00559900_Struct*)&t);
     }
     ((FUN_0055a1e0_Class*)((char*)this + 12))->UpdateFields_0055a1e0(a);
@@ -1404,14 +1406,14 @@ struct FUN_00540860_Class
     void __thiscall SetSize(int arg1, int arg2);
 };
 
-struct FUN_00540750_Class : public FUN_00540860_Class
+struct hkArray : public FUN_00540860_Class
 {
-    void __thiscall UpdateState_00540750(int arg);
+    void __thiscall setSize(int arg);
 };
 
 // @fnv 0x00540750
-// src: GUESS 0x00540750 (confidence: low)
-void __thiscall FUN_00540750_Class::UpdateState_00540750(int aiValue)
+// src: GUESS 0x00540750 (confidence: medium)
+void __thiscall hkArray::setSize(int aiValue)
 {
     FUN_004a4840_Class local = {};
     this->SetSize(local.hkContainerHeapAllocator_get((int)this), aiValue);
@@ -1576,7 +1578,7 @@ struct CellStandin
 };
 struct ExtraStandin
 {
-    void __thiscall SetFlagOnChildren(bool flag);
+    void __thiscall TESObjectCELL_SetActorCollisionGeometry(bool flag);
 };
 void __cdecl EnsureLightingProperty(void* p);
 
@@ -1589,7 +1591,7 @@ void __thiscall ExtraDataList::TESObjectCELL_SetCollisionGeometryDisplay(bool fl
     if (world && a)
     {
         ((VObj*)world)->VCall(a, flag);
-        ((ExtraStandin*)this)->SetFlagOnChildren(flag);
+        ((ExtraStandin*)this)->TESObjectCELL_SetActorCollisionGeometry(flag);
         EnsureLightingProperty(a);
     }
 }
@@ -1800,7 +1802,7 @@ struct ItemNode
     FUN_00559900_Struct m8;
 };
 
-class FUN_005593a0_cls
+class NiTMap
 {
   public:
     virtual void unk0();
@@ -1812,7 +1814,7 @@ class FUN_005593a0_cls
 
 // @fnv 0x005593a0
 // src: COMMUNITY 0x005593a0
-void FUN_005593a0_cls::NiTMap_NiAVObject_TESObjectCELL_QUEUED_ATTACH_GetNext(ItemNode** apNode, int* piValue, FUN_00559900_Struct* apStruct)
+void NiTMap::NiTMap_NiAVObject_TESObjectCELL_QUEUED_ATTACH_GetNext(ItemNode** apNode, int* piValue, FUN_00559900_Struct* apStruct)
 {
     ItemNode* node = *apNode;
     *piValue = node->m4;
@@ -1852,7 +1854,7 @@ struct FUN_00559bc0_node
     FUN_00559bc0_node* m_next;
 };
 
-class FUN_00559bc0_cls
+class BSScrapMap
 {
   public:
     virtual void v00();
@@ -1871,7 +1873,7 @@ class FUN_00559bc0_cls
 // Calls v10 on every node in each of the m_04 buckets of m_08, then resets m_0c to 0.
 // @fnv 0x00559bc0
 // src: COMMUNITY 0x00559bc0
-void FUN_00559bc0_cls::BSScrapMap_TESObjectREFR_bool_ClearAll()
+void BSScrapMap::BSScrapMap_TESObjectREFR_bool_ClearAll()
 {
     for (unsigned int i = 0; i < m_04; i++)
     {
@@ -2077,7 +2079,7 @@ struct Cell
     virtual void v15();
     virtual void v16();
     virtual void v17();
-    virtual void MarkChanged(unsigned int);
+    virtual void TESObjectLIGH_SaveGame(unsigned int);
     bool FUN_00425fd0();
     float TESObjectCELL_GetNorthRotation();
     void AdjustCoordForNorthRotation(const NiPoint3*, NiPoint3*, bool);
@@ -2089,10 +2091,11 @@ struct Cell
     int FUN_00544c30();
     void TESObjectCELL_ClearSeenData();
     void TESObjectCELL_SetFullySeen(bool);
-    void UpdateLightingAtPoint(const NiPoint3*);
+    void TESObjectCELL_UpdateSeenData(const NiPoint3*);
 };
 // @fnv 0x00555f60
-void Cell::UpdateLightingAtPoint(const NiPoint3* apPoint)
+// src: COMMUNITY 0x00555f60
+void Cell::TESObjectCELL_UpdateSeenData(const NiPoint3* apPoint)
 {
     // NiPoint3 assignment preserves the original bitwise copies under /Od.
     if (FUN_00425fd0())
@@ -2184,7 +2187,7 @@ void Cell::UpdateLightingAtPoint(const NiPoint3* apPoint)
         {
             light = new LightData();
             GetExtraDataList()->ExtraDataList_SetSeenData(light);
-            MarkChanged(0x80000000);
+            TESObjectLIGH_SaveGame(0x80000000);
         }
         NiPoint3 center2(FUN_00544c30() << 12, FUN_00544c60() << 12, apPoint->z);
         bool changed = light->HasEnoughSeenPoints(apPoint, &center2);
@@ -2316,7 +2319,8 @@ struct FUN_00456fc0_cls
 bool __cdecl NiObject_IsExactKindOf(GlobalObject_00a7b610* g, NiAVObject* p);
 
 // @fnv 0x00554a20
-void ExtraStandin::SetFlagOnChildren(bool flag)
+// src: COMMUNITY 0x00554a20
+void ExtraStandin::TESObjectCELL_SetActorCollisionGeometry(bool flag)
 {
     NiNode* node7 = reinterpret_cast<FUN_0054a050_shell*>(this)->GetActorNode();
     unsigned int count = node7->FUN_0043b480();

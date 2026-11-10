@@ -550,7 +550,7 @@ class Animation
     BSAnimGroupSequence* PlayGroup(unsigned short, ACTION_FLAGS, int, ANIM_GROUP_SECTION);
     void Animation_SkipUpdate(int);
 };
-struct FUN_00424940_shell
+struct BGSSaveLoadManager
 {
     char InterfaceManager_GetMenuMode();
 };
@@ -578,7 +578,7 @@ void PipboyAnimationMethods::FOPipboyManager_UpdateIdleAnims()
         return;
     if (*(int*)((char*)PipboyInterface::InterfaceManager_GetSingleton() + 0x4bc) != 3)
         return;
-    if (((FUN_00424940_shell*)PipboyInterface::InterfaceManager_GetSingleton())->InterfaceManager_GetMenuMode() == 4)
+    if (((BGSSaveLoadManager*)PipboyInterface::InterfaceManager_GetSingleton())->InterfaceManager_GetMenuMode() == 4)
         return;
     panim = (Animation*)((const ::PlayerCharacter*)g_thePlayer)->GetAnimation(true);
     pIdleSequence = (BSAnimGroupSequence*)panim->GetControllerSequence(0);

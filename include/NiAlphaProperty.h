@@ -26,7 +26,7 @@ class NiAlphaProperty : public NiProperty
     virtual ~NiAlphaProperty();
     virtual void LoadBinary(NiStream& stream);
 
-    void SetFlag512(bool enable);
+    void NiAlphaProperty_SetAlphaTesting(bool enable);
     void SetFlags(unsigned short flags);
 
     void NiAlphaProperty_SetAlphaBlending(bool enable);

@@ -59,7 +59,8 @@ NiFloatInterpolator* __fastcall CreateFloatsExtraDataInterpolator(
 }
 
 // @fnv 0x00a4efb0
-NiFloatsExtraDataController* __fastcall CloneFloatsExtraDataController(
+// src: EXE 0x00a4efb0
+NiFloatsExtraDataController* __fastcall NiFloatsExtraDataController_CreateClone(
     NiFloatsExtraDataController* controller, void*, CloningProcess& kCloning)
 {
     NiFloatsExtraDataController* pkObject = static_cast<NiFloatsExtraDataController*>(BSFadeNode::operator new(0x48));
@@ -117,7 +118,8 @@ inline void NiBinaryStream::ReadFloat(float& value)
 }
 
 // @fnv 0x00a4f150
-void __fastcall LoadFloatsExtraDataController(
+// src: EXE 0x00a4f150
+void __fastcall NiFloatsExtraDataController_LoadBinary(
     NiFloatsExtraDataController* controller, void*, NiStream& kStream)
 {
     reinterpret_cast<NiPSysModifierCtlr*>(controller)->NiPSysModifierCtlr::LoadBinary(kStream);
@@ -133,7 +135,8 @@ void* __cdecl NiViewerStrings_NiGetViewerString_Title(void* source);
 void* __cdecl NiGetViewerString_00a7d4d0(int* name, void* object);
 
 // @fnv 0x00a4f1e0
-void __fastcall RegisterFloatsExtraDataController(
+// src: EXE 0x00a4f1e0
+void __fastcall NiFloatsExtraDataController_GetViewerStrings(
     NiFloatsExtraDataController* controller, void*, NiStream* stream)
 {
     FUN_00a57420(stream);
@@ -189,7 +192,8 @@ char* __fastcall GetFloatsExtraDataControllerID(NiFloatsExtraDataController* con
 extern float DAT_01096324;
 
 // @fnv 0x00a4f0c0
-void __fastcall UpdateFloatsExtraDataController(NiFloatsExtraDataController* controller, void*, float* updateData)
+// src: EXE 0x00a4f0c0
+void __fastcall NiFloatsExtraDataController_Update(NiFloatsExtraDataController* controller, void*, float* updateData)
 {
     if (((unsigned char)(controller->m_uiObjectFlags >> 5) & 1) != 0)
     {

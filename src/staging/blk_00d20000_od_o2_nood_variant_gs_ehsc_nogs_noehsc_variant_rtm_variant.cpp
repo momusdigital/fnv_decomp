@@ -433,8 +433,8 @@ return ST_CP_EDGE;
 }
 return ST_CP_MISS;}
 // @fnv 0x00d3d8c0
-// src: GUESS 0x00d3d8c0 (confidence: low)
-void __cdecl hkpCdBody_ProcessAndReturnValue_00d3d8c0(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const CollisionAgentContext&input,hkpCdPointCollector&collector)
+// src: COMMUNITY 0x00d3d8c0
+void __cdecl hkpSphereTriangleAgent_staticGetClosestPoints(const hkpCdBody&bodyA,const hkpCdBody&bodyB,const CollisionAgentContext&input,hkpCdPointCollector&collector)
 {
 {hkMonitorStream&mStream=hkMonitorStream::getInstance();if(mStream.memoryAvailable()){::hkMonitorStream::TimerCommand*h=reinterpret_cast<::hkMonitorStream::TimerCommand*>(mStream.getEnd());h->m_commandAndMonitor="T" "t" "SphereTri";h->setTime();mStream.setEnd((char*)(h+1));}};ScopedTimer timeblock47;
 const hkpTriangleShape*triB=static_cast<const hkpTriangleShape*>(bodyB.getShape());
@@ -450,7 +450,7 @@ if(input.m_collisionQuality.val()&&m_uiMaterialIndex>0)
 const hkpSphereShape*sphereA=static_cast<const hkpSphereShape*>(bodyA.getShape());
 hkVec4X weldedNormal=reinterpret_cast<const hkVec4X&>(event.m_kPoint.getSeparatingNormal());
 hkVec4X pointPos=reinterpret_cast<const hkVec4X&>(event.m_kPoint.getPosition());
-hkpConvexShape::WeldResult weldResult=static_cast<hkpConvexShape::WeldResult>(triB->WeldContactPoint(&featureOutput.m_auiVertexIds[0],m_uiMaterialIndex,reinterpret_cast<hkVector4&>(pointPos),&bodyB.getTransform(),sphereA,&bodyA.getTransform(),reinterpret_cast<hkVector4&>(weldedNormal)));
+hkpConvexShape::WeldResult weldResult=static_cast<hkpConvexShape::WeldResult>(triB->hkpTriangleShape_weldContactPointImpl(&featureOutput.m_auiVertexIds[0],m_uiMaterialIndex,reinterpret_cast<hkVector4&>(pointPos),&bodyB.getTransform(),sphereA,&bodyA.getTransform(),reinterpret_cast<hkVector4&>(weldedNormal)));
 if(weldResult==hkpConvexShape::WELD_RESULT_REJECT_CONTACT_POINT)
 {
 return;
@@ -496,12 +496,12 @@ struct D37D30ArrayPolicy
     static __forceinline void destroy(hkArrayBase<T>& self) { D37D30Array_destroy(self); }
 };
 
-class FUN_00d37d30 : public hkReferencedObject {
+class hkpMultiRayConvexAgent : public hkReferencedObject {
 public:
     int unk08;
     hkArray<unsigned short, D37D30ArrayPolicy> m_ppIndices;
 
-    FUN_00d37d30();
+    hkpMultiRayConvexAgent();
 
     static void operator delete(void* p) {
         HeapD37D30(hkMemoryRouter_getInstance()).blockFree(p, static_cast<hkReferencedObject*>(p)->m_usMemSizeAndFlags);
@@ -509,7 +509,8 @@ public:
 };
 
 // @fnv 0x00d37d30
-FUN_00d37d30::FUN_00d37d30() {
+// src: EXE 0x00d37d30
+hkpMultiRayConvexAgent::hkpMultiRayConvexAgent() {
 }
 }  // namespace fnv_00d37d30
 

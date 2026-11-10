@@ -384,7 +384,7 @@ extern ActorTaskManager g_011dd3d8;
 // src: XBOX_PDB 0x00830490
 void __cdecl FalloutAudioMedia_MediaAccessLeave()
 {
-    g_011dd3d8.WaitForTasksDuringRendering();
+    g_011dd3d8.BSCriticalSection_Leave();
 }
 }  // namespace fnv_00830490
 
@@ -518,7 +518,7 @@ AudioClock* BSAudio_QInstance();
 class WorldSpace
 {
   public:
-    bool UpdateCombatMusic();
+    bool CombatManager_ShouldPlayCombatMusic();
 };
 extern WorldSpace* BGSSaveLoadGlobalDataWorldlocationPtr;
 class MediaLocationRecord
@@ -726,7 +726,7 @@ void UpdateMediaLocation()
         time = DAT_011dd314;
     unsigned int mediaType = BSAudio_QInstance()->GetSynchTime();
     bool combat =
-        BGSSaveLoadGlobalDataWorldlocationPtr ? BGSSaveLoadGlobalDataWorldlocationPtr->UpdateCombatMusic() : false;
+        BGSSaveLoadGlobalDataWorldlocationPtr ? BGSSaveLoadGlobalDataWorldlocationPtr->CombatManager_ShouldPlayCombatMusic() : false;
     if (Menu_IsMenuVisible(1007))
         return;
     if (!DAT_011dd378 || (DAT_011dd378 && !DAT_011dd378->Update(mediaType, combat, 0)))

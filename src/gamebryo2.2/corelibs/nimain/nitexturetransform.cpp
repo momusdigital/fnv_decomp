@@ -39,7 +39,7 @@ template <class T> inline void ReadBinaryValue(NiStream& stream, T& value)
     stream.m_pkIstr->BinaryRead(&value);
 }
 
-struct FUN_00a88f00_Class
+struct NiTextureTransform
 {
     NiPoint2 point00;
     unsigned int unk08;
@@ -62,7 +62,7 @@ struct FUN_00a88f00_Class
 // Reads point00, point0c, unk08, a value into unk44 and point14 from the stream, then sets loaded to true.
 // @fnv 0x00a88f00
 // src: COMMUNITY 0x00a88f00
-void FUN_00a88f00_Class::NiTextureTransform_LoadBinary(NiStream& stream)
+void NiTextureTransform::NiTextureTransform_LoadBinary(NiStream& stream)
 {
     point00.LoadBinary(&stream);
     point0c.LoadBinary(&stream);

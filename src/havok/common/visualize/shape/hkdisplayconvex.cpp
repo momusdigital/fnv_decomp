@@ -74,15 +74,16 @@ struct S_00de1d20_Mid : S_00de1d20_Base
     }
 };
 
-struct FUN_00de1d20 : S_00de1d20_Mid
+struct hkDisplayConvex : S_00de1d20_Mid
 {
-    FUN_00de1d20(int a);
+    hkDisplayConvex(int a);
     virtual void v1();
 };
 
 // Constructor that initializes the base class with the given int and stores it in the unk8 field.
 // @fnv 0x00de1d20
-FUN_00de1d20::FUN_00de1d20(int aiValue) : S_00de1d20_Mid(aiValue)
+// src: EXE 0x00de1d20
+hkDisplayConvex::hkDisplayConvex(int aiValue) : S_00de1d20_Mid(aiValue)
 {
     unk8 = aiValue;
 }

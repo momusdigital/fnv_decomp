@@ -163,11 +163,12 @@ struct ExpressionConverter
     OperandStack operands;
     void setError(int);
     int next(char**, char*, int*, int, int);
-    char* ConvertToPostfix(const char*, unsigned int*);
+    char* CExpression_InfixToPostfix(const char*, unsigned int*);
 };
 // Converts the infix expression in data to postfix in postfix using an operator stack, returning postfix and setting length, or 0 on error.
 // @fnv 0x00593500
-char* ExpressionConverter::ConvertToPostfix(const char* pInfix, unsigned int* puiLength)
+// src: COMMUNITY 0x00593500
+char* ExpressionConverter::CExpression_InfixToPostfix(const char* pInfix, unsigned int* puiLength)
 {
     char token[64];
     {

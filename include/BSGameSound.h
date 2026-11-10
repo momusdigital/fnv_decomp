@@ -9,7 +9,7 @@ class BSGameSound
 public:
     virtual ~BSGameSound();
     virtual bool IsPlaying();
-    virtual bool HasStatusFlag0x80000();
+    virtual bool IsInDecay();
     virtual bool IsPaused();
     virtual float GetVolume();
     virtual void v14();

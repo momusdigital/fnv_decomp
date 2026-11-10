@@ -87,7 +87,7 @@ DialogueItem::~DialogueItem()
 
 struct FUN_0083c9e0_resp
 {
-    unsigned short ProcessAndReturnValue_0083d420();
+    unsigned short DialogueResponse_GetSaveSize();
 };
 // @fnv 0x0083c9e0
 unsigned short __fastcall GetDialogueItemSaveSize(DialogueItem* item)
@@ -98,7 +98,7 @@ unsigned short __fastcall GetDialogueItemSaveSize(DialogueItem* item)
     while (pIter && !pIter->IsEmpty())
     {
         FUN_0083c9e0_resp* pResponse = reinterpret_cast<FUN_0083c9e0_resp*>(pIter->GetItem());
-        usSize += pResponse->ProcessAndReturnValue_0083d420();
+        usSize += pResponse->DialogueResponse_GetSaveSize();
         pIter = pIter->GetNext();
     }
     usSize += 1;
@@ -113,7 +113,8 @@ void _FNV_Warning(const char* message);
 
 // Returns the index of response in the dialogue responses list, warning and returning 0 if it is not found.
 // @fnv 0x0083c900
-short DialogueItem::GetResponseIndex(DialogueResponse* response)
+// src: COMMUNITY 0x0083c900
+short DialogueItem::GetDialogueResponseIndex(DialogueResponse* response)
 {
     short iElementIndex = 0;
     BSSimpleList<DialogueResponse*>* pCurrentElementNext = &m_kResponseList;
@@ -194,7 +195,7 @@ void __fastcall SaveDialogueItemToSave(DialogueItem* item)
 
     char cCurrentVal = -1;
     if (item->m_pCurrentResponseList)
-        cCurrentVal = item->GetResponseIndex(item->m_pCurrentResponseList->GetItem());
+        cCurrentVal = item->GetDialogueResponseIndex(item->m_pCurrentResponseList->GetItem());
     g_TESSaveLoadGame->TESSaveLoadGame_SaveGameDataOLD(&cCurrentVal, 1);
 
     unsigned int aIInfoID = 0;
@@ -261,7 +262,7 @@ void __fastcall SaveDialogueItemToBuffer(DialogueItem* item, DialogueSaveBufferA
         pCurrentElementNext = pCurrentElementNext->GetNext();
     }
     argument.buffer->SaveVariableSizedValue_00865ff0(isaveGameCount, isaveGameBufferPos);
-    scurrentResponse = item->m_pCurrentResponseList ? item->GetResponseIndex(item->m_pCurrentResponseList->GetItem()) : -1;
+    scurrentResponse = item->m_pCurrentResponseList ? item->GetDialogueResponseIndex(item->m_pCurrentResponseList->GetItem()) : -1;
     argument.buffer->SaveData(static_cast<void*>(&scurrentResponse), 2, 0);
     argument.buffer->SerializeFormData(static_cast<void*>(item->pInfo), 0);
     argument.buffer->SerializeFormData(static_cast<void*>(item->pTopic), 0);
@@ -332,7 +333,8 @@ class DialogueResponse
 };
 // Reads response count, current index, topic info, topic, quest, and speaker IDs from the save stream into the dialogue item.
 // @fnv 0x0083cc10
-void __fastcall LoadDialogueItemFromSave(DialogueItem* item)
+// src: COMMUNITY 0x0083cc10
+void __fastcall DialogueItem_LoadGame(DialogueItem* item)
 {
     unsigned char cCount4;
     unsigned int iloopB;

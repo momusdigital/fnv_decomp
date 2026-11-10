@@ -105,7 +105,7 @@ inline void Move266(void* d, const void* s, unsigned int n)
     memmove(d, s, n);
 }
 
-struct FUN_00e98080_shell
+struct NiD3DShaderProgramCreatorAsm
 {
     void* vtable;
     unsigned int flags;
@@ -116,7 +116,7 @@ struct FUN_00e98080_shell
 // Assembles source, logs failures, and copies successful output into a newly allocated buffer returned through data.
 // @fnv 0x00e98080
 // src: COMMUNITY 0x00e98080
-bool FUN_00e98080_shell::NiD3DShaderProgramCreatorAsm_LoadShaderCodeFromBuffer(const char* source, unsigned int length, void** ppBytecode,
+bool NiD3DShaderProgramCreatorAsm::NiD3DShaderProgramCreatorAsm_LoadShaderCodeFromBuffer(const char* source, unsigned int length, void** ppBytecode,
                                       unsigned int* puiBytecodeSize, void** reserved, unsigned int* reservedSize,
                                       int context)
 {

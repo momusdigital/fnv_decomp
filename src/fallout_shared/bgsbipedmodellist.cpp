@@ -6,7 +6,8 @@
 #include <stddef.h>
 // Returns the biped model list of a TESForm if it is an NPC or armor, otherwise null.
 // @fnv 0x00475020
-BGSBipedModelList* BGSBipedModelList::GetBipedModelList(TESForm* form)
+// src: COMMUNITY 0x00475020
+BGSBipedModelList* BGSBipedModelList::GetFormAsBipedModelList(TESForm* form)
 {
     BGSBipedModelList* result = 0;
     if (form)

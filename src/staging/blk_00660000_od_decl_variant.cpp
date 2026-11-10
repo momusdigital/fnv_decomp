@@ -32,12 +32,12 @@ void __cdecl Runtime_ForwardCall_00660230(void* a, void* b, void* c, void* d);
 extern "C" int __cdecl ConstructInPlace(int, int);
 struct FUN_00660300_Class
 {
-    int __thiscall ConstructInPlace_Thunk(int a, int b);
+    int __thiscall allocator_construct(int a, int b);
 };
 extern "C" void __cdecl CopyConstructElement(int, int);
 struct FUN_00660320_Class
 {
-    void __thiscall CopyConstructElement_Thunk(int a, int b);
+    void __thiscall allocator_construct(int a, int b);
 };
 extern const char* const g_011d5ba8_arg1;
 struct FUN_00661d30_cls
@@ -88,7 +88,7 @@ struct FUN_0067d970_Class
     int m;
     void __thiscall SetM();
 };
-struct FUN_0067f4b0_class
+struct PackageLocation
 {
     unsigned char b;
     int a;
@@ -111,10 +111,10 @@ struct S6
     short c;
 };
 S6* __cdecl CopyTripleShorts(S6* a1, S6* a2, S6* a3);
-struct FUN_00661d40_shell
+struct BSFaceGenMorphData
 {
     void __thiscall SetVTableAndDestroy();
-    void* __thiscall FUN_00661d60(unsigned int);
+    void* __thiscall ScalarDeletingDestructor(unsigned int);
 };
 void __cdecl _delete(void*, unsigned int);
 extern const char* DAT_0119b49c[];
@@ -123,7 +123,7 @@ struct StatisticalArray
 {
     int _pad[3];
     int m_base;
-    unsigned int __thiscall EvaluateValue_0065cc30();
+    unsigned int __thiscall vector_size();
     int __thiscall GetElementChecked_00662890(unsigned int);
 };
 unsigned int __cdecl FUN_00ec7c56();
@@ -184,7 +184,7 @@ struct T_
 {
     void SetValue(void*);
 };
-struct FUN_0066c9c0_Class
+struct hkContactPoint
 {
     T_ a;
     T_ b;
@@ -207,7 +207,7 @@ struct H_6db70
 {
     void hkMemoryAllocator_bufFree_hkpRootCdBodyPair(void* a, void* b);
 };
-struct FUN_0066dae0_Class
+struct hkArray
 {
     void* p;
     unsigned int pad;
@@ -215,7 +215,7 @@ struct FUN_0066dae0_Class
     void __thiscall DestroyRange();
     void __thiscall hkArrayBase_hkVector4_clearAndDeallocate(void* a);
 };
-struct FUN_0066db70_Class
+struct hkThreadMemory
 {
     virtual void v0()
     {}
@@ -298,7 +298,7 @@ template <int N> struct EndianSizeTag
 };
 void __cdecl BSEndian(unsigned char* p, EndianSizeTag<1>);
 void __cdecl BSEndian(unsigned char* p, EndianSizeTag<2>);
-struct FUN_0067eff0_Class
+struct PACK_LOC_FILE
 {
     void __thiscall PACK_LOC_FILE_Endian();
 };
@@ -310,7 +310,7 @@ struct FUN_0067b170
     FUN_0067b170();
 };
 void __cdecl BSEndian(unsigned char* p, EndianSizeTag<1>);
-struct FUN_0067b100_Class
+struct PACK_DIALOGUE_DATA
 {
     unsigned char b0;
     unsigned char b4;
@@ -320,10 +320,10 @@ struct FUN_0067b100_Class
 };
 extern int DAT_01066e2c;
 extern int DAT_01268324;
-struct FUN_0066d6a0 : bhkConvexShape
+struct bhkCapsuleShape : bhkConvexShape
 {
     int* vtbl;
-    FUN_0066d6a0(int a);
+    bhkCapsuleShape(int a);
 };
 struct GlobalObject_0045cfe0
 {
@@ -353,7 +353,7 @@ struct FUN_0044d000
     int pad[9];
     FUN_0044d000(int a, int b, int c, int d);
 };
-struct FUN_00665e30_Class
+struct LockFreeMap
 {
     int pad;
     int* data;
@@ -520,7 +520,7 @@ extern int g_timerB;
 extern unsigned char g_counter;
 float* __fastcall Setting_Float_00403e20(void* obj);
 int* __fastcall Setting_Int(void* obj);
-struct FUN_0066ca50_cls
+struct BSTreeNode
 {
     int unk00;
     int unk01;
@@ -639,7 +639,7 @@ struct SpawnedFlag
 {
     bool m_bValue;
 };
-struct FUN_0067ca10_cls
+struct PACK_USE_WEAPON_DATA_PKW3
 {
     void PACK_USE_WEAPON_DATA_PKW2_Endian();
 };
@@ -689,7 +689,7 @@ void SaveE6D0Items(BGSSaveFormBuffer* pkBuffer);
 struct ComparisonEntry
 {
     int PackageLocation_GetLocType();
-    int GetSecondByte();
+    int PackageSchedule_GetStartDayOfWeek();
     signed char Main_GameReset();
     signed char FUN_0086a460();
 };
@@ -709,7 +709,7 @@ struct E640Cls : DetClassCls
 };
 struct S_00660510_Context
 {
-    void __thiscall ConstructInPlace_Thunk(int dest, int src);
+    void __thiscall allocator_construct(int dest, int src);
     void __thiscall ForwardCall_0065ea40(int element);
 };
 int __cdecl Runtime_ProcessEntries_00660510(int first, int last, int dest, S_00660510_Context* context);
@@ -719,7 +719,7 @@ struct Elem6605
 };
 struct Alloc6605
 {
-    void CopyConstructElement_Thunk(Elem6605* pDest, const Elem6605& kSrc);
+    void allocator_construct(Elem6605* pDest, const Elem6605& kSrc);
     void ForwardCall_0065ea60(Elem6605* pElem);
 };
 struct NonscalarTag6605
@@ -737,7 +737,7 @@ Elem6605* __cdecl CopyConstructRange(Elem6605* _First, Elem6605* _Last, Elem6605
     try
     {
         for (; _First != _Last; ++_Dest, ++_First)
-            _Al.CopyConstructElement_Thunk(_Dest, *_First);
+            _Al.allocator_construct(_Dest, *_First);
     }
     catch (...)
     {

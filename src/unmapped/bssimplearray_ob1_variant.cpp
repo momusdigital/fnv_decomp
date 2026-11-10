@@ -33,7 +33,7 @@ struct FUN_006cf250_Class
 extern "C" void* __cdecl _Reallocate(void* p, unsigned int size);
 struct FUN_006cf280_Class
 {
-    void* __thiscall _Reallocate_Thunk_006cf280(void* p, unsigned int n);
+    void* __thiscall BSSimpleArray_Reallocate(void* p, unsigned int n);
 };
 bool AreBytesEqual(const unsigned char* a, const unsigned char* b);
 extern int DAT_0106b8c8;
@@ -170,7 +170,7 @@ struct FUN_006cf230_Class
 };
 struct FUN_006cfc80_Class
 {
-    void* __thiscall FUN_006cfc80(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 void __cdecl Deallocate(void* p);
 struct FUN_006cf340_Class
@@ -190,7 +190,7 @@ struct FUN_006cfd40_Class
 struct FUN_006e9410_shell
 {
     void FUN_006e90a0(int a, int b);
-    void* GetElementAddress30_006e8f40(int a, void* b);
+    void* BSSimpleArray_GetAt(int a, void* b);
 };
 struct FUN_006e9530_shell
 {
@@ -228,7 +228,7 @@ struct FUN_006dc590
     TypeValueCount* pBuffer;
     unsigned int iSize;
     unsigned int SimpleArrayStorage;
-    void __thiscall UpdateState_006dc590(unsigned int aiNewSize, unsigned int aiCopyCount);
+    void __thiscall BSSimpleArray_Resize(unsigned int aiNewSize, unsigned int aiCopyCount);
 };
 struct FUN_0072ba80_shell
 {
@@ -248,7 +248,7 @@ struct FUN_006f9790_class
 };
 struct FUN_006e1280_Class
 {
-    void VisitPlacementAddresses(char* p, unsigned int n);
+    void BSScrapArray_ConstructElements(char* p, unsigned int n);
 };
 struct FUN_006cf520_Class
 {
@@ -523,7 +523,7 @@ struct FUN_006d0540_shell
     int unk08;
     int unk0c;
 
-    void __thiscall CopyOverlappingElements30(void* newItem, void* oldItem, unsigned int count);
+    void __thiscall BSSimpleArray_MoveElements(void* newItem, void* oldItem, unsigned int count);
     void __thiscall FUN_006a8500();
 };
 struct FUN_006cfe70_Class : public FUN_006d0540_shell

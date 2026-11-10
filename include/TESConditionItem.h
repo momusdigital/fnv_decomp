@@ -31,8 +31,8 @@ class TESConditionItem
     bool IsFlagSet();                                                  // 0x005ec040
     int GetComparisonCondition();                                      // 0x005ec060
     void SetObjectType(int objectType);                                // 0x00600ab0
-    void FixupAfterLoad();                                             // 0x00681170
-    void SetFunction(int functionCode);                                // 0x00681220
+    void CONDITION_ITEM_DATA_Endian();                                             // 0x00681170
+    void SetDefaultDataForFunction(int functionCode);                                // 0x00681220
     float GetConditionValue();                                         // 0x00681490
     void SetValueIfNoParams(float value);
     bool GetParamCount();                                              // 0x006814e0

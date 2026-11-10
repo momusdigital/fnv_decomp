@@ -4,16 +4,16 @@
 
 #include "../../../include/ActorValueModifierList.h"
 
-struct FUN_0092ca70_shell
+struct MiddleLowProcess
 {
     int pad[0xb4 / 4];
     int m_0xb4;
     ActorValueModifierList m_0xb8;
-    void CopyFrom(FUN_0092ca70_shell* source);
+    void CopyFrom(MiddleLowProcess* source);
 };
 
 // @fnv 0x0092ca70
-void FUN_0092ca70_shell::CopyFrom(FUN_0092ca70_shell* source)
+void MiddleLowProcess::CopyFrom(MiddleLowProcess* source)
 {
     m_0xb4 = source->m_0xb4;
     m_0xb8.CopyModifierListFrom(&source->m_0xb8);

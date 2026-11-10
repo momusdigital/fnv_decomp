@@ -69,17 +69,18 @@ D107A0RTTI* __cdecl Runtime_GetD107A0RTTIAddress()
 
 extern int DAT_010cd54c;
 
-struct FUN_00d107b0
+struct hkpNullAgent
 {
     void** vft;
     unsigned short a;
     unsigned short b;
     int c;
-    FUN_00d107b0();
+    hkpNullAgent();
 };
 
 // @fnv 0x00d107b0
-FUN_00d107b0::FUN_00d107b0()
+// src: EXE 0x00d107b0
+hkpNullAgent::hkpNullAgent()
 {
     b = 1;
     c = 0;
@@ -92,20 +93,20 @@ struct FUN_00c9ce00_cls
 };
 
 // @fnv 0x00d1f180
-// src: GUESS 0x00d1f180 (confidence: low)
-void __cdecl Object_ProcessState_00d1f180(FUN_00c9ce00_cls* obj, int v)
+// src: COMMUNITY 0x00d1f180
+void __cdecl finishLoadedObject_hkpEntity(FUN_00c9ce00_cls* obj, int v)
 {
     if (obj)
         obj->FUN_00c9ce00(v);
 }
 
-struct FUN_00d1fa20_t
+struct hkaDetectRagdollPenetration
 {
     int m_uiCount;
     void ResetEntries();
 };
 // @fnv 0x00d1fa20
-void FUN_00d1fa20_t::ResetEntries()
+void hkaDetectRagdollPenetration::ResetEntries()
 {
     for (int i = 0; i < *(int*)((char*)this + 0x1c); ++i)
         *(unsigned int*)((char*)*(unsigned char**)((char*)this + 0x18) + i * 4) = 1;
@@ -150,7 +151,7 @@ extern "C" void __cdecl hkSmallArrayUtil__reserve(FUN_00d06c30_cls* self, unsign
     self->m_usCap = (unsigned short)((self->m_usCap & 0x4000) | (unsigned short)newCap);
 }
 
-class FUN_00d07910_cls;
+class hkpPhantom;
 
 class FUN_00d07910_elem
 {
@@ -159,10 +160,10 @@ class FUN_00d07910_elem
     virtual void v04();
     virtual void v08();
     virtual void v0C();
-    virtual void v10(FUN_00d07910_cls* owner);
+    virtual void v10(hkpPhantom* owner);
 };
 
-class FUN_00d07910_cls
+class hkpPhantom
 {
   public:
     int unk00;
@@ -210,7 +211,7 @@ class FUN_00d07910_cls
 
 // Iterates the m_98 element array backwards and calls v10(this) on each non-null element.
 // @fnv 0x00d07910
-void FUN_00d07910_cls::NotifyElements()
+void hkpPhantom::NotifyElements()
 {
     for (int i = m_9C - 1; i >= 0; --i)
     {
@@ -272,8 +273,8 @@ class D1F150Object
 };
 
 // @fnv 0x00d1f150
-// src: GUESS 0x00d1f150 (confidence: low)
-void Runtime_DestroySubobject_00d1f150(D1F150Object* pkObject)
+// src: COMMUNITY 0x00d1f150
+void cleanupLoadedObject_hkpEntity(D1F150Object* pkObject)
 {
     pkObject->~D1F150Object();
 }
@@ -575,21 +576,22 @@ int FnvCpu_FUN_00d04440_CpuObject::hkJobQueue_getMasterThreadFinishingFlags()
 void nullsub_9()
 {}
 
-struct FUN_00d06f70_s
+struct hkBaseObject
 {
     void InitializeFields_00d06f70();
 };
 
-struct FUN_00d07070_s : FUN_00d06f70_s
+struct hkStatisticsCollector : hkBaseObject
 {
     int unk00;
     unsigned short unk04;
 
-    int __thiscall FUN_00d07070(unsigned char flag);
+    int __thiscall ScalarDeletingDestructor(unsigned char flag);
 };
 
 // @fnv 0x00d07070
-int __thiscall FUN_00d07070_s::FUN_00d07070(unsigned char flag)
+// src: EXE 0x00d07070
+int __thiscall hkStatisticsCollector::ScalarDeletingDestructor(unsigned char flag)
 {
     this->InitializeFields_00d06f70();
 
@@ -920,7 +922,7 @@ struct FUN_00d0bc20_Vtable
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40();
     virtual void Method(FUN_00d0bc20_Outer* owner, unsigned int value);
@@ -958,7 +960,7 @@ extern int DAT_010c63bc;
 extern int DAT_010cd588;
 extern int DAT_010cd598;
 
-struct FUN_00d107d0_t
+struct hkpEntityEntityBroadPhaseListener
 {
     void* p0;
     unsigned short a;
@@ -969,13 +971,13 @@ struct FUN_00d107d0_t
         void* p8b;
     };
     int c;
-    FUN_00d107d0_t* InitializeFields_00d107d0(int v);
+    hkpEntityEntityBroadPhaseListener* InitializeFields_00d107d0(int v);
 };
 
 // Sets b to 1, points p8a/p0/p8b at DAT_010c63bc/DAT_010cd598/DAT_010cd588, stores v in c, and returns this.
 // @fnv 0x00d107d0
 // src: GUESS 0x00d107d0 (confidence: low)
-FUN_00d107d0_t* FUN_00d107d0_t::InitializeFields_00d107d0(int v)
+hkpEntityEntityBroadPhaseListener* hkpEntityEntityBroadPhaseListener::InitializeFields_00d107d0(int v)
 {
     b = 1;
     p8a = &DAT_010c63bc;

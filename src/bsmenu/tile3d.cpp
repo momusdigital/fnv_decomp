@@ -256,11 +256,12 @@ inline NiControllerSequence* NiControllerManager::FindSequenceByName(const NiFix
         return pkSequence;
     return 0;
 }
-inline bool NiControllerManager::StopSequence(NiControllerSequence* pkSequence, float fEaseOutTime)
+// src: COMMUNITY 0x0047b220
+inline bool NiControllerManager::DeactivateSequence(NiControllerSequence* pkSequence, float fEaseOutTime)
 {
     return pkSequence->Deactivate(fEaseOutTime, false);
 }
-inline bool NiControllerManager::ActivateControllerSequence(NiControllerSequence* pkSequence, int iPriority, bool bStartOver,
+inline bool NiControllerManager::ActivateSequence(NiControllerSequence* pkSequence, int iPriority, bool bStartOver,
                                                           float fWeight, float fEaseInTime, NiControllerSequence* pkTimeSyncSeq)
 {
     return pkSequence->Activate((char)iPriority, bStartOver, fWeight, fEaseInTime, pkTimeSyncSeq, false);
@@ -315,13 +316,13 @@ bool FUN_00a20cc0_t::Tile3D_PlaySequence(const char* apSequenceName)
         {
             if (((NiControllerSequence*)m_pChildTile)->GetState() == 1)
                 ((Dummy_00a20ed0*)this)->UpdateAnimation(1.0f, 1);
-            ((NiControllerManager*)m_pParent)->StopSequence((NiControllerSequence*)m_pChildTile);
+            ((NiControllerManager*)m_pParent)->DeactivateSequence((NiControllerSequence*)m_pChildTile);
         }
         if (!bActivated)
         {
             if (pseq->GetState() != 0)
-                ((NiControllerManager*)m_pParent)->StopSequence(pseq);
-            bActivated = ((NiControllerManager*)m_pParent)->ActivateControllerSequence(pseq);
+                ((NiControllerManager*)m_pParent)->DeactivateSequence(pseq);
+            bActivated = ((NiControllerManager*)m_pParent)->ActivateSequence(pseq);
         }
         if (bActivated)
         {
@@ -629,7 +630,7 @@ bool AnimTile::UpdateAnimation(float value, bool force)
         GetNode()->Update((NiUpdateData&)loopUpdate7);
         if (Tile3dInterfaceView::PlayNifSounds((NiControllerSequence*)sequence))
         {
-            manager->StopSequence(sequence);
+            manager->DeactivateSequence(sequence);
             sequence = 0;
             manager->SetBit(false, 8);
         }
@@ -775,11 +776,12 @@ inline void* AllocateShader()
 
 struct FUN_00a21340_shell : Tile3D
 {
-    void ConvertShadersToTileShader(NiNode* node);
+    void Tile3D_SetupShaderPropertiesRecurse(NiNode* node);
 };
 
 // @fnv 0x00a21340
-void FUN_00a21340_shell::ConvertShadersToTileShader(NiNode* node)
+// src: COMMUNITY 0x00a21340
+void FUN_00a21340_shell::Tile3D_SetupShaderPropertiesRecurse(NiNode* node)
 {
     if (node)
     {
@@ -806,7 +808,7 @@ void FUN_00a21340_shell::ConvertShadersToTileShader(NiNode* node)
                 }
                 NiNode* geometry9 = ((Tile3DArrayAccess<NiPointer<NiAVObject> >*)&node->m_kChildren)->GetAt(i8)->IsSceneNode();
                 if (geometry9)
-                    ConvertShadersToTileShader(geometry9);
+                    Tile3D_SetupShaderPropertiesRecurse(geometry9);
             }
         }
     }
@@ -898,10 +900,10 @@ void Tile3D::LoadTile()
     AttachController(m_kModelObjectsItem);
     ((Tile3DArrayAccess<NiPointer<NiAVObject> >*)&m_pRenderedNodeEntry->m_kChildren)->RemoveAll();
     RemovePropertyRecursive(m_kModelObjectsItem);
-    ConvertShadersToTileShader(m_kModelObjectsItem);
+    Tile3D_SetupShaderPropertiesRecurse(m_kModelObjectsItem);
     m_pRenderedNodeEntry->AttachChildInAvailableSlot(m_kModelObjectsItem, true);
     Set(0xfa8, 1.0f, true);
-    m_pRenderedNodeEntry->SetAppCulled(!IsTraitNonZero(0xfa3));
+    m_pRenderedNodeEntry->SetAppCulled(!Tile_IsTrue(0xfa3));
     m_pRenderedNodeEntry->UpdateProperties();
     if (uiFlags & 0x40)
         uiFlags ^= 0x40;

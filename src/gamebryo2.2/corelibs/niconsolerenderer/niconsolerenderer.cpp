@@ -690,12 +690,13 @@ void* __cdecl NiShaderDeclaration_GetRTTI()
 }
 
 struct FUN_00e758f0_shell {
-    void PackColorToUInt(float* floats);
+    void NiDX9Renderer_SetBackgroundColorAlpha(float* floats);
 };
 
 // Converts four floats scaled by 255 into bytes and packs them into a single unsigned int stored at this+0x5e0.
 // @fnv 0x00e758f0
-void FUN_00e758f0_shell::PackColorToUInt(float* afComponents)
+// src: COMMUNITY 0x00e758f0
+void FUN_00e758f0_shell::NiDX9Renderer_SetBackgroundColorAlpha(float* afComponents)
 {
     unsigned int result = 0;
     result = (unsigned char)(afComponents[3] * 255.0f);
@@ -1079,7 +1080,8 @@ extern int DAT_010edb1c;
 extern MemoryManager g_memoryManager;
 
 // @fnv 0x00e6e9b0
-void* __fastcall FUN_00e6e9b0(NiTPointerMap<HWND__*, NiPointer<NiRenderTargetGroup> >* self, void*, unsigned int auiFlags)
+// src: EXE 0x00e6e9b0
+void* __fastcall ScalarDeletingDestructor(NiTPointerMap<HWND__*, NiPointer<NiRenderTargetGroup> >* self, void*, unsigned int auiFlags)
 {
     *(void**)self = &DAT_010edb1c;
     self->RemoveAll();
@@ -4118,7 +4120,7 @@ struct GeomData_e6da60
     virtual void vf09();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -4144,7 +4146,7 @@ struct GeomData_e6da60
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual unsigned int GetStreamValue(unsigned int uiIndex);
     virtual void vf41();
@@ -18811,12 +18813,12 @@ bool GeometryPacketBuilder::PrepareGeometryPacket(Packet108* packet, fnv_00e71fe
  return true;
 }
 
-__declspec(noreturn) void __cdecl AddGeometryToBatch();
+__declspec(noreturn) void __cdecl NiDX9Renderer_AddToBatch();
 
 // @fnv 0x00e752a0
 // src: COMMUNITY 0x00e752a0
 void __cdecl NiDX9Renderer_BatchRenderShape() {
-    AddGeometryToBatch();
+    NiDX9Renderer_AddToBatch();
 }
 
 extern "C" void* __cdecl FUN_00ec61c0(void*, int, unsigned int);
@@ -24427,7 +24429,7 @@ struct S72_Model
     virtual void vf00(); virtual void vf01(); virtual void vf02(); virtual void vf03();
     virtual void vf04(); virtual void vf05(); virtual void vf06(); virtual void vf07();
     virtual void vf08(); virtual void vf09(); virtual void vf10(); virtual void vf11();
-    virtual void vf12(); virtual void vf13(); virtual void vf14(); virtual void vf15();
+    virtual void SetMapName(); virtual void vf13(); virtual void vf14(); virtual void vf15();
     virtual void vf16(); virtual void vf17(); virtual void vf18(); virtual void vf19();
     virtual void vf20(); virtual void vf21(); virtual void vf22(); virtual void vf23();
     virtual void vf24(); virtual void vf25(); virtual void vf26(); virtual void vf27();
@@ -24573,15 +24575,15 @@ struct Dev74 { virtual void v0(); virtual void v1(); virtual void v2(); virtual 
 struct Sub74 { void FUN_00e8b560(); };
 class Rend74 { public:
     char pad0[0x288]; Dev74* m_pDirect3DDevice; char pad1[0x8c8-0x28c]; Sub74* m_8c8; char pad2[0x900-0x8cc]; List74 m_kList;
-    bool HandleDeviceLost(); void NiDX9Renderer_PerformPrecache();
+    bool NiDX9Renderer_LostDeviceRestore(); void NiDX9Renderer_PerformPrecache();
     bool NiDX9Renderer_BeginScene();
 };
-// If HandleDeviceLost is true, calls recovery methods and BeginScene; on success it empties m_kList, then returns true.
+// If NiDX9Renderer_LostDeviceRestore is true, calls recovery methods and BeginScene; on success it empties m_kList, then returns true.
 // @fnv 0x00e74f40
 // src: COMMUNITY 0x00e74f40
 bool Rend74::NiDX9Renderer_BeginScene()
 {
-    if (HandleDeviceLost()) {
+    if (NiDX9Renderer_LostDeviceRestore()) {
         NiDX9Renderer_PerformPrecache();
         m_8c8->FUN_00e8b560();
         if (m_pDirect3DDevice->BeginScene() < 0) return false;
@@ -30943,8 +30945,8 @@ struct LineShader {
     virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17();
     virtual void v18(); virtual void v19(); virtual void v1a(); virtual void v1b();
     virtual void v1c(); virtual void v1d();
-    virtual void SetupGeometryShader(unsigned int);
-    virtual void UpdateGeometryEffects(unsigned int);
+    virtual void NiD3DShader_PreProcessPipeline(unsigned int);
+    virtual void NiD3DShader_PostProcessPipeline(unsigned int);
     virtual void RenderPartitionedSkinGeometry(unsigned int);
     virtual void RenderPartitionedGeometry(unsigned int);
     virtual void RenderLineGeometry(unsigned int, bool);
@@ -31751,8 +31753,8 @@ void LineRenderer::NiDX9Renderer_RenderScreenTexture(LineGeometry* pkLines)
         }
     }
     m_pShaderStreamInfo->CopyAndRelease(pkVBInfo->m_pkOwningStream);
-    pkShader->SetupGeometryShader(m_uiPassContext);
-    pkShader->UpdateGeometryEffects(m_uiPassContext);
+    pkShader->NiD3DShader_PreProcessPipeline(m_uiPassContext);
+    pkShader->NiD3DShader_PostProcessPipeline(m_uiPassContext);
     pkShader->RenderPartitionedSkinGeometry(m_uiPassContext);
     pkShader->RenderPartitionedGeometry(m_uiPassContext);
     pkShader->RenderLineGeometry(m_uiPassContext, true);

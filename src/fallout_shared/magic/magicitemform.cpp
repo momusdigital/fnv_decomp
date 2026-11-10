@@ -81,12 +81,12 @@ void __fastcall FUN_004056d0(void*);
 // @fnv 0x0040c1d0
 void MagicItemForm::SaveForm()
 {
-    TESForm::BeginFormRecord();
+    TESForm::TESForm_StartForm();
     ((TESFullName*)((char*)this + 0x18))->Save_00487010();
     ((MagicItem*)((char*)this + 0x18))->ClearMagicItemData();
     ((MagicItem*)((char*)this + 0x18))->SaveMagicItemData();
     FUN_004056d0((void*)((char*)this + 0x24));
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_CloseForm();
 }
 
 // @fnv 0x0040c450
@@ -128,5 +128,5 @@ void MagicItemForm::CopyFrom(const TESForm* form)
     }
     TESForm::CopyFrom(form);
     ((MagicItem*)((char*)this + 0x18))->CopyMagicItemData(rec ? (MagicItem*)((char*)rec + 0x18) : 0);
-    ((EffectItemList*)((char*)this + 0x24))->CopyItemsFromList(rec ? (EffectItemList*)((char*)rec + 0x24) : 0);
+    ((EffectItemList*)((char*)this + 0x24))->EffectItemList_Copy(rec ? (EffectItemList*)((char*)rec + 0x24) : 0);
 }

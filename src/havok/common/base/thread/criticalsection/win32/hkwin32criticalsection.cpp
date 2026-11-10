@@ -2,15 +2,15 @@
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
 #include <windows.h>
-struct FUN_00cf6da0_cls
+struct hkCriticalSection
 {
     CRITICAL_SECTION m_00;
-    FUN_00cf6da0_cls* ProcessAndReturnValue_00cf6da0(DWORD spinCount);
+    hkCriticalSection* ProcessAndReturnValue_00cf6da0(DWORD spinCount);
 };
 
 // @fnv 0x00cf6da0
 // src: GUESS 0x00cf6da0 (confidence: low)
-FUN_00cf6da0_cls* FUN_00cf6da0_cls::ProcessAndReturnValue_00cf6da0(DWORD spinCount)
+hkCriticalSection* hkCriticalSection::ProcessAndReturnValue_00cf6da0(DWORD spinCount)
 {
     InitializeCriticalSectionAndSpinCount((LPCRITICAL_SECTION)this, spinCount);
     return this;

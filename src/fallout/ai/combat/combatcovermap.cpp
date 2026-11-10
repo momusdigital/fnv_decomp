@@ -6,7 +6,8 @@
 
 // Calls FUN_00983130, then deletes this if flags has bit 0 set, and returns this.
 // @fnv 0x00983100
-void* CombatCoverMap::FUN_00983100(unsigned int flags)
+// src: EXE 0x00983100
+void* CombatCoverMap::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00983130();
     if (flags & 1)
@@ -116,7 +117,7 @@ struct Calendar
     FUN_00983520_obj* GetDaysPassed();
 };
 extern Calendar* BGSSaveLoadGlobalDataWorldspacePtr;
-struct FUN_009a05b0_shell
+struct CombatState
 {
     unsigned char pad[0x1c4];
     int fld1c4;
@@ -125,7 +126,7 @@ struct FUN_009a05b0_shell
 // If a1 is non-null and done, passes fld1c4 and a1 to FUN_00983520 via the worldspace save-load global's days-passed object.
 // @fnv 0x009a05b0
 // src: XBOX_PDB 0x009a05b0
-void __thiscall FUN_009a05b0_shell::CombatState_UnreserveCoverLocation(StageHolder* pStage)
+void __thiscall CombatState::CombatState_UnreserveCoverLocation(StageHolder* pStage)
 {
     if (pStage && pStage->GetDone())
     {
@@ -369,7 +370,7 @@ struct MemberVt
     virtual void* GetB();
     virtual void* GetA();
 };
-struct FUN_008a88f0_cls
+struct Actor
 {
     unsigned int unk00;
     unsigned int unk04;
@@ -404,7 +405,7 @@ extern const double DAT_01012060;
 // Gets two values from m68's members and returns their ratio, or 1.0 when either member is null or the divisor equals DAT_01012060.
 // @fnv 0x008a88f0
 // src: XBOX_PDB 0x008a88f0
-float FUN_008a88f0_cls::Actor_GetCurrentAmmoClipPercent()
+float Actor::Actor_GetCurrentAmmoClipPercent()
 {
     Pair3Pool* ywqVal = (Pair3Pool*)m68->GetA();
     if (ywqVal != 0)
@@ -574,12 +575,13 @@ struct FUN_009835d0_cls
     CoverLockCalls lock;
 
     bool FUN_00853130(void* key, CoverItem** out);
-    bool TryUseCoverItem(unsigned int key, unsigned int p2, unsigned int p3, float x, void* target, unsigned char d,
+    bool CombatCoverMap_CanReserveCoverLocation(unsigned int key, unsigned int p2, unsigned int p3, float x, void* target, unsigned char d,
                          unsigned char e);
 };
 
 // @fnv 0x009835d0
-bool FUN_009835d0_cls::TryUseCoverItem(unsigned int key, unsigned int p2, unsigned int p3, float fValue, void* target,
+// src: COMMUNITY 0x009835d0
+bool FUN_009835d0_cls::CombatCoverMap_CanReserveCoverLocation(unsigned int key, unsigned int p2, unsigned int p3, float fValue, void* target,
                                        unsigned char d, unsigned char e)
 {
     bool ok = true;

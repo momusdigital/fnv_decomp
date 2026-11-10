@@ -20,7 +20,7 @@ struct RegionMapMerge : TESRegionDataMap
     void FUN_004f15a0(bool value);
     unsigned char TESRegionData_GetPriority();
     bool FUN_004f15c0(unsigned char value);
-    void SaveMapData();
+    void TESRegionDataMap_Save();
     TESRegionData* CreateRegionData() const;
     void MergeMapData(RegionMapMerge* data, void* context);
 };
@@ -65,7 +65,8 @@ struct H4280
 };
 void __cdecl TESForm_AddChunkArray(unsigned int, void*, unsigned int);
 // @fnv 0x004f3e40
-void RegionMapMerge::SaveMapData()
+// src: COMMUNITY 0x004f3e40
+void RegionMapMerge::TESRegionDataMap_Save()
 {
     TESRegionData::Save();
     if (((S7010*)&m_kMapName)->Length())
@@ -81,7 +82,8 @@ void TESRegionDataMap::vf10(BSStringT<char>& apMapName)
 
 
 // @fnv 0x004f3f40
-bool TESRegionDataMap::vf12(char const* apMapName)
+// src: COMMUNITY 0x004f3f40
+bool TESRegionDataMap::SetMapName(char const* apMapName)
 {
     if (((::BSStringT<char>*)&m_kMapName)->StrCmp(apMapName, true))
     {
@@ -109,7 +111,7 @@ TESRegionData* RegionMapMerge::CreateRegionData() const
 // @fnv 0x004f3d50
 TESRegionDataMap::TESRegionDataMap(const TESRegionDataMap* apSource) : TESRegionData(*apSource)
 {
-    TESRegionDataMap::vf12(const_cast<TESRegionDataMap*>(apSource)->GetRegionMapName());
+    TESRegionDataMap::SetMapName(const_cast<TESRegionDataMap*>(apSource)->GetRegionMapName());
 }
 
 float __cdecl floor(float value);
@@ -124,7 +126,7 @@ void RegionMapMerge::MergeMapData(RegionMapMerge* apOther, void* context)
     {
         FUN_004f15a0(other->TESRegionData_GetOverride());
         FUN_004f15c0(other->TESRegionData_GetPriority());
-        vf12(other->GetRegionMapName());
+        SetMapName(other->GetRegionMapName());
     }
     else if (other->m_bHasRegionData)
     {
@@ -136,7 +138,7 @@ void RegionMapMerge::MergeMapData(RegionMapMerge* apOther, void* context)
         {
             FUN_004f15a0(other->TESRegionData_GetOverride());
             FUN_004f15c0(other->TESRegionData_GetPriority());
-            vf12(other->GetRegionMapName());
+            SetMapName(other->GetRegionMapName());
         }
         return;
     }
@@ -144,12 +146,12 @@ void RegionMapMerge::MergeMapData(RegionMapMerge* apOther, void* context)
     {
         FUN_004f15a0(other->TESRegionData_GetOverride());
         FUN_004f15c0(other->TESRegionData_GetPriority());
-        vf12(other->GetRegionMapName());
+        SetMapName(other->GetRegionMapName());
     }
     else
     {
         if (other->TESRegionData_GetPriority() > TESRegionData_GetPriority())
-            vf12(other->GetRegionMapName());
+            SetMapName(other->GetRegionMapName());
         float priority = TESRegionData_GetPriority() * TESRegionData_GetPriority() + (100 - TESRegionData_GetPriority()) * other->TESRegionData_GetPriority();
         priority += (100 - other->TESRegionData_GetPriority()) * TESRegionData_GetPriority() + other->TESRegionData_GetPriority() * other->TESRegionData_GetPriority();
         priority *= 0.005f;

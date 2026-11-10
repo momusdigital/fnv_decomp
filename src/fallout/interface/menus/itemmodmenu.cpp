@@ -904,7 +904,7 @@ struct Setting78
     const char* FUN_00403df0();
 };
 extern Setting78 g_011d2c7c, g_011d20c4;
-float GetWeaponDamage(Form78*, float, Entry78*, int);
+float CombatFormulas_CalcWeaponDamageForDisplay(Form78*, float, Entry78*, int);
 float FUN_004bd510(float, float);
 float FUN_00646360(int, float);
 float FUN_00476b20(float);
@@ -1257,7 +1257,7 @@ void ItemModMenu_InitItemModMenu(Entry78* pEntry, bool b)
             ((ItemModMenu*)DAT_011d9f54)
                 ->m_pTiles[5]->Set(
                     DAT_011d9f44,
-                    (int)FUN_004bd510(GetWeaponDamage(g_011d9f58->FUN_0044ddc0(), condition, pEntry, 0), 1.0f));
+                    (int)FUN_004bd510(CombatFormulas_CalcWeaponDamageForDisplay(g_011d9f58->FUN_0044ddc0(), condition, pEntry, 0), 1.0f));
             ((ItemModMenu*)DAT_011d9f54)
                 ->m_pTiles[0]->Set(0xfc4, ((Name78*)((char*)g_011d9f58->FUN_0044ddc0() + 0x30))->TESModel_GetModel(), true);
         }

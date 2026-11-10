@@ -114,13 +114,14 @@ struct BufferContext
 BufferContext* __cdecl hkMemoryRouter_getInstance();
 void __fastcall SetVirtualTable_00d24660(FUN_00e01140_cls*);
 
-struct FUN_00e01180_cls : FUN_00e01140_cls
+struct hkpCompressedSampledHeightFieldShape : FUN_00e01140_cls
 {
-    FUN_00e01180_cls* FUN_00e01180(unsigned int flags);
+    hkpCompressedSampledHeightFieldShape* ScalarDeletingDestructor(unsigned int flags);
 };
 // Releases the buffer through the manager, resets the buffer fields, calls FUN_00d24660, and destroys the object when flags has bit 0 set.
 // @fnv 0x00e01180
-FUN_00e01180_cls* FUN_00e01180_cls::FUN_00e01180(unsigned int flags)
+// src: EXE 0x00e01180
+hkpCompressedSampledHeightFieldShape* hkpCompressedSampledHeightFieldShape::ScalarDeletingDestructor(unsigned int flags)
 {
     BufferContext* context = hkMemoryRouter_getInstance();
     BufferManager* manager = context->manager;

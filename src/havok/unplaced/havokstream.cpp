@@ -71,13 +71,14 @@ struct FUN_00538ef0_class
 {
     void* UpdateState_00538ef0();
 };
-struct FUN_00625fc0_class : FUN_00538ef0_class
+struct hkStreamReader : FUN_00538ef0_class
 {
     void* vtbl;
-    FUN_00625fc0_class();
+    hkStreamReader();
 };
 // @fnv 0x00625fc0
-FUN_00625fc0_class::FUN_00625fc0_class()
+// src: EXE 0x00625fc0
+hkStreamReader::hkStreamReader()
 {
     UpdateState_00538ef0();
     vtbl = (void*)&DAT_0104dfb4;
@@ -102,20 +103,20 @@ void* FUN_00538ef0_class::InitializeFields_00625fe0()
 
 extern "C" void __cdecl FUN_00625fc0();
 
-struct FUN_00626000_Class
+struct HavokFileStreambufReader
 {
     const char* pStr;
     unsigned char b;
     unsigned char pad[3];
     unsigned char flag;
     void FUN_00625fc0();
-    FUN_00626000_Class* ProcessAndReturnValue_00626000(int);
+    HavokFileStreambufReader* ProcessAndReturnValue_00626000(int);
 };
 
 // Calls FUN_00625fc0, sets pStr to "0`b", writes 1 at offset 0xc, and returns this.
 // @fnv 0x00626000
 // src: GUESS 0x00626000 (confidence: low)
-FUN_00626000_Class* FUN_00626000_Class::ProcessAndReturnValue_00626000(int)
+HavokFileStreambufReader* HavokFileStreambufReader::ProcessAndReturnValue_00626000(int)
 {
     FUN_00625fc0();
     pStr = "0`b";
@@ -334,10 +335,11 @@ void __thiscall HavokError::ReportError(const char* apDescription, int aiID, con
 struct FUN_00625b40_class : HavokError
 {
     virtual ~FUN_00625b40_class();
-    void* __thiscall FUN_00625b10(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 // @fnv 0x00625b10
-void* __thiscall FUN_00625b40_class::FUN_00625b10(unsigned int flags)
+// src: EXE 0x00625b10
+void* __thiscall FUN_00625b40_class::ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_00625b40_class::~FUN_00625b40_class();
     if (flags & 1)
@@ -381,7 +383,7 @@ struct FUN_00626000
     }
 };
 
-struct FUN_00624e90_Class
+struct HavokStreambufFactory
 {
     FUN_00626000* HavokStreambufFactory_openReader(int index);
 };
@@ -389,7 +391,7 @@ struct FUN_00624e90_Class
 // Allocates and constructs a FUN_00626000 object with the given index, returning the new object.
 // @fnv 0x00624e90
 // src: XBOX_PDB 0x00624e90
-FUN_00626000* FUN_00624e90_Class::HavokStreambufFactory_openReader(int index)
+FUN_00626000* HavokStreambufFactory::HavokStreambufFactory_openReader(int index)
 {
     return new FUN_00626000(index);
 }
@@ -558,19 +560,20 @@ struct FUN_00b00260
     FUN_00b00260(void* a, int b, int c, int d);
 };
 
-struct FUN_006261a0 : FUN_00625fe0
+struct HavokFileStreambufWriter : FUN_00625fe0
 {
     const char* pStr;
     int unk04;
     FUN_00b00260* m_08;
     unsigned char m_0c;
 
-    FUN_006261a0(void* arg);
+    HavokFileStreambufWriter(void* arg);
 };
 
 // Initializes the object: sets pStr to a string literal, sets m_0c to 1, and allocates a FUN_00b00260 with arg, 1, 0x4000, 0.
 // @fnv 0x006261a0
-FUN_006261a0::FUN_006261a0(void* arg)
+// src: EXE 0x006261a0
+HavokFileStreambufWriter::HavokFileStreambufWriter(void* arg)
 {
     pStr = "Pbb";
     m_0c = 1;

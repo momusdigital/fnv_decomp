@@ -19,7 +19,7 @@ public:
     virtual void vf09(void* arg);
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
 
     char m0[0x10];

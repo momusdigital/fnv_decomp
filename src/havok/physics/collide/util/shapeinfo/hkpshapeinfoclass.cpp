@@ -25,22 +25,23 @@ struct FUN_00e008e0_MemoryRouter
 
 extern "C" FUN_00e008e0_MemoryRouter& __cdecl hkMemoryRouter_getInstance();
 
-struct FUN_00e008e0
+struct hkpShapeInfo
 {
     unsigned short m_usMemSizeAndFlags;
     short m_sReferenceCount;
 
-    FUN_00e008e0();
-    virtual ~FUN_00e008e0();
+    hkpShapeInfo();
+    virtual ~hkpShapeInfo();
 
     static void operator delete(void* p, unsigned int nbytes)
     {
-        FUN_00e008e0* b = static_cast<FUN_00e008e0*>(p);
+        hkpShapeInfo* b = static_cast<hkpShapeInfo*>(p);
         hkMemoryRouter_getInstance().heap().ReleaseBlock(p, b->m_usMemSizeAndFlags);
     }
 };
 
 // Empty default constructor of a class with a vtable, m_usMemSizeAndFlags and m_sReferenceCount, and an operator delete that releases through the heap.
 // @fnv 0x00e008e0
-FUN_00e008e0::FUN_00e008e0()
+// src: EXE 0x00e008e0
+hkpShapeInfo::hkpShapeInfo()
 {}

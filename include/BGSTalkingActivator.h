@@ -31,10 +31,10 @@ public:
 
     static bool IsRadioStation(TESForm* form, unsigned int flags);
     static void AddRadioStation(TESObjectREFR* reference);
-    static void FindRadioStations(TESObjectREFR* reference,
+    static void GetRadioStationsInRangeOfRef(TESObjectREFR* reference,
                                   BSSimpleList<TESObjectREFR*>* stations,
                                   BSSimpleList<float>* distances);
-    static void FindRadioStations(TESObjectREFR* reference,
+    static void GetRadioStationsInRangeOfRef(TESObjectREFR* reference,
                                   BSSimpleList<RadioStationRef*>* stations,
                                   BSSimpleList<float>* distances);
     static BSSimpleList<TESObjectREFR*> ms_kRadioStations;

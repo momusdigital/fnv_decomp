@@ -208,13 +208,13 @@ void* __thiscall FUN_00509890_class::UpdateState_00509890(bool flag)
     return this;
 }
 
-struct FUN_0050d1d0_class
+struct TESObjectLIGH
 {
     bool IsFlag8Set() const;
 };
 
 // @fnv 0x0050d1d0
-bool FUN_0050d1d0_class::IsFlag8Set() const
+bool TESObjectLIGH::IsFlag8Set() const
 {
     return (*(const int*)((const char*)this + 0xa8) & 8) ? true : false;
 }
@@ -292,12 +292,12 @@ extern "C" int __cdecl _BSStringLength(const char*);
 struct FUN_005103a0_class
 {
     void __thiscall FindSubstring(const char* a, const char* b, int c);
-    void __thiscall ProcessState_005103a0(const char* a, const char* b);
+    void __thiscall string_find(const char* a, const char* b);
 };
 
 // @fnv 0x005103a0
-// src: GUESS 0x005103a0 (confidence: low)
-void __thiscall FUN_005103a0_class::ProcessState_005103a0(const char* a, const char* b)
+// src: GUESS 0x005103a0 (confidence: medium)
+void __thiscall FUN_005103a0_class::string_find(const char* a, const char* b)
 {
     FindSubstring(a, b, _BSStringLength(a));
 }
@@ -335,11 +335,12 @@ unsigned int BlkOffset08View::HasFlag10000000()
 
 struct FUN_00519020_Class
 {
-    void SetField688(int value);
+    void PlayerCharacter_SetForceActivateRef(int value);
 };
 
 // @fnv 0x00519020
-void FUN_00519020_Class::SetField688(int value)
+// src: COMMUNITY 0x00519020
+void FUN_00519020_Class::PlayerCharacter_SetForceActivateRef(int value)
 {
     *(int*)((char*)this + 0x688) = value;
 }
@@ -464,17 +465,17 @@ void __thiscall FUN_00519c50_class::ReleaseStorage_00519c50()
 }
 
 extern "C" void __cdecl _Deallocate(void*);
-void __cdecl FUN_005010f0();
+void __cdecl TERMINAL_MENU_ITEM();
 struct FUN_005010c0_class
 {
-    void __thiscall FUN_005010f0();
+    void __thiscall TERMINAL_MENU_ITEM();
     void* __thiscall FUN_005010c0(unsigned int flags);
 };
-// Calls FUN_005010f0, then deallocates this if flags has bit 0 set, and returns this.
+// Calls TERMINAL_MENU_ITEM, then deallocates this if flags has bit 0 set, and returns this.
 // @fnv 0x005010c0
 void* __thiscall FUN_005010c0_class::FUN_005010c0(unsigned int flags)
 {
-    FUN_005010f0();
+    TERMINAL_MENU_ITEM();
     if (flags & 1)
         _Deallocate(this);
     return this;
@@ -497,11 +498,12 @@ void __cdecl Deallocate(void*);
 struct FUN_00519b50_class
 {
     void __thiscall FUN_00519bf0();
-    void* __thiscall FUN_00519b50(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_00519bf0, then frees this with Deallocate when flags has bit 0 set, and returns this.
 // @fnv 0x00519b50
-void* __thiscall FUN_00519b50_class::FUN_00519b50(unsigned int flags)
+// src: EXE 0x00519b50
+void* __thiscall FUN_00519b50_class::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00519bf0();
     if (flags & 1)
@@ -653,7 +655,7 @@ void __thiscall FUN_00508090_shell::TESEffectShader_AnimateFillEffectAlpha(float
     UpdateEnvelope(a, b, c, d, TESCombatStyle_GetWeaponMinRangeMult(), GetActorRadius(), GetEndKeyTime_00508100(), NiControllerSequence_GetLastTime(), NiPSysSpawnModifier_GetLifeSpan());
 }
 
-struct FUN_0050e640_Holder
+struct SettingT
 {
     char _0[4];
     unsigned char _4;
@@ -661,7 +663,7 @@ struct FUN_0050e640_Holder
 };
 // Returns true when the holder's byte at offset 4 equals the given value, or false if the holder is null.
 // @fnv 0x0050e640
-bool __thiscall FUN_0050e640_Holder::MatchesValue(unsigned char v)
+bool __thiscall SettingT::MatchesValue(unsigned char v)
 {
     return this ? _4 == v : false;
 }
@@ -678,19 +680,19 @@ float __fastcall NiNPShortPoint3_Length(short* pComponents)
 
 struct AVH
 {
-    static int __cdecl GetActorValueForSectionIndex(int, unsigned char);
+    static int __cdecl ToActorValue(int, unsigned char);
 };
-struct FUN_00514fd0_class
+struct TESObjectBOOK
 {
     int __thiscall TESObjectBOOK_GetTeaches();
 };
 // @fnv 0x00514fd0
 // src: COMMUNITY 0x00514fd0
-int __thiscall FUN_00514fd0_class::TESObjectBOOK_GetTeaches()
+int __thiscall TESObjectBOOK::TESObjectBOOK_GetTeaches()
 {
     if (reinterpret_cast<const signed char*>(this)[0xc1] == -1)
         return -1;
-    return AVH::GetActorValueForSectionIndex(2, reinterpret_cast<const unsigned char*>(this)[0xc1]);
+    return AVH::ToActorValue(2, reinterpret_cast<const unsigned char*>(this)[0xc1]);
 }
 
 bool __cdecl TESObjectDOOR_CanBeRandomTeleport(int);
@@ -792,14 +794,15 @@ struct TESGrassModel
     ~TESGrassModel();
     void* vft;
 };
-struct FUN_00509a10 : TESGrassBase
+struct TESGrass : TESGrassBase
 {
     TESGrassModel m_30;
-    FUN_00509a10();
+    TESGrass();
     void ResetFormData();
 };
 // @fnv 0x00509a10
-FUN_00509a10::FUN_00509a10()
+// src: EXE 0x00509a10
+TESGrass::TESGrass()
 {
     ((void**)this)[0] = (void*)DAT_0102814c;
     ((void**)((char*)this + 0x30))[0] = (void*)DAT_01028128;
@@ -819,11 +822,12 @@ struct TESObjectREFR_Flags
     unsigned int GetFlags();
     void SetFlags(unsigned int flags);
     void MarkAsModified(int change);
-    void __thiscall SetRefFlag40000000(bool set);
+    void __thiscall TESObjectACTI_SetContinuousBroadcast(bool set);
 };
 
 // @fnv 0x00511370
-void __thiscall TESObjectREFR_Flags::SetRefFlag40000000(bool set)
+// src: COMMUNITY 0x00511370
+void __thiscall TESObjectREFR_Flags::TESObjectACTI_SetContinuousBroadcast(bool set)
 {
     unsigned int flags = GetFlags();
     if (set)
@@ -898,13 +902,14 @@ struct LockExtraData
 extern Actor* g_thePlayer;
 extern TESBoundObject* g_pLockpickItem;
 
-struct FUN_00516cd0_class
+struct TESObjectCONT
 {
-    bool __thiscall CanUseLockedRef(TESObjectREFR* ref, Actor* actor, bool useLockpick);
+    bool __thiscall TESObjectCONT_CanActivate(TESObjectREFR* ref, Actor* actor, bool useLockpick);
 };
 
 // @fnv 0x00516cd0
-bool __thiscall FUN_00516cd0_class::CanUseLockedRef(TESObjectREFR* ref, Actor* actor, bool useLockpick)
+// src: COMMUNITY 0x00516cd0
+bool __thiscall TESObjectCONT::TESObjectCONT_CanActivate(TESObjectREFR* ref, Actor* actor, bool useLockpick)
 {
     int pLock;
     Actor* pActor;
@@ -1257,10 +1262,10 @@ class ActorStateSub
     int m_2c;
 };
 
-class FUN_00508450_cls : public ActorStateBase
+class TESFlora : public ActorStateBase
 {
   public:
-    FUN_00508450_cls();
+    TESFlora();
     ActorStateSub m_0c;
     void* m_3c;
     int m_40;
@@ -1282,7 +1287,8 @@ class FUN_00508450_cls : public ActorStateBase
 };
 
 // @fnv 0x00508450
-FUN_00508450_cls::FUN_00508450_cls()
+// src: EXE 0x00508450
+TESFlora::TESFlora()
 {
     this->m_00 = (void*)&DAT_01026bd0;
     this->m_0c.m_00 = (void*)&DAT_01026a4c;
@@ -1369,15 +1375,16 @@ class B0B8F0Component
     virtual ~B0B8F0Component();
 };
 
-class FUN_0050b8f0 : public B0B8F0Form, public B0B8F0Component
+class TESLevSpell : public B0B8F0Form, public B0B8F0Component
 {
   public:
-    FUN_0050b8f0();
-    virtual ~FUN_0050b8f0();
+    TESLevSpell();
+    virtual ~TESLevSpell();
 };
 
 // @fnv 0x0050b8f0
-FUN_0050b8f0::FUN_0050b8f0()
+// src: EXE 0x0050b8f0
+TESLevSpell::TESLevSpell()
 {
     SetFormType(0x4c);
     SetFlag(1);
@@ -2113,7 +2120,7 @@ struct SelectionMap
 struct Selector
 {
     Node* List();
-    void* FindRandomSelection(Reference*, int);
+    void* TESObjectDOOR_FindRandomTeleportTarget(Reference*, int);
 };
 struct PlayerSelection
 {
@@ -2125,7 +2132,8 @@ unsigned int DialogueRandom();
 void* FindSelection(void*, Region*, void**);
 // Picks a random unvisited entry from the selector's list, resolves it via FindSelection against the reference's region, and records the chosen index.
 // @fnv 0x005195e0
-void* Selector::FindRandomSelection(Reference* apReference, int unused)
+// src: COMMUNITY 0x005195e0
+void* Selector::TESObjectDOOR_FindRandomTeleportTarget(Reference* apReference, int unused)
 {
     void* fallback = 0;
     void* result = 0;
@@ -2205,7 +2213,7 @@ struct S_5010f0_Cond
     ~S_5010f0_Cond();
 };
 
-struct FUN_005010f0
+struct TERMINAL_MENU_ITEM
 {
     S_5010f0_Str m00;
     S_5010f0_Str m08;
@@ -2232,15 +2240,16 @@ struct FUN_005010f0
     int unk60;
     S_5010f0_Cond m64;
 
-    ~FUN_005010f0();
+    ~TERMINAL_MENU_ITEM();
 };
 
-// Destructor for the FUN_005010f0 object; the body is empty and member destructors run implicitly.
+// Destructor for the TERMINAL_MENU_ITEM object; the body is empty and member destructors run implicitly.
 // @fnv 0x005010f0
-FUN_005010f0::~FUN_005010f0()
+// src: COMMUNITY 0x005010f0
+TERMINAL_MENU_ITEM::~TERMINAL_MENU_ITEM()
 {}
 
-struct FUN_005098e0_Object
+struct ProcessLists
 {
     unsigned int unk000;
     unsigned int unk004;
@@ -2337,7 +2346,7 @@ struct FUN_005098e0_Object
 
 // Returns true if unk15C or unk15D is nonzero.
 // @fnv 0x005098e0
-bool FUN_005098e0_Object::IsFlagged() const
+bool ProcessLists::IsFlagged() const
 {
     return unk15C || unk15D;
 }

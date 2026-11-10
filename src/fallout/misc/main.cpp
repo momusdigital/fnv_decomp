@@ -27,7 +27,7 @@ class NiNode;
 class BSShaderRenderUtility_main
 {
 public:
-    bool IsRenderTargetId(unsigned int value);
+    bool TESDataHandler_IsFormIDCreated(unsigned int value);
     static void InitializeMultiBounds();
     static void SetRenderCamera(NiCamera* camera, BSShaderAccumulator* accumulator, bool unused);
     static void SetRenderCamera(AnimIdle* camera, AnimIdle* accumulator, bool unused);
@@ -1534,7 +1534,7 @@ void MainStandIn::Main_OnIdle_UpdateCurrentGridCell()
 {
     if (!DAT_011dea2b && !DAT_011d8907 && !flag7)
     {
-        g_TES->FindCellAtPosition(((TopicH*)g_thePlayer)->GetAddTopicList(), true);
+        g_TES->UpdateCurrentGridCell(((TopicH*)g_thePlayer)->GetAddTopicList(), true);
         if (TESCheck_00451530(g_TES) && !((BGSCameraPath*)g_TES)->GetPrevPath())
         {
             if (((RefrHelper*)g_thePlayer)->GetParentWorldSpace() == (TESWorldSpace*)g_TES->GetHitSound())
@@ -2548,7 +2548,7 @@ struct FUN_00877a50Class
 {
     unsigned char _pad_000a[0xa];
     unsigned short m_000a;
-    void EvaluateValue_00877e10(unsigned short a, int b);
+    void NiTArray_SetAtGrow(unsigned short a, int b);
     void ForwardCall_00877a50(int param_2);
 };
 
@@ -2557,7 +2557,7 @@ struct FUN_00877a50Class
 // src: GUESS 0x00877a50 (confidence: low)
 void FUN_00877a50Class::ForwardCall_00877a50(int param_2)
 {
-    EvaluateValue_00877e10(m_000a, param_2);
+    NiTArray_SetAtGrow(m_000a, param_2);
 }
 
 struct FUN_00a23490_Class
@@ -2599,14 +2599,14 @@ int __thiscall FUN_00a236d0_class::Controls_GetHatCount(int index)
 
 extern "C" void __cdecl _Deallocate(void*);
 
-struct FUN_0086bd40_class
+struct FileFinderImpl
 {
     void __thiscall FUN_00afdcf0();
     void* __thiscall FUN_0086bd40(unsigned int flags);
 };
 
 // @fnv 0x0086bd40
-void* __thiscall FUN_0086bd40_class::FUN_0086bd40(unsigned int flags)
+void* __thiscall FileFinderImpl::FUN_0086bd40(unsigned int flags)
 {
     FUN_00afdcf0();
     if (flags & 1)
@@ -3413,10 +3413,10 @@ void __cdecl BSShaderManager_ReturnSceneDepthTexture();
 void __cdecl BSBatchRenderer_EndPass();
 void __cdecl ImageSpaceEffectHDR_ClearAdaptedLight();
 void __cdecl BSShaderProperty_PreviousTransform_SaveCamera(void*);
-struct FUN_004d61b0
+struct NiTreeCtrl
 {
     char pad[0x30];
-    FUN_004d61b0(unsigned int, unsigned int, unsigned int, const char*, unsigned int, unsigned int, int, int);
+    NiTreeCtrl(unsigned int, unsigned int, unsigned int, const char*, unsigned int, unsigned int, int, int);
 };
 extern unsigned char DAT_011f9440;
 extern Flt DAT_011fa008;
@@ -3450,7 +3450,7 @@ void FUN_00876850_shell::TESMain_DrawWorld_End(BSRenderedTexture* apRenderTextur
         NiParallelUpdateTaskManager_SignalRenderSema();
     if ((unsigned int)DAT_011fa008)
     {
-        new FUN_004d61b0(((TESForm*)this)->GetFormID(), ((MainOffset08View*)this)->GetFlags(), (unsigned int)DAT_011fa008,
+        new NiTreeCtrl(((TESForm*)this)->GetFormID(), ((MainOffset08View*)this)->GetFlags(), (unsigned int)DAT_011fa008,
                          "Render Passes", 0x80000000, 0x80000000, 800, 600);
         (GO&)DAT_011fa008 = 0;
     }
@@ -5201,7 +5201,7 @@ struct Point86
 };
 struct Receiver86
 {
-    Receiver86* FUN_00afdc60(const char*, int, int);
+    Receiver86* FileFinder(const char*, int, int);
     Receiver86* FUN_0086c160(unsigned int, unsigned int);
     Receiver86* FUN_007005d0();
 
@@ -5215,7 +5215,7 @@ struct Receiver86
     void* FUN_0086bee0(unsigned int);
     void* FUN_0086bf10(unsigned int);
     void* FUN_0086bf40(unsigned int);
-    void ReleaseAndClearObject();
+    void PathManager_Release();
     void* FUN_00717e50();
     void INISettingCollection_SaveAll(void*);
     void RemoveEntryFromBothLists(void*);
@@ -5313,7 +5313,7 @@ struct Text86
     int unk0c;
     int unk10;
     int unk14;
-    void FUN_008783c0(void*);
+    void MemoryManagerFile(void*);
     void FUN_008784d0();
 };
 extern Setting86 g_011dee78, g_011ded2c, g_011dece4, g_011dee6c, g_011de72c, g_011d73e4;
@@ -5430,7 +5430,7 @@ int __cdecl BSTreeManager_SetCamera(...);
 Receiver86* __cdecl AILinearTaskThreadManager_GetSingleton();
 int __cdecl FUN_008c7290(...);
 int __cdecl Pathing_Init(...);
-Receiver86* __cdecl GetPathManager();
+Receiver86* __cdecl PathManager_QInstance();
 int __cdecl FUN_006eb8c0(...);
 Receiver86* __cdecl GetNavMeshObstacleManager();
 int __cdecl NavMeshObstacleManager_CreateListeners(...);
@@ -5512,7 +5512,7 @@ int __cdecl DecalCaster_ClearInstance(...);
 int __cdecl Runtime_ReleaseStorage_00626f10(...);
 int __cdecl NavMeshObstacleManager_Release(...);
 int __cdecl FUN_0086bee0(...);
-int __cdecl ReleaseAndClearObject(...);
+int __cdecl PathManager_Release(...);
 int __cdecl BSFaceGenManager_DestroySystem(...);
 int __cdecl CombatManager_FreeAll(...);
 int __cdecl BSTreeManager_Destroy_(...);
@@ -5533,7 +5533,7 @@ int __cdecl Object_UpdateFields_00c5d520(...);
 int __cdecl FreeNiNodeBlocks(...);
 int __cdecl Runtime_ReleaseStorage_00a1c790(...);
 int __cdecl NiStaticDataManager_Shutdown(...);
-int __cdecl FUN_008783c0(...);
+int __cdecl MemoryManagerFile(...);
 Receiver86* __cdecl MemoryManager_Instance();
 int __cdecl MemoryManager_OutputDebugInfo(...);
 int __cdecl FUN_008784d0(...);
@@ -5757,7 +5757,7 @@ int __stdcall WinMain_0086a850(unsigned int param_1, unsigned int param_2, unsig
                 FUN_00aff100()->BSFileCache_SetFileCacheList(g_011dee78.FUN_00403df0(), g_011ded2c.FUN_00403df0());
                 fileAllocation4 = (Receiver86*)operator new(16);
                 fileSystem2 = fileAllocation4
-                                  ? fileAllocation4->FUN_00afdc60(g_011dece4.FUN_00403df0(), *g_011dee6c.Int(), 0)
+                                  ? fileAllocation4->FileFinder(g_011dece4.FUN_00403df0(), *g_011dee6c.Int(), 0)
                                   : 0;
                 FileFinder_AddPath_0(&UNK_0105bb14);
                 MessageHandler_Init(enableMemory0, *g_011dec88.FUN_00408d60(), *g_011dee20.FUN_00408d60(),
@@ -5825,7 +5825,7 @@ int __stdcall WinMain_0086a850(unsigned int param_1, unsigned int param_2, unsig
                     AILinearTaskThreadManager_GetSingleton()->FUN_008c7290();
                 }
                 Pathing_Init();
-                GetPathManager()->FUN_006eb8c0();
+                PathManager_QInstance()->FUN_006eb8c0();
                 if (*g_011d73e4.FUN_00408d60())
                 {
                     GetNavMeshObstacleManager()->NavMeshObstacleManager_CreateListeners();
@@ -6014,7 +6014,7 @@ int __stdcall WinMain_0086a850(unsigned int param_1, unsigned int param_2, unsig
                 tesDeleteTarget23 = tesToDelete37;
                 tesDeleteTarget23 ? tesDeleteTarget23->FUN_0086bee0(1) : 0;
                 BGSTerrainManager_FreeLODNodes();
-                GetPathManager()->ReleaseAndClearObject();
+                PathManager_QInstance()->PathManager_Release();
                 BSFaceGenManager_DestroySystem();
                 CombatManager_FreeAll();
                 ((Manager86*)FUN_00b00a00())->Stop();
@@ -6043,7 +6043,7 @@ int __stdcall WinMain_0086a850(unsigned int param_1, unsigned int param_2, unsig
                 FreeNiNodeBlocks();
                 Runtime_ReleaseStorage_00a1c790();
                 NiStaticDataManager_Shutdown();
-                shutdownText46.FUN_008783c0(&UNK_010828ec);
+                shutdownText46.MemoryManagerFile(&UNK_010828ec);
                 MemoryManager_Instance()->MemoryManager_OutputDebugInfo(&shutdownText46, 0);
                 result5 = 0;
                 shutdownText46.FUN_008784d0();
@@ -6309,7 +6309,7 @@ bool FUN_0086ba10_target::NiXenonRenderer_BeginOffScreenFrame()
     return true;
 }
 
-extern FUN_0086bd40_class* DAT_011f81dc;
+extern FileFinderImpl* DAT_011f81dc;
 
 // If the global object pointer DAT_011f81dc is non-null, calls its FUN_0086bd40 method with 1.
 // @fnv 0x0086bd00
@@ -6318,8 +6318,8 @@ void __cdecl Object_UpdateFields_0086bd00(void)
 {
     if (DAT_011f81dc)
     {
-        FUN_0086bd40_class* pObject = DAT_011f81dc;
-        FUN_0086bd40_class* pThis = pObject;
+        FileFinderImpl* pObject = DAT_011f81dc;
+        FileFinderImpl* pThis = pObject;
 
         {
             void* pResult;
@@ -7920,7 +7920,7 @@ bool __cdecl BSTexturePalette_IsPartiallyPurged();
 Service* __cdecl FUN_0049fef0();
 Service* __cdecl Main_GetWorldSceneGraph();
 Service* __cdecl AILinearTaskThreadManager_GetSingleton();
-Service* __cdecl GetPathManager();
+Service* __cdecl PathManager_QInstance();
 Service* __cdecl NavMeshRender_GetSingleton();
 Service* __cdecl GetNavMeshObstacleManager();
 bool __cdecl NiParallelUpdateTaskManager_IsActive();
@@ -8136,7 +8136,7 @@ void MainLoop::Main_OnIdle()
             Interface_LastMinuteUpdate();
     }
     if (!paused)
-        GetPathManager()->FUN_006ebc50();
+        PathManager_QInstance()->FUN_006ebc50();
     NavMeshRender_GetSingleton()->NavMeshRender_Update();
     if (*DAT_011c3ea4.Setting_Int() == 1)
     {
@@ -8996,7 +8996,7 @@ struct MTRenderer
 };
 MTRenderer* FUN_004ea970();
 void AutoTileLock_AutoTileLock();
-void Object___imp__LeaveCriticalSection_Thunk();
+void Tile_Unlock();
 struct MenuTarget
 {
     unsigned int BSRenderedTexture_GetWidth(unsigned int);
@@ -9157,7 +9157,7 @@ void FUN_00871dc0_class::Main_RenderMenuBackground()
     FUN_004ea970()->MTRenderingSystem_WaitForThreads();
     DAT_011dea29 = true;
     Main_WorldRootCamera()->FUN_00712e60(Rect(0, 1, 1, 0));
-    Object___imp__LeaveCriticalSection_Thunk();
+    Tile_Unlock();
     NiXenonRenderer_GetRenderer()->NiXenonRenderer_UnlockRenderer();
     unk9c = false;
     DAT_011ad884 = menu;
@@ -11819,14 +11819,15 @@ extern short DAT_011f35b4;
 extern short DAT_011f35b6;
 extern bool DAT_011f35c8;
 
-struct FUN_00a23390_t
+struct OSInputGlobals
 {
-    int GetAxisState(int device, int axis);
+    int OSInputGlobals_GetControllerValue(int device, int axis);
 };
 
 // Returns the state of the specified controller axis, reading from per-device state or global fallback values for axes 7-10.
 // @fnv 0x00a23390
-int FUN_00a23390_t::GetAxisState(int device, int axis)
+// src: COMMUNITY 0x00a23390
+int OSInputGlobals::OSInputGlobals_GetControllerValue(int device, int axis)
 {
     int* pAxisState = (int*)((char*)this + device * 0xa0 + 0x34);
     switch (axis)
@@ -12553,7 +12554,7 @@ struct CameraHolder
 };
 struct ProjectionResult
 {
-    bool ProjectPointToScreen();
+    bool NiCamera_WorldPtToScreenPt3();
 };
 struct ProjectionView
 {
@@ -12764,7 +12765,7 @@ void RenderCoordinator::TESMain_DrawWorldStandard(int arg, bool skip)
         float w, u, n;
         w = u = n = 0.0f;
         ProjectionView* a = (ProjectionView*)Main_GetWorldSceneGraph();
-        bool f = a->FUN_006629f0(v, w, u, n, 0.00001f)->ProjectPointToScreen();
+        bool f = a->FUN_006629f0(v, w, u, n, 0.00001f)->NiCamera_WorldPtToScreenPt3();
         ((ImageView*)BSShaderManager_GetImageSpaceManager())->ImageSpaceManager_SetSunPosition(NiPoint2(w, u));
     }
     if (BSShaderManager_GetImageSpaceEffects())
@@ -13402,7 +13403,7 @@ class PlayerUpdate : public TESObjectREFR
     virtual void Unk_AC(void);
     virtual void Unk_AD(void);
     virtual void Unk_AE(void);
-    virtual float GetCurrentTargetDistance(bool ignoreImmobile);
+    virtual float GetHeading(bool ignoreImmobile);
     virtual void Unk_B0(void);
     virtual void SetFurnitureHeading(float heading);
     virtual TESObjectREFR* GetCurrentTarget();
@@ -13578,7 +13579,7 @@ struct ResourceObject
     void BSMultiBoundNode_SetCullingMode(int);
     void FUN_005467c0(int);
     void NiAVObject_SetAlwaysDraw(int);
-    void SetDepthParams(float);
+    void BSFogProperty_SetDepth(float);
     void NiAlphaProperty_SetAlphaBlending(int);
     void NiAVObject_AttachProperty(void*);
     void NiAVObject_SetTranslate_004bc1f0(float, float, float);
@@ -13675,7 +13676,7 @@ struct InputObject : ModuleRoot
     InputObject* FUN_00c46970();
     InputObject* FUN_00a5ecb0(int);
     InputObject* FUN_00bc2980();
-    InputObject* FUN_00c503d0();
+    InputObject* BSParticleSystemManager();
     InputObject* FUN_00a87810(void*);
     InputObject* FUN_00a881e0(int, int, int, int, int, int, int, int, int);
     InputObject* Lighting30shaderproperty_StoreAndAddReference_00a75650();
@@ -13688,7 +13689,7 @@ struct InputObject : ModuleRoot
     void SetBaseTexture(int);
     void FUN_0060aeb0(int);
     void FUN_004f3200(int);
-    void SetDepthParams(float);
+    void BSFogProperty_SetDepth(float);
     void NiAlphaProperty_SetAlphaBlending(int);
     void NiScreenElements_Insert(int, int, int);
     void NiScreenElements_SetRectangle(int, float, float, float, float);
@@ -14074,9 +14075,9 @@ struct FUN_00bc2980 : NiMemObject
     unsigned int unknown_b0;
     unsigned int unknown_b4;
 };
-struct FUN_00c503d0 : NiMemObject
+struct BSParticleSystemManager : NiMemObject
 {
-    FUN_00c503d0();
+    BSParticleSystemManager();
     unsigned int unknown_00;
     unsigned int unknown_04;
     unsigned int unknown_08;
@@ -14292,7 +14293,7 @@ void RenderSystem::TESMain_InitSceneGraph()
 
     DAT_011deb00.FUN_0066b0d0((InputObject*)new BSFogProperty());
     DAT_011deb00.Modelloader_GetReferencedThis()->NiAlphaProperty_SetAlphaBlending(1);
-    DAT_011deb00.Modelloader_GetReferencedThis()->SetDepthParams(1.0f);
+    DAT_011deb00.Modelloader_GetReferencedThis()->BSFogProperty_SetDepth(1.0f);
     FUN_00b55540(0, DAT_011deb00.Modelloader_GetReferencedThis());
 
     DAT_011deb34.FUN_0066b0d0((InputObject*)new FUN_00c46970());
@@ -14347,7 +14348,7 @@ void RenderSystem::TESMain_InitSceneGraph()
     ((InputObject*)DAT_011dea18)->AssignFixedString(NiFixedString(str_01082c40));
     p->virtual_f8(3, ((InputObject*)DAT_011dea18));
 
-    DAT_011ded58.FUN_0066b0d0((InputObject*)new FUN_00c503d0());
+    DAT_011ded58.FUN_0066b0d0((InputObject*)new BSParticleSystemManager());
     DAT_011ded58.Modelloader_GetReferencedThis()->AssignFixedString(NiFixedString(str_01082c28));
     p->virtual_f8(5, DAT_011ded58.Modelloader_GetReferencedThis());
 

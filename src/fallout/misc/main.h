@@ -23,11 +23,12 @@ class Main
   public:
     static NiPointer<SceneGraph> spMenuSceneGraph;
 
-    static void CreateMenuSceneGraph();
+    static void CreateMenuRootNode3D();
 };
 
 // @fnv 0x004dc650
-void Main::CreateMenuSceneGraph()
+// src: COMMUNITY 0x004dc650
+void Main::CreateMenuRootNode3D()
 {
     spMenuSceneGraph = new SceneGraph("3DMenu", false, 0);
 }

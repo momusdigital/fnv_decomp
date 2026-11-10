@@ -137,7 +137,7 @@ BoundItemEffect::~BoundItemEffect()
     if (m_bShowShader && FUN_0044ddc0() && ((EffItemS*)GetHavokWorldObjectCountInSceneGraph_0084e3a0()))
     {
         EffectSetting* pHolder = (EffectSetting*)FUN_0044ddc0()->FUN_0040a300(0);
-        EffItemS* pFound = (EffItemS*)FUN_0044ddc0()->FindCostliestEffectItem((int)((EffItemS*)GetHavokWorldObjectCountInSceneGraph_0084e3a0())->GetUnk0c(), 0);
+        EffItemS* pFound = (EffItemS*)FUN_0044ddc0()->GetCostliestEffect((int)((EffItemS*)GetHavokWorldObjectCountInSceneGraph_0084e3a0())->GetUnk0c(), 0);
         if (((const TESModel*)((const char*)&pHolder->m_kModelFilePath - sizeof(void*)))->GetModelLength() > 0 && ((EffItemS*)GetHavokWorldObjectCountInSceneGraph_0084e3a0()) == pFound)
             g_modelLoader->ProcessModelRequest(pHolder->GetModelFilePath(), false, 1);
         m_bShowShader = false;
@@ -1252,7 +1252,7 @@ struct BIEntry
 {
     BIItemNode* Modelloader_GetReferencedThis();
     TESBoundObject* FUN_0044ddc0();
-    void ClearExtraDataList();
+    void ItemChange_DeleteAllExtra();
     ~BIEntry();
 };
 
@@ -1815,7 +1815,7 @@ void BoundItemEffect::Finish()
                 }
                 if (pkData)
                     pkData->ExtraDataList_ClearScriptLocals();
-                ((BIEntry*)m_pkWeaponEntry)->ClearExtraDataList();
+                ((BIEntry*)m_pkWeaponEntry)->ItemChange_DeleteAllExtra();
                 delete (BIEntry*)m_pkWeaponEntry;
                 m_pkWeaponEntry = 0;
                 pkActor->FUN_008d8520()->SetDirty(1);
@@ -1863,7 +1863,7 @@ void BoundItemEffect::Finish()
                         }
                         if (pkEntryData)
                             pkEntryData->ExtraDataList_ClearScriptLocals();
-                        pkEntry->ClearExtraDataList();
+                        pkEntry->ItemChange_DeleteAllExtra();
                         delete pkEntry;
                         pkEntry = 0;
                     }
@@ -1876,7 +1876,7 @@ void BoundItemEffect::Finish()
             FUN_0044ddc0() && GetHavokWorldObjectCountInSceneGraph_0084e3a0())
         {
             EffectSetting* pkModelOut = (EffectSetting*)FUN_0044ddc0()->FUN_0040a300(0);
-            void* pvFound = FUN_0044ddc0()->FindCostliestEffectItem((int)((BINode*)GetHavokWorldObjectCountInSceneGraph_0084e3a0())->GetHavokWorldObjectCountInSceneGraph_0084e3a0(), 0);
+            void* pvFound = FUN_0044ddc0()->GetCostliestEffect((int)((BINode*)GetHavokWorldObjectCountInSceneGraph_0084e3a0())->GetHavokWorldObjectCountInSceneGraph_0084e3a0(), 0);
             if (GetHavokWorldObjectCountInSceneGraph_0084e3a0() == pvFound)
             {
                 if (((const TESModel*)((const char*)FUN_007df1d0() + sizeof(TESForm)))->GetModelLength() > 0)
@@ -1931,7 +1931,7 @@ void BoundItemEffect::Start()
     if (FUN_0044ddc0() && GetHavokWorldObjectCountInSceneGraph_0084e3a0())
     {
         EffectSetting* pBaseEffect = (EffectSetting*)FUN_0044ddc0()->FUN_0040a300(0);
-        ::EffectItem* pRangeItem = FUN_0044ddc0()->FindCostliestEffectItem(((EffectItem*)GetHavokWorldObjectCountInSceneGraph_0084e3a0())->GetRange(), 0);
+        ::EffectItem* pRangeItem = FUN_0044ddc0()->GetCostliestEffect(((EffectItem*)GetHavokWorldObjectCountInSceneGraph_0084e3a0())->GetRange(), 0);
         if (((const TESModel*)((const char*)pBaseEffect + sizeof(TESForm)))->GetModelLength() > 0)
         {
             ::NiNode* pNode = ((ModelLoader*)g_modelLoader)

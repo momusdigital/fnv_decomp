@@ -74,7 +74,7 @@ NiNode* TileRect::CalculateNode()
         pkParent = FUN_00706d30();
     pkParent->AttachChildInAvailableSlot(static_cast<NiAVObject*>(m_pRenderedNodeEntry), true);
     m_pRenderedNodeEntry->SetName(NiFixedString(static_cast<const char*>(StringProvider.pString)));
-    m_pRenderedNodeEntry->SetHidden(!IsTraitNonZero(0xfa3), 1);
+    m_pRenderedNodeEntry->SetHidden(!Tile_IsTrue(0xfa3), 1);
     m_pRenderedNodeEntry->UpdateProperties();
     Interface_SetNeedToUpdate(1);
     m_pRenderedNodeEntry->AddExtraData(new Tile::Extra(this, m_pRenderedNodeEntry));

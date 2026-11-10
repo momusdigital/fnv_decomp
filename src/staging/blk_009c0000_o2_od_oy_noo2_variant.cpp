@@ -233,7 +233,7 @@ struct xActor
     xFilter FUN_00931ed0();
     xOwner* FUN_009306d0();
     void* FUN_004181e0();
-    bool GetWaterPlaneIntersection(xPick*, float*);
+    bool Projectile_PickAutoWater(xPick*, float*);
     void Projectile_SetRange(float);
     bool Projectile_CheckShotBehindWall();
 };
@@ -268,7 +268,7 @@ bool xActor::Projectile_CheckShotBehindWall()
     xWorld* WORLD = xFUN_004543c0(xg_player_11dea3c->FUN_008d6f30());
     bool RES = WORLD->FUN_c8(&PICK);
     float DIST = 3.402823466e+38F;
-    RES = RES | GetWaterPlaneIntersection(&PICK, &DIST);
+    RES = RES | Projectile_PickAutoWater(&PICK, &DIST);
     if (RES)
         RES = xFUN_009c0d80(&PICK, this, FUN_004181e0(), 0, 1, DIST) != 0;
     if (RES)

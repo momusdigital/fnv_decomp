@@ -89,10 +89,11 @@ struct S_00a918e0
 {
     void* f0;
     void* f4;
-    void* __thiscall FUN_00a918e0(unsigned int);
+    void* __thiscall ScalarDeletingDestructor(unsigned int);
 };
 // @fnv 0x00a918e0
-void* __thiscall S_00a918e0::FUN_00a918e0(unsigned int auiFlags)
+// src: EXE 0x00a918e0
+void* __thiscall S_00a918e0::ScalarDeletingDestructor(unsigned int auiFlags)
 {
     void* v = f4;
     f0 = (void*)&DAT_0109f9b4;

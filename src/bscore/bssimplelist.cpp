@@ -188,7 +188,7 @@ struct B006815c0
     float y;
     B006815c0();
 };
-struct FUN_004f7680 : public SL
+struct TESRegionPointList : public SL
 {
     void* m_pScaleResult;
     bool m_bOwnsPointMemory;
@@ -198,22 +198,22 @@ struct FUN_004f7680 : public SL
     unsigned int m_uiDistanceInsideAtMax;
     unsigned int iCount;
 
-    FUN_004f7680(bool abOwnsPointMemory);
+    TESRegionPointList(bool abOwnsPointMemory);
 };
 
-struct FUN_004bc550_t
+struct ItemChange
 {
     SL* m_00;
     void* m_04;
     int m_08;
 
-    FUN_004bc550_t* InitializeFields_004bc550(int a1, void* a2);
+    ItemChange* InitializeFields_004bc550(int a1, void* a2);
 };
 
 // Initialises the object by storing a1 in m_08, allocating a new SL into m_00, and storing a2 in m_04.
 // @fnv 0x004bc550
 // src: GUESS 0x004bc550 (confidence: low)
-FUN_004bc550_t* FUN_004bc550_t::InitializeFields_004bc550(int aiValue, void* a2)
+ItemChange* ItemChange::InitializeFields_004bc550(int aiValue, void* a2)
 {
     m_08 = aiValue;
     m_00 = new SL();
@@ -273,7 +273,8 @@ GObj* GList::TESRegionDataList_Find(int key)
 extern float _DAT_01015f5c;
 
 // @fnv 0x004f7680
-FUN_004f7680::FUN_004f7680(bool abOwnsPointMemory)
+// src: GUESS 0x004f7680 (confidence: high)
+TESRegionPointList::TESRegionPointList(bool abOwnsPointMemory)
 {
     m_bOwnsPointMemory = abOwnsPointMemory;
     m_uiDistanceInsideAtMax = 0x400;
@@ -291,7 +292,7 @@ struct CondS
     CondS();
     ~CondS();
 };
-struct FUN_00500960
+struct TERMINAL_MENU_ITEM
 {
     StrMem ResponseText;
     StrMem m_kMenuText;
@@ -301,18 +302,19 @@ struct FUN_00500960
     void* m_pTerminal;
     char cFlags;
 
-    FUN_00500960();
+    TERMINAL_MENU_ITEM();
 };
 
-struct FUN_00500910 : StrMem
+struct SCRIPT_REFERENCED_OBJECT : StrMem
 {
     unsigned int a;
     unsigned int b;
-    FUN_00500910();
+    SCRIPT_REFERENCED_OBJECT();
 };
-// Constructor for FUN_00500910 that zero-initializes the two unsigned int members a and b.
+// Constructor for SCRIPT_REFERENCED_OBJECT that zero-initializes the two unsigned int members a and b.
 // @fnv 0x00500910
-FUN_00500910::FUN_00500910()
+// src: GUESS 0x00500910 (confidence: high)
+SCRIPT_REFERENCED_OBJECT::SCRIPT_REFERENCED_OBJECT()
 {
     a = 0;
     b = 0;
@@ -320,7 +322,8 @@ FUN_00500910::FUN_00500910()
 
 // Calls two script methods, clears header byte 0x10, and sets m_pNote, m_pTerminal, and cFlags to zero.
 // @fnv 0x00500960
-FUN_00500960::FUN_00500960()
+// src: COMMUNITY 0x00500960
+TERMINAL_MENU_ITEM::TERMINAL_MENU_ITEM()
 {
     m_kScript.SetInitializationState(false);
     m_kScript.NotifySaveLoadGameOfFormChange();
@@ -330,16 +333,17 @@ FUN_00500960::FUN_00500960()
     cFlags = 0;
 }
 
-struct FUN_00513d60
+struct FOLEY_SOUND
 {
     void* a;
     bool b;
     void* c;
-    FUN_00513d60();
+    FOLEY_SOUND();
 };
 // Initializes the struct's pointer and boolean members to null and false.
 // @fnv 0x00513d60
-FUN_00513d60::FUN_00513d60()
+// src: COMMUNITY 0x00513d60
+FOLEY_SOUND::FOLEY_SOUND()
 {
     a = 0;
     b = false;
@@ -384,14 +388,15 @@ void TargetClass::BSSimpleList_NiRefObjectPtr_AddTail(const NiPointer<NiNode>& i
     }
 }
 
-struct FUN_00590b60
+struct MESSAGEBOX_BUTTON
 {
     StrMem a;
     CondS b;
-    FUN_00590b60();
+    MESSAGEBOX_BUTTON();
 };
 // @fnv 0x00590b60
-FUN_00590b60::FUN_00590b60()
+// src: COMMUNITY 0x00590b60
+MESSAGEBOX_BUTTON::MESSAGEBOX_BUTTON()
 {}
 
 struct TESForm;
@@ -456,15 +461,16 @@ bool RefList::BSSimpleList_TESLevSpell_IsInList(void** item)
     return pNode != 0;
 }
 
-struct FUN_005fcf10
+struct RANK_DATA
 {
     StrMem a;
     StrMem b;
     TESTexture t;
-    FUN_005fcf10();
+    RANK_DATA();
 };
 // @fnv 0x005fcf10
-FUN_005fcf10::FUN_005fcf10()
+// src: COMMUNITY 0x005fcf10
+RANK_DATA::RANK_DATA()
 {}
 
 struct Dummy_0061bf20
@@ -472,18 +478,19 @@ struct Dummy_0061bf20
     char b[0x10];
 };
 Dummy_0061bf20* __fastcall ConstructDummy(Dummy_0061bf20*);
-struct FUN_00619740
+struct QUEST_INFO
 {
     void* pQuest;
     TopicInfoArray arr;
     Dummy_0061bf20 d;
     void* m_pAlternateQuest;
     bool bInitialized;
-    FUN_00619740();
+    QUEST_INFO();
 };
 // Constructs the embedded dummy, sets both quest pointers to null, and clears the initialized flag.
 // @fnv 0x00619740
-FUN_00619740::FUN_00619740()
+// src: GUESS 0x00619740 (confidence: medium)
+QUEST_INFO::QUEST_INFO()
 {
     ConstructDummy(&d);
     pQuest = 0;
@@ -601,7 +608,7 @@ struct B006815c0
 CombatTargetTimestamp* __fastcall CombatTargetTimestamp_ClearTimeStamp(CombatTargetTimestamp*);
 extern float DAT_010673a0;
 
-struct FUN_0066e590
+struct DetectionState
 {
     void* pActor;
     int m_eDetectionLevel;
@@ -614,12 +621,13 @@ struct FUN_0066e590
     bool m_bIsDetected;
     int m_iDetectionValue;
 
-    FUN_0066e590();
+    DetectionState();
 };
 
 // Initializes actor reference, position, detection flags, and sets the timestamp to negative global time.
 // @fnv 0x0066e590
-FUN_0066e590::FUN_0066e590()
+// src: COMMUNITY 0x0066e590
+DetectionState::DetectionState()
 {
     CombatTargetTimestamp_ClearTimeStamp((CombatTargetTimestamp*)m_abyActorState);
     pActor = 0;

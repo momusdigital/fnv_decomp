@@ -137,7 +137,7 @@ int __fastcall HasDeclaredDefault(const hkClass* cls, void*, int aiIndex)
     return 0;
 }
 
-struct FUN_00d87150_class
+struct hkClassMemberAccessor
 {
     int m_offset;
     const hkClassMember* m_kMemberDescriptor;
@@ -147,7 +147,7 @@ struct FUN_00d87150_class
 
 // Stores the member descriptor and adds its byte offset to baseOffset when found.
 // @fnv 0x00d87150
-void FUN_00d87150_class::InitBitOffset(int baseOffset, const hkClass* apClass, const char* name)
+void hkClassMemberAccessor::InitBitOffset(int baseOffset, const hkClass* apClass, const char* name)
 {
     m_offset = 0;
     // This undeclared shared-class method takes ECX plus one stack argument.

@@ -32,8 +32,8 @@ public:
     float Length2() const;
     float Length() const;
     float Len() const;
-    float GetSquaredXYLength();
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength();
+    float NiPoint3_SqrXYLength() const;
 
     void Unitize_004a0c10();
     LocalPt3* SubtractIntoVector(LocalPt3* out, LocalPt3* other);
@@ -860,7 +860,7 @@ struct Isect
     float unk60;
     float unk64;
     float unk68;
-    void FUN_00eb5e30(NiSphereBV const&, LocalPt3 const&, LocalPt3 const&, LocalPt3 const&, float, float, float, int);
+    void NiSphereTriIntersector(NiSphereBV const&, LocalPt3 const&, LocalPt3 const&, LocalPt3 const&, float, float, float, int);
     void Solve(LocalPt3 const&, LocalPt3 const&);
     float NiIntersector_GetContactTime();
     int FUN_00be0aa0();
@@ -938,7 +938,7 @@ bool __cdecl SphereTriangleCollision(float time, NiSphereBV const& sphere, Local
         }
     }
     Isect intersection;
-    intersection.FUN_00eb5e30(sphere, v0, v1, v2, time, 0.001f, 0.0001f, 32);
+    intersection.NiSphereTriIntersector(sphere, v0, v1, v2, time, 0.001f, 0.0001f, 32);
     intersection.Solve(sphereVelocity, triangleVelocity);
     contactTime = intersection.NiIntersector_GetContactTime();
     if (intersection.FUN_00be0aa0() != 3 && intersection.FUN_00be0aa0() != 2)

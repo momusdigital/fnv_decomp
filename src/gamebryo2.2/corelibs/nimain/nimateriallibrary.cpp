@@ -8,14 +8,15 @@ struct FUN_00a8fdb0_shell
     void __thiscall ProcessEntries_00a8fdb0();
 };
 
-struct FUN_00a8ff10_shell : FUN_00a8fdb0_shell
+struct NiMaterialLibrary : FUN_00a8fdb0_shell
 {
-    void* __thiscall FUN_00a8ff10(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls the base cleanup, then frees this object with _delete when flags has bit 0 set, and returns this.
 // @fnv 0x00a8ff10
-void* __thiscall FUN_00a8ff10_shell::FUN_00a8ff10(unsigned int flags)
+// src: EXE 0x00a8ff10
+void* __thiscall NiMaterialLibrary::ScalarDeletingDestructor(unsigned int flags)
 {
     ProcessEntries_00a8fdb0();
     if (flags & 1)

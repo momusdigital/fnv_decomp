@@ -151,7 +151,7 @@ struct SweptEntry
     SweptItemArray m_04;
 };
 
-struct FUN_00d641f0_cls
+struct hkpSweptTransformDisplayViewer
 {
     int unk00;
     int unk04;
@@ -172,7 +172,7 @@ struct FUN_00d641f0_cls
 };
 
 // @fnv 0x00d641f0
-void FUN_00d641f0_cls::ClearSweptEntry(int aiIndex)
+void hkpSweptTransformDisplayViewer::ClearSweptEntry(int aiIndex)
 {
     SweptEntry* pEntry = m_30[aiIndex];
     int i = 0;
@@ -318,7 +318,7 @@ int SerializeData(unsigned int a1, unsigned int a2, unsigned int a3, unsigned in
 }
 
 void __cdecl hkArrayUtil__reserve(void* alloc, void* array, int numElements, int sizeElem);
-void* __cdecl AllocateWithHeader(void* alloc, int size);
+void* __cdecl hkMemoryRouter_easyAlloc(void* alloc, int size);
 void __cdecl hkMemoryRouter_easyFree(void* alloc, void* p);
 
 struct hkStreamReader
@@ -439,7 +439,7 @@ unsigned __int64 __cdecl ReadRelocatedData(hkStreamReader* stream, char** outBuf
     }
 
     int iAllocationSize = *outAllocSize;
-    char* buffer = (char*)AllocateWithHeader(&GetAudioAllocator(hkMemoryRouter_getInstance()), iAllocationSize);
+    char* buffer = (char*)hkMemoryRouter_easyAlloc(&GetAudioAllocator(hkMemoryRouter_getInstance()), iAllocationSize);
     stream->read(buffer, *outAllocSize);
     if (!stream->IsStreamValid())
     {
@@ -608,7 +608,7 @@ struct ObjectWriteZ
     int unk08;
     int unk0c;
     int unk10;
-    void FUN_00cc06f0(ObjectWriteArrByte* y, int one);
+    void hkArrayStreamWriter(ObjectWriteArrByte* y, int one);
     void FUN_00cc0780();
 };
 
@@ -644,7 +644,7 @@ int __cdecl hkObjectSerialize_writeObject(Sink* p1, ObjectWriteInfo* p2, unsigne
     y.m_iElementCount = 0;
     y.m_cap = 0x80000000;
     ObjectWriteZ z;
-    z.FUN_00cc06f0(&y, 1);
+    z.hkArrayStreamWriter(&y, 1);
     ObjectWriteW w;
     w.m_a0.m_data = 0;
     w.m_a0.m_iElementCount = 0;

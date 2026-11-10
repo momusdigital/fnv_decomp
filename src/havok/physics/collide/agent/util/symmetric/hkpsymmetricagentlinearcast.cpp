@@ -4,29 +4,30 @@
 
 #include "../../../../../../../include/hkVector4.h"
 
-struct FUN_00d2dbe0;
+struct hkpSymmetricAgentFlipCollector;
 struct Callback
 {
     virtual void Reserved0();
     virtual void Reserved1();
-    virtual void Run(FUN_00d2dbe0*, int);
+    virtual void Run(hkpSymmetricAgentFlipCollector*, int);
 };
 struct Result
 {
     int unk00[4];
     Callback* callback;
 };
-struct FUN_00d2dbe0
+struct hkpSymmetricAgentFlipCollector
 {
     int unk00[3];
     Result* result;
     Result* hkMemoryRouter_getInstance();
     virtual void Virtual0();
-    FUN_00d2dbe0(unsigned int flags);
+    hkpSymmetricAgentFlipCollector(unsigned int flags);
 };
 // If bit 0 of flags is set, obtains a Result via FUN_00c85750 and invokes its callback's Run with this and 8.
 // @fnv 0x00d2dbe0
-FUN_00d2dbe0::FUN_00d2dbe0(unsigned int flags)
+// src: EXE 0x00d2dbe0
+hkpSymmetricAgentFlipCollector::hkpSymmetricAgentFlipCollector(unsigned int flags)
 {
     if (flags & 1)
     {

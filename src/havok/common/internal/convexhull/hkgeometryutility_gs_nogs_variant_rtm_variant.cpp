@@ -174,7 +174,7 @@ struct __declspec(align(16)) S00d5c060_Result
     unsigned int unk08;
     unsigned int unk0C;
 };
-char* __cdecl AllocateWithHeader(D5C110Allocator* alloc, int size);
+char* __cdecl hkMemoryRouter_easyAlloc(D5C110Allocator* alloc, int size);
 char* __cdecl hkMemoryRouter_easyFree(D5C110Allocator* owner, char* data);
 void __cdecl Hkgeometryutility_ProcessEntries_00d5beb0(S00d5c060_Result* self, char* data, int count, int flags, float scale);
 S00d5c060_Result hkGeometryUtility_createMinBoundingSphere(const S00d5c060_Src* src, float scale);

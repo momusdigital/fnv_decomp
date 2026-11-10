@@ -57,7 +57,7 @@ class BipedAnim
     // RemovePart
     // void __cdecl BipedAnim::*(NiAVObject*)
     // NiNode* __cdecl BipedAnim::*(BIPED_BONE)
-    NiNode* GetBoneNode(BIPED_BONE boneIndex);
+    NiNode* GetParentBone(BIPED_BONE boneIndex);
     // TESForm* __cdecl BipedAnim::*(BIPED_OBJECT)
     // TESForm* __cdecl BipedAnim::*(NiAVObject*)
     // bool __cdecl BipedAnim::*(TESForm*)

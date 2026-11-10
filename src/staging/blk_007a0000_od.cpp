@@ -87,13 +87,13 @@ BSSimpleArray<PerkActivation*, 1024>::~BSSimpleArray()
     Clear(true);
 }
 
-struct FUN_007adcc0_class
+struct RaceSexMenu
 {
     void SetAllow(bool abAllow);
 };
 
 // @fnv 0x007adcc0
-void FUN_007adcc0_class::SetAllow(bool abAllow)
+void RaceSexMenu::SetAllow(bool abAllow)
 {
     ((unsigned char*)this)[0x75d] = abAllow;
 }
@@ -437,7 +437,7 @@ class ManagedSubObject
 
 extern "C" void __cdecl FormHeapFreeAndLog_00401030(void* p);
 
-class FUN_007a8960_cls : public ManagedSubObject
+class MessageMenu_MessageMenuEntry : public ManagedSubObject
 {
   public:
     int unk04;
@@ -452,11 +452,12 @@ class FUN_007a8960_cls : public ManagedSubObject
     int unk28;
     int unk2c;
     ManagedSubObject m_30;
-    ~FUN_007a8960_cls();
+    ~MessageMenu_MessageMenuEntry();
 };
 
 // @fnv 0x007a8960
-FUN_007a8960_cls::~FUN_007a8960_cls()
+// src: COMMUNITY 0x007a8960
+MessageMenu_MessageMenuEntry::~MessageMenu_MessageMenuEntry()
 {
     void* p = m_08;
     FormHeapFreeAndLog_00401030(p);
@@ -551,7 +552,7 @@ struct Base7ac9f0
     int unkD4;
 };
 
-struct FUN_007ac9f0 : Base7ac9f0
+struct FORenderedMenuRaceSex : Base7ac9f0
 {
     NiPointer<RefObj7ac9f0> pFirst[4];
     NiPointer<RefObj7ac9f0> pSecond[4];
@@ -570,12 +571,13 @@ struct FUN_007ac9f0 : Base7ac9f0
     int unk138;
     int unk13C;
     NiPoint3 kPos2;
-    FUN_007ac9f0();
-    virtual ~FUN_007ac9f0();
+    FORenderedMenuRaceSex();
+    virtual ~FORenderedMenuRaceSex();
 };
 
 // @fnv 0x007ac9f0
-FUN_007ac9f0::FUN_007ac9f0() : spObj0(0), spObj1(0), spObj2(0), spObj3(0), spObj4(0), spObj5(0)
+// src: EXE 0x007ac9f0
+FORenderedMenuRaceSex::FORenderedMenuRaceSex() : spObj0(0), spObj1(0), spObj2(0), spObj3(0), spObj4(0), spObj5(0)
 {}
 
 extern "C" const double DAT_01012060;
@@ -669,6 +671,6 @@ void Menu::ProcessEntries_007a7260()
             AccumulateTileHeight(it->FUN_006815c0()->m_pFlagTarget);
         }
     }
-    UpdateScrollTraits_007a7700();
+    ListBox_UpdateScrollDelta();
     UpdateHighlightTraits_007a73e0();
 }

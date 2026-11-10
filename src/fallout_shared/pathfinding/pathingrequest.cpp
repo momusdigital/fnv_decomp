@@ -74,7 +74,7 @@ void PathingRequest::LoadGame(BGSLoadFormBuffer* buffer)
     {
         buffer->ReadTypedData(static_cast<void*>(&m_bCanOpenDoors), 1u);
     }
-    unsigned int count = buffer->ReadElementCount();
+    unsigned int count = buffer->LoadVariableSizedValue();
     if (count)
     {
         reinterpret_cast<PathingAvoidPointerView*>(&m_pPathingAvoidNodeArray)->Assign(reinterpret_cast<PathingAvoidNodeArray*>(new PathingAvoidNodeArrayStorage));
@@ -97,7 +97,7 @@ PathingRequest* PathingRequest::CreateRequestForType(PATHING_REQUEST_TYPE type)
     case 0:
         return new PathingRequest;
     case 1:
-        return new FUN_006e4080;
+        return new PathingRequestCover;
     case 2:
         return new PathingRequestClosePoint;
     case 3:
@@ -219,12 +219,13 @@ void __cdecl FUN_00aa1460(void*, unsigned int);
 
 struct FUN_006e25e0_impl
 {
-    void* FUN_006e25e0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_006e2620 on this, then if bit 0 of flags is set calls FUN_00aa1460 with size 0xb0, and returns this.
 // @fnv 0x006e25e0
-void* FUN_006e25e0_impl::FUN_006e25e0(unsigned int flags)
+// src: EXE 0x006e25e0
+void* FUN_006e25e0_impl::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_006e2620(this);
     if (flags & 1)
@@ -364,12 +365,12 @@ extern "C" void* __cdecl Reallocate(void*, unsigned int);
 
 struct FUN_006e3c40_shell
 {
-    void* __thiscall Reallocate_Thunk_006e3c40(void* apBuffer, unsigned int aiNewSizeInItem);
+    void* __thiscall BSSimpleArray_Reallocate(void* apBuffer, unsigned int aiNewSizeInItem);
 };
 
 // @fnv 0x006e3c40
-// src: GUESS 0x006e3c40 (confidence: medium)
-void* __thiscall FUN_006e3c40_shell::Reallocate_Thunk_006e3c40(void* apBuffer, unsigned int aiNewSizeInItem)
+// src: GUESS 0x006e3c40 (confidence: high)
+void* __thiscall FUN_006e3c40_shell::BSSimpleArray_Reallocate(void* apBuffer, unsigned int aiNewSizeInItem)
 {
     return Reallocate(apBuffer, aiNewSizeInItem * 0x24);
 }

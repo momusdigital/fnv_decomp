@@ -12,12 +12,12 @@ void Clouds::Update(Sky* sky, float time)
     TESWeather* m_pPreviousWeather = sky->FUN_00825c00();
     if (!m_pWeatherObject)
         return;
-    for (int i = 0; i < GetOffset58(); ++i)
+    for (int i = 0; i < Clouds_GetNumLayers(); ++i)
         if (!m_pCloudLayerGeometry[i])
             return;
     if (sky->Sky_GetMode() == 3 || sky->Sky_GetMode() == 2)
     {
-        for (int i = 0; i < GetOffset58(); ++i)
+        for (int i = 0; i < Clouds_GetNumLayers(); ++i)
         {
             float speed;
             float delta;
@@ -48,7 +48,7 @@ void Clouds::Update(Sky* sky, float time)
         bForceUpdate = false;
         if (m_pPreviousWeather)
         {
-            for (int i = 0; i < GetOffset58(); ++i)
+            for (int i = 0; i < Clouds_GetNumLayers(); ++i)
             {
                 BSStringT<char> path;
                 SkyShaderProperty* property = (SkyShaderProperty*)m_pCloudLayerGeometry[i]->GetProperty(3);
@@ -66,7 +66,7 @@ void Clouds::Update(Sky* sky, float time)
         }
         else if (sky->Sky_GetMode() == 3 || sky->Sky_GetMode() == 2)
         {
-            for (int i = 0; i < GetOffset58(); ++i)
+            for (int i = 0; i < Clouds_GetNumLayers(); ++i)
             {
                 BSStringT<char> path;
                 SkyShaderProperty* property = (SkyShaderProperty*)m_pCloudLayerGeometry[i]->GetProperty(3);
@@ -88,7 +88,7 @@ void Clouds::Update(Sky* sky, float time)
             }
         }
     }
-    for (int i = 0; i < GetOffset58(); ++i)
+    for (int i = 0; i < Clouds_GetNumLayers(); ++i)
     {
         SkyShaderProperty* property;
         NiProperty* baseProperty = m_pCloudLayerGeometry[i]->GetProperty(3);

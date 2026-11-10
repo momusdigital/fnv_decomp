@@ -125,8 +125,8 @@ public:
     float DotProduct(const LocalVec3* other) const;
     float Length() const;
     float LengthSquared() const;
-    float GetSquaredXYLength();
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength();
+    float NiPoint3_SqrXYLength() const;
     Elem16& expand(Allocator& allocator);
 
     void SetComponents(float x, float y, float z);
@@ -393,13 +393,13 @@ void __cdecl FUN_00ba7df0();
 void __cdecl operator delete(void*);
 void __cdecl operator delete(void*, unsigned int);
 
-struct FUN_00ba8270_Class
+struct ParticleShaderProperty
 {
     void* __thiscall FUN_00ba8270(bool);
 };
 
 // @fnv 0x00ba8270
-void* __thiscall FUN_00ba8270_Class::FUN_00ba8270(bool b)
+void* __thiscall ParticleShaderProperty::FUN_00ba8270(bool b)
 {
     FUN_00ba7df0();
     if (b & 1)
@@ -761,14 +761,14 @@ void __thiscall FUN_00baa3c0_Class::TallGrassShader_ClearPassStages()
 }
 
 extern int DAT_0126f74c;
-struct FUN_00bb1b20_Class
+struct SpeedTreeLeafShader
 {
     void __thiscall SpeedTreeLeafShader_InitPass(int a);
 };
 // If a is 0x3e or 0x3f, copies the int at this+0x384 or this+0x388 into DAT_0126f74c.
 // @fnv 0x00bb1b20
 // src: XBOX_PDB 0x00bb1b20
-void __thiscall FUN_00bb1b20_Class::SpeedTreeLeafShader_InitPass(int a)
+void __thiscall SpeedTreeLeafShader::SpeedTreeLeafShader_InitPass(int a)
 {
     if (a == 0x3e)
         DAT_0126f74c = *(int*)((char*)this + 0x384);
@@ -872,13 +872,13 @@ struct NiPointer_NiTexture
     NiTexture* p;
 };
 
-struct FUN_00bae740_Class : NiObjectNET_stub
+struct SkyShaderProperty : NiObjectNET_stub
 {
     void SkyShaderProperty_PostLinkObject(int a);
 };
 // @fnv 0x00bae740
 // src: XBOX_PDB 0x00bae740
-void FUN_00bae740_Class::SkyShaderProperty_PostLinkObject(int aiArg)
+void SkyShaderProperty::SkyShaderProperty_PostLinkObject(int aiArg)
 {
     NiObjectNET_PostLinkObject(aiArg);
     const char* name = *(const char**)((char*)this + 0x74);
@@ -1037,13 +1037,13 @@ struct FUN_00bb7170_Class
     FUN_00bb7170_Class();
     static void* operator new(unsigned int);
 };
-struct FUN_00bb7300_Class
+struct BSDistantTreeShaderProperty
 {
     FUN_00bb7170_Class* __thiscall CreateInstance();
 };
 // Allocates and constructs a new FUN_00bb7170_Class object, returning the pointer.
 // @fnv 0x00bb7300
-FUN_00bb7170_Class* FUN_00bb7300_Class::CreateInstance()
+FUN_00bb7170_Class* BSDistantTreeShaderProperty::CreateInstance()
 {
     return new FUN_00bb7170_Class;
 }
@@ -4385,7 +4385,7 @@ namespace fnv_00baf3c0 {
 
 extern NiColor DAT_011f4998;
 
-struct FUN_00baf3c0
+struct BSShaderData
 {
     int unk00;
     NiColor color04;
@@ -4437,12 +4437,13 @@ struct FUN_00baf3c0
     short unkb0;
     int unkb4;
 
-    FUN_00baf3c0();
+    BSShaderData();
 };
 
 // Initializes the object's fields: colors from DAT_011f4998, numeric defaults, and boolean flags.
 // @fnv 0x00baf3c0
-FUN_00baf3c0::FUN_00baf3c0()
+// src: GUESS 0x00baf3c0 (confidence: medium)
+BSShaderData::BSShaderData()
 {
     unk00 = 0;
     color04 = DAT_011f4998;
@@ -5052,7 +5053,7 @@ struct SpawnBase
     SpawnBase();
 };
 
-struct FUN_00bb0d40 : SpawnBase
+struct BSParticleShaderProperty : SpawnBase
 {
     virtual void v0();
     int m_60;
@@ -5071,11 +5072,12 @@ struct FUN_00bb0d40 : SpawnBase
     int m_94;
     int m_98;
     int m_9c;
-    FUN_00bb0d40(int a1, float a2, Triple3* a3, Triple3* a4, Triple3* a5, int a6, int a7);
+    BSParticleShaderProperty(int a1, float a2, Triple3* a3, Triple3* a4, Triple3* a5, int a6, int a7);
 };
 
 // @fnv 0x00bb0d40
-FUN_00bb0d40::FUN_00bb0d40(int a1, float a2, Triple3* a3, Triple3* a4, Triple3* a5, int a6, int abFlag) : SpawnBase()
+// src: GUESS 0x00bb0d40 (confidence: medium)
+BSParticleShaderProperty::BSParticleShaderProperty(int a1, float a2, Triple3* a3, Triple3* a4, Triple3* a5, int a6, int abFlag) : SpawnBase()
 {
     m_68 = a2;
     m_60 = a1;
@@ -8362,7 +8364,7 @@ void __stdcall Lighting30ShaderProperty_GetViewerStrings(FUN_00bb5fa0_cls* self)
 struct FUN_00a59d30_Class
 {
     void* __thiscall FUN_00a59d30(int);
-    void __thiscall ForwardToSubobject(void*);
+    void __thiscall NiAVObject_DetachProperty(void*);
 };
 
 struct FUN_00bb5ff0_Class
@@ -8408,7 +8410,7 @@ bool FUN_00bb5ff0_Class::Lighting30ShaderProperty_SetupGeometry(FUN_00a59d30_Cla
     void* prop = a1->FUN_00a59d30(10);
     if (prop)
     {
-        a1->ForwardToSubobject(prop);
+        a1->NiAVObject_DetachProperty(prop);
     }
     return result;
 }
@@ -9926,9 +9928,9 @@ struct FUN_00baeb80 : NiMemObjectAllocation_blk_00ba0000_o2
     int unk088;
     int unk08C;
 };
-struct FUN_00b60cb0 : NiMemObjectAllocation_blk_00ba0000_o2
+struct TallGrassShaderProperty : NiMemObjectAllocation_blk_00ba0000_o2
 {
-    FUN_00b60cb0();
+    TallGrassShaderProperty();
     int unk000;
     int unk004;
     int unk008;
@@ -10081,7 +10083,7 @@ void* FactorySelector::BSShaderData_GetShaderProperty()
         result = new FUN_00baeb80;
         break;
     case 7:
-        result = new FUN_00b60cb0;
+        result = new TallGrassShaderProperty;
         break;
     case 8:
         result = new TileShaderProperty(false);
@@ -14298,7 +14300,7 @@ struct Root248
     int unk98;
     Holder holder;
     void UpdateProperties();
-    void ForwardToSubobject(void*);
+    void NiAVObject_DetachProperty(void*);
 };
 inline Holder* GetHolder(Root248* p)
 {
@@ -14416,7 +14418,7 @@ bool nbb::Owner::PrecipitationShaderProperty_SetupGeometry(Root248* apRoot)
         m_90 = d ? d->m_08 : 0;
         d = *item->m_20;
         SetMode(d ? (d->m_04 >> 12) & 3 : 3);
-        apRoot->ForwardToSubobject(item);
+        apRoot->NiAVObject_DetachProperty(item);
         return true;
     }
     return false;
@@ -15286,20 +15288,20 @@ void FFTBuffers::ImageSpaceEffectWaterFFT_FillFFTUtilityTextures(int count, int 
     delete[] table;
 }
 
-class FUN_00ba2d40_cls
+class BSSemaphore
 {
   public:
     int m_00;
     HANDLE m_04;
     int m_08;
 
-    FUN_00ba2d40_cls* Semaphore_Create();
+    BSSemaphore* Semaphore_Create();
 };
 
 // Initializes m_00 and m_08, creates a semaphore with initial count 0 and maximum 0x14 into m_04, and returns this.
 // @fnv 0x00ba2d40
 // src: COMMUNITY 0x00ba2d40
-FUN_00ba2d40_cls* FUN_00ba2d40_cls::Semaphore_Create()
+BSSemaphore* BSSemaphore::Semaphore_Create()
 {
     m_00 = 0;
     m_08 = 0x14;

@@ -202,7 +202,7 @@ class BaseProcess
                                                    bool abInCombat);     // PC vtable +0x0F0
     virtual BSSimpleList<DetectionViewData*>* GetDetectingActors();      // PC vtable +0x0F4
     virtual DetectionEvent* FindDetectionEventForActor(Actor* apActor);  // PC vtable +0x0F8
-    virtual void AddDetectionEvent(Actor* apActor, NiPoint3 akPosition, SOUND_LEVEL aeSoundLevel,
+    virtual void CreateDetectionEvent(Actor* apActor, NiPoint3 akPosition, SOUND_LEVEL aeSoundLevel,
                                    int aiDetectionEventType, TESObjectREFR* apRef);               // PC vtable +0x0FC
     virtual void RemoveDetectionEvent();                                                          // PC vtable +0x100
     virtual void ClearDetectionEvents();                                                          // PC vtable +0x104
@@ -234,7 +234,7 @@ class BaseProcess
     virtual void SetCurrentShield(InventoryStackRecord* apShield);                                          // PC vtable +0x16C
     virtual void UpdateEquippedItems(Actor* apActor);                                             // PC vtable +0x170
     virtual bool IsItemQueued(TESBoundObject* apItem, ExtraDataList* apExtraList, bool abEquip);  // PC vtable +0x174
-    virtual void ProcessEquipmentRequest(Actor* apActor, bool abEquip, TESBoundObject* apItem, int aiNumber,
+    virtual void AddQueuedItem(Actor* apActor, bool abEquip, TESBoundObject* apItem, int aiNumber,
                                          ExtraDataList* apExtraList, bool abNow, bool abForceEquip, bool abFromMenus,
                                          bool abForceUnequip, bool abEquipCalling,
                                          bool abPlaySound);                                    // PC vtable +0x178
@@ -263,13 +263,13 @@ class BaseProcess
     virtual void SetCurrentBoundObject(TESObject* apItem);                           // PC vtable +0x1D0
     virtual TESObject* GetCurrentBoundObject() const;                                // PC vtable +0x1D4
     virtual void RunActorProcessing(Actor* apActor);                                 // PC vtable +0x1D8
-    virtual void RefreshActorMovement(Actor* apActor, bool abFlag);                  // PC vtable +0x1DC
+    virtual void CreateFollownoEscort(Actor* apActor, bool abFlag);                  // PC vtable +0x1DC
     virtual float GetProcessBlendAmount() const;                                     // PC vtable +0x1E0
     virtual void SetAnimationTimer(float afVal);                                     // PC vtable +0x1E4
     virtual void SetCombatDelayFadeTimer(float afVal);                               // PC vtable +0x1E8
     virtual bool IsProcessConditionMet() const;                                      // PC vtable +0x1EC
     virtual void SelectActorCombatTarget(Actor* apActor);                            // PC vtable +0x1F0
-    virtual bool IsCombatTargetForActor(Actor* apActor, Actor* apTarget) const;      // PC vtable +0x1F4
+    virtual bool ComputeCanInitiateDialogueWithNPC(Actor* apActor, Actor* apTarget) const;      // PC vtable +0x1F4
     virtual bool CanAttackTarget(Actor* apActor, Actor* apTarget) const;             // PC vtable +0x1F8
     virtual bool IsActorTargetValid(Actor* apActor, Actor* apTarget) const;          // PC vtable +0x1FC
     virtual bool IsCurrentPackageTarget(Actor* apActor);                             // PC vtable +0x200
@@ -336,7 +336,7 @@ class BaseProcess
     virtual bool IsDetectionEnabled() const;                                                        // PC vtable +0x2D8
     virtual void SetActorProcessEnabled(bool abVal);                                                // PC vtable +0x2DC
     virtual void SetActorProcessTime(Actor* apActor, float afTimeDelta);                            // PC vtable +0x2E0
-    virtual int GetActorReferenceState(Actor* apActor, TESObjectREFR* apTarget);                    // PC vtable +0x2E4
+    virtual int GetEmotionsDispostion(Actor* apActor, TESObjectREFR* apTarget);                    // PC vtable +0x2E4
     virtual DIALOGUE_EMOTION GetCurrentDialogueEmotion() const;                                     // PC vtable +0x2E8
     virtual void SetDialogueEmotion(DIALOGUE_EMOTION aeEmotion);                                    // PC vtable +0x2EC
     virtual void RunDetection();                                                                    // PC vtable +0x2F0
@@ -565,7 +565,7 @@ class BaseProcess
     virtual void ClearHighProcessState(TESObjectREFR* apTarget);                                  // PC vtable +0x634
     virtual void SetLastKnownReference(TESObjectREFR* apTarget);                                  // PC vtable +0x638
     virtual void SetTargetReferenceByIndex(HeadTrackType aeType, TESObjectREFR* apTarget);        // PC vtable +0x63C
-    virtual void ClearPackageData();                                                              // PC vtable +0x640
+    virtual void ClearDefaultHeadTrackTarget();                                                              // PC vtable +0x640
     virtual void ClearCachedTargetReferences(bool abHoldDefault);                                 // PC vtable +0x644
     virtual void SetCombatActive(bool abHoldDefault);                                             // PC vtable +0x648
     virtual void ResetCombatState();                                                              // PC vtable +0x64C

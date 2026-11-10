@@ -31,7 +31,7 @@ class RagDollData
   public:
     unsigned char count;
     TransformEntry* bones;
-    bool FindBoneIndex(NiNode*, unsigned int&);
+    bool UpdateNodeFromRagDollData(NiNode*, unsigned int&);
     void ReadFromActor(TESObjectREFR* apRef);
     void ReadFromRef(TESObjectREFR* apRef);
     bool ApplyToAnimationData(NiNode* apNode, unsigned int& auiIndex, unsigned int auiDepth);
@@ -47,7 +47,8 @@ bool NiMatrix3::operator!=(const NiMatrix3& matrix) const
 
 // Recursively applies stored bone translation and rotation to node and its children, advancing index while bones remain.
 // @fnv 0x004d9dc0
-bool RagDollData::FindBoneIndex(NiNode* node, unsigned int& ruiIndex)
+// src: COMMUNITY 0x004d9dc0
+bool RagDollData::UpdateNodeFromRagDollData(NiNode* node, unsigned int& ruiIndex)
 {
     bool result = true;
     if (node && ruiIndex < count)
@@ -78,7 +79,7 @@ bool RagDollData::FindBoneIndex(NiNode* node, unsigned int& ruiIndex)
                 NiAVObject* child = node->FUN_0043b4a0(i);
                 childNode = child ? child->IsSceneNode() : 0;
             }
-            if (childNode && !FindBoneIndex(childNode, ruiIndex))
+            if (childNode && !UpdateNodeFromRagDollData(childNode, ruiIndex))
                 result = false;
             if (ruiIndex >= count)
                 break;
@@ -135,14 +136,15 @@ template <int N> struct EndianSizeTag
 
 void __cdecl BSEndian(int* p, EndianSizeTag<4>);
 
-struct FUN_004d9280
+struct RagDollBone
 {
-    void __thiscall EndianSwap();
+    void __thiscall RagDollBone_Endian();
 };
 
 // Byte-swaps the six 4-byte words following the object's first word via BSEndian.
 // @fnv 0x004d9280
-void __thiscall FUN_004d9280::EndianSwap()
+// src: COMMUNITY 0x004d9280
+void __thiscall RagDollBone::RagDollBone_Endian()
 {
     BSEndian((int*)this + 1, EndianSizeTag<4>());
     BSEndian((int*)this + 2, EndianSizeTag<4>());
@@ -164,8 +166,8 @@ void RagdollCollisionFlags::SetFlags(bool abSet, unsigned short uFlags)
 
 // Recursively counts node and its descendants for which FUN_004a8b00 returns true, returning the total count.
 // @fnv 0x004da180
-// src: GUESS 0x004da180 (confidence: medium)
-unsigned char NiAVObject_CountCollisionNodes(NiNode* node)
+// src: COMMUNITY 0x004da180
+unsigned char RagDollData_CountRagDollBones(NiNode* node)
 {
     unsigned char count = 0;
     if (node)
@@ -178,7 +180,7 @@ unsigned char NiAVObject_CountCollisionNodes(NiNode* node)
             NiAVObject* object = node->FUN_0043b4a0(i);
             NiNode* child = object ? object->IsSceneNode() : 0;
             if (child)
-                count += NiAVObject_CountCollisionNodes(child);
+                count += RagDollData_CountRagDollBones(child);
         }
     }
     return count;
@@ -193,7 +195,7 @@ public:
 namespace fnv_004d94a0 {
 struct FUN_004d94a0_shell : public RagDollData
 {
-    bool LoadRagdollChunk(TESFile*);
+    bool RagDollData_Load(TESFile*);
 };
 
 void* __cdecl operator new(unsigned int);
@@ -201,17 +203,18 @@ template <int N> struct EndianSizeTag
 {
 };
 void __cdecl BSEndian(unsigned char*, EndianSizeTag<1>);
-struct FUN_004d9280
+struct RagDollBone
 {
-    void EndianSwap();
+    void RagDollBone_Endian();
 };
-struct FUN_0055a400 : FUN_004d9280
+struct FUN_0055a400 : RagDollBone
 {
     char pad[0x1c];
     FUN_0055a400();
 };
 // @fnv 0x004d94a0
-bool FUN_004d94a0_shell::LoadRagdollChunk(TESFile* apFile)
+// src: COMMUNITY 0x004d94a0
+bool FUN_004d94a0_shell::RagDollData_Load(TESFile* apFile)
 {
     bool bretval = false;
     if (apFile->GetChunkID() == 0x44475258)
@@ -225,7 +228,7 @@ bool FUN_004d94a0_shell::LoadRagdollChunk(TESFile* apFile)
             if (((TESFileAccessor_ragdolldata*)apFile)->GetChunkData())
             {
                 for (unsigned int I = 0; I < *(unsigned char*)this; I++)
-                    (*(FUN_0055a400**)((char*)this + 4))[I].EndianSwap();
+                    (*(FUN_0055a400**)((char*)this + 4))[I].RagDollBone_Endian();
             }
             bretval = true;
         }
@@ -328,7 +331,7 @@ struct FUN_004d93c0_bone
     signed char unk00;
     float translate[3];
     float rotate[3];
-    void EndianSwap();
+    void RagDollBone_Endian();
 };
 
 struct FUN_004d93c0_name
@@ -347,7 +350,7 @@ struct FUN_004d93c0_cls
 };
 
 bool __cdecl TESForm_QEndianSwapOnSave();
-void __cdecl AppendChunk(unsigned int tag, void* p, unsigned int size);
+void __cdecl TESForm___AddChunkData(unsigned int tag, void* p, unsigned int size);
 void __cdecl TESForm_AddChunkArray_00485710(unsigned int tag, void* p, unsigned int n);
 extern char DAT_011f426c[];
 
@@ -361,15 +364,15 @@ void FUN_004d93c0_cls::RagDollData_Save()
         {
             for (unsigned int i = 0; i < m_uiItemCount; i++)
             {
-                m_kBones[i].EndianSwap();
+                m_kBones[i].RagDollBone_Endian();
             }
         }
-        AppendChunk(0x44475258, m_kBones, m_uiItemCount * 28);
+        TESForm___AddChunkData(0x44475258, m_kBones, m_uiItemCount * 28);
         if (TESForm_QEndianSwapOnSave())
         {
             for (unsigned int uiSwapIndex = 0; uiSwapIndex < m_uiItemCount; uiSwapIndex++)
             {
-                m_kBones[uiSwapIndex].EndianSwap();
+                m_kBones[uiSwapIndex].RagDollBone_Endian();
             }
         }
     }
@@ -459,11 +462,12 @@ struct RagDollWalker
 {
     unsigned char count;
     TransformEntry* bones;
-    bool CollectBoneTransforms(NiNode* apNode, unsigned int& arIndex, bool abSet);
+    bool RagDollData_UpdateRagDollDataFromNode(NiNode* apNode, unsigned int& arIndex, bool abSet);
 };
 
 // @fnv 0x004d9bd0
-bool RagDollWalker::CollectBoneTransforms(NiNode* apNode, unsigned int& arIndex, bool abSet)
+// src: COMMUNITY 0x004d9bd0
+bool RagDollWalker::RagDollData_UpdateRagDollDataFromNode(NiNode* apNode, unsigned int& arIndex, bool abSet)
 {
     bool bResult2 = true;
     if (apNode && arIndex < count)
@@ -491,7 +495,7 @@ bool RagDollWalker::CollectBoneTransforms(NiNode* apNode, unsigned int& arIndex,
             NiNode* pChildNode = pChild2 ? pChild2->IsSceneNode() : 0;
             if (pChildNode)
             {
-                if (!CollectBoneTransforms(pChildNode, arIndex, abSet))
+                if (!RagDollData_UpdateRagDollDataFromNode(pChildNode, arIndex, abSet))
                 {
                     bResult2 = false;
                 }
@@ -569,7 +573,7 @@ void FUN_004da230_shell::UpdateNodeFromPosition(TESObjectREFR* object)
     }
 }
 
-unsigned char NiAVObject_CountCollisionNodes(NiNode* node);
+unsigned char RagDollData_CountRagDollBones(NiNode* node);
 void FNV_Warning(const char* fmt, ...);
 
 struct RagDollBoneInit : public TransformEntry
@@ -580,12 +584,13 @@ struct RagDollBoneInit : public TransformEntry
 class RagDollDataInit : public RagDollData
 {
   public:
-    void InitFromRef(TESObjectREFR* apRef);
+    void RagDollData_CreateRagDollBoneArray(TESObjectREFR* apRef);
 };
 
 // Initializes ragdoll bone data from a reference's 3D node, collecting bone transforms and warning on failure.
 // @fnv 0x004da010
-void RagDollDataInit::InitFromRef(TESObjectREFR* apRef)
+// src: COMMUNITY 0x004da010
+void RagDollDataInit::RagDollData_CreateRagDollBoneArray(TESObjectREFR* apRef)
 {
     count = 0;
     delete[] bones;
@@ -593,12 +598,12 @@ void RagDollDataInit::InitFromRef(TESObjectREFR* apRef)
     {
         NiAVObject* pObj = apRef->GetNiNode();
         NiNode* pNode = pObj ? pObj->IsSceneNode() : 0;
-        count = NiAVObject_CountCollisionNodes(pNode);
+        count = RagDollData_CountRagDollBones(pNode);
         if (count)
         {
             bones = new RagDollBoneInit[count];
             unsigned int uiIndex = 0;
-            if (!((RagDollWalker*)this)->CollectBoneTransforms(pNode, uiIndex, true))
+            if (!((RagDollWalker*)this)->RagDollData_UpdateRagDollDataFromNode(pNode, uiIndex, true))
                 FNV_Warning("HAVOK: Failed to initialize RagDollData.");
         }
     }

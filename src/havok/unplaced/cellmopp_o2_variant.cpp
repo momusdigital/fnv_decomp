@@ -940,7 +940,7 @@ struct FUN_00ca4fd0_Value
     virtual void Target(int first, int second);
 };
 
-class FUN_00ca4fd0_cls
+class bhkBvTreeShape
 {
   public:
     int unk00;
@@ -952,7 +952,7 @@ class FUN_00ca4fd0_cls
 
 // @fnv 0x00ca4fd0
 // src: XBOX_PDB 0x00ca4fd0
-void FUN_00ca4fd0_cls::bhkBvTreeShape_BuildDisplayGeometry(int first, int second)
+void bhkBvTreeShape::bhkBvTreeShape_BuildDisplayGeometry(int first, int second)
 {
     Node* pNode;
     Link* m_pTaskletData;
@@ -1482,7 +1482,7 @@ struct BinaryDataRecord
     unsigned int flags40;
 };
 
-struct FUN_00cb00a0_Class
+struct bhkTriSampledHeightFieldBvTreeShape
 {
     void bhkBvTreeShape_LoadBinary(char*);
     virtual void* slot00(void*);
@@ -1536,7 +1536,7 @@ struct FUN_00cb00a0_Class
 
 // @fnv 0x00cb00a0
 // src: XBOX_PDB 0x00cb00a0
-void FUN_00cb00a0_Class::bhkTriSampledHeightFieldBvTreeShape_LoadBinary(char* object)
+void bhkTriSampledHeightFieldBvTreeShape::bhkTriSampledHeightFieldBvTreeShape_LoadBinary(char* object)
 {
     this->bhkBvTreeShape_LoadBinary(object);
     if (object[0x1e5] != 1)

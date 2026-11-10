@@ -15,7 +15,7 @@ public:
 
     virtual const NiRTTI* GetRTTI() const;
 
-    void* FUN_00661db0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     void ApplyMorph(int aiSelector, int aiIndex, int aiArg1, int aiArg2, float weight);
     int GetExpressionMorph(int aiIndex);
     int GetModifierMorph(int aiIndex);

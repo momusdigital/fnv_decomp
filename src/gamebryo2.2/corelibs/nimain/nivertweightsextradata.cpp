@@ -31,7 +31,8 @@ void* __cdecl NiVertWeightsExtraData_GetRTTI()
 extern void* DAT_0109ee9c;
 
 // @fnv 0x00a89b80
-void* __cdecl CreateNiExtraData()
+// src: EXE 0x00a89b80
+void* __cdecl NiVertWeightsExtraData_CreateObject()
 {
     NiExtraData* p = (NiExtraData*)BSFadeNode::operator new(0xc);
     if (p)
@@ -48,7 +49,7 @@ void* __cdecl CreateNiExtraData()
 
 struct NiVertWeightsExtraData : NiExtraData
 {
-    void* FUN_00a89bb0(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 struct FUN_00a7b300_shell
 {
@@ -56,7 +57,8 @@ struct FUN_00a7b300_shell
 };
 void __cdecl _delete(void*, unsigned int);
 // @fnv 0x00a89bb0
-void* NiVertWeightsExtraData::FUN_00a89bb0(unsigned int flags)
+// src: EXE 0x00a89bb0
+void* NiVertWeightsExtraData::ScalarDeletingDestructor(unsigned int flags)
 {
     *(void**)this = (void*)&DAT_0109ee9c;
     ((FUN_00a7b300_shell*)this)->DestroyFields_00a7b300();

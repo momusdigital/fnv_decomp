@@ -158,7 +158,7 @@ namespace fnv_00aa02f0 {
 struct FUN_00aa02f0_s : public NiTFixedStringMap_NiAVObject___
 {
     void* m_pData;
-    void* FUN_00aa02f0(unsigned char bDelete);
+    void* ScalarDeletingDestructor(unsigned char bDelete);
 };
 
 extern void* DAT_010a2138;
@@ -166,7 +166,8 @@ extern void* DAT_010a2154;
 extern MemoryManager _g_memoryManager;
 
 // @fnv 0x00aa02f0
-void* FUN_00aa02f0_s::FUN_00aa02f0(unsigned char bDelete)
+// src: EXE 0x00aa02f0
+void* FUN_00aa02f0_s::ScalarDeletingDestructor(unsigned char bDelete)
 {
     m_baseData0 = &DAT_010a2154;
     RemoveAll();
@@ -272,13 +273,14 @@ bool HashTableBase::NiTStringPointerMap_NiAVObject_RemoveAt(const unsigned int* 
     return false;
 }
 
-struct FUN_00aa09c0_cls : NiRefObject
+struct NiLODData : NiRefObject
 {
-    virtual ~FUN_00aa09c0_cls();
+    virtual ~NiLODData();
 };
 
 // @fnv 0x00aa09c0
-FUN_00aa09c0_cls::~FUN_00aa09c0_cls()
+// src: EXE 0x00aa09c0
+NiLODData::~NiLODData()
 {}
 
 struct FUN_00aa0ff0_cls
@@ -569,7 +571,7 @@ FUN_00aa2230_BSNiAllocator::FUN_00aa2230_BSNiAllocator()
 
 extern char DAT_010a2554[];
 
-struct FUN_00aa24d0
+struct NiSearchPath
 {
     void* unk00;
     int unk04;
@@ -643,11 +645,12 @@ struct FUN_00aa24d0
     int unk108;
     unsigned char unk10c;
 
-    FUN_00aa24d0();
+    NiSearchPath();
 };
 
 // @fnv 0x00aa24d0
-FUN_00aa24d0::FUN_00aa24d0()
+// src: EXE 0x00aa24d0
+NiSearchPath::NiSearchPath()
 {
     unk00 = DAT_010a2554;
     unk04 = 0;
@@ -680,7 +683,7 @@ void FUN_00aa24f0_cls::SetVptr00()
 // the thread is suspended and, if the suspend succeeded, the flag is raised.
 extern "C" __declspec(dllimport) unsigned long __stdcall SuspendThread(void*);
 
-class FUN_00aa2710_cls
+class NiThread
 {
   public:
     void* m_pVtable;             // +0x00
@@ -698,7 +701,7 @@ class FUN_00aa2710_cls
 };
 
 // @fnv 0x00aa2710
-unsigned int FUN_00aa2710_cls::SuspendThreadHandle()
+unsigned int NiThread::SuspendThreadHandle()
 {
     void* pThread = m_pThreadHandle;
     if (pThread == 0)
@@ -1464,7 +1467,7 @@ void __cdecl NiStaticDataManager_Init(void* value)
     DAT_011f610c = 1;
 }
 
-class ThreadSuspendForward : public FUN_00aa2710_cls
+class ThreadSuspendForward : public NiThread
 {
   public:
     unsigned int SuspendThreadHandle();

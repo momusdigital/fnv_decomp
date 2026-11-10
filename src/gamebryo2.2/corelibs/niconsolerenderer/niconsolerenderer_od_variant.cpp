@@ -253,7 +253,7 @@ extern "C" void* g_01270900;
 void* __cdecl NiShaderDeclaration_GetRTTI();
 struct FUN_00e758f0_shell
 {
-    void PackColorToUInt(float* floats);
+    void NiDX9Renderer_SetBackgroundColorAlpha(float* floats);
 };
 extern int DAT_0126f580[];
 void __cdecl NiDX92DBufferData_ClearRenderTarget(int* param1, int param2);

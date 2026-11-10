@@ -124,7 +124,8 @@ extern const void* NiBSplineCompPoint3Interpolator_vtable[];
 
 // Allocates a compressed point3 interpolator and copies its base and compression fields.
 // @fnv 0x00a51360
-NiBSplineCompPoint3Interpolator* __fastcall NiBSplineCompPoint3Interpolator_Clone(NiBSplineCompPoint3Interpolator* self, void*, CloningProcess& cloning)
+// src: EXE 0x00a51360
+NiBSplineCompPoint3Interpolator* __fastcall NiBSplineCompPoint3Interpolator_CreateClone(NiBSplineCompPoint3Interpolator* self, void*, CloningProcess& cloning)
 {
     NiBSplineCompPoint3Interpolator* pNew =
         (NiBSplineCompPoint3Interpolator*)BSFadeNode::operator new(sizeof(NiBSplineCompPoint3Interpolator));
@@ -155,7 +156,8 @@ extern void* Object_DispatchCommandFour(unsigned int bytes) throw();
 
 // Allocates and initializes a compressed point3 interpolator.
 // @fnv 0x00a513c0
-void* __cdecl NiBSplineCompPoint3Interpolator_Create()
+// src: EXE 0x00a513c0
+void* __cdecl NiBSplineCompPoint3Interpolator_CreateObject()
 {
     NiBSplineCompPoint3Interpolator* result =
         (NiBSplineCompPoint3Interpolator*)Object_DispatchCommandFour(sizeof(NiBSplineCompPoint3Interpolator));

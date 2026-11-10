@@ -350,17 +350,18 @@ void FUN_00d2c7a0_class::hkThreadMemory_releaseCachedMemory()
     }
 }
 
-struct FUN_00d60500
+struct hkSystemMemoryBlockServer
 {
     virtual void placeholder();
     unsigned int capacity;
     unsigned int count;
     void* storage;
     void* owner;
-    FUN_00d60500(void* parent, unsigned int requested);
+    hkSystemMemoryBlockServer(void* parent, unsigned int requested);
 };
 // @fnv 0x00d60500
-FUN_00d60500::FUN_00d60500(void* apOwner, unsigned int requested) : owner(apOwner), count(0), storage(0)
+// src: EXE 0x00d60500
+hkSystemMemoryBlockServer::hkSystemMemoryBlockServer(void* apOwner, unsigned int requested) : owner(apOwner), count(0), storage(0)
 {
     if (!requested)
     {
@@ -544,7 +545,7 @@ struct FUN_00d2c600_obj
     virtual void unk08(void* p, int size);
 };
 
-struct FUN_00d2c600_cls
+struct hkThreadMemory
 {
     int unk00;
     FUN_00d2c600_obj* m_04;
@@ -555,7 +556,7 @@ struct FUN_00d2c600_cls
 };
 
 // @fnv 0x00d2c600
-void FUN_00d2c600_cls::Free(void* apBlock, int size)
+void hkThreadMemory::Free(void* apBlock, int size)
 {
     if (apBlock != 0)
     {

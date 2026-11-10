@@ -29,7 +29,7 @@ struct A
     int f4;
 
     void FUN_00d76ca0();
-    int ProcessEntries_00d774a0(void*, int, void*);
+    int hkgpConvexHull_buildFromPlanes(void*, int, void*);
     void ProcessState_00d76120(int, int);
     void ReleaseStorage_00d76940();
 };

@@ -42,11 +42,12 @@ struct ShapeSubpartStorage
     {}
     unsigned short m_iElementCount;
 
-    ShapeSubpartStorage* FUN_00d4ad20(int deletingFlag);
+    ShapeSubpartStorage* ScalarDeletingDestructor(int deletingFlag);
 };
 
 // @fnv 0x00d4ad20
-ShapeSubpartStorage* ShapeSubpartStorage::FUN_00d4ad20(int deletingFlag)
+// src: EXE 0x00d4ad20
+ShapeSubpartStorage* ShapeSubpartStorage::ScalarDeletingDestructor(int deletingFlag)
 {
     FUN_00d4ac70();
 

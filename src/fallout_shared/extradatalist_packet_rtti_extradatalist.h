@@ -29,7 +29,7 @@ struct FUN_004610d0_shell : public TESDataHandler
 };
 struct FUN_00555bc0_shell : public TESObjectCELL
 {
-    SeenData* FindSeenData();
+    SeenData* TESObjectCELL_GetSeenData();
 };
 struct FUN_00569140_shell : public TESObjectREFR
 {

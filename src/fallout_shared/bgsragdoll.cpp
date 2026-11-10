@@ -67,8 +67,8 @@ class TESObjectREFR;
 #include "../../include/NiTArray.h"
 
 // The shared data layouts do not yet declare their endian helpers.
-void __fastcall SwapRagdollFeedbackEndian(RagdollFeedbackData__RagdollFeedbackSystemData*);
-void __fastcall SwapPoseMatchingEndian(PoseMatching_DATA__PoseMatching_System_DATA*);
+void __fastcall RagdollFeedbackData_RagdollFeedbackSystemData_Endian(RagdollFeedbackData__RagdollFeedbackSystemData*);
+void __fastcall PoseMatching_DATA_PoseMatching_System_DATA_Endian(PoseMatching_DATA__PoseMatching_System_DATA*);
 
 template <int N> struct EndianSizeTag
 {
@@ -311,7 +311,7 @@ bool BGSRagdoll::LoadForm(TESFile* file)
             file->GetChunkData(&m_kRagdollAnimationData.m_kRagdollFeedbackData,
                                sizeof(m_kRagdollAnimationData.m_kRagdollFeedbackData));
             if (file->IsEndianConversionRequired())
-                SwapRagdollFeedbackEndian(&m_kRagdollAnimationData.m_kRagdollFeedbackData);
+                RagdollFeedbackData_RagdollFeedbackSystemData_Endian(&m_kRagdollAnimationData.m_kRagdollFeedbackData);
             break;
         case 0x42464152: {
             file->GetChunkData(
@@ -337,7 +337,7 @@ bool BGSRagdoll::LoadForm(TESFile* file)
             file->GetChunkData(&m_kRagdollFeedbackProfile.m_kRagdollFeedbackData,
                                sizeof(m_kRagdollFeedbackProfile.m_kRagdollFeedbackData));
             if (file->IsEndianConversionRequired())
-                SwapPoseMatchingEndian(&m_kRagdollFeedbackProfile.m_kRagdollFeedbackData);
+                PoseMatching_DATA_PoseMatching_System_DATA_Endian(&m_kRagdollFeedbackProfile.m_kRagdollFeedbackData);
             break;
         case 0x4d414e41: {
             locals.filename = static_cast<char*>(_alloca(file->GetChunkSize()));
@@ -568,7 +568,8 @@ void __cdecl BSEndian(unsigned int*, EndianSizeTag<4>);
 
 // Byte-swaps each of the 15 unsigned int fields of this struct via BSEndian.
 // @fnv 0x005ee380
-void __fastcall SwapRagdollFeedbackEndian(RagdollFeedbackData__RagdollFeedbackSystemData* data)
+// src: COMMUNITY 0x005ee380
+void __fastcall RagdollFeedbackData_RagdollFeedbackSystemData_Endian(RagdollFeedbackData__RagdollFeedbackSystemData* data)
 {
     BSEndian(reinterpret_cast<unsigned int*>(&data->m_fFeedbackParameter1), EndianSizeTag<4>());
     BSEndian(reinterpret_cast<unsigned int*>(&data->fHeirGain), EndianSizeTag<4>());
@@ -591,7 +592,8 @@ void __cdecl BSEndian(unsigned int*, EndianSizeTag<4>);
 
 // Byte-swaps the three 16-bit and four 32-bit fields of the struct via BSEndian.
 // @fnv 0x005ee580
-void __fastcall SwapPoseMatchingEndian(PoseMatching_DATA__PoseMatching_System_DATA* data)
+// src: COMMUNITY 0x005ee580
+void __fastcall PoseMatching_DATA_PoseMatching_System_DATA_Endian(PoseMatching_DATA__PoseMatching_System_DATA* data)
 {
     BSEndian(reinterpret_cast<unsigned short*>(&data->m_sFirstRagdollFeedbackIndex), EndianSizeTag<2>());
     BSEndian(reinterpret_cast<unsigned short*>(&data->m_sSecondRagdollFeedbackIndex), EndianSizeTag<2>());
@@ -856,11 +858,12 @@ void __cdecl TESForm_AddChunkArray16_ForwardCall_00485730(void*, void*, void*);
 void __cdecl TESForm_AddChunkArray(unsigned int, void*, unsigned int);
 
 // @fnv 0x005ee110
-void __fastcall SaveRagdoll(BGSRagdoll* ragdoll)
+// src: EXE 0x005ee110
+void __fastcall BGSRagdoll_SaveForm(BGSRagdoll* ragdoll)
 {
     SaveMetadata saveData;
 
-    reinterpret_cast<TESForm*>(ragdoll)->BeginFormRecord();
+    reinterpret_cast<TESForm*>(ragdoll)->TESForm_StartForm();
 
     reinterpret_cast<TESModel*>(reinterpret_cast<unsigned char*>(ragdoll) + 0x18)
         ->WriteToBuffer(0x4c444f4d, 0x54444f4d);
@@ -917,12 +920,12 @@ void __fastcall SaveRagdoll(BGSRagdoll* ragdoll)
     }
 
     if (_FUN_00401500())
-        SwapRagdollFeedbackEndian(reinterpret_cast<RagdollFeedbackData__RagdollFeedbackSystemData*>(reinterpret_cast<unsigned char*>(ragdoll) + 0x44));
+        RagdollFeedbackData_RagdollFeedbackSystemData_Endian(reinterpret_cast<RagdollFeedbackData__RagdollFeedbackSystemData*>(reinterpret_cast<unsigned char*>(ragdoll) + 0x44));
 
     _FUN_00485990(0x44464152, reinterpret_cast<unsigned char*>(ragdoll) + 0x44, 0x3c);
 
     if (_FUN_00401500())
-        SwapRagdollFeedbackEndian(reinterpret_cast<RagdollFeedbackData__RagdollFeedbackSystemData*>(reinterpret_cast<unsigned char*>(ragdoll) + 0x44));
+        RagdollFeedbackData_RagdollFeedbackSystemData_Endian(reinterpret_cast<RagdollFeedbackData__RagdollFeedbackSystemData*>(reinterpret_cast<unsigned char*>(ragdoll) + 0x44));
 
     if (reinterpret_cast<BSSimpleArray<SandboxProcedureData, 1024>*>(reinterpret_cast<unsigned char*>(ragdoll) + 0x80)->GetSize() > 0)
     {
@@ -933,12 +936,12 @@ void __fastcall SaveRagdoll(BGSRagdoll* ragdoll)
     }
 
     if (_FUN_00401500())
-        SwapPoseMatchingEndian(reinterpret_cast<PoseMatching_DATA__PoseMatching_System_DATA*>(reinterpret_cast<unsigned char*>(ragdoll) + 0x124));
+        PoseMatching_DATA_PoseMatching_System_DATA_Endian(reinterpret_cast<PoseMatching_DATA__PoseMatching_System_DATA*>(reinterpret_cast<unsigned char*>(ragdoll) + 0x124));
 
     _FUN_00485990(0x53504152, reinterpret_cast<unsigned char*>(ragdoll) + 0x124, 0x18);
 
     if (_FUN_00401500())
-        SwapPoseMatchingEndian(reinterpret_cast<PoseMatching_DATA__PoseMatching_System_DATA*>(reinterpret_cast<unsigned char*>(ragdoll) + 0x124));
+        PoseMatching_DATA_PoseMatching_System_DATA_Endian(reinterpret_cast<PoseMatching_DATA__PoseMatching_System_DATA*>(reinterpret_cast<unsigned char*>(ragdoll) + 0x124));
 
     if (reinterpret_cast<BSStringT<char>*>(reinterpret_cast<unsigned char*>(ragdoll) + 0x11c)->Length())
     {
@@ -950,7 +953,7 @@ void __fastcall SaveRagdoll(BGSRagdoll* ragdoll)
                          1);
     }
 
-    reinterpret_cast<TESForm*>(ragdoll)->FinishFormRecord();
+    reinterpret_cast<TESForm*>(ragdoll)->TESForm_CloseForm();
 }
 }  // namespace fnv_005ee110
 

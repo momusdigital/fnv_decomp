@@ -55,11 +55,11 @@ public:
     WorldSpaceTarget* FUN_00825c00();
     static int __cdecl BuildCellKey(short, short);
     static int GetKeyForWorldCoord(const NiPoint3& point);
-    TESObjectCELL* GetCellByKey(unsigned int);
+    TESObjectCELL* GetCellFromKey(unsigned int);
     TESObjectCELL* LookupCellByEditorID(const char* editorID);
     void GetCellAtPosition(NiPoint3&, bool);
     BGSEncounterZone* FindEncounterZone() const;
-    BGSTerrainManager* GetWorldTerrainManager();
+    BGSTerrainManager* GetTerrainManager();
     bool GetSmallWorld();
     void* GetFieldD0();
     virtual char* GetName() const;
@@ -73,17 +73,17 @@ public:
     float GetFloatAt0xC8();
     bool SetDateTimeText(const char*);
     bool GetParentUseFlag(PARENT_USE_FLAG);
-    void AddPersistentReference(TESObjectREFR*);
+    void AddPersistentRef(TESObjectREFR*);
     TESObjectCELL* CreatePersistentCell();
     void SetHasRegions(bool);
     void SetFlagBit0(bool);
-    void* GetOrCreateCellOffsetData(TESFile*);
+    void* CreateOffsetData(TESFile*);
     static bool IsFormIDOwnedByFile(unsigned int, TESFile*);
     void ClearWorldSpaceReferences();
     void SetWaterLODHeight(float);
     void SetDefaultLandHeight(float);
     void Projectile_SetPower(float);
-    bool IsFlag4C20Set();
+    bool GetNoLODNoise();
     void SetParent(TESWorldSpace*);
     void SetFieldD0(unsigned int);
 
@@ -137,8 +137,8 @@ public:
     void ClearData_00583180();
     void ClearCellMap();
     void FreeOffsetMap();
-    void ClearAllLists();
-    void DestroyMapEntries();
+    void TESWorldSpace_ClearPersistentRefData();
+    void ClearMultiBoundRefs();
     void RemovePersistentRef(TESObjectREFR*);
     bool AddCell(TESObjectCELL*);
     void RemoveFromPersistentRefData(TESObjectREFR*);
@@ -149,7 +149,7 @@ public:
     PointerPairData* GetWorldMapData();
     TESObjectCELL* GetCellFromWorldCoord(const NiPoint3&);
     void RemoveCellFromMap(TESObjectCELL*);
-    void AddCellReferences(TESObjectCELL*);
+    void AssignPersistentRefsToCell(TESObjectCELL*);
     void GetCurrentCellMarkerDataRefs(TESObjectREFR*);
     void AddToPersistentRefData(TESObjectREFR*);
 

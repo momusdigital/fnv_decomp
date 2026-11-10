@@ -388,7 +388,7 @@ __declspec(noinline) hkpLimitedHingeConstraintDataAtoms::hkpLimitedHingeConstrai
     *limit = 0xc;
     static_cast<volatile unsigned short&>(m_kBallSocket.m_type) = 5;
     m_kBallSocket.m_ucBodiesToNotify = 0;
-    reinterpret_cast<hkUFloat8&>(m_kBallSocket.m_solvingMethod).FindFloatTableIndex(&f);
+    reinterpret_cast<hkUFloat8&>(m_kBallSocket.m_solvingMethod).SetReal(&f);
     m_kBallSocket.m_usFlags = DAT_0104da48;
 }
 

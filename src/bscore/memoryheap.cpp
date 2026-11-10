@@ -158,10 +158,11 @@ extern MemoryManager g_memoryManager;
 struct FakeHeap
 {
     void FUN_00aa7930();
-    void* FUN_00aa7e20(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 // @fnv 0x00aa7e20
-void* FakeHeap::FUN_00aa7e20(unsigned int flags)
+// src: EXE 0x00aa7e20
+void* FakeHeap::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00aa7930();
     if (flags & 1)

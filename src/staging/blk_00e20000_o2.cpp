@@ -109,7 +109,7 @@ void* __thiscall FUN_00e3f340_Class::GetEntryByArg(int arg)
     return 0;
 }
 
-struct FUN_00e3f900_class
+struct hkxAttribute
 {
     int __thiscall ReturnSelf(int a);
     int __thiscall ProcessAndReturnValue_00e3f900(int a);
@@ -117,7 +117,7 @@ struct FUN_00e3f900_class
 
 // @fnv 0x00e3f900
 // src: GUESS 0x00e3f900 (confidence: low)
-int __thiscall FUN_00e3f900_class::ProcessAndReturnValue_00e3f900(int a)
+int __thiscall hkxAttribute::ProcessAndReturnValue_00e3f900(int a)
 {
     ReturnSelf(a);
     return (int)this;
@@ -1676,7 +1676,7 @@ struct Base_b4888
     }
 };
 
-struct FUN_00e347c0 : Base_b4888
+struct hkaMeshBinding : Base_b4888
 {
     SubObj_b4888 m_0c;
     unsigned int m_10;
@@ -1687,11 +1687,12 @@ struct FUN_00e347c0 : Base_b4888
     unsigned int m_24;
     unsigned int m_28;
 
-    FUN_00e347c0();
+    hkaMeshBinding();
 };
 
 // @fnv 0x00e347c0
-FUN_00e347c0::FUN_00e347c0()
+// src: EXE 0x00e347c0
+hkaMeshBinding::hkaMeshBinding()
 {
     m_10 = 0;
     m_14 = 0;
@@ -1734,7 +1735,7 @@ S_00e34950_Foo* S_00e34950_Foo::Init()
 
 extern int DAT_010df9f4;
 
-class FUN_00e39a80
+class hkpVehicleDefaultBrake
 {
   public:
     int m_vptr00;
@@ -1744,11 +1745,12 @@ class FUN_00e39a80
     int m_0c;
     int m_10;
     float m_14;
-    FUN_00e39a80();
+    hkpVehicleDefaultBrake();
 };
 
 // @fnv 0x00e39a80
-FUN_00e39a80::FUN_00e39a80()
+// src: EXE 0x00e39a80
+hkpVehicleDefaultBrake::hkpVehicleDefaultBrake()
 {
     float zero = 0.0f;
     *(volatile unsigned short*)&m_06 = 1;
@@ -1853,17 +1855,17 @@ struct LinkOwner
     void* unk08;
     void __thiscall hkpBridgeConstraintAtom_init(void*);
 };
-struct FUN_00e3b060_Class
+struct hkpStiffSpringChainData
 {
     void* vtable;
     int unk04;
     int unk08;
     LinkOwner links;
-    FUN_00e3b060_Class* __thiscall ReleaseLinks(ReleaseFlags flags);
+    hkpStiffSpringChainData* __thiscall ReleaseLinks(ReleaseFlags flags);
 };
 // Sets the vtable and, depending on flags, releases the link owner's handle and/or the owner itself, then returns this.
 // @fnv 0x00e3b060
-FUN_00e3b060_Class* FUN_00e3b060_Class::ReleaseLinks(ReleaseFlags aReleaseFlags)
+hkpStiffSpringChainData* hkpStiffSpringChainData::ReleaseLinks(ReleaseFlags aReleaseFlags)
 {
     vtable = &DAT_010eb98c;
     LinkOwner* owner = &links;
@@ -1943,18 +1945,19 @@ struct S_00e3c5b0_Arr
         cap = (int)0x80000000;
     }
 };
-struct FUN_00e3c5b0 : S_00e3c5b0_Base
+struct hkpSimpleMeshShape : S_00e3c5b0_Base
 {
     S_00e3c5b0_Arr a;
     S_00e3c5b0_Arr b;
     S_00e3c5b0_Arr c;
     float unk3c;
     unsigned char unk40;
-    FUN_00e3c5b0(float f);
+    hkpSimpleMeshShape(float f);
 };
 // Initializes the base with type 0x17 and flag 4, stores f in unk3c and sets unk40 to 6.
 // @fnv 0x00e3c5b0
-FUN_00e3c5b0::FUN_00e3c5b0(float afValue) : S_00e3c5b0_Base(0x17, 4)
+// src: EXE 0x00e3c5b0
+hkpSimpleMeshShape::hkpSimpleMeshShape(float afValue) : S_00e3c5b0_Base(0x17, 4)
 {
     unk3c = afValue;
     unk40 = 6;
@@ -2260,7 +2263,7 @@ struct BaseE3EAA0
     ~BaseE3EAA0();   // 0x00e3eaa0 (was called as Shutdown)
 };
 
-struct FUN_00e3ed80 : BaseE3EAA0
+struct hkxNode : BaseE3EAA0
 {
     hkStringPtr m_14;
     ReferenceCountedPointer m_18;
@@ -2268,12 +2271,13 @@ struct FUN_00e3ed80 : BaseE3EAA0
     hkArray<hkRefPtrE_blk_00e20000_o2> m_28;
     hkArray<Pair8> m_34;
     hkStringPtr m_40;
-    virtual ~FUN_00e3ed80() throw();
+    virtual ~hkxNode() throw();
 };
 
 // Compiler-generated member teardown: m_40, the m_34 / m_28 / m_1c arrays, m_18, m_14, then the base destructor.
 // @fnv 0x00e3ed80
-FUN_00e3ed80::~FUN_00e3ed80() throw()
+// src: EXE 0x00e3ed80
+hkxNode::~hkxNode() throw()
 {
 }
 
@@ -2322,7 +2326,7 @@ struct AudioSub
     void Reset();
 };
 
-struct FUN_00e3f110_cls
+struct hkxMaterial
 {
     int m_vptr00;
     int unk04;
@@ -2363,7 +2367,7 @@ struct FUN_00e3f110_cls
 
 // Releases m_p7c and every element of the two reference arrays, frees their buffers via the allocator, resets m_sub14 and calls BaseTeardown.
 // @fnv 0x00e3f110
-void FUN_00e3f110_cls::Destroy() throw()
+void hkxMaterial::Destroy() throw()
 {
     *(volatile int*)&m_vptr00 = (int)&DAT_010e33dc;
     AudioRefObject* pRef = *(AudioRefObject* volatile*)&m_p7c;
@@ -2449,7 +2453,7 @@ struct FUN_00e3f230_Entry
     unsigned int unk04;
 };
 
-struct FUN_00e3f230_cls
+struct hkxEnvironment
 {
     int unk00;
     int unk04;
@@ -2460,7 +2464,7 @@ struct FUN_00e3f230_cls
 
 // Scans m_pEntries for the first entry whose masked key matches arg via CompareStringsCaseInsensitive, returning its index or -1.
 // @fnv 0x00e3f230
-int FUN_00e3f230_cls::FindEntryByKey(int arg)
+int hkxEnvironment::FindEntryByKey(int arg)
 {
     int i = 0;
     if (m_uiItemCount > 0)
@@ -2952,7 +2956,7 @@ struct FrictionDescX
     float m_g0, m_g1, m_g2, m_g3, m_g4, m_g5, m_g6;
 };
 
-struct FUN_00e39da0 : hkReferencedObject
+struct hkpVehicleData : hkReferencedObject
 {
     V4 m_kGravity;
     signed char m_iWheelCount;
@@ -2973,11 +2977,12 @@ struct FUN_00e39da0 : hkReferencedObject
     FrictionDescX m_kFrictionDescription;
     V4 m_vChassisUnitInertiaAndMassInv;
     hkBool m_bWheelsUseChassisForGround;
-    FUN_00e39da0();
+    hkpVehicleData();
 };
 // Constructor: zeroes the gravity vector, chassis orientation, wheel count, mass and torque max, and sets fixed torque and inertia factors.
 // @fnv 0x00e39da0
-FUN_00e39da0::FUN_00e39da0()
+// src: EXE 0x00e39da0
+hkpVehicleData::hkpVehicleData()
 {
     m_iWheelCount = 0;
     ZeroRotation(m_kChassisOrientation);
@@ -3079,7 +3084,7 @@ struct M3
     }
 };
 
-struct FUN_00e3b5c0
+struct hkpRotationalConstraintData
 {
     int m_vtbl00;
     unsigned short unk04;
@@ -3097,12 +3102,13 @@ struct FUN_00e3b5c0
     unsigned char m_82;
     unsigned char m_83;
 
-    FUN_00e3b5c0();
+    hkpRotationalConstraintData();
 };
 
 // Sets the vtable pointer, stores constants in several small fields, and sets m_rot20 and m_rot50 to identity matrices.
 // @fnv 0x00e3b5c0
-FUN_00e3b5c0::FUN_00e3b5c0()
+// src: EXE 0x00e3b5c0
+hkpRotationalConstraintData::hkpRotationalConstraintData()
 {
     *(int**)this = &DAT_010e11ec;
     m_06 = 1;

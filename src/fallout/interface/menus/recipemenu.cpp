@@ -110,7 +110,7 @@ struct FUN_0072b580_shell
     int m_auiShapeKeys;
     BSSimpleList_WeatherEntry m_kNode;
     void __thiscall SortWeatherEntries_0072b580(int(__cdecl*)(WeatherEntry*, WeatherEntry*));
-    void __thiscall UpdateEntryMetrics_0072c700();
+    void __thiscall ListBox_UpdateTileIndices();
 };
 
 // Sorts the weather entry list using the given comparison function, then calls FUN_0072c700.
@@ -119,12 +119,12 @@ struct FUN_0072b580_shell
 void __thiscall FUN_0072b580_shell::SortWeatherEntries_0072b580(int(__cdecl* cmp)(WeatherEntry*, WeatherEntry*))
 {
     m_kNode.Sort(cmp);
-    UpdateEntryMetrics_0072c700();
+    ListBox_UpdateTileIndices();
 }
 
 struct FUN_0072b9c0_shell
 {
-    void* FUN_0072b9c0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     void FUN_00729a70();
 };
 
@@ -132,7 +132,8 @@ void __cdecl _Deallocate(void*);
 
 // Calls FUN_00729a70, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x0072b9c0
-void* FUN_0072b9c0_shell::FUN_0072b9c0(unsigned int flags)
+// src: EXE 0x0072b9c0
+void* FUN_0072b9c0_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00729a70();
     if (flags & 1)
@@ -883,7 +884,7 @@ RecipeEntry* RecipePanel::ListBox_TESRecipe_AddItem(int selection, int updateCho
 
 struct Item
 {
-    bool __thiscall IsTraitNonZero(int);
+    bool __thiscall Tile_IsTrue(int);
 };
 extern int UNK_01070244;
 int __cdecl Tile_AddUserTrait(int*, int);
@@ -905,7 +906,7 @@ struct Object
 // @fnv 0x0072a250
 bool __thiscall Object::SetCurrentItem(Item* pItem)
 {
-    if (HasEnabledTrait() && (!pItem || (ContainsKey(pItem) && pItem->IsTraitNonZero(Tile_AddUserTrait(&UNK_01070244, -1)))))
+    if (HasEnabledTrait() && (!pItem || (ContainsKey(pItem) && pItem->Tile_IsTrue(Tile_AddUserTrait(&UNK_01070244, -1)))))
     {
         current = pItem;
         RefreshHighlight();
@@ -982,7 +983,7 @@ extern "C" void* __cdecl Tile_AddUserTrait(const char* name, int lookupMode);
 
 struct SelectedOption
 {
-    bool IsTraitNonZero(void* item);
+    bool Tile_IsTrue(void* item);
 };
 
 struct SelectionManager
@@ -1003,7 +1004,7 @@ struct SelectionManager
 // src: GUESS 0x0072b5b0 (confidence: low)
 bool SelectionManager::UpdateState_0072b5b0(SelectedOption* option)
 {
-    if (IsListBoxEnabled() && (!option || (ContainsKey(option) && option->IsTraitNonZero(Tile_AddUserTrait(&DAT_01070244, -1)))))
+    if (IsListBoxEnabled() && (!option || (ContainsKey(option) && option->Tile_IsTrue(Tile_AddUserTrait(&DAT_01070244, -1)))))
     {
         selectedOption = option;
         UpdateHighlightTraits();
@@ -1141,7 +1142,7 @@ struct MenuTileControl
 bool MenuTileControl::ProcessAndReturnValue_0072c200()
 {
     static void* cachedValue = Tile_AddUserTrait(DAT_01070244, -1);
-    return tile != 0 && tile->IsTraitNonZero(reinterpret_cast<int>(cachedValue));
+    return tile != 0 && tile->Tile_IsTrue(reinterpret_cast<int>(cachedValue));
 }
 }  // namespace fnv_0072c200
 
@@ -1219,7 +1220,7 @@ class B2C7D0Menu
 bool B2C7D0Menu::IsListBoxEnabled()
 {
     static int s_iEnabled = Tile_AddUserTrait(kListBoxEnabled, -1);
-    return m_pkTile && m_pkTile->IsTraitNonZero(s_iEnabled);
+    return m_pkTile && m_pkTile->Tile_IsTrue(s_iEnabled);
 }
 }  // namespace fnv_0072c7d0
 
@@ -1631,20 +1632,20 @@ Tile* ListBoxX::GetNextEnabledTile(int aiKey)
                 if (node->ItemRef()->tile->GetFloat(0xfac) == idxTmp)
                     result2 = node->ItemRef()->tile;
             }
-            if (result2 && !result2->IsTraitNonZero(TraitNameToIDX("_enabled", -1)))
+            if (result2 && !result2->Tile_IsTrue(TraitNameToIDX("_enabled", -1)))
             {
                 result2 = 0;
                 if (delta8 > 0 && ++idxTmp > aMaxIdx)
                 {
                     idxTmp = aMaxIdx - 1;
-                    while ((!result2 || !result2->IsTraitNonZero(TraitNameToIDX("_enabled", -1))) && idxTmp >= 0)
+                    while ((!result2 || !result2->Tile_IsTrue(TraitNameToIDX("_enabled", -1))) && idxTmp >= 0)
                         result2 = GetTileAt(idxTmp--, false);
                     break;
                 }
                 else if (delta8 < 0 && --idxTmp < 0)
                 {
                     idxTmp = 1;
-                    while ((!result2 || !result2->IsTraitNonZero(TraitNameToIDX("_enabled", -1))) && idxTmp <= aMaxIdx)
+                    while ((!result2 || !result2->Tile_IsTrue(TraitNameToIDX("_enabled", -1))) && idxTmp <= aMaxIdx)
                         result2 = GetTileAt(idxTmp++, false);
                     break;
                 }
@@ -1884,7 +1885,7 @@ int __cdecl Tile_TextToTrait(const char* name);
 float __cdecl FUN_004bd510(float value, float unit);
 struct NavigationItem : MenuNode
 {
-    bool IsTraitNonZero(int property);
+    bool Tile_IsTrue(int property);
 };
 struct NavigationEntry
 {
@@ -1967,13 +1968,13 @@ NavigationItem* NavigationList::GetNextItem(int action)
                 if ((*node->FUN_006815c0())->item->FUN_00a011b0(0xfac) == last)
                     selected = (*node->FUN_006815c0())->item;
             }
-            if (selected && !selected->IsTraitNonZero(Tile_AddUserTrait(&UNK_01070244, -1)))
+            if (selected && !selected->Tile_IsTrue(Tile_AddUserTrait(&UNK_01070244, -1)))
             {
                 selected = 0;
                 if (step > 0 && ++last > index)
                 {
                     last = index - 1;
-                    while ((!selected || !selected->IsTraitNonZero(Tile_AddUserTrait(&UNK_01070244, -1))) && last >= 0)
+                    while ((!selected || !selected->Tile_IsTrue(Tile_AddUserTrait(&UNK_01070244, -1))) && last >= 0)
                     {
                         selected = FindItem(last--, 0);
                     }
@@ -1982,7 +1983,7 @@ NavigationItem* NavigationList::GetNextItem(int action)
                 else if (step < 0 && --last < 0)
                 {
                     last = 1;
-                    while ((!selected || !selected->IsTraitNonZero(Tile_AddUserTrait(&UNK_01070244, -1))) && last <= index)
+                    while ((!selected || !selected->Tile_IsTrue(Tile_AddUserTrait(&UNK_01070244, -1))) && last <= index)
                     {
                         selected = FindItem(last++, 0);
                     }
@@ -2033,7 +2034,7 @@ struct RecipeListOwner
     unsigned short flags;
     float value;
     bool ListBox_unsigned_int_GetFlag(unsigned int flags);
-    void UpdateScrollTraits_0072cba0();
+    void ListBox_UpdateScrollBar();
     void UpdateHighlightTraits();
     void ClearEntries();
 };
@@ -2065,7 +2066,7 @@ void RecipeListOwner::ClearEntries()
     value = 0.0f;
     if (tile)
         tile->Set(Tile_TextToTrait("_num_filtered"), 0.0f, true);
-    UpdateScrollTraits_0072cba0();
+    ListBox_UpdateScrollBar();
     selected = 0;
     UpdateHighlightTraits();
 }
@@ -2160,13 +2161,13 @@ Tile* Navigation::ProcessEntries_0072b620(int action)
                 if ((*node->FUN_006815c0())->tile->FUN_00a011b0(0xfac) == index)
                     foundVal = (*node->FUN_006815c0())->tile;
             }
-            if (foundVal && !foundVal->IsTraitNonZero(reinterpret_cast<int>(Tile_AddUserTrait(&DAT_01070244, -1))))
+            if (foundVal && !foundVal->Tile_IsTrue(reinterpret_cast<int>(Tile_AddUserTrait(&DAT_01070244, -1))))
             {
                 foundVal = 0;
                 if (delta8 > 0 && ++index > maximum)
                 {
                     index = maximum - 1;
-                    while ((!foundVal || !foundVal->IsTraitNonZero(reinterpret_cast<int>(Tile_AddUserTrait(&DAT_01070244, -1)))) && index >= 0)
+                    while ((!foundVal || !foundVal->Tile_IsTrue(reinterpret_cast<int>(Tile_AddUserTrait(&DAT_01070244, -1)))) && index >= 0)
                     {
                         foundVal = Get(index--, false);
                     }
@@ -2175,7 +2176,7 @@ Tile* Navigation::ProcessEntries_0072b620(int action)
                 else if (delta8 < 0 && --index < 0)
                 {
                     index = 1;
-                    while ((!foundVal || !foundVal->IsTraitNonZero(reinterpret_cast<int>(Tile_AddUserTrait(&DAT_01070244, -1)))) &&
+                    while ((!foundVal || !foundVal->Tile_IsTrue(reinterpret_cast<int>(Tile_AddUserTrait(&DAT_01070244, -1)))) &&
                            index <= maximum)
                     {
                         foundVal = Get(index++, false);
@@ -2206,7 +2207,7 @@ struct List271
 // src: GUESS 0x0072ae00 (confidence: low)
 bool List271::ProcessAndReturnValue_0072ae00(SelectedOption* option)
 {
-    if (ProcessAndReturnValue_0072c200() && (!option || (ContainsKey(option) && option->IsTraitNonZero(Tile_AddUserTrait(&DAT_01070244, -1)))))
+    if (ProcessAndReturnValue_0072c200() && (!option || (ContainsKey(option) && option->Tile_IsTrue(Tile_AddUserTrait(&DAT_01070244, -1)))))
     {
         current = option;
         UpdateState_0072c2b0();
@@ -4081,7 +4082,7 @@ extern SettingObj DAT_011d4024;
 extern SettingObj DAT_011d330c;
 
 InvChanges* __cdecl FUN_004bf220(void* player);
-float __cdecl GetWeaponDamage(TESObjectWEAP* weapon, float condition, int a, int b);
+float __cdecl CombatFormulas_CalcWeaponDamageForDisplay(TESObjectWEAP* weapon, float condition, int a, int b);
 float __cdecl FUN_00646360(int rating, float condition);
 float __cdecl FUN_00476b20(float rating);
 int __cdecl Tile_TextToTrait(const char* a);
@@ -4208,7 +4209,7 @@ void SelfObj::RecipeMenu_PopulateItemStatsDisplay(TESForm* apForm, MenuTileList*
                     }
                     else
                     {
-                        damage_2 = GetWeaponDamage(weapon4, conditionalColorA, 0, 0);
+                        damage_2 = CombatFormulas_CalcWeaponDamageForDisplay(weapon4, conditionalColorA, 0, 0);
                     }
                     char local2[128];
                     BSsprintf(local2, 0x80, str_01020764, (int)FUN_004bd510(localX, 1.0f));

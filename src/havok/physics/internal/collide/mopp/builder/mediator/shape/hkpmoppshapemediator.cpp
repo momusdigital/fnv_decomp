@@ -72,7 +72,7 @@ struct SpawnedBase
     {}
 };
 
-class FUN_00dd52a0_cls : public SpawnedBase
+class hkpMoppShapeMediator : public SpawnedBase
 {
   public:
     short unk04;
@@ -80,12 +80,12 @@ class FUN_00dd52a0_cls : public SpawnedBase
     hkpShapeContainer* m_src08;
     int m_result0c;
 
-    FUN_00dd52a0_cls* InitFromSource(hkpShapeContainer* src);
+    hkpMoppShapeMediator* InitFromSource(hkpShapeContainer* src);
 };
 
 // Sets m_flag06 to 1, destroys the base, stores src and its child shape count, and returns this.
 // @fnv 0x00dd52a0
-FUN_00dd52a0_cls* FUN_00dd52a0_cls::InitFromSource(hkpShapeContainer* pSource)
+hkpMoppShapeMediator* hkpMoppShapeMediator::InitFromSource(hkpShapeContainer* pSource)
 {
     m_flag06 = 1;
     this->SpawnedBase::~SpawnedBase();

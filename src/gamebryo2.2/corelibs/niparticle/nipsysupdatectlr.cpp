@@ -48,7 +48,7 @@ struct CtorBase_cls
     void ctorBase();
 };
 
-struct FUN_00c27160_cls
+struct NiPSysUpdateCtlr
 {
     void* m_vtbl;
     unsigned int unk04;
@@ -64,9 +64,9 @@ struct FUN_00c27160_cls
 // Allocates a 0x34-byte object, runs its base constructor, zeroes m_14/m_18, sets its vtable, then passes it to FUN_00a6cfe0 with a1 and returns it.
 // @fnv 0x00c27160
 // src: XBOX_PDB 0x00c27160
-void* FUN_00c27160_cls::NiPSysUpdateCtlr_CreateClone(unsigned int a1)
+void* NiPSysUpdateCtlr::NiPSysUpdateCtlr_CreateClone(unsigned int a1)
 {
-    FUN_00c27160_cls* p = (FUN_00c27160_cls*)Object_DispatchCommandFour(0x34);
+    NiPSysUpdateCtlr* p = (NiPSysUpdateCtlr*)Object_DispatchCommandFour(0x34);
     if (p != 0)
     {
         ((CtorBase_cls*)p)->ctorBase();

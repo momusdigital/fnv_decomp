@@ -5,9 +5,9 @@
 #include "../../../../include/NiStream.h"
 
 // This unit's original collision assignment call does not unwind the constructor.
-static inline void AssignCollisionObject(NiAVObject* object, NiCollisionObject* collision) throw()
+static inline void SetCollisionObject(NiAVObject* object, NiCollisionObject* collision) throw()
 {
-    object->AssignCollisionObject(collision);
+    object->SetCollisionObject(collision);
 }
 
 // @fnv 0x00a80fd0
@@ -27,13 +27,13 @@ void NiCollisionObject::SetSceneObject(NiAVObject* object)
 {
     m_pkSceneObject = object;
     if (object && object->m_spCollisionObject.m_pObject != this)
-        object->AssignCollisionObject(this);
+        object->SetCollisionObject(this);
 }
 // @fnv 0x00a810d0
 NiCollisionObject::NiCollisionObject(NiAVObject* apSceneObject) : m_pkSceneObject(apSceneObject)
 {
     if (apSceneObject && apSceneObject->m_spCollisionObject.m_pObject != this)
-        AssignCollisionObject(apSceneObject, this);
+        SetCollisionObject(apSceneObject, this);
 }
 
 extern char const* const g_01267b70_arg1;

@@ -44,7 +44,7 @@ public:
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40();
     virtual void vf44();
@@ -59,7 +59,7 @@ public:
         removeContactPointImpl(static_cast<hkUint16>(id), static_cast<hkpConstraintOwner*>(constraintOwner));
     }
 
-    unsigned int processContactPoint(const hkpCdBody& a, const hkpCdBody& b,
+    unsigned int hkpReportContactMgr_addContactPointImpl(const hkpCdBody& a, const hkpCdBody& b,
                                     const GskAgentInput& input, WorldOperationEntry& output,
                                     const ConvexFeaturePairCache* contactCache, hkContactPoint& cp);
     hkRigidBodyStub* setContactPointProperties(const hkCdBodyStub& a, const hkCdBodyStub& b,

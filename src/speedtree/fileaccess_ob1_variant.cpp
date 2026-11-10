@@ -13,7 +13,7 @@ struct FUN_00b3ede0_shell
     void* prev;
     unsigned int used;
     unsigned int size;
-    void* AdvanceBlockAllocationCursor();
+    void* ReadInt();
 };
 unsigned int __cdecl FUN_00ec7c56(void);
 struct FUN_00b3ef80_shell
@@ -59,7 +59,7 @@ struct FUN_00b40150_base
     virtual void vBaseSlot();
     FUN_00b40150_base();
 };
-struct FUN_00b40150_cls : public FUN_00b40150_base
+struct CBillboardLeaf : public FUN_00b40150_base
 {
     int m_unk04;
     int m_unk08;
@@ -74,7 +74,7 @@ struct FUN_00b40150_cls : public FUN_00b40150_base
     float m_f44;
     int m_i48;
 
-    FUN_00b40150_cls();
+    CBillboardLeaf();
 };
 
 struct Alloc_00b3ee40

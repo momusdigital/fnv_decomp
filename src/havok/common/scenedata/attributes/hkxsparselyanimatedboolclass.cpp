@@ -15,13 +15,14 @@ inline void hkReferencedObject::operator delete(void* p)
     hkMemoryRouter_getInstance()->heap().blockFree(p, b->m_usMemSizeAndFlags);
 }
 
-struct FUN_00e01ac0 : hkReferencedObject
+struct hkxSparselyAnimatedBool : hkReferencedObject
 {
-    FUN_00e01ac0();
-    virtual ~FUN_00e01ac0();
+    hkxSparselyAnimatedBool();
+    virtual ~hkxSparselyAnimatedBool();
 };
 
-// Default constructor for the FUN_00e01ac0 class, which inherits from hkReferencedObject.
+// Default constructor for the hkxSparselyAnimatedBool class, which inherits from hkReferencedObject.
 // @fnv 0x00e01ac0
-FUN_00e01ac0::FUN_00e01ac0()
+// src: EXE 0x00e01ac0
+hkxSparselyAnimatedBool::hkxSparselyAnimatedBool()
 {}

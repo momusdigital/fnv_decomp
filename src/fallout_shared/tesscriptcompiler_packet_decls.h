@@ -11,5 +11,5 @@ struct CommandInfo
 };
 extern ScriptFunctionInfo DAT_0118e8e0[];
 extern CommandInfo g_scriptCommands[];
-ScriptFunctionInfo* GetFunctionByOpcode(SCRIPT_OUTPUT output);
+ScriptFunctionInfo* ScriptCompiler_GetFunctionDef(SCRIPT_OUTPUT output);
 #endif

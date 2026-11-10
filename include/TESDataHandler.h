@@ -272,8 +272,8 @@ public:
     TESGlobal* GetGlobal(char*);
     TESGlobal* GetGlobal(unsigned int);
     BGSVoiceType* GetVoiceType(unsigned int);
-    TESFaction* GetFactionByFormID(char*);
-    TESFaction* GetFactionByFormID(unsigned int);
+    TESFaction* GetFaction(char*);
+    TESFaction* GetFaction(unsigned int);
     TESReputation* GetReputation(char*);
     TESReputation* GetReputation(unsigned int);
     TESRecipe* GetRecipe(char*);
@@ -370,7 +370,7 @@ public:
     void AddQuest(TESQuest*);
     void RemoveQuest(TESQuest*);
     unsigned int GetAddonNodeCount();
-    BGSAddonNode* GetAddonNodeByIndex(unsigned int);
+    BGSAddonNode* GetAddonNode(unsigned int);
     void RegisterAddonNode(BGSAddonNode*);
     void RemoveAddonNode(BGSAddonNode*);
     TESObjectCELL* GetCellByNameAndGrid(char*);
@@ -397,8 +397,8 @@ public:
     void RemoveDuplicateReferences();
     TESObjectREFR* CreateProjectileAtLocation(TESBoundObject*, void*, void*, TESObjectCELL*, TESWorldSpace*);
     TESObjectREFR* PlaceObjectAtLocation(TESBoundObject*, void*, void*, TESObjectCELL*, TESWorldSpace*);
-    TESFile* LookupTESFile(unsigned int);
-    TESFile* LookupTESFile(char*);
+    TESFile* GetListFile(unsigned int);
+    TESFile* GetListFile(char*);
     bool RemoveListFile(TESFile*);
     static void FileCacheCompleteCallback(char*);
     char* GetActiveFileName();
@@ -409,7 +409,7 @@ public:
     void AddCompiledFile(TESFile*);
     void ClearFileList();
     bool UpdateLoadingStatusCallback(char*);
-    void BuildCompiledFileList();
+    void CreateThreadSafeFiles();
     int CountCheckedFiles(int);
     unsigned int CountFiles();
     unsigned int CountCompiled();
@@ -456,7 +456,7 @@ public:
     void ClearRecipeContainer();
     InventoryChanges* GetRecipeContainer();
     TESRegionDataManager* GetRegionDataManager();
-    TESFile* GetCompiledFileByIndex(int);
+    TESFile* GetCompiledFile(int);
     unsigned int GetNextFormID();
     void SetNextFormID(unsigned int);
     bool FormIDExists(unsigned int);
@@ -478,12 +478,12 @@ public:
     char* GetDLCFlags();
     bool IsDLCFlagSet(char);
     void SetDLCFlag(char, bool);
-    int GetDLCIndex(char*);
+    int IsDLCPackageName(char*);
     unsigned int LoadFilesInDirectory(char*, void*);
-    int GetDLCIndex(const char*);
+    int IsDLCPackageName(const char*);
     void GetReferencesInArea(TESObjectCELL*, const NiPoint3&, float, const NiPoint3&, float, bool(__cdecl*)(TESObjectREFR*, long), long);
-    TESFile* LookupTESFile(const char*);
-    bool IsIDUsed(unsigned int);
+    TESFile* GetListFile(const char*);
+    bool IsFormIDInUse(unsigned int);
     void IncrementID();
     TESSound* GetSoundByEditorID(const char*);
     unsigned int GetCompiledFileCount();

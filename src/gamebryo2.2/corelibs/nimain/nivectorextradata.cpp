@@ -44,13 +44,14 @@ bool NiVectorExtraData::IsEqual_00a92020(NiObject* pObject)
 
 struct Holder00a92080
 {
-    void* FUN_00a92080(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 void __cdecl DestroyFields_00a7b300();
 void __cdecl _delete(void*, unsigned int);
 extern int DAT_0109fb94;
 // @fnv 0x00a92080
-void* Holder00a92080::FUN_00a92080(unsigned int flags)
+// src: EXE 0x00a92080
+void* Holder00a92080::ScalarDeletingDestructor(unsigned int flags)
 {
     *(void**)this = (void*)&DAT_0109fb94;
     DestroyFields_00a7b300();
@@ -101,7 +102,8 @@ int __cdecl _NiSprintf(char* pBuffer, unsigned int uiSize, const char* pFormat, 
                        double fSecondFunctionValue, double fValue3, double fValue4);
 
 // @fnv 0x00a92290
-void __fastcall AppendVectorViewerStrings(NiVectorExtraData* self, void* unused, StrArr* pStringArray)
+// src: EXE 0x00a92290
+void __fastcall NiVectorExtraData_GetViewerStrings(NiVectorExtraData* self, void* unused, StrArr* pStringArray)
 {
     GetExtraDataViewerStrings(self, unused, pStringArray);
 

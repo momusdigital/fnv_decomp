@@ -9,7 +9,7 @@ class NiNode;
 class BSShaderRenderUtility_blackjackmenu
 {
 public:
-    bool IsRenderTargetId(unsigned int value);
+    bool TESDataHandler_IsFormIDCreated(unsigned int value);
     static void InitializeMultiBounds();
     static void SetRenderCamera(NiCamera* camera, BSShaderAccumulator* accumulator, bool unused);
     static void SetRenderCamera(AnimIdle* camera, AnimIdle* accumulator, bool unused);
@@ -543,11 +543,12 @@ struct FUN_007393f0_shell
     int DrawCard(G2* hand, int a1, int a2);
     void BlackJackMenu_GetHandValue(G2* hand);
 
-    void __thiscall DealInitialCards();
+    void __thiscall BlackJackMenu_DealHand();
 };
 
 // @fnv 0x007393f0
-void __thiscall FUN_007393f0_shell::DealInitialCards()
+// src: COMMUNITY 0x007393f0
+void __thiscall FUN_007393f0_shell::BlackJackMenu_DealHand()
 {
     int cardindex;
 
@@ -1524,7 +1525,7 @@ extern FormHolder* g_formHolder;
 int __cdecl Tile_AddUserTrait(const char*, int);
 extern int g_traitValue;
 extern int g_traitX;
-struct FUN_007c06f0 : Menu
+struct SlotMachineMenu : Menu
 {
     int unk28;
     int unk2C;
@@ -1595,11 +1596,12 @@ struct FUN_007c06f0 : Menu
     int unk14C;
     int unk150;
     int unk154;
-    FUN_007c06f0();
-    virtual ~FUN_007c06f0();
+    SlotMachineMenu();
+    virtual ~SlotMachineMenu();
 };
 // @fnv 0x007c06f0
-FUN_007c06f0::FUN_007c06f0()
+// src: EXE 0x007c06f0
+SlotMachineMenu::SlotMachineMenu()
 {
     g_traitValue = Tile_AddUserTrait("_Value", -1);
     g_traitX = Tile_AddUserTrait("_x", -1);
@@ -3567,7 +3569,7 @@ struct InputMenu
     int BlackJackMenu_GetHandValue(CardHand*);
     void ClearField();
     void BlackJackMenu_SetTileTextAlpha(int, float);
-    void DealInitialCards();
+    void BlackJackMenu_DealHand();
     bool BlackJackMenu_CanDoubleDown(bool);
     void UpdateChipPositions();
     void BlackJackMenu_SwapCardTextures(int, int, CardInfo*);
@@ -3668,7 +3670,7 @@ void InputMenu::HandleAction(int action, void* tile)
                 BlackJackMenu_SetTileTextAlpha(6, DAT_0101e704);
                 BlackJackMenu_SetTileTextAlpha(7, DAT_0101e704);
                 BlackJackMenu_SetTileTextAlpha(8, DAT_0101e704);
-                DealInitialCards();
+                BlackJackMenu_DealHand();
             }
             else if (state == 4)
             {

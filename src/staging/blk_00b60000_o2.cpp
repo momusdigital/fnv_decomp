@@ -325,7 +325,7 @@ int __cdecl Object_ComputeValue_00b66760(int a)
     return 1;
 }
 
-void __cdecl FUN_00b6a520();
+void __cdecl WaterShaderProperty();
 
 void __cdecl operator delete(void* p, unsigned int size);
 
@@ -334,11 +334,11 @@ struct FUN_00b6adb0_class
     void* FUN_00b6adb0(int flags);
 };
 
-// Calls FUN_00b6a520, frees this with operator delete when flags has bit 0 set, and returns this.
+// Calls WaterShaderProperty, frees this with operator delete when flags has bit 0 set, and returns this.
 // @fnv 0x00b6adb0
 void* FUN_00b6adb0_class::FUN_00b6adb0(int flags)
 {
-    FUN_00b6a520();
+    WaterShaderProperty();
     if (flags & 1)
         operator delete(this, 336);
     return this;
@@ -445,7 +445,7 @@ struct NiObjectNET_stub
 {
     void NiObjectNET_PostLinkObject(int);
 };
-struct FUN_00b6f4f0_class
+struct BSShaderNoLightingProperty
 {
     int m_0x64;
     NiTexture* m_tex;
@@ -453,7 +453,7 @@ struct FUN_00b6f4f0_class
 };
 // Calls FUN_00a5c6a0 with a, then if the name at offset 0x64 is set, looks up that texture via BSShaderManager::GetTexture into the pointer at 0x60.
 // @fnv 0x00b6f4f0
-void FUN_00b6f4f0_class::SetTextureByName(int a)
+void BSShaderNoLightingProperty::SetTextureByName(int a)
 {
     ((NiObjectNET_stub*)this)->NiObjectNET_PostLinkObject(a);
     if (*(int*)((char*)this + 0x64))
@@ -2245,15 +2245,16 @@ struct B6List
         FUN_004ed900();
     }
 };
-struct FUN_00b6a520 : B6Base
+struct WaterShaderProperty : B6Base
 {
     B6List list;
     NiPointer<NiRefObject> p134, p138, p13c, p140, p144;
     NiRefObject* p148;
-    virtual ~FUN_00b6a520();
+    virtual ~WaterShaderProperty();
 };
 // @fnv 0x00b6a520
-FUN_00b6a520::~FUN_00b6a520()
+// src: GUESS 0x00b6a520 (confidence: medium)
+WaterShaderProperty::~WaterShaderProperty()
 {
     list.FUN_004ed900();
     NiRefObject* p = p148;
@@ -2383,7 +2384,7 @@ struct FUN_00b6b930_Object
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40();
     virtual void vf44();
@@ -2437,7 +2438,7 @@ class FUN_00b6c1a0_obj
     virtual void vf9();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -2463,7 +2464,7 @@ class FUN_00b6c1a0_obj
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();
@@ -2488,7 +2489,7 @@ class FUN_00b6c1a0_cls
     virtual void vf9();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -2514,7 +2515,7 @@ class FUN_00b6c1a0_cls
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();
@@ -3504,7 +3505,7 @@ typedef void(__thiscall* FUN_00b71b90_VirtualFunction)(FUN_00b71b90_VirtualObjec
 extern FUN_00b71b90_VirtualObject* DAT_011fdd88[0x270 / sizeof(void*)];
 extern FUN_00b71b90_VirtualObject* DAT_011fda48[0x340 / sizeof(void*)];
 
-struct FUN_00b71b90_class
+struct NiDX9FragmentShader
 {
     int unk00;
     int unk04;
@@ -3524,7 +3525,7 @@ struct FUN_00b71b90_class
 
 // @fnv 0x00b71b90
 // src: COMMUNITY 0x00b71b90
-void FUN_00b71b90_class::ShadowLightShader_RecreateRendererData()
+void NiDX9FragmentShader::ShadowLightShader_RecreateRendererData()
 {
     if (unk28 != 0)
     {
@@ -4902,7 +4903,7 @@ class BaseObj_b60
     BaseObj_b60();
     virtual ~BaseObj_b60();
 };
-class FUN_00b60cb0 : public BaseObj_b60
+class TallGrassShaderProperty : public BaseObj_b60
 {
   public:
     unsigned int m_1c;
@@ -4935,12 +4936,13 @@ class FUN_00b60cb0 : public BaseObj_b60
     NiPointer<NiRefObject> m_88;
     unsigned short m_8c;
     unsigned short m_8e;
-    FUN_00b60cb0();
-    virtual ~FUN_00b60cb0();
+    TallGrassShaderProperty();
+    virtual ~TallGrassShaderProperty();
 };
 // Initializes the object: clears m_88.m_pObject, m_8c, m_8e, m_80, m_7c and sets m_1c to 4.
 // @fnv 0x00b60cb0
-FUN_00b60cb0::FUN_00b60cb0()
+// src: GUESS 0x00b60cb0 (confidence: medium)
+TallGrassShaderProperty::TallGrassShaderProperty()
 {
     m_88.m_pObject = 0;
     m_8c = 0;
@@ -7735,7 +7737,7 @@ class TextureEffectPropertyView
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40();
     virtual void vf44();
@@ -7809,7 +7811,7 @@ class FUN_00b7ad00_Class
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40();
     virtual void vf44();
@@ -8002,7 +8004,7 @@ struct FUN_00b63320_Geometry
     virtual void vf0f();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -10526,7 +10528,7 @@ struct GeometryInput
     int unka0, unka4, unka8, unkac, unkb0, unkb4;
     MorphGeomData* geometry;
     ExtraGeometryData* FUN_00a5bdd0(void*);
-    void DeleteExtraDataByKey(void*);
+    void NiObjectNET_RemoveExtraData(void*);
 };
 struct AuxiliaryVertices
 {
@@ -10542,10 +10544,10 @@ struct AuxiliaryVertices
         return second;
     }
 };
-struct FUN_00537bf0
+struct NiAdditionalGeometryData
 {
     int unk00, unk04, unk08, unk0c, unk10, unk14, unk18, unk1c, unk20, unk24, unk28;
-    FUN_00537bf0(unsigned int);
+    NiAdditionalGeometryData(unsigned int);
     static void* operator new(unsigned int n)
     {
         return Object_DispatchCommandFour(n);
@@ -10589,7 +10591,7 @@ struct ShaderGeometryOwner
             cached = 0;
         flags &= ~0x4000;
     }
-    FUN_00537bf0* BuildShaderGeometry(GeometryInput* input);
+    NiAdditionalGeometryData* BuildShaderGeometry(GeometryInput* input);
 };
 inline void* __cdecl operator new[](unsigned int size)
 {
@@ -10597,7 +10599,7 @@ inline void* __cdecl operator new[](unsigned int size)
 }
 // Merges auxiliary vertex streams into geometry and allocates a vertex buffer from extra geometry data, returning it or null.
 // @fnv 0x00b69be0
-FUN_00537bf0* ShaderGeometryOwner::BuildShaderGeometry(GeometryInput* input)
+NiAdditionalGeometryData* ShaderGeometryOwner::BuildShaderGeometry(GeometryInput* input)
 {
     unsigned int count = input->geometry->vertexCount;
     MorphGeomData* geometry = input->geometry;
@@ -10629,7 +10631,7 @@ FUN_00537bf0* ShaderGeometryOwner::BuildShaderGeometry(GeometryInput* input)
                 SetExtra();
             else
                 ClearExtra();
-            FUN_00537bf0* buffer = new FUN_00537bf0(count);
+            NiAdditionalGeometryData* buffer = new NiAdditionalGeometryData(count);
             buffer->SetSize_Thunk(2);
             buffer->NiAdditionalGeometryData_SetDataStreamCount(2);
             buffer->NiAdditionalGeometryData_SetDataBlock(1, extraVertices, (unsigned short)count * 32, 0);
@@ -10637,7 +10639,7 @@ FUN_00537bf0* ShaderGeometryOwner::BuildShaderGeometry(GeometryInput* input)
             buffer->NiAdditionalGeometryData_SetDataStream(1, 1, 16, 4, count, 16, 32);
             extra->count = 0;
             extra->data = 0;
-            input->DeleteExtraDataByKey(DAT_011f94bc);
+            input->NiObjectNET_RemoveExtraData(DAT_011f94bc);
             return buffer;
         }
     }

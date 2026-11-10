@@ -124,7 +124,8 @@ void __fastcall NiBlendInterpolator_NiBlendInterpolator(void*);
 extern const void* vftable_NiBlendFloatInterpolator[];
 
 // @fnv 0x00a40580
-void* __cdecl CreateNiBlendFloatInterpolator()
+// src: EXE 0x00a40580
+void* __cdecl NiBlendFloatInterpolator_CreateObject()
 {
     void* pInterpolator = NiObject::operator new(0x34);
     if (pInterpolator)
@@ -162,7 +163,8 @@ void* __cdecl NiBlendFloatInterpolator_GetRTTI()
 }
 
 // @fnv 0x00a408b0
-void __fastcall SaveFloatBinary(NiBlendFloatInterpolator* self, int, NiStream* stream)
+// src: EXE 0x00a408b0
+void __fastcall NiBlendFloatInterpolator_SaveBinary(NiBlendFloatInterpolator* self, int, NiStream* stream)
 {
     self->NiBlendInterpolator::SaveBinary(*stream);
     NiBinaryStream* __restrict out = stream->m_pkOstr;

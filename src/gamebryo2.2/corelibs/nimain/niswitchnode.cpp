@@ -86,7 +86,7 @@ void SwitchHack::NiSwitchNode_UpdateControllers(NiUpdateData& data)
     {
         if (m_iIndex >= 0)
         {
-            ((NiAVObject*)this)->UpdateTimeControllers(data, true);
+            ((NiAVObject*)this)->UpdateObjectControllers(data, true);
             NiAVObject* pkChild = ((NiAVObject**)m_kChildren.m_pBase)[m_iIndex];
             if (pkChild)
                 pkChild->UpdateControllers(data);
@@ -557,7 +557,8 @@ struct SwitchNode_a94550
 };
 
 // @fnv 0x00a94550
-SwitchNode_a94550* __cdecl CreateSwitchNode()
+// src: EXE 0x00a94550
+SwitchNode_a94550* __cdecl NiSwitchNode_CreateObject()
 {
     SwitchNode_a94550* p = (SwitchNode_a94550*)Object_DispatchCommandFour(0xcc);
     if (p)
@@ -705,7 +706,8 @@ template <class T> inline void A946SaveBinary(NiStream& kStream, const T& value)
 // The shared class lacks a SaveBinary override declaration; this body uses ECX and the same stack argument as __thiscall.
 // Saves the base node, then writes m_usFlags and m_iIndex to the stream.
 // @fnv 0x00a94610
-void __fastcall SaveSwitchNodeBinary(NiSwitchNode* node, void*, NiStream& kStream)
+// src: EXE 0x00a94610
+void __fastcall NiSwitchNode_SaveBinary(NiSwitchNode* node, void*, NiStream& kStream)
 {
     node->NiNode::SaveBinary(kStream);
     A946SaveBinary(kStream, node->m_usFlags);

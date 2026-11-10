@@ -14,7 +14,7 @@ public:
 
     bool ClearData();
     void SaveToBuffer(FileFormCollection*);
-    void WriteFileEntryToBuffer(FileFormCollection*, unsigned int, TESForm*, char*);
+    void TESTextureList_LoadFromBuffer(FileFormCollection*, unsigned int, TESForm*, char*);
     void Save(int, char*);
     void Load(TESFile*, TESForm*, char*);
     void Load(TESFile*, TESForm*, const char*);

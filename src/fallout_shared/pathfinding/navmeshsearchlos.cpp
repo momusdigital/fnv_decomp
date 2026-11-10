@@ -110,7 +110,7 @@ unsigned char FUN_006aabf0_shell::GetByteAt39()
     return *(unsigned char*)((char*)this + 0x39);
 }
 
-struct FUN_006ab150_shell
+struct PathingRequestLOS
 {
     char m_data[0xc8];
     NiPoint3 m_kPoint;
@@ -120,7 +120,7 @@ struct FUN_006ab150_shell
 // Copies the stored point into akDest and returns akDest.
 // @fnv 0x006ab150
 // src: COMMUNITY 0x006ab150
-NiPoint3& FUN_006ab150_shell::PathingRequestLOS_GetSearchCenter(NiPoint3& akDest)
+NiPoint3& PathingRequestLOS::PathingRequestLOS_GetSearchCenter(NiPoint3& akDest)
 {
     akDest = m_kPoint;
     return akDest;
@@ -152,15 +152,16 @@ NiPoint3& FUN_006ab380_shell::GetDest(NiPoint3& akDest)
 
 struct SD_006aa6e0
 {
-    void FUN_006aa710();
-    void* FUN_006aa6e0(unsigned int);
+    void NavMeshSearchLOS();
+    void* ScalarDeletingDestructor(unsigned int);
 };
 void _Deallocate(void*);
-// Calls FUN_006aa710, deallocates this when flags has bit 0 set, and returns this.
+// Calls NavMeshSearchLOS, deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x006aa6e0
-void* SD_006aa6e0::FUN_006aa6e0(unsigned int flags)
+// src: EXE 0x006aa6e0
+void* SD_006aa6e0::ScalarDeletingDestructor(unsigned int flags)
 {
-    FUN_006aa710();
+    NavMeshSearchLOS();
     if (flags & 1)
         _Deallocate(this);
     return this;
@@ -199,25 +200,27 @@ struct FUN_006a7bc0_Class
 {
     virtual ~FUN_006a7bc0_Class();
 };
-struct FUN_006aa710 : public FUN_006a7bc0_Class
+struct NavMeshSearchLOS : public FUN_006a7bc0_Class
 {
     char m_000000[0x206c];
     GO m_002070;
-    ~FUN_006aa710();
+    ~NavMeshSearchLOS();
 };
 // Destructor for the class; destroys the embedded GO member and the base class.
 // @fnv 0x006aa710
-FUN_006aa710::~FUN_006aa710()
+// src: EXE 0x006aa710
+NavMeshSearchLOS::~NavMeshSearchLOS()
 {}
 
 struct FUN_006aac10_shell
 {
     unsigned char m_bLOS;
     NavMeshTriangleReference m_node;
-    void InitNavMeshPoint(void* p, NavMesh* n, unsigned short t);
+    void NavMeshSearchLOS_SetNodeData(void* p, NavMesh* n, unsigned short t);
 };
 // @fnv 0x006aac10
-void FUN_006aac10_shell::InitNavMeshPoint(void* p, NavMesh* n, unsigned short t)
+// src: COMMUNITY 0x006aac10
+void FUN_006aac10_shell::NavMeshSearchLOS_SetNodeData(void* p, NavMesh* n, unsigned short t)
 {
     ((unsigned int*)((char*)p + 8))[0] = (unsigned int)n;
     ((unsigned short*)((char*)p + 12))[0] = t;
@@ -327,7 +330,7 @@ struct PathSearch
     NodeInternals destination;
     int GetKeyForNode_006a94f0(NavMesh* mesh, unsigned short triangle, float cost, SearchNode** out);
     int FUN_006a7e00(int handle);
-    void InitNavMeshPoint(SearchNode* target, NavMesh* mesh, unsigned short triangle);
+    void NavMeshSearchLOS_SetNodeData(SearchNode* target, NavMesh* mesh, unsigned short triangle);
     unsigned char ExpandNeighbors(NodeCost* origin, FlagCollection* output);
 };
 struct ConfigValue
@@ -447,7 +450,7 @@ unsigned char PathSearch::ExpandNeighbors(NodeCost* origin, FlagCollection* outp
                                             FUN_006a7e00(GetKeyForNode_006a94f0(connectedMesh, connectedTri, cost, &nextNode)))
                                         {
                                         case 0:
-                                            InitNavMeshPoint(nextNode, connectedMesh, connectedTri);
+                                            NavMeshSearchLOS_SetNodeData(nextNode, connectedMesh, connectedTri);
                                         case 1:
                                             nextNode->mesh = origin->node.mesh;
                                             nextNode->triangle = origin->node.triangle;
@@ -518,7 +521,7 @@ bool FUN_006ab180_shell::NavMeshSearchLOS_IsGoalNode(SeqObj* pkObj)
         {
             NiPoint3 kTargetCenter = pkObj->m_kNode.FastNavMeshTriLocation_GetLocation();
             NiPoint3 kDiff = kTargetCenter - pkArray->Object_GetIndexedValue_006a1440(i);
-            if (kDiff.GetSquaredXYLength() < GetLOSRoomRadius(m_pkRoom) * GetLOSRoomRadius(m_pkRoom))
+            if (kDiff.NiPoint3_SqrXYLength() < GetLOSRoomRadius(m_pkRoom) * GetLOSRoomRadius(m_pkRoom))
             {
                 if (!m_pkInside)
                     m_pkInside = pkObj;

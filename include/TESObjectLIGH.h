@@ -42,8 +42,8 @@ public:
     bool InvokeAction(unsigned int, unsigned int, bool, unsigned int, unsigned int);
     bool Activate_0050e4b0(unsigned int, unsigned int, bool, unsigned int, unsigned int);
     NiNode* Create3DModel(TESObjectREFR* reference);
-    NiLight* CreateLight(TESObjectREFR* reference, NiAVObject* object, bool flag);
-    void* CreateLight(void* reference, void* object, bool flag);
+    NiLight* GenDynamic(TESObjectREFR* reference, NiAVObject* object, bool flag);
+    void* GenDynamic(void* reference, void* object, bool flag);
     unsigned int GetColor();
     NiColor* GetLightColor();
     bool GetDynamic();

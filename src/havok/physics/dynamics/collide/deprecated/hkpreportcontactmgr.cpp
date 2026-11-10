@@ -4,7 +4,7 @@
 // src/havok/physics/dynamics/collide/deprecated/hkpreportcontactmgr.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/projects/fallout/code/havok/source/physics/dynamics/collide/deprecated/hkpreportcontactmgr.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
-// Exe 0x00cfc5f0 processContactPoint: retain this LocalM128 view; the CRT type does not preserve this unit.
+// Exe 0x00cfc5f0 hkpReportContactMgr_addContactPointImpl: retain this LocalM128 view; the CRT type does not preserve this unit.
 // VC9 requires the __m128 compatibility typedef for its native SIMD ABI (renamed tags fail C2719).
 typedef union __declspec(intrin_type) __declspec(align(16)) {
     struct
@@ -96,7 +96,7 @@ struct FUN_00cfcc30_class
     unsigned short m_flag;
 
     void SetVtable();
-    FUN_00cfcc30_class* FUN_00cfcc30(unsigned char flags);
+    FUN_00cfcc30_class* ScalarDeletingDestructor(unsigned char flags);
 };
 
 struct FUN_00cfcc30_manager
@@ -115,7 +115,8 @@ struct FUN_00cfcc30_router
 FUN_00cfcc30_router* _D1A0E0GetMemoryRouter();
 
 // @fnv 0x00cfcc30
-FUN_00cfcc30_class* FUN_00cfcc30_class::FUN_00cfcc30(unsigned char flags)
+// src: EXE 0x00cfcc30
+FUN_00cfcc30_class* FUN_00cfcc30_class::ScalarDeletingDestructor(unsigned char flags)
 {
     SetVtable();
 
@@ -536,7 +537,7 @@ struct S_Cfca40_Element
 {
     void* m_ppVirtualMethodTable;
     unsigned short m_allocatedBytes;
-    void FUN_00cfc5a0(void* context, void* first, void* second);
+    void hkpReportContactMgr(void* context, void* first, void* second);
 };
 struct S_Cfca40_Factory
 {
@@ -555,7 +556,7 @@ void S_Cfca40_Factory::CreateElement(S_Cfca40_AdjustedSource* apFirstSource, S_C
     void* secondData = apSecondSource->GetAdjustedData();
     S_Cfca40_Element* pElement = static_cast<S_Cfca40_Element*>(hkMemoryRouter_getInstance()->heap().Allocate(28));
     pElement->m_allocatedBytes = 28;
-    pElement->FUN_00cfc5a0(m_iValueAtOffset0C, firstData, secondData);
+    pElement->hkpReportContactMgr(m_iValueAtOffset0C, firstData, secondData);
 }
 
 struct hkpCdBody;
@@ -598,7 +599,8 @@ void hkpEntityCallbackUtil_fireContactPointAddedInternal(hkpRigidBody* entity, C
 
 // Computes projected velocity at the contact point, dispatches a ContactPointProcessingData event, and removes the contact point if the result code is 1.
 // @fnv 0x00cfc5f0
-unsigned int hkpSimpleConstraintContactMgr::processContactPoint(const hkpCdBody& a, const hkpCdBody& b,
+// src: COMMUNITY 0x00cfc5f0
+unsigned int hkpSimpleConstraintContactMgr::hkpReportContactMgr_addContactPointImpl(const hkpCdBody& a, const hkpCdBody& b,
                                                          const GskAgentInput& input, WorldOperationEntry& output,
                                                          const ConvexFeaturePairCache* contactCache, hkContactPoint& cp)
 {

@@ -16,7 +16,7 @@ class bhkCollisionObject : public bhkNiCollisionObject
 
     static const NiRTTI ms_kRTTI;
 
-    static bhkCollisionObject* GetFromNiAVObject(NiAVObject* object);
+    static bhkCollisionObject* GetbhkCollisionObject(NiAVObject* object);
     static bhkCollisionObject* GetFromRigidBody(const hkpRigidBody* body);
     static NiObject* CreateObject();
 

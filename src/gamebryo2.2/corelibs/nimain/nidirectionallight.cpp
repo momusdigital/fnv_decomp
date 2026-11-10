@@ -108,7 +108,8 @@ inline void* operator new(unsigned int, void* memory) throw()
     return memory;
 }
 // @fnv 0x00a75d50
-NiDirectionalLight* __cdecl CreateNiDirectionalLight()
+// src: EXE 0x00a75d50
+NiDirectionalLight* __cdecl NiDirectionalLight_CreateObject()
 {
     return ::new (Object_DispatchCommandFour(sizeof(NiDirectionalLight))) NiDirectionalLight;
 }

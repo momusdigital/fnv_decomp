@@ -191,7 +191,7 @@ extern char unk_10ce7fc[];
 
 // Callee at 0x00d386c0: __cdecl, four arguments,
 // the last one being a pointer to the record built on the stack.
-void __cdecl Object_ProcessEntries_00d386c0(int unk04, int unk08, int unk0c, FUN_00d38ed0_Local* unk10);
+void __cdecl hkpMultiSphereTriangleAgent_staticGetClosestPoints(int unk04, int unk08, int unk0c, FUN_00d38ed0_Local* unk10);
 
 // @fnv 0x00d38ed0
 // src: GUESS 0x00d38ed0 (confidence: low)
@@ -203,7 +203,7 @@ void __cdecl hkpMultiSphereTriangleAgent_UpdateState_00d38ed0(int aiArg1, int ai
     local.unk08 = aiArg4;
     local.unk00 = unk_10ce7fc;
 
-    Object_ProcessEntries_00d386c0(aiArg2, aiArg1, aiArg3, &local);
+    hkpMultiSphereTriangleAgent_staticGetClosestPoints(aiArg2, aiArg1, aiArg3, &local);
 }
 
 extern "C"

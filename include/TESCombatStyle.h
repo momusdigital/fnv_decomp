@@ -16,6 +16,6 @@ public:
     void ResetFormData();
     bool Load(TESFile*);
     float GetRandomValue();
-    float UpdateCombatStyle();
-    void UpdateCombatStyle() const;
+    float NiPoint3_SqrLength();
+    void NiPoint3_SqrLength() const;
 };

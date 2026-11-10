@@ -48,7 +48,7 @@ void IntSeenData::LoadGame(BGSLoadFormBuffer* pLoadBuffer)
         unsigned int count;
         IntSeenData* section;
     } cursor;
-    cursor.count = pLoadBuffer->ReadElementCount();
+    cursor.count = pLoadBuffer->LoadVariableSizedValue();
     cursor.section = this;
     for (unsigned int index = 0; index < cursor.count; ++index)
     {

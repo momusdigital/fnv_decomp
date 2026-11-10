@@ -199,7 +199,7 @@ struct Process
 
 struct PathMover
 {
-    void GetMovement(NiPoint3* apPos, void* apActor, int aiA, int aiB);
+    void Animation_GetDelta(NiPoint3* apPos, void* apActor, int aiA, int aiB);
 };
 
 struct LookTarget
@@ -471,7 +471,7 @@ void Actor::UpdateMovement_00886cb0(float afDelta, int aiUnused)
             {
                 PathMover* pMover = Actor_GetAnimation();
                 if (pMover)
-                    pMover->GetMovement(&kTarget, this, 0, 1);
+                    pMover->Animation_GetDelta(&kTarget, this, 0, 1);
             }
         }
         LookTarget* pLook = FUN_008d6f30();
@@ -547,7 +547,7 @@ void Actor::UpdateMovement_00886cb0(float afDelta, int aiUnused)
             if (bUpright)
             {
                 NiMatrix3 kHeading;
-                kHeading.MakeZRotation(GetCurrentTargetDistance(0));
+                kHeading.MakeZRotation(GetHeading(0));
                 NiPoint3 kForward(0.0f, 1.0f, 0.0f);
                 kForward = static_cast<const NiMatrix3&>(kHeading).operator*(kForward);
                 bhkBlendController_DoKnockDown(pRoot, &kForward, 1, 0.0f, 0);
@@ -604,7 +604,7 @@ void Actor::UpdateMovement_00886cb0(float afDelta, int aiUnused)
                         (FaceProp*)NiObject_DynamicCast(&DAT_012683ec, (int)pIter->FUN_006815c0()->Modelloader_GetReferencedThis());
                     if (pFace)
                     {
-                        float fDesiredHeadingAngle = GetCurrentTargetDistance(0);
+                        float fDesiredHeadingAngle = GetHeading(0);
                         AlignedRotation kRotationBasis(NiSin_005c53d0(fDesiredHeadingAngle), NiCos(fDesiredHeadingAngle), 0.0f, 0.0f);
                         pFace->ForwardToScriptLocals(1);
                         pFace->bhkOrientHingedBodyAction_SetTargetDir(&kRotationBasis);

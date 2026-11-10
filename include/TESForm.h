@@ -111,8 +111,8 @@ class TESForm : public BaseFormComponent
     TESForm();
     bool IsActor() const;
     void FUN_00485110(TESFile* file);
-    void BeginFormRecord();
-    void FinishFormRecord();
+    void TESForm_StartForm();
+    void TESForm_CloseForm();
     void TESForm___SaveData(void* data, int size);
     const char* TESForm_GetFormTypeString();
     TESFile* FUN_00484e60(int fileIndex);
@@ -154,9 +154,9 @@ class TESForm : public BaseFormComponent
     void SetIgnoreFriendlyHits(bool set);
     static bool IsReservedFormID(unsigned int formID);
     bool IsReservedFormID();
-    void SetFormFlags(int flags);
+    void ForceChange(int flags);
     void UpdateFormChangeFlags();
-    static TESForm* LookupFormByEditorID(const char* editorID);
+    static TESForm* GetFormByEditorID(const char* editorID);
     static TESForm* CreateFormByType(ENUM_FORM_ID type);
     void SetFile(TESFile* file);
     static void InitializeFormIDMap();

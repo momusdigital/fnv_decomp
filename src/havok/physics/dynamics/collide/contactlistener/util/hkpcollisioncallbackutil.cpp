@@ -100,7 +100,7 @@ extern int DAT_010cd30c;
 
 struct FUN_00d0b180_sub
 {
-    void FUN_00d9e860();
+    void hkpEndOfStepCallbackUtil();
 };
 
 struct FUN_00d0b180_cls
@@ -115,7 +115,7 @@ struct FUN_00d0b180_cls
     FUN_00d0b180_cls* Initialize();
 };
 
-// Sets the object's fields to point at the given globals, sets unk06 and unk10 to 1, calls FUN_00d9e860 on unk14, and returns this.
+// Sets the object's fields to point at the given globals, sets unk06 and unk10 to 1, calls hkpEndOfStepCallbackUtil on unk14, and returns this.
 // @fnv 0x00d0b180
 FUN_00d0b180_cls* FUN_00d0b180_cls::Initialize()
 {
@@ -127,7 +127,7 @@ FUN_00d0b180_cls* FUN_00d0b180_cls::Initialize()
     unk08 = &DAT_010cd31c;
     unk0c = &DAT_010cd30c;
     unk10 = 1;
-    sub->FUN_00d9e860();
+    sub->hkpEndOfStepCallbackUtil();
     return this;
 }
 

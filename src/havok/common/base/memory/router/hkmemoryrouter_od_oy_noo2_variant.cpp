@@ -17,7 +17,7 @@ struct FUN_00c85690_Header
     int unk08;
     int unk0C;
 };
-void* __cdecl AllocateWithHeader(FUN_00c85690_Allocator* allocator, unsigned int size);
+void* __cdecl hkMemoryRouter_easyAlloc(FUN_00c85690_Allocator* allocator, unsigned int size);
 struct Child
 {
     virtual void ReportDiagnostic();

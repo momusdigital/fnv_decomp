@@ -136,7 +136,7 @@ class MobileObjectTaskletData : public BSWin32TaskletData
     MobileObjectTaskletData(BSTFreeList<MobileObjectTaskletContext>* apList);
     virtual ~MobileObjectTaskletData();
     virtual void SetMobileObjectCount(unsigned int auiObjectCount);
-    virtual void ProcessMobileObject(MobileObject* apObject);
+    virtual void HandleMobMessage(MobileObject* apObject);
     virtual void SetThreadNumber(unsigned int auiThreadNumber);
 
     BSSimpleList<MobileObject*>* pMobList;

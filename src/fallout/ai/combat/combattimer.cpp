@@ -35,7 +35,8 @@ void TimeoutTimer::SaveGame(BGSSaveFormBuffer* apSaveGameBuffer)
 }
 
 // @fnv 0x009a5f90
-void CombatTargetTimestamp::SaveTimeStamp(BGSSaveFormBuffer* apSaveGameBuffer)
+// src: COMMUNITY 0x009a5f90
+void CombatTargetTimestamp::CombatTimeStamp_SaveGame(BGSSaveFormBuffer* apSaveGameBuffer)
 {
     float fSavedTimeStamp = fTimeStamp;
     if (fTimeStamp < DAT_0108e360 && fTimeStamp > -DAT_0108e360)

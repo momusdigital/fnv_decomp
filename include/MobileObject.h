@@ -72,7 +72,7 @@ public:
     virtual void Unk_AC(float);    // slot 172: Actor 0x00888ac0 forwards (float) to process slot 188
     virtual double Unk_AD();       // slot 173: Actor 0x00888af0 returns process slot 189 (GetDetectionStrength)
     virtual void Unk_AE(void);
-    virtual float GetCurrentTargetDistance(bool ignoreImmobile);
+    virtual float GetHeading(bool ignoreImmobile);
     virtual void SetTarget(TESObjectREFR* target); // slot +0x2c0: Actor RTTI 0x0087d5e0 forwards its pointer argument, ret 4
     virtual void SetFurnitureHeading(float heading);
     virtual TESObjectREFR* GetPackageTargetRef();
@@ -118,7 +118,7 @@ public:
     PROCESS_TYPE GetProcessTier() const;
     int GetProcessTier();
     unsigned int GetCurrentProcessLevel();
-    float GetActorHeight() const;
+    float Actor_GetHeight() const;
     const char* GetFullName();
     bool IsInThirdPerson();
     float GetRelevantWaterHeight();

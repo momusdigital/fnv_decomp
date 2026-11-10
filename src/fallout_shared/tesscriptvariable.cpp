@@ -12,7 +12,7 @@ void ScriptVariableInfo::Load(TESFile* file)
     {
         file->GetChunkData(this, 24);
         if (file->IsEndianConversionRequired())
-            reinterpret_cast<ScriptVariableEndian*>(this)->ProcessState_005e2870();
+            reinterpret_cast<ScriptVariableEndian*>(this)->SCRIPT_LOCAL_Endian();
     }
 }
 
@@ -83,14 +83,14 @@ void __cdecl BSEndian(unsigned char*, EndianSizeTag<0>);
 void __cdecl BSEndian(unsigned char*, EndianSizeTag<1>);
 void __cdecl BSEndian(unsigned char*, EndianSizeTag<10>);
 
-struct FUN_00414220_shell
+struct SCRIPT_HEADER
 {
     void SCRIPT_HEADER_Endian();
 };
 
 // @fnv 0x00414220
 // src: XBOX_PDB 0x00414220
-void FUN_00414220_shell::SCRIPT_HEADER_Endian()
+void SCRIPT_HEADER::SCRIPT_HEADER_Endian()
 {
     BSEndian((unsigned char*)this, EndianSizeTag<0>());
     BSEndian((unsigned char*)this + 4, EndianSizeTag<1>());

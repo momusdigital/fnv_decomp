@@ -371,7 +371,7 @@ struct FUN_00e09640_class
     virtual void unknownVirtual();
     unsigned short unk04;
     void __thiscall DestroyAudioBuffer();
-    FUN_00e09640_class* __thiscall FUN_00e09640(int flags);
+    FUN_00e09640_class* __thiscall ScalarDeletingDestructor(int flags);
 };
 struct FUN_00e06800_cls
 {
@@ -1675,11 +1675,11 @@ class hkpMoppAssembler : public hkReferencedObject
         hkBool m_bOptionEnabled;
     };
 };
-class FUN_00e090c0 : public hkpMoppAssembler
+class hkpMoppDefaultAssembler : public hkpMoppAssembler
 {
   public:
-    FUN_00e090c0(const MoppAssemblerSettings& ap, hkpMoppCodeGenerator* code, hkpMoppMediator* mediator);
-    ~FUN_00e090c0();
+    hkpMoppDefaultAssembler(const MoppAssemblerSettings& ap, hkpMoppCodeGenerator* code, hkpMoppMediator* mediator);
+    ~hkpMoppDefaultAssembler();
     void updateParams(const MoppAssemblerSettings& ap);
     hkpMoppMediator* m_pMoppMediator;
     hkpMoppNodeMgr* m_pNodeManager;
@@ -1693,7 +1693,8 @@ class FUN_00e090c0 : public hkpMoppAssembler
     MoppAssemblerSettings m_params;
 };
 // @fnv 0x00e090c0
-FUN_00e090c0::FUN_00e090c0(const MoppAssemblerSettings& ap, hkpMoppCodeGenerator* code, hkpMoppMediator* mediator)
+// src: EXE 0x00e090c0
+hkpMoppDefaultAssembler::hkpMoppDefaultAssembler(const MoppAssemblerSettings& ap, hkpMoppCodeGenerator* code, hkpMoppMediator* mediator)
     : kMoppArray(13)
 {
     kMoppArray[0].m_direction.set(1.0f, 0.0f, 0.0f, 0.0f);

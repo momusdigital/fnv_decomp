@@ -19,7 +19,7 @@ public:
     // then these three.
     virtual PathingAvoidNode* AllocateBuffer(unsigned int);
     virtual void FreeBuffer(void*);
-    virtual void* __thiscall Reallocate_Thunk_006e3c40(void*, unsigned int);
+    virtual void* __thiscall BSSimpleArray_Reallocate(void*, unsigned int);
 
 
     void FUN_006e3960();

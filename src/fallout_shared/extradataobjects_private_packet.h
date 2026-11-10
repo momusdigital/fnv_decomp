@@ -86,7 +86,7 @@ class LockExtraData
 
     void SetLocked(bool aLocked);
     int GetLevel(TESObjectREFR*);
-    static int ConvertLockLevel(int);
+    static int REFR_LOCK_NumericValueToEnum(int);
     static int EnumToNumericValue(LOCK_LEVEL);
     int GetLockLevel(TESObjectREFR*);
     bool MeetsMinimumLockLevel();
@@ -353,7 +353,7 @@ class ExtraFactionChanges : public BSExtraData
   public:
     // base BSExtraData at +0x0, size 12
     BSSimpleList<FactionReaction*>* m_pFactionChanges;  // +0xC, 4 bytes
-    bool HasFactionEntry(TESFaction*);
+    bool TESActorBaseData_IsInFaction(TESFaction*);
     void RemoveFaction(TESFaction*);
     void SetFactionRank(TESFaction*, int);
     // ExtraFactionChanges

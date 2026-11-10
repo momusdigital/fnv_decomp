@@ -147,7 +147,7 @@ class BGSDecalManager
     NiTPointerList_BGSDecalEmitter___ BGSDecalEmitterList;                   // +0x14, 12 bytes
     DecalNiPointer<BSShaderAccumulator> m_spShaderAccumulator;                    // +0x20, 4 bytes
     DecalNiPointer<NiCamera> m_pDecalCamera;                                      // +0x24, 4 bytes
-    void RenderDecals();
+    void UpdateSimpleDecals();
     void RemoveDecal(BSTempEffectSimpleDecal*);
     // void __cdecl BGSDecalManager::*()
     // BGSDecalManager* __cdecl BGSDecalManager::*()

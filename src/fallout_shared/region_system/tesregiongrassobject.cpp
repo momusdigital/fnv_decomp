@@ -78,11 +78,12 @@ struct FUN_004f5920_shell
 void __cdecl _Deallocate(void*);
 struct FUN_004f55d0_shell
 {
-    void* FUN_004f55d0(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_004f5920 on this, frees this with _Deallocate when flags has bit 0 set, and returns this.
 // @fnv 0x004f55d0
-void* FUN_004f55d0_shell::FUN_004f55d0(unsigned int flags)
+// src: EXE 0x004f55d0
+void* FUN_004f55d0_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     ((FUN_004f5920_shell*)this)->SetVirtualTable_004f5920();
     if (flags & 1)

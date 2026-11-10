@@ -46,7 +46,7 @@ void BGSMoviePlayer::EndMoviePlayback()
 {
     if (DAT_011de714 && BSAudio_QInstance()->TESRegionData_GetPriority())
     {
-        BSAudio_QInstance()->SetUseMultipleThreads(false);
+        BSAudio_QInstance()->SetMultiThreaded(false);
         DAT_011de714 = 0;
     }
     BSAudio_QInstance()->DisableAudioPlayback();
@@ -75,7 +75,7 @@ void BGSMoviePlayer::BeginMoviePlayback()
 {
     if (!BSAudio_QInstance()->TESRegionData_GetPriority())
     {
-        BSAudio_QInstance()->SetUseMultipleThreads(true);
+        BSAudio_QInstance()->SetMultiThreaded(true);
         DAT_011de714 = 1;
     }
     BSAudio_QInstance()->BSAudio_PauseWorldSounds();

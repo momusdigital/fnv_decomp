@@ -131,7 +131,7 @@ struct RefObject
     LONG m_lRefCount;
 };
 
-struct FUN_00a47470_cls
+struct NiTArray
 {
     int unk00;
     RefObject** m_ppItems;
@@ -144,7 +144,7 @@ struct FUN_00a47470_cls
 
 // Sets the RefObject at aiIndex in m_ppItems, adjusting m_uCount and m_uSentinelCount, and ref-counts the old and new values.
 // @fnv 0x00a47470
-void FUN_00a47470_cls::SetItem(unsigned int aiIndex, RefObject** appValue)
+void NiTArray::SetItem(unsigned int aiIndex, RefObject** appValue)
 {
     if ((DAT_011f3f44 & 1) == 0)
     {

@@ -421,10 +421,11 @@ extern char* _EmptyFS;
 
 struct ShadowSceneFence : ShadowSceneLight
 {
-    void InitializeFence();
+    void ShadowSceneLight_InsertUnusedFence();
 };
 // @fnv 0x00b9fba0
-void ShadowSceneFence::InitializeFence()
+// src: COMMUNITY 0x00b9fba0
+void ShadowSceneFence::ShadowSceneLight_InsertUnusedFence()
 {
     NiPointer<NiTriBasedGeom>& fence = kGeomListFenceObject;
     if (fence.m_pObject == 0)

@@ -531,14 +531,14 @@ void InterfaceInterfaceView::SetHUDVisible(bool visible)
     HUDMainMenu::SetHUDVisible(visible);
 }
 
-struct FUN_00424940_shell : public InterfaceManager
+struct BGSSaveLoadManager : public InterfaceManager
 {
     char InterfaceManager_GetMenuMode();
 };
 
 // @fnv 0x00424940
 // src: XBOX_PDB 0x00424940
-char FUN_00424940_shell::InterfaceManager_GetMenuMode()
+char BGSSaveLoadManager::InterfaceManager_GetMenuMode()
 {
     return *((char*)this + 0xc);
 }
@@ -730,15 +730,15 @@ class Modifier
     char GetKey();
 };
 
-void __fastcall UpdateInterface(InterfaceManager*);
+void __fastcall InterfaceManager_Idle(InterfaceManager*);
 
-// If FUN_004b7210() returns a non-null object whose GetKey() is nonzero, calls UpdateInterface with that object.
+// If FUN_004b7210() returns a non-null object whose GetKey() is nonzero, calls InterfaceManager_Idle with that object.
 // @fnv 0x00702810
 // src: COMMUNITY 0x00702810
 void Interface_Idle()
 {
     if (InterfaceManager_GetSingleton() && static_cast<unsigned char>(reinterpret_cast<Modifier*>(InterfaceManager_GetSingleton())->GetKey()))
-        UpdateInterface(InterfaceManager_GetSingleton());
+        InterfaceManager_Idle(InterfaceManager_GetSingleton());
 }
 }  // namespace fnv_00702810
 
@@ -1554,25 +1554,25 @@ void __cdecl Interface_NewTimer(void* apPointer, float afLength)
     InterfaceManager_NewTimer(apPointer, afLength);
 }
 
-void __fastcall UpdateNodeTimers(InterfaceManager*);
+void __fastcall InterfaceManager_UpdateAllTimers(InterfaceManager*);
 
 // @fnv 0x00706f70
 // src: XBOX_PDB 0x00706f70
 void Interface_UpdateAllTimers()
 {
-    UpdateNodeTimers(InterfaceManager_GetSingleton());
+    InterfaceManager_UpdateAllTimers(InterfaceManager_GetSingleton());
 }
 
 struct FUN_00714d90_struct
 {
-    void PushMenuStackEntry(int);
+    void InterfaceManager_AddToEnterStack(int);
 };
 
 // @fnv 0x00706fb0
 // src: COMMUNITY 0x00706fb0
 void Interface_AddToEnterStack(int aiID)
 {
-    ((FUN_00714d90_struct*)InterfaceManager_GetSingleton())->PushMenuStackEntry(aiID);
+    ((FUN_00714d90_struct*)InterfaceManager_GetSingleton())->InterfaceManager_AddToEnterStack(aiID);
 }
 
 
@@ -2600,7 +2600,8 @@ const char* TileRect::GetTypeName()
 }
 
 // @fnv 0x00709a50
-const char* __fastcall GetTileMenuTypeName(TileMenu* menu)
+// src: EXE 0x00709a50
+const char* __fastcall TileMenu_GetTypeName(TileMenu* menu)
 {
     return "MENU";
 }
@@ -2666,7 +2667,7 @@ class Modifier
 class FUN_00714d90_struct
 {
   public:
-    void PushMenuStackEntry(int);
+    void InterfaceManager_AddToEnterStack(int);
 };
 
 // @fnv 0x00703e10
@@ -2677,7 +2678,7 @@ void __cdecl Interface_OpenConsole()
         !ConsoleManager::Instance(1)->IsConsoleActive())
     {
         ConsoleManager::Instance(1)->MenuConsole_ToggleVisible();
-        ((FUN_00714d90_struct*)InterfaceManager_GetSingleton())->PushMenuStackEntry(3);
+        ((FUN_00714d90_struct*)InterfaceManager_GetSingleton())->InterfaceManager_AddToEnterStack(3);
     }
 }
 }  // namespace fnv_00703e10
@@ -2798,15 +2799,15 @@ struct Modifier
 };
 struct Holder
 {
-    void UpdateTilePosition(float, float);
+    void InterfaceManager_SetCursorPos(float, float);
 };
-// If FUN_004b7210() returns a non-null object whose GetKey() is nonzero, calls UpdateTilePosition(a1, a2) on it.
+// If FUN_004b7210() returns a non-null object whose GetKey() is nonzero, calls InterfaceManager_SetCursorPos(a1, a2) on it.
 // @fnv 0x00703080
 // src: COMMUNITY 0x00703080
 void Interface_SetCursorPos(float afValue1, float afValue2)
 {
     if (InterfaceManager_GetSingleton() && (unsigned char)reinterpret_cast<Modifier*>(InterfaceManager_GetSingleton())->GetKey())
-        reinterpret_cast<Holder*>(InterfaceManager_GetSingleton())->UpdateTilePosition(afValue1, afValue2);
+        reinterpret_cast<Holder*>(InterfaceManager_GetSingleton())->InterfaceManager_SetCursorPos(afValue1, afValue2);
 }
 }  // namespace fnv_00703080
 
@@ -2910,14 +2911,14 @@ void* FORenderedTerminal::DestroyIfFlagged(unsigned int flags)
 
 int __cdecl MinInt(int, int);
 
-struct FUN_00706810_Class
+struct InterfaceManager_TutorialManager
 {
     int __thiscall InterfaceManager_TutorialManager_GetSaveLoadSize();
 };
 
 // @fnv 0x00706810
 // src: COMMUNITY 0x00706810
-int __thiscall FUN_00706810_Class::InterfaceManager_TutorialManager_GetSaveLoadSize()
+int __thiscall InterfaceManager_TutorialManager::InterfaceManager_TutorialManager_GetSaveLoadSize()
 {
     return MinInt(1, 1) + 5;
 }
@@ -3186,24 +3187,24 @@ void __cdecl UpdatePipboyMapVisibility(bool abVisibility, bool abAnyVisibleState
         {
             if (pstat != 0)
             {
-                reinterpret_cast<Menu*>(pstat->GetMenu())->LoadMenuData();
+                reinterpret_cast<Menu*>(pstat->GetMenu())->StartFadeOut();
                 StatsMenu_ResetHealingMode();
             }
 
             if (prepair != 0)
             {
-                reinterpret_cast<Menu*>(prepair->GetMenu())->LoadMenuData();
+                reinterpret_cast<Menu*>(prepair->GetMenu())->StartFadeOut();
                 ResetRepairMenu();
             }
 
             if (pitemmod != 0)
             {
-                reinterpret_cast<Menu*>(pitemmod->GetMenu())->LoadMenuData();
+                reinterpret_cast<Menu*>(pitemmod->GetMenu())->StartFadeOut();
                 ResetItemModMenu();
             }
 
             if (pinv != 0)
-                reinterpret_cast<Menu*>(pinv->GetMenu())->LoadMenuData();
+                reinterpret_cast<Menu*>(pinv->GetMenu())->StartFadeOut();
 
             if (pmap == 0)
                 pmap = Interface_CreateMapMenu();
@@ -3214,7 +3215,7 @@ void __cdecl UpdatePipboyMapVisibility(bool abVisibility, bool abAnyVisibleState
             }
 
             if (pmap != 0)
-                reinterpret_cast<Menu*>(pmap->GetMenu())->UnloadMenuData();
+                reinterpret_cast<Menu*>(pmap->GetMenu())->StartFadeIn();
 
             MapMenu::MenuDepthController();
         }
@@ -3222,7 +3223,7 @@ void __cdecl UpdatePipboyMapVisibility(bool abVisibility, bool abAnyVisibleState
         {
             if (pmap != 0)
             {
-                reinterpret_cast<Menu*>(pmap->GetMenu())->LoadMenuData();
+                reinterpret_cast<Menu*>(pmap->GetMenu())->StartFadeOut();
                 reinterpret_cast<MenuVirtualAccess*>(pmap->GetMenu())->FUN_05(0, 0);
             }
         }
@@ -3972,12 +3973,12 @@ struct DialogObject
 };
 struct Helper
 {
-    void SetPackageType(int);
+    void SetPackType(int);
     void FUN_00826b40(int);
     void FUN_00826b90(int);
     void FUN_00984f60(int);
 };
-extern Helper* __cdecl CreatePackageByType(int);
+extern Helper* __cdecl TESPackage_CreatePackage(int);
 extern DialogObject* __cdecl FUN_00ec43fb(Helper*, int, void*, void*, int);
 extern int DAT_011846a0;
 extern int DAT_011a32e0;
@@ -4189,8 +4190,8 @@ void Player::OpenDialogMenu()
     {
         return;
     }
-    Helper* menuContext = CreatePackageByType(39);
-    menuContext->SetPackageType(39);
+    Helper* menuContext = TESPackage_CreatePackage(39);
+    menuContext->SetPackType(39);
     menuContext->FUN_00826b40(0);
     menuContext->FUN_00826b90(1);
     DialogObject* dialog = FUN_00ec43fb(menuContext, 0, &DAT_011846a0, &DAT_011a32e0, 0);
@@ -4764,7 +4765,7 @@ char __cdecl Interface_CreateModalMessageMenu(const char* text, int aiArg1, int 
 struct MenuProxy
 {
     void FUN_00a1d910();
-    void InitializeStatsMenu();
+    void StatsMenu_UpdateAll();
     void FUN_00a1db20();
 };
 struct TileProxy
@@ -4819,7 +4820,7 @@ void ShowStatsMenu(bool show, bool fades)
             if (stats)
             {
                 InterfaceManager_GetSingleton()->CombatController_GetCombatState()->SetInt(6001, 1003);
-                stats->Tile_GetMenu()->InitializeStatsMenu();
+                stats->Tile_GetMenu()->StatsMenu_UpdateAll();
                 stats->Tile_GetMenu()->FUN_00a1db20();
             }
         }
@@ -5956,7 +5957,7 @@ struct ChainObj
     void TESObjectCELL_GetIntSeenSection(int, int, int);
     void TESObjectCELL_GetExteriorLocalMapTexture(Local12*);
     void GetInteriorLocalMapTexture(int, int, Local12*);
-    void CollectCellReferences(unsigned int*);
+    void BuildLocalMapDoorList(unsigned int*);
     unsigned int FUN_0059bb30();
 };
 struct Mesh34
@@ -6336,7 +6337,7 @@ void __cdecl MapMenu_RenderLocalMapGrid(char param_1)
             static_cast<ChainObj*>(pSub10)->GetInteriorLocalMapTexture(insideTileX1, insideTileY1, &local1415);
             static_cast<ChainObj*>(static_cast<void*>(NiXenonRenderer_GetRenderer()))->NiXenonRenderer_UnlockRenderer();
             if (cellX17 == 0 && cellY10 == 0)
-                static_cast<ChainObj*>(pSub10)->CollectCellReferences(
+                static_cast<ChainObj*>(pSub10)->BuildLocalMapDoorList(
                     reinterpret_cast<unsigned int*>(&DAT_011da368->LocalMapMarkerList));
         }
     }
@@ -6361,7 +6362,7 @@ void __cdecl MapMenu_RenderLocalMapGrid(char param_1)
             static_cast<ChainObj*>(static_cast<void*>(NiXenonRenderer_GetRenderer()))->NiXenonRenderer_LockRenderer();
             static_cast<ChainObj*>(pSub10)->TESObjectCELL_GetExteriorLocalMapTexture(&local1415);
             static_cast<ChainObj*>(static_cast<void*>(NiXenonRenderer_GetRenderer()))->NiXenonRenderer_UnlockRenderer();
-            static_cast<ChainObj*>(pSub10)->CollectCellReferences(
+            static_cast<ChainObj*>(pSub10)->BuildLocalMapDoorList(
                 reinterpret_cast<unsigned int*>(&DAT_011da368->LocalMapMarkerList));
         }
     }
@@ -6707,17 +6708,17 @@ void Interface_SetItemModMenuVisible(bool abShow, bool abInstant, bool abActivat
             {
                 if (m_pInventoryChangesValue)
                 {
-                    m_pInventoryChangesValue->Tile_GetMenu()->LoadMenuData();
+                    m_pInventoryChangesValue->Tile_GetMenu()->StartFadeOut();
                     StatsMenu_ResetHealingMode();
                 }
                 if (pRepair5)
-                    pRepair5->Tile_GetMenu()->LoadMenuData();
+                    pRepair5->Tile_GetMenu()->StartFadeOut();
                 if (pMap)
-                    pMap->Tile_GetMenu()->LoadMenuData();
+                    pMap->Tile_GetMenu()->StartFadeOut();
                 if (pMenu2)
-                    pMenu2->Tile_GetMenu()->UnloadMenuData();
+                    pMenu2->Tile_GetMenu()->StartFadeIn();
                 if (pStats)
-                    pStats->Tile_GetMenu()->LoadMenuData();
+                    pStats->Tile_GetMenu()->StartFadeOut();
             }
             if (pMenu2)
                 ((Tile*)InterfaceManager_GetSingleton()->CombatController_GetCombatState())->FUN_00700320(0x1771, 0x425);
@@ -6731,7 +6732,7 @@ void Interface_SetItemModMenuVisible(bool abShow, bool abInstant, bool abActivat
         }
         else if (!abShow && bVisible8 && pMenu2)
         {
-            pMenu2->Tile_GetMenu()->LoadMenuData();
+            pMenu2->Tile_GetMenu()->StartFadeOut();
         }
     }
 }
@@ -7368,7 +7369,7 @@ unsigned int BSstrlen(const char*);
 void FUN_005e58f0(int, DisplayPlayer*, ...);
 float FUN_00645380(ActorValues*, DisplayForm*, float, bool, DisplayItem*, int, int, int, float, float, int, int,
                    DisplayForm*);
-float GetWeaponDamage(DisplayForm*, float, DisplayItem*, DisplayForm*);
+float CombatFormulas_CalcWeaponDamageForDisplay(DisplayForm*, float, DisplayItem*, DisplayForm*);
 
 void FUN_00406d30(char*, unsigned int, const char*);
 float FUN_004bd510(float, float);
@@ -7499,7 +7500,7 @@ void Interface_PopulateItemStatsDisplay(DisplayItem* item, Tile* root)
                 if (conditionB <= 0.0)
                     damage3 = 0.0f;
                 else
-                    damage3 = GetWeaponDamage(weapon, conditionB, item, ammoForm);
+                    damage3 = CombatFormulas_CalcWeaponDamageForDisplay(weapon, conditionB, item, ammoForm);
 
                 char weaponBuf4[128];
                 BSsprintf(weaponBuf4, 128, DAT_01020764, (int)FUN_004bd510(kDps, 1.0f));

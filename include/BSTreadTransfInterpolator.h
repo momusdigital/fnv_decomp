@@ -33,7 +33,7 @@ class BSTreadTransfInterpolator : public NiKeyBasedInterpolator
     bool UpdateSampleValue(float time, int, int);
     void* GetKeyType(unsigned short flag);
     bool GetChannelPosed(int arg);
-    void* FUN_00a43a50(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 
     TreadTransformEntry* entries;
     unsigned int count;

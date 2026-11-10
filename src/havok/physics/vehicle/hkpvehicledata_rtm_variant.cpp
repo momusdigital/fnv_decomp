@@ -344,7 +344,7 @@ struct RigidBody
     int unkDC;
     Motion m_pMotionState;
 
-    __forceinline float GetMassValue() const
+    __forceinline float getMass() const
     {
         return m_pMotionState.FUN_00c86430();
     }
@@ -484,7 +484,7 @@ __forceinline void initVehicleComponents(hkpVehicleData& self,
         ptr.addMul4(self.m_fTorqueMax / self.m_fExtraTorqueFactor, absRight);
         ptr(3) = 1.0f;
 
-        float idx = 1.0f / chassis->GetMassValue();
+        float idx = 1.0f / chassis->getMass();
         inertiaInvDiagOf(self).setMul4(idx, ptr);
     }
 

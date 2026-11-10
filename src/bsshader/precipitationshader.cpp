@@ -163,7 +163,7 @@ void* __thiscall FUN_00bb0a50_shell::DestroyIfFlagged(int flags)
 
 extern NiPoint3 g_011a9b7c;
 
-struct FUN_00bb04b0 : BSShader
+struct PrecipitationShader : BSShader
 {
     int unk6c;
     int unk70;
@@ -178,13 +178,14 @@ struct FUN_00bb04b0 : BSShader
     int m_9c;
     NiPoint3 m_a0;
 
-    FUN_00bb04b0();
+    PrecipitationShader();
     virtual void vf();
 };
 
 // Initializes the object's fields: sets iShaderType to 0x12, zeroes m_90, copies g_011a9b7c into m_a0, and sets m_bUsesNiRenderState to 1.
 // @fnv 0x00bb04b0
-FUN_00bb04b0::FUN_00bb04b0() : m_9c(0), m_a0(0.0f, 0.0f, 0.0f)
+// src: GUESS 0x00bb04b0 (confidence: medium)
+PrecipitationShader::PrecipitationShader() : m_9c(0), m_a0(0.0f, 0.0f, 0.0f)
 {
     iShaderType = 0x12;
     m_90 = NiPoint3(0.0f, 0.0f, 0.0f);
@@ -234,7 +235,7 @@ void* __cdecl PrecipitationShader_CreateShader()
     pObj->v13c();
     pObj->v148();
     pObj->InitShaderConstants();
-    pObj->UseShaderDeclaration(pHost);
+    pObj->NiD3DShader_SetShaderDecl(pHost);
     return pObj;
 }
 

@@ -139,7 +139,7 @@ public:
     int m_iJobId;
 };
 extern int DAT_010cc4f4;
-void __cdecl Runtime_UpdateState_00d9f6d0(int* p);
+void __cdecl finishLoadedObject_hkpSimulation(int* p);
 struct FUN_00d85300_Stub {
     void ComputeValue_00d85300(int*);
 };
@@ -198,7 +198,7 @@ struct FUN_00d85360_cls {
     int m_i48;
     int m_i4c;
 
-    FUN_00d85360_cls* FUN_00d54290();
+    FUN_00d85360_cls* hkpBallAndSocketConstraintData();
 };
 FUN_00d85360_cls* __cdecl hkpConstraintDataUtils_copyAtoms_hkpBallAndSocketConstraintData_(int pSource);
 struct S_00d85af0_Base {
@@ -988,7 +988,7 @@ struct FUN_00d9a4d0_Class {
 struct FnvCpu_FUN_00d9f6b0_CpuInterface {
     virtual void Invoke(int value);
 };
-void __cdecl Runtime_ForwardCall_00d9f6b0(FnvCpu_FUN_00d9f6b0_CpuInterface* object);
+void __cdecl cleanupLoadedObject_hkpSimulation(FnvCpu_FUN_00d9f6b0_CpuInterface* object);
 extern char DAT_0102e388;
 struct FUN_00d9fb30_Stub {
     void SetVtableAndProcessState_00d9fb30();
@@ -1068,7 +1068,7 @@ inline void NiStreamLoadBinaryD8616(NiBinaryStream& kStream, T& value)
 }
 void __cdecl bhkLimitedForceConstraintMotor_SaveBinary(NiStream& kStream, SerializedWordPairPayload* pkData);
 extern int DAT_010d3838;
-struct FUN_00d86220_Class {
+struct hkpSpringDamperConstraintMotor {
     unsigned int m_vptr;
     unsigned short m_word04;
     unsigned short m_word06;
@@ -1077,7 +1077,7 @@ struct FUN_00d86220_Class {
     float m_float10;
     float m_float14;
     float m_float18;
-    FUN_00d86220_Class();
+    hkpSpringDamperConstraintMotor();
 };
 extern __declspec(thread) unsigned int tlsArr[0xb0];
 void __cdecl Object_UpdateFields_00c9eae0(void* p);
@@ -1140,7 +1140,7 @@ struct FUN_00dee750 {
 
     FUN_00dee750();
 };
-struct FUN_00d86470_cls {
+struct hkPointToPathConstraintCinfo {
     int unk00;
     FUN_00dee750* m_04;
 
@@ -1569,8 +1569,8 @@ struct FUN_00d61b10 {
     }
 };
 int __cdecl GetTypeCodeFromString(const char* name) throw();
-struct FUN_00d87180_cls : S {
-    FUN_00d87180_cls* hkClassMemberAccessor_hkClassMemberAccessor(unsigned int a, B* b);
+struct hkClassMemberAccessor : S {
+    hkClassMemberAccessor* hkClassMemberAccessor_hkClassMemberAccessor(unsigned int a, B* b);
 };
 class OwnerD87A {
 public:
@@ -2458,7 +2458,7 @@ static const F128U V4C = { { 196608.0f, 196608.0f, 196608.0f, 196608.0f } };
 float Object_ComputeBisectionMidpoint();
 extern "C" void _mm_store_ps(float* p, LocalM128 a);
 extern int DAT_010d37e4;
-struct FUN_00d84bd0
+struct hkpPointToPlaneConstraintData
 {
     unsigned int m_00;
     unsigned short unk04;
@@ -2505,7 +2505,7 @@ struct FUN_00d84bd0
     volatile unsigned short m_a0;
     volatile unsigned char m_a2;
 
-    FUN_00d84bd0();
+    hkpPointToPlaneConstraintData();
 };
 
 struct TypeNameD86 {
@@ -2549,8 +2549,8 @@ struct MemberD86 {
     __declspec(noinline) int FUN_00d86b30() { return subType; }
 };
 // @fnv 0x00d86ec0
-// src: GUESS 0x00d86ec0 (confidence: low)
-extern "C" int __fastcall Object_ProcessAndReturnValue_00d86ec0(MemberD86* self, void*, char* output, int capacity) {
+// src: COMMUNITY 0x00d86ec0
+extern "C" int __fastcall hkClassMember_getTypeName(MemberD86* self, void*, char* output, int capacity) {
     TypeNameD86* cls = self->classType;
     int t = self->type;
     const char* className = cls ? cls->FUN_00d46d40() : "unknown";

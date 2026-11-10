@@ -208,7 +208,7 @@ void DialoguePackage::SaveGame(BGSSaveFormBuffer* apSaveGameBuffer)
         apSaveGameBuffer->SaveData(&scurrentItemIndex, 2, 0);
         scurrentResponseIndex = (item && response)
                                     ? item
-                                          ->GetResponseIndex(response)
+                                          ->GetDialogueResponseIndex(response)
                                     : -1;
         apSaveGameBuffer->SaveData(&scurrentResponseIndex, 2, 0);
     }
@@ -1670,7 +1670,7 @@ void DialoguePackage::SaveGame_009ef6e0()
         TESForm_SaveGameDataOLD(&itemIndex, 2);
         short responseIndex = -1;
         if (item && response)
-            responseIndex = item->GetResponseIndex(response);
+            responseIndex = item->GetDialogueResponseIndex(response);
         TESForm_SaveGameDataOLD(&responseIndex, 2);
     }
     if (*g_011de4e8.Bool())

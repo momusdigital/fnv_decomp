@@ -24,6 +24,6 @@ class FileFinder
 };
 
 
-BGSTerrainManager* ReadAnimationFromStream(BSFile*);
+BGSTerrainManager* LipSynchAnim_LoadFromFile(BSFile*);
 
 #endif

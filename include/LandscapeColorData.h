@@ -24,5 +24,5 @@ public:
     int m48;
     int m4C;
 
-    void __thiscall FUN_0053a510();
+    void __thiscall COORD_DATA();
 };

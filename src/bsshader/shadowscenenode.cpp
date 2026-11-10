@@ -506,13 +506,13 @@ struct FUN_00b5af80_self
     void* obj;
     int a;
     int b;
-    void UpdateFields_00b5af80(bool destroy);
+    void BSSimpleArray_RemoveAll(bool destroy);
 };
 
 // If obj is set, releases it when destroy is true (clearing obj and b), then resets a to 0.
 // @fnv 0x00b5af80
 // src: GUESS 0x00b5af80 (confidence: low)
-void FUN_00b5af80_self::UpdateFields_00b5af80(bool destroy)
+void FUN_00b5af80_self::BSSimpleArray_RemoveAll(bool destroy)
 {
     if (obj)
     {

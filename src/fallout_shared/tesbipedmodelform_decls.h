@@ -20,7 +20,7 @@ template <class T> class BSSimpleList;
 class BipedAnim
 {
   public:
-    void SetBipedObject(TESForm*, TESModel*, BIPED_OBJECT);
+    void SetBipedPart(TESForm*, TESModel*, BIPED_OBJECT);
     NiNode* FUN_0043f010(BSFaceGenModel*);
 };
 class ModelLoader

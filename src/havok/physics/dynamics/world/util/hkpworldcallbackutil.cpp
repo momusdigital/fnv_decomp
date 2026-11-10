@@ -2322,7 +2322,7 @@ void __cdecl ProcessSceneCallbacks(hkpWorld* game, Scene* scene)
         if (game->m_iPendingOperationCount)
             game->FUN_00c91120();
         if (game->m_iPendingOperationQueueCount == 1 && game->m_iQueuedOperationCount)
-            game->UpdateFields_00c91140();
+            game->hkpWorld_internalExecutePendingBodyOperations();
     }
 }
 
@@ -2772,7 +2772,7 @@ void __cdecl hkpWorldCallbackUtil_fireIslandDeactivated(hkpWorld* apWorld, S011b
         if (apWorld->m_iPendingOperationCount)
             apWorld->FUN_00c91120();
         if (apWorld->m_iPendingOperationQueueCount == 1 && apWorld->m_iQueuedOperationCount)
-            apWorld->UpdateFields_00c91140();
+            apWorld->hkpWorld_internalExecutePendingBodyOperations();
     }
 }
 

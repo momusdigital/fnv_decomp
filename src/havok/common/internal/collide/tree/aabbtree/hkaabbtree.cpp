@@ -582,10 +582,10 @@ void D9C360Tree::TraverseTree(D9C360Node* node, void* context)
 
 struct BoundsNode { unsigned short m00,m02,m04,m06,m08,m0A,m0C,m0E,m10,m12; };
 struct FUN_00d9a4d0_cls { BoundsNode* __thiscall GetEntryOffset(unsigned short key); };
-struct FUN_00d9b450_cls { int m00,m04,m08,m0C,m10,m14,m18; FUN_00d9a4d0_cls m1c; void __thiscall UpdateBoundsNode(BoundsNode* a1,unsigned short a2,unsigned short a3); };
+struct hkAabbTree { int m00,m04,m08,m0C,m10,m14,m18; FUN_00d9a4d0_cls m1c; void __thiscall UpdateBoundsNode(BoundsNode* a1,unsigned short a2,unsigned short a3); };
 // Sets a node's m12 to a3, then unless m10 has bit 0x8000 set, updates its two child nodes and recomputes the node's bounds from them.
 // @fnv 0x00d9b450
-void FUN_00d9b450_cls::UpdateBoundsNode(BoundsNode* pNode,unsigned short usValue,unsigned short usValue2) {
+void hkAabbTree::UpdateBoundsNode(BoundsNode* pNode,unsigned short usValue,unsigned short usValue2) {
  pNode->m12=usValue2;
  if(pNode->m10&0x8000) return;
  BoundsNode* pChild1=m1c.GetEntryOffset(pNode->m0C);
@@ -1018,12 +1018,13 @@ struct TreeDeleteD9C2 {
     TreeDeleteNodeManagerD9C2 m_kNodeCollection;
 
     void UpdateState_00d9be30();
-    TreeDeleteD9C2* FUN_00d9c2e0(unsigned char flags);
+    TreeDeleteD9C2* ScalarDeletingDestructor(unsigned char flags);
 };
 
 // Assigns a global address to a field, calls two member functions, optionally deallocates this when flags bit 0 is set, then returns this.
 // @fnv 0x00d9c2e0
-TreeDeleteD9C2* TreeDeleteD9C2::FUN_00d9c2e0(unsigned char flags)
+// src: EXE 0x00d9c2e0
+TreeDeleteD9C2* TreeDeleteD9C2::ScalarDeletingDestructor(unsigned char flags)
 {
     m_ppVirtualMethodTable = DAT_010d40a4;
     UpdateState_00d9be30();

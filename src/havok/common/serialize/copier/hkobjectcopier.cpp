@@ -277,7 +277,7 @@ struct Scratch16 {
     unsigned char* ForwardValueToObject(unsigned int* out);
     void ReleaseReference_00d60590();
 };
-struct FUN_00e04920_cls {
+struct hkObjectCopier {
     unsigned int unk00;
     unsigned int unk04;
     unsigned int unk08;
@@ -294,7 +294,7 @@ struct FUN_00e04920_cls {
 // Calls FUN_00e036b0 and FUN_00e03ea0 with a scratch object, then returns whether the byte from ForwardValueToObject is zero.
 // @fnv 0x00e04920
 // src: HAVOK_SRC 0x00e04920
-int FUN_00e04920_cls::hkObjectCopier_copyObject(unsigned int a1, unsigned int a2,
+int hkObjectCopier::hkObjectCopier_copyObject(unsigned int a1, unsigned int a2,
                                    unsigned int a3, unsigned int a4, unsigned int a5)
 {
     Scratch16 scratch;

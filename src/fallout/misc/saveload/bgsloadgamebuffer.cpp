@@ -8,7 +8,7 @@
 #include "../../../../include/IntSeenData.h"
 #include "../../../../include/NiQuaternion.h"
 
-struct FUN_00835f80_shell
+struct FalloutRadio_FORadioReceiver
 {
     char _0[0x1c];
     char _1c;
@@ -20,7 +20,7 @@ struct FUN_00835f80_shell
 
 // @fnv 0x00835f80
 // src: COMMUNITY 0x00835f80
-void __thiscall FUN_00835f80_shell::DynamicRadio_Load(BGSLoadFormBuffer* apBuffer)
+void __thiscall FalloutRadio_FORadioReceiver::DynamicRadio_Load(BGSLoadFormBuffer* apBuffer)
 {
     apBuffer->ReadFormIdentifier(this);
     apBuffer->ReadTypedData(&this->_1c, 1u);
@@ -75,14 +75,14 @@ struct SandboxProcedureData
     int m_iProcedureData;
 };
 typedef char _sizecheck_SandBoxChoiceListItem[sizeof(SandboxProcedureData) == 16 ? 1 : -1];
-struct FUN_009f38b0_shell : public SandboxProcedureData
+struct SandBoxChoiceListItem : public SandboxProcedureData
 {
     void SandBoxChoiceListItem_LoadGame(BGSLoadFormBuffer*);
 };
 
 // @fnv 0x009f38b0
 // src: XBOX_PDB 0x009f38b0
-void FUN_009f38b0_shell::SandBoxChoiceListItem_LoadGame(BGSLoadFormBuffer* apLoadGameBuffer)
+void SandBoxChoiceListItem::SandBoxChoiceListItem_LoadGame(BGSLoadFormBuffer* apLoadGameBuffer)
 {
     apLoadGameBuffer->ReadTypedData(static_cast<void*>(&eProcedure), 4u);
     apLoadGameBuffer->ReadTypedData(static_cast<void*>(&m_iActivityState), 4u);
@@ -292,7 +292,7 @@ char* BGSLoadGameBuffer::LoadString(char* apString)
 }
 
 namespace fnv_0043aaa0 {
-struct FUN_0043aaa0_shell
+struct DoorTeleportData
 {
     char pad1[4];
     char pad2[4];
@@ -311,7 +311,7 @@ struct FUN_0043aaa0_shell
 };
 
 // @fnv 0x0043aaa0
-void FUN_0043aaa0_shell::LoadGame(BGSLoadFormBuffer* buffer)
+void DoorTeleportData::LoadGame(BGSLoadFormBuffer* buffer)
 {
     buffer->ReadTypedData((char*)this + 4, 0xcu);
     buffer->ReadTypedData((char*)this + 0x10, 0xcu);
@@ -339,7 +339,7 @@ struct PackedFormID
     unsigned char m_ucIDByte2;
 };
 typedef char _sizecheck_BGSNumericIDIndex[sizeof(PackedFormID) == 3 ? 1 : -1];
-struct FUN_00853500_shell : public PackedFormID
+struct BGSNumericIDIndex : public PackedFormID
 {
     unsigned int BGSNumericIDIndex_GetNumericID();
 };
@@ -350,7 +350,7 @@ struct FUN_00846d20_shell
 };
 // @fnv 0x00853500
 // src: XBOX_PDB 0x00853500
-unsigned int FUN_00853500_shell::BGSNumericIDIndex_GetNumericID()
+unsigned int BGSNumericIDIndex::BGSNumericIDIndex_GetNumericID()
 {
     unsigned int uiValue = (unsigned int)((unsigned char)m_ucIDByte0 << 0x10) +
                            (unsigned int)((unsigned char)m_ucIDByte1 << 8) + (unsigned int)(unsigned char)m_ucIDByte2;
@@ -383,7 +383,7 @@ void ActorCause_LoadActorCausesList(BGSLoadGameBuffer* apLoadGameBuffer)
     unsigned int isaveGameCount;
 
     apLoadGameBuffer->LoadData(&DAT_011d60cc, 4);
-    iloop = apLoadGameBuffer->ReadElementCount();
+    iloop = apLoadGameBuffer->LoadVariableSizedValue();
 
     for (isaveGameCount = 0; isaveGameCount < iloop; ++isaveGameCount)
     {
@@ -425,7 +425,8 @@ FUN_0081db60_shell* FUN_0081db60_shell::FUN_0081db60(unsigned int deletingFlags)
 
 // Reads a tag byte, dispatches on its low two bits to read a 1, 2 or 4 byte value, and returns that value shifted right by two.
 // @fnv 0x00864a60
-int BGSLoadGameBuffer::ReadElementCount()
+// src: COMMUNITY 0x00864a60
+int BGSLoadGameBuffer::LoadVariableSizedValue()
 {
     unsigned char tag = (unsigned char)pBuffer[iBufferPosition];
     unsigned int flags9 = tag & 3;

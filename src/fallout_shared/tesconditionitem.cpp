@@ -28,7 +28,7 @@ TESConditionItem::TESConditionItem()
 {
     memset(this, 0, sizeof(TESConditionItem));
     m_objectRef = 0;
-    SetFunction(0x1048);
+    SetDefaultDataForFunction(0x1048);
 }
 
 // @fnv 0x00681490
@@ -55,7 +55,7 @@ void TESConditionItem::Load(TESFile* file)
     {
         file->GetChunkData(this, sizeof(TESConditionItem));
         if (file->IsEndianConversionRequired())
-            FixupAfterLoad();
+            CONDITION_ITEM_DATA_Endian();
     }
     if (m_flags & 2)
     {
@@ -222,14 +222,15 @@ void TESConditionItem::SetObjectType(int aeCheck)
     m_objectType = aeCheck;
 }
 
-// The approved TESConditionItem header does not yet declare ClearAndSetFunctionCode.
+// The approved TESConditionItem header does not yet declare TESConditionItem_SetConditionFunction.
 struct FUN_00681460_helper : public TESConditionItem
 {
-    void ClearAndSetFunctionCode(int functionCode);
+    void TESConditionItem_SetConditionFunction(int functionCode);
 };
 
 // @fnv 0x00681460
-void FUN_00681460_helper::ClearAndSetFunctionCode(int functionCode)
+// src: COMMUNITY 0x00681460
+void FUN_00681460_helper::TESConditionItem_SetConditionFunction(int functionCode)
 {
     memset(&m_usFunctionCode, 0, 0x0C);
     m_usFunctionCode = functionCode;
@@ -247,7 +248,8 @@ struct FUN_00681110_shell
     void ClearFields();
 };
 // @fnv 0x00681170
-void TESConditionItem::FixupAfterLoad()
+// src: COMMUNITY 0x00681170
+void TESConditionItem::CONDITION_ITEM_DATA_Endian()
 {
     BSEndian(reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 4), EndianSizeTag<2>());
     BSEndian(reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x18), EndianSizeTag<2>());
@@ -297,7 +299,7 @@ void FUN_00401460(void*, const void*, unsigned int);
 int FUN_00682270(int);
 bool FUN_006822a0(int, int);
 bool TESForm_QEndianSwapOnSave();
-void AppendChunk(unsigned int, const void*, unsigned int);
+void TESForm___AddChunkData(unsigned int, const void*, unsigned int);
 // @fnv 0x00681840
 void ConditionSerializer::SerializeCondition()
 {
@@ -320,7 +322,7 @@ void ConditionSerializer::SerializeCondition()
         savedCondition.reference = reference->GetHavokWorldObjectCountInSceneGraph_0084e3a0();
     if (TESForm_QEndianSwapOnSave())
         savedCondition.SwapEndianAndProcess();
-    AppendChunk(0x41445443, &savedCondition, 0x1c);
+    TESForm___AddChunkData(0x41445443, &savedCondition, 0x1c);
     if (TESForm_QEndianSwapOnSave())
         savedCondition.SwapEndianAndProcess();
 }
@@ -339,9 +341,10 @@ struct FUN_00681530_class
 
 }  // namespace fnv_00681220
 
-// Normalizes functionCode into the 0x280 range, applies it via ClearAndSetFunctionCode, then sets count and value based on the function code.
+// Normalizes functionCode into the 0x280 range, applies it via TESConditionItem_SetConditionFunction, then sets count and value based on the function code.
 // @fnv 0x00681220
-void TESConditionItem::SetFunction(int functionCode)
+// src: COMMUNITY 0x00681220
+void TESConditionItem::SetDefaultDataForFunction(int functionCode)
 {
     int iNormalizedFunction = functionCode;
     if (functionCode >= 0x1000 && functionCode < 0x1280)
@@ -354,7 +357,7 @@ void TESConditionItem::SetFunction(int functionCode)
     }
     if (iNormalizedFunction >= 0 && iNormalizedFunction < 0x280)
     {
-        ((FUN_00681460_helper*)this)->ClearAndSetFunctionCode(iNormalizedFunction);
+        ((FUN_00681460_helper*)this)->TESConditionItem_SetConditionFunction(iNormalizedFunction);
 
         switch (functionCode)
         {

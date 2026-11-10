@@ -42,7 +42,7 @@ public:
     void vf09(int* pUnused, int* pOut);
     int vf10(int iFirst);
     void vf11(int iFirst, int iBuffer, int iLength);
-    void vf12(int iFirst, int iSecond);
+    void SetMapName(int iFirst, int iSecond);
     void vf13(unsigned char* sOutput);
     void vf14(int iFirst);
     char* vf15(int iIndex);

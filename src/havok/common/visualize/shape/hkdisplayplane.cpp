@@ -376,10 +376,10 @@ struct Vec4i
 
 extern int DAT_010d828c;
 
-class FUN_00de4f20_cls
+class hkDisplayPlane
 {
   public:
-    FUN_00de4f20_cls* InitializeFields_00de4f20(const Vec4i* p0, const Vec4i* p1, const Vec4i* p2, const Vec4i* p3);
+    hkDisplayPlane* InitializeFields_00de4f20(const Vec4i* p0, const Vec4i* p1, const Vec4i* p2, const Vec4i* p3);
 
     int m_vptr;              // 0x00
     unsigned short unk04;    // 0x04
@@ -403,7 +403,7 @@ class FUN_00de4f20_cls
 // Sets identity rotation columns, m_50 = 7 and m_06 = 1, zeroes m_kAxisEndPoints, and copies p0, p2, p1, p3 into m_60, m_70, m_80, m_90.
 // @fnv 0x00de4f20
 // src: GUESS 0x00de4f20 (confidence: low)
-FUN_00de4f20_cls* FUN_00de4f20_cls::InitializeFields_00de4f20(const Vec4i* p0, const Vec4i* p1, const Vec4i* p2, const Vec4i* p3)
+hkDisplayPlane* hkDisplayPlane::InitializeFields_00de4f20(const Vec4i* p0, const Vec4i* p1, const Vec4i* p2, const Vec4i* p3)
 {
     float one = 1.0f;
     *(volatile int*)&m_08 = 0;

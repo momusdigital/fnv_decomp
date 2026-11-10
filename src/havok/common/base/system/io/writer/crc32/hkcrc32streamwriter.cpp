@@ -44,18 +44,19 @@ int TargetClass::ComputeValue_00db7860()
 
 extern int DAT_010d538c;
 
-struct FUN_00db7870_cls
+struct hkCrc32StreamWriter
 {
     void* m_pVTable;
     unsigned short m_w04;
     unsigned short m_w06;
     unsigned int m_dw08;
 
-    FUN_00db7870_cls(unsigned int value);
+    hkCrc32StreamWriter(unsigned int value);
 };
 
 // @fnv 0x00db7870
-FUN_00db7870_cls::FUN_00db7870_cls(unsigned int value)
+// src: EXE 0x00db7870
+hkCrc32StreamWriter::hkCrc32StreamWriter(unsigned int value)
 {
     m_w06 = 1;
     m_pVTable = (void*)&DAT_010d538c;

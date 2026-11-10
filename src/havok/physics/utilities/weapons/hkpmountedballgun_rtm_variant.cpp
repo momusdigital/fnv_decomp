@@ -204,7 +204,7 @@ struct __declspec(align(16)) S00e451b0_ZCastResult
     unsigned int shapeKey;
     S00e451b0_ZBody* body;
 };
-int __cdecl hkpWorldq_CastSphereAndStoreHit(S00e451b0_ZWorld*, const S00e451b0_SIMD::LocalM128*, float, const S00e451b0_SIMD::LocalM128*,
+int __cdecl hkpFirstPersonGun_sweepSphere(S00e451b0_ZWorld*, const S00e451b0_SIMD::LocalM128*, float, const S00e451b0_SIMD::LocalM128*,
                          S00e451b0_ZCastResult*);
 void __cdecl hkpFirstPersonGun_calcVelocityToTarget(const S00e451b0_SIMD::LocalM128*, const S00e451b0_SIMD::LocalM128*, const hkVector4*, float,
                           S00e451b0_SIMD::LocalM128*);
@@ -271,7 +271,7 @@ void S00e451b0_ZGun::hkpMountedBallGun_fireGun(S00e451b0_ZWorld* world, const hk
     info.unk94 = 0.0f;
     info.unk98 = DAT_010231a8;
     S00e451b0_ZCastResult target;
-    if (!hkpWorldq_CastSphereAndStoreHit(world, &start, DAT_010181bc, &end, &target))
+    if (!hkpFirstPersonGun_sweepSphere(world, &start, DAT_010181bc, &end, &target))
     {
         hkpFirstPersonGun_calcVelocityToTarget(&info.unk10, &target.point, &world->unk10, m_fBulletVelocity, &info.unk30);
     }

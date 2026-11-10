@@ -27,7 +27,7 @@ void* FUN_006e4fb0_shell::GetOffsetF4()
     return reinterpret_cast<char*>(this) + 0xF4;
 }
 
-struct FUN_006e4d00_shell
+struct CombatCoverSearchInfo
 {
     void CallMemberFunction();
 };
@@ -38,7 +38,7 @@ struct FUN_006dae90_shell
 };
 
 // @fnv 0x006e4d00
-void FUN_006e4d00_shell::CallMemberFunction()
+void CombatCoverSearchInfo::CallMemberFunction()
 {
     ((FUN_006dae90_shell*)((char*)this + 0x20))->UpdateState_006dae90();
 }
@@ -62,14 +62,15 @@ struct FUN_006e4bf0_shell
 
 void __cdecl _delete(void* p, unsigned int size);
 
-struct FUN_006e4bb0_shell
+struct PathingRequestCoveredMove
 {
-    void* FUN_006e4bb0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_006e4bf0 on this, frees this with size 0x10c when flags has bit 0 set, and returns this.
 // @fnv 0x006e4bb0
-void* FUN_006e4bb0_shell::FUN_006e4bb0(unsigned int flags)
+// src: EXE 0x006e4bb0
+void* PathingRequestCoveredMove::ScalarDeletingDestructor(unsigned int flags)
 {
     reinterpret_cast<FUN_006e4bf0_shell*>(this)->FUN_006e4bf0();
     if (flags & 1)
@@ -91,7 +92,7 @@ struct FUN_006e4cd0_shell
 // @fnv 0x006e4cd0
 void* FUN_006e4cd0_shell::FUN_006e4cd0(unsigned int flags)
 {
-    ((FUN_006e4d00_shell*)this)->CallMemberFunction();
+    ((CombatCoverSearchInfo*)this)->CallMemberFunction();
     if (flags & 1)
         Deallocate(this);
     return this;
@@ -627,7 +628,7 @@ struct SubB0
     int unk24;
 };
 
-struct FUN_006e5510_cls : public BaseEmpty
+struct PathingRequestHide : public BaseEmpty
 {
     int unk04;
     int unk08;
@@ -644,12 +645,13 @@ struct FUN_006e5510_cls : public BaseEmpty
     SubA34 m_a34;
     SubB0 m_b0;
     float m_fd8;
-    FUN_006e5510_cls();
+    PathingRequestHide();
 };
 
 // Sets m_fd8 to DAT_0101e704 and calls m_a34.Init().
 // @fnv 0x006e5510
-FUN_006e5510_cls::FUN_006e5510_cls()
+// src: EXE 0x006e5510
+PathingRequestHide::PathingRequestHide()
 {
     m_fd8 = DAT_0101e704;
     m_a34.Init();

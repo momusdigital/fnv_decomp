@@ -44,7 +44,7 @@ struct FUN_00b01be0_Class
     bool __thiscall IsFlag4Clear(unsigned int flags, unsigned int unused);
 };
 extern int DAT_010a48e8;
-struct FUN_00b029a0_class
+struct BSTaskletGroupData
 {
     void __thiscall SetVirtualTable_00b029a0();
 };
@@ -76,14 +76,14 @@ struct FUN_00afeac0_shell
 {
     int __thiscall OpenFile(int arg);
 };
-struct FUN_00b00900
+struct BSSystemFile
 {
     int m0;
     int m4;
     int m8;
     char mc;
     int OpenFile(int arg);
-    FUN_00b00900(int a, int b, int c, char d);
+    BSSystemFile(int a, int b, int c, char d);
 };
 struct FUN_00b00cf0_vt
 {
@@ -114,9 +114,9 @@ struct FUN_00b01020
 {
     virtual ~FUN_00b01020();
 };
-struct FUN_00b01c20 : public FUN_00b01020
+struct BSWin32FileCache : public FUN_00b01020
 {
-    virtual ~FUN_00b01c20();
+    virtual ~BSWin32FileCache();
 };
 extern int DAT_010a4880;
 extern int DAT_010a48ac;
@@ -181,7 +181,7 @@ class FUN_00b00b40_cls
     virtual void v14();
     virtual bool v18(void* a, void* b, bool c);
     bool m_04;
-    bool TryProcessPair(void** a, void** b, bool c);
+    bool BSTaskletManager_AttachTask(void** a, void** b, bool c);
 };
 class B00C20Item
 {
@@ -238,7 +238,7 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedCompareExchange(long 
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long milliseconds);
 extern int DAT_0106c800;
 extern int DAT_0106c814;
-struct FUN_00b00ec0
+struct BSWin32TaskletData
 {
     int unk00;
     int unk04;
@@ -246,7 +246,7 @@ struct FUN_00b00ec0
     int unk0c;
     long m_10;
 
-    ~FUN_00b00ec0() throw();
+    ~BSWin32TaskletData() throw();
 };
 extern "C" __declspec(dllimport) int __stdcall FindFirstFileA(const char* pattern);
 extern "C" __declspec(dllimport) int __stdcall FindClose(int handle);
@@ -335,7 +335,7 @@ class FUN_00b0e510_cls
     unsigned int m_0c;
     unsigned int m_10;
 
-    FUN_00b0e510_pair* ProcessEntries_00b0e510(FUN_00b0e510_pair* out, unsigned int a0, unsigned int a1, unsigned int a2,
+    FUN_00b0e510_pair* vector_erase(FUN_00b0e510_pair* out, unsigned int a0, unsigned int a1, unsigned int a2,
                                     unsigned int a3);
 };
 extern void __cdecl FUN_00ec7c56();
@@ -481,7 +481,7 @@ struct BufferPos
     char* pcData;
     unsigned int uiElapsedMilliseconds;
 };
-struct FUN_00b01800_shell
+struct ArchiveFile
 {
     char pad00[0x10];
     unsigned int m_uiBufferSize;
@@ -801,7 +801,7 @@ struct OtherStorage : StorageBase
     OtherEntry* last;
     OtherEntry* end;
 // src: GUESS 0x00b15600 (confidence: medium)
-    void ReleaseEntries_00b15600()
+    void vector__Tidy()
     {
         if (first)
         {
@@ -818,7 +818,7 @@ struct OtherStorage : StorageBase
     }
     __forceinline ~OtherStorage()
     {
-        ReleaseEntries_00b15600();
+        vector__Tidy();
     }
 };
 struct FUN_00b10e90
@@ -1536,8 +1536,8 @@ struct VcVec : VcVecVal
         return (VcIter(_Where._Myptr, this));
     }
     void UpdateState_00b0ecf0(VcConstIter _Where, unsigned int _Count, const char& _Val);  // _Insert_n
-// src: GUESS 0x00b0e510 (confidence: low)
-    VcIter ProcessEntries_00b0e510(VcConstIter _First_arg, VcConstIter _Last_arg)             // erase
+// src: GUESS 0x00b0e510 (confidence: medium)
+    VcIter vector_erase(VcConstIter _First_arg, VcConstIter _Last_arg)             // erase
     {                                                                              // erase [_First, _Last)
         VcIter _First = _Make_iter(_First_arg);
         VcIter _Last = _Make_iter(_Last_arg);
@@ -1598,7 +1598,7 @@ void VcVec::ProcessState_00b0e200(unsigned int _Newsize, char _Val)
     if (size() < _Newsize)
         UpdateState_00b0ecf0(end(), _Newsize - size(), _Val);
     else if (_Newsize < size())
-        ProcessEntries_00b0e510(begin() + _Newsize, end());
+        vector_erase(begin() + _Newsize, end());
 }
 
 typedef char ElQ_aceeb0;
@@ -3167,7 +3167,7 @@ struct VecB0
     int* _Mylast;
     int* _Myend;
 // src: GUESS 0x00b167e0 (confidence: low)
-    inline int* __thiscall ProcessAndReturnValue_00b167e0(int* p, unsigned int n, const int& value)
+    inline int* __thiscall vector__Ufill(int* p, unsigned int n, const int& value)
     {
         fouter(p, n, value, _Alval);
         return p + n;
@@ -3244,7 +3244,7 @@ void VecB0::ReleaseStorage_00b0f410(int unused, int* _Where, unsigned int _Count
         _Ucopy(_Where, _Mylast, _Where + _Count);
         try
         {
-            ProcessAndReturnValue_00b167e0(_Mylast, _Count - (_Mylast - _Where), _Tmp);
+            vector__Ufill(_Mylast, _Count - (_Mylast - _Where), _Tmp);
         }
         catch (...)
         {
@@ -4599,7 +4599,7 @@ struct ArrayB160
         DestroyRangeB160(_First, _Last, _Alval);
     }
 // src: GUESS 0x00b167e0 (confidence: low)
-    inline unsigned int* ProcessAndReturnValue_00b167e0(unsigned int* _Ptr, unsigned int _Count, const unsigned int& _Val)
+    inline unsigned int* vector__Ufill(unsigned int* _Ptr, unsigned int _Count, const unsigned int& _Val)
     {
         unsigned int* _First = _Ptr;
         unsigned int* _Last = _Ptr + _Count;
@@ -4665,7 +4665,7 @@ void ArrayB160::UpdateState_00b16070(IteratorB160 _Where, unsigned int _Count, c
         _Ucopy(_Where.pointer, _Mylast, _Where.pointer + _Count);
         try
         {
-            ProcessAndReturnValue_00b167e0(_Mylast, _Count - (_Mylast - _Where.pointer), _Tmp);
+            vector__Ufill(_Mylast, _Count - (_Mylast - _Where.pointer), _Tmp);
         }
         catch (...)
         {
@@ -12054,12 +12054,12 @@ inline void unchecked_uninitialized_fill_nS(_FwdIt _First, _Diff _Count, const _
 class FUN_00b167e0_Vector : public vectorS<int>
 {
   public:
-    pointer ProcessAndReturnValue_00b167e0(pointer _Ptr, size_type _Count, const int& _Val);
+    pointer vector__Ufill(pointer _Ptr, size_type _Count, const int& _Val);
 };
 
 // @fnv 0x00b167e0
-// src: GUESS 0x00b167e0 (confidence: low)
-FUN_00b167e0_Vector::pointer FUN_00b167e0_Vector::ProcessAndReturnValue_00b167e0(pointer _Ptr, size_type _Count, const int& _Val)
+// src: GUESS 0x00b167e0 (confidence: high)
+FUN_00b167e0_Vector::pointer FUN_00b167e0_Vector::vector__Ufill(pointer _Ptr, size_type _Count, const int& _Val)
 {
     unchecked_uninitialized_fill_nS(_Ptr, _Count, _Val, this->_Alval);
     return (_Ptr + _Count);
@@ -15477,7 +15477,7 @@ struct SplineCurve
     static void operator delete(void* p);
 };
 
-class FUN_00b17fd0
+class CFrondEngine
 {
   public:
     int unk00;
@@ -15498,11 +15498,12 @@ class FUN_00b17fd0
     float unk78;
     int unk7C;
     int unk80;
-    FUN_00b17fd0();
+    CFrondEngine();
 };
 
 // @fnv 0x00b17fd0
-FUN_00b17fd0::FUN_00b17fd0()
+// src: COMMUNITY 0x00b17fd0
+CFrondEngine::CFrondEngine()
     : unk00(0), unk04(0), unk38(1), unk3C(2), unk44(4), unk48(1), unk4C(false), unk68(4), unk6C(1.0f), unk70(0.0f),
       unk74(0.0f), unk78(0.05f), unk7C(2), unk80(1)
 {

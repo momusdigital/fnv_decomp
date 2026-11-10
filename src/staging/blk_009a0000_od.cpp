@@ -198,7 +198,7 @@ void GlobalObject_00869f00::SetVtableAndProcessState_009a3810()
 
 CombatTargetTimestamp* __fastcall CombatTargetTimestamp_ClearTimeStamp(CombatTargetTimestamp*);
 
-struct FUN_009a3d90_class
+struct UnreachableCoverLocation
 {
     int m0;
     CombatTargetTimestamp* __thiscall EvaluateValue_009a3d90();
@@ -206,7 +206,7 @@ struct FUN_009a3d90_class
 
 // @fnv 0x009a3d90
 // src: GUESS 0x009a3d90 (confidence: low)
-CombatTargetTimestamp* __thiscall FUN_009a3d90_class::EvaluateValue_009a3d90()
+CombatTargetTimestamp* __thiscall UnreachableCoverLocation::EvaluateValue_009a3d90()
 {
     CombatTargetTimestamp_ClearTimeStamp(reinterpret_cast<CombatTargetTimestamp*>(this + 1));
     return reinterpret_cast<CombatTargetTimestamp*>(this);
@@ -473,11 +473,12 @@ void __fastcall CombatState_UpdateState_009a3410(GlobalObject_00869f00*);
 void __cdecl operator delete(void*);
 struct FUN_009a3850_Class : public GlobalObject_00869f00
 {
-    void* __thiscall FUN_009a3850(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_009a3410 on this, deletes this when flags has bit 0 set, and returns this.
 // @fnv 0x009a3850
-void* __thiscall FUN_009a3850_Class::FUN_009a3850(unsigned int flags)
+// src: EXE 0x009a3850
+void* __thiscall FUN_009a3850_Class::ScalarDeletingDestructor(unsigned int flags)
 {
     CombatState_UpdateState_009a3410(this);
     if (flags & 1)
@@ -585,15 +586,15 @@ void* __thiscall FUN_009a44b0_Class::FUN_009a44b0(unsigned int flags)
 
 struct FUN_009a4e90_shell
 {
-    void SaveState_009a4e90(BGSSaveFormBuffer* buffer);
+    void CombatThreat_SaveGame(BGSSaveFormBuffer* buffer);
 };
 // @fnv 0x009a4e90
 // src: GUESS 0x009a4e90 (confidence: medium)
-void FUN_009a4e90_shell::SaveState_009a4e90(BGSSaveFormBuffer* buffer)
+void FUN_009a4e90_shell::CombatThreat_SaveGame(BGSSaveFormBuffer* buffer)
 {
     buffer->SaveData((char*)this + 4, 4, 0);
-    ((CombatTargetTimestamp*)((char*)this + 8))->SaveTimeStamp(buffer);
-    ((CombatTargetTimestamp*)((char*)this + 12))->SaveTimeStamp(buffer);
+    ((CombatTargetTimestamp*)((char*)this + 8))->CombatTimeStamp_SaveGame(buffer);
+    ((CombatTargetTimestamp*)((char*)this + 12))->CombatTimeStamp_SaveGame(buffer);
     buffer->SaveData((char*)this + 16, 4, 0);
 }
 
@@ -729,26 +730,26 @@ struct FourDimensionalVector
 {
     float x, y, z, w;
 };
-struct FUN_004b4e50_shell
+struct bhkVector4
 {
-    FourDimensionalVector* SetFromScaledVector3(void*);
+    FourDimensionalVector* bhkVector4_NI2HK(void*);
 };
 struct FUN_009ae4d0_shell
 {
     void bhkMatrix3_NI2HKNS(void*);
 };
 void __cdecl bhkMatrix3_NI2HKNS(void*);
-struct FUN_009ae4a0_class
+struct bhkTransform
 {
     void* __thiscall bhkTransform_NI2HK(void* arg);
 };
-// Calls FUN_009ae4d0 on this with arg, then SetFromScaledVector3 on the object at this+0x30 with arg+0x24, and returns this.
+// Calls FUN_009ae4d0 on this with arg, then bhkVector4_NI2HK on the object at this+0x30 with arg+0x24, and returns this.
 // @fnv 0x009ae4a0
 // src: COMMUNITY 0x009ae4a0
-void* __thiscall FUN_009ae4a0_class::bhkTransform_NI2HK(void* arg)
+void* __thiscall bhkTransform::bhkTransform_NI2HK(void* arg)
 {
     ((FUN_009ae4d0_shell*)this)->bhkMatrix3_NI2HKNS(arg);
-    ((FUN_004b4e50_shell*)((char*)this + 0x30))->SetFromScaledVector3((char*)arg + 0x24);
+    ((bhkVector4*)((char*)this + 0x30))->bhkVector4_NI2HK((char*)arg + 0x24);
     return this;
 }
 
@@ -881,10 +882,11 @@ struct Flt
 };
 struct FUN_009bb7f0_shell
 {
-    void UpdateLightFromChallenge();
+    void MuzzleFlash_AttachLight();
 };
 // @fnv 0x009bb7f0
-void FUN_009bb7f0_shell::UpdateLightFromChallenge()
+// src: COMMUNITY 0x009bb7f0
+void FUN_009bb7f0_shell::MuzzleFlash_AttachLight()
 {
     if (reinterpret_cast<Flt*>(reinterpret_cast<char*>(this) + 0xc)->operator unsigned int() &&
         reinterpret_cast<TESChallenge*>(*reinterpret_cast<void**>(reinterpret_cast<char*>(this) + 0x14))->GetFormOne())
@@ -895,7 +897,7 @@ void FUN_009bb7f0_shell::UpdateLightFromChallenge()
                 reinterpret_cast<TESObjectLIGH*>(
                     reinterpret_cast<TESChallenge*>(*reinterpret_cast<void**>(reinterpret_cast<char*>(this) + 0x14))
                         ->GetFormOne())
-                    ->CreateLight(
+                    ->GenDynamic(
                         0,
                         reinterpret_cast<NiAVObject*>(
                             reinterpret_cast<Flt*>(reinterpret_cast<char*>(this) + 0xc)->operator unsigned int()),
@@ -1216,7 +1218,7 @@ struct BooleanFloatQuery
     float p_18;
     int p_30;
     float p_34;
-    void ApplyCriticalHit();
+    void HitData_CheckCriticalStrike();
     void HitData_ReduceDamage(bool);
     void HitData_SetTargetedLimb(void*);
     void ApplyDamageEffects();
@@ -1235,7 +1237,7 @@ void InitFromObjects(BooleanFloatQuery* hd, void* target, void* weapon, void* so
     if (target)
         ((float*)hd)[5] *= ((TESObjectREFR*)target)->GetScale();
     ((float*)hd)[6] = ((float*)hd)[5];
-    hd->ApplyCriticalHit();
+    hd->HitData_CheckCriticalStrike();
     hd->HitData_ReduceDamage(true);
     hd->HitData_SetTargetedLimb(extra);
     hd->ApplyDamageEffects();
@@ -1257,10 +1259,11 @@ struct FUN_009bb8a0_Class
     int m8;
     int mc;
     Flt mf;
-    void __thiscall UpdateLightVisibility();
+    void __thiscall MuzzleFlash_UpdateLight();
 };
 // @fnv 0x009bb8a0
-void __thiscall FUN_009bb8a0_Class::UpdateLightVisibility()
+// src: COMMUNITY 0x009bb8a0
+void __thiscall FUN_009bb8a0_Class::MuzzleFlash_UpdateLight()
 {
     char b;
     if ((unsigned int)mf)
@@ -1283,16 +1286,16 @@ int _sprintf_s(char*, unsigned int, const char*, ...);
 int __cdecl CombatWorldState_GetStateValueText(int a, int b);
 int __cdecl GetKeywordName(int a);
 extern char $SG3667[];
-struct FUN_009aa150_Class
+struct CombatWorldState
 {
     int m0;
     int m4;
     int __thiscall GetKeywordName();
-    void __thiscall UpdateState_009aa150(char* a, unsigned int b, int c);
+    void __thiscall CombatWorldState_GetDebugText(char* a, unsigned int b, int c);
 };
 // @fnv 0x009aa150
-// src: GUESS 0x009aa150 (confidence: low)
-void __thiscall FUN_009aa150_Class::UpdateState_009aa150(char* pBuffer, unsigned int uiBufferSize, int c)
+// src: COMMUNITY 0x009aa150
+void __thiscall CombatWorldState::CombatWorldState_GetDebugText(char* pBuffer, unsigned int uiBufferSize, int c)
 {
     if (c == -1)
         c = m4;
@@ -1310,13 +1313,13 @@ struct FUN_009ae540_Class
     void* p10;
     void* p20;
 };
-struct FUN_009ae4d0_Class : FUN_009ae540_Class
+struct bhkMatrix3 : FUN_009ae540_Class
 {
     FUN_009ae540_Class* __thiscall bhkMatrix3_NI2HKNS(void* a);
 };
 // @fnv 0x009ae4d0
 // src: COMMUNITY 0x009ae4d0
-FUN_009ae540_Class* __thiscall FUN_009ae4d0_Class::bhkMatrix3_NI2HKNS(void* a)
+FUN_009ae540_Class* __thiscall bhkMatrix3::bhkMatrix3_NI2HKNS(void* a)
 {
     Point3Value l;
     ((NiPoint3*)&l)->FUN_006815c0();
@@ -1464,7 +1467,7 @@ void FUN_009b1260_Class::UpdateCastSound()
         ((GO*)((char*)this + 0xc4))
             ->
             operator=(((TESObjectLIGH*)((const EffectSetting*)((XActor*)this)->GetActorBase())->GetCastSound())
-                          ->CreateLight((XActor*)this, vf_1d0(), false));
+                          ->GenDynamic((XActor*)this, vf_1d0(), false));
     }
 }
 
@@ -1679,7 +1682,7 @@ void CombatThreatMap::SaveThreats(BGSSaveFormBuffer* buffer)
         if (key)
         {
             reinterpret_cast<FUN_00865db0_shell*>(buffer)->FUN_00865db0(uiThreatKey, 0);
-            reinterpret_cast<FUN_009a4e90_shell*>(key)->SaveState_009a4e90(buffer);
+            reinterpret_cast<FUN_009a4e90_shell*>(key)->CombatThreat_SaveGame(buffer);
             ++position;
         }
     }
@@ -1792,7 +1795,7 @@ void FUN_009acd00_Class::Explosion_AttachDistant()
     void* p = ((void*(__thiscall*)(void*))(*(void***)this)[0x1d0 / 4])(this);
     if (p != 0)
     {
-        void* c = ((KFModel*)((TESWorldSpace*)((TESSaveLoadGame*)g_TES)->GetHitSound())->GetWorldTerrainManager())
+        void* c = ((KFModel*)((TESWorldSpace*)((TESSaveLoadGame*)g_TES)->GetHitSound())->GetTerrainManager())
                       ->GetControllerSequence();
         if (c != 0)
         {
@@ -1960,14 +1963,14 @@ struct FUN_008256d0_shell
     bool __thiscall FUN_008256d0();
 };
 
-struct FUN_009b8a20_class
+struct MissileProjectile
 {
-    void __thiscall AdvanceStateAtOffset150_009b8a20();
+    void __thiscall UpdateImpaleState();
 };
 
 // @fnv 0x009b8a20
-// src: GUESS 0x009b8a20 (confidence: low)
-void FUN_009b8a20_class::AdvanceStateAtOffset150_009b8a20()
+// src: GUESS 0x009b8a20 (confidence: medium)
+void MissileProjectile::UpdateImpaleState()
 {
     if (*reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x150) == 3)
     {
@@ -2047,7 +2050,7 @@ extern "C" int __fastcall CombatController_GetTarget(void* obj);
 extern "C" float __cdecl TESAIForm_GetConfidenceLevel(unsigned int v);
 extern const double DAT_01012060;
 
-class FUN_009a1380_cls
+class CombatState
 {
   public:
     unsigned int m_00;
@@ -2179,7 +2182,7 @@ class FUN_009a1380_cls
 // Returns 1 if m_08 is less than a value derived from m_c9 (reduced by m_cc when above DAT_01012060), or 0 if FUN_004030b0(m_1c4) is zero.
 // @fnv 0x009a1380
 // src: COMMUNITY 0x009a1380
-unsigned char FUN_009a1380_cls::CombatState_CheckShouldFlee()
+unsigned char CombatState::CombatState_CheckShouldFlee()
 {
     float f;
     if (CombatController_GetTarget(m_1c4) == 0)
@@ -2966,13 +2969,14 @@ struct FUN_008c71b0_Class
 {
     void FUN_008c71b0(int value);
 };
-struct FUN_009a7bc0 : FUN_0062a220
+struct SpecificItemCollector : FUN_0062a220
 {
-    FUN_009a7bc0(unsigned int first, unsigned int second);
+    SpecificItemCollector(unsigned int first, unsigned int second);
 };
 // Sets the vtable, initialises the object at offset 0x70 with 0, then calls SetFilter with first and second.
 // @fnv 0x009a7bc0
-FUN_009a7bc0::FUN_009a7bc0(unsigned int first, unsigned int second)
+// src: EXE 0x009a7bc0
+SpecificItemCollector::SpecificItemCollector(unsigned int first, unsigned int second)
 {
     vtable = &DAT_0104e1dc;
     reinterpret_cast<FUN_008c71b0_Class*>(reinterpret_cast<char*>(this) + 0x70)->FUN_008c71b0(0);
@@ -6444,7 +6448,7 @@ struct Obj082
     bool Explosion_RunLOSPick(NiPoint3, Obj082*);
     void Actor_HitMe(Hit082*, int);
     void InitFromPoints(const NiPoint2&, const NiPoint2&, const NiPoint2&);
-    bool HasAnyFlags(int);
+    bool BGSExplosion_IsFlagSet(int);
     void Explosion_PushActor(Obj082*, float);
     Obj082* PlayerCharacter_Get3D_00950bb0(int);
     void NiAVObject_Update(NiUpdateData*);
@@ -6531,8 +6535,8 @@ void Obj082::ProcessHits()
                                     ->Apply(data ? &((Obj082*)data)->unk18 : 0, 0, amount ? &amount->unk94 : 0, 1.0f,
                                             0);
                         }
-                        if (!amount->State(0) && (FUN_004181e0()->HasAnyFlags(4) ||
-                                                  (FUN_004181e0()->HasAnyFlags(8) &&
+                        if (!amount->State(0) && (FUN_004181e0()->BGSExplosion_IsFlagSet(4) ||
+                                                  (FUN_004181e0()->BGSExplosion_IsFlagSet(8) &&
                                                    ActorValueOwner_ShouldDamageKnockdownTarget(amount ? &amount->hits : 0, (int)hit.unk14))))
                             Explosion_PushActor(amount, distance);
                         if (amount->State(0))

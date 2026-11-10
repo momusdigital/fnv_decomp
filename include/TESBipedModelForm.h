@@ -46,10 +46,10 @@ public:
     BSFaceGenModel* GetBipedConstraint();
     bool GetIsHeavyArmor() const;
     bool GetIsMediumArmor() const;
-    bool HasBipedModel(BIPED_OBJECT slot, bool hair, BGSBipedModelList* modelList);
-    bool HasBipedModel(int slot, bool hair, void* modelList);
-    void SetBipedModel(BipedAnim* anim, SEX sex, BIPED_OBJECT slot);
-    void SetBipedModel(BipedAnim* anim, SEX sex, int slot);
+    bool FillsBipedSlot(BIPED_OBJECT slot, bool hair, BGSBipedModelList* modelList);
+    bool FillsBipedSlot(int slot, bool hair, void* modelList);
+    void AddToBiped(BipedAnim* anim, SEX sex, BIPED_OBJECT slot);
+    void AddToBiped(BipedAnim* anim, SEX sex, int slot);
     TESModelTextureSwap* GetWorldModel(int sex);
     TESModelTextureSwap* GetBipedModel(SEX sex);
     const char* GetBipedModel(int sex);

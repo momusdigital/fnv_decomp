@@ -574,7 +574,8 @@ struct NiPSysMeshEmitterObject
 };
 
 // @fnv 0x00c1f970
-NiPSysMeshEmitterObject* __cdecl CreateNiPSysMeshEmitterObject()
+// src: EXE 0x00c1f970
+NiPSysMeshEmitterObject* __cdecl NiPSysMeshEmitter_CreateObject()
 {
     return new NiPSysMeshEmitterObject;
 }

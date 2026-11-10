@@ -7,7 +7,7 @@ class NiNode;
 class BSShaderRenderUtility_slotmachinemenu
 {
 public:
-    bool IsRenderTargetId(unsigned int value);
+    bool TESDataHandler_IsFormIDCreated(unsigned int value);
     static void InitializeMultiBounds();
     static void SetRenderCamera(NiCamera* camera, BSShaderAccumulator* accumulator, bool unused);
     static void SetRenderCamera(AnimIdle* camera, AnimIdle* accumulator, bool unused);
@@ -403,8 +403,8 @@ void SlotMachineMenu::InitPayoutMenu()
 int __cdecl FUN_00944460(int, int);
 
 // @fnv 0x007c56e0
-// src: GUESS 0x007c56e0 (confidence: medium)
-void SlotMachineMenu::SelectSpinResults()
+// src: COMMUNITY 0x007c56e0
+void SlotMachineMenu::SpinReels()
 {
     for (int i = 0; i < 3; ++i)
     {
@@ -593,7 +593,7 @@ struct Casino
     virtual void vf2c();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3c();
     virtual void vf40();
     virtual void vf44();
@@ -602,7 +602,7 @@ struct Casino
     virtual void vf50();
     virtual void vf54();
     virtual void vf58();
-    virtual void vf5c();
+    virtual void applyForce();
     virtual void vf60();
     virtual void vf64();
     virtual void vf68();
@@ -1727,7 +1727,7 @@ struct ReelProperty
     virtual void vf9();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -1753,7 +1753,7 @@ struct ReelProperty
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();

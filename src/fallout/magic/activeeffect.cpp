@@ -244,7 +244,7 @@ void ActiveEffect::Finalize()
 void ActiveEffect::LoadActiveEffectList(BGSLoadFormBuffer* buffer, BSSimpleList<ActiveEffect*>* list)
 {
     ActiveEffect_RevertActiveEffectList(buffer, list);
-    unsigned int count = buffer->ReadElementCount();
+    unsigned int count = buffer->LoadVariableSizedValue();
     for (unsigned int i = 0; i < count; ++i)
     {
         ActiveEffect* effect = ReadActiveEffect(buffer);
@@ -309,19 +309,19 @@ ActiveEffect* ActiveEffect::ReadActiveEffect(BGSLoadFormBuffer* buffer)
     spell = spell ? MagicItem::GetMagicItemByID(reinterpret_cast<unsigned int>(spell)) : 0;
     index = 0;
     buffer->ReadTypedData(static_cast<void*>(&index), 1u);
-    formID = buffer->ReadElementCount();
+    formID = buffer->LoadVariableSizedValue();
     if (spell)
     {
-        EffectItem* effect = spell->GetEffectItemAtIndex(index);
+        EffectItem* effect = spell->GetEffectItemByIndex(index);
         if (effect && effect->GetEffectSetting()->GetArchetype() == formID)
         {
-            buffer->ReadElementCount();
+            buffer->LoadVariableSizedValue();
             ActiveEffect* active = MagicEffectSystem_activeeffect::Activate(0, spell, effect, 0);
             active->LoadGame(buffer);
             return active;
         }
     }
-    buffer->AddToOffset(buffer->ReadElementCount());
+    buffer->AddToOffset(buffer->LoadVariableSizedValue());
     LogWarning(DAT_010794a8, archetype, index, formID);
     return 0;
 }
@@ -724,7 +724,7 @@ struct CF_0081c630
     CF_0081c630();
 };
 
-struct FUN_0081c530 : MagicHitEffect
+struct MagicModelHitEffect : MagicHitEffect
 {
     bool bFlag28;
     bool bFlag29;
@@ -732,13 +732,14 @@ struct FUN_0081c530 : MagicHitEffect
     GO spNode30;
     GO spNode34;
     CF_0081c630 kData;
-    FUN_0081c530();
-    virtual ~FUN_0081c530();
+    MagicModelHitEffect();
+    virtual ~MagicModelHitEffect();
 };
 
 // Initializes the two node handles to null, clears both flags, and sets iState to 0.
 // @fnv 0x0081c530
-FUN_0081c530::FUN_0081c530() : spNode30(0), spNode34(0)
+// src: EXE 0x0081c530
+MagicModelHitEffect::MagicModelHitEffect() : spNode30(0), spNode34(0)
 {
     spNode30 = 0;
     spNode34 = 0;
@@ -1473,7 +1474,7 @@ void ActiveEffect::SaveGame(Actor* actor)
     }
 }
 
-struct ShaderHitEffect : FUN_0081c530
+struct ShaderHitEffect : MagicModelHitEffect
 {
     static void* operator new(unsigned int);
     static void operator delete(void*);
@@ -1907,7 +1908,7 @@ void ActiveEffect::InitLoadGame(Actor* apActor)
     }
 }
 
-struct Shell81c530 : public FUN_0081c530
+struct Shell81c530 : public MagicModelHitEffect
 {
     static void* operator new(unsigned int size);
     Shell81c530();

@@ -15,7 +15,7 @@ class NiRenderTargetGroup : public NiObject
     NiRenderTargetGroup();
     virtual ~NiRenderTargetGroup();
     NiRenderTargetGroup& operator=(const NiRenderTargetGroup&);
-    void* __thiscall FUN_00ee87e0(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 
     virtual unsigned int Unk_23(unsigned int);
     virtual void* vf36(unsigned int);

@@ -286,12 +286,12 @@ void* NiPersistentSrcTextureRendererData_CreateObject()
 struct CloningProcess;
 struct NiBinaryExtraData;
 struct NiFloatsExtraData;
-struct FUN_00a99c40_shell : public NiExtraData {
+struct BSDecalPlacementVectorExtraData : public NiExtraData {
     void NiIntegerExtraData_CopyMembers(NiBinaryExtraData* dst, CloningProcess* cp);
 };
 // @fnv 0x00a99c40
 // src: GAMEBRYO_LIB 0x00a99c40
-void FUN_00a99c40_shell::NiIntegerExtraData_CopyMembers(NiBinaryExtraData* dst, CloningProcess* cp)
+void BSDecalPlacementVectorExtraData::NiIntegerExtraData_CopyMembers(NiBinaryExtraData* dst, CloningProcess* cp)
 {
     CopyMembers_00a7b330(dst, cp);
     *(void**)((char*)dst + 0xc) = *(void**)((char*)this + 0xc);
@@ -386,7 +386,7 @@ NiParticleMeshes* __cdecl NiParticleMeshes_CreateObject() {
 
 void __cdecl NiFree(void*);
 void* __cdecl NiMalloc(unsigned int);
-struct FUN_00a99800_shell {
+struct NiIntegersExtraData {
     void* m_iWordAt00;
     void* m_iWordAt04;
     void* m_8;
@@ -395,7 +395,7 @@ struct FUN_00a99800_shell {
     void AssignPointerArray(unsigned int count, const void* src);
 };
 // @fnv 0x00a99800
-void FUN_00a99800_shell::AssignPointerArray(unsigned int count, const void* src)
+void NiIntegersExtraData::AssignPointerArray(unsigned int count, const void* src)
 {
     NiFree(m_10);
     if (!src || count <= 0) {
@@ -444,17 +444,18 @@ NiAlphaAccumulator* CreateNiAlphaAccumulator()
     return 0;
 }
 
-struct FUN_00a9be80 {
+struct NiShaderConstantMap {
     const void* m_vft;
     int m_ref;
     int m_data;
-    FUN_00a9be80(int data);
+    NiShaderConstantMap(int data);
 };
 extern volatile long DAT_011f4400;
 extern const void* DAT_010a1478;
 extern const void* vftable_NiRefObject;
 // @fnv 0x00a9be80
-FUN_00a9be80::FUN_00a9be80(int data) {
+// src: EXE 0x00a9be80
+NiShaderConstantMap::NiShaderConstantMap(int data) {
     m_vft = &vftable_NiRefObject;
     m_ref = 0;
     InterlockedIncrement(&DAT_011f4400);
@@ -462,15 +463,15 @@ FUN_00a9be80::FUN_00a9be80(int data) {
     m_vft = &DAT_010a1478;
 }
 
-struct FUN_00a84c90_class {
+struct BoneData {
     char pad[0x44];
     int field44;
     short field48;
-    FUN_00a84c90_class* ResetFields();
+    BoneData* ResetFields();
 };
 
 // @fnv 0x00a84c90
-FUN_00a84c90_class* FUN_00a84c90_class::ResetFields()
+BoneData* BoneData::ResetFields()
 {
     field44 = 0;
     field48 = 0;
@@ -620,7 +621,7 @@ FUN_00a87140_class* BSSegmentedTriShape_CreateObject() {
 // This compatibility entry point is absent from the shared light declaration.
 extern "C" void __cdecl FUN_00a7d6a0();
 
-struct FUN_00a94c00_shell {
+struct NiSpotLight {
     char m_iWordAt00[0xfc];
     int m_fc;
     int m_100;
@@ -632,10 +633,10 @@ struct FUN_00a94c00_shell {
 };
 // @fnv 0x00a94c00
 // src: XBOX_PDB 0x00a94c00
-void FUN_00a94c00_shell::NiSpotLight_CopyMembers(NiDirectionalLight* dst, CloningProcess& cp)
+void NiSpotLight::NiSpotLight_CopyMembers(NiDirectionalLight* dst, CloningProcess& cp)
 {
     reinterpret_cast<void (__thiscall*)(NiDirectionalLight*, NiDirectionalLight*, CloningProcess&)>(FUN_00a7d6a0)((NiDirectionalLight*)this, dst, cp);
-    FUN_00a94c00_shell* d = (FUN_00a94c00_shell*)dst;
+    NiSpotLight* d = (NiSpotLight*)dst;
     d->m_fc = m_fc;
     d->m_100 = m_100;
     d->m_104 = m_104;
@@ -646,7 +647,7 @@ void FUN_00a94c00_shell::NiSpotLight_CopyMembers(NiDirectionalLight* dst, Clonin
 
 extern MemoryManager g_memoryManager;
 extern char* DAT_010a05e4;
-struct FUN_00a96800_shell {
+struct NiParticlesData {
     char m_auiShapeKeys[0x44];
     void* m_44;
     void* m_48;
@@ -663,7 +664,7 @@ struct FUN_00a96800_shell {
 };
 // @fnv 0x00a96800
 // src: GUESS 0x00a96800 (confidence: medium)
-void FUN_00a96800_shell::ReleaseStorage_00a96800()
+void NiParticlesData::ReleaseStorage_00a96800()
 {
     void* pOld = m_4c;
     *(void**)this = &DAT_010a05e4;
@@ -714,13 +715,13 @@ extern void* _EmptyFS;
 extern int (__stdcall* DAT_00fdf1c4)(void*);
 extern const void* vftable_NiRefObject;
 
-struct FUN_00a8f810_class {
+struct NiMaterial {
     void SetVtableAndProcessState_00a8f810();
 };
 
 // @fnv 0x00a8f810
 // src: GUESS 0x00a8f810 (confidence: low)
-void FUN_00a8f810_class::SetVtableAndProcessState_00a8f810()
+void NiMaterial::SetVtableAndProcessState_00a8f810()
 {
     *(const void**)this = &DAT_0109f73c;
     Stub* s = (Stub*)DAT_011f5e34;
@@ -764,11 +765,12 @@ struct SdmDerived {
     void* m_vt;
     void* m_iWordAt04;
     void* m_8;
-    void* FUN_00a8fa10(char flag);
+    void* ScalarDeletingDestructor(char flag);
 };
 
 // @fnv 0x00a8fa10
-void* SdmDerived::FUN_00a8fa10(char flag)
+// src: EXE 0x00a8fa10
+void* SdmDerived::ScalarDeletingDestructor(char flag)
 {
     m_vt = (void*)&vftable_SdmDerived;
     ((NiTFixedStringMap_NiAVObject___*)this)->RemoveAll();
@@ -1128,7 +1130,7 @@ struct FUN_00a84ca0_entry {
 
 extern MemoryManager g_memoryManager;
 
-struct FUN_00a84ca0_class {
+struct NiSkinData {
     int unk00;
     int unk04;
     int unk08;
@@ -1153,7 +1155,7 @@ struct FUN_00a84ca0_class {
 
 // Iterates m_44 entries in the array at m_40, deallocating each entry's unk44 pointer and clearing it.
 // @fnv 0x00a84ca0
-void FUN_00a84ca0_class::FreeEntryResources()
+void NiSkinData::FreeEntryResources()
 {
     if (m_40 != 0) {
         for (unsigned int i = 0; i < m_44; ++i) {
@@ -1398,7 +1400,7 @@ extern "C" void* __cdecl _NiMalloc_00aa1070(int);
 
 extern int DAT_0109f23c;
 
-struct FUN_00a8a680_cls {
+struct NiLinesData {
     void* m_vft;
     int m_iWordAt04;
     int m_8;
@@ -1420,7 +1422,7 @@ struct FUN_00a8a680_cls {
 };
 
 // @fnv 0x00a8a680
-void* FUN_00a8a680_cls::InitWithBuffer(int ausLength, int a1, int a2, int a3, int a4, int a5, int apBuffer)
+void* NiLinesData::InitWithBuffer(int ausLength, int a1, int a2, int a3, int a4, int a5, int apBuffer)
 {
     ((BaseCls*)this)->FUN_00a67b20(ausLength, a1, 0, a2, a3, a4, a5);
     m_vft = (void*)&DAT_0109f23c;
@@ -1834,7 +1836,8 @@ struct NiParticleObject : NiParticleBase {
 extern void* __cdecl Object_DispatchCommandFour(unsigned int);
 extern const char DAT_010a1024;
 // @fnv 0x00a9aea0
-NiParticleObject* __cdecl CreateNiParticleObject() {
+// src: EXE 0x00a9aea0
+NiParticleObject* __cdecl NiBSPNode_CreateObject() {
     NiParticleObject* object =
         (NiParticleObject*)Object_DispatchCommandFour(0xcc);
     if (object) {
@@ -2288,7 +2291,8 @@ public:
 
 // Allocates and default-constructs a new BA87920Object, returning the pointer.
 // @fnv 0x00a87920
-BA87920Object* __cdecl CreateBA87920Object()
+// src: EXE 0x00a87920
+BA87920Object* __cdecl NiScreenElementsData_CreateObject()
 {
     return new BA87920Object;
 }
@@ -2391,7 +2395,8 @@ struct NiPairHolder {
 };
 
 // @fnv 0x00a8a700
-NiPairHolder* __cdecl CreateNiPairHolder(void)
+// src: EXE 0x00a8a700
+NiPairHolder* __cdecl NiLinesData_CreateObject(void)
 {
     NiPairHolder* obj = (NiPairHolder*)BSFadeNode::operator new(0x44);
     if (obj != 0) {
@@ -3244,13 +3249,13 @@ public:
     unsigned short unk08;
     unsigned short m_0a;
     unsigned short m_0c;
-    void SetReferenceSlotAndUpdateCounts(unsigned int idx, NiRefObject** a2);
+    void NiTArray_SetAt(unsigned int idx, NiRefObject** a2);
 };
 
 // Sets the NiRefStub at idx, updating m_0a/m_0c and swapping the reference with ref-counted destroy/increment.
 // @fnv 0x00a9ba90
 // src: GUESS 0x00a9ba90 (confidence: medium)
-void FUN_00a9ba90_cls::SetReferenceSlotAndUpdateCounts(unsigned int idx, NiRefObject** apRefStub) {
+void FUN_00a9ba90_cls::NiTArray_SetAt(unsigned int idx, NiRefObject** apRefStub) {
     if (!(NiReferenceSlotKeyInitialized & 1)) {
         NiReferenceSlotKeyInitialized |= 1;
         NiReferenceSlotKey.m_00 = 0;

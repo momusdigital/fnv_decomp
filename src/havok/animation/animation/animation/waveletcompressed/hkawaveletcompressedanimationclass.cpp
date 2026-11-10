@@ -313,11 +313,12 @@ struct Owner
     unsigned int unk00;
     unsigned short size4, unk06;
     void FUN_00dfb720();
-    Owner* FUN_00dfb7b0(unsigned int flags);
+    Owner* ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_00dfb720, and if flags has bit 0 set, releases this object via the BSAudio allocator using size4 bytes, then returns this.
 // @fnv 0x00dfb7b0
-Owner* Owner::FUN_00dfb7b0(unsigned int flags)
+// src: EXE 0x00dfb7b0
+Owner* Owner::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00dfb720();
     if (flags & 1u)

@@ -76,13 +76,15 @@ void EffectSetting::UpdateEffectName(const char* name)
 }
 
 // @fnv 0x00408880
-bool EffectSetting::HasEffectID()
+// src: COMMUNITY 0x00408880
+bool EffectSetting::IsAssociatedItemLoaded()
 {
     return m_iEffectID > 0;
 }
 
 // @fnv 0x004088a0
-bool EffectSetting::UsesAssociatedActorValue()
+// src: COMMUNITY 0x004088a0
+bool EffectSetting::IsAssociatedItemQueued()
 {
     return m_iEffectID < 0;
 }
@@ -338,7 +340,8 @@ int EffectSetting::UpdateCounter()
 
 // If the associated-item count at offset 0xac is positive, logs a warning; otherwise decrements it, and returns the count.
 // @fnv 0x00408790
-int __fastcall QueueEffectCounter(EffectSetting* self)
+// src: COMMUNITY 0x00408790
+int __fastcall EffectSetting_QueueAssociatedItem(EffectSetting* self)
 {
     if (self->m_iEffectID > 0)
     {
@@ -451,7 +454,8 @@ int __fastcall GetEffectCounterCount(EffectSetting* self)
 }
 
 // @fnv 0x004086a0
-int __fastcall GetEffectFlagMode(EffectSetting* self)
+// src: COMMUNITY 0x004086a0
+int __fastcall EffectSetting_GetProjectileType(EffectSetting* self)
 {
     return (self->IsFlagSet_00403e60(0x2000000) ? 2 : 0) + (self->IsFlagSet_00403e60(0x4000000) ? 1 : 0);
 }

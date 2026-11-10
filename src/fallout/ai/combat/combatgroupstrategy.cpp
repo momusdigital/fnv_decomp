@@ -364,7 +364,7 @@ struct IndexedMemberArray
     ~IndexedMemberArray();
     void InsertAtEnd(const IndexedMember&);
 };
-struct FUN_00990320
+struct CombatGroupData
 {
     ActorCombatGroup* group;
     unsigned int activeCount;
@@ -374,10 +374,11 @@ struct FUN_00990320
     float strength;
     IndexedMemberArray normalMembers;
     IndexedMemberArray specialMembers;
-    FUN_00990320(ActorCombatGroup*);
+    CombatGroupData(ActorCombatGroup*);
 };
 // @fnv 0x00990320
-FUN_00990320::FUN_00990320(ActorCombatGroup* pGroup)
+// src: COMMUNITY 0x00990320
+CombatGroupData::CombatGroupData(ActorCombatGroup* pGroup)
     : group(pGroup), activeCount(0), intersectionCount(-1), minimum(0x7fffffff), maximum(0x80000000), strength(0.0f)
 {
     unsigned int count = pGroup->CombatGroup_GetMemberCount();
@@ -438,7 +439,8 @@ struct CombatGroupMethods
     int FindRefInRadius(int);
 };
 // @fnv 0x00990ac0
-bool CombatGroupStrategy::CheckGroup(ActorCombatGroup* group)
+// src: COMMUNITY 0x00990ac0
+bool CombatGroupStrategy::CombatGroupStrategyFlank_Update(ActorCombatGroup* group)
 {
     bool bFound = false;
     unsigned count = group->GetCount();

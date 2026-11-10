@@ -25,21 +25,22 @@ struct DFC1E0MemoryRouter
 
 extern "C" DFC1E0MemoryRouter& __cdecl hkMemoryRouter_getInstance();
 
-struct FUN_00dfc1e0
+struct hkpVehicleData
 {
     unsigned short m_usMemSizeAndFlags;
     short m_sReferenceCount;
 
-    FUN_00dfc1e0();
-    virtual ~FUN_00dfc1e0();
+    hkpVehicleData();
+    virtual ~hkpVehicleData();
 
     static void operator delete(void* p, unsigned int nbytes)
     {
-        FUN_00dfc1e0* b = static_cast<FUN_00dfc1e0*>(p);
+        hkpVehicleData* b = static_cast<hkpVehicleData*>(p);
         hkMemoryRouter_getInstance().heap().ReleaseBlock(p, b->m_usMemSizeAndFlags);
     }
 };
 
 // @fnv 0x00dfc1e0
-FUN_00dfc1e0::FUN_00dfc1e0()
+// src: EXE 0x00dfc1e0
+hkpVehicleData::hkpVehicleData()
 {}

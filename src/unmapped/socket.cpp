@@ -13,12 +13,12 @@ char const* __thiscall MorphName::GetMorphName()
     return reinterpret_cast<MorphName*>(reinterpret_cast<char*>(this) + 0xc)->std_string_debug_c_str();
 }
 
-struct FUN_00aca1e0
+struct runtime_error
 {
     void* __thiscall GetPointer();
 };
 // @fnv 0x00aca1e0
-void* __thiscall FUN_00aca1e0::GetPointer()
+void* __thiscall runtime_error::GetPointer()
 {
     struct X
     {

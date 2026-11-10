@@ -83,7 +83,8 @@ bool __thiscall NiLODNode::RegisterStreamables_00a992e0(NiStream* stream)
 
 // Calls FUN_00a99470, frees this with operator delete when flags has bit 0 set, and returns this.
 // @fnv 0x00a99670
-NiLODNode* __thiscall NiLODNode::FUN_00a99670(unsigned int flags)
+// src: EXE 0x00a99670
+NiLODNode* __thiscall NiLODNode::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00a99470();
     if (flags & 1)
@@ -214,7 +215,7 @@ void NiLODNode::UpdateTargetIndex(Arg99* arg)
     if (m_bLODActive && m_pkTarget)
     {
         const NiCamera* camera = reinterpret_cast<const NiCullingProcess*>(arg)->m_pkCamera;
-        // The shared vf35/vf38 declarations lack these parameters and return types.
+        // The shared vf35/PrintInfo declarations lack these parameters and return types.
         m_iIndex = reinterpret_cast<int(__thiscall*)(NiLODData*, const NiCamera*, NiLODNode*)>(
             (*reinterpret_cast<void***>(m_pkTarget))[35])(m_pkTarget, camera, this);
         int iGlobalIndex = DAT_011abdf4;

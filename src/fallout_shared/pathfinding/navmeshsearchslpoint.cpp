@@ -127,7 +127,7 @@ bool Search::TestNode(Node* node)
     NiPoint3 center5;
     mesh7->Center(triangle, &center5);
     delta -= center5;
-    float distanceSquared3 = delta.GetSquaredXYLength();
+    float distanceSquared3 = delta.NiPoint3_SqrXYLength();
     NiPoint3 vertex = mesh7->Vertex(mesh7->Triangle(triangle)->Vertex(0));
     vertex -= center5;
     float triangleRadius = vertex.Length();
@@ -195,13 +195,14 @@ struct FUN_006ac1b0_sub
     ~FUN_006ac1b0_sub();
 };
 
-struct FUN_006ac1b0_cls : NavMeshSearch
+struct NavMeshSearchSLPoint : NavMeshSearch
 {
     FUN_006ac1b0_sub m_20a4;
-    virtual ~FUN_006ac1b0_cls();
+    virtual ~NavMeshSearchSLPoint();
 };
 
 // The destructor body is empty.
 // @fnv 0x006ac1b0
-FUN_006ac1b0_cls::~FUN_006ac1b0_cls()
+// src: EXE 0x006ac1b0
+NavMeshSearchSLPoint::~NavMeshSearchSLPoint()
 {}

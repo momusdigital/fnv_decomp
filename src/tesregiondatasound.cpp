@@ -109,13 +109,14 @@ struct MersenneTwister
     unsigned int mti;
 };
 typedef char _sizecheck_BSRandom[sizeof(MersenneTwister) == 2508 ? 1 : -1];
-struct FUN_00944480_shell : public MersenneTwister
+struct BSRandom : public MersenneTwister
 {
-    int IntInRange(int, int);
+    int BSRandom_Int(int, int);
 };
 
 // @fnv 0x00944480
-int FUN_00944480_shell::IntInRange(int aiMin, int aiMax)
+// src: COMMUNITY 0x00944480
+int BSRandom::BSRandom_Int(int aiMin, int aiMax)
 {
     return GetRandomUInt(aiMax - aiMin) + aiMin;
 }
@@ -130,7 +131,8 @@ struct Arg_004727f0
 };
 // Reads a 4-byte chunk value into a.out and byte-swaps it when endian conversion is required; returns whether the read succeeded.
 // @fnv 0x004727f0
-bool __fastcall ReadChunkInt(TESFile* self, Arg_004727f0 aChunkArg)
+// src: COMMUNITY 0x004727f0
+bool __fastcall TESFile_Read32(TESFile* self, Arg_004727f0 aChunkArg)
 {
     bool ok = self->GetChunkData(aChunkArg.out, 4);
     if (self->IsEndianConversionRequired())
@@ -202,12 +204,13 @@ void __thiscall S004f4350::SetMediaSet(MediaSet* pMediaSet)
 struct F4390_standin
 {
     void FUN_004f4520();
-    void* FUN_004f4390(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 void _Deallocate(void*);
 // Calls FUN_004f4520, then frees this via _Deallocate when flags has bit 1 set, and returns this.
 // @fnv 0x004f4390
-void* F4390_standin::FUN_004f4390(unsigned int flags)
+// src: EXE 0x004f4390
+void* F4390_standin::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_004f4520();
     if (flags & 1)
@@ -404,7 +407,7 @@ FUN_004f4520_cls::~FUN_004f4520_cls()
 
 void __fastcall WriteSaveData(void*);
 void __cdecl TESForm_AddChunk_00485910(unsigned int, unsigned int);
-void __cdecl AppendChunk(unsigned int, void*, unsigned int);
+void __cdecl TESForm___AddChunkData(unsigned int, void*, unsigned int);
 bool __cdecl TESForm_QEndianSwapOnSave();
 template <class T> struct RegionListAccess
 {
@@ -416,7 +419,7 @@ struct RegionSoundWriter : TESRegionDataSound
 {
     void WriteRegionSoundData();
 };
-// Serializes the region's music type, sounds.uiIncidentalMediaSet sound, battle music IDs and sound records through FUN_00485910/AppendChunk.
+// Serializes the region's music type, sounds.uiIncidentalMediaSet sound, battle music IDs and sound records through FUN_00485910/TESForm___AddChunkData.
 // @fnv 0x004f4590
 void RegionSoundWriter::WriteRegionSoundData()
 {
@@ -456,7 +459,7 @@ void RegionSoundWriter::WriteRegionSoundData()
             for (unsigned int i = 0; i < count; i++)
                 ((ContainerItemExtraFileData*)&node[i])->Endian();
         }
-        AppendChunk(0x44534452, node, count * sizeof(RegionSoundEntry));
+        TESForm___AddChunkData(0x44534452, node, count * sizeof(RegionSoundEntry));
         if (TESForm_QEndianSwapOnSave())
         {
             for (unsigned int i = 0; i < count; i++)
@@ -555,11 +558,12 @@ struct Obj4480
 };
 struct S004
 {
-    Obj4480* CreateObj4480();
+    Obj4480* TESRegionDataSound_CreateCopy();
 };
 // Allocates a new Obj4480 instance with this S004 as owner and returns the pointer.
 // @fnv 0x004f4c70
-Obj4480* S004::CreateObj4480()
+// src: EXE 0x004f4c70
+Obj4480* S004::TESRegionDataSound_CreateCopy()
 {
     Obj4480* result = new Obj4480(this);
     return result;

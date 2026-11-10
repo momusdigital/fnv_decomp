@@ -55,14 +55,14 @@ void FUN_008133d0_shell::MagicBoltProjectile_SetState(int value)
 }
 
 void __cdecl Deallocate(void* p);
-struct FUN_00811950_shell
+struct MagicBoltProjectile
 {
     void FUN_00811e10();
     void* DestroyIfFlagged(unsigned int flags);
 };
 // Calls FUN_00811e10, then frees this via Deallocate when flags has bit 0 set, and returns this.
 // @fnv 0x00811950
-void* FUN_00811950_shell::DestroyIfFlagged(unsigned int flags)
+void* MagicBoltProjectile::DestroyIfFlagged(unsigned int flags)
 {
     FUN_00811e10();
     if (flags & 1)
@@ -580,7 +580,7 @@ struct HUDList
 
 struct HUDProcessLists
 {
-    HUDList* GetOffset70Ptr();
+    HUDList* ProcessLists_GetProjectilePostProcessList();
 };
 
 extern PlayerCharacter* g_pHUDPlayer;
@@ -609,7 +609,7 @@ FUN_00811e10::~FUN_00811e10()
     if (GetTarget() != g_pHUDPlayer)
         _11DC778_Subtract(*g_kHUDSetting.Float());
 
-    HUDList* pList = g_kHUDProcessLists.GetOffset70Ptr();
+    HUDList* pList = g_kHUDProcessLists.ProcessLists_GetProjectilePostProcessList();
     if (pList)
         pList->Remove(this);
 

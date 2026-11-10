@@ -20,7 +20,8 @@ NiTPrimitiveArray<BGSCameraPath*>::NiTPrimitiveArray(unsigned int maxSize, unsig
 {}
 
 // @fnv 0x0058b850
-void CameraPathManager::InitializeCameraPaths()
+// src: COMMUNITY 0x0058b850
+void CameraPathManager::BGSCameraPathManager_CreateDefaultPath()
 {
     if (!ms_pDefaultCameraPath)
     {
@@ -135,7 +136,8 @@ struct FUN_00863db0_class
 };
 
 // @fnv 0x0058ba40
-void CameraPathManager::DestroyCameraPaths()
+// src: COMMUNITY 0x0058ba40
+void CameraPathManager::BGSCameraPathManager_DestroyRootPathArrayForms()
 {
     unsigned int count = m_kCameraPathArray.GetSize();
     for (unsigned int index = 0; index < count; ++index)

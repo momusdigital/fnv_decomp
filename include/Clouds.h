@@ -13,7 +13,7 @@ public:
     virtual void Initialize(NiNode*);
     virtual void Update(Sky*, float);
 
-    int GetOffset58();
+    int Clouds_GetNumLayers();
     NiColor& GetPointAt(int);
     void SetCloudCount(int);
     void ClearCloudLayers();

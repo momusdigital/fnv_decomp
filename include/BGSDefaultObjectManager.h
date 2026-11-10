@@ -20,7 +20,7 @@ public:
     bool Load(TESFile* file);
 
     static BGSDefaultObjectManager* Instance();
-    static TESForm* GetDefaultObjectByIndex(DEFAULT_OBJECT index);
-    static TESForm* GetDefaultObjectByIndex(int index);
+    static TESForm* GetDefaultObject(DEFAULT_OBJECT index);
+    static TESForm* GetDefaultObject(int index);
     static BGSDefaultObjectManager* ms_pSystemUtility;
 };

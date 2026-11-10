@@ -953,7 +953,7 @@ struct HavokObject
     virtual void Virt0();
     virtual void Virt1();
     virtual void Virt2();
-    virtual NiNode* GetCellChildAt();
+    virtual NiNode* GetChildNode();
 
     unsigned int referenceCount;
     void* extraData;
@@ -985,7 +985,7 @@ void __cdecl ApplyHavokOperation(HavokObject* object, int operation, void* conte
                     lookup->shape->bhkRigidBody_UnFix(context);
             }
         }
-        NiNode* node = object->GetCellChildAt();
+        NiNode* node = object->GetChildNode();
         if (node)
         {
             for (unsigned int index = 0; index < node->m_kChildren.m_usSize; ++index)
@@ -1796,7 +1796,7 @@ void __cdecl bhkRigidBody_RemoveAllActionConstraints(HavokObject* object)
             reinterpret_cast<C8EC60World*>(link->shape)->bhkRigidBody_RemoveActionConstraints();
     }
 
-    NiNode* node = object->GetCellChildAt();
+    NiNode* node = object->GetChildNode();
     if (node)
     {
         for (unsigned int i = 0; i < node->m_kChildren.m_usSize; ++i)
@@ -2819,7 +2819,7 @@ class Constraint_eb20
     virtual void vf2c();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3c();
     virtual void vf40();
     virtual void vf44();
@@ -2828,7 +2828,7 @@ class Constraint_eb20
     virtual void vf50();
     virtual void vf54();
     virtual void vf58();
-    virtual void vf5c();
+    virtual void applyForce();
     virtual void vf60();
     virtual void vf64();
     virtual void vf68();

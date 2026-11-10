@@ -134,13 +134,14 @@ struct FUN_00822630
 {
     ~FUN_00822630();
 };
-struct FUN_0084df30 : FUN_00822630
+struct BGSSaveLoadHistory : FUN_00822630
 {
     void DeleteAllElements();
-    ~FUN_0084df30();
+    ~BGSSaveLoadHistory();
 };
 // @fnv 0x0084df30
-FUN_0084df30::~FUN_0084df30()
+// src: GUESS 0x0084df30 (confidence: medium)
+BGSSaveLoadHistory::~BGSSaveLoadHistory()
 {
     DeleteAllElements();
 }

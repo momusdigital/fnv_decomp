@@ -103,7 +103,8 @@ struct FUN_00a71d10_shell
     void __thiscall NiParticleMeshes_SaveBinary(void*);
 };
 // @fnv 0x00a86ed0
-void __fastcall SaveResizableTriShape(BSResizableTriShape* self, void*, void* stream)
+// src: EXE 0x00a86ed0
+void __fastcall BSResizableTriShape_SaveBinary(BSResizableTriShape* self, void*, void* stream)
 {
     ((FUN_00a71d10_shell*)self)->NiParticleMeshes_SaveBinary(stream);
     NiBinaryStream* __restrict input = *(NiBinaryStream**)((char*)stream + 0x250);
@@ -243,7 +244,8 @@ struct TriShapeImmediateRenderer
 // The shared class only declares RenderImmediate with a renderer argument.
 // Copies the local bound into the world bound, then calls the base immediate renderer.
 // @fnv 0x00a86e00
-void __fastcall RenderResizableTriShape(BSResizableTriShape* self, void*)
+// src: EXE 0x00a86e00
+void __fastcall BSResizableTriShape_RenderImmediate(BSResizableTriShape* self, void*)
 {
     NiBound* pBound = *(NiBound**)((char*)self + 0x20);
     NiBound& m_bound = *(NiBound*)((char*)self + 0xc8);

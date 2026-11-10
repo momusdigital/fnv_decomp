@@ -151,15 +151,16 @@ void ObstacleTaskData::Process()
 ObstacleTaskData::~ObstacleTaskData()
 {}
 
-struct FUN_006c7e00
+struct ObstacleTaskNavMeshOperation
 {
     NiPointer<ObstacleData> node;
     int pad[2];
     NavMeshPtr mesh;
-    ~FUN_006c7e00();
+    ~ObstacleTaskNavMeshOperation();
 };
 // @fnv 0x006c7e00
-FUN_006c7e00::~FUN_006c7e00()
+// src: GUESS 0x006c7e00 (confidence: medium)
+ObstacleTaskNavMeshOperation::~ObstacleTaskNavMeshOperation()
 {}
 
 void __cdecl CompareObstacleEntries();
@@ -218,11 +219,12 @@ struct BaseT
 };
 struct FUN_006c7940_shell : BaseT
 {
-    void* FUN_006c7940(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };
 // Runs the base destructor, frees this when bit 0 of flags is set, and returns this.
 // @fnv 0x006c7940
-void* FUN_006c7940_shell::FUN_006c7940(unsigned int flags)
+// src: EXE 0x006c7940
+void* FUN_006c7940_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     BaseT::~BaseT();
     if (flags & 1)
@@ -407,7 +409,8 @@ struct ObstacleInfo
 // The shared task has no declaration for this bool-returning commit routine.
 // A single fastcall argument preserves its original this-in-ECX calling convention.
 // @fnv 0x006c85e0
-bool __fastcall CommitObstacleTask(ObstacleTaskData* task)
+// src: COMMUNITY 0x006c85e0
+bool __fastcall ObstacleTaskData_ReplaceNavMesh(ObstacleTaskData* task)
 {
     if (!(NavMesh*)task->m_spSourceNavMesh)
         return false;

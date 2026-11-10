@@ -9,7 +9,7 @@
 #include "../include/BGSMessageIcon.h"
 #include "../include/ReputationLimitData.h"
 
-// Retained locally: the shared GetReputationRank returns int, but the function
+// Retained locally: the shared TESReputation_GetReputationLevel returns int, but the function
 // at 0x00616950 returns unsigned char. It also lacks the message and change methods.
 enum ReputationType
 {

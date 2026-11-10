@@ -22,7 +22,7 @@ public:
     virtual void Finish();
 
     void FUN_00828590();
-    void* FUN_00828560(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     SummonOwner* GetSummoner();
     void Unsummon();
     SummonCreatureEffect* CloneObject();

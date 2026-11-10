@@ -140,7 +140,8 @@ void* bhkHingeConstraint::FUN_009ba520(unsigned int flags)
 
 void __cdecl _Deallocate(void*);
 // @fnv 0x009b7a20
-void* MissileProjectile::FUN_009b7a20(unsigned int flags)
+// src: EXE 0x009b7a20
+void* MissileProjectile::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_009b7bc0();
     if (flags & 1)
@@ -244,15 +245,16 @@ struct BaseS
     int d;
     BaseS();
 };
-struct FUN_009ba570
+struct hkConstraintCinfo
 {
     int v0;
     BaseS m;
-    FUN_009ba570();
+    hkConstraintCinfo();
 };
 // Initializes v0 to the address of DAT_0108ffb4 and sets the embedded BaseS fields to 0, 1, 0, 0.
 // @fnv 0x009ba570
-FUN_009ba570::FUN_009ba570()
+// src: EXE 0x009ba570
+hkConstraintCinfo::hkConstraintCinfo()
 {
     v0 = (int)&DAT_0108ffb4;
     m.a = 0;
@@ -687,7 +689,7 @@ bool MissileProjectile::AddImpact_009b8900(int aiArg1, int aiArg2, int aiArg3, C
         (*reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x150) != 3 || h == 1 || h == 2 || h == 9 || h == 17 || h == 13 || h == 20) &&
         reinterpret_cast<bool(__thiscall*)(void*, int, int, int, Collider890*, int, int)>(MissileLocal::ProcessHit)(this, aiArg1, aiArg2, aiArg3, collider, aiArg5, aiArg6))
     {
-        AdvanceStateAtOffset150_009b8a20();
+        UpdateImpaleState();
         return true;
     }
     return false;
@@ -747,14 +749,15 @@ struct SpawnedBase
     SpawnedBase();
 };
 
-struct FUN_009ba550 : SpawnedBase
+struct hkHingeConstraintCinfo : SpawnedBase
 {
-    FUN_009ba550();
-    virtual ~FUN_009ba550();
+    hkHingeConstraintCinfo();
+    virtual ~hkHingeConstraintCinfo();
 };
 
 // @fnv 0x009ba550
-FUN_009ba550::FUN_009ba550()
+// src: EXE 0x009ba550
+hkHingeConstraintCinfo::hkHingeConstraintCinfo()
 {}
 
 struct UpdateVec
@@ -1178,7 +1181,7 @@ struct MissileQueue
 };
 struct MissileManager
 {
-    MissileQueue* GetOffset70Ptr();
+    MissileQueue* ProcessLists_GetProjectilePostProcessList();
 };
 extern MissileManager DAT_011e0e80;
 struct MissileReference
@@ -1381,7 +1384,7 @@ void MissileProjectile::HandleMissileImpact()
                 if (!reinterpret_cast<bool(__thiscall*)(void*, unsigned)>(MissileLocal::IsImpactFlagSet)(this, 128))
                 {
                     reinterpret_cast<void(__thiscall*)(void*, unsigned, bool)>(MissileLocal::SetImpactFlag)(this, 128, true);
-                    MissileQueue* queue = DAT_011e0e80.GetOffset70Ptr();
+                    MissileQueue* queue = DAT_011e0e80.ProcessLists_GetProjectilePostProcessList();
                     if (queue)
                         queue->FUN_005ae3d0(this);
                 }

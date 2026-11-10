@@ -80,7 +80,7 @@ public:
     ExtraDataList* BSFile_GetDevice(TESForm* owner, bool flag);
 };
 
-void __cdecl ResolveFormID(unsigned int* apFormID, TESFile* apFile);
+void __cdecl TESForm_AddCompileIndex(unsigned int* apFormID, TESFile* apFile);
 TESForm* __cdecl TESForm_GetFormByNumericID(unsigned int auiFormID);
 void __cdecl FNV_Warning(const char* apFormat, ...);
 
@@ -98,7 +98,7 @@ void ExtraLitWaterRefs::InitItem_00434050(TESForm* apOwner)
     {
         TESObjectREFR* pItem3 = pNodeB8->GetItem();
         unsigned int auiFormId = (unsigned int)pItem3;
-        ResolveFormID(&auiFormId, apOwner->GetFile(-1));
+        TESForm_AddCompileIndex(&auiFormId, apOwner->GetFile(-1));
         TESObjectREFR* pRef = dynamic_cast<TESObjectREFR*>(TESForm_GetFormByNumericID(auiFormId));
         if (!pRef || !pRef->GetReferencePersistence())
         {

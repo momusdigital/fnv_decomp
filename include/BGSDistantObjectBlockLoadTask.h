@@ -33,7 +33,7 @@ public:
     void QueuedFile_Cancel(void* pState, void* pOwner);
     void RunOnce(void* apTaskState, void* apTaskOwner);
     void FUN_006f6fe0();
-    void* FUN_006f6fb0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     void LoadDistantObjectBlock();
     void UpdateLoadingState();
     void QueueLODModelLoads();

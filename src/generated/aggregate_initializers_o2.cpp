@@ -21,17 +21,17 @@ Agg6 g_01268d34(&d_010d000c, &d_00d4b1d0, &d_00d4b1f0, Object_ProcessAndReturnVa
 // @fnv 0x00fbef20
 Agg6 g_01268d7c(&d_010d003c, &d_00d4b230, &d_00d4b250, getVtablehkpStorageExtendedMeshShape(), &d_011b50e0, (const void*)272);
 // @fnv 0x00fbf080
-Agg6 g_01268e54(&d_010d0510, &d_00d4b300, &d_00d4b320, Runtime_UpdateState_00d4b330(), &d_011b510c, (const void*)240);
+Agg6 g_01268e54(&d_010d0510, &d_00d4b300, &d_00d4b320, getVtable_hkpExtendedMeshShape(), &d_011b510c, (const void*)240);
 // @fnv 0x00fbf0f0
 Agg6 g_01268e9c(&d_010d0640, &d_00d4be30, &d_00d4be50, Object_ProcessAndReturnValue_00d4be60(), &d_011b55e4, (const void*)80);
 // @fnv 0x00fbf160
-Agg6 g_01268ee4(&d_010d0664, &d_00d4be90, &d_00d4beb0, Object_GetConstructedVirtualTable_00d4bec0(), &d_011b5618, (const void*)112);
+Agg6 g_01268ee4(&d_010d0664, &d_00d4be90, &d_00d4beb0, getVtable_hkpStorageMeshShape(), &d_011b5618, (const void*)112);
 // @fnv 0x00fbf240
-Agg6 g_01268f5c(&d_010d07b8, &d_00d4bf10, &d_00d4bf30, Object_GetConstructedVirtualTable_00d4bf40(), &d_011b563c, (const void*)96);
+Agg6 g_01268f5c(&d_010d07b8, &d_00d4bf10, &d_00d4bf30, getVtable_hkpMeshShape(), &d_011b563c, (const void*)96);
 // @fnv 0x00fbf500
 Agg6 g_012690bc(&d_010d27bc, &d_00d6ae10, &d_00d6adf0, getVtablehkpConstraintInstance(), &d_011b2ec0, (const void*)56);
 // @fnv 0x00fbf5f0
-Agg6 g_01269134(&d_010cb20c, &d_00d6ae90, &d_00d6aeb0, Object_ProcessAndReturnValue_00d6aec0(), &d_0118b6f8, (const void*)240);
+Agg6 g_01269134(&d_010cb20c, &d_00d6ae90, &d_00d6aeb0, getVtable_hkpWorldCinfo(), &d_0118b6f8, (const void*)240);
 // @fnv 0x00fbf770
 Agg6 g_01269544(&d_010d42b4, &d_00d9f6d0, &d_00d9f6b0, Object_ComputeValue_00d9f6e0(), &d_011b30b0, (const void*)44);
 // @fnv 0x00fbf900
@@ -47,15 +47,15 @@ Agg6 g_01269a3c(&d_010d4c28, &d_00da0b10, &d_00da0af0, Object_GetGlobalObjectAdd
 // @fnv 0x00fbff40
 Agg6 g_01269b58(&d_010d6120, &d_00db7c20, &d_00db7c00, getVtablehkpPhysicsSystem(), &d_011b3360, (const void*)68);
 // @fnv 0x00fc00d0
-Agg6 g_01269c74(&d_010d7940, &d_00dced50, &d_00dced30, Runtime_GetVtableFromTemporary_00dced70(), &d_011b24c4, (const void*)40);
+Agg6 g_01269c74(&d_010d7940, &d_00dced50, &d_00dced30, getVtable_hkpBreakableConstraintData(), &d_011b24c4, (const void*)40);
 // @fnv 0x00fc0a20
 Agg6 g_0126a460(&d_010db400, &d_00df6440, &d_00df6460, getVtablehkpWorld(), &d_011b0074, (const void*)848);
 // @fnv 0x00fc10c0
-Agg6 g_0126aa48(&d_010dc340, &d_00dfb290, &d_00dfb270, Runtime_GetVtableFromTemporary_00dfb2b0(), &d_011b27f0, (const void*)64);
+Agg6 g_0126aa48(&d_010dc340, &d_00dfb290, &d_00dfb270, getVtable_hkpMoppBvTreeShape(), &d_011b27f0, (const void*)64);
 // @fnv 0x00fc1320
-Agg6 g_0126ac40(&d_010dc894, &d_00dfb3d0, &d_00dfb3f0, Object_GetConstructedVirtualTable_00dfb400(), &d_011b9bd8, (const void*)28);
+Agg6 g_0126ac40(&d_010dc894, &d_00dfb3d0, &d_00dfb3f0, getVtable_hkMemoryResourceHandle(), &d_011b9bd8, (const void*)28);
 // @fnv 0x00fc1390
-Agg6 g_0126ac88(&d_010dc8ac, &d_00dfb430, &d_00dfb450, Object_GetConstructedVirtualTable_00dfb460(), &d_011b9c00, (const void*)40);
+Agg6 g_0126ac88(&d_010dc8ac, &d_00dfb430, &d_00dfb450, getVtable_hkMemoryResourceContainer(), &d_011b9c00, (const void*)40);
 // @fnv 0x00fc14f0
 Agg6 g_0126adc0(&d_010ddd00, &d_00dfb570, &d_00dfb550, Runtime_GetDAT010ddc5cAddress(), &d_011b9d9c, (const void*)112);
 // @fnv 0x00fc15f0
@@ -63,7 +63,7 @@ Agg6 g_0126ae68(&d_010de1e4, &d_00dfb8b0, &d_00dfb890, Runtime_GetDAT010de0ecAdd
 // @fnv 0x00fc1730
 Agg6 g_0126af70(&d_010de5c4, &d_00dfb9f0, &d_00dfb9a0, getVtablehkaSkeleton(), &d_011b061c, (const void*)72);
 // @fnv 0x00fc17d0
-Agg6 g_0126afe8(&d_010de6d8, &d_00dfba50, &d_00dfba70, Object_GetConstructedVirtualTable_00dfba80(), &d_011ba2b0, (const void*)44);
+Agg6 g_0126afe8(&d_010de6d8, &d_00dfba50, &d_00dfba70, getVtable_hkaMeshBinding(), &d_011ba2b0, (const void*)44);
 // @fnv 0x00fc1870
 Agg6 g_0126b060(&d_010de980, &d_00dfbb50, &d_00dfbb30, Runtime_GetDAT010de90cAddress(), &d_011ba2d0, (const void*)120);
 // @fnv 0x00fc19a0
@@ -93,7 +93,7 @@ Agg6 g_0126b840(&d_010e0efc, &d_00dfc6c0, &d_00dfc690, Runtime_GetDAT010d0a64Add
 // @fnv 0x00fc2360
 Agg6 g_0126b8b8(&d_010e0f90, &d_00dfc730, &d_00dfc700, Object_GetGlobalObjectAddress_00dfc740(), &d_011b59d8, (const void*)80);
 // @fnv 0x00fc2400
-Agg6 g_0126b930(&d_010e10d0, &d_00dfc770, &d_00dfc790, Object_GetConstructedVirtualTable_00dfc7a0(), &d_011bae40, (const void*)48);
+Agg6 g_0126b930(&d_010e10d0, &d_00dfc770, &d_00dfc790, getVtable_hkpStiffSpringChainData(), &d_011bae40, (const void*)48);
 // @fnv 0x00fc24b0
 Agg6 g_0126b9a8(&d_010e1178, &d_00dfc810, &d_00dfc7f0, Runtime_EvaluateValue_00dfc830(), &d_011b3ab4, (const void*)368);
 // @fnv 0x00fc2560
@@ -107,7 +107,7 @@ Agg6 g_0126bb88(&d_010e15cc, &d_00dfca90, &d_00dfca60, Object_GetGlobalObjectAdd
 // @fnv 0x00fc2850
 Agg6 g_0126bc00(&d_010e1720, &d_00dfcb00, &d_00dfcad0, Runtime_GetDAT010d0b3cAddress(), &d_011b5a60, (const void*)208);
 // @fnv 0x00fc2900
-Agg6 g_0126bc78(&d_010e1958, &d_00dfcb40, &d_00dfcb60, Runtime_GetVtableFromTemporary_00dfcb70(), &d_011bb09c, (const void*)64);
+Agg6 g_0126bc78(&d_010e1958, &d_00dfcb40, &d_00dfcb60, getVtable_hkpPoweredChainData(), &d_011bb09c, (const void*)64);
 // @fnv 0x00fc29b0
 Agg6 g_0126bcf0(&d_010e19dc, &d_00dfcbf0, &d_00dfcbc0, Object_GetGlobalObjectAddress_00dfcc00(), &d_011b6a20, (const void*)176);
 // @fnv 0x00fc2a70
@@ -117,17 +117,17 @@ Agg6 g_0126bde0(&d_010e1c08, &d_00dfccd0, &d_00dfcca0, Object_GetGlobalObjectAdd
 // @fnv 0x00fc2bf0
 Agg6 g_0126be58(&d_010e1cbc, &d_00dfcd40, &d_00dfcd10, Runtime_GetDAT010c91ecAddress(), &d_011b21c0, (const void*)176);
 // @fnv 0x00fc2cf0
-Agg6 g_0126bf30(&d_010e1f48, &d_00dfcde0, &d_00dfce00, Runtime_EvaluateValue_00dfce10(), &d_011b5b2c, (const void*)52);
+Agg6 g_0126bf30(&d_010e1f48, &d_00dfcde0, &d_00dfce00, getVtable_hkpBallSocketChainData(), &d_011b5b2c, (const void*)52);
 // @fnv 0x00fc2d90
 Agg6 g_0126bfa8(&d_010e1fcc, &d_00dfce90, &d_00dfce60, Object_GetGlobalObjectAddress_00dfcea0(), &d_011b5b54, (const void*)80);
 // @fnv 0x00fc2e80
-Agg6 g_0126c050(&d_010e2194, &d_00dfcf20, &d_00dfcf00, Object_GetConstructedVirtualTable_00dfcf40(), &d_011bb35c, (const void*)68);
+Agg6 g_0126c050(&d_010e2194, &d_00dfcf20, &d_00dfcf00, getVtable_hkpSimpleMeshShape(), &d_011bb35c, (const void*)68);
 // @fnv 0x00fc2f20
 Agg6 g_0126c0c8(&d_010e226c, &d_00dfd0f0, &d_00dfd0d0, Object_GetGlobalObjectAddress_00dfd120(), &d_011bb43c, (const void*)32);
 // @fnv 0x00fc2fd0
-Agg6 g_0126c140(&d_010e2448, &d_00dfd1e0, &d_00dfd1c0, Object_GetConstructedVirtualTable_00dfd200(), &d_011b3030, (const void*)112);
+Agg6 g_0126c140(&d_010e2448, &d_00dfd1e0, &d_00dfd1c0, getVtable_hkpListShape(), &d_011b3030, (const void*)112);
 // @fnv 0x00fc3070
-Agg6 g_0126c1b8(&d_010e25ac, &d_00dfd260, &d_00dfd240, Object_GetConstructedVirtualTable_00dfd280(), &d_011b2ca4, (const void*)112);
+Agg6 g_0126c1b8(&d_010e25ac, &d_00dfd260, &d_00dfd240, getVtable_hkpConvexVerticesShape(), &d_011b2ca4, (const void*)112);
 // @fnv 0x00fc31a0
 Agg6 g_0126c290(&d_010e2a20, &d_00dfd300, &d_00dfd2e0, Object_GetConstructedVirtualTable_00dfd320(), &d_011bb804, (const void*)240);
 // @fnv 0x00fc3350
@@ -135,9 +135,9 @@ Agg6 g_0126c3f8(&d_010e2fec, &d_00dfd600, &d_00dfd620, Runtime_EvaluateValue_00d
 // @fnv 0x00fc33f0
 Agg6 g_0126c470(&d_010e3140, &d_00dfd7d0, &d_00dfd7a0, Object_ProcessAndReturnValue_00dfd800(), &d_011bba44, (const void*)72);
 // @fnv 0x00fc34b0
-Agg6 g_0126c4e8(&d_010e3410, &d_00dfd990, &d_00dfd940, Runtime_UpdateState_00dfd9b0(), &d_011bbb08, (const void*)128);
+Agg6 g_0126c4e8(&d_010e3410, &d_00dfd990, &d_00dfd940, getVtable_hkxMaterial(), &d_011bbb08, (const void*)128);
 // @fnv 0x00fc3550
-Agg6 g_0126c560(&d_010e3488, &d_00dfda50, &d_00dfda70, Object_GetConstructedVirtualTable_00dfda80(), &d_011bbb8c, (const void*)20);
+Agg6 g_0126c560(&d_010e3488, &d_00dfda50, &d_00dfda70, getVtable_hkxEnvironment(), &d_011bbb8c, (const void*)20);
 // @fnv 0x00fc35f0
 Agg6 g_0126c5d8(&d_010e3544, &d_00dfdb70, &d_00dfdb00, Object_GetGlobalObjectAddress_00dfdb80(), &d_011bbbfc, (const void*)20);
 // @fnv 0x00fc3660
@@ -147,7 +147,7 @@ Agg6 g_0126c758(&d_010d3ccc, &d_00dfde30, &d_00dfde10, Runtime_GetDAT010d3cc0Add
 // @fnv 0x00fc39a0
 Agg6 g_0126c8f0(&d_010e3f2c, &d_00dfdfb0, &d_00dfdf50, Object_GetGlobalObjectAddress_00dfdfc0(), &d_011bbf78, (const void*)24);
 // @fnv 0x00fc3c90
-Agg6 g_0126cb78(&d_010e5388, &d_00dfe250, &d_00dfe270, Object_GetConstructedVirtualTable_00dfe280(), &d_011b2e08, (const void*)48);
+Agg6 g_0126cb78(&d_010e5388, &d_00dfe250, &d_00dfe270, getVtable_hkaRagdollInstance(), &d_011b2e08, (const void*)48);
 // @fnv 0x00fc3d10
 Agg6 g_0126cbc0(&d_010e5424, &d_00dfe2d0, &d_00dfe2b0, getVtablehkaSkeletonMapper(), &d_011b2e2c, (const void*)128);
 // @fnv 0x00fc3d80
@@ -205,13 +205,13 @@ Agg6 g_0126d2e0(&d_010e6a48, &d_00dff1f0, &d_00dff1d0, getVtablehkpPhysicsSystem
 // @fnv 0x00fc4930
 Agg6 g_0126d358(&d_010e6bd0, &d_00dff270, &d_00dff250, Runtime_UpdateState_00dff2b0(), &d_011b1f54, (const void*)96);
 // @fnv 0x00fc49b0
-Agg6 g_0126d3a0(&d_010e6c78, &d_00dff2e0, &d_00dff300, Runtime_GetVtableFromTemporary_00dff310(), &d_011bccb0, (const void*)112);
+Agg6 g_0126d3a0(&d_010e6c78, &d_00dff2e0, &d_00dff300, getVtable_hkpMountedBallGun(), &d_011bccb0, (const void*)112);
 // @fnv 0x00fc4a20
 Agg6 g_0126d3b8(&d_010e6d20, &d_00dff340, &d_00dff370, Object_ProcessAndReturnValue_00dff380(), &d_011b592c, (const void*)64);
 // @fnv 0x00fc4aa0
 Agg6 g_0126d400(&d_010e6df8, &d_00dff3e0, &d_00dff3c0, Runtime_GetDAT010e6decAddress(), &d_011bccd8, (const void*)180);
 // @fnv 0x00fc4b20
-Agg6 g_0126d478(&d_010e71a0, &d_00dff4c0, &d_00dff4e0, Runtime_GetVtableFromTemporary_00dff4f0(), &d_011bce0c, (const void*)96);
+Agg6 g_0126d478(&d_010e71a0, &d_00dff4c0, &d_00dff4e0, getVtable_hkpGravityGun(), &d_011bce0c, (const void*)96);
 // @fnv 0x00fc4bb0
 Agg6 g_0126d4c0(&d_010e7470, &d_00dff520, &d_00dff540, Runtime_UpdateState_00dff550(), &d_011bcec0, (const void*)32);
 // @fnv 0x00fc4c20
@@ -221,13 +221,13 @@ Agg6 g_0126d580(&d_010e7618, &d_00dff600, &d_00dff5a0, Runtime_GetDAT010e75dcAdd
 // @fnv 0x00fc4d00
 Agg6 g_0126d598(&d_010e763c, &d_00dff620, &d_00dff5c0, Runtime_EvaluateValue_00dff630(), &d_011bcf48, (const void*)32);
 // @fnv 0x00fc4d70
-Agg6 g_0126d5b0(&d_010e770c, &d_00dff890, &d_00dff870, Runtime_GetVtableFromTemporary_00dff8b0(), &d_011bcf70, (const void*)64);
+Agg6 g_0126d5b0(&d_010e770c, &d_00dff890, &d_00dff870, getVtable_hkpDisableEntityCollisionFilter(), &d_011bcf70, (const void*)64);
 // @fnv 0x00fc4de0
 Agg6 g_0126d5f8(&d_010e77c0, &d_00dff9b0, &d_00dff9e0, Runtime_UpdateState_00dff9f0(), &d_011b5950, (const void*)96);
 // @fnv 0x00fc4e50
-Agg6 g_0126d640(&d_010e7880, &d_00dffa50, &d_00dffa30, Runtime_GetVtableFromTemporary_00dffa70(), &d_011bcfa8, (const void*)56);
+Agg6 g_0126d640(&d_010e7880, &d_00dffa50, &d_00dffa30, getVtable_hkpConstrainedSystemFilter(), &d_011bcfa8, (const void*)56);
 // @fnv 0x00fc4ed0
-Agg6 g_0126d6b8(&d_010e7af8, &d_00dffb80, &d_00dffba0, Runtime_GetVtableFromTemporary_00dffbb0(), &d_011bd0b8, (const void*)96);
+Agg6 g_0126d6b8(&d_010e7af8, &d_00dffb80, &d_00dffba0, getVtable_hkpBallGun(), &d_011bd0b8, (const void*)96);
 // @fnv 0x00fc4f40
 Agg6 g_0126d6d0(&d_010e7b78, &d_00dffbe0, &d_00dffc10, Object_ProcessAndReturnValue_00dffc20(), &d_011b5974, (const void*)64);
 // @fnv 0x00fc4fb0
@@ -245,11 +245,11 @@ Agg6 g_0126d8b0(&d_010e7e10, &d_00dffee0, &d_00dffec0, Runtime_GetDAT010cb798Add
 // @fnv 0x00fc5270
 Agg6 g_0126d8f8(&d_010e7f54, &d_00dfff20, &d_00dfff00, Runtime_GetDAT010da004Address(), &d_011b9390, (const void*)176);
 // @fnv 0x00fc52e0
-Agg6 g_0126d940(&d_010e7fc0, &d_00dfff80, &d_00dfff60, Object_ProcessAndReturnValue_00dfffa0(), &d_011b19e8, (const void*)32);
+Agg6 g_0126d940(&d_010e7fc0, &d_00dfff80, &d_00dfff60, getVtable_hkpMalleableConstraintData(), &d_011b19e8, (const void*)32);
 // @fnv 0x00fc5350
 Agg6 g_0126d988(&d_010e80ec, &d_00dfffe0, &d_00dfffc0, Runtime_GetDAT010e80b4Address(), &d_011bd1a4, (const void*)64);
 // @fnv 0x00fc53c0
-Agg6 g_0126d9d0(&d_010e8140, &d_00e000c0, &d_00e000a0, Object_GetConstructedVirtualTable_00e000e0(), &d_011b5aa0, (const void*)88);
+Agg6 g_0126d9d0(&d_010e8140, &d_00e000c0, &d_00e000a0, getVtable_hkpGenericConstraintData(), &d_011b5aa0, (const void*)88);
 // @fnv 0x00fc5430
 Agg6 g_0126da18(&d_010e815c, &d_00e00120, &d_00e00100, Runtime_GetDAT010c6cdcAddress(), &d_011b1388, (const void*)288);
 // @fnv 0x00fc54a0
@@ -263,17 +263,17 @@ Agg6 g_0126db38(&d_010e8290, &d_00e002f0, &d_00e002d0, Object_GetGlobalObjectAdd
 // @fnv 0x00fc5680
 Agg6 g_0126db80(&d_010e83e8, &d_00e00350, &d_00e00330, Object_GetGlobalObjectAddress_00e00360(), &d_011bd2a8, (const void*)40);
 // @fnv 0x00fc5700
-Agg6 g_0126dbc8(&d_010e8434, &d_00e00390, &d_00e00370, Runtime_GetVtableFromTemporary_00e003b0(), &d_011b58dc, (const void*)368);
+Agg6 g_0126dbc8(&d_010e8434, &d_00e00390, &d_00e00370, getVtable_hkpCachingShapePhantom(), &d_011b58dc, (const void*)368);
 // @fnv 0x00fc5770
 Agg6 g_0126dc10(&d_010e844c, &d_00e00450, &d_00e00430, Object_GetGlobalObjectAddress_00e00480(), &d_011b13cc, (const void*)288);
 // @fnv 0x00fc57f0
-Agg6 g_0126dc58(&d_010e84c8, &d_00e004b0, &d_00e00490, Runtime_GetVtableFromTemporary_00e004d0(), &d_011b1950, (const void*)224);
+Agg6 g_0126dc58(&d_010e84c8, &d_00e004b0, &d_00e00490, getVtable_hkpAabbPhantom(), &d_011b1950, (const void*)224);
 // @fnv 0x00fc5880
 Agg6 g_0126dca0(&d_010e851c, &d_00e00570, &d_00e00550, Object_GetGlobalObjectAddress_00e005a0(), &d_011b16a0, (const void*)96);
 // @fnv 0x00fc58f0
 Agg6 g_0126dce8(&d_010e85c8, &d_00e005d0, &d_00e005b0, Runtime_EvaluateValue_00e005f0(), &d_011b3ca0, (const void*)64);
 // @fnv 0x00fc5960
-Agg6 g_0126dd30(&d_010e8678, &d_00e00690, &d_00e00670, Runtime_GetVtableFromTemporary_00e006b0(), &d_011b3cf0, (const void*)48);
+Agg6 g_0126dd30(&d_010e8678, &d_00e00690, &d_00e00670, getVtable_hkpTriSampledHeightFieldBvTreeShape(), &d_011b3cf0, (const void*)48);
 // @fnv 0x00fc59d0
 Agg6 g_0126dd78(&d_010e8700, &d_00e00740, &d_00e00720, Object_GetGlobalObjectAddress_00e00780(), &d_011b304c, (const void*)112);
 // @fnv 0x00fc5a40
@@ -285,7 +285,7 @@ Agg6 g_0126de50(&d_010e88c0, &d_00e00950, &d_00e00930, Runtime_EvaluateValue_00e
 // @fnv 0x00fc5b90
 Agg6 g_0126de98(&d_010e8930, &d_00e009e0, &d_00e009c0, Runtime_GetDAT010d0e18Address(), &d_011b5b88, (const void*)64);
 // @fnv 0x00fc5c00
-Agg6 g_0126dee0(&d_010e8940, &d_00e00a40, &d_00e00a20, Object_ProcessAndReturnValue_00e00a60(), &d_011b0e74, (const void*)48);
+Agg6 g_0126dee0(&d_010e8940, &d_00e00a40, &d_00e00a20, getVtable_hkpNullCollisionFilter(), &d_011b0e74, (const void*)48);
 // @fnv 0x00fc5c80
 Agg6 g_0126df28(&d_010e899c, &d_00e00b00, &d_00e00ae0, Runtime_GetDAT010ce4bcAddress(), &d_011b3d70, (const void*)160);
 // @fnv 0x00fc5d00
@@ -295,7 +295,7 @@ Agg6 g_0126dfb8(&d_010e8ae8, &d_00e00c90, &d_00e00c70, getVtablehkpFastMeshShape
 // @fnv 0x00fc5de0
 Agg6 g_0126e000(&d_010e8afc, &d_00e00d10, &d_00e00cf0, Object_GetGlobalObjectAddress_00e00d20(), &d_011b0dc8, (const void*)8);
 // @fnv 0x00fc5e60
-Agg6 g_0126e048(&d_010e8d20, &d_00e00d50, &d_00e00d30, hkpCylinderShape_hkpCylinderShape_00d57b20_EvaluateValue_00e00d70(), &d_011b5bec, (const void*)96);
+Agg6 g_0126e048(&d_010e8d20, &d_00e00d50, &d_00e00d30, getVtable_hkpCylinderShape(), &d_011b5bec, (const void*)96);
 // @fnv 0x00fc5ed0
 Agg6 g_0126e090(&d_010e8d9c, &d_00e00db0, &d_00e00d90, Object_GetGlobalObjectAddress_00e00dc0(), &d_011bd450, (const void*)32);
 // @fnv 0x00fc5f40
@@ -303,13 +303,13 @@ Agg6 g_0126e0d8(&d_010e8dd4, &d_00e00e90, &d_00e00e70, Runtime_GetDAT010d0e5cAdd
 // @fnv 0x00fc5fb0
 Agg6 g_0126e120(&d_010e8e04, &d_00e00f00, &d_00e00ee0, Object_GetGlobalObjectAddress_00e00f40(), &d_011b5c60, (const void*)96);
 // @fnv 0x00fc6020
-Agg6 g_0126e168(&d_010e8ec8, &d_00e00f70, &d_00e00f50, Runtime_GetVtableFromTemporary_00e00f90(), &d_011bd47c, (const void*)36);
+Agg6 g_0126e168(&d_010e8ec8, &d_00e00f70, &d_00e00f50, getVtable_hkpConvexPieceMeshShape(), &d_011bd47c, (const void*)36);
 // @fnv 0x00fc6090
 Agg6 g_0126e1b0(&d_010e8f98, &d_00e01070, &d_00e01050, Runtime_GetDAT010d10c4Address(), &d_011b5c88, (const void*)80);
 // @fnv 0x00fc6110
 Agg6 g_0126e1f8(&d_010e9058, &d_00e010e0, &d_00e010c0, Runtime_GetDAT010e901cAddress(), &d_011bd4c0, (const void*)128);
 // @fnv 0x00fc6180
-Agg6 g_0126e240(&d_010e90f4, &d_00e01210, &d_00e011f0, Runtime_UpdateState_00e01230(), &d_011bd4f4, (const void*)60);
+Agg6 g_0126e240(&d_010e90f4, &d_00e01210, &d_00e011f0, getVtable_hkpCollisionFilterList(), &d_011bd4f4, (const void*)60);
 // @fnv 0x00fc6200
 Agg6 g_0126e288(&d_010e9198, &d_00e01340, &d_00e01320, Runtime_GetDAT010ce25cAddress(), &d_011b3b90, (const void*)64);
 // @fnv 0x00fc6270
@@ -317,7 +317,7 @@ Agg6 g_0126e2d0(&d_010e91ec, &d_00e013a0, &d_00e01380, Object_GetGlobalObjectAdd
 // @fnv 0x00fc62e0
 Agg6 g_0126e318(&d_010e921c, &d_00e01410, &d_00e013f0, Object_GetGlobalObjectAddress_00e01440(), &d_011b1520, (const void*)48);
 // @fnv 0x00fc6350
-Agg6 g_0126e360(&d_010e92bc, &d_00e01470, &d_00e01450, Runtime_UpdateState_00e01490(), &d_011bd53c, (const void*)48);
+Agg6 g_0126e360(&d_010e92bc, &d_00e01470, &d_00e01450, getVtable_hkMemoryMeshShape(), &d_011bd53c, (const void*)48);
 // @fnv 0x00fc63c0
 Agg6 g_0126e3a8(&d_010e930c, &d_00e01530, &d_00e01510, Object_GetGlobalObjectAddress_00e01540(), &d_011bd55c, (const void*)20);
 // @fnv 0x00fc6430
@@ -331,7 +331,7 @@ Agg6 g_0126e4c8(&d_010e94a0, &d_00e016a0, &d_00e01680, Runtime_GetDAT010e9494Add
 // @fnv 0x00fc6610
 Agg6 g_0126e510(&d_010e9550, &d_00e016e0, &d_00e016c0, hkObjectE01710_AllocateStorage_00e01710(), &d_011bd660, (const void*)32);
 // @fnv 0x00fc6680
-Agg6 g_0126e558(&d_010e95c0, &d_00e017f0, &d_00e017d0, Runtime_UpdateState_00e01830(), &d_011bd680, (const void*)20);
+Agg6 g_0126e558(&d_010e95c0, &d_00e017f0, &d_00e017d0, getVtable_hkxTextureFile(), &d_011bd680, (const void*)20);
 // @fnv 0x00fc66f0
 Agg6 g_0126e5a0(&d_010e9620, &d_00e018e0, &d_00e018c0, Runtime_GetDAT010e9614Address(), &d_011bd6a0, (const void*)32);
 // @fnv 0x00fc6760
@@ -343,19 +343,19 @@ Agg6 g_0126e678(&d_010e9788, &d_00e01b10, &d_00e01af0, Object_GetGlobalObjectAdd
 // @fnv 0x00fc68c0
 Agg6 g_0126e6c0(&d_010e99e4, &d_00e01c30, &d_00e01c10, Object_GetConstructedVirtualTable_00e01c60(), &d_011bd710, (const void*)176);
 // @fnv 0x00fc6930
-Agg6 g_0126e708(&d_010e9a40, &d_00e01cf0, &d_00e01cd0, Runtime_UpdateState_00e01d10(), &d_011bd728, (const void*)36);
+Agg6 g_0126e708(&d_010e9a40, &d_00e01cf0, &d_00e01cd0, getVtable_hkxNodeSelectionSet(), &d_011bd728, (const void*)36);
 // @fnv 0x00fc69a0
 Agg6 g_0126e750(&d_010e9ad8, &d_00e01e80, &d_00e01e00, Runtime_UpdateState_00e01eb0(), &d_011bd74c, (const void*)28);
 // @fnv 0x00fc6a10
-Agg6 g_0126e798(&d_010e9af0, &d_00e01e20, &d_00e01e40, Runtime_GetVtableFromTemporary_00e01e50(), &d_011bd774, (const void*)32);
+Agg6 g_0126e798(&d_010e9af0, &d_00e01e20, &d_00e01e40, getVtable_hkxMesh(), &d_011bd774, (const void*)32);
 // @fnv 0x00fc6a80
 Agg6 g_0126e7e0(&d_010e9b88, &d_00e01f50, &d_00e01f30, Object_ComputeValue_00e01f60(), &d_011bd78c, (const void*)40);
 // @fnv 0x00fc6af0
-Agg6 g_0126e828(&d_010e9bb8, &d_00e020c0, &d_00e020e0, Runtime_GetVtableFromTemporary_00e020f0(), &d_011bd7ac, (const void*)20);
+Agg6 g_0126e828(&d_010e9bb8, &d_00e020c0, &d_00e020e0, getVtable_hkxMaterialShaderSet(), &d_011bd7ac, (const void*)20);
 // @fnv 0x00fc6b80
-Agg6 g_0126e870(&d_010e9d08, &d_00e02140, &d_00e02120, Object_ProcessAndReturnValue_00e02180(), &d_011bd868, (const void*)40);
+Agg6 g_0126e870(&d_010e9d08, &d_00e02140, &d_00e02120, getVtable_hkxMaterialShader(), &d_011bd868, (const void*)40);
 // @fnv 0x00fc6c10
-Agg6 g_0126e8b8(&d_010e9df8, &d_00e02280, &d_00e02260, Object_ProcessAndReturnValue_00e022a0(), &d_011bd8d8, (const void*)28);
+Agg6 g_0126e8b8(&d_010e9df8, &d_00e02280, &d_00e02260, getVtable_hkxMaterialEffect(), &d_011bd8d8, (const void*)28);
 // @fnv 0x00fc6ca0
 Agg6 g_0126e900(&d_010e9e88, &d_00e02360, &d_00e02340, Runtime_GetDAT010e9e74Address(), &d_011bd978, (const void*)64);
 // @fnv 0x00fc6d30
@@ -375,6 +375,6 @@ Agg6 g_0126eaf8(&d_010ea194, &d_00e02630, &d_00e02610, Object_ComputeValue_00e02
 // @fnv 0x00fc7070
 Agg6 g_0126eb40(&d_010ea1b8, &d_00e026e0, &d_00e026c0, Runtime_GetDAT010ea1acAddress(), &d_011bdb34, (const void*)24);
 // @fnv 0x00fc70e0
-Agg6 g_0126eb88(&d_010ea338, &d_00e02700, &d_00e02720, Runtime_GetVtableFromTemporary_00e02730(), &d_011bdb84, (const void*)24);
+Agg6 g_0126eb88(&d_010ea338, &d_00e02700, &d_00e02720, getVtable_hkAlignSceneToNodeOptions(), &d_011bdb84, (const void*)24);
 // @fnv 0x00fc7150
 Agg6 g_0126ebd0(&d_010c9390, &d_00e02780, &d_00e02760, Object_GetGlobalObjectAddress_00e027a0(), &d_011b1bfc, (const void*)12);

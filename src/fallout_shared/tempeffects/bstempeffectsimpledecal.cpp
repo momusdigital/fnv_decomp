@@ -140,11 +140,12 @@ struct S_0068b080
 };
 struct S_0068ace0
 {
-    void* FUN_0068ace0(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_0068b080 on this, then frees this with _delete when flags has bit 0 set, and returns this.
 // @fnv 0x0068ace0
-void* S_0068ace0::FUN_0068ace0(unsigned int flags)
+// src: EXE 0x0068ace0
+void* S_0068ace0::ScalarDeletingDestructor(unsigned int flags)
 {
     ((S_0068b080*)this)->FUN_0068b080();
     if (flags & 1)
@@ -192,7 +193,8 @@ NiAVObject* BSTempEffectSimpleDecal::Get3D()
 
 // Clips the input polygon through six planes at offsets 0x64..0xb4, ping-ponging between temp and output buffers, and returns the surviving vertex count.
 // @fnv 0x0068d660
-int BSTempEffectSimpleDecal::ClipPolygonByPlanes(int count, float* apInVerts, NiPoint3* apInB, NiPoint3* apInC,
+// src: COMMUNITY 0x0068d660
+int BSTempEffectSimpleDecal::ClipPolygon(int count, float* apInVerts, NiPoint3* apInB, NiPoint3* apInC,
                                             float* apOutB, NiPoint3* apOutPos, NiPoint3* apOutC)
 {
     NiPoint3 tempPos[9];
@@ -642,7 +644,8 @@ struct DecalTextureObject
 
 // Calls FUN_00c4edf0 on unk1c with unk24; on success deletes unk1c, nulls it and returns true, otherwise returns false.
 // @fnv 0x0068de30
-bool BSTempEffectSimpleDecal::ReleaseTextureObject()
+// src: COMMUNITY 0x0068de30
+bool BSTempEffectSimpleDecal::CheckOcclusionQueryResults()
 {
     if (!reinterpret_cast<DecalTextureObject*>(m_pRenderQuery)->BSOcclusionQuery_GetResult(&m_uiTextureReferenceCount, 0))
     {
@@ -943,7 +946,7 @@ struct Graph
     Graph* FUN_0050d100();
     Graph* AnimatingText_GetFullText();
     bool checkFlag();
-    NiColorA* GetNextProc();
+    NiColorA* NiGeometry_GetColors();
     unsigned short NiGeometry_GetVertexCount();
     Graph* NiAVObject_GetParent();
     unsigned int FUN_0043b480();
@@ -1251,7 +1254,7 @@ bool BSTempEffectSimpleDecal::CreateDecalTexture()
         ((Graph*)(NiAVObject*)m_pSceneObject)->AttachProperty(l);
         NiAlphaProperty* e = new NiAlphaProperty;
         e->NiAlphaProperty_SetAlphaBlending(m_bSecondBooleanFlag);
-        e->SetFlag512(m_bFirstBooleanFlag);
+        e->NiAlphaProperty_SetAlphaTesting(m_bFirstBooleanFlag);
         e->SetFlags(4);
         e->NiAlphaProperty_SetTestRef(128);
         ((Graph*)(NiAVObject*)m_pSceneObject)->AttachProperty(e);
@@ -1306,7 +1309,7 @@ bool BSTempEffectSimpleDecal::CreateDecalTexture()
             if (DAT_011c57f4 & 32)
             {
                 Graph* geom = (Graph*)(NiAVObject*)m_pSceneObject;
-                NiColorA* colors = geom->GetNextProc();
+                NiColorA* colors = geom->NiGeometry_GetColors();
                 for (int index = 0; index < geom->NiGeometry_GetVertexCount(); index++)
                     colors[index] = NiColorA(1, 1, 0, 1);
             }
@@ -1514,7 +1517,8 @@ extern float DAT_0119c29c;
 
 // Iterates triangle strips from the geometry, skips degenerate triangles, and clips those whose face normal faces along direction past a threshold.
 // @fnv 0x0068d230
-void BSTempEffectSimpleDecal::ProcessDecalTriangles(Geometry* input)
+// src: COMMUNITY 0x0068d230
+void BSTempEffectSimpleDecal::ClipMesh(Geometry* input)
 {
     Geometry* data = input;
     NiPoint3* normals = data->FUN_0049ec60();
@@ -1570,7 +1574,7 @@ void BSTempEffectSimpleDecal::ProcessDecalTriangles(Geometry* input)
                 strip[0] = geometry[old];
                 strip[1] = geometry[indices];
                 strip[2] = geometry[bridge];
-                int clipped = ClipPolygonByPlanes(3, second, third, strip, second, third, strip);
+                int clipped = ClipPolygon(3, second, third, strip, second, third, strip);
                 if (clipped)
                 {
                     if (!AddDecalGeometry(clipped, second, third, strip))
@@ -1584,7 +1588,7 @@ void BSTempEffectSimpleDecal::ProcessDecalTriangles(Geometry* input)
 namespace DecalClipping {
 struct Plane
 {
-    int ClassifyPoint(const NiPoint3&);
+    int NiPlane_WhichSide(const NiPoint3&);
     const NiPoint3& FUN_006815c0();
     double FUN_0084d030();
 };
@@ -1600,7 +1604,7 @@ int ClipPolygonToPlane(Plane* plane, int count, const int* indices, const NiPoin
     int rejected = 0;
     for (int i = 0; i < count; ++i)
     {
-        if (plane->ClassifyPoint(positions[i]) == 2)
+        if (plane->NiPlane_WhichSide(positions[i]) == 2)
         {
             outside4[i] = true;
             ++rejected;
@@ -1852,7 +1856,7 @@ bool BSTempEffectSimpleDecal::ProcessGeometry(Param* apParam)
         {
             m_akFacePlanes[5] = NiPlane(NiPoint3(m_kFourthPoint.x, m_kFourthPoint.y, m_kFourthPoint.z), -(m_fProjectionDepth - dotValue29));
         }
-        ProcessDecalTriangles(apParam);
+        ClipMesh(apParam);
         if (m_iSecondValueAfterPlanes == 0)
         {
             bWasPlaying = 1;
@@ -2090,7 +2094,8 @@ void xb57e30(xAV*, int, int);
 
 // Loads and clones the debug decal box, scales its vertices, sets its color and rotation, attaches alpha and shader properties, and adds it to the scene.
 // @fnv 0x0068dea0
-void BSTempEffectSimpleDecal::SetDecalTint(NiColorA& color, bool FLAG)
+// src: COMMUNITY 0x0068dea0
+void BSTempEffectSimpleDecal::CreateDebugBox(NiColorA& color, bool FLAG)
 {
     if (!xg_DecalBox)
     {

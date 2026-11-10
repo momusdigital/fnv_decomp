@@ -48,13 +48,13 @@ struct __declspec(align(16)) ShapeBase : hkReferencedObject
         m_kMotionTransform.setIdentity();
     }
 };
-struct __declspec(align(16)) FUN_00e0af50 : ShapeBase
+struct __declspec(align(16)) hkDisplaySphere : ShapeBase
 {
     hkVec4f m_vec;
     int m_kPointA;
     int m_kPointB;
 
-    FUN_00e0af50(const hkVec4f& v, int a, int b);
+    hkDisplaySphere(const hkVec4f& v, int a, int b);
 };
 void __stdcall nullsub_91(int a, int b);
 

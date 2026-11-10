@@ -177,7 +177,8 @@ void NiAlphaProperty__SDMInit()
 }
 
 // @fnv 0x00a5ceb0
-NiAlphaProperty* __cdecl CreateNiAlphaProperty()
+// src: EXE 0x00a5ceb0
+NiAlphaProperty* __cdecl NiAlphaProperty_CreateObject()
 {
     NiAlphaProperty* p = (NiAlphaProperty*)BSFadeNode::operator new(0x1c);
     if (p)
@@ -330,7 +331,8 @@ void __stdcall CreateVertexBufferSet(NiAlphaProperty* self, int proc);
 
 // The shared header does not declare the alpha clone override.
 // @fnv 0x00a5ce30
-NiAlphaProperty* __fastcall CloneAlphaProperty(NiAlphaProperty* self, int, int a0)
+// src: EXE 0x00a5ce30
+NiAlphaProperty* __fastcall NiAlphaProperty_CreateClone(NiAlphaProperty* self, int, int a0)
 {
     if (self->m_spControllers == 0 && DAT_011f4404 == 0)
     {

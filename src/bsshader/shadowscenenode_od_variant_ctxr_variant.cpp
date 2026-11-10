@@ -441,7 +441,7 @@ struct UpdateOwner
     unsigned FUN_005f0cc0();
     unsigned TESDataHandler_GetRegionList();
     void FUN_00603ad0(UpdatePacket&);
-    void CreatePartTexture(unsigned, LocalNodePtr&);
+    void TESNPC_GetHeadPartModTexture(unsigned, LocalNodePtr&);
     void TESNPC_FixNPCNormals(UpdateObject* object);
 };
 bool FUN_00605d20();
@@ -556,7 +556,7 @@ void UpdateOwner::TESNPC_FixNPCNormals(UpdateObject* object)
             if (General_bFaceGenTexturing_Get())
             {
                 LocalNodePtr ptr(0);
-                CreatePartTexture(k, ptr);
+                TESNPC_GetHeadPartModTexture(k, ptr);
                 packet.nodes.NiTObjectArray_NiPointer_NiTexture_Add(ptr);
             }
         }

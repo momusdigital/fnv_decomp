@@ -15,12 +15,12 @@ int __cdecl Warning(const char*, ...);
 class VATS
 {
   public:
-    void ProcessVATSCommands();
+    void ClearCommandList();
 };
 class StateNode
 {
   public:
-    void ResetCameraState();
+    void BGSCameraShot_FreeCamera();
 };
 class ImageSpaceModifierInstanceDOF;
 void ImageSpaceModifierInstance_Stop(ImageSpaceModifierInstanceDOF*);
@@ -44,7 +44,7 @@ struct CameraShotLegacyData
     int action, location, target;
     unsigned int flags;
     float playerMult, globalMult, maxTime, minTime;
-    void ProcessState_0058c2e0();
+    void BGSCameraShot_OLD_CAMERA_SHOT_DATA_Endian();
 };
 extern "C" void* __cdecl memset(void*, int, unsigned int);
 extern "C" void* __cdecl _alloca(unsigned int);

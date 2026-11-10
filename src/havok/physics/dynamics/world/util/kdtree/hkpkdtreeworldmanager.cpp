@@ -176,12 +176,12 @@ struct FUN_00d0ad80_This
 class FUN_00d0ad80_Class : public FUN_00d0ad80_This
 {
   public:
-    bool __thiscall ComputeValue_00d0ad80();
+    bool __thiscall hkpKdTreeWorldManager_isUpToDate();
 };
 
 // @fnv 0x00d0ad80
-// src: GUESS 0x00d0ad80 (confidence: low)
-bool FUN_00d0ad80_Class::ComputeValue_00d0ad80()
+// src: COMMUNITY 0x00d0ad80
+bool FUN_00d0ad80_Class::hkpKdTreeWorldManager_isUpToDate()
 {
     return this->unk20 == '\0';
 }
@@ -482,7 +482,7 @@ extern "C" hkMemoryRouter& __cdecl hkMemoryRouter_getInstance() throw();
 class hkObjD0AD : public FUN_00d0a4f0
 {
   public:
-    hkObjD0AD* FUN_00d0adc0(unsigned int uiFlags) throw();
+    hkObjD0AD* ScalarDeletingDestructor(unsigned int uiFlags) throw();
 
     static void operator delete(void* p) throw()
     {
@@ -496,7 +496,8 @@ class hkObjD0AD : public FUN_00d0a4f0
 
 // Runs the base destructor, and if bit 0 of uiFlags is set, frees this object through the heap allocator; returns this.
 // @fnv 0x00d0adc0
-hkObjD0AD* hkObjD0AD::FUN_00d0adc0(unsigned int uiFlags) throw()
+// src: EXE 0x00d0adc0
+hkObjD0AD* hkObjD0AD::ScalarDeletingDestructor(unsigned int uiFlags) throw()
 {
     this->FUN_00d0a4f0::~FUN_00d0a4f0();
     if (uiFlags & 1)
@@ -1239,7 +1240,7 @@ struct Workers
     virtual void slot01();
     virtual void slot02();
     virtual void start(Queue*, int);
-    virtual void wait();
+    virtual void hkSemaphore_release();
 };
 struct TimerRecord
 {
@@ -1424,7 +1425,7 @@ void Manager::hkpKdTreeWorldManager_buildTreeDistributed(Tree** tree, Input* inp
             stream->current = r + 12;
         }
     }
-    workers->wait();
+    workers->hkSemaphore_release();
     timerEvent(str_010cd0d0);
     semaphore->hkSemaphore_acquire();
     timerEvent(str_010cd0c4);

@@ -14,17 +14,18 @@ struct Global
     Heap* heap10;
 };
 Global* hkMemoryRouter_getInstance();
-struct FUN_00d2dc40
+struct hkpSymmetricAgentFlipBodyCollector
 {
     int unk04;
     int unk08;
-    virtual ~FUN_00d2dc40();
+    virtual ~hkpSymmetricAgentFlipBodyCollector();
     static void operator delete(void* p);
 };
 // @fnv 0x00d2dc40
-FUN_00d2dc40::~FUN_00d2dc40()
+// src: EXE 0x00d2dc40
+hkpSymmetricAgentFlipBodyCollector::~hkpSymmetricAgentFlipBodyCollector()
 {}
-void FUN_00d2dc40::operator delete(void* p)
+void hkpSymmetricAgentFlipBodyCollector::operator delete(void* p)
 {
     Global* global = hkMemoryRouter_getInstance();
     global->heap10->Free(p, 0xc);

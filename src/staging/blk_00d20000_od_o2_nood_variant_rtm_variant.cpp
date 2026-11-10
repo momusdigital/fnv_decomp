@@ -254,7 +254,7 @@ struct MoppCastCollector
     int d, e;
     MoppCastQuery* query;
     int unk30;
-    void ProcessAndReturnValue_00da8180(MoppCastQuery*, int, int);
+    void hkpMoppAabbCastVirtualMachine_aabbCast(MoppCastQuery*, int, int);
 };
 static void ProfMark(const char* name)
 {
@@ -281,8 +281,8 @@ struct MoppCastCastGeometry
     MoppCastMatrix relative;
 };
 // @fnv 0x00d2f0d0
-// src: GUESS 0x00d2f0d0 (confidence: low)
-void __cdecl hkTransform_setMulInverseMul_ComputeValues_00d2f0d0(MoppCastBody* a, MoppCastBody* b, MoppCastInput* c, int d, int e)
+// src: COMMUNITY 0x00d2f0d0
+void __cdecl hkpMoppAgent_staticLinearCast(MoppCastBody* a, MoppCastBody* b, MoppCastInput* c, int d, int e)
 {
     ProfMark(DAT_010ce8e8);
     // Preserve uninitialized scratch storage without vector constructors or a GS buffer.
@@ -310,6 +310,6 @@ void __cdecl hkTransform_setMulInverseMul_ComputeValues_00d2f0d0(MoppCastBody* a
     ls.query.b = b;
     (MoppSimd::LocalM128&)ls.query.radius = radius;
     ls.query.input = c;
-    ls.collector.ProcessAndReturnValue_00da8180(&ls.query, d, e);
+    ls.collector.hkpMoppAabbCastVirtualMachine_aabbCast(&ls.query, d, e);
     ProfMark(DAT_010c41f8);
 }

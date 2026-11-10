@@ -113,7 +113,7 @@ struct RTTI;
 struct Particle
 {
     unsigned int NiParticleSystem_GetModifierCount();
-    NiObject* GetByIndex(unsigned int index);
+    NiObject* NiParticleSystem_GetModifierAt(unsigned int index);
 };
 
 
@@ -140,7 +140,7 @@ float GetMaxParticleGlobalValue(NiNode* node)
 
             for (unsigned int i = 0; result == _DAT_01012060 && i < particle->NiParticleSystem_GetModifierCount(); ++i)
             {
-                NiObject* object = particle->GetByIndex(i);
+                NiObject* object = particle->NiParticleSystem_GetModifierAt(i);
 
                 if (object && NiObject_IsKindOf(reinterpret_cast<RTTI const*>(&g_01202500_arg1), object))
                 {
@@ -504,7 +504,7 @@ struct FUN_00874480_shell
 {
     unsigned int Projectile_GetShooter();
 };
-struct FUN_005be5c0_shell
+struct ProcessArray
 {
     unsigned int ProcessArray_GetProcessLevelTail();
 };

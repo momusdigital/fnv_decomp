@@ -209,7 +209,7 @@ struct FUN_007393f0_shell
     int DrawCard(G2* hand, int a1, int a2);
     void BlackJackMenu_GetHandValue(G2* hand);
 
-    void __thiscall DealInitialCards();
+    void __thiscall BlackJackMenu_DealHand();
 };
 extern "C" void* _ReadWriteBarrier_unused;
 struct SetBase
@@ -1600,7 +1600,7 @@ struct InputMenu
     int BlackJackMenu_GetHandValue(CardHand*);
     void ClearField();
     void BlackJackMenu_SetTileTextAlpha(int, float);
-    void DealInitialCards();
+    void BlackJackMenu_DealHand();
     bool BlackJackMenu_CanDoubleDown(bool);
     void UpdateChipPositions();
     void BlackJackMenu_SwapCardTextures(int, int, CardInfo*);

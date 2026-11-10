@@ -525,7 +525,8 @@ typedef hkBool (hkTransform::*MemFn)(float tol);
 
 // Returns true if IsOrthonormal passes with 0.001f on both body frames and the two rotation-based transforms and m_suspensionMin <= m_suspensionMax.
 // @fnv 0x00d4eec0
-hkBool* __fastcall IsWheelValid(hkpWheelConstraintData* self, void*, hkBool* result)
+// src: COMMUNITY 0x00d4eec0
+hkBool* __fastcall hkpWheelConstraintData_isValid(hkpWheelConstraintData* self, void*, hkBool* result)
 {
     const char* atoms = self->m_kBridgeAtoms.pad0;
     const hkTransform& bodyAFrame = *reinterpret_cast<const hkTransform*>(atoms + 0x10);

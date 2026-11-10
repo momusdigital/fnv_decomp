@@ -745,7 +745,7 @@ class PlayerCharacter : public Actor
 class TES
 {
   public:
-    bool IsCellBuffered(TESObjectCELL*, bool);
+    bool IsCellLoaded(TESObjectCELL*, bool);
 };
 class Setting
 {
@@ -799,11 +799,11 @@ class TESObjectDOOR : public TESBoundAnimObject,
     void ClearData();
     void InitItem();
     bool Load(TESFile*);
-    bool IsTeleportDoor();
+    bool IsMinimalUse();
     bool Activate(TESObjectREFR*, TESObjectREFR*, bool, TESBoundObject*, int);
     bool IsRandomDoor();
     TESObjectREFR* FindRandomTeleportTarget(TESObjectREFR*, TESObjectREFR*);
-    void QueueDoorTeleport(TESObjectREFR*);
+    void HandlePlayerTeleport(TESObjectREFR*);
     TESSound* GetOpenSound();
     void ClearRandomTeleportList();
     BSSimpleList<TESForm*>* TESDataHandler_GetFactions();

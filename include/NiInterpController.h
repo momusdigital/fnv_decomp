@@ -15,7 +15,7 @@ public:
     virtual void LinkObject(NiStream& stream);
     virtual void LoadBinary(NiStream& stream);
 
-    virtual unsigned short GetTargetCount() const;
+    virtual unsigned short GetInterpolatorCount() const;
     virtual const char* GetTargetName(unsigned short index) const;
     virtual unsigned short GetTargetIndex(const char* id) const;
     virtual unsigned short GetTargetIndex(const NiFixedString& id) const;

@@ -56,10 +56,10 @@ hkMemoryRouter* __cdecl _D1A0E0GetMemoryRouter();
 struct FUN_00e05bf0Class : hkMemoryStreamReader
 {
     void __thiscall FUN_00e05bb0();
-    hkMemoryStreamReader* __thiscall FUN_00e05bf0(int flags);
+    hkMemoryStreamReader* __thiscall ScalarDeletingDestructor(int flags);
 };
 
-hkMemoryStreamReader* __thiscall FUN_00e05bf0Class::FUN_00e05bf0(int flags)
+hkMemoryStreamReader* __thiscall FUN_00e05bf0Class::ScalarDeletingDestructor(int flags)
 {
     FUN_00e05bb0();
 
@@ -245,7 +245,7 @@ int __thiscall FUN_00e05af0_Obj::ReadBytes(int aiByteCount)
 namespace hkRouterE05B {
 extern "C" hkMemoryRouter& __cdecl hkMemoryRouter_getInstance() throw();
 }
-void* __cdecl AllocateWithHeader(hkMemoryAllocator& kAlloc, int iNumBytes) throw();
+void* __cdecl hkMemoryRouter_easyAlloc(hkMemoryAllocator& kAlloc, int iNumBytes) throw();
 void __cdecl hkString_memCpy(void* pvDst, const void* pvSrc, int iNumBytes) throw();
 
 class FUN_00e05b40 : public hkReferencedObject
@@ -271,7 +271,7 @@ FUN_00e05b40::FUN_00e05b40(void* data, int size, int external) throw()
     m_external = external;
     if (!external)
     {
-        m_data = AllocateWithHeader(hkRouterE05B::hkMemoryRouter_getInstance().heap(), size);
+        m_data = hkMemoryRouter_easyAlloc(hkRouterE05B::hkMemoryRouter_getInstance().heap(), size);
         hkString_memCpy(m_data, data, size);
     }
     else

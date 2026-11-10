@@ -97,7 +97,8 @@ TESTopicInfo* TESTopic::FindMatchingTopicInfo(const TESTopic* originalTopic, boo
                     if (mobileSpeaker->HasSaidTopicInfo(pTopicInfo))
                         bAllowed = false;
                 }
-                if (pTopicInfo && bAllowed && pTopicInfo->IsInfoValidForDialogue(bDeferred, 0, speaker, listener))
+                // src: COMMUNITY 0x0061e600
+                if (pTopicInfo && bAllowed && pTopicInfo->CheckCondition(bDeferred, 0, speaker, listener))
                 {
                     deferred = false;
                     bool select = true;
@@ -220,11 +221,12 @@ TESTopicInfo* TESTopic::FindMatchingTopicInfo(const TESTopic* originalTopic, boo
 struct FUN_00616f40_shell
 {
     bool BuildVoiceFilePath(TESObject* o, int a, int b, int c, int d);
-    bool DispatchOnNextFormType(TESObject* obj, int a, int b, int c, int d);
+    bool TESResponse_GetAudioFullPath(TESObject* obj, int a, int b, int c, int d);
 };
 // If obj is non-null and its next object's form type is 0x16, 0x2a or 0x2b, forwards that next object to BuildVoiceFilePath; otherwise returns false.
 // @fnv 0x00616f40
-bool FUN_00616f40_shell::DispatchOnNextFormType(TESObject* obj, int a, int b, int c, int d)
+// src: COMMUNITY 0x00616f40
+bool FUN_00616f40_shell::TESResponse_GetAudioFullPath(TESObject* obj, int a, int b, int c, int d)
 {
     if (obj)
     {
@@ -260,23 +262,24 @@ bool __fastcall TESTopicInfo_IsRandom(const char* pFlags)
 
 struct FUN_006195d0_shell : public TESTopic
 {
-    QuestDialogueInfo* GetOrCreateQuestInfo(TESQuest*, bool);
+    QuestDialogueInfo* TESTopic_InsertQuest(TESQuest*, bool);
 };
 
 void* __cdecl operator new(unsigned int);
-QuestDialogueInfo* __fastcall FUN_00619740(void*);
+QuestDialogueInfo* __fastcall QUEST_INFO(void*);
 
 struct QuestInfoStub : public QuestDialogueInfo
 {
     QuestInfoStub()
     {
-        FUN_00619740(this);
+        QUEST_INFO(this);
     }
 };
 
 // Searches the quest info list for an entry matching apQuest, creating and appending a new entry if none is found.
 // @fnv 0x006195d0
-QuestDialogueInfo* FUN_006195d0_shell::GetOrCreateQuestInfo(TESQuest* apQuest, bool abReSort)
+// src: COMMUNITY 0x006195d0
+QuestDialogueInfo* FUN_006195d0_shell::TESTopic_InsertQuest(TESQuest* apQuest, bool abReSort)
 {
     if (!apQuest)
         return 0;
@@ -341,22 +344,23 @@ bool FUN_00619b20_shell::TESTopicInfo_IsSayOnce()
 
 struct FUN_00619d00_shell : public TESTopic
 {
-    TESQuest* FindQuestForTopicInfo(TESTopicInfo*);
+    TESQuest* TESTopic_GetOwnerQuest(TESTopicInfo*);
 };
 
-extern TESTopicInfo* __cdecl GetTopicInfoByIndex(QuestDialogueInfo*, unsigned int);
+extern TESTopicInfo* __cdecl TESTopic_GetInfoByIndex(QuestDialogueInfo*, unsigned int);
 extern BSSimpleList<QuestDialogueInfo*>* __fastcall _ref_00726070(const BSSimpleList<QuestDialogueInfo*>*);
 
 // Searches the topic's quest info list for apInfo and returns the owning quest, recursing into the remapped rumor topic when applicable.
 // @fnv 0x00619d00
-TESQuest* FUN_00619d00_shell::FindQuestForTopicInfo(TESTopicInfo* apInfo)
+// src: COMMUNITY 0x00619d00
+TESQuest* FUN_00619d00_shell::TESTopic_GetOwnerQuest(TESTopicInfo* apInfo)
 {
     if (!apInfo)
         return 0;
 
     if (IsRemappedRumors())
         return reinterpret_cast<FUN_00619d00_shell*>(TESTopic::GetAudioBackendData(DIALOGUE_TYPE_DT_CONVERSATION, 5))
-            ->FindQuestForTopicInfo(apInfo);
+            ->TESTopic_GetOwnerQuest(apInfo);
 
     const BSSimpleList<QuestDialogueInfo*>* pList = static_cast<const TESTopic*>(this)->GetQuestInfoList();
     unsigned int maxSize = 0;
@@ -375,7 +379,7 @@ TESQuest* FUN_00619d00_shell::FindQuestForTopicInfo(TESTopicInfo* apInfo)
         {
             for (unsigned int i = 0; i < maxSize; ++i)
             {
-                TESTopicInfo* pInfo = GetTopicInfoByIndex(pQuestInfo, i);
+                TESTopicInfo* pInfo = TESTopic_GetInfoByIndex(pQuestInfo, i);
                 if (pInfo == apInfo)
                     return pQuestInfo->pQuest;
             }
@@ -397,16 +401,17 @@ bool FUN_00619df0_shell::TESTopic_IsRemappedRumors()
     return (*((char*)this + 0x25) & 1) ? true : false;
 }
 
-TESTopicInfo* __cdecl GetTopicInfoByIndex(QuestDialogueInfo* apQuestInfo, unsigned int aiIndex);
+TESTopicInfo* __cdecl TESTopic_GetInfoByIndex(QuestDialogueInfo* apQuestInfo, unsigned int aiIndex);
 
 struct FUN_00619e10_impl : public TESTopic
 {
-    TESTopicInfo* FindTopicInfoByFormID(unsigned int aiInfoID, bool abReverse);
+    TESTopicInfo* TESTopic_GetInfoByID(unsigned int aiInfoID, bool abReverse);
 };
 
 // Scans the quest info list, searching each info array forward or backward for a TESTopicInfo whose FormID equals aiInfoID, and returns it or null.
 // @fnv 0x00619e10
-TESTopicInfo* FUN_00619e10_impl::FindTopicInfoByFormID(unsigned int aiInfoID, bool abReverse)
+// src: COMMUNITY 0x00619e10
+TESTopicInfo* FUN_00619e10_impl::TESTopic_GetInfoByID(unsigned int aiInfoID, bool abReverse)
 {
     BSSimpleList<QuestDialogueInfo*>* pList = static_cast<const TESTopic*>(this)->GetQuestInfoList();
     unsigned int maxSize = 0;
@@ -422,7 +427,7 @@ TESTopicInfo* FUN_00619e10_impl::FindTopicInfoByFormID(unsigned int aiInfoID, bo
             {
                 for (int i = maxSize - 1; i >= 0; --i)
                 {
-                    TESTopicInfo* pInfo = GetTopicInfoByIndex(pQuestInfo, i);
+                    TESTopicInfo* pInfo = TESTopic_GetInfoByIndex(pQuestInfo, i);
                     if (pInfo && pInfo->GetFormID() == aiInfoID)
                     {
                         return pInfo;
@@ -433,7 +438,7 @@ TESTopicInfo* FUN_00619e10_impl::FindTopicInfoByFormID(unsigned int aiInfoID, bo
             {
                 for (unsigned int i = 0; i < maxSize; ++i)
                 {
-                    TESTopicInfo* pInfo = GetTopicInfoByIndex(pQuestInfo, i);
+                    TESTopicInfo* pInfo = TESTopic_GetInfoByIndex(pQuestInfo, i);
                     if (pInfo && pInfo->GetFormID() == aiInfoID)
                     {
                         return pInfo;
@@ -447,7 +452,8 @@ TESTopicInfo* FUN_00619e10_impl::FindTopicInfoByFormID(unsigned int aiInfoID, bo
 
 // Returns the topic info at aiInfoIndex from apQuestInfo's info array if the index is in range, otherwise returns 0.
 // @fnv 0x00619f20
-TESTopicInfo* __cdecl GetTopicInfoByIndex(QuestDialogueInfo* apQuestInfo, unsigned int aiInfoIndex)
+// src: COMMUNITY 0x00619f20
+TESTopicInfo* __cdecl TESTopic_GetInfoByIndex(QuestDialogueInfo* apQuestInfo, unsigned int aiInfoIndex)
 {
     if (!apQuestInfo)
         return 0;
@@ -508,7 +514,8 @@ extern TESGlobalMap* DAT_011c54c8;
 const char* __cdecl PrepareScriptMessage(const char*, bool);
 
 // @fnv 0x0061a040
-void __cdecl CreateDefaultTopics()
+// src: COMMUNITY 0x0061a040
+void __cdecl TESTopic_AddDefaultTopics()
 {
     AutoMemContext memContext((MEM_CONTEXT)0x35, true,
                               "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout Shared\\TESTopic.cpp", 0x1573);
@@ -562,19 +569,20 @@ TESTopicInfoData* __fastcall _ref_00726070(TESTopicInfoData* pThis);
 
 struct TopicHelper
 {
-    TESTopicInfo* FindTopicInfoByFormID(unsigned int formID, int arg2);
+    TESTopicInfo* TESTopic_GetInfoByID(unsigned int formID, int arg2);
 };
 
 // Walks the data handler's topic list and returns the first TESTopic whose lookup of pInfo's form ID yields pInfo, else null.
 // @fnv 0x0061a310
-TESTopic* __cdecl FindTopicByInfo(TESTopicInfo* pTopicInfo)
+// src: COMMUNITY 0x0061a310
+TESTopic* __cdecl TESTopic_GetOwnerTopic(TESTopicInfo* pTopicInfo)
 {
     TESTopicInfoData* pList = FUN_004612e0(g_dataHandler);
     while (pList && *(TESTopic**)pList->GetLinkFromList())
     {
         TESTopic* pTopic = *(TESTopic**)pList->GetLinkFromList();
         pList = _ref_00726070(pList);
-        if (((TopicHelper*)pTopic)->FindTopicInfoByFormID(pTopicInfo->GetFormID(), 0) == pTopicInfo)
+        if (((TopicHelper*)pTopic)->TESTopic_GetInfoByID(pTopicInfo->GetFormID(), 0) == pTopicInfo)
         {
             return pTopic;
         }
@@ -702,7 +710,7 @@ struct DataHandlerStandin
 extern DataHandlerStandin* g_dataHandler;
 struct TopicStandin
 {
-    bool HasInfoForQuest(TESQuest* quest, int flag);
+    bool TESTopic_HasQuest(TESQuest* quest, int flag);
     bool SortList();
 };
 struct ConvStandin
@@ -717,7 +725,8 @@ bool CheckTopicsForQuest(TESQuest* apQuest)
     TESTopicInfoData* pCurrentElementNext = g_dataHandler->FUN_004612e0();
     while (pCurrentElementNext && *(TopicStandin**)pCurrentElementNext->GetLinkFromList() && result)
     {
-        if (!apQuest || (*(TopicStandin**)pCurrentElementNext->GetLinkFromList())->HasInfoForQuest(apQuest, 0))
+        // src: COMMUNITY 0x00619bc0
+        if (!apQuest || (*(TopicStandin**)pCurrentElementNext->GetLinkFromList())->TESTopic_HasQuest(apQuest, 0))
         {
             result = (*(TopicStandin**)pCurrentElementNext->GetLinkFromList())->SortList();
         }
@@ -977,7 +986,7 @@ void FUN_00618960_obj::InitLoadingTopic()
 namespace fnv_00619a90 {
 struct FUN_00619f70_shell
 {
-    unsigned int* FindQuestInfoArray(unsigned int);
+    unsigned int* TESTopic_GetInfoArray(unsigned int);
 };
 struct FUN_0061f280_shell
 {
@@ -989,14 +998,15 @@ struct FUN_00619b20_shell
 };
 struct FUN_00619a90_shell
 {
-    void ProcessTopicInfoList(unsigned int param);
+    void TESTopic_ClearSaidOnceInfosForQuest(unsigned int param);
 };
 
 // Retrieves a list for param, then for each entry calls FUN_00619b20 and, if true and IsNew, calls FUN_0061f280.
 // @fnv 0x00619a90
-void __thiscall FUN_00619a90_shell::ProcessTopicInfoList(unsigned int param)
+// src: COMMUNITY 0x00619a90
+void __thiscall FUN_00619a90_shell::TESTopic_ClearSaidOnceInfosForQuest(unsigned int param)
 {
-    unsigned int* list = ((FUN_00619f70_shell*)this)->FindQuestInfoArray(param);
+    unsigned int* list = ((FUN_00619f70_shell*)this)->TESTopic_GetInfoArray(param);
     if (list)
     {
         unsigned int count = ((TESForm*)list)->GetFormID();
@@ -1125,7 +1135,7 @@ typedef BSSimpleArray<ParentSpaceNode, 1024> PSNArr;
 BSSimpleList<QuestDialogueInfo*>* __fastcall _ref_00726070(const BSSimpleList<QuestDialogueInfo*>*);
 struct FUN_006195d0_shell : public TESTopic
 {
-    QuestDialogueInfo* GetOrCreateQuestInfo(TESQuest*, bool);
+    QuestDialogueInfo* TESTopic_InsertQuest(TESQuest*, bool);
 };
 struct FUN_00619010_shell : public TESTopic
 {
@@ -1182,7 +1192,7 @@ bool FUN_00618aa0_t::TESTopic_Load(::TESFile* pFile)
             unsigned int uiChunkType = 0;
             ((TESFileRef*)pFile)->_ref_004727f0(&uiChunkType);
             TESForm::RemapFormIDForFile(uiChunkType, GetFile(-1));
-            QuestDialogueInfo* pQuestInfo = ((FUN_006195d0_shell*)this)->GetOrCreateQuestInfo((TESQuest*)uiChunkType, false);
+            QuestDialogueInfo* pQuestInfo = ((FUN_006195d0_shell*)this)->TESTopic_InsertQuest((TESQuest*)uiChunkType, false);
             if (pQuestInfo)
             {
                 pLastQuestInfo = pQuestInfo;
@@ -1316,15 +1326,16 @@ bool FUN_00619430_shell::TESTopic_SavesBefore(TESForm* apForm)
     return bResult;
 }
 
-TESTopicInfo* __cdecl GetTopicInfoByIndex(QuestDialogueInfo* info, unsigned int index);
+TESTopicInfo* __cdecl TESTopic_GetInfoByIndex(QuestDialogueInfo* info, unsigned int index);
 
 struct FUN_00619c50_shell : TESTopic
 {
-    TESTopic* FindTopicByInfoID(unsigned int topicID);
+    TESTopic* TESTopic_GetQuestInfoElement(unsigned int topicID);
 };
 
 // @fnv 0x00619c50
-TESTopic* FUN_00619c50_shell::FindTopicByInfoID(unsigned int topicID)
+// src: COMMUNITY 0x00619c50
+TESTopic* FUN_00619c50_shell::TESTopic_GetQuestInfoElement(unsigned int topicID)
 {
     BSSimpleList<QuestDialogueInfo*>* pList = static_cast<const TESTopic*>(this)->GetQuestInfoList();
     unsigned int count_2 = 0;
@@ -1337,7 +1348,7 @@ TESTopic* FUN_00619c50_shell::FindTopicByInfoID(unsigned int topicID)
         {
             for (unsigned int i = 0; i < count_2; ++i)
             {
-                TESTopicInfo* result = GetTopicInfoByIndex(pInfo, i);
+                TESTopicInfo* result = TESTopic_GetInfoByIndex(pInfo, i);
                 if (result == reinterpret_cast<TESTopicInfo*>(topicID))
                     return reinterpret_cast<TESTopic*>(pInfo);
             }
@@ -1411,12 +1422,12 @@ void SortTopicList(bool abSortByPriority, BSSimpleList<TESTopic*>* apTopicList)
 
 struct FUN_00619bc0_shell : TESTopic
 {
-    bool HasInfoForQuest(TESQuest* apQuest, bool apCheck);
+    bool TESTopic_HasQuest(TESQuest* apQuest, bool apCheck);
 };
 
 // Scans the quest info list for an entry whose pQuest matches apQuest and returns whether its info array form ID is positive, or true when apCheck is false.
 // @fnv 0x00619bc0
-bool FUN_00619bc0_shell::HasInfoForQuest(TESQuest* apQuest, bool apCheck)
+bool FUN_00619bc0_shell::TESTopic_HasQuest(TESQuest* apQuest, bool apCheck)
 {
     if (!apQuest)
         return false;
@@ -1435,11 +1446,12 @@ bool FUN_00619bc0_shell::HasInfoForQuest(TESQuest* apQuest, bool apCheck)
 
 struct FUN_00619f70_shell : public TESTopic
 {
-    TopicInfoArray* FindQuestInfoArray(TESTopicInfo* apInfo);
+    TopicInfoArray* TESTopic_GetInfoArray(TESTopicInfo* apInfo);
 };
 
 // @fnv 0x00619f70
-TopicInfoArray* FUN_00619f70_shell::FindQuestInfoArray(TESTopicInfo* apInfo)
+// src: COMMUNITY 0x00619f70
+TopicInfoArray* FUN_00619f70_shell::TESTopic_GetInfoArray(TESTopicInfo* apInfo)
 {
     BSSimpleList<QuestDialogueInfo*>* list = static_cast<const TESTopic*>(this)->GetQuestInfoList();
     while (list && list->GetItem())
@@ -1541,7 +1553,7 @@ namespace fnv_00619030 {
 extern PlayerCharacter* g_thePlayer;
 
 extern TESForm* TESForm_GetFormByNumericID(unsigned int formID);
-extern void ResolveFormID(unsigned int* formID, TESFile* file);
+extern void TESForm_AddCompileIndex(unsigned int* formID, TESFile* file);
 extern void FNV_Warning(const char* fmt, ...);
 
 struct BSSimpleArray_Helper
@@ -1626,7 +1638,7 @@ void TESTopic_Shell::InitializeTopic()
                 else if (questInfo->m_pAlternateQuest)
                 {
                     unsigned int formID = (unsigned int)questInfo->m_pAlternateQuest;
-                    ResolveFormID(&formID, GetFile(-1));
+                    TESForm_AddCompileIndex(&formID, GetFile(-1));
                     questInfo->m_pAlternateQuest = dynamic_cast<TESQuest*>(TESForm_GetFormByNumericID(formID));
                 }
                 else
@@ -1692,13 +1704,13 @@ class TopicInfoMethods : public TESTopicInfo
 class TopicMethods : public TESTopic
 {
   public:
-    QuestDialogueInfo* GetOrCreateQuestInfo(TESQuest* quest, bool create);
-    TESTopicInfo* FindTopicInfoByFormID(unsigned int formID, bool searchAll);
+    QuestDialogueInfo* TESTopic_InsertQuest(TESQuest* quest, bool create);
+    TESTopicInfo* TESTopic_GetInfoByID(unsigned int formID, bool searchAll);
     bool AddTopicInfo(TESQuest* quest, TESTopicInfo* info, unsigned int previousInfoID);
 };
 extern TESTopic* g_loadingTopic;
 void FNV_Warning(const char* format, ...);
-TESTopicInfo* GetTopicInfoByIndex(QuestDialogueInfo* questInfo, int index);
+TESTopicInfo* TESTopic_GetInfoByIndex(QuestDialogueInfo* questInfo, int index);
 void TopicInfoArray_SetTopicIndices(TopicInfoArray* array);
 
 // @fnv 0x00619820
@@ -1706,7 +1718,7 @@ bool TopicMethods::AddTopicInfo(TESQuest* quest, TESTopicInfo* info, unsigned in
 {
     if (!quest || !info)
         return false;
-    QuestDialogueInfo* questInfo = GetOrCreateQuestInfo(quest, false);
+    QuestDialogueInfo* questInfo = TESTopic_InsertQuest(quest, false);
     if (previousInfoID)
     {
         TESTopicInfo* previousInfo;
@@ -1723,7 +1735,7 @@ bool TopicMethods::AddTopicInfo(TESQuest* quest, TESTopicInfo* info, unsigned in
                     }
                     if (previousInfoID != 0xffffffffu)
                     {
-                        previousInfo = FindTopicInfoByFormID(previousInfoID, true);
+                        previousInfo = TESTopic_GetInfoByID(previousInfoID, true);
                         if (previousInfo && previousInfoID)
                         {
                             insertionIndex = 0xffffffffu;
@@ -1756,7 +1768,7 @@ bool TopicMethods::AddTopicInfo(TESQuest* quest, TESTopicInfo* info, unsigned in
                     else if (info->GetInfoIndex() == 0xffff)
                     {
                         lastIndex = questInfo->GetInfoArray()->GetSize() - 1;
-                        while (lastIndex > 0 && !GetTopicInfoByIndex(questInfo, lastIndex))
+                        while (lastIndex > 0 && !TESTopic_GetInfoByIndex(questInfo, lastIndex))
                             lastIndex--;
                         lastIndex++;
                         static_cast<TopicInfoMethods*>(info)->FUN_0061f340((unsigned short)lastIndex);

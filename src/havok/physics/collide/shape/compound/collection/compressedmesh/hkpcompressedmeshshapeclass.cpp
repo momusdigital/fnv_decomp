@@ -13,7 +13,7 @@ static __forceinline void FreeAudioArray(hkMemoryAllocator* pAllocator, void* pM
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 
-struct FUN_00dfd380_cls
+struct Chunk
 {
     int unk00;
     int unk04;
@@ -38,7 +38,7 @@ struct FUN_00dfd380_cls
 // Frees the four data arrays through the audio allocator when their capacity flag is clear, then resets each pointer, count and capacity.
 // @fnv 0x00dfd380
 // src: GUESS 0x00dfd380 (confidence: medium)
-void FUN_00dfd380_cls::ReleaseFourArrays()
+void Chunk::ReleaseFourArrays()
 {
     hkMemoryRouter* pHolder = hkMemoryRouter_getInstance();
     hkMemoryAllocator* pAllocator = reinterpret_cast<hkMemoryAllocator*>(pHolder->m_heap);
@@ -89,7 +89,7 @@ namespace fnv_00dfd440 {
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 
-struct FUN_00dfd440_cls
+struct ConvexPiece
 {
     int unk00;
     int unk04;
@@ -111,7 +111,7 @@ struct FUN_00dfd440_cls
 // Frees the three capacity-flagged data arrays through the audio allocator and resets each pointer, count and capacity to empty.
 // @fnv 0x00dfd440
 // src: GUESS 0x00dfd440 (confidence: medium)
-void FUN_00dfd440_cls::ReleaseThreeArrays()
+void ConvexPiece::ReleaseThreeArrays()
 {
     hkMemoryRouter* pHolder = hkMemoryRouter_getInstance();
     hkMemoryAllocator* pAllocator = reinterpret_cast<hkMemoryAllocator*>(pHolder->m_heap);

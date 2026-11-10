@@ -35,7 +35,7 @@ extern int DAT_010d1fb0;
 extern int DAT_010d1f90;
 extern int DAT_010d1f80;
 extern int DAT_010d1f70;
-struct FUN_00d68770_cls
+struct hkpInactiveContactPointViewer
 {
     int* m_pVtbl00;
     int m_unk04;
@@ -50,7 +50,7 @@ struct FUN_00d68770_cls
     int* m_pVtbl28;
 
     void BaseConstruct(int aParam, int aFlags);
-    FUN_00d68770_cls* Construct(int aParam);
+    hkpInactiveContactPointViewer* Construct(int aParam);
 };
 void* __stdcall hkpInactiveContactPointViewer_getIslands(char* a1);
 struct FnvCpu_FUN_00d687c0_CpuBlock;
@@ -94,21 +94,21 @@ struct S_00d6adf0_Obj
 {
     virtual void vfn00(int arg);
 };
-void __cdecl Runtime_ForwardCall_00d6adf0(S_00d6adf0_Obj* obj);
+void __cdecl cleanupLoadedObject_hkpConstraintInstance(S_00d6adf0_Obj* obj);
 extern int DAT_0126908c;
 int* __cdecl Object_GetGlobalObjectAddress_00d6ae00();
 struct FUN_00c90e00_Obj
 {
-    void __thiscall FUN_00c90e00(int value);
+    void __thiscall hkpWorldCinfo(int value);
 };
-void __cdecl Runtime_ProcessState_00d6ae90(FUN_00c90e00_Obj* param_1, int param_2);
+void __cdecl finishLoadedObject_hkpWorldCinfo(FUN_00c90e00_Obj* param_1, int param_2);
 // 13-byte cdecl forwarder: loads the object pointer, fetches its vtable and
 // calls the first virtual slot with a literal 0 argument.
 struct VtblForwarder
 {
     virtual int v0(int);
 };
-int __cdecl Runtime_ForwardCall_00d6aeb0(VtblForwarder* p);
+int __cdecl cleanupLoadedObject_hkpWorldCinfo(VtblForwarder* p);
 extern int DAT_01269104;
 void* __cdecl Object_GetGlobalObjectAddress_00d6aee0();
 struct ResultFlag
@@ -204,7 +204,7 @@ class hkDerivedD6A : public hkBaseD6A
     hkMemberD6A m_kMemberDescriptor;
     int m_iType;
 };
-void __cdecl ConstructHkDerived(void* pvObject, int iFinishing);
+void __cdecl finishLoadedObject_hkpConstraintInstance(void* pvObject, int iFinishing);
 class FUN_00d60540 : public hkReferencedObject
 {
   public:
@@ -230,7 +230,7 @@ void __stdcall FUN_00d60900(char* p);
 struct FUN_00d60600_class
 {
     void __thiscall WriteSwapped(int a, int b, int c);
-    void __thiscall WriteSwapped_Thunk(int a, int b);
+    void __thiscall hkOArchive_write64(int a, int b);
 };
 struct FUN_00d61470_Class
 {
@@ -466,7 +466,7 @@ struct FUN_00ddccb0_Obj
 {
     void FUN_00ddccb0(int a1);
 };
-struct FUN_00d62ef0_cls
+struct hkpWorldSnapshotViewer
 {
     int* unk00;
     int unk04;
@@ -480,7 +480,7 @@ struct FUN_00d62ef0_cls
     int unk24;
     unsigned char unk28;
 
-    FUN_00d62ef0_cls* UpdateState_00d62ef0(int aParam, unsigned char aValue);
+    hkpWorldSnapshotViewer* UpdateState_00d62ef0(int aParam, unsigned char aValue);
 };
 extern int DAT_010d1720;
 extern int DAT_010d1700;
@@ -685,13 +685,13 @@ class hkIfaceBD642
   public:
     virtual void b0() = 0;
 };
-class FUN_00d64260 : public FUN_00ddccb0, public hkIfaceAD642, public hkIfaceBD642
+class hkpSweptTransformDisplayViewer : public FUN_00ddccb0, public hkIfaceAD642, public hkIfaceBD642
 {
   public:
     hkArray<void*> m_ppData;
 
-    FUN_00d64260(void* p) throw();
-    virtual ~FUN_00d64260() throw();
+    hkpSweptTransformDisplayViewer(void* p) throw();
+    virtual ~hkpSweptTransformDisplayViewer() throw();
     virtual void p8();
     virtual void p20();
     virtual void a0();
@@ -703,7 +703,7 @@ struct FnvCpu_FUN_00d645f0_CpuBlock
 {
     unsigned int unk00;
     unsigned short size;
-    FnvCpu_FUN_00d645f0_CpuBlock* FUN_00d64260(unsigned int value);
+    FnvCpu_FUN_00d645f0_CpuBlock* hkpSweptTransformDisplayViewer(unsigned int value);
 };
 void* __cdecl hkpSweptTransformDisplayViewer_create(unsigned int value);
 struct FUN_00d65250_cls

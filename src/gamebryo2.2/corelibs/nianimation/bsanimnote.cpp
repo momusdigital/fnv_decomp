@@ -167,7 +167,8 @@ template <class T> inline void A4AF0LoadBinary(NiBinaryStream& kStream, T& rValu
 }
 
 // @fnv 0x00a44af0
-void __fastcall LoadAnimNotes(BSAnimNotes* self, void*, NiStream& kStream)
+// src: EXE 0x00a44af0
+void __fastcall BSAnimNotes_LoadBinary(BSAnimNotes* self, void*, NiStream& kStream)
 {
     self->NiObject::LoadBinary(kStream);
 
@@ -255,7 +256,8 @@ template <class T> inline void WriteBinaryValue(NiStream& kStream, const T& valu
 
 // Calls the base routine, then writes the note type and time to the output stream.
 // @fnv 0x00a44a90
-void __fastcall LinkAnimNote(BSAnimNote* self, void*, NiStream& kStream)
+// src: EXE 0x00a44a90
+void __fastcall BSAnimNote_SaveBinary(BSAnimNote* self, void*, NiStream& kStream)
 {
     self->NiObject::LinkObject(kStream);
     WriteBinaryValue(kStream, *(int*)self->unk08);
@@ -270,7 +272,8 @@ template <class T> inline void B80SaveBinary(NiBinaryStream& kStream, const T& r
 
 // Saves the B80Notes object by calling the base B80Object save, writing self->m_usNumAnimNotes, and saving each NiObject link ID in self->m_ppNotes.
 // @fnv 0x00a44b80
-void __fastcall SaveAnimNotes(BSAnimNotes* self, void*, NiStream& kStream)
+// src: COMMUNITY 0x00a44b80
+void __fastcall BSAnimNotes_SaveBinary(BSAnimNotes* self, void*, NiStream& kStream)
 {
     self->NiObject::LinkObject(kStream);
     B80SaveBinary(*kStream.m_pkOstr, self->m_usNumAnimNotes);

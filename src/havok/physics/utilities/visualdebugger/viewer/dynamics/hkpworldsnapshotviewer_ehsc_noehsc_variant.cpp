@@ -16,7 +16,7 @@ extern int DAT_010d16f0;
 extern int DAT_010d1700;
 extern int DAT_010d1720;
 extern void __cdecl FUN_00ddcc60();
-struct FUN_00d62fe0_cls
+struct hkpWorldSnapshotViewer
 {
     void __thiscall UpdateFields_00d62fe0();
 };
@@ -37,7 +37,7 @@ extern int DAT_01268fc0;
 void __cdecl hkpWorldSnapshotViewer_createNative();
 void __cdecl AllocateRecordWithData();
 void __cdecl RegisterSnapshotCommands();
-struct FUN_00c7be20_cls;
+struct bhkRagdollController;
 struct FUN_00c7be20_src
 {
     int unk00;
@@ -52,7 +52,7 @@ struct FUN_00c7be20_arr
     unsigned int m_capFlags;
 };
 void* __cdecl hkMemoryRouter_getInstance() throw();
-struct FUN_00c7be20_cls
+struct bhkRagdollController
 {
     int unk00;
     int unk04;
@@ -96,7 +96,7 @@ struct SubObject
 {
     void Init(int a, int b);
 };
-struct FUN_00d63280_cls
+struct hkpWorldMemoryViewer
 {
     void* m_vtbl0;
     int unk04;
@@ -111,7 +111,7 @@ struct FUN_00d63280_cls
     SubObject m_sub28;
 
     void Setup(int b);
-    FUN_00d63280_cls* hkpWorldMemoryViewer_hkpWorldMemoryViewer(int a, int b);
+    hkpWorldMemoryViewer* hkpWorldMemoryViewer_hkpWorldMemoryViewer(int a, int b);
 };
 
 

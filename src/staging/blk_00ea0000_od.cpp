@@ -337,7 +337,7 @@ struct IUnknownEBF
     virtual void __stdcall vf2C();
     virtual void __stdcall vf30();
     virtual void __stdcall vf34();
-    virtual void __stdcall vf38();
+    virtual void __stdcall PrintInfo();
     virtual void __stdcall vf3C();
     virtual void __stdcall vf40();
     virtual void __stdcall vf44();

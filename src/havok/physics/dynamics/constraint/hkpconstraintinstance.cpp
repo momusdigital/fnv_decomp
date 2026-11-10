@@ -283,7 +283,8 @@ namespace fnv_00cf4160 {
 
 // Destructs the object, then frees it via operator delete when uiFlags has bit 0 set, and returns this.
 // @fnv 0x00cf4160
-hkpConstraintInstance* __fastcall FUN_00cf4160(hkpConstraintInstance* self, int, unsigned int uiFlags) throw()
+// src: EXE 0x00cf4160
+hkpConstraintInstance* __fastcall ScalarDeletingDestructor(hkpConstraintInstance* self, int, unsigned int uiFlags) throw()
 {
     fnv_00cf40b0::hkpConstraintInstance_ProcessEntries_00cf40b0(self);
     if (uiFlags & 1)

@@ -64,7 +64,7 @@ struct ScrapHeapBuffer
     void* Allocate(unsigned int, unsigned int);
 };
 extern unsigned int DAT_010a2720;
-struct FUN_006abcb0_shell
+struct BSScrapArray
 {
     char _pad[16];
     ScrapHeapBuffer* heap;
@@ -73,7 +73,7 @@ struct FUN_006abcb0_shell
 // Allocates n blocks of 0x14 bytes from the heap and returns the pointer.
 // @fnv 0x006abcb0
 // src: COMMUNITY 0x006abcb0
-void* __thiscall FUN_006abcb0_shell::BSScrapArray_NavMeshSearchNode_1024_Allocate(unsigned int auiCount)
+void* __thiscall BSScrapArray::BSScrapArray_NavMeshSearchNode_1024_Allocate(unsigned int auiCount)
 {
     void* tmp;
     tmp = heap->Allocate(auiCount * 0x14, DAT_010a2720);
@@ -259,7 +259,7 @@ struct NavMeshSearchLocation
     NiPoint3 FastNavMeshTriLocation_GetLocation();
 };
 // @fnv 0x006ab4a0
-bool NavMeshSearchMaxCost::StartSearch(int aiSearchType, NavMeshSearchLocation* apStart, PathingLocation* apGoal,
+bool NavMeshSearchMaxCost::BuildNodePath(int aiSearchType, NavMeshSearchLocation* apStart, PathingLocation* apGoal,
                                      PathBuilderDetailedPathInfos* apInfos, PathBuilderDetailedPathInfos* apAltInfos)
 {
     (*(NavMeshSearchLocation*)&unk205c) = *apStart;

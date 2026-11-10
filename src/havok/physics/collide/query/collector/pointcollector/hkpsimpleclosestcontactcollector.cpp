@@ -9,7 +9,7 @@ struct Source
     __m128 v1;
 };
 
-struct FUN_00dafc90_cls
+struct hkpSimpleClosestContactCollector
 {
     int unk00;
     float unk04;
@@ -22,7 +22,7 @@ struct FUN_00dafc90_cls
 
 // If flag is unset or src's v1 w is less than the stored v1 w, sets flag and copies v0, v1 and that w from src.
 // @fnv 0x00dafc90
-void FUN_00dafc90_cls::Update(Source* src)
+void hkpSimpleClosestContactCollector::Update(Source* src)
 {
     if (!flag || src->v1.m128_f32[3] < v1.m128_f32[3])
     {

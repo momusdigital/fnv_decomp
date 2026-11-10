@@ -737,7 +737,7 @@ class GlobalDispatcher
     void Dispatch(void* arg);
 };
 
-class FUN_00ddcaf0_cls
+class hkDebugDisplayProcess
 {
   public:
     void* m_vtbl;
@@ -749,13 +749,13 @@ class FUN_00ddcaf0_cls
     void* m_20;
 
     void Helper();
-    FUN_00ddcaf0_cls* hkDebugDisplayProcess_hkDebugDisplayProcess();
+    hkDebugDisplayProcess* hkDebugDisplayProcess_hkDebugDisplayProcess();
 };
 
 // Initializes m_06, m_0c, m_08, m_20, and m_vtbl, calls Helper if DAT_01269cdc is zero, then dispatches m_20 via GlobalDispatcher.
 // @fnv 0x00ddcaf0
 // src: HAVOK_LIB 0x00ddcaf0
-FUN_00ddcaf0_cls* FUN_00ddcaf0_cls::hkDebugDisplayProcess_hkDebugDisplayProcess()
+hkDebugDisplayProcess* hkDebugDisplayProcess::hkDebugDisplayProcess_hkDebugDisplayProcess()
 {
     unsigned char flag = 1;
     m_06 = 1;

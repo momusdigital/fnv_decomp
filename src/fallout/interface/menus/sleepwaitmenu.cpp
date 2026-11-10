@@ -211,7 +211,7 @@ bool SleepWaitMenu::DoGamepad_007c04d0(int a1, int aiUnused)
     using fnv_007c04d0::DAT_011da918;
     using fnv_007c04d0::Tile_TextToTrait;
     bool done = false;
-    if (m_pTiles[TI_WAIT_BUTTON]->IsTraitNonZero(0xfaf))
+    if (m_pTiles[TI_WAIT_BUTTON]->Tile_IsTrue(0xfaf))
     {
         if (a1 == 0xf || a1 == 0x10)
         {
@@ -242,7 +242,7 @@ void SleepWaitMenu::UpdateGaugeDisplay()
     char szText[260];
     if (m_pTiles[TI_SCROLLBAR]->FUN_00a011b0(DAT_011da918) != m_fWaitTime)
     {
-        if (m_pTiles[TI_WAIT_BUTTON]->IsTraitNonZero(0xfaf))
+        if (m_pTiles[TI_WAIT_BUTTON]->Tile_IsTrue(0xfaf))
         {
             Interface_PlayMenuSound(4);
         }
@@ -371,7 +371,7 @@ static const char s_szHourFormat[] = "1 %s";
 static const char s_szBackground[] = "SWM_Background";
 extern const char g_szSleepWaitEnd[] = "";
 
-// Creates the sleep/wait menu from s_szMenuPath, sets its title, verb, hour, clock, and background, and returns the root tile or 0 on failure.
+// Creates the sleep/hkSemaphore_release menu from s_szMenuPath, sets its title, verb, hour, clock, and background, and returns the root tile or 0 on failure.
 // @fnv 0x007bfc30
 Tile* __cdecl CreateSleepWaitMenu(bool bSleep)
 {

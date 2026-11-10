@@ -50,15 +50,15 @@ bool BSSoundHandle::operator==(unsigned int value) const
 
 unsigned int __cdecl gm_GetTickCount();
 
-struct FUN_0076bda0_class
+struct BSTimer
 {
-    FUN_0076bda0_class* __thiscall ProcessAndReturnValue_0076bda0();
+    BSTimer* __thiscall ProcessAndReturnValue_0076bda0();
     void __thiscall BSTimer_Init(unsigned int);
 };
 
 // @fnv 0x0076bda0
 // src: GUESS 0x0076bda0 (confidence: low)
-FUN_0076bda0_class* __thiscall FUN_0076bda0_class::ProcessAndReturnValue_0076bda0()
+BSTimer* __thiscall BSTimer::ProcessAndReturnValue_0076bda0()
 {
     BSTimer_Init(gm_GetTickCount());
     return this;
@@ -554,7 +554,7 @@ extern TimeGlobalStub g_timeGlobal;
 extern GO709f00Stub g_011d8a38;
 extern int DAT_011d96ac;
 
-struct FUN_0076bb40 : Menu
+struct HUDMainMenu : Menu
 {
     int unk28;
     int unk2c;
@@ -678,14 +678,15 @@ struct FUN_0076bb40 : Menu
     ListStub list264;
     ListStub list26c;
     float unk274;
-    FUN_0076bb40();
-    virtual ~FUN_0076bb40();
+    HUDMainMenu();
+    virtual ~HUDMainMenu();
 };
 
 void* __cdecl memset(void*, int, unsigned int);
 
 // @fnv 0x0076bb40
-FUN_0076bb40::FUN_0076bb40()
+// src: EXE 0x0076bb40
+HUDMainMenu::HUDMainMenu()
 {
     memset(&unk28, 0, 0x158);
     unk184 = 0;
@@ -740,7 +741,7 @@ struct B006815c0
 extern bool DAT_011d9514;
 extern float DAT_011a008c;
 void* __cdecl GetInstance();
-struct FUN_007617a0 : Menu
+struct DialogMenu : Menu
 {
     int unk28;
     int unk2c;
@@ -803,11 +804,12 @@ struct FUN_007617a0 : Menu
     bool unk138;
     bool unk139;
     bool unk13a;
-    FUN_007617a0();
-    virtual ~FUN_007617a0();
+    DialogMenu();
+    virtual ~DialogMenu();
 };
 // @fnv 0x007617a0
-FUN_007617a0::FUN_007617a0()
+// src: EXE 0x007617a0
+DialogMenu::DialogMenu()
 {
     unk80 = 0;
     DAT_011d9514 = true;

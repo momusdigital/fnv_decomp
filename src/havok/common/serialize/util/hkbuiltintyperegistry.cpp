@@ -63,7 +63,7 @@ struct FUN_00d874d0_s
 {
     void hkCachedHashMap_hkStringMapOperations_hkContainerHeapAllocator_insert(const char*, int);
 };
-struct FUN_00d47aa0_s
+struct hkDynamicClassNameRegistry
 {
     int a;
     int b;
@@ -73,7 +73,7 @@ struct FUN_00d47aa0_s
 // Calls FUN_00d874d0 on the object at this+0xc with the given name (or the name from a) and a.
 // @fnv 0x00d47aa0
 // src: HAVOK_LIB 0x00d47aa0
-void FUN_00d47aa0_s::hkDynamicClassNameRegistry_registerClass(int a, const char* name)
+void hkDynamicClassNameRegistry::hkDynamicClassNameRegistry_registerClass(int a, const char* name)
 {
     ((FUN_00d874d0_s*)((char*)this + 0xc))->hkCachedHashMap_hkStringMapOperations_hkContainerHeapAllocator_insert(name ? name : ((D481D0Class*)a)->getName(), a);
 }
@@ -765,12 +765,13 @@ class hkObjectD47B : public hkReferencedObject
   public:
     hkMemberD47B m_kMemberDescriptor;
 
-    hkObjectD47B* FUN_00d47b70(unsigned int uiFlags) throw();
+    hkObjectD47B* ScalarDeletingDestructor(unsigned int uiFlags) throw();
 };
 
 // Frees the member buffer, runs the base destructor, and optionally deallocates the object when uiFlags has bit 0 set.
 // @fnv 0x00d47b70
-hkObjectD47B* hkObjectD47B::FUN_00d47b70(unsigned int uiFlags) throw()
+// src: EXE 0x00d47b70
+hkObjectD47B* hkObjectD47B::ScalarDeletingDestructor(unsigned int uiFlags) throw()
 {
     m_kMemberDescriptor.FreeBuffer();
     this->hkReferencedObject::~hkReferencedObject();

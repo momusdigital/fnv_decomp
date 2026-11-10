@@ -101,7 +101,7 @@ struct SpawnedFloat
     SpawnedFloat(float value) throw();
 };
 
-struct FUN_00c32da0_cls
+struct NiPSysModifierFloatCtlr
 {
     virtual void vfn00();
     virtual void vfn01();
@@ -170,7 +170,7 @@ struct FUN_00c32da0_cls
 
 // Fetches a float via FetchValue and allocates a SpawnedFloat initialized with that value, returning it.
 // @fnv 0x00c32da0
-void* FUN_00c32da0_cls::CreateSpawnedFloat(float unused)
+void* NiPSysModifierFloatCtlr::CreateSpawnedFloat(float unused)
 {
     float value;
     this->FetchValue(&value);

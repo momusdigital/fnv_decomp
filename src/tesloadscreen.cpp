@@ -136,7 +136,8 @@ void TESLoadScreen::InitItem()
 
 // Builds a location key from the form's cell, worldspace or reference and checks whether it matches an entry in the load screen location list.
 // @fnv 0x005a6ec0
-bool TESLoadScreen::MatchesFormLocation(TESForm* form)
+// src: COMMUNITY 0x005a6ec0
+bool TESLoadScreen::CanDisplayForForm(TESForm* form)
 {
     bool validLocation = false;
     WorldCellRecord location = {0, 0, 0};
@@ -254,8 +255,8 @@ int TESLoadScreen::GetLoadScreenTypeDataType()
 // @fnv 0x005a68b0
 void TESLoadScreen::InitializeComponent()
 {
-    TESForm::BeginFormRecord();
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_StartForm();
+    TESForm::TESForm_CloseForm();
 }
 
 // @fnv 0x005a67e0

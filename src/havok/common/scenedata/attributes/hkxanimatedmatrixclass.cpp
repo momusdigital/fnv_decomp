@@ -10,7 +10,7 @@ extern "C" int DAT_0102e388;
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 
-struct FUN_00e02650_cls
+struct hkxAnimatedMatrix
 {
     int m_vptr;
     unsigned short m_uSize;
@@ -19,11 +19,11 @@ struct FUN_00e02650_cls
     int m_0c;
     unsigned int m_10;
 
-    FUN_00e02650_cls* Destroy(unsigned char acFlags);
+    hkxAnimatedMatrix* Destroy(unsigned char acFlags);
 };
 
 // @fnv 0x00e02650
-FUN_00e02650_cls* FUN_00e02650_cls::Destroy(unsigned char acFlags)
+hkxAnimatedMatrix* hkxAnimatedMatrix::Destroy(unsigned char acFlags)
 {
     hkMemoryRouter* pHolder = hkMemoryRouter_getInstance();
     hkMemoryAllocator* pAllocator = reinterpret_cast<hkMemoryAllocator*>(pHolder->m_heap);

@@ -609,11 +609,12 @@ struct SurgeryFrameOperations : SurgeryMenu
     void Drag();
     bool Hit();
     void Update();
-    void UpdateFrame();
+    void SurgeryMenu_Update();
 };
 // Updates the menu's top-menu flag, drag position, decay of unkAC over time, sounds, and the value text from the player's actor value 16.
 // @fnv 0x007e23c0
-void SurgeryFrameOperations::UpdateFrame()
+// src: EXE 0x007e23c0
+void SurgeryFrameOperations::SurgeryMenu_Update()
 {
     char text[256];
     if (!IsMenu(0x41e))
@@ -2206,7 +2207,7 @@ struct DecalCell
 };
 extern DecalCell* DAT_011dea3c;
 extern float __cdecl RandomFloatTwoPi();
-struct FUN_004a37b0
+struct DECAL_CREATION_DATA
 {
     NiPoint3 position, direction, unknown18;
     unsigned int unknown24;
@@ -2223,9 +2224,9 @@ struct FUN_004a37b0
     unsigned int unknown6c;
     unsigned char unknown70, unknown71, unknown72, unknown73, unknown74, unknown75, unknown76, unknown77, unknown78,
         unknown79;
-    FUN_004a37b0();
+    DECAL_CREATION_DATA();
 };
-typedef struct FUN_004a37b0 DecalInfo;
+typedef struct DECAL_CREATION_DATA DecalInfo;
 struct DecalManager
 {
     void AddGeometryDecal(DecalInfo*, bool, bool);
@@ -2551,7 +2552,7 @@ struct PickInterface
     static bool InterfaceManager_Has360Controller();
     int InterfaceManager_GetCursorY();
     int GetCursorX();
-    void UpdateTilePosition(float afValue);
+    void InterfaceManager_SetCursorPos(float afValue);
 };
 
 struct PickPoint
@@ -2565,7 +2566,7 @@ struct PickPoint
 
 struct PickInput
 {
-    int GetAxisState(int aiDevice, int aiAxis);
+    int OSInputGlobals_GetControllerValue(int aiDevice, int aiAxis);
     int Controls_GetMouseAxis(int aiAxis);
 };
 
@@ -2695,8 +2696,8 @@ void PickMenu::UpdateLockpick(bool abForcing)
         PickPoint kInput;
         if (InterfaceManager_GetSingleton()->InterfaceManager_Has360Controller())
         {
-            int iStickX = pInputIn->GetAxisState(0, 7);
-            int iStickYTmp = pInputIn->GetAxisState(0, 8);
+            int iStickX = pInputIn->OSInputGlobals_GetControllerValue(0, 7);
+            int iStickYTmp = pInputIn->OSInputGlobals_GetControllerValue(0, 8);
             kInput.x = (int)(iStickX * *DAT_011d8c5c.Setting_Float_00403e20());
             kInput.y = (int)(-iStickYTmp * *DAT_011d8c5c.Setting_Float_00403e20());
             kCursorPos.Add(&kInput.FUN_004a4f40(LinearInterpolate(0.25f, 0.5f, 0.0f, 1.0f, fMouseNew)));
@@ -2713,7 +2714,7 @@ void PickMenu::UpdateLockpick(bool abForcing)
         fResistance = fResistance / 5.0;
         UpdateTilePositions((int)kCursorPos.x, (int)kCursorPos.y);
         float fTimeSinceScaleStart = GetRatio();
-        pInterfaceFinal->UpdateTilePosition(
+        pInterfaceFinal->InterfaceManager_SetCursorPos(
             pDial->GetTotalFloat(pDial->GetAccumulatedFloat() / Renderer_GetScreenHeight() * fTimeSinceScaleStart) /
             Renderer_GetScreenWidth() * fTimeSinceScaleStart);
     }
@@ -2725,8 +2726,8 @@ void PickMenu::UpdateLockpick(bool abForcing)
         if (InterfaceManager_GetSingleton()->InterfaceManager_Has360Controller())
         {
             PickInput* pPadIn = DAT_011dea0c->Main_GetControls();
-            int iPadX = pPadIn->GetAxisState(0, 7);
-            int iPadY = pPadIn->GetAxisState(0, 8);
+            int iPadX = pPadIn->OSInputGlobals_GetControllerValue(0, 7);
+            int iPadY = pPadIn->OSInputGlobals_GetControllerValue(0, 8);
             iPadX = (int)(iPadX * *DAT_011d8c5c.Setting_Float_00403e20());
             iPadY = (int)(-iPadY * *DAT_011d8c5c.Setting_Float_00403e20());
             UpdateTilePositions((int)pDial->FUN_00a011b0(0xfa1) + iPadX, (int)pDial->FUN_00a011b0(0xfa2) + iPadY);

@@ -2,18 +2,18 @@
 // src/speedtree/frondengine.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/_fallout3/platforms/common/code/speedtree/frondengine.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
-struct FUN_00b1ada0_class
+struct Vec3
 {
     float a;
     float b;
     float c;
-    FUN_00b1ada0_class* SetThreeComponents(float x, float y, float z);
+    Vec3* SetThreeComponents(float x, float y, float z);
 };
 
 // Stores x, y and z into the object's a, b and c fields and returns this.
 // @fnv 0x00b1ada0
 // src: GUESS 0x00b1ada0 (confidence: medium)
-FUN_00b1ada0_class* FUN_00b1ada0_class::SetThreeComponents(float x, float y, float z)
+Vec3* Vec3::SetThreeComponents(float x, float y, float z)
 {
     a = x;
     b = y;
@@ -81,12 +81,12 @@ struct FUN_00b1db00_class
     int i8;
     int ic;
     int i10;
-    unsigned int __thiscall GetElementAddress38_00b1db00(unsigned int a);
+    unsigned int __thiscall vector_at(unsigned int a);
 };
 // Bounds-checks index a against (i10 - ic) / 56, calls FUN_00ec7c56 if out of range, and returns ic + a * 56.
 // @fnv 0x00b1db00
-// src: GUESS 0x00b1db00 (confidence: low)
-unsigned int __thiscall FUN_00b1db00_class::GetElementAddress38_00b1db00(unsigned int uiIndex)
+// src: GUESS 0x00b1db00 (confidence: medium)
+unsigned int __thiscall FUN_00b1db00_class::vector_at(unsigned int uiIndex)
 {
     if (uiIndex >= (unsigned int)((i10 - ic) / 56))
         FUN_00ec7c56();
@@ -140,12 +140,12 @@ struct FUN_00b319a0_class
     int m_8;
     int m_iThirdValue;
     int m_10;
-    int __thiscall ProcessAndReturnValue_00b319a0(int n);
+    int __thiscall vector_at(int n);
 };
 unsigned int __cdecl FUN_00ec7c56();
 // @fnv 0x00b319a0
-// src: GUESS 0x00b319a0 (confidence: low)
-int __thiscall FUN_00b319a0_class::ProcessAndReturnValue_00b319a0(int uiIndex)
+// src: GUESS 0x00b319a0 (confidence: medium)
+int __thiscall FUN_00b319a0_class::vector_at(int uiIndex)
 {
     if (uiIndex >= (unsigned int)((m_10 - m_iThirdValue) / 24))
         FUN_00ec7c56();
@@ -162,12 +162,12 @@ struct FUN_00b1ec70_class
     int* q;
     int* r;
     void __thiscall FUN_00b1ebc0(int* a, int* b);
-    void __thiscall ReleaseStorage_00b1ec70();
+    void __thiscall vector__Tidy();
 };
 // Frees the buffer at p after calling FUN_00b1ebc0 on p and q, then resets p, q and r to null.
 // @fnv 0x00b1ec70
-// src: GUESS 0x00b1ec70 (confidence: low)
-void __thiscall FUN_00b1ec70_class::ReleaseStorage_00b1ec70()
+// src: GUESS 0x00b1ec70 (confidence: high)
+void __thiscall FUN_00b1ec70_class::vector__Tidy()
 {
     int a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12;
     if (p)
@@ -246,12 +246,12 @@ struct FUN_00b1fe80_helper
     int* m10;
     int* m14;
     void __thiscall FUN_00b22650(int* a, int* b);
-    void __thiscall UpdateFields_00b1fe80();
+    void __thiscall vector__Tidy();
 };
 // Frees the array at mC after calling FUN_00b22650 on it, then nulls mC, m10 and m14.
 // @fnv 0x00b1fe80
-// src: GUESS 0x00b1fe80 (confidence: low)
-void FUN_00b1fe80_helper::UpdateFields_00b1fe80()
+// src: GUESS 0x00b1fe80 (confidence: high)
+void FUN_00b1fe80_helper::vector__Tidy()
 {
     int a0;
     int a1;
@@ -292,13 +292,13 @@ struct FUN_00b1f650_class
     void* pc;
     void* pe;
     void* pp;
-    void __thiscall ReleaseStorage_00b1f650();
+    void __thiscall vector__Tidy();
 };
 
 // Frees the pc buffer via FUN_00b20c30 and operator delete, then resets pc, pe and pp to null.
 // @fnv 0x00b1f650
-// src: GUESS 0x00b1f650 (confidence: low)
-void FUN_00b1f650_class::ReleaseStorage_00b1f650()
+// src: GUESS 0x00b1f650 (confidence: high)
+void FUN_00b1f650_class::vector__Tidy()
 {
     char buf[0x50];
     {

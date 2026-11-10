@@ -424,7 +424,7 @@ void LightEffect::AttachLightEffect()
 
         float fY = (((ActorLightPositionView*)pTarget3)->GetLightPosition().y + *originalRuntimeFloatSetting1166.Float()) *
                    pTarget3->TESObjectREFR_GetScale_00567400();
-        float fZ = pTarget3->GetActorHeight() +
+        float fZ = pTarget3->Actor_GetHeight() +
                    *originalRuntimeFloatSetting1167.Float() * pTarget3->TESObjectREFR_GetScale_00567400();
 
         this->m_spLight->NiAVObject_SetTranslate_004bc1f0(fX, fY, fZ);

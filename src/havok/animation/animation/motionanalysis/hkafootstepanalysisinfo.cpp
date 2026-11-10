@@ -30,7 +30,7 @@ struct RefObj
 struct Obj : RefObj
 {
     int pad[(0x98 - 8) / 4];
-    __declspec(nothrow) Obj* FUN_00e40800(int a0, float a1, float a2, float a3, int a4, int a5, int a6, int a7, int a8);
+    __declspec(nothrow) Obj* hkaFootstepAnalysisInfo(int a0, float a1, float a2, float a3, int a4, int a5, int a6, int a7, int a8);
 };
 
 struct ObjRef
@@ -112,7 +112,7 @@ inline void* hkAlloc(int n)
 // @fnv 0x00e40ec0
 Obj* Owner::CreateAndAddObject(int a0, float a1, float a2, float a3, int a4, int a5, int a6, int a7, int a8)
 {
-    ObjRef p = ((Obj*)hkAlloc(sizeof(Obj)))->FUN_00e40800(a0, a1, a2, a3, a4, a5, a6, a7, a8);
+    ObjRef p = ((Obj*)hkAlloc(sizeof(Obj)))->hkaFootstepAnalysisInfo(a0, a1, a2, a3, a4, a5, a6, a7, a8);
     m_aiIndexedValues.AddBack(p);
     p->FUN_00c905b0();
     return m_aiIndexedValues[m_aiIndexedValues.GetLogicalSize() - 1];
@@ -139,17 +139,18 @@ struct E40FA0Array
     {}
 };
 
-struct FUN_00e40fa0 : E40FA0ReferencedObject
+struct hkaFootstepAnalysisInfoContainer : E40FA0ReferencedObject
 {
     E40FA0Array m_ppData;
 
-    FUN_00e40fa0();
-    virtual ~FUN_00e40fa0();
+    hkaFootstepAnalysisInfoContainer();
+    virtual ~hkaFootstepAnalysisInfoContainer();
 };
 
 // Default constructor for the referenced object; the array member is default-initialized by its own constructor.
 // @fnv 0x00e40fa0
-FUN_00e40fa0::FUN_00e40fa0()
+// src: EXE 0x00e40fa0
+hkaFootstepAnalysisInfoContainer::hkaFootstepAnalysisInfoContainer()
 {}
 
 namespace fnv_00e40fd0 {
@@ -368,7 +369,7 @@ struct S_00e40800_RefObject
     virtual ~S_00e40800_RefObject() throw();
 };
 
-struct FUN_00e40800 : S_00e40800_RefObject
+struct hkaFootstepAnalysisInfo : S_00e40800_RefObject
 {
     S_00e40800_String m_name8;
     S_00e40800_String m_name14;
@@ -385,14 +386,15 @@ struct FUN_00e40800 : S_00e40800_RefObject
     float m_f90;
     float m_f94;
 
-    FUN_00e40800(int n, float a2, float a3, float a4, const char* s5, const char* s6, const char* s7, const char* s8,
+    hkaFootstepAnalysisInfo(int n, float a2, float a3, float a4, const char* s5, const char* s6, const char* s7, const char* s8,
                  const char* s9) throw();
-    virtual ~FUN_00e40800() throw();
+    virtual ~hkaFootstepAnalysisInfo() throw();
 };
 
 // Initializes string fields from s5-s9, stores a2-a4 into m_f94, m_f8c, m_f90, and sets up six float arrays with given size and fill values.
 // @fnv 0x00e40800
-FUN_00e40800::FUN_00e40800(int aiSize, float afValue1, float afValue2, float afValue3, const char* apName1,
+// src: EXE 0x00e40800
+hkaFootstepAnalysisInfo::hkaFootstepAnalysisInfo(int aiSize, float afValue1, float afValue2, float afValue3, const char* apName1,
                            const char* apName2, const char* apName3, const char* apName4, const char* apName5) throw()
     : m_arr44(aiSize, 3.40282e38f), m_arr50(aiSize, -3.40282e38f), m_arr5c(aiSize, 3.40282e38f),
       m_arr68(aiSize, -3.40282e38f), m_arr74(aiSize, 0.0f), m_arr80(aiSize, 1.0f)
@@ -438,11 +440,12 @@ struct CpuObject
     unsigned int unk00;
     unsigned short size;
     void FUN_00e40cb0();
-    CpuObject* FUN_00e41050(unsigned int flags);
+    CpuObject* ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_00e40cb0, then if flags & 1 invokes the global CpuAllocator on this object with its size, and returns this.
 // @fnv 0x00e41050
-CpuObject* CpuObject::FUN_00e41050(unsigned int flags)
+// src: EXE 0x00e41050
+CpuObject* CpuObject::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00e40cb0();
     if (flags & 1)
@@ -467,7 +470,7 @@ hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 extern int DAT_010e58c8;
 extern int DAT_0102e388;
 
-struct FUN_00e41e20_cls
+struct hkaAnimationPreviewColorContainer
 {
     int m_vptr00;
     unsigned int unk04;
@@ -481,7 +484,7 @@ struct FUN_00e41e20_cls
 // If the capacity flag is clear, calls FreeArray on m_pData; then clears the data and size fields and assigns the final vtable value.
 // @fnv 0x00e41e20
 // src: GUESS 0x00e41e20 (confidence: medium)
-void FUN_00e41e20_cls::ReleaseOwnedArray()
+void hkaAnimationPreviewColorContainer::ReleaseOwnedArray()
 {
     m_vptr00 = (int)&DAT_010e58c8;
     hkMemoryRouter* pHolder = hkMemoryRouter_getInstance();

@@ -120,8 +120,8 @@ class ProcessLists
     MobileObjectProcessArray* GetProcessArray();
     void InitLoadGame(BGSLoadGameBuffer*);
     bool IsActorTalkingThroughActivator(Actor*);
-    void ProcessMobileObjects(Reset3DMobIterator*);
-    void ProcessMobileObjects(void*);
+    void ProcessLists_IterateMobs(Reset3DMobIterator*);
+    void ProcessLists_IterateMobs(void*);
     static void ProcessPlayerCellActors();
     void RegisterTempEffect(BSTempEffect*);
     void RemoveActorFromAliveList(Actor*);
@@ -135,6 +135,6 @@ class ProcessLists
     void UpdateHighProcess();
     void UpdateInterfaceTempEffects(float);
     void UpdateLowListProcessLists(float, bool);
-    void UpdateLowProcesses(float, bool);
+    void ProcessLists_UpdateLowList(float, bool);
     void UpdateMagicTempEffects(float);
 };

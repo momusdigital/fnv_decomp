@@ -29,14 +29,14 @@ public:
     void SetBit(bool value, unsigned short mask);
     NiControllerSequence* FindSequenceByName(const NiFixedString& name);
     static NiFixedString* FindSequenceByName();
-    bool StopSequence(NiControllerSequence* sequence, float easeOutTime = 0.0f);
-    bool StopSequence(NiControllerSequenceX* sequence, float easeOutTime);
-    bool ActivateControllerSequence(NiControllerSequence* sequence, int priority = 0,
+    bool DeactivateSequence(NiControllerSequence* sequence, float easeOutTime = 0.0f);
+    bool DeactivateSequence(NiControllerSequenceX* sequence, float easeOutTime);
+    bool ActivateSequence(NiControllerSequence* sequence, int priority = 0,
         bool startOver = false, float weight = 1.0f, float easeInTime = 0.0f,
         NiControllerSequence* timeSyncSequence = 0);
-    void ActivateControllerSequence(NiControllerSequence* sequence, int priority,
+    void ActivateSequence(NiControllerSequence* sequence, int priority,
         bool startOver, float weight, float easeInTime, int timeSyncSequence);
-    void DeactivateAllSequences(float easeOutTime);
+    void DeactivateAll(float easeOutTime);
     unsigned int GetSequenceCount();
     NiControllerSequence* GetSequenceAt(unsigned int index);
     NiAVObjectPalette* GetStringAtOffset();

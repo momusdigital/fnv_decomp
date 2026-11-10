@@ -98,12 +98,13 @@ extern "C" void* Deallocate(void*);
 struct FUN_009e9a20_Class
 {
     void FUN_009e9980();
-    void* FUN_009e9a20(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_009e9980, then frees this via Deallocate when flags has bit 1 set, and returns this.
 // @fnv 0x009e9a20
-void* FUN_009e9a20_Class::FUN_009e9a20(unsigned int flags)
+// src: EXE 0x009e9a20
+void* FUN_009e9a20_Class::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_009e9980();
     if (flags & 1)
@@ -168,7 +169,7 @@ struct BSSimpleArray_TESObjectREFR_1024
     unsigned int uiGrowSize;
     TESObjectREFR* m_pBuffer;
 };
-struct FUN_009f29a0 : ActorPackageData
+struct PatrolActorPackageData : ActorPackageData
 {
     void* m_iWordAt04;
     void* m_8;
@@ -177,12 +178,13 @@ struct FUN_009f29a0 : ActorPackageData
     void* m_14;
     void* m_18;
     BSSimpleArray_TESObjectREFR_1024 refs;
-    FUN_009f29a0();
-    virtual ~FUN_009f29a0();
+    PatrolActorPackageData();
+    virtual ~PatrolActorPackageData();
 };
 // Initializes the package data fields to null.
 // @fnv 0x009f29a0
-FUN_009f29a0::FUN_009f29a0()
+// src: EXE 0x009f29a0
+PatrolActorPackageData::PatrolActorPackageData()
 {
     m_iWordAt04 = 0;
     m_10 = 0;
@@ -300,15 +302,16 @@ void* FUN_009e99f0_Class::AssignFromSource(const void* apSource)
 }
 
 extern float DAT_01015f5c;
-struct FUN_009e9af0_Class
+struct ActorAvoidanceData
 {
     int m_iWordAt00;
     float m_iWordAt04;
-    FUN_009e9af0_Class();
+    ActorAvoidanceData();
 };
 // Initializes the object's integer field to 0 and its float field to DAT_01015f5c.
 // @fnv 0x009e9af0
-FUN_009e9af0_Class::FUN_009e9af0_Class()
+// src: GUESS 0x009e9af0 (confidence: medium)
+ActorAvoidanceData::ActorAvoidanceData()
 {
     m_iWordAt00 = 0;
     m_iWordAt04 = DAT_01015f5c;
@@ -580,7 +583,7 @@ struct GlobalObject_0041a250
     int unk08;
 };
 
-struct FUN_009edbc0 : TESPackage
+struct DialoguePackage : TESPackage
 {
     GlobalObject_0041a250 unk80;
     int unk8c;
@@ -605,12 +608,13 @@ struct FUN_009edbc0 : TESPackage
     int unkc4;
     int unkc8;
     bool unkcc;
-    FUN_009edbc0();
-    virtual ~FUN_009edbc0();
+    DialoguePackage();
+    virtual ~DialoguePackage();
 };
 
 // @fnv 0x009edbc0
-FUN_009edbc0::FUN_009edbc0()
+// src: EXE 0x009edbc0
+DialoguePackage::DialoguePackage()
 {
     unka8 = 0;
     unkac = 0;
@@ -643,18 +647,19 @@ struct SpawnedMember
     SpawnedMember();
 };
 
-struct FUN_009f0900_cls : ActorPackageData
+struct EscortActorPackageData : ActorPackageData
 {
     int m_04;
     int m_08;
     int m_0c;
     int m_10;
 
-    FUN_009f0900_cls();
+    EscortActorPackageData();
 };
 
 // @fnv 0x009f0900
-FUN_009f0900_cls::FUN_009f0900_cls()
+// src: EXE 0x009f0900
+EscortActorPackageData::EscortActorPackageData()
 {
     ((SpawnedMember*)&this->m_10)->SpawnedMember::SpawnedMember();
     this->m_04 = 0;
@@ -1222,7 +1227,7 @@ struct SrcCls
 };
 struct ItemCls
 {
-    void ForwardCall_0047eb90(int);
+    void TESFaction_SetPCAnEnemy(int);
     bool Actor_IsAlarmed();
     void Actor_EndInterruptPackage(int);
     MidCls* BSFile_GetDevice();
@@ -1305,7 +1310,7 @@ FUN_009eb660::~FUN_009eb660()
         {
             node5 = (ItemCls*)*pB6->FUN_006815c0();
             if (!DAT_011e0e80.IsActorInOtherList(node5, this))
-                node5->ForwardCall_0047eb90(0);
+                node5->TESFaction_SetPCAnEnemy(0);
             pB6 = pB6->FUN_00726070();
         }
         pACopy = FUN_0044ddc0();
@@ -1677,7 +1682,7 @@ struct SandBoxLocation
     void FUN_009f61b0();
 };
 
-class FUN_009f3900 : public ActorPackageData
+class SandBoxActorPackageData : public ActorPackageData
 {
   public:
     int m_04;
@@ -1703,12 +1708,13 @@ class FUN_009f3900 : public ActorPackageData
     float m_54;
     int m_58;
     unsigned char m_5c[6];
-    FUN_009f3900();
+    SandBoxActorPackageData();
 };
 
 // Constructor that sets the vtable, calls m_kPathingLocation.FUN_009f61b0(), initialises fields (some to -1, m_40 to 0x7f) and fills m_5c with 0x80.
 // @fnv 0x009f3900
-FUN_009f3900::FUN_009f3900()
+// src: EXE 0x009f3900
+SandBoxActorPackageData::SandBoxActorPackageData()
 {
     m_kPathingLocation.FUN_009f61b0();
     m_08 = -1;

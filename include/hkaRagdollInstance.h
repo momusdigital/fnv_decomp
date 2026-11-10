@@ -32,7 +32,7 @@ public:
     void ProcessEntries_00ce1ca0(const hkQsTransform* poseA, const hkQsTransform& worldFromModelA,
                       const hkQsTransform* poseB, const hkQsTransform& worldFromModelB,
                       float deltaTime);
-    void ProcessAndReturnValue_00ce2000(int bone, hkQsTransform& out);
+    void hkaRagdollInstance_getBoneTransformWorldSpace(int bone, hkQsTransform& out);
     void hkaRagdollInstance_getApproxWorldFromBoneTransformAt(int bone, float time, hkQsTransform& out);
     void hkaRagdollInstance_getApproxWorldFromBoneTransformAt(int bone, float time, void* out);
     void hkaRagdollInstance_commonInit(const hkArray<hkpRigidBody*>& rigidBodies,

@@ -41,7 +41,7 @@ struct FUN_004a8070_shell
 extern unsigned char DAT_0118868c;
 unsigned char __cdecl BGSSceneInfo_GetAggregateInstances();
 int __cdecl MinInt(int iA, int iB);
-struct FUN_004a8f50_shell
+struct BGSTextureUseMap
 {
     void NiTMap_NiTexture_TEX_USER_DATA_NiTMap(int a);
     void* BGSTextureUseMap_BGSTextureUseMap();
@@ -63,7 +63,7 @@ struct DummyArr
 };
 struct FUN_004a9630_shell
 {
-    void* FUN_004a9630(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };
 struct FUN_004a9850_shell
 {

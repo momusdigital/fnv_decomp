@@ -263,7 +263,7 @@ BGSDehydrationStage* BGSDehydrationStage::GetStage(unsigned int index)
 {
     return index >= 0 && index < DAT_011c3180 ? DAT_011c3184[index] : 0;
 }
-// Waits on the references handle and calls vfn_0004 when the wait succeeds without timeout.
+// Waits on the references handle and calls vfn_0004 when the hkSemaphore_release succeeds without timeout.
 // @fnv 0x00401970
 // src: XBOX_PDB 0x00401970
 void WaitableObject::NiRefObject_DecRefCount()
@@ -521,11 +521,12 @@ bool TESObjectLIGH::Activate_0050e4b0(unsigned int a1, unsigned int a2, bool bFl
 struct Unk515010
 {
     void InvokeAction(int, int, bool, int, int);
-    void ForwardToF670(int, int, bool, int, int);
+    void TESObjectBOOK_Activate(int, int, bool, int, int);
 };
 // Calls InvokeAction with the same five arguments, forwarding the call unchanged.
 // @fnv 0x00515010
-void Unk515010::ForwardToF670(int aiArg1, int aiArg2, bool abFlag, int aiArg4, int aiArg5)
+// src: EXE 0x00515010
+void Unk515010::TESObjectBOOK_Activate(int aiArg1, int aiArg2, bool abFlag, int aiArg4, int aiArg5)
 {
     InvokeAction(aiArg1, aiArg2, abFlag, aiArg4, aiArg5);
 }
@@ -2859,7 +2860,7 @@ int GetFlagMask(int);
 void BGSOpenCloseForm_HandleActivate(ActivationRef*, ActivationRef*, int);
 int FUN_0047b250(ActivationRef*);
 void FalloutRadio_ActivateRadio(ActivationRef*, bool);
-struct FUN_005113f0_shell
+struct TESObjectACTI
 {
     int unk00;
     int unk04;
@@ -2901,7 +2902,7 @@ struct FUN_005113f0_shell
 // Checks the activator, may update actor state and play a sound, then calls Activate on the stored pointer when present.
 // @fnv 0x005113f0
 // src: XBOX_PDB 0x005113f0
-bool FUN_005113f0_shell::TESObjectACTI_Activate(ActivationRef* ref, ActivationRef* activator, bool arg3, int arg4, int arg5)
+bool TESObjectACTI::TESObjectACTI_Activate(ActivationRef* ref, ActivationRef* activator, bool arg3, int arg4, int arg5)
 {
     ActivationRef* h = 0;
     bool p = false;
@@ -3002,7 +3003,7 @@ struct AAInventory
 {
     AAEntry* ExtraDataList_GetPackageExtra();
     int ExtraDataList_GetPackageExtraTarget(int iA, int iB, int iC);
-    void AllocateStorage_0041c930(AAEntry* pkEntryCur, int iA, int iCount);
+    void ExtraDataList_SetPackageExtra(AAEntry* pkEntryCur, int iA, int iCount);
 };
 struct AAPackage
 {
@@ -3805,7 +3806,7 @@ bool AAHandler::OnActivate(TESObjectREFR* pkRef, TESObjectREFR* pkActivatorRef, 
         if (pkEntryCur && pkEntryCur->FUN_0041ca90() == 0xf)
         {
             AAInventory* pkInventory = pkActorVal->BSFile_GetDevice();
-            pkActivator->BSFile_GetDevice()->AllocateStorage_0041c930(pkEntryCur, 4, pkInventory->ExtraDataList_GetPackageExtraTarget(0, 0, 0));
+            pkActivator->BSFile_GetDevice()->ExtraDataList_SetPackageExtra(pkEntryCur, 4, pkInventory->ExtraDataList_GetPackageExtraTarget(0, 0, 0));
             pkActorVal->FUN_008d8520()->GiveItem(pkActivator, pkEntryCur);
             if (pkEntryCur->FUN_00670f90())
                 pkActivator->TakeItem(pkEntryCur, DAT_011de7b8.FUN_00867d60());

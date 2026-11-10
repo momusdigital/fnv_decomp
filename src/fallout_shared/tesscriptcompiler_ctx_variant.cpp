@@ -6,7 +6,7 @@
 #include "../../include/TESForm.h"
 #include "../../include/TESObjectREFR.h"
 #include "tesscriptcompiler_packet_decls.h"
-ScriptFunctionInfo* GetFunctionByOpcode(SCRIPT_OUTPUT output);
+ScriptFunctionInfo* ScriptCompiler_GetFunctionDef(SCRIPT_OUTPUT output);
 
 int BSstricmp(const char*, const char*);
 void* __cdecl operator new(unsigned int);
@@ -279,15 +279,15 @@ struct CompileExpression
     CompileOperands operands;
     CompileExpression();
     ~CompileExpression();
-    char* ConvertToPostfix(char*, int*);
+    char* CExpression_InfixToPostfix(char*, int*);
     int Modelloader_GetReferencedThis();
 };
 
 struct LineCompiler
 {
-    int CountLinesInBeginBlock(CompileState*, CompileLine*);
-    int ScanBlockLines(CompileState*, CompileLine*);
-    int CompileScriptLine(CompileState*, CompileLine*, const char*, char*);
+    int ScriptCompiler_CountBlockLines(CompileState*, CompileLine*);
+    int ScriptCompiler_CountIfLines(CompileState*, CompileLine*);
+    int ScriptCompiler_ReplaceVariablesAndFunctions(CompileState*, CompileLine*, const char*, char*);
     bool ScriptCompiler_CompileLine(CompileScript*, CompileState*, CompileLine*);
 };
 
@@ -330,7 +330,7 @@ bool LineCompiler::ScriptCompiler_CompileLine(CompileScript* script, CompileStat
                 line->outputSize += 2;
 
                 int length = 0;
-                length = CountLinesInBeginBlock(compiler, line);
+                length = ScriptCompiler_CountBlockLines(compiler, line);
 
                 if (length == -1)
                 {
@@ -505,14 +505,14 @@ bool LineCompiler::ScriptCompiler_CompileLine(CompileScript* script, CompileStat
         ourMemset(setText20, 0, 512);
 
         int setLength1 = 0;
-        setLength1 = CompileScriptLine(compiler, line, line->input + line->inputOffset, setText20);
+        setLength1 = ScriptCompiler_ReplaceVariablesAndFunctions(compiler, line, line->input + line->inputOffset, setText20);
 
         if (!setLength1)
         {
             ReportScriptError(compiler, missingSetExpression);
             return false;
         }
-        expressionCodeVal9 = expression5.ConvertToPostfix(setText20, &setLength1);
+        expressionCodeVal9 = expression5.CExpression_InfixToPostfix(setText20, &setLength1);
 
         if (expression5.Modelloader_GetReferencedThis())
         {
@@ -542,19 +542,19 @@ bool LineCompiler::ScriptCompiler_CompileLine(CompileScript* script, CompileStat
         ourMemset(branchText7, 0, 512);
 
         int branchLength10 = 0;
-        branchLength10 = CompileScriptLine(compiler, line, line->input + offset_2, branchText7);
+        branchLength10 = ScriptCompiler_ReplaceVariablesAndFunctions(compiler, line, line->input + offset_2, branchText7);
 
         if (!branchLength10)
             return false;
 
-        expressionCodeVal9 = expression5.ConvertToPostfix(branchText7, &branchLength10);
+        expressionCodeVal9 = expression5.CExpression_InfixToPostfix(branchText7, &branchLength10);
 
         if (expression5.Modelloader_GetReferencedThis())
         {
             ReportScriptError(compiler, DAT_0118c594[expression5.Modelloader_GetReferencedThis()]);
             return false;
         }
-        int branchJump11 = ScanBlockLines(compiler, line);
+        int branchJump11 = ScriptCompiler_CountIfLines(compiler, line);
 
         if (branchJump11 == -1)
         {
@@ -573,7 +573,7 @@ bool LineCompiler::ScriptCompiler_CompileLine(CompileScript* script, CompileStat
 
     case 23: {
         int jump = 0;
-        jump = ScanBlockLines(compiler, line);
+        jump = ScriptCompiler_CountIfLines(compiler, line);
 
         if (jump == -1)
         {

@@ -30,7 +30,7 @@ public:
     virtual void GetViewerStrings(NiViewerStringsArray* apStrings);
 
     void Destructor();
-    void* FUN_00a45200(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     void ReplaceUOffsetAnim(TimedAnimationKey* keys, unsigned int numKeys, unsigned int type);
     void ReplaceVOffsetAnim(void* keys, unsigned int count, int type);
     void ReplaceUTilingAnim(void* keys, unsigned int count, unsigned int type);

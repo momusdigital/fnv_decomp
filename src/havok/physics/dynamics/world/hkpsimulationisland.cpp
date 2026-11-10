@@ -345,8 +345,8 @@ struct GlobalObjectO2_00d472a0
 };
 extern GlobalObjectO2_00d472a0 g_012687cc;
 // @fnv 0x00d078d0
-// src: GUESS 0x00d078d0 (confidence: low)
-GlobalObjectO2_00d472a0* hkpSimulationIsland_GetField012687ccAddress()
+// src: EXE 0x00d078d0
+GlobalObjectO2_00d472a0* hkpSimulationIsland_getClassType()
 {
     return &g_012687cc;
 }

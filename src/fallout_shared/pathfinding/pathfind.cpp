@@ -580,14 +580,14 @@ unsigned int S5460::BSSimpleArray_NiPoint3_1024_AddUninitialized()
     return count - 1;
 }
 
-struct FUN_0099e040_shell : public PathingRequestOptimalLocation
+struct SceneGraph : public PathingRequestOptimalLocation
 {
     float BSSceneGraph_GetCameraFOV();
 };
 
 // @fnv 0x0099e040
 // src: COMMUNITY 0x0099e040
-float FUN_0099e040_shell::BSSceneGraph_GetCameraFOV()
+float SceneGraph::BSSceneGraph_GetCameraFOV()
 {
     return *(float*)((char*)this + 0xbc);
 }
@@ -617,12 +617,12 @@ void* __cdecl FUN_00ec7230(void*, void const*, unsigned int);
 
 struct FUN_006d0730_shell
 {
-    void ProcessEntries_006d0730(void* dst, void const* src, unsigned int count);
+    void BSSimpleArray_MoveElements(void* dst, void const* src, unsigned int count);
 };
 
 // @fnv 0x006d0730
-// src: GUESS 0x006d0730 (confidence: low)
-void FUN_006d0730_shell::ProcessEntries_006d0730(void* pDest, void const* pSource, unsigned int count)
+// src: GUESS 0x006d0730 (confidence: medium)
+void FUN_006d0730_shell::BSSimpleArray_MoveElements(void* pDest, void const* pSource, unsigned int count)
 {
     if (!(count > 0))
         return;
@@ -657,7 +657,7 @@ void __cdecl RandomFloatNegPiToPi()
     MersenneTwister::GetRandomGenerator()->BSRandom_FloatNegPiToPi();
 }
 
-struct FUN_006d6d60_shell
+struct PathingRequestCover
 {
     NiPoint3& PathingRequestCover_GetThreat(NiPoint3& akDest);
 };
@@ -665,7 +665,7 @@ struct FUN_006d6d60_shell
 // Copies the NiPoint3 stored at offset 0xb0 of this object into akDest and returns it.
 // @fnv 0x006d6d60
 // src: COMMUNITY 0x006d6d60
-NiPoint3& FUN_006d6d60_shell::PathingRequestCover_GetThreat(NiPoint3& akDest)
+NiPoint3& PathingRequestCover::PathingRequestCover_GetThreat(NiPoint3& akDest)
 {
     akDest = *reinterpret_cast<const NiPoint3*>((char*)this + 0xb0);
     return akDest;
@@ -840,13 +840,13 @@ void __cdecl Pathing_FindPotentialNavmeshesForLocation(int aiArg1, float f, int 
 
 struct FUN_006d0540_shell
 {
-    void __thiscall CopyOverlappingElements30(void* dst, void* src, unsigned int count);
+    void __thiscall BSSimpleArray_MoveElements(void* dst, void* src, unsigned int count);
 };
 
 // Copies count 0x30-byte elements from src to dst, iterating forward or backward depending on the relative addresses.
 // @fnv 0x006d0540
 // src: GUESS 0x006d0540 (confidence: medium)
-void __thiscall FUN_006d0540_shell::CopyOverlappingElements30(void* dst, void* src, unsigned int count)
+void __thiscall FUN_006d0540_shell::BSSimpleArray_MoveElements(void* dst, void* src, unsigned int count)
 {
     extern void* __cdecl FUN_00ec7230(void*, void const*, unsigned int);
 
@@ -1296,7 +1296,7 @@ bool Pathing_GetNavMeshZForLocation(NiPoint3 const& pos, TESObjectCELL* cell, TE
 
 struct FUN_00697980_t
 {
-    bool GetTriangleHeightAtPoint(unsigned short, const NiPoint3&, float, float, float&);
+    bool ComputeTriangleZForLocation(unsigned short, const NiPoint3&, float, float, float&);
 };
 
 // @fnv 0x006d9830
@@ -1324,7 +1324,8 @@ bool GetNavMeshHeight(PathingLocation* pathingLocation, float* pfOutZ)
     }
 
     if (!reinterpret_cast<FUN_00697980_t*>(reinterpret_cast<GO&>(navMeshPtr).operator unsigned int())
-             ->GetTriangleHeightAtPoint(m_usTriangleID, pathingLocation->GetLocation(), 180.0f, 180.0f, *pfOutZ))
+             // src: COMMUNITY 0x00697980
+             ->ComputeTriangleZForLocation(m_usTriangleID, pathingLocation->GetLocation(), 180.0f, 180.0f, *pfOutZ))
     {
         *pfOutZ = pathingLocation->GetLocation().z;
         return false;
@@ -1513,7 +1514,7 @@ struct TwoComponentVector
     TwoComponentVector();
     TwoComponentVector Subtract(const TwoComponentVector* rhs) const;
     TwoComponentVector AddPointComponents(const TwoComponentVector& rhs) const;
-    double GetSquaredXYLength() const;
+    double NiPoint3_SqrXYLength() const;
 };
 extern "C" TwoComponentVector __cdecl FUN_00532fd0(float scale, const TwoComponentVector& value);
 extern "C" const double DAT_01012060;
@@ -1538,7 +1539,7 @@ TwoComponentVector* __cdecl NavMeshMath_ClosestPointOnSegmentToLine(TwoComponent
     TwoComponentVector crossC = apPointC->AddPointComponents(FUN_00532fd0(fraction, apPointD->Subtract(apPointC)));
     if (crossB * total > DAT_01012060)
     {
-        if (crossC.Subtract(apPointA).GetSquaredXYLength() < crossC.Subtract(apPointB).GetSquaredXYLength())
+        if (crossC.Subtract(apPointA).NiPoint3_SqrXYLength() < crossC.Subtract(apPointB).NiPoint3_SqrXYLength())
         {
             *result = *apPointA;
             return result;
@@ -1566,15 +1567,15 @@ class FUN_006d0680_cls
     int m_04;
     int unk08;
     int m_0c;
-    void ProcessEntries_006d0730(int a, int b, int c);
+    void BSSimpleArray_MoveElements(int a, int b, int c);
     void FUN_006a8500();
-    void UpdateFields_006d0680(int a1, int a2);
+    void BSSimpleArray_Reallocate(int a1, int a2);
 };
 
 // Updates m_04 from a1 via v04/v0c, rebuilding through FUN_006d0730 and FUN_006a8500 when a2 differs from m_0c, and records a1 in m_0c on first use.
 // @fnv 0x006d0680
-// src: GUESS 0x006d0680 (confidence: low)
-void FUN_006d0680_cls::UpdateFields_006d0680(int a1, int a2)
+// src: GUESS 0x006d0680 (confidence: medium)
+void FUN_006d0680_cls::BSSimpleArray_Reallocate(int a1, int a2)
 {
     if (m_04 != 0)
     {
@@ -1585,7 +1586,7 @@ void FUN_006d0680_cls::UpdateFields_006d0680(int a1, int a2)
         else
         {
             int tmp = v04(a1);
-            ProcessEntries_006d0730(tmp, m_04, a2);
+            BSSimpleArray_MoveElements(tmp, m_04, a2);
             FUN_006a8500();
             m_04 = tmp;
         }
@@ -1601,7 +1602,7 @@ void* __cdecl Memory_ReturnPlacementAddress(unsigned int bytes, void* heap);
 struct S006d1520_Container
 {
     unsigned int AdvanceCounter();
-    void* GetElementAddress30_006e8f40(unsigned int value);
+    void* BSSimpleArray_GetAt(unsigned int value);
 };
 struct FUN_006f4d00
 {
@@ -1618,10 +1619,11 @@ struct FUN_006f4d00
 // the missing member-call interface, without duplicating PathingSolution's layout.
 struct PathingSolutionPointAppender
 {
-    unsigned int AddPathingLocation(const NiPoint3& pos, TESObjectCELL* cell, TESWorldSpace* world);
+    unsigned int PathingSolution_AddVirtualPathingNode(const NiPoint3& pos, TESObjectCELL* cell, TESWorldSpace* world);
 };
 // @fnv 0x006d1520
-unsigned int PathingSolutionPointAppender::AddPathingLocation(const NiPoint3& pos, TESObjectCELL* cell, TESWorldSpace* world)
+// src: COMMUNITY 0x006d1520
+unsigned int PathingSolutionPointAppender::PathingSolution_AddVirtualPathingNode(const NiPoint3& pos, TESObjectCELL* cell, TESWorldSpace* world)
 {
     void* heap;
     unsigned int index;
@@ -1629,7 +1631,7 @@ unsigned int PathingSolutionPointAppender::AddPathingLocation(const NiPoint3& po
         PathingLocation location(pos, cell, world);
         location.FUN_006dd6f0(0);
         index = reinterpret_cast<S006d1520_Container*>(&((PathingSolution*)this)->member1)->AdvanceCounter();
-        heap = reinterpret_cast<S006d1520_Container*>(&((PathingSolution*)this)->member1)->GetElementAddress30_006e8f40(index);
+        heap = reinterpret_cast<S006d1520_Container*>(&((PathingSolution*)this)->member1)->BSSimpleArray_GetAt(index);
         new (heap) FUN_006f4d00(location);
         return index;
     }
@@ -2045,9 +2047,9 @@ bool __cdecl InitSolutionEndpoints(PFRequest* apRequest, PathingSolution* apSolu
             kGoal9.z = m_fGlyphExtent;
     }
 
-    ((PathingSolutionPointAppender*)apSolution)->AddPathingLocation(
+    ((PathingSolutionPointAppender*)apSolution)->PathingSolution_AddVirtualPathingNode(
         (const NiPoint3&)rkStart5, (TESObjectCELL*)pCellA, (TESWorldSpace*)uiSpace2);
-    ((PathingSolutionPointAppender*)apSolution)->AddPathingLocation(
+    ((PathingSolutionPointAppender*)apSolution)->PathingSolution_AddVirtualPathingNode(
         (const NiPoint3&)kGoal9, (TESObjectCELL*)pCellA, (TESWorldSpace*)uiSpace2);
     apSolution->unk18 = 0;
     apSolution->unk1c = 1;
@@ -2489,7 +2491,7 @@ struct FUN_006abbb0
     unsigned int FUN_0044ddc0();
     void SetPosition(unsigned int);
     RoutePoint* BSSimpleArray_CombatMember_1024_GetAt(unsigned int);
-    void RemoveArrayTail(unsigned int, unsigned int, int);
+    void BSScrapArray_RemoveRange(unsigned int, unsigned int, int);
 };
 struct RouteEdge
 {
@@ -2710,7 +2712,7 @@ bool __cdecl Pathing_ComputeApproximatePathingDistance(PathingLocation* start, P
             if (j752 > i + 2)
             {
                 unsigned int remove = j752 - i - 2;
-                path8->RemoveArrayTail(i + 1, remove, 0);
+                path8->BSScrapArray_RemoveRange(i + 1, remove, 0);
                 edges33.BSSimpleArray_NiPoint3_1024_RemoveRange(i, remove, 0);
             }
         }
@@ -2788,7 +2790,7 @@ struct Triangle
     NiPoint3 FUN_00558220(unsigned short);
     NiPoint3 FUN_006971e0(unsigned short);
     void* FUN_005582f0();
-    void GetPackedFlags(unsigned short, unsigned short*, bool*, bool*);
+    void NavMeshTriangle_GetEdgeCoverData(unsigned short, unsigned short*, bool*, bool*);
 };
 struct TriangleRef
 {
@@ -2956,7 +2958,7 @@ unsigned int __cdecl FindNearbyTriangles(GeometrySource* geometry, OutputList* o
                 for (unsigned short side = 0; side < 2; ++side)
                 {
 
-                    triangle16->GetPackedFlags(side, &edgeType4, &specialEdge5, &boundary8);
+                    triangle16->NavMeshTriangle_GetEdgeCoverData(side, &edgeType4, &specialEdge5, &boundary8);
                     if (edgeType4 < 4u)
                     {
                         switch (edgeType4)
@@ -3027,7 +3029,7 @@ struct NiPoint3Ex : NiPoint3
 struct MeshQuery
 {
     bool FindRandomPointWithinRadius(const NiPoint3& origin, float radius, NiPoint3& result);
-    bool IsLocationOnNavMesh(const NiPoint3& point, FindTriangleForLocationFilter* filter);
+    bool IsPointInsideNavmesh(const NiPoint3& point, FindTriangleForLocationFilter* filter);
     bool FindClosestTriangleForLocation(const NiPoint3& point, unsigned short& triangle, bool& flag);
 };
 // @fnv 0x006d7110
@@ -3051,7 +3053,7 @@ bool __cdecl Pathing_FindPointOnNavMesh(TESWorldSpace* world, TESObjectCELL* cel
         return true;
     }
     if (!((MeshQuery*)c.operator NavMesh*())->FindRandomPointWithinRadius(origin, radius, result) ||
-        !((MeshQuery*)c.operator NavMesh*())->IsLocationOnNavMesh(result, 0))
+        !((MeshQuery*)c.operator NavMesh*())->IsPointInsideNavmesh(result, 0))
     {
         unsigned short triangle = 0xffff;
         bool flag = false;
@@ -5335,7 +5337,7 @@ class P110Data
     void SetByteAt(int, int);
     char GetByteAtOffset56();
     char GetByteAt39();
-    void SetByteAtOffset38(char);
+    void SetKeepFlags(char);
     void FUN_004410f0(char);
 };
 class P110DataPtr
@@ -5502,7 +5504,7 @@ bool __cdecl MarkReachableTriangles(PathingLocation* location, P110DataPtr* data
                     if (data->Modelloader_GetReferencedThis()->GetByteAtOffset56() == 3)
                         break;
                     if ((char)currentOffset.GetElement(b).value > data->Modelloader_GetReferencedThis()->GetByteAtOffset56())
-                        data->Modelloader_GetReferencedThis()->SetByteAtOffset38(currentOffset.GetElement(b).value);
+                        data->Modelloader_GetReferencedThis()->SetKeepFlags(currentOffset.GetElement(b).value);
                 }
             }
             else
@@ -8855,8 +8857,8 @@ struct CandidateSearch : SearchStorage
     bool enabled;
     CandidateSearch();
     ~CandidateSearch();
-    void SetFieldAtOffset20A4_006d2c60(float);
-    bool StartSearch(PathingRequestOptimalLocation*, TriangleCandidate*, PathingLocation*, CandidateArray*,
+    void SetMaxCost(float);
+    bool BuildNodePath(PathingRequestOptimalLocation*, TriangleCandidate*, PathingLocation*, CandidateArray*,
                      DestinationArray*);
     SearchNode* GetField2048();
 };
@@ -8931,11 +8933,12 @@ bool __cdecl BuildOptimalPathSolution(PathingRequestOptimalLocation* request, Pa
     CandidateSearch eb;
     CandidateArray memory(32, 0, 0);
     DestinationArray f(32, 0, 0);
-    eb.SetFieldAtOffset20A4_006d2c60(cf * 2.0f);
+    eb.SetMaxCost(cf * 2.0f);
     PathMeshArray c;
     Pathing_GetAllLoadedNavmeshes(&c);
     SearchPoint triangleFilter;
-    if (eb.StartSearch(request, &b, &tolerance, &memory, &f))
+    // src: COMMUNITY 0x006ab4a0
+    if (eb.BuildNodePath(request, &b, &tolerance, &memory, &f))
     {
         originTriangle = memory.GetIndexedValue_006b3160(memory.FUN_0044ddc0() - 1);
         if (!tolerance.PathingLocation_QUnused())

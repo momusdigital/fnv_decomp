@@ -10,7 +10,7 @@ typedef ::__m128 LocalM128;
 #include "havok/hkpBoxShape.h"
 #include "../../../../../../../include/MemoryManager.h"
 #include "../../../../../../../include/hkMemoryRouter.h"
-int __cdecl hkpBoxShape_ReturnConstant_8();
+int __cdecl hkpBoxShape_getNumCollisionSpheresImpl();
 float __cdecl NiMin(float a, float b);
 extern "C" void* DAT_0102e388;
 struct FUN_00c9db80_class

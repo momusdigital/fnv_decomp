@@ -13,8 +13,8 @@
 extern int g_unk0126d658;
 
 // @fnv 0x00dffaf0
-// src: GUESS 0x00dffaf0 (confidence: low)
-void* __cdecl hkpConstrainedSystemFilter_GetUnk0126d658Address()
+// src: EXE 0x00dffaf0
+void* __cdecl hkpConstrainedSystemFilter_getClassType()
 {
     return &g_unk0126d658;
 }

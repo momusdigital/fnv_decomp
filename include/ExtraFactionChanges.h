@@ -13,7 +13,7 @@ public:
     virtual ~ExtraFactionChanges();
     void* DestroyAndFree(unsigned int flags);
 
-    bool HasFactionEntry(TESFaction* faction);
+    bool TESActorBaseData_IsInFaction(TESFaction* faction);
     bool HasMatchingValue(TESFaction* faction);
     void RemoveFaction(TESFaction* faction);
     void SetFactionRank(TESFaction* faction, int rank);

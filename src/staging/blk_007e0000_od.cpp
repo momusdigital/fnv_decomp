@@ -116,14 +116,14 @@ struct Flt
     operator unsigned int();
 };
 
-struct FUN_007fd640Class
+struct InterfaceManager
 {
     unsigned int RaceSexMenu_GetProjectorFile();
 };
 
 // @fnv 0x007fd640
 // src: XBOX_PDB 0x007fd640
-unsigned int FUN_007fd640Class::RaceSexMenu_GetProjectorFile()
+unsigned int InterfaceManager::RaceSexMenu_GetProjectorFile()
 {
     return ((Flt*)((char*)this + 0x90))->operator unsigned int();
 }
@@ -140,7 +140,7 @@ void RaceSexMenu::OnRaceSelected_Thunk(void* apList)
 
 extern ::BSStringT<char> g_011daed8;
 void __cdecl TextInputCloseHook();
-struct FUN_007e66a0_cls
+struct TextEditMenu
 {
     char _0[0x28];
     void __thiscall TextEditMenu_HandleClick(int a, int b);
@@ -148,7 +148,7 @@ struct FUN_007e66a0_cls
 // If b is zero and a is in [0,3), reads b from this[a+10]; for a==1, sets g_011daed8 from the navmesh pointer at this+0x34 and calls FUN_007e65b0.
 // @fnv 0x007e66a0
 // src: COMMUNITY 0x007e66a0
-void __thiscall FUN_007e66a0_cls::TextEditMenu_HandleClick(int aiIndex, int aiValue)
+void __thiscall TextEditMenu::TextEditMenu_HandleClick(int aiIndex, int aiValue)
 {
     if (aiValue == 0 && aiIndex >= 0 && aiIndex < 3)
         aiValue = ((int*)this)[aiIndex + 10];
@@ -311,7 +311,7 @@ void TextInputCloseHook()
     if (DAT_011daec4)
     {
         ((Tile*)DAT_011daec4->GetNext())->Set(0x1772, 1);
-        ((Menu*)DAT_011daec4)->LoadMenuData();
+        ((Menu*)DAT_011daec4)->StartFadeOut();
         DAT_011daec4 = 0;
     }
 }

@@ -53,7 +53,8 @@ char* __fastcall GetSimpleContactPoint(hkpSimpleConstraintContactMgr* mgr, void*
 }
 
 // @fnv 0x00cfcc70
-int __fastcall ReserveSimpleContactPoints(hkpSimpleConstraintContactMgr* mgr, void*, int value) {
+// src: COMMUNITY 0x00cfcc70
+int __fastcall hkpSimpleConstraintContactMgr_reserveContactPointsImpl(hkpSimpleConstraintContactMgr* mgr, void*, int value) {
     hkpSimpleContactConstraintAtom* data = mgr->m_kSimpleContactConstraintData.m_pAtom;
     int field4 = data->m_usNumContactPoints;
     int limit = data->m_usMaxNumContactPointProperties;
@@ -463,14 +464,14 @@ struct OffsetDescriptor {
     signed char relativeOffset;
 };
 
-struct FUN_00cfd780_class {
+struct Factory {
     void* unk00;
     void* unk04;
     void* m_08;
     hkpSimpleConstraintContactMgr* AllocateContactObject(OffsetDescriptor* first, OffsetDescriptor* second, int unused);
 };
 // @fnv 0x00cfd780
-hkpSimpleConstraintContactMgr* FUN_00cfd780_class::AllocateContactObject(OffsetDescriptor* first, OffsetDescriptor* second, int unused)
+hkpSimpleConstraintContactMgr* Factory::AllocateContactObject(OffsetDescriptor* first, OffsetDescriptor* second, int unused)
 {
     void* relativeFirst = (char*)first + first->relativeOffset;
     void* relativeSecond = (char*)second + second->relativeOffset;
@@ -983,7 +984,8 @@ void __cdecl hkpWorldCallbackUtil_fireContactPointAdded(void*, Ctx*);
 void __cdecl hkpEntityCallbackUtil_fireContactPointAddedInternal(Obj*, Ctx*);
 // Dispatches an event to the world and bodies with listeners; a rejected event calls virtual slot 8, otherwise the projected velocity is updated.
 // @fnv 0x00cfce80
-int __fastcall ProcessSimpleContactEvent(hkpSimpleConstraintContactMgr* mgr, void*, int a1, int a2, int a3, int* a4, float a5, int a6, int a7, float* a8, int a9) {
+// src: COMMUNITY 0x00cfce80
+int __fastcall hkpSimpleConstraintContactMgr_addToiImpl(hkpSimpleConstraintContactMgr* mgr, void*, int a1, int a2, int a3, int* a4, float a5, int a6, int a7, float* a8, int a9) {
     Obj* o = reinterpret_cast<Obj*>(mgr->setContactPointProperties(*reinterpret_cast<const hkCdBodyStub*>(a1), *reinterpret_cast<const hkCdBodyStub*>(a2), 7, reinterpret_cast<hkCPProperties*>(a9)));
     Obj* p = (Obj*)((unsigned)o ^ (unsigned)mgr->m_pHavokConstraint.m_kActorEntries[0] ^ (unsigned)mgr->m_pHavokConstraint.m_kActorEntries[1]);
     Ctx c(a1,a2,a3,a4,a5,a6,a7,a8,a9,mgr);

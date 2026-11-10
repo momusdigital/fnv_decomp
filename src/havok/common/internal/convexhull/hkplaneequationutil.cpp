@@ -27,7 +27,7 @@ struct A
     int f4;
 
     void FUN_00d76ca0();
-    int ProcessEntries_00d774a0(void*, int, void*);
+    int hkgpConvexHull_buildFromPlanes(void*, int, void*);
     void ProcessState_00d76120(int, int);
     void ReleaseStorage_00d76940();
 };
@@ -49,7 +49,7 @@ int __cdecl ProcessArg(Arg* a, int second)
     void* data = a->data;
 
     void* q = objB.hkgpConvexHull_BuildConfig_BuildConfig();
-    int iResult = objA.ProcessEntries_00d774a0(data, count, q);
+    int iResult = objA.hkgpConvexHull_buildFromPlanes(data, count, q);
 
     if (iResult != -1)
     {

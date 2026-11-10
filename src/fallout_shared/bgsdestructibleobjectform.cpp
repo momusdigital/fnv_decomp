@@ -67,7 +67,8 @@ float TESObjectREFR::GetBoundingRadius()
 
 // Iterates all references in the reconstruct map and applies time-scaled damage to each non-disabled, non-deleted form, either directly or via the task queue.
 // @fnv 0x004772f0
-void BGSDestructibleObjectForm::UpdateDestructionMap()
+// src: COMMUNITY 0x004772f0
+void BGSDestructibleObjectForm::UpdateDestructibleObjects()
 {
     void* pIterPos;
     float fTime = g_timeGlobal.FUN_0084d030();
@@ -438,32 +439,34 @@ struct MersenneTwister
     unsigned int mti;
 };
 typedef char _sizecheck_BSRandom[sizeof(MersenneTwister) == 2508 ? 1 : -1];
-struct FUN_00476b90_shell : public MersenneTwister
+struct BSRandom : public MersenneTwister
 {
     float BSRandom_Float(float, float);
 };
 
 // @fnv 0x00476b90
 // src: XBOX_PDB 0x00476b90
-float FUN_00476b90_shell::BSRandom_Float(float afMin, float afMax)
+float BSRandom::BSRandom_Float(float afMin, float afMax)
 {
     unsigned int r = GetRandomUInt();
     return (float)(r * (afMax - afMin) / 4294967296.0 + afMin);
 }
 
 // @fnv 0x00477ba0
-bool __fastcall IsDestroyed(TESForm* form)
+// src: COMMUNITY 0x00477ba0
+bool __fastcall TESForm_GetDestroyed(TESForm* form)
 {
     return (*reinterpret_cast<const unsigned int*>(reinterpret_cast<const char*>(form) + 8) & 0x800000) ? true : false;
 }
 
 struct FUN_005df560_S
 {
-    void GetRowFloats(unsigned int row, float* a, float* b, float* c);
+    void NiMatrix3_GetRow(unsigned int row, float* a, float* b, float* c);
 };
 // Reads three consecutive floats at offset row*12 from this and writes them to the three output pointers.
 // @fnv 0x005df560
-void FUN_005df560_S::GetRowFloats(unsigned int row, float* pfOut0, float* pfOut1, float* pfOut2)
+// src: COMMUNITY 0x005df560
+void FUN_005df560_S::NiMatrix3_GetRow(unsigned int row, float* pfOut0, float* pfOut1, float* pfOut2)
 {
     *pfOut0 = *(float*)((char*)this + row * 12);
     *pfOut1 = *(float*)((char*)this + row * 12 + 4);
@@ -525,7 +528,8 @@ struct FUN_004759a0_Mid
 
 BGSDestructibleObjectForm* __cdecl BGSDestructibleObjectForm_GetDestructionForm(void*);
 // @fnv 0x004759a0
-int __cdecl GetElementValue(void* a, int aiIndex)
+// src: COMMUNITY 0x004759a0
+int __cdecl BGSDestructibleObjectForm_GetModelSwap(void* a, int aiIndex)
 {
     BGSDestructibleObjectForm* pFirst = BGSDestructibleObjectForm_GetDestructionForm(a);
     if (!pFirst || aiIndex == -1)
@@ -578,7 +582,8 @@ extern Setting originalRuntimeFloatSetting818;
 extern "C" void __cdecl ExplosionHasAnyFlags();
 // Returns the float at offset 0x7c, multiplied by originalRuntimeFloatSetting818.Float() when reinterpret_cast<bool (__thiscall*)(BGSExplosion*, int)>(&ExplosionHasAnyFlags)(explosion, 1) is false.
 // @fnv 0x00477900
-float __fastcall GetExplosionRadius(BGSExplosion* explosion)
+// src: COMMUNITY 0x00477900
+float __fastcall BGSExplosion_GetRadiusBSUnits(BGSExplosion* explosion)
 {
     return (float)(reinterpret_cast<bool (__thiscall*)(BGSExplosion*, int)>(&ExplosionHasAnyFlags)(explosion, 1) ? (double)explosion->Data.fRadius
                                   : (double)(explosion->Data.fRadius * *originalRuntimeFloatSetting818.Float()));
@@ -607,7 +612,7 @@ bool __cdecl BGSDestructibleObjectForm_HideSmallDebris(NiAVObject* object)
     if (object)
     {
         bool bIsLodObject = false;
-        bhkCollisionObject* collisionObject = bhkCollisionObject::GetFromNiAVObject(object);
+        bhkCollisionObject* collisionObject = bhkCollisionObject::GetbhkCollisionObject(object);
 
         if (collisionObject)
         {
@@ -1430,8 +1435,8 @@ int FindIndexByValue(void* a1, unsigned int aiValue)
 float __cdecl FUN_00476b20(float);
 
 // @fnv 0x00477430
-// src: GUESS 0x00477430 (confidence: low)
-int __cdecl TESObjectREFR_ProcessEntries_00477430(TESObjectREFR* ref)
+// src: COMMUNITY 0x00477430
+int __cdecl BGSDestructibleObjectForm_CalcDestructionStage(TESObjectREFR* ref)
 {
     int iStage = -1;
     if (ref)
@@ -1509,7 +1514,7 @@ void __cdecl BGSDestructibleObjectForm_ClearDestruction(TESObjectREFR* reference
     if (health == -1.0)
         return;
     reinterpret_cast<void (__thiscall*)(ExtraDataList*)>(&RemoveExtraHealth)(reference->BSFile_GetDevice());
-    if (IsDestroyed(reference))
+    if (TESForm_GetDestroyed(reference))
         reference->SetDestroyed(false);
     if (reference->BSFile_GetDevice()->ExtraDataList_GetModelSwap())
     {
@@ -1542,7 +1547,7 @@ void __cdecl BGSDestructibleObjectForm_ClearDestruction(TESObjectREFR* reference
 }
 
 unsigned char __cdecl TESForm_QEndianSwapOnSave();
-void __cdecl AppendChunk(unsigned int auiType, char* apData, unsigned int auiSize);
+void __cdecl TESForm___AddChunkData(unsigned int auiType, char* apData, unsigned int auiSize);
 void __cdecl ourMemset(void* apDst, int aiValue, unsigned int auiSize);
 void __cdecl TESForm_AddChunk(int aiType);
 
@@ -1602,7 +1607,7 @@ void BGSDestructibleObjectForm::Save()
         kHeader.ucFlag = reinterpret_cast<FUN_00477f20_data*>(pData)->ucFlag;
         if (TESForm_QEndianSwapOnSave())
             kHeader.QuestPerkEntryData_Endian();
-        AppendChunk(0x54534544, (char*)&kHeader, 8);
+        TESForm___AddChunkData(0x54534544, (char*)&kHeader, 8);
         if (TESForm_QEndianSwapOnSave())
             kHeader.QuestPerkEntryData_Endian();
 
@@ -1622,7 +1627,7 @@ void BGSDestructibleObjectForm::Save()
                 kEntry.uiSoundC = reinterpret_cast<FUN_00477f20_data*>(pData)->ppEntries[i]->pSoundC->GetHavokWorldObjectCountInSceneGraph_0084e3a0();
             if (TESForm_QEndianSwapOnSave())
                 kEntry.SAVE_DESTRUCTIBLE_OBJECT_STAGE_Endian();
-            AppendChunk(0x44545344, (char*)&kEntry, 0x14);
+            TESForm___AddChunkData(0x44545344, (char*)&kEntry, 0x14);
             if (TESForm_QEndianSwapOnSave())
                 kEntry.SAVE_DESTRUCTIBLE_OBJECT_STAGE_Endian();
             if (reinterpret_cast<FUN_00477f20_data*>(pData)->ppEntries[i]->pObj14)
@@ -1662,7 +1667,8 @@ extern "C" BGSDestructibleObjectForm* __cdecl BGSDestructibleObjectForm_GetDestr
 float __cdecl FUN_00476b20(float);
 
 // @fnv 0x00477bc0
-unsigned int __cdecl GetDestructionStageSelfDamage(TESObjectREFR* refr, float damage)
+// src: COMMUNITY 0x00477bc0
+unsigned int __cdecl BGSDestructibleObjectForm_GetSelfDamage(TESObjectREFR* refr, float damage)
 {
     if (refr == 0 || damage == DAT_01012060)
         return 0;

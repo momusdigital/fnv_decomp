@@ -6,13 +6,14 @@
 #include "../../../include/Actor.h"
 
 extern int DAT_0104dd5c;
-struct FUN_006234d0
+struct bhkContactListener
 {
     void __thiscall SetVtableAndProcessState_006234f0();
-    ~FUN_006234d0();
+    ~bhkContactListener();
 };
 // @fnv 0x006234d0
-FUN_006234d0::~FUN_006234d0()
+// src: EXE 0x006234d0
+bhkContactListener::~bhkContactListener()
 {
     *(int*)this = (int)&DAT_0104dd5c;
     SetVtableAndProcessState_006234f0();
@@ -20,14 +21,14 @@ FUN_006234d0::~FUN_006234d0()
 
 extern int DAT_0104dd7c;
 
-struct FUN_006234f0_class
+struct hkpContactListener
 {
     void SetVtableAndProcessState_006234f0();
 };
 
 // @fnv 0x006234f0
 // src: GUESS 0x006234f0 (confidence: low)
-void FUN_006234f0_class::SetVtableAndProcessState_006234f0()
+void hkpContactListener::SetVtableAndProcessState_006234f0()
 {
     *reinterpret_cast<int**>(this) = &DAT_0104dd7c;
 }
@@ -47,14 +48,14 @@ int __fastcall FUN_00623570_class::hkpContactListener_hkpContactListener()
     return reinterpret_cast<int>(this);
 }
 
-struct FUN_00623590_class
+struct FOCollisionListener
 {
     void __thiscall FUN_006235c0();
     void* __thiscall FUN_00623590(unsigned int flags);
 };
 // Calls FUN_006235c0, then deletes this if flags has bit 0 set, and returns this.
 // @fnv 0x00623590
-void* __thiscall FUN_00623590_class::FUN_00623590(unsigned int flags)
+void* __thiscall FOCollisionListener::FUN_00623590(unsigned int flags)
 {
     FUN_006235c0();
     if (flags & 1)
@@ -95,12 +96,13 @@ FUN_00623850::~FUN_00623850()
 
 struct FUN_00623510_class
 {
-    void* FUN_00623510(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };
 // @fnv 0x00623510
-void* FUN_00623510_class::FUN_00623510(unsigned int flags)
+// src: EXE 0x00623510
+void* FUN_00623510_class::ScalarDeletingDestructor(unsigned int flags)
 {
-    ((FUN_006234d0*)this)->SetVtableAndProcessState_006234f0();
+    ((bhkContactListener*)this)->SetVtableAndProcessState_006234f0();
     if (flags & 1)
         Deallocate(this);
     return this;
@@ -225,7 +227,7 @@ struct S_006240f0_Form
     virtual void vf2c();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3c();
     virtual void vf40();
     virtual void vf44();
@@ -234,7 +236,7 @@ struct S_006240f0_Form
     virtual void vf50();
     virtual void vf54();
     virtual void vf58();
-    virtual void vf5c();
+    virtual void applyForce();
     virtual void vf60();
     virtual void vf64();
     virtual void vf68();
@@ -881,7 +883,7 @@ void Owner_623cb0::ProcessHit(Rec_623cb0* apHitRecord)
     ((S_006240f0*)this)->ApplyToCharacter((S_006240f0_Form*)hold, (int)apHitRecord);
 }
 
-struct FUN_00623540 : FUN_006234d0
+struct FUN_00623540 : bhkContactListener
 {
     virtual ~FUN_00623540();
 };

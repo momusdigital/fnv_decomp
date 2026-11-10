@@ -620,7 +620,7 @@ struct ChildObj
     void NiAdditionalGeometryData_NiAGDDataBlock_SaveBinary(NiStream* stream, unsigned int index, ChildElem* elems, unsigned int count, unsigned int flags);
 };
 
-struct FUN_00a73370Node
+struct NiAdditionalGeometryData
 {
     int unk00;
     int unk04;
@@ -640,7 +640,7 @@ struct FUN_00a73370Node
 
 // @fnv 0x00a73370
 // src: XBOX_PDB 0x00a73370
-void FUN_00a73370Node::NiAdditionalGeometryData_SaveBinary(NiStream* stream)
+void NiAdditionalGeometryData::NiAdditionalGeometryData_SaveBinary(NiStream* stream)
 {
     LinkObject(stream);
     SerializeValue(stream, flags);

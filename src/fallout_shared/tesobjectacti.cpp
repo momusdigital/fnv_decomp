@@ -139,14 +139,14 @@ bool TESObjectACTI::Load(TESFile* file)
     return true;
 }
 
-struct FUN_004fd3a0_shell : public TESObjectACTI
+struct TESChallenge : public TESObjectACTI
 {
     TESSound* TESChallenge_GetFormOne();
 };
 
 // @fnv 0x004fd3a0
 // src: COMMUNITY 0x004fd3a0
-TESSound* FUN_004fd3a0_shell::TESChallenge_GetFormOne()
+TESSound* TESChallenge::TESChallenge_GetFormOne()
 {
     return *(TESSound**)((char*)this + 0x74);
 }
@@ -230,14 +230,15 @@ struct QBase
     char _pad[44];
     QBase(int);
 };
-struct FUN_00837250 : QBase
+struct RadioConvTask : QBase
 {
     int field_30;
-    FUN_00837250(unsigned int iflags);
+    RadioConvTask(unsigned int iflags);
 };
 // Calls the QBase constructor with 0 and stores the given flags in field_30.
 // @fnv 0x00837250
-FUN_00837250::FUN_00837250(unsigned int auiFlags) : QBase(0)
+// src: EXE 0x00837250
+RadioConvTask::RadioConvTask(unsigned int auiFlags) : QBase(0)
 {
     field_30 = auiFlags;
 }
@@ -455,7 +456,7 @@ struct ActiSave
     SoundId* m_pTalkingActivator;
     BSStringT<char> m_kActivationPrompt;
 
-    void BeginFormRecord();
+    void TESForm_StartForm();
     void FinishSave();
     BSStringT<char> GetString();
     void Save();
@@ -465,7 +466,7 @@ struct ActiSave
 // @fnv 0x00510f00
 void ActiSave::Save()
 {
-    BeginFormRecord();
+    TESForm_StartForm();
     name30.Save_00487010();
     model3c.ProcessAndFreeData(0x4c444f4d, 0x54444f4d, 0x53444f4d);
     script5c.Save_0048cca0();

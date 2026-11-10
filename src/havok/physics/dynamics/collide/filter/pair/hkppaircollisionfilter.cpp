@@ -641,7 +641,7 @@ struct FUN_00def160_Sub
     void Object_DoNothing();
 };
 
-class FUN_00def160_cls
+class hkpPairCollisionFilter
 {
   public:
     void* m_vp00;
@@ -664,7 +664,7 @@ class FUN_00def160_cls
 
 // @fnv 0x00def160
 // src: GUESS 0x00def160 (confidence: low)
-void FUN_00def160_cls::UpdateFields_00def160()
+void hkpPairCollisionFilter::UpdateFields_00def160()
 {
     hkMemoryRouter* pHolder;
     FUN_00def160_Sub* pSub;

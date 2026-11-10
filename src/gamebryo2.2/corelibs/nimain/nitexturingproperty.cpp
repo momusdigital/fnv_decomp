@@ -813,7 +813,8 @@ char* BuildFilterModeString(const char* pcPrefix, unsigned int eMode)
 }
 
 // @fnv 0x00a6ad40
-NiTexturingProperty* CreateTexturingProperty()
+// src: EXE 0x00a6ad40
+NiTexturingProperty* NiTexturingProperty_CreateObject()
 {
     return ::new (TEXTURING_PROPERTY_ALLOCATION) NiTexturingProperty;
 }
@@ -961,7 +962,8 @@ struct NiPropertySaveStub
 
 // Saves the base map array and optional shader map array to the stream, writing a count and a presence flag plus data for each map.
 // @fnv 0x00a6b250
-void __fastcall SaveTexturingProperty(NiTexturingProperty* self, int, NiStream& kStream)
+// src: EXE 0x00a6b250
+void __fastcall NiTexturingProperty_SaveBinary(NiTexturingProperty* self, int, NiStream& kStream)
 {
     reinterpret_cast<NiPropertySaveStub*>(self)->SaveBinary(kStream);
 
@@ -2145,12 +2147,13 @@ NiTexturingProperty::Map::~Map()
 
 struct MapScalarDtorCandidate : NiTexturingProperty::Map
 {
-    void* FUN_00a6a9f0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls the base Map destructor, then frees this object via g_memoryManager when flags has bit 0 set, and returns this.
 // @fnv 0x00a6a9f0
-void* MapScalarDtorCandidate::FUN_00a6a9f0(unsigned int flags)
+// src: EXE 0x00a6a9f0
+void* MapScalarDtorCandidate::ScalarDeletingDestructor(unsigned int flags)
 {
     this->NiTexturingProperty::Map::~Map();
     if (flags & 1)

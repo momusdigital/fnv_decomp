@@ -117,7 +117,8 @@ bool EffectItem::IsHostile()
 
 // Returns whether GetEffectSetting() equals GetUsageMonitorEffectSetting().
 // @fnv 0x00404730
-bool EffectItem::IsScriptBasedEffect()
+// src: COMMUNITY 0x00404730
+bool EffectItem::IsUsageMonitorEffect()
 {
     return GetEffectSetting() == GetUsageMonitorEffectSetting();
 }
@@ -142,7 +143,7 @@ EffectItem* EffectItem::Delete(unsigned int flags)
 // @fnv 0x00405d20
 void EffectItemList::AddItem(EffectItem* item)
 {
-    if (item->IsScriptBasedEffect() && GetScriptEffect())
+    if (item->IsUsageMonitorEffect() && GetUsageMonitorEffect())
         return;
 
     AddTail(item);
@@ -299,8 +300,8 @@ float EffectItem::GetCost(Actor* apActor)
     if (apActor != 0)
     {
         fcost = ScaleBySettingBlend(fcost,
-                                    ((ActorValueOwner*)((char*)apActor + 0xa4))->GetActorValueAsInteger(GetEffectID()),
-                                    ((ActorValueOwner*)((char*)apActor + 0xa4))->GetActorValueAsInteger(0xb));
+                                    ((ActorValueOwner*)((char*)apActor + 0xa4))->GetClampedActorValueI(GetEffectID()),
+                                    ((ActorValueOwner*)((char*)apActor + 0xa4))->GetClampedActorValueI(0xb));
     }
     fcost = FloatFloor(fcost);
     return BSMAX_00404010(fcost, 1.0f);
@@ -331,7 +332,7 @@ bool EffectItem::Compare(EffectItem* apCompare)
     bool bDifferent = apCompare->GetEffectSetting() != GetEffectSetting() ||
                       apCompare->GetMagnitude() != GetMagnitude() || apCompare->GetArea() != GetArea() ||
                       apCompare->GetDuration() != GetDuration() || apCompare->GetRange() != GetRange() ||
-                      apCompare->GetAffectedActorValue() != GetAffectedActorValue();
+                      apCompare->GetActorValueIndex() != GetActorValueIndex();
 
     if (GetConditions())
     {
@@ -474,14 +475,14 @@ MagicCaster* __fastcall GetActiveEffectCaster(ActiveEffect* effect)
 }
 
 extern "C" bool __cdecl TESForm_QEndianSwapOnSave();
-extern "C" void __cdecl AppendChunk(unsigned int, void*, unsigned int);
+extern "C" void __cdecl TESForm___AddChunkData(unsigned int, void*, unsigned int);
 
 // @fnv 0x004040b0
 void EffectItem::Save()
 {
     if (TESForm_QEndianSwapOnSave())
         reinterpret_cast<BGSImpactData__IMPACT_DATA_DATA*>(this)->Endian();
-    AppendChunk(0x54494645, this, 0x14);
+    TESForm___AddChunkData(0x54494645, this, 0x14);
     if (TESForm_QEndianSwapOnSave())
         reinterpret_cast<BGSImpactData__IMPACT_DATA_DATA*>(this)->Endian();
     if (GetConditions())
@@ -785,7 +786,7 @@ struct FUN_004d61b0_sub
     ~FUN_004d61b0_sub();
 };
 
-class FUN_004d61b0
+class NiTreeCtrl
 {
   public:
     int m00;
@@ -804,11 +805,12 @@ class FUN_004d61b0
     void CreateTreeWindows(int a5, int a6, int a7, int a8);
     void NiTreeCtrl_SetImageList();
     void NiTreeCtrl_CreateTree(int aValue, int aFlag);
-    FUN_004d61b0(int a1, int a2, int a3, const char* a4, int a5, int a6, int a7, int a8);
+    NiTreeCtrl(int a1, int a2, int a3, const char* a4, int a5, int a6, int a7, int a8);
 };
 
 // @fnv 0x004d61b0
-FUN_004d61b0::FUN_004d61b0(int a1, int a2, int a3, const char* apName, int a5, int a6, int a7, int a8) : m18(0x25)
+// src: GUESS 0x004d61b0 (confidence: medium)
+NiTreeCtrl::NiTreeCtrl(int a1, int a2, int a3, const char* apName, int a5, int a6, int a7, int a8) : m18(0x25)
 {
     m00 = a1;
     m04 = a2;

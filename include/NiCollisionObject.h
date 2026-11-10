@@ -23,7 +23,7 @@ class NiCollisionObject : public NiObject
     virtual void SetSceneObject(NiAVObject*);
     virtual void Unk_24(NiUpdateData&);
     virtual void Unk25();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
 
     using NiObject::Clone;

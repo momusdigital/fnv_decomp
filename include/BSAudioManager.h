@@ -112,7 +112,7 @@ public:
     void __thiscall AddSound(BSGameSound*);
 
     void InitAudioVolumes();
-    void InitUISounds(bool);
+    void BSAudioManager_Update(bool);
     void SetAudioCacheSize(int);
     void ProcessAudioQueue();
     void BSAudioManager_Initialize();

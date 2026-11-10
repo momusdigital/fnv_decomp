@@ -85,7 +85,7 @@ bool TeleportDoorSearch::CollectConnections(const AStarNode<ParentSpaceNode, Tel
                     continue;
                 }
             }
-            if (reinterpret_cast<TESObjectDOOR*>(a00->GetObjectReference())->IsTeleportDoor() && disposition != 3)
+            if (reinterpret_cast<TESObjectDOOR*>(a00->GetObjectReference())->IsMinimalUse() && disposition != 3)
                 a06 = 409600.0f;
             reinterpret_cast<NiPoint3&>(a04) = *static_cast<const TESObjectREFR*>(a00)->GetPos();
             float b00;
@@ -144,7 +144,7 @@ struct AStarNodeTD
 };
 struct FUN_006f4340_shell
 {
-    AStarNodeTD* ProcessAndReturnValue_006f4340();
+    AStarNodeTD* AllocateNode();
 };
 struct FUN_006f4430_shell
 {
@@ -198,7 +198,7 @@ int TeleportDoorSearch::InsertOrUpdateNode(void* aiKey, float afCost, AStarNode<
             }
         }
     }
-    reinterpret_cast<AStarNodeTD*&>(aRetNode) = reinterpret_cast<FUN_006f4340_shell*>(reinterpret_cast<char*>(this) + 4)->ProcessAndReturnValue_006f4340();
+    reinterpret_cast<AStarNodeTD*&>(aRetNode) = reinterpret_cast<FUN_006f4340_shell*>(reinterpret_cast<char*>(this) + 4)->AllocateNode();
     (reinterpret_cast<AStarNodeTD*&>(aRetNode))->uiKey = reinterpret_cast<unsigned int>(aiKey);
     (reinterpret_cast<AStarNodeTD*&>(aRetNode))->m_fPathingCostCur = afCost;
     (reinterpret_cast<AStarNodeTD*&>(aRetNode))->pNext = *pBucketHead;

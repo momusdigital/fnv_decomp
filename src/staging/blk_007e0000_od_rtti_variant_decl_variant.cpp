@@ -854,7 +854,7 @@ bool __cdecl TextEditMenu_Create(const char* titleText, const char* initialText,
         g_011daec4->editor.FUN_007e6580(true);
         g_011daec4->accept->Tile_Set_00a01350(0xfc4, DAT_011d38b8.FUN_00403df0(), true);
         g_011daec4->callback = callback;
-        g_011daec4->ProcessState_007e6700();
+        g_011daec4->TextEditMenu_UpdateDisplayText();
         menu->FUN_00a1dc20(false);
         return true;
     }

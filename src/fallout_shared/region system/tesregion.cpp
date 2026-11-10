@@ -361,7 +361,7 @@ struct LstBQ
 // @fnv 0x004f0a40
 void TESRegion::SaveForm()
 {
-    BeginFormRecord();
+    TESForm_StartForm();
     RefQ* pRef_gmplt = (RefQ*)GetParentWorldSpace();
     if (pRef_gmplt)
     {
@@ -380,5 +380,5 @@ void TESRegion::SaveForm()
         (*pIterB_jeqla->FUN_006815c0())->Save();
         pIterB_jeqla = pIterB_jeqla->FUN_00726070();
     }
-    FinishFormRecord();
+    TESForm_CloseForm();
 }

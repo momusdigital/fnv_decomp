@@ -16,9 +16,9 @@ public:
     virtual NiAVObject* FindAVObject(const NiFixedString&);
     virtual void AddNamedAVObject(const NiFixedString&, NiAVObject*);
     virtual void vf37(NiAVObject*);
-    virtual NiAVObject* vf38();
+    virtual NiAVObject* PrintInfo();
 
-    void BuildPalette();
+    void ResetAndFillFromScenegraph();
     void ProcessCloneBase(CloningProcess&);
 
     union

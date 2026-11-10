@@ -80,7 +80,7 @@ struct ModeShell
 };
 struct TObjShell
 {
-    float __thiscall GetActorHeight();
+    float __thiscall Actor_GetHeight();
 };
 struct ListShell
 {
@@ -620,7 +620,7 @@ void ThisShell::PlayerCharacter_UpdateChaseCamera(NiPoint3* p1, NiPoint3* p2, un
     else if (!Interface_IsMenuIDVisible(0x40c, 0) && DAT_011f2250.FUN_0044ddc0() != 4)
     {
         void* o = FUN_009306d0();
-        float ft = ((TObjShell*)this)->GetActorHeight() - 124.0;
+        float ft = ((TObjShell*)this)->Actor_GetHeight() - 124.0;
         if (field21c->CameraCaster_KeepOutOfCharacter(o, &v128, *DAT_011e09c8.Setting_Float_00403e20(), ft))
             ok = true;
     }

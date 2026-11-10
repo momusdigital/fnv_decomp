@@ -106,7 +106,7 @@ struct ScreenSink
     virtual void vf0f();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -144,7 +144,7 @@ struct ScreenSink
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf3a();
     virtual void vf3b();
@@ -180,7 +180,7 @@ struct ScreenSink
     virtual void vf59();
     virtual void vf5a();
     virtual void vf5b();
-    virtual void vf5c();
+    virtual void applyForce();
     virtual void vf5d();
     virtual void vf5e();
     virtual void vf5f();
@@ -241,7 +241,7 @@ struct SurfaceHolder
     virtual void vf0f();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -289,7 +289,7 @@ struct SurfaceOwner
     virtual void vf0f();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -365,7 +365,7 @@ struct HudBase
     virtual void vf0f();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14(NiScreenElements* s);
     virtual void vf15();
@@ -403,7 +403,7 @@ struct HudBase
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf3a();
     virtual void vf3b();

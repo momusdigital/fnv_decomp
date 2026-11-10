@@ -603,13 +603,13 @@ template <> BSSimpleArray<NavMeshClosedDoorInfo, 1024>::~BSSimpleArray()
 
 struct FUN_00691e70_shell
 {
-    void UpdateState_00691e70(unsigned char* param1, unsigned short param2, unsigned int param3);
+    void NiTMapBase_SetValue(unsigned char* param1, unsigned short param2, unsigned int param3);
 };
 
 // Stores a 16-bit value at offset 4 and a 32-bit value at offset 6 of the given buffer.
 // @fnv 0x00691e70
-// src: GUESS 0x00691e70 (confidence: low)
-void __thiscall FUN_00691e70_shell::UpdateState_00691e70(unsigned char* pBuffer, unsigned short usValue, unsigned int uiValue)
+// src: GUESS 0x00691e70 (confidence: high)
+void __thiscall FUN_00691e70_shell::NiTMapBase_SetValue(unsigned char* pBuffer, unsigned short usValue, unsigned int uiValue)
 {
     *reinterpret_cast<unsigned short*>(pBuffer + 4) = usValue;
     *reinterpret_cast<unsigned int*>(pBuffer + 6) = uiValue;
@@ -698,11 +698,12 @@ void __thiscall FUN_00690fe0_shell::NavMesh_AddVertex(unsigned int state)
 
 struct FUN_00691040_shell
 {
-    void GetPackedFlags(unsigned short, unsigned short*, bool*, bool*);
+    void NavMeshTriangle_GetEdgeCoverData(unsigned short, unsigned short*, bool*, bool*);
 };
 // Extracts a 4-bit value and two flag bits from the 32-bit field at offset 0xc, shifted by a1*6+16, writing them to a2, a3 and a4.
 // @fnv 0x00691040
-void FUN_00691040_shell::GetPackedFlags(unsigned short ausIndex, unsigned short* a2, bool* pbFlag16, bool* pbFlag32)
+// src: COMMUNITY 0x00691040
+void FUN_00691040_shell::NavMeshTriangle_GetEdgeCoverData(unsigned short ausIndex, unsigned short* a2, bool* pbFlag16, bool* pbFlag32)
 {
     unsigned int shift = ausIndex * 6 + 16;
     unsigned int uiBits = *(unsigned int*)((char*)this + 0xc) >> shift;
@@ -1195,7 +1196,8 @@ struct Unk00690e30
 }  // namespace fnv_00690e90
 
 // @fnv 0x00690e90
-void NavMesh::UpdateTriangleExtraInfo(unsigned short aiExtraInfo)
+// src: COMMUNITY 0x00690e90
+void NavMesh::DeleteExtraEdgeInfo(unsigned short aiExtraInfo)
 {
     unsigned int i;
     unsigned int itriSize4;
@@ -1388,13 +1390,13 @@ bool NavMesh::Validate(int a0)
                 EdgeInfoView* pRetrievedObject = reinterpret_cast<EdgeInfoView*>(GetEdgeExtraInfo((unsigned short)b, tri7));
                 if (pRetrievedObject->m_04 == 0)
                 {
-                    UpdateTriangleExtraInfo(sh->GetEdgeExtraInfo_0068f2c0(tri7));
+                    DeleteExtraEdgeInfo(sh->GetEdgeExtraInfo_0068f2c0(tri7));
                     hadError = true;
                     continue;
                 }
                 else if (pRetrievedObject->m_08 == 0xffff)
                 {
-                    UpdateTriangleExtraInfo(sh->GetEdgeExtraInfo_0068f2c0(tri7));
+                    DeleteExtraEdgeInfo(sh->GetEdgeExtraInfo_0068f2c0(tri7));
                     hadError = true;
                     continue;
                 }
@@ -1407,7 +1409,7 @@ bool NavMesh::Validate(int a0)
                         {
                             Warning_005b5e40(DAT_0106a860, GetHavokWorldObjectCountInSceneGraph_0084e3a0(), p.Modelloader_GetReferencedThis(), b, tri7,
                                          ((MeshView*)pTri.Modelloader_GetReferencedThis())->GetHavokWorldObjectCountInSceneGraph_0084e3a0(), pRetrievedObject->m_08);
-                            UpdateTriangleExtraInfo(sh->GetEdgeExtraInfo_0068f2c0(tri7));
+                            DeleteExtraEdgeInfo(sh->GetEdgeExtraInfo_0068f2c0(tri7));
                             hadError = true;
                             continue;
                         }
@@ -1416,7 +1418,7 @@ bool NavMesh::Validate(int a0)
                     {
                         Warning_005b5e40(DAT_0106a7d8, GetHavokWorldObjectCountInSceneGraph_0084e3a0(), p.Modelloader_GetReferencedThis(), b, tri7,
                                      pRetrievedObject->m_04->Modelloader_GetReferencedThis());
-                        UpdateTriangleExtraInfo(sh->GetEdgeExtraInfo_0068f2c0(tri7));
+                        DeleteExtraEdgeInfo(sh->GetEdgeExtraInfo_0068f2c0(tri7));
                         hadError = true;
                         continue;
                     }

@@ -536,12 +536,12 @@ const char* Gen::GetConstantString()
 namespace fnv_00b43d80 {
 struct Gen
 {
-    const char* ComputeValue_00b43d80();
+    const char* Normal_Name();
 };
 
 // @fnv 0x00b43d80
-// src: GUESS 0x00b43d80 (confidence: low)
-const char* Gen::ComputeValue_00b43d80()
+// src: EXE 0x00b43d80
+const char* Gen::Normal_Name()
 {
     return "Normal";
 }
@@ -564,12 +564,12 @@ const char* Gen::GetConstantString()
 namespace fnv_00b43da0 {
 struct Gen
 {
-    const char* ComputeValue_00b43da0();
+    const char* SymGen_Name();
 };
 
 // @fnv 0x00b43da0
-// src: GUESS 0x00b43da0 (confidence: low)
-const char* Gen::ComputeValue_00b43da0()
+// src: COMMUNITY 0x00b43da0
+const char* Gen::SymGen_Name()
 {
     return "SymGen";
 }

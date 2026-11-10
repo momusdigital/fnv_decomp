@@ -172,7 +172,7 @@ bool NavMeshInfoSearch::CollectConnections(const AStarNodeType* pNode,
                     continue;
                 }
             }
-            if (reinterpret_cast<TESObjectDOOR*>(pPathNodeDoor->GetObjectReference())->IsTeleportDoor())
+            if (reinterpret_cast<TESObjectDOOR*>(pPathNodeDoor->GetObjectReference())->IsMinimalUse())
                 fDoorCost = 409600.0f;
             if (m_eDoorLockDisposition == Pathing::LOCKS_UNUSED && pPathNodeDoor->GetIsHiddenDoor())
                 continue;

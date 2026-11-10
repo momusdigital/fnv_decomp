@@ -28,13 +28,13 @@ struct FUN_00afb190_entry
         uiElapsedMilliseconds = (o & 0x7fffffff) | (uiElapsedMilliseconds & 0x80000000);
     }
 };
-struct FUN_00afb190_shell
+struct Archive
 {
     bool Archive_CheckInvalidateFile(FUN_00afb190_entry* entry, const char* name);
 };
 // @fnv 0x00afb190
 // src: COMMUNITY 0x00afb190
-bool FUN_00afb190_shell::Archive_CheckInvalidateFile(FUN_00afb190_entry* entry, const char* name)
+bool Archive::Archive_CheckInvalidateFile(FUN_00afb190_entry* entry, const char* name)
 {
     char path[0x104];
     if (DAT_011acdf9 && !entry->IsChecked())

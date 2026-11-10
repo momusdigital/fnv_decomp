@@ -26,7 +26,7 @@ public:
     virtual void InitItem();
 
     void ResetFormData();
-    bool AppendPerkEntry(BGSPerkEntry* entry);
+    bool AddPerkEntry(BGSPerkEntry* entry);
     bool Load(TESFile* file);
     void ApplyPerkEntries(Actor* actor, unsigned char rank, bool alternate);
     bool IsPerkHidden() const;

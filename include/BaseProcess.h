@@ -640,7 +640,7 @@ class BaseProcess
                                                    bool abInCombat);
     virtual BSSimpleList<DetectionViewData*>* GetDetectingActors();
     virtual DetectionEvent* FindDetectionEventForActor(Actor* apActor);
-    virtual void AddDetectionEvent(Actor* apActor, NiPoint3 akPosition, SOUND_LEVEL aeSoundLevel,
+    virtual void CreateDetectionEvent(Actor* apActor, NiPoint3 akPosition, SOUND_LEVEL aeSoundLevel,
                                    int aiDetectionEventType, TESObjectREFR* apRef);
     virtual void RemoveDetectionEvent();
     virtual void ClearDetectionEvents();
@@ -672,7 +672,7 @@ class BaseProcess
     virtual void SetCurrentShield(InventoryStackRecord* apShield);
     virtual void UpdateEquippedItems(Actor* apActor);
     virtual bool IsItemQueued(TESBoundObject* apItem, ExtraDataList* apExtraList, bool abEquip);
-    virtual void ProcessEquipmentRequest(Actor* apActor, bool abEquip, TESBoundObject* apItem, int aiNumber,
+    virtual void AddQueuedItem(Actor* apActor, bool abEquip, TESBoundObject* apItem, int aiNumber,
                                          ExtraDataList* apExtraList, bool abNow, bool abForceEquip, bool abFromMenus,
                                          bool abForceUnequip, bool abEquipCalling,
                                          bool abPlaySound);
@@ -701,13 +701,13 @@ class BaseProcess
     virtual void SetCurrentBoundObject(TESObject* apItem);
     virtual TESObject* GetCurrentBoundObject() const;
     virtual void RunActorProcessing(Actor* apActor);
-    virtual void RefreshActorMovement(Actor* apActor, bool abFlag);
+    virtual void CreateFollownoEscort(Actor* apActor, bool abFlag);
     virtual float GetProcessBlendAmount() const;
     virtual void SetAnimationTimer(float afVal);
     virtual void SetCombatDelayFadeTimer(float afVal);
     virtual bool IsProcessConditionMet() const;
     virtual void SelectActorCombatTarget(Actor* apActor);
-    virtual bool IsCombatTargetForActor(Actor* apActor, Actor* apTarget) const;
+    virtual bool ComputeCanInitiateDialogueWithNPC(Actor* apActor, Actor* apTarget) const;
     virtual bool CanAttackTarget(Actor* apActor, Actor* apTarget) const;
     virtual bool IsActorTargetValid(Actor* apActor, Actor* apTarget) const;
     virtual bool IsCurrentPackageTarget(Actor* apActor);
@@ -774,7 +774,7 @@ class BaseProcess
     virtual bool IsDetectionEnabled() const;
     virtual void SetActorProcessEnabled(bool abVal);
     virtual void SetActorProcessTime(Actor* apActor, float afTimeDelta);
-    virtual int GetActorReferenceState(Actor* apActor, TESObjectREFR* apTarget);
+    virtual int GetEmotionsDispostion(Actor* apActor, TESObjectREFR* apTarget);
     virtual DIALOGUE_EMOTION GetCurrentDialogueEmotion() const;
     virtual void SetDialogueEmotion(DIALOGUE_EMOTION aeEmotion);
     virtual void RunDetection(Actor* apActor, float afTimeDelta); // slot 188: HighProcess 0x008e40d0 (ret 8)
@@ -1004,7 +1004,7 @@ class BaseProcess
     virtual void ClearHighProcessState(TESObjectREFR* apTarget);
     virtual void SetLastKnownReference(TESObjectREFR* apTarget);
     virtual void SetTargetReferenceByIndex(HeadTrackType aeType, TESObjectREFR* apTarget);
-    virtual void ClearPackageData();
+    virtual void ClearDefaultHeadTrackTarget();
     virtual void ClearCachedTargetReferences(bool abHoldDefault);
     virtual void SetCombatActive(bool abHoldDefault);
     virtual void ResetCombatState();

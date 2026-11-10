@@ -13,7 +13,7 @@ public:
     virtual ~hkpLinearParametricCurve() throw();
 
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
 
     hkReal m_fSmoothingValue;

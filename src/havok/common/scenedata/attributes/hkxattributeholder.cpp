@@ -47,14 +47,15 @@ struct S_00e3eaa0_Base
     virtual ~S_00e3eaa0_Base() throw()
     {}
 };
-struct FUN_00e3eaa0 : S_00e3eaa0_Base
+struct hkxAttributeHolder : S_00e3eaa0_Base
 {
     hkArray<S_00e3eaa0_Elem> m_ppData;
-    virtual ~FUN_00e3eaa0() throw();
+    virtual ~hkxAttributeHolder() throw();
 };
 // Destructor for the container; the array member is destroyed automatically after this body runs.
 // @fnv 0x00e3eaa0
-FUN_00e3eaa0::~FUN_00e3eaa0() throw()
+// src: EXE 0x00e3eaa0
+hkxAttributeHolder::~hkxAttributeHolder() throw()
 {}
 
 inline void* __cdecl operator new(unsigned int, void* where) throw()
@@ -201,7 +202,7 @@ namespace fnv_00dfe360 {
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 
-struct FUN_00dfe360_cls
+struct hkaInterleavedUncompressedAnimation
 {
     int unk00;
     int unk04;
@@ -226,7 +227,7 @@ struct FUN_00dfe360_cls
 
 // @fnv 0x00dfe360
 // src: GUESS 0x00dfe360 (confidence: low)
-void FUN_00dfe360_cls::UpdateFields_00dfe360()
+void hkaInterleavedUncompressedAnimation::UpdateFields_00dfe360()
 {
     hkMemoryRouter* pHolder = hkMemoryRouter_getInstance();
     hkMemoryAllocator* pAllocator = reinterpret_cast<hkMemoryAllocator*>(pHolder->m_heap);

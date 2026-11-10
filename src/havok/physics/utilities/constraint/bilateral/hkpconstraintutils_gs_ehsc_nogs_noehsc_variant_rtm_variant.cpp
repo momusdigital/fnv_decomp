@@ -49,13 +49,13 @@ struct CloneDataA : CloneDataBase
     Block5 unk80;
     Block5b unk94;
     Block5 unka8;
-    CloneDataA* FUN_00d4f2a0();
+    CloneDataA* hkpRagdollLimitsData();
     void hkpRagdollLimitsData_setConeLimitStabilization(hkBool flag);
 };
 struct CloneDataB : CloneDataBase
 {
     Block5 unk80;
-    CloneDataB* FUN_00d52fc0();
+    CloneDataB* hkpHingeLimitsData();
 };
 struct SourceDataHeader
 {

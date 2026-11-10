@@ -81,7 +81,7 @@ public:
     TESAmmo* GetCurrentAmmo(Actor* actor);
     BGSProjectile* GetProjectileData(Actor* actor);
     float GetProjectileData();
-    unsigned char GetDamageForActor(bool split, bool unknown, Actor* actor);
+    unsigned char GetNumProjectiles(bool split, bool unknown, Actor* actor);
     void SetModItem(unsigned int slot, TESObjectIMOD* item);
     void SetModItem(unsigned char slot, TESObjectIMOD* item);
     int GetWeaponType() const;
@@ -96,8 +96,8 @@ public:
     bool GetHasModScope();
     TESModel* GetWeaponModel();
     TESModel* GetModTESModel(unsigned char mods, bool flag);
-    TESSound* GetField238();
-    TESSound* GetField23C();
+    TESSound* TESObjectWEAP_GetEquipSound();
+    TESSound* TESObjectWEAP_GetUnequipSound();
     void Fire(TESObjectREFR* reference);
     bool IsRanged();
     bool IsMelee();
@@ -107,8 +107,8 @@ public:
     void SetByteAtOffsetF4(int value);
     int GetUnk15C();
     ActorValue__Index GetResistance();
-    float GetModdedWeaponValue(WEAPON_MOD_EFFECT effect, unsigned char value);
-    float GetModdedWeaponValue(WEAPON_MOD_EFFECT effect, unsigned char value) const;
+    float GetModEffectValue(WEAPON_MOD_EFFECT effect, unsigned char value);
+    float GetModEffectValue(WEAPON_MOD_EFFECT effect, unsigned char value) const;
     SpellItem* GetField1CC();
     SpellItem* GetVATSSpecialEffect();
     TESEffectShader* GetScopeEffect();

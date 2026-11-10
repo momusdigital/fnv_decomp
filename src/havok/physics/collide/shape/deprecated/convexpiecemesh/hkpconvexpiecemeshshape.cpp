@@ -29,7 +29,7 @@ struct HkpStandIn
     virtual void v0() = 0;
 
     void ForwardCall_00e490d0();
-    HkpStandIn* FUN_00e01010(int flags);
+    HkpStandIn* ScalarDeletingDestructor(int flags);
 
     unsigned short value;
 };
@@ -38,7 +38,8 @@ HkpRouter* _D1A0E0GetMemoryRouter();
 
 // Calls FUN_00e490d0, then if flags has bit 0 set, releases this through the memory router's allocator with this->value as size, and returns this.
 // @fnv 0x00e01010
-HkpStandIn* HkpStandIn::FUN_00e01010(int flags)
+// src: EXE 0x00e01010
+HkpStandIn* HkpStandIn::ScalarDeletingDestructor(int flags)
 {
     this->ForwardCall_00e490d0();
 

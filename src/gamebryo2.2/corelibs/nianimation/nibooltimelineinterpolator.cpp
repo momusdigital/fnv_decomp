@@ -23,7 +23,8 @@ extern int DAT_01099fb4;
 
 // Allocates a 0x20-byte NiBoolInterpolator, initialises its vtable, clears the field at offset 0x18 and the byte at 0x1c, and returns it (or null).
 // @fnv 0x00a52fe0
-NiBoolInterpolator* __cdecl CreateBoolInterpolator()
+// src: EXE 0x00a52fe0
+NiBoolInterpolator* __cdecl NiBoolTimelineInterpolator_CreateObject()
 {
     NiBoolInterpolator* p = static_cast<NiBoolInterpolator*>(BSFadeNode::operator new(0x20));
     if (p)
@@ -83,7 +84,8 @@ extern unsigned int DAT_0109a0b4;
 extern unsigned char DAT_0109a914;
 // Allocates a 0x18-byte NiKeyBasedInterpolator, constructs it, sets its vtable and fields, and returns the pointer or 0.
 // @fnv 0x00a53500
-void* CreateNiKeyBasedInterpolator()
+// src: EXE 0x00a53500
+void* NiBoolInterpolator_CreateObject()
 {
     void* p = BSFadeNode::operator new(0x18);
     if (p)

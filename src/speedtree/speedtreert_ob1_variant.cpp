@@ -78,8 +78,8 @@ public:
     float DotProduct(const LocalVec3* other) const;
     float Length() const;
     float LengthSquared() const;
-    float GetSquaredXYLength();
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength();
+    float NiPoint3_SqrXYLength() const;
     Elem16& expand(Allocator& allocator);
 
     void SetComponents(float x, float y, float z);
@@ -292,7 +292,7 @@ struct FUN_00b078e0_Class
 };
 struct FUN_00b2bdc0_shell
 {
-    void UpdateFields_00b2bdc0(float, float);
+    void CTreeEngine_SetLodDistances(float, float);
 };
 struct FUN_00b08500_shell
 {
@@ -372,9 +372,9 @@ struct FUN_00657f60_class
     void* d;
     void* e;
     void* f;
-    void ReleaseStorage_00657f60();
+    void vector__Tidy();
 };
-struct FUN_00b02e20
+struct CSpeedTreeRT_STextures
 {
     void* p0;
     void* p4;
@@ -383,7 +383,7 @@ struct FUN_00b02e20
     void* p10;
     void* p14;
     void* p18;
-    FUN_00b02e20();
+    CSpeedTreeRT_STextures();
 };
 struct GlobalObject_00b3f100
 {
@@ -734,7 +734,7 @@ struct FUN_00b0b920_self
     unsigned short GetNumLeafLodLevels();
     short CSpeedTreeRT_GetDiscreteFrondLodLevel(float f);
     float CSpeedTreeRT_GetLodLevel();
-    void FillFrondGeometry(FUN_00b0b920_arg* arg, short type);
+    void CSpeedTreeRT_GetFrondGeometry(FUN_00b0b920_arg* arg, short type);
 };
 struct HelperC780
 {
@@ -2360,7 +2360,7 @@ struct Inner59 : VectorValue59
         operator delete(allocation);
     }
 // src: GUESS 0x00657f60 (confidence: medium)
-    void ReleaseStorage_00657f60()
+    void vector__Tidy()
     {
         if (d != 0)
         {
@@ -2383,7 +2383,7 @@ struct Inner59 : VectorValue59
     }
     __forceinline ~Inner59()
     {
-        ReleaseStorage_00657f60();
+        vector__Tidy();
     }
 };
 extern unsigned char DAT_011f8c04;
@@ -2410,8 +2410,8 @@ struct FUN_00b06090
     }
     int GetNextElement();
     float CTreeFileAccess_ParseFloat();
-// src: GUESS 0x00b06180 (confidence: low)
-    bool ProcessAndTransformResult_00b06180()
+// src: COMMUNITY 0x00b06180
+    bool CTreeFileAccess_ParseBool()
     {
         return m_in.at(m_pos++) != 0;
     }
@@ -2791,7 +2791,7 @@ bool Tree59::CSpeedTreeRT_LoadTree_00b059e0(int p1, int p2)
                         break;
                     }
                     case 22000: {
-                        setFlag(reader8.ProcessAndTransformResult_00b06180());
+                        setFlag(reader8.CTreeFileAccess_ParseBool());
                         break;
                     }
                     default:
@@ -10992,17 +10992,17 @@ template <class _Ty> class vectorS : public _Vector_valS<_Ty>
     pointer _Mylast;
     pointer _Myend;
 };
-class FUN_00b06180_Reader
+class CTreeFileAccess
 {
   public:
-    bool ProcessAndTransformResult_00b06180();
+    bool CTreeFileAccess_ParseBool();
     unsigned int m_uiPosition;
     vectorS<unsigned char> m_kFlags;
 };
 
 // @fnv 0x00b06180
-// src: GUESS 0x00b06180 (confidence: low)
-bool FUN_00b06180_Reader::ProcessAndTransformResult_00b06180()
+// src: COMMUNITY 0x00b06180
+bool CTreeFileAccess::CTreeFileAccess_ParseBool()
 {
     return m_kFlags[m_uiPosition++] != 0;
 }
@@ -11979,7 +11979,7 @@ struct Parser
     int GetNextElement();
     float CTreeFileAccess_ParseFloat();
     FUN_0044a4c0 CTreeFileAccess_ParseString();
-    bool ProcessAndTransformResult_00b06180();
+    bool CTreeFileAccess_ParseBool();
     bool AtEnd()
     {
         int aK[9];
@@ -12090,10 +12090,10 @@ void Tree::CSpeedTreeRT_ParseTextureCoordInfo(Parser* p)
             break;
         }
         case 0x2716:
-            b6d = p->ProcessAndTransformResult_00b06180();
+            b6d = p->CTreeFileAccess_ParseBool();
             break;
         case 0x2717:
-            b6c = p->ProcessAndTransformResult_00b06180();
+            b6c = p->CTreeFileAccess_ParseBool();
             break;
         default:
             throw FUN_00b09480("malformed texture coord info", false);
@@ -12335,7 +12335,7 @@ struct Parser
     int GetNextElement();
     float CTreeFileAccess_ParseFloat();
     FUN_0044a4c0 CTreeFileAccess_ParseString();
-    bool ProcessAndTransformResult_00b06180();
+    bool CTreeFileAccess_ParseBool();
 };
 struct TexQ
 {
@@ -12378,10 +12378,10 @@ void Tree::CSpeedTreeRT_ParseSupplementalTexCoordInfo(Parser* p)
                 break;
             }
             case 0x4e23:
-                b6d = p->ProcessAndTransformResult_00b06180();
+                b6d = p->CTreeFileAccess_ParseBool();
                 break;
             case 0x4e24:
-                b6c = p->ProcessAndTransformResult_00b06180();
+                b6c = p->CTreeFileAccess_ParseBool();
                 break;
             case 0x4e25:
                 for (int i = 0; i < 8; i++)
@@ -14158,7 +14158,7 @@ struct SpeedTreeImpl
     unsigned char unk6c;
 
     void CSpeedTreeRT_GetBranchGeometry(void* m_pShaderGeometry, unsigned short nBranchLodLevel);
-    void FillFrondGeometry(void* m_pShaderGeometry, unsigned short nFrondLodLevel);
+    void CSpeedTreeRT_GetFrondGeometry(void* m_pShaderGeometry, unsigned short nFrondLodLevel);
     void CSpeedTreeRT_GetLeafGeometry(void* m_pShaderGeometry, unsigned short nLeafLodLevel);
     void CSpeedTreeRT_Get360BillboardGeometry(void* m_pShaderGeometry, unsigned long ulGeometryFlags);
     void FillSpeedTreeOutput(void* m_pShaderGeometry);
@@ -14180,7 +14180,7 @@ void SpeedTreeImpl::CSpeedTreeRT_GetGeometry(void* m_pShaderGeometry, unsigned l
         }
         if (ulGeometryFlags & 2)
         {
-            this->FillFrondGeometry(m_pShaderGeometry, nFrondLodLevel);
+            this->CSpeedTreeRT_GetFrondGeometry(m_pShaderGeometry, nFrondLodLevel);
         }
         if (ulGeometryFlags & 4)
         {

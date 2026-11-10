@@ -46,14 +46,15 @@ void __cdecl _delete(void*, unsigned int);
 extern "C" MemoryManager g_memoryManager;
 extern "C" void* DAT_0109e834;
 
-struct FUN_00a87290_shell
+struct BSSegmentedTriShape
 {
-    void* __thiscall FUN_00a87290(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Sets the vtable, deallocates the pointer at offset 0xc4, calls FUN_00a89760 on this, and frees the object with _delete when flags has bit 0 set.
 // @fnv 0x00a87290
-void* __thiscall FUN_00a87290_shell::FUN_00a87290(unsigned int flags)
+// src: EXE 0x00a87290
+void* __thiscall BSSegmentedTriShape::ScalarDeletingDestructor(unsigned int flags)
 {
     void* old = *(void**)((char*)this + 0xc4);
     *(void**)this = &DAT_0109e834;

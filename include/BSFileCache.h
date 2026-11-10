@@ -34,7 +34,7 @@ public:
     virtual void vf09();
     virtual void vf10(int);
     virtual void vf11(int, int, int, int);
-    virtual void vf12();
+    virtual void SetMapName();
     virtual bool vf13(void* apCachedFile);
     virtual void vf14();
     virtual void ClearPointerAt60();

@@ -16,7 +16,7 @@
 
 
 
-ScriptFunctionInfo* GetFunctionByOpcode(SCRIPT_OUTPUT output);
+ScriptFunctionInfo* ScriptCompiler_GetFunctionDef(SCRIPT_OUTPUT output);
 int Warning(const char* format, ...);
 bool ExtractArgs(const ScriptParameter* parameters, const char* data, unsigned int* offset,
                  TESObjectREFR* reference, TESObjectREFR* container, Script* script, ScriptLocals* locals, ...);
@@ -32,7 +32,7 @@ extern const char* PrepareScriptMessage(const char* message, bool localized);
 
 // Reads the output opcode, optional reference ID and line size from the script data at offset, resolving the reference and reporting an error if it is unknown.
 // @fnv 0x005e13a0
-bool ScriptRunner::ParseOutput(Script* script, SCRIPT_OUTPUT& output, unsigned int& offset, int& lineSize,
+bool ScriptRunner::GetNextLine(Script* script, SCRIPT_OUTPUT& output, unsigned int& offset, int& lineSize,
                                TESObjectREFR** ppReference, bool skipReference)
 {
     lineSize = 0;
@@ -59,16 +59,16 @@ bool ScriptRunner::ParseOutput(Script* script, SCRIPT_OUTPUT& output, unsigned i
         offset += 2;
         if (!skipReference && !*ppReference && !isVariable)
         {
-            ScriptFunctionInfo* function = GetFunctionByOpcode(output);
+            ScriptFunctionInfo* function = ScriptCompiler_GetFunctionDef(output);
             if (function)
             {
-                SetErrorMessage(script,
+                ScriptError(script,
                                 "Unknown reference object for function '%s'.  Execution of script '%s' stopped.",
                                 function->pFunctionName, script->GetName());
             }
             else
             {
-                SetErrorMessage(script, "Unknown reference object.  Execution of script '%s' stopped.",
+                ScriptError(script, "Unknown reference object.  Execution of script '%s' stopped.",
                                 script->GetName());
             }
             return false;
@@ -85,7 +85,7 @@ bool ScriptRunner::ParseOutput(Script* script, SCRIPT_OUTPUT& output, unsigned i
 
 // Executes one script command at the given offset, handling BEGIN blocks, SET, IF/ELSEIF/ELSE/ENDIF and function calls, updating blockSize and lineOffset.
 // @fnv 0x005e1550
-bool ScriptRunner::ParseBlock(Script* script, const SCRIPT_OUTPUT output, TESObjectREFR* reference, int& blockSize,
+bool ScriptRunner::EvaluateLine(Script* script, const SCRIPT_OUTPUT output, TESObjectREFR* reference, int& blockSize,
                               const unsigned int inputOffset, unsigned int& lineOffset, const unsigned int lineNumber,
                               bool skip, bool skipBlock)
 {
@@ -338,7 +338,7 @@ bool ScriptRunner::ParseBlock(Script* script, const SCRIPT_OUTPUT output, TESObj
             if (skip)
                 break;
         default: {
-            function = GetFunctionByOpcode(output);
+            function = ScriptCompiler_GetFunctionDef(output);
             if (!function)
             {
                 BSStringT<char> message;
@@ -483,7 +483,8 @@ int __cdecl BSvsprintf(char* buffer, char const* format, char* varArgs);
 
 // Formats a message into a local buffer, logs it via DebugLog or Warning, then zeroes the script header size and flags the runner as failed.
 // @fnv 0x005e2410
-void ScriptRunner::SetErrorMessage(Script* apScript, char* apFormat, ...)
+// src: COMMUNITY 0x005e2410
+void ScriptRunner::ScriptError(Script* apScript, char* apFormat, ...)
 {
     char buffer[260];
     char* varArgs;
@@ -580,7 +581,8 @@ bool ScriptRunner::RunScript(Script* script, TESObjectREFR* reference, ScriptLoc
         e += 1;
         m_pGlobal = 0;
         q = 0;
-        if (!ParseOutput(script, k, c, q, &b, f != 0))
+        // src: COMMUNITY 0x005e13a0
+        if (!GetNextLine(script, k, c, q, &b, f != 0))
         {
             script->GetHeader()->dataSize = 0;
             break;
@@ -593,7 +595,8 @@ bool ScriptRunner::RunScript(Script* script, TESObjectREFR* reference, ScriptLoc
         {
             if (!b)
                 b = reference;
-            if (!ParseBlock(script, k, b, q, c, f, e, false, true))
+            // src: COMMUNITY 0x005e1550
+            if (!EvaluateLine(script, k, b, q, c, f, e, false, true))
             {
                 l = true;
                 break;

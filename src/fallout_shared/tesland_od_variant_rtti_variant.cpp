@@ -126,9 +126,9 @@ template <int> struct EndianSizeTag
 };
 void BSEndian(int*, EndianSizeTag<2>);
 void BSEndian(unsigned short*, EndianSizeTag<2>);
-struct FUN_00535a60_Class
+struct FILE_TEX_DATA
 {
-    void ProcessState_00535a60();
+    void FILE_TEX_DATA_Endian();
 };
 extern int DAT_011c9f04;
 int TESLandTexture_GetDefaultTexture();
@@ -154,7 +154,7 @@ struct FUN_00540800_Class
     void ForwardCall_00537ce0();
 };
 extern "C" void* g_011f4aac;
-struct FUN_00537d00_Class
+struct BSPackedAdditionalGeometryData
 {
     void* __thiscall BSPackedAdditionalGeometryData_GetRTTI();
 };
@@ -182,12 +182,12 @@ struct FUN_00537e90
     unsigned int quantity;
     void SetQuantity(unsigned int value);
 };
-struct FUN_00538e30_class
+struct hkBaseObject
 {
     void __fastcall SetVtable();
 };
 extern int DAT_0102e378;
-struct FUN_00538e10_class
+struct hkReferencedObject
 {
     int* m_vtbl;
     void __fastcall UpdateState_00538e10();
@@ -240,7 +240,7 @@ struct FUN_005394c0_Class
 };
 struct GlobalObjectO2_00a7b610;
 extern GlobalObjectO2_00a7b610 g_011f4ab8;
-struct FUN_00539fc0_Class
+struct NiBinaryExtraData
 {
     GlobalObjectO2_00a7b610* NiBinaryExtraData_GetRTTI();
 };
@@ -261,7 +261,7 @@ struct B006815c0
 {
     B006815c0();
 };
-struct FUN_0053a510
+struct COORD_DATA
 {
     B006815c0 m0;
     char _p1[7];
@@ -270,7 +270,7 @@ struct FUN_0053a510
     B006815c0 m2;
     char _p3[19];
     B006815c0 m3;
-    FUN_0053a510();
+    COORD_DATA();
 };
 struct FUN_0053a760_Class
 {
@@ -328,7 +328,7 @@ struct Buf50
     int m44;
     int m48;
     int m4C;
-    void FUN_0053a510();
+    void COORD_DATA();
 };
 struct Owner
 {
@@ -362,7 +362,7 @@ struct Tmp53e210
     int m44;
     int m48;
     int m4C;
-    void FUN_0053a510();
+    void COORD_DATA();
 };
 struct Host53e210
 {
@@ -635,28 +635,28 @@ class FUN_00537d40 : public D40NiObject
 };
 int TruncateFloatToInt(float value);
 bool TESForm_QEndianSwapOnSave();
-void __cdecl AppendChunk(unsigned int fourcc, void* buf, unsigned int size);
+void __cdecl TESForm___AddChunkData(unsigned int fourcc, void* buf, unsigned int size);
 void __cdecl TESForm_AddChunkArray(unsigned int fourcc, void* buf, unsigned int size);
 int __cdecl FUN_00ec7d40(int v);
 void __cdecl FNV_Warning(const char* fmt, ...);
-void __cdecl CompressSaveLoadRecord();
+void __cdecl TESForm_CompressSaveBuffer();
 int TESLandTexture_GetDefaultTexture();
 void __fastcall QuestPerkEntryData_Endian(void* p);
 struct FUN_0084e3a0_Class
 {
     int GetHavokWorldObjectCountInSceneGraph_0084e3a0();
 };
-struct FUN_00535aa0_Class
+struct FILE_TEX_VERT_DATA
 {
     void OBJ_WEAP_CRITICAL_Endian();
 };
 struct FUN_004855a0_shell
 {
-    void BeginFormRecord();
+    void TESForm_StartForm();
 };
 struct FUN_00485680_shell
 {
-    void FinishFormRecord();
+    void TESForm_CloseForm();
 };
 extern double DAT_0102dfe0;
 extern double DAT_0101e568;
@@ -751,12 +751,12 @@ struct MC
     MC();
     void Fin(int);
 };
-struct FUN_00538d70_cls : Base8ef0
+struct hkpMoppCode : Base8ef0
 {
     MA a;
     MB b;
     MC c;
-    FUN_00538d70_cls();
+    hkpMoppCode();
     virtual void v0();
 };
 extern void* DAT_01187020;
@@ -1066,7 +1066,7 @@ struct LocalObj53a5e0
     int m4c;
     int m50;
     int m54;
-    void FUN_0053a510();
+    void COORD_DATA();
 };
 struct FUN_0053a5e0_cls
 {
@@ -1818,7 +1818,7 @@ struct Format_5345c0
 struct Geometry_5345c0
 {
     unsigned int NiGeometry_GetNormals();
-    NiColorA* GetNextProc();
+    NiColorA* NiGeometry_GetColors();
     NiGeometryData* NiGeometry_GetModelData();
 };
 struct Node_5345c0
@@ -1954,7 +1954,7 @@ struct GeomData
     void FUN_00a67090(int);
     void FUN_00a67050(int);
     void FUN_004410f0(bool);
-    void SetByteAtOffset38(int);
+    void SetKeepFlags(int);
 };
 struct Property
 {
@@ -2313,7 +2313,7 @@ struct Buffer538c00
 
     unsigned int m04;
 
-    void __thiscall UpdateState_00540750(unsigned int size);
+    void __thiscall setSize(unsigned int size);
 
     void* __thiscall Modelloader_GetReferencedThis();
 };
@@ -2836,7 +2836,7 @@ struct LandFile535d
 };
 struct LandWorld535d
 {
-    bool FindParentFile(int x, int y, LandFile535d** _fileIndex, unsigned int* _uBlockOffset);
+    bool TESWorldSpace_FindLandDataInFile(int x, int y, LandFile535d** _fileIndex, unsigned int* _uBlockOffset);
 };
 struct LandTextureRecord535d
 {
@@ -2844,7 +2844,7 @@ struct LandTextureRecord535d
     unsigned char quad7;
     unsigned char unused05;
     unsigned short bPlayerPlayerDead;
-    void ProcessState_00535a60();
+    void FILE_TEX_DATA_Endian();
 };
 struct LandNormal535d
 {
@@ -2900,7 +2900,7 @@ struct LandCell535d
     int FUN_00544c30();
 };
 TESForm* TESForm_GetFormByNumericID(unsigned int);
-void ResolveFormID(unsigned int*, LandFile535d*);
+void TESForm_AddCompileIndex(unsigned int*, LandFile535d*);
 void MessageHandler_IncDisableWarningCount(bool);
 extern const char DAT_01015890[];
 extern const char DAT_0102e170[], DAT_0102e120[], DAT_0102e0dc[], DAT_0102e088[], DAT_0102e038[], DAT_0102dfe8[];
@@ -2953,7 +2953,7 @@ bool LandOwner535d::TESObjectLAND_LoadVerticesIntoArrays()
     else
     {
         LandWorld535d* world = TESObjectLAND_GetWorldSpace();
-        if (!world || !world->FindParentFile(TESObjectLAND_GetCellX(), FUN_00534010(), &_fileIndex, &_uBlockOffset))
+        if (!world || !world->TESWorldSpace_FindLandDataInFile(TESObjectLAND_GetCellX(), FUN_00534010(), &_fileIndex, &_uBlockOffset))
             return true;
     }
     if (failedActor_2)
@@ -3093,8 +3093,8 @@ bool LandOwner535d::TESObjectLAND_LoadVerticesIntoArrays()
                 ourMemset(&record, 0, sizeof(record));
                 _streamSize->GetChunkData(&record, sizeof(record));
                 if (_streamSize->FUN_00401680())
-                    record.ProcessState_00535a60();
-                ResolveFormID(&record.formID, _streamSize);
+                    record.FILE_TEX_DATA_Endian();
+                TESForm_AddCompileIndex(&record.formID, _streamSize);
                 data->baseTextures[record.quad7] = dynamic_cast<TESLandTexture*>(TESForm_GetFormByNumericID(record.formID));
                 if (!data->baseTextures[record.quad7])
                 {
@@ -3117,7 +3117,7 @@ bool LandOwner535d::TESObjectLAND_LoadVerticesIntoArrays()
                 ourMemset(&record, 0, sizeof(record));
                 _streamSize->GetChunkData(&record, sizeof(record));
                 if (_streamSize->FUN_00401680())
-                    record.ProcessState_00535a60();
+                    record.FILE_TEX_DATA_Endian();
                 if (record.bPlayerPlayerDead > 5)
                 {
                     FNV_Warning(DAT_0102e0dc, TESObjectLAND_GetCellX(), FUN_00534010(), record.bPlayerPlayerDead, record.quad7);
@@ -3127,7 +3127,7 @@ bool LandOwner535d::TESObjectLAND_LoadVerticesIntoArrays()
                 TESLandTexture* _strEyeTexture = 0;
                 if (record.formID)
                 {
-                    ResolveFormID(&record.formID, _streamSize);
+                    TESForm_AddCompileIndex(&record.formID, _streamSize);
                     _strEyeTexture = dynamic_cast<TESLandTexture*>(TESForm_GetFormByNumericID(record.formID));
                     if (!_strEyeTexture)
                     {

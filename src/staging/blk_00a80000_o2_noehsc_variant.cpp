@@ -108,7 +108,7 @@ struct FUN_00a964a0_Class
 };
 struct NiBinaryExtraData;
 struct NiFloatsExtraData;
-struct FUN_00a99c40_shell : public NiExtraData
+struct BSDecalPlacementVectorExtraData : public NiExtraData
 {
     void NiIntegerExtraData_CopyMembers(NiBinaryExtraData* dst, CloningProcess* cp);
 };
@@ -123,7 +123,7 @@ extern const void* DAT_010a0a6c;
 NiParticleMeshes* __cdecl NiParticleMeshes_CreateObject();
 void __cdecl NiFree(void*);
 void* __cdecl NiMalloc(unsigned int);
-struct FUN_00a99800_shell
+struct NiIntegersExtraData
 {
     void* m_iWordAt00;
     void* m_iWordAt04;
@@ -137,22 +137,22 @@ void __fastcall FUN_00a71f60(void*);
 void* __cdecl NiAmbientLight_CreateObject();
 extern unsigned int kVtbl_NiAlphaAccumulator;
 NiAlphaAccumulator* CreateNiAlphaAccumulator();
-struct FUN_00a9be80
+struct NiShaderConstantMap
 {
     const void* m_vft;
     int m_ref;
     int m_data;
-    FUN_00a9be80(int data);
+    NiShaderConstantMap(int data);
 };
 extern volatile long DAT_011f4400;
 extern const void* DAT_010a1478;
 extern const void* vftable_NiRefObject;
-struct FUN_00a84c90_class
+struct BoneData
 {
     char pad[0x44];
     int field44;
     short field48;
-    FUN_00a84c90_class* ResetFields();
+    BoneData* ResetFields();
 };
 extern unsigned char DAT_011f5fb4;
 extern unsigned char DAT_011f5fb5;
@@ -246,7 +246,7 @@ struct FUN_00a87140_class
     void FUN_00a87140_ctor();
 };
 FUN_00a87140_class* BSSegmentedTriShape_CreateObject();
-struct FUN_00a94c00_shell
+struct NiSpotLight
 {
     char m_iWordAt00[0xfc];
     int m_fc;
@@ -259,7 +259,7 @@ struct FUN_00a94c00_shell
 };
 extern MemoryManager g_memoryManager;
 extern char* DAT_010a05e4;
-struct FUN_00a96800_shell
+struct NiParticlesData
 {
     char m_auiShapeKeys[0x44];
     void* m_44;
@@ -296,7 +296,7 @@ extern int DAT_0109f73c;
 extern void* _EmptyFS;
 extern int(__stdcall* DAT_00fdf1c4)(void*);
 extern const void* vftable_NiRefObject;
-struct FUN_00a8f810_class
+struct NiMaterial
 {
     void SetVtableAndProcessState_00a8f810();
 };
@@ -316,7 +316,7 @@ struct SdmDerived
     void* m_vt;
     void* m_iWordAt04;
     void* m_8;
-    void* FUN_00a8fa10(char flag);
+    void* ScalarDeletingDestructor(char flag);
 };
 extern char DAT_0109f9a4[];
 extern void __cdecl _NiFree(void*);
@@ -480,7 +480,7 @@ struct FUN_00a84ca0_entry
     int unk48;
 };
 extern MemoryManager g_memoryManager;
-struct FUN_00a84ca0_class
+struct NiSkinData
 {
     int unk00;
     int unk04;
@@ -650,7 +650,7 @@ struct BaseCls
 };
 extern "C" void* __cdecl _NiMalloc_00aa1070(int);
 extern int DAT_0109f23c;
-struct FUN_00a8a680_cls
+struct NiLinesData
 {
     void* m_vft;
     int m_iWordAt04;
@@ -854,7 +854,7 @@ struct NiParticleObject : NiParticleBase
 };
 extern void* __cdecl Object_DispatchCommandFour(unsigned int);
 extern const char DAT_010a1024;
-NiParticleObject* __cdecl CreateNiParticleObject();
+NiParticleObject* __cdecl NiBSPNode_CreateObject();
 extern int DAT_010a13ac;
 void __declspec(noreturn) FUN_00aa0dc0();
 struct FUN_00a9b4a0_Class
@@ -1151,15 +1151,16 @@ class S911d0_Base
     unsigned int unk5C;
 };
 
-class FUN_00a911d0 : public S911d0_Base
+class NiScreenGeometryData : public S911d0_Base
 {
   public:
-    virtual ~FUN_00a911d0();
+    virtual ~NiScreenGeometryData();
     NiTArray<S911d0_Entry*, NiTMallocInterface<S911d0_Entry*> > m_kEntries;
 };
 
 // @fnv 0x00a911d0
-FUN_00a911d0::~FUN_00a911d0()
+// src: EXE 0x00a911d0
+NiScreenGeometryData::~NiScreenGeometryData()
 {
     for (unsigned int i = 0; i < m_kEntries.GetSize(); i++)
     {
@@ -1297,11 +1298,11 @@ struct BmpReader
     unsigned short bpp;
     unsigned int colorCount, dataOffset;
     bool flip;
-    NiPixelData* AllocateStorage_00a8e810(BmpStream& stream, NiPixelData* optional);
+    NiPixelData* NiBMPReader_ReadFile(BmpStream& stream, NiPixelData* optional);
 };
 // @fnv 0x00a8e810
-// src: GUESS 0x00a8e810 (confidence: low)
-NiPixelData* BmpReader::AllocateStorage_00a8e810(BmpStream& stream, NiPixelData* optional)
+// src: EXE 0x00a8e810
+NiPixelData* BmpReader::NiBMPReader_ReadFile(BmpStream& stream, NiPixelData* optional)
 {
     bool mipmap;
     unsigned int w, h, faces;

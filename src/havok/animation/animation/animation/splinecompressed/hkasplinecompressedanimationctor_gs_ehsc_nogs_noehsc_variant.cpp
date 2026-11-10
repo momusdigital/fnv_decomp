@@ -344,7 +344,7 @@ struct Se31d50_ErrStream
     void FUN_00cc00e0();
     Se31d50_ErrStream& ProcessAndReturnValue_00cc01c0(const char* s);
     Se31d50_ErrStream& WriteInt(int i);
-    Se31d50_ErrStream& EvaluateValue_00cc02d0(unsigned int u);
+    Se31d50_ErrStream& hkOstream_printf(unsigned int u);
     Se31d50_ErrStream& WriteFloat(float f);
     __forceinline Se31d50_ErrStream(void* buf, int bufSize)
     {
@@ -364,7 +364,7 @@ struct Se31d50_ErrStream
     }
     __forceinline Se31d50_ErrStream& operator<<(unsigned int i)
     {
-        return EvaluateValue_00cc02d0(i);
+        return hkOstream_printf(i);
     }
     __forceinline Se31d50_ErrStream& operator<<(float f)
     {
@@ -733,7 +733,7 @@ void Se31d50_Anim::hkaSplineCompressedAnimation_initialize(const Se31d50_Raw& ra
         char reportBuf[512];
         Se31d50_ErrStream ostr(reportBuf, sizeof(reportBuf));
         ostr.ProcessAndReturnValue_00cc01c0(str_010eb418)
-            .EvaluateValue_00cc02d0(originalSize)
+            .hkOstream_printf(originalSize)
             .ProcessAndReturnValue_00cc01c0(str_010eb428)
             .WriteInt(getSizeInBytes())
             .ProcessAndReturnValue_00cc01c0(str_010eb468);

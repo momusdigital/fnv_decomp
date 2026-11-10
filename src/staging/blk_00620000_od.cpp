@@ -66,7 +66,7 @@ NiPoint3* NiPoint3::ScaleTo(NiPoint3* dst, float scale)
 }
 
 extern int DAT_0104d9e0;
-struct FUN_00620110_Class
+struct BGSZoneTargetListener
 {
     int* m_vtbl;
     void UpdateState_00620110();
@@ -74,19 +74,19 @@ struct FUN_00620110_Class
 };
 // @fnv 0x00620110
 // src: GUESS 0x00620110 (confidence: low)
-void FUN_00620110_Class::UpdateState_00620110()
+void BGSZoneTargetListener::UpdateState_00620110()
 {
     m_vtbl = (int*)&DAT_0104d9e0;
     BGSZoneTargetListener_EmptyList();
 }
 
-struct FUN_006205a0_Class
+struct bhkShape
 {
     int bhkShape_QMaterial();
 };
 // @fnv 0x006205a0
 // src: XBOX_PDB 0x006205a0
-int FUN_006205a0_Class::bhkShape_QMaterial()
+int bhkShape::bhkShape_QMaterial()
 {
     return *(int*)((char*)this + 0x10) & 0x1f;
 }
@@ -160,7 +160,7 @@ void __thiscall FUN_00621ad0_Class::bhkCharacterController_GetWorld()
     bhkWorld_Getbhk(((BlkOffset08View*)((ObjHelper*)this)->bhkCharacterProxy_GethkShapePhantom())->GetFlags());
 }
 
-struct FUN_00621b20_Class
+struct hkpConvexShape
 {
     int m_vtbl;
     int m_kPointA;
@@ -172,7 +172,7 @@ struct FUN_00621b20_Class
 
 // @fnv 0x00621b20
 // src: XBOX_PDB 0x00621b20
-void __thiscall FUN_00621b20_Class::NiTimeController_SetPhase(float value)
+void __thiscall hkpConvexShape::NiTimeController_SetPhase(float value)
 {
     m_iThirdValue = value;
 }
@@ -287,16 +287,16 @@ void __thiscall FUN_006232f0_Class::DecalCaster_GetCollision(int aiIndex)
 
 extern int DAT_0104dd5c;
 
-struct FUN_006234b0_Class
+struct bhkContactListener
 {
     int* m_vtbl;
     void* __thiscall hkpContactListener_hkpContactListener();
-    FUN_006234b0_Class* __thiscall UpdateState_006234b0();
+    bhkContactListener* __thiscall UpdateState_006234b0();
 };
 
 // @fnv 0x006234b0
 // src: GUESS 0x006234b0 (confidence: low)
-FUN_006234b0_Class* __thiscall FUN_006234b0_Class::UpdateState_006234b0()
+bhkContactListener* __thiscall bhkContactListener::UpdateState_006234b0()
 {
     hkpContactListener_hkpContactListener();
     m_vtbl = &DAT_0104dd5c;
@@ -383,13 +383,13 @@ struct FUN_00626560_Class
 {
     void __thiscall FUN_00626560(int);
 };
-struct FUN_00626450_Class
+struct hkMapBase
 {
-    FUN_00626450_Class* __thiscall EvaluateValue_00626450();
+    hkMapBase* __thiscall EvaluateValue_00626450();
 };
 // @fnv 0x00626450
 // src: GUESS 0x00626450 (confidence: low)
-FUN_00626450_Class* __thiscall FUN_00626450_Class::EvaluateValue_00626450()
+hkMapBase* __thiscall hkMapBase::EvaluateValue_00626450()
 {
     ((FUN_00626560_Class*)this)->FUN_00626560(0);
     return this;
@@ -496,14 +496,14 @@ struct Dummy629670
     void __thiscall bhkCharacterListener_SetFlag(int value, bool flag);
 };
 
-struct FUN_00629650_Class
+struct bhkCharacterListener
 {
     void __thiscall bhkCharacterListener_SetStuckQuadruped(bool flag);
 };
 
 // @fnv 0x00629650
 // src: XBOX_PDB 0x00629650
-void __thiscall FUN_00629650_Class::bhkCharacterListener_SetStuckQuadruped(bool flag)
+void __thiscall bhkCharacterListener::bhkCharacterListener_SetStuckQuadruped(bool flag)
 {
     ((Dummy629670*)this)->bhkCharacterListener_SetFlag(0x20, flag);
 }
@@ -568,13 +568,13 @@ FUN_006299f0_Class* __thiscall FUN_006299f0_Class::Construct(int aiValue)
 
 struct FUN_00629e20_Class
 {
-    void __thiscall UpdateFields_00629e20(int a, int b, int c);
+    void __thiscall NiTMapBase_SetValue(int a, int b, int c);
 };
 
 // Stores c at offset 4 and the low 16 bits of b at offset 8 of the object at a.
 // @fnv 0x00629e20
-// src: GUESS 0x00629e20 (confidence: low)
-void __thiscall FUN_00629e20_Class::UpdateFields_00629e20(int pObject, int iValue, int sValue)
+// src: GUESS 0x00629e20 (confidence: high)
+void __thiscall FUN_00629e20_Class::NiTMapBase_SetValue(int pObject, int iValue, int sValue)
 {
     *(int*)((char*)pObject + 4) = iValue;
     *(short*)((char*)pObject + 8) = (short)sValue;
@@ -590,13 +590,13 @@ struct FUN_00629ee0_Class
     int m_vtbl;
     int m_auiShapeKeys;
     Unk6b m_unk;
-    void __thiscall ReleaseStorage_00629ee0(void* param);
+    void __thiscall NiTMap_DeleteItem(void* param);
 };
 
 // Clears the short at offset 8 of param, then calls FreeMemory on the object at this+0xc with param.
 // @fnv 0x00629ee0
-// src: GUESS 0x00629ee0 (confidence: medium)
-void __thiscall FUN_00629ee0_Class::ReleaseStorage_00629ee0(void* param)
+// src: GUESS 0x00629ee0 (confidence: high)
+void __thiscall FUN_00629ee0_Class::NiTMap_DeleteItem(void* param)
 {
     *(short*)((char*)param + 8) = 0;
     ((Unk6b*)((char*)this + 0xc))->FreeMemory(param);
@@ -650,14 +650,14 @@ void __thiscall FUN_0062a290_Class::hkpClosestRayHitCollector_reset()
     hkpRayHitCollector_reset(this);
 }
 
-struct FUN_0062a2b0_Class
+struct hkpWorldRayCastOutput
 {
     void* __thiscall hkpShapeRayCastOutput_reset();
     void __thiscall hkpWorldRayCastOutput_reset();
 };
 // @fnv 0x0062a2b0
 // src: XBOX_PDB 0x0062a2b0
-void __thiscall FUN_0062a2b0_Class::hkpWorldRayCastOutput_reset()
+void __thiscall hkpWorldRayCastOutput::hkpWorldRayCastOutput_reset()
 {
     *(int*)((char*)this + 0x50) = 0;
     hkpShapeRayCastOutput_reset();
@@ -681,17 +681,17 @@ void __thiscall FUN_0062a2d0_Class::hkpShapeRayCastOutput_reset()
 }
 
 extern int DAT_0104e254;
-struct FUN_0062a480_Class
+struct bhkArrowTargetListener
 {
     int* m_vtbl;
     int m_auiShapeKeys;
     void __thiscall FUN_0061f4d0(int);
-    FUN_0062a480_Class* __thiscall bhkArrowTargetListener_bhkArrowTargetListener();
+    bhkArrowTargetListener* __thiscall bhkArrowTargetListener_bhkArrowTargetListener();
 };
 // Calls FUN_0061f4d0(0), sets m_vtbl to &DAT_0104e254, and returns this.
 // @fnv 0x0062a480
 // src: EXE 0x0062a480
-FUN_0062a480_Class* __thiscall FUN_0062a480_Class::bhkArrowTargetListener_bhkArrowTargetListener()
+bhkArrowTargetListener* __thiscall bhkArrowTargetListener::bhkArrowTargetListener_bhkArrowTargetListener()
 {
     FUN_0061f4d0(0);
     m_vtbl = &DAT_0104e254;
@@ -845,7 +845,7 @@ void __thiscall FUN_00633c60_Class::BSFogProperty_SetWaterColor(const NiPoint3& 
     *(NiPoint3*)((char*)this + 0x54) = aPos;
 }
 
-struct FUN_006347a0_Class
+struct TESWeather
 {
     int m_vtbl;
     int m_uiItemCount;
@@ -856,7 +856,7 @@ struct FUN_006347a0_Class
 };
 // @fnv 0x006347a0
 // src: XBOX_PDB 0x006347a0
-int* __thiscall FUN_006347a0_Class::TESWeather_GetCloudTexture(int index)
+int* __thiscall TESWeather::TESWeather_GetCloudTexture(int index)
 {
     return (int*)((char*)this + 0x34 + index * 0xc);
 }
@@ -1032,15 +1032,15 @@ void __thiscall FUN_00620130_Class::BGSZoneTargetListener_RemoveTarget(BSSimpleL
 
 struct FUN_00620230_Class
 {
-    void __thiscall FUN_0061fc50();
+    void __thiscall ZoneEntry();
     void* __thiscall FUN_00620230(unsigned int flags);
 };
 void __cdecl operator delete(void*);
-// Calls FUN_0061fc50, deletes this when flags has bit 1 set, and returns this.
+// Calls ZoneEntry, deletes this when flags has bit 1 set, and returns this.
 // @fnv 0x00620230
 void* FUN_00620230_Class::FUN_00620230(unsigned int flags)
 {
-    FUN_0061fc50();
+    ZoneEntry();
     if (flags & 1)
         operator delete(this);
     return this;
@@ -1108,13 +1108,13 @@ void __thiscall Stand::CameraCaster_SetPlayerGroup(unsigned int aiGroup)
     ((S_00c85ce0*)(unsigned int)*this)->bhkWorldObject_SetCollisionGroup(aiGroup);
 }
 
-struct FUN_006218f0_Owner
+struct hkpCollisionDispatcher
 {
     int GetIndexedValue(int a, int b);
 };
 // Reads a byte from the table at offset 0x1A0 indexed by (a<<5)+b, then returns the int at offset 0x9A8 indexed by that byte.
 // @fnv 0x006218f0
-int FUN_006218f0_Owner::GetIndexedValue(int a, int b)
+int hkpCollisionDispatcher::GetIndexedValue(int a, int b)
 {
     int idx = *(unsigned char*)((char*)this + ((a << 5) + b) + 0x1A0);
     return *(int*)((char*)this + idx * 20 + 0x9A8);
@@ -1370,11 +1370,12 @@ struct FUN_00622780
 void __cdecl operator delete(void*);
 struct FUN_00622810_Class : public FUN_00622780
 {
-    void* __thiscall FUN_00622810(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls Clear(), then deletes this if the flags bit 0 is set, and returns this.
 // @fnv 0x00622810
-void* __thiscall FUN_00622810_Class::FUN_00622810(unsigned int flags)
+// src: EXE 0x00622810
+void* __thiscall FUN_00622810_Class::ScalarDeletingDestructor(unsigned int flags)
 {
     Clear();
     if (flags & 1)
@@ -1400,13 +1401,13 @@ FUN_00621e40Class* __thiscall FUN_00621e40Class::NiTObjectArray_NiPointer_bhkRig
 }
 
 namespace fnv_00622f20 {
-struct FUN_00622f20_Class
+struct bhkSimpleShapePhantom
 {
     void bhkWorldObject_SetName(const char* s);
 };
 // @fnv 0x00622f20
 // src: XBOX_PDB 0x00622f20
-void FUN_00622f20_Class::bhkWorldObject_SetName(const char* s)
+void bhkSimpleShapePhantom::bhkWorldObject_SetName(const char* s)
 {
     void* flag = ((NullablePhysicsObjectAccess*)this)->GetLocalData();
     if (flag)
@@ -1454,7 +1455,7 @@ void __thiscall FUN_00623310_Class::DecalCaster_SetRadius(float scale)
 {
     if (reinterpret_cast<Flt*>(reinterpret_cast<char*>(this) + 0x3a0)->operator unsigned int())
     {
-        FUN_00621b20_Class* dst = reinterpret_cast<FUN_00621b20_Class*>(GetStringCStr(reinterpret_cast<void*>(
+        hkpConvexShape* dst = reinterpret_cast<hkpConvexShape*>(GetStringCStr(reinterpret_cast<void*>(
             reinterpret_cast<Flt*>(reinterpret_cast<char*>(this) + 0x3a0)->operator unsigned int())));
         if (dst)
             dst->NiTimeController_SetPhase(NI2HK_004a3e90(scale));
@@ -1473,7 +1474,7 @@ bool __fastcall CFilter_QBipLayer(bhkFilter* filter)
 
 extern int DAT_0104dde4;
 extern int DAT_0104de00;
-struct FUN_006c0210_shell
+struct bhkObstacleRemovalListener
 {
     void __thiscall ComputeValue_0061f580();
 };
@@ -1481,17 +1482,18 @@ struct FUN_006241c0_shell
 {
     void __thiscall FUN_006241c0();
 };
-struct FUN_00624150_Class
+struct FOIslandActivationListener
 {
     int m_vtbl;
     int m_kPointA;
-    FUN_00624150_Class();
+    FOIslandActivationListener();
 };
 // @fnv 0x00624150
-FUN_00624150_Class::FUN_00624150_Class()
+// src: EXE 0x00624150
+FOIslandActivationListener::FOIslandActivationListener()
 {
     ((FUN_006241c0_shell*)this)->FUN_006241c0();
-    ((FUN_006c0210_shell*)((char*)this + 4))->ComputeValue_0061f580();
+    ((bhkObstacleRemovalListener*)((char*)this + 4))->ComputeValue_0061f580();
     m_vtbl = (int)&DAT_0104de00;
     m_kPointA = (int)&DAT_0104dde4;
 }
@@ -1517,14 +1519,14 @@ struct FUN_004ae700_S
 {
     FUN_00626d00_Class* bhkWorldObject_GetCollidableRw();
 };
-struct FUN_00626cb0_Class
+struct bhkWorldObject
 {
     int* m_vtbl;
     void __thiscall bhkWorldObject_SetCollisionFilter(Flt filter);
 };
 // @fnv 0x00626cb0
 // src: XBOX_PDB 0x00626cb0
-void __thiscall FUN_00626cb0_Class::bhkWorldObject_SetCollisionFilter(Flt filter)
+void __thiscall bhkWorldObject::bhkWorldObject_SetCollisionFilter(Flt filter)
 {
     FUN_00626d00_Class* obj = reinterpret_cast<FUN_004ae700_S*>(this)->bhkWorldObject_GetCollidableRw();
     if (obj)
@@ -1606,7 +1608,7 @@ struct S28640
 {
     void __thiscall FUN_00628640(void* a, int b);
 };
-struct FUN_00629560_Class
+struct hkAabb
 {
     char _pad[16];
     void __thiscall hkAabb_includePoint(int arg);
@@ -1614,7 +1616,7 @@ struct FUN_00629560_Class
 // Forwards arg to FUN_006285e0 on this and to FUN_00628640 on the object at this+0x10.
 // @fnv 0x00629560
 // src: COMMUNITY 0x00629560
-void __thiscall FUN_00629560_Class::hkAabb_includePoint(int aiValue)
+void __thiscall hkAabb::hkAabb_includePoint(int aiValue)
 {
     ((S285e0*)this)->FUN_006285e0(this, aiValue);
     ((S28640*)((char*)this + 0x10))->FUN_00628640((void*)((char*)this + 0x10), aiValue);
@@ -1687,12 +1689,12 @@ struct FUN_00629f10_Class
 {
     int m_vtbl;
     int m_uiItemCount;
-    int ProcessEntries_00629f10(int* p, int start, int count);
+    int hkArray_indexOf(int* p, int start, int count);
 };
 
 // @fnv 0x00629f10
-// src: GUESS 0x00629f10 (confidence: low)
-int FUN_00629f10_Class::ProcessEntries_00629f10(int* pValue, int start, int count)
+// src: GUESS 0x00629f10 (confidence: medium)
+int FUN_00629f10_Class::hkArray_indexOf(int* pValue, int start, int count)
 {
     if (count < 0)
         count = m_uiItemCount;
@@ -1711,11 +1713,11 @@ struct H_A100
 void __cdecl hkArrayUtil__reserve(int a, int b, int c, int d);
 struct FUN_00629f70_Class
 {
-    void __thiscall UpdateState_00629f70(int a, int c);
+    void __thiscall hkArray_reserve(int a, int c);
 };
 // @fnv 0x00629f70
-// src: GUESS 0x00629f70 (confidence: low)
-void __thiscall FUN_00629f70_Class::UpdateState_00629f70(int a, int c)
+// src: GUESS 0x00629f70 (confidence: medium)
+void __thiscall FUN_00629f70_Class::hkArray_reserve(int a, int c)
 {
     int d = (int)((H_A100*)this)->GetSizeMasked();
     if (d < c)
@@ -1741,13 +1743,13 @@ void* __thiscall FUN_0062a050_Struct::FUN_0062a050(unsigned int flags)
     return (void*)this;
 }
 
-struct FUN_0062a160_Class
+struct hkThreadMemory
 {
     void __thiscall CallVirtualWithScaledArg(int a, int b);
 };
 // Calls the virtual method at vtable slot 4 on this, passing a and b multiplied by 4.
 // @fnv 0x0062a160
-void __thiscall FUN_0062a160_Class::CallVirtualWithScaledArg(int a, int b)
+void __thiscall hkThreadMemory::CallVirtualWithScaledArg(int a, int b)
 {
     int local = 4;
     ((void(__thiscall*)(void*, int, int))(*reinterpret_cast<void***>(this))[4])(this, a, b * 4);
@@ -1826,7 +1828,7 @@ struct FUN_0062d6f0_shell
     void* hkpPhantomListener_hkpPhantomListener();
 };
 
-struct FUN_0062d680_Class
+struct bhkTrapListener
 {
     int* m_vtbl;
     int m_auiShapeKeys;
@@ -1862,9 +1864,9 @@ struct FUN_0062d680_Class
 
 // @fnv 0x0062d680
 // src: GUESS 0x0062d680 (confidence: low)
-void* __thiscall FUN_0062d680_Class::InitializeFields_0062d680()
+void* __thiscall bhkTrapListener::InitializeFields_0062d680()
 {
-    ((FUN_0062a480_Class*)this)->FUN_0061f4d0(0);
+    ((bhkArrowTargetListener*)this)->FUN_0061f4d0(0);
     ((FUN_0062d6f0_shell*)((char*)this + 0x14))->hkpPhantomListener_hkpPhantomListener();
     m_vtbl = (int*)&DAT_0104e3a4;
     *(int*)((char*)this + 0x14) = (int)&DAT_0104e38c;
@@ -2043,13 +2045,13 @@ S632* __thiscall S632::hkpShapeRayCastInput_hkpShapeRayCastInput()
     return this;
 }
 
-struct FUN_00632dc0_Host
+struct hkContactPoint
 {
     int _pad[8];
-    FUN_00632dc0_Host* __thiscall CopyFrom(FUN_00632dc0_Host* o);
+    hkContactPoint* __thiscall CopyFrom(hkContactPoint* o);
 };
 // @fnv 0x00632dc0
-FUN_00632dc0_Host* __thiscall FUN_00632dc0_Host::CopyFrom(FUN_00632dc0_Host* apOther)
+hkContactPoint* __thiscall hkContactPoint::CopyFrom(hkContactPoint* apOther)
 {
     ((Holder*)this)->FUN_004a3c90((Holder*)apOther);
     ((Holder*)((char*)this + 0x10))->FUN_004a3c90((Holder*)((char*)apOther + 0x10));
@@ -2314,13 +2316,13 @@ FUN_00622870_Class* __thiscall FUN_00622870_Class::NiTArray_NiPointer_bhkRigidBo
 
 char* __cdecl FUN_00ec7750(char* haystack, const char* needle);
 void __cdecl BSstrncpy(char* dst, const char* src, unsigned int count);
-struct FUN_00624d70_Class
+struct HavokError
 {
     void __thiscall ExtractTes4Prefix(char* path);
 };
 // Searches path for "TES4" or "tes4" and, if found, copies the text before it into the buffer at this+0x20 and null-terminates it.
 // @fnv 0x00624d70
-void __thiscall FUN_00624d70_Class::ExtractTes4Prefix(char* path)
+void __thiscall HavokError::ExtractTes4Prefix(char* path)
 {
     char* found = FUN_00ec7750(path, "TES4");
     if (!found)
@@ -2345,7 +2347,7 @@ extern const char* const DAT_012005b8;
 void __fastcall Clouds_RemoveTextures(void* self)
 {
     int i = 0;
-    for (; i < ((Clouds*)self)->GetOffset58(); ++i)
+    for (; i < ((Clouds*)self)->Clouds_GetNumLayers(); ++i)
     {
         if (((Flt*)((char*)self + 8 + i * 4))->operator unsigned int())
         {
@@ -2368,14 +2370,14 @@ struct PropHelper
 SkyShaderProperty* DynamicCastByRTTI(const void* rtti, void* p);
 extern const char* const DAT_012005b8;
 extern int DAT_011f49e0;
-struct FUN_006369a0_Class
+struct Moon
 {
     void Moon_RemoveTextures();
 };
 // For the property at this+0x10 and this+0x14, gets property 3, casts it to a sky shader property, clears its texture and calls FUN_00634900 with DAT_011f49e0.
 // @fnv 0x006369a0
 // src: COMMUNITY 0x006369a0
-void FUN_006369a0_Class::Moon_RemoveTextures()
+void Moon::Moon_RemoveTextures()
 {
     void* p2;
     SkyShaderProperty* s;
@@ -2473,16 +2475,16 @@ struct FUN_0062a0b0_Class
     int m_vtbl;
     int m_auiShapeKeys;
     int m_flags;
-    void __thiscall UpdateState_0062a0b0(int arg);
+    void __thiscall hkArray_clearAndDeallocate(int arg);
 };
 // @fnv 0x0062a0b0
-// src: GUESS 0x0062a0b0 (confidence: low)
-void __thiscall FUN_0062a0b0_Class::UpdateState_0062a0b0(int pTarget)
+// src: GUESS 0x0062a0b0 (confidence: medium)
+void __thiscall FUN_0062a0b0_Class::hkArray_clearAndDeallocate(int pTarget)
 {
     ((FUN_00540b70_Class*)this)->DestroyRange();
     if (!(m_flags & 0x80000000))
     {
-        ((FUN_0062a160_Class*)pTarget)->CallVirtualWithScaledArg(*(int*)this, (int)((H_A100*)this)->GetSizeMasked());
+        ((hkThreadMemory*)pTarget)->CallVirtualWithScaledArg(*(int*)this, (int)((H_A100*)this)->GetSizeMasked());
     }
     m_vtbl = 0;
     m_flags = 0x80000000;
@@ -2491,10 +2493,11 @@ void __thiscall FUN_0062a0b0_Class::UpdateState_0062a0b0(int pTarget)
 extern double DAT_010231e8;
 struct FUN_006347c0_Class
 {
-    float InterpolateByIndex(int a, float b, float c);
+    float TESWeather_GetCloudLayerSpeed(int a, float b, float c);
 };
 // @fnv 0x006347c0
-float FUN_006347c0_Class::InterpolateByIndex(int aiIndex, float b, float c)
+// src: COMMUNITY 0x006347c0
+float FUN_006347c0_Class::TESWeather_GetCloudLayerSpeed(int aiIndex, float b, float c)
 {
     unsigned char v = 0x33;
     if (*(int*)((char*)this + 0x368) > 0)
@@ -2537,13 +2540,13 @@ struct FUN_00624e00_Class
     int* m_vtbl;
     FUN_00624e00_Class* __thiscall FUN_00624e00();
 };
-struct FUN_00624de0_Class : FUN_00624e00_Class
+struct HavokStreambufFactory : FUN_00624e00_Class
 {
-    FUN_00624de0_Class* __thiscall SetVirtualTableAndProcessState_00624de0();
+    HavokStreambufFactory* __thiscall SetVirtualTableAndProcessState_00624de0();
 };
 // @fnv 0x00624de0
 // src: GUESS 0x00624de0 (confidence: low)
-FUN_00624de0_Class* __thiscall FUN_00624de0_Class::SetVirtualTableAndProcessState_00624de0()
+HavokStreambufFactory* __thiscall HavokStreambufFactory::SetVirtualTableAndProcessState_00624de0()
 {
     FUN_00624e00();
     m_vtbl = (int*)&DAT_0104dea4;
@@ -2551,14 +2554,15 @@ FUN_00624de0_Class* __thiscall FUN_00624de0_Class::SetVirtualTableAndProcessStat
 }
 
 extern int DAT_0104e228;
-struct FUN_0062a460_Class : FUN_0062a480_Class
+struct TESArrowTargetListener : bhkArrowTargetListener
 {
-    FUN_0062a460_Class();
+    TESArrowTargetListener();
 };
 // @fnv 0x0062a460
-FUN_0062a460_Class::FUN_0062a460_Class()
+// src: EXE 0x0062a460
+TESArrowTargetListener::TESArrowTargetListener()
 {
-    FUN_0062a480_Class::bhkArrowTargetListener_bhkArrowTargetListener();
+    bhkArrowTargetListener::bhkArrowTargetListener_bhkArrowTargetListener();
     m_vtbl = (int*)&DAT_0104e228;
 }
 
@@ -2760,11 +2764,11 @@ struct FUN_006211b0_Class
     ~FUN_006211b0_Class();
 };
 
-struct FUN_00622d00_Class : public FUN_006211b0_Class
+struct DecalCaster : public FUN_006211b0_Class
 {
     FUN_0045cec0_Class m_3a0;
 
-    ~FUN_00622d00_Class();
+    ~DecalCaster();
 };
 
 FUN_0045cec0_Class::~FUN_0045cec0_Class()
@@ -2775,7 +2779,8 @@ FUN_006211b0_Class::~FUN_006211b0_Class()
 
 // Destructor for the class; destroys the embedded member and the base class.
 // @fnv 0x00622d00
-FUN_00622d00_Class::~FUN_00622d00_Class()
+// src: GUESS 0x00622d00 (confidence: medium)
+DecalCaster::~DecalCaster()
 {}
 
 class PhysicsDebugTarget;
@@ -3326,17 +3331,18 @@ struct FUN_00633c90
     {}
 };
 
-struct FUN_006268b0
+struct HitCaster
 {
     FUN_00620ff0 m_pHeadNode;
     FUN_00633c90 m_iSecondInteger;
     void __thiscall HitCaster_Init(float, int);
-    FUN_006268b0(float, int);
+    HitCaster(float, int);
 };
 
 // Constructs the object by initialising its two members and forwarding the float and int arguments to FUN_006269a0.
 // @fnv 0x006268b0
-FUN_006268b0::FUN_006268b0(float afValue, int aiValue) : m_pHeadNode(), m_iSecondInteger(0)
+// src: GUESS 0x006268b0 (confidence: medium)
+HitCaster::HitCaster(float afValue, int aiValue) : m_pHeadNode(), m_iSecondInteger(0)
 {
     this->HitCaster_Init(afValue, aiValue);
 }
@@ -3462,7 +3468,7 @@ struct SubObj_cls
     ~SubObj_cls();
 };
 
-struct FUN_00626fd0 : ObjBase_cls
+struct LoadedAreaBound : ObjBase_cls
 {
     void* m_vptr;
     int m_04;
@@ -3473,11 +3479,12 @@ struct FUN_00626fd0 : ObjBase_cls
     float m_38;
     float m_3c;
     float m_40;
-    FUN_00626fd0(float a, float b, float c, float d);
+    LoadedAreaBound(float a, float b, float c, float d);
 };
 
 // @fnv 0x00626fd0
-FUN_00626fd0::FUN_00626fd0(float a, float b, float c, float d) : m_vptr(&DAT_0104e130), m_20(0), m_24(0x25)
+// src: EXE 0x00626fd0
+LoadedAreaBound::LoadedAreaBound(float a, float b, float c, float d) : m_vptr(&DAT_0104e130), m_20(0), m_24(0x25)
 {
     m_34 = a;
     m_38 = b;
@@ -3785,18 +3792,19 @@ class ThisBase_62a190
     unsigned int unk6c;
 };
 
-class FUN_0062a190 : public ThisBase_62a190
+class SpecificItemCollector : public ThisBase_62a190
 {
   public:
     ThisMember_62a190 m_70;
-    FUN_0062a190(void* aArg, ThisParam_62a190* aParam);
-    virtual ~FUN_0062a190();
+    SpecificItemCollector(void* aArg, ThisParam_62a190* aParam);
+    virtual ~SpecificItemCollector();
     void Method_62a190(void* aArg, ThisTemp_62a190* aTemp);
 };
 
 // Initializes m_70 to 0 and, if aParam is non-null, fetches a temp value from it and passes it to Method_62a190 with aArg.
 // @fnv 0x0062a190
-FUN_0062a190::FUN_0062a190(void* aArg, ThisParam_62a190* aParam) : m_70(0)
+// src: EXE 0x0062a190
+SpecificItemCollector::SpecificItemCollector(void* aArg, ThisParam_62a190* aParam) : m_70(0)
 {
     if (aParam != 0)
     {
@@ -3825,18 +3833,19 @@ class SpawnedMember_b7276
     SpawnedMember_b7276();
 };
 
-class FUN_0062a220_cls : public SpawnedBase_b7276
+class hkpClosestRayHitCollector : public SpawnedBase_b7276
 {
   public:
     SpawnedMember_b7276 m_10;
 
-    FUN_0062a220_cls();
+    hkpClosestRayHitCollector();
     virtual void unk00();
     void hkpClosestRayHitCollector_reset();
 };
 
 // @fnv 0x0062a220
-FUN_0062a220_cls::FUN_0062a220_cls()
+// src: EXE 0x0062a220
+hkpClosestRayHitCollector::hkpClosestRayHitCollector()
 {
     hkpClosestRayHitCollector_reset();
 }
@@ -3942,7 +3951,7 @@ unsigned int __cdecl TESHavokUtilities_GetMaterial(unsigned int param_1, unsigne
     }
     else
     {
-        uiResult = MinInt(reinterpret_cast<FUN_006205a0_Class*>(iStack_8)->bhkShape_QMaterial(), 0x23);
+        uiResult = MinInt(reinterpret_cast<bhkShape*>(iStack_8)->bhkShape_QMaterial(), 0x23);
     }
     return uiResult;
 }
@@ -4023,16 +4032,17 @@ struct FUN_0062d680
     FUN_0062d680();
 };
 
-struct FUN_0062d5c0 : FUN_0061ffb0
+struct TESTrapListener : FUN_0061ffb0
 {
     FUN_0062d680 m_part08;
     int* m_vtable1c;
     int m_count20;
-    FUN_0062d5c0();
+    TESTrapListener();
 };
 
 // @fnv 0x0062d5c0
-FUN_0062d5c0::FUN_0062d5c0() : FUN_0061ffb0(), m_part08()
+// src: EXE 0x0062d5c0
+TESTrapListener::TESTrapListener() : FUN_0061ffb0(), m_part08()
 {
     m_ppVirtualMethodTable = &DAT_0104e37c;
     m_part08.m_ppVirtualMethodTable = &DAT_0104e350;
@@ -4200,7 +4210,7 @@ struct SubObjectA
     ~SubObjectA();
 };
 
-struct FUN_00633080 : ObjBaseA
+struct Atmosphere : ObjBaseA
 {
     unsigned int unk04;
     SubObjectA m_08;
@@ -4209,13 +4219,14 @@ struct FUN_00633080 : ObjBaseA
     SubObjectA m_14;
     unsigned char m_18;
 
-    FUN_00633080();
+    Atmosphere();
     virtual void unk00();
 };
 
 // Constructs the object, resetting its four SubObjectA members to 0 and setting m_18 to 1.
 // @fnv 0x00633080
-FUN_00633080::FUN_00633080() : m_08(0), m_0c(0), m_10(0), m_14(0)
+// src: EXE 0x00633080
+Atmosphere::Atmosphere() : m_08(0), m_0c(0), m_10(0), m_14(0)
 {
     m_08.Reset(0);
     m_14.Reset(0);
@@ -4232,7 +4243,7 @@ struct FUN_00633c90
     ~FUN_00633c90();
     void FUN_0066b0d0(int a);
 };
-struct FUN_00636a40
+struct Precipitation
 {
     virtual void vf0();
     FUN_00633c90 m_04;
@@ -4240,11 +4251,12 @@ struct FUN_00636a40
     int unk0C;
     float m_10;
     int unk14;
-    FUN_00636a40();
+    Precipitation();
 };
 // Constructor: initializes m_04 and m_08 via FUN_0066b0d0(0) and zeroes m_10, unk14 and unk0C.
 // @fnv 0x00636a40
-FUN_00636a40::FUN_00636a40() : m_04(0), m_08(0)
+// src: EXE 0x00636a40
+Precipitation::Precipitation() : m_04(0), m_08(0)
 {
     m_04.FUN_0066b0d0(0);
     m_08.FUN_0066b0d0(0);
@@ -5125,7 +5137,7 @@ void __cdecl HavokSystem_Init()
         hkSingleton_hkError_replaceInstance((int)created);
         hkSingleton_hkFileSystem_replaceInstance((int)(new FUN_00624de0));
         GetCurrentDirectoryA(0x104, path);
-        ((FUN_00624d70_Class*)created)->ExtractTes4Prefix(path);
+        ((HavokError*)created)->ExtractTes4Prefix(path);
         bhkWorldCinfo_SetSimulationType(*((GlobalObject_0045cfe0*)&DAT_011cc2e8)->Int());
     }
 }
@@ -5452,7 +5464,7 @@ struct FUN_00629a20_State
 };
 struct FUN_00629a20_Class
 {
-    void UpdateState_00629f70(int result);
+    void hkArray_reserve(int result);
     void hkLocalArray_hkpRigidBody_hkLocalArray_hkpRigidBody(int input);
 };
 // Calls FUN_004a4840 with this and input, then passes the returned value to FUN_00629f70.
@@ -5461,7 +5473,7 @@ struct FUN_00629a20_Class
 void FUN_00629a20_Class::hkLocalArray_hkpRigidBody_hkLocalArray_hkpRigidBody(int input)
 {
     FUN_00629a20_State state = {};
-    UpdateState_00629f70(state.hkContainerHeapAllocator_get(this, input));
+    hkArray_reserve(state.hkContainerHeapAllocator_get(this, input));
 }
 
 struct HeapAllocator629;
@@ -5968,11 +5980,11 @@ class FUN_00639940
     int unk18;
 };
 
-class FUN_00639830 : public FUN_00a5d3a0
+class NiAdditionalGeometryData : public FUN_00a5d3a0
 {
   public:
-    FUN_00639830(unsigned short usType, unsigned int ItemUpdateArray, int iParam);
-    virtual ~FUN_00639830();
+    NiAdditionalGeometryData(unsigned short usType, unsigned int ItemUpdateArray, int iParam);
+    virtual ~NiAdditionalGeometryData();
     int m_iFadeIndex;              // +0x08
     unsigned short m_usType;       // +0x0c
     unsigned int m_uiCount;        // +0x10
@@ -5982,7 +5994,8 @@ class FUN_00639830 : public FUN_00a5d3a0
 };
 
 // @fnv 0x00639830
-FUN_00639830::FUN_00639830(unsigned short usType, unsigned int ItemUpdateArray, int iParam) : m_kArray(0, 1)
+// src: EXE 0x00639830
+NiAdditionalGeometryData::NiAdditionalGeometryData(unsigned short usType, unsigned int ItemUpdateArray, int iParam) : m_kArray(0, 1)
 {
     m_iFadeIndex = 0;
     m_usType = usType;
@@ -6483,16 +6496,17 @@ void FUN_0062b4b0_Class::InvokeVirtualOnResult(int arg)
 }
 }  // namespace fnv_0062b4b0
 
-struct FUN_0063fc70 : ObjBaseA
+struct Stars : ObjBaseA
 {
     int m_auiShapeKeys;
     GO m_go;
     float m_f;
-    FUN_0063fc70();
+    Stars();
 };
 // Initializes m_go to 0 and m_f to 0.0f.
 // @fnv 0x0063fc70
-FUN_0063fc70::FUN_0063fc70() : m_go(0)
+// src: EXE 0x0063fc70
+Stars::Stars() : m_go(0)
 {
     m_go = 0;
     m_f = 0.0f;
@@ -6508,18 +6522,19 @@ class PathingSolutionBase
 
 extern int DAT_011cc1c8;
 
-class FUN_00621d10 : public PathingSolutionBase
+class CellMopp : public PathingSolutionBase
 {
   public:
     FUN_006227e0_Holder m_kHolder;
 
-    FUN_00621d10();
-    virtual ~FUN_00621d10();
+    CellMopp();
+    virtual ~CellMopp();
 };
 
 // After the base constructor, calls m_kHolder.FUN_006227e0(0, 1) and increments DAT_011cc1c8.
 // @fnv 0x00621d10
-FUN_00621d10::FUN_00621d10()
+// src: EXE 0x00621d10
+CellMopp::CellMopp()
 {
     m_kHolder.NiTObjectArray_NiPointer_bhkRigidBody_NiTObjectArray(0, 1);
     DAT_011cc1c8++;
@@ -7210,11 +7225,12 @@ float __cdecl FUN_00408840(float);
 struct Mover628
 {
     void LoadedAreaBound_GetGroundPos(Body628*, NiPoint3*, NiPoint3*);
-    void MoveToDestination(Body628*, Group628*);
+    void LoadedAreaBound_WarpBody(Body628*, Group628*);
 };
 // Moves body, or its group, to a destination from FUN_006296d0 plus a bounds height, setting position and rotation, and zero velocity for group members.
 // @fnv 0x00628f90
-void Mover628::MoveToDestination(Body628* body, Group628* moved)
+// src: COMMUNITY 0x00628f90
+void Mover628::LoadedAreaBound_WarpBody(Body628* body, Group628* moved)
 {
     if (body && !body->IsNonZero(32))
     {
@@ -7423,7 +7439,7 @@ struct Member34
 
 extern GlobalObject_0045cfe0 g_011c63cc;
 
-struct FUN_0062e780 : CB75D0Base, SecBase14
+struct TESWaterListener : CB75D0Base, SecBase14
 {
     float m_1c;
     int* m_20;
@@ -7432,13 +7448,14 @@ struct FUN_0062e780 : CB75D0Base, SecBase14
     int m_2c;
     int m_30;
     Member34 m_34;
-    FUN_0062e780();
-    virtual ~FUN_0062e780();
+    TESWaterListener();
+    virtual ~TESWaterListener();
 };
 
 // Initializes m_1c to 1.0f, reads a size from g_011c63cc into m_28, and allocates an int array of m_28 squared elements into m_20.
 // @fnv 0x0062e780
-FUN_0062e780::FUN_0062e780() : m_1c(1.0f)
+// src: EXE 0x0062e780
+TESWaterListener::TESWaterListener() : m_1c(1.0f)
 {
     m_28 = *g_011c63cc.Int();
     int iSize = m_28 * m_28;
@@ -7470,7 +7487,7 @@ struct FUN_00632f60
 FUN_00632f60::~FUN_00632f60()
 {}
 
-struct ZoneTargetListenerView : FUN_00620110_Class
+struct ZoneTargetListenerView : BGSZoneTargetListener
 {
     FUN_00620180_Class* firstZone;
 };
@@ -7481,7 +7498,7 @@ struct FUN_00620230_DeleteView
 // Deletes every node in the firstZone linked list and sets firstZone to null.
 // @fnv 0x006201c0
 // src: XBOX_PDB 0x006201c0
-void FUN_00620110_Class::BGSZoneTargetListener_EmptyList()
+void BGSZoneTargetListener::BGSZoneTargetListener_EmptyList()
 {
     FUN_00620180_Class* current = static_cast<ZoneTargetListenerView*>(this)->firstZone;
     while (current)

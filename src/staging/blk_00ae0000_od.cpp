@@ -13,7 +13,7 @@
 extern int DAT_010a42b4;
 void* __cdecl _fnv_zlib_memset(void* p, int c, unsigned int n);
 
-struct FUN_00af30a0_Class
+struct BSSystemUtility
 {
     void* vtbl;
     char m_acCharacterBuffer[128];
@@ -28,7 +28,7 @@ struct FUN_00af30a0_Class
 
 // @fnv 0x00af30a0
 // src: XBOX_PDB 0x00af30a0
-void* FUN_00af30a0_Class::BSSystemUtility_BSSystemUtility()
+void* BSSystemUtility::BSSystemUtility_BSSystemUtility()
 {
     vtbl = &DAT_010a42b4;
     m_pObjectAt84 = 0;
@@ -153,7 +153,7 @@ void __thiscall FUN_00af3120_Class::SetVirtualTable_00af3120()
 }
 
 extern int DAT_010a42cc;
-struct FUN_00af33f0_Class
+struct BSMsgDialogSystemUtility
 {
     void* vtbl;
     int x;
@@ -162,7 +162,7 @@ struct FUN_00af33f0_Class
 // Sets the object's vtbl to DAT_010a42cc, clears x to 0, and returns this.
 // @fnv 0x00af33f0
 // src: GUESS 0x00af33f0 (confidence: low)
-void* FUN_00af33f0_Class::SetVtableAndProcessState_00af33f0()
+void* BSMsgDialogSystemUtility::SetVtableAndProcessState_00af33f0()
 {
     vtbl = &DAT_010a42cc;
     x = 0;
@@ -280,12 +280,12 @@ struct FUN_00afd960_Class
 {
     void* vtbl;
     int iField;
-    void ProcessState_00afd960();
+    void SwapEndian();
 };
 
 // @fnv 0x00afd960
-// src: GUESS 0x00afd960 (confidence: low)
-void FUN_00afd960_Class::ProcessState_00afd960()
+// src: GUESS 0x00afd960 (confidence: medium)
+void FUN_00afd960_Class::SwapEndian()
 {
     void* pUnused[6];
     SwapByteQuadWords((char*)this + 4, 1);
@@ -304,16 +304,17 @@ void __cdecl FileFinder_GetFile_(const char* apPath, int b, unsigned int c)
 }
 
 extern int DAT_010a39d8;
-struct FUN_00aea1b0_Class
+struct BSWin32Audio
 {
     void* vtbl;
     int x;
     void* FUN_00ad6f40();
-    FUN_00aea1b0_Class();
+    BSWin32Audio();
 };
 // Calls FUN_00ad6f40, sets vtbl to &DAT_010a39d8, zeroes offsets 0x38, 0x3c and 0xa0, and memsets 0x60 bytes at offset 0x40.
 // @fnv 0x00aea1b0
-FUN_00aea1b0_Class::FUN_00aea1b0_Class()
+// src: EXE 0x00aea1b0
+BSWin32Audio::BSWin32Audio()
 {
     FUN_00ad6f40();
     vtbl = (void*)&DAT_010a39d8;
@@ -324,17 +325,17 @@ FUN_00aea1b0_Class::FUN_00aea1b0_Class()
 }
 
 extern int DAT_010a3b7c;
-struct FUN_00aea730_Class
+struct BSWin32AudioListener
 {
     void* vtbl;
     int m_kPointA;
     int m_kPointB;
-    FUN_00aea730_Class* BSWin32AudioListener_BSWin32AudioListener(int v);
+    BSWin32AudioListener* BSWin32AudioListener_BSWin32AudioListener(int v);
 };
 // Sets the vtbl pointers, zeroes the field at 0x48 and the float at 0x3c, then stores v at 0x48 and returns this.
 // @fnv 0x00aea730
 // src: COMMUNITY 0x00aea730
-FUN_00aea730_Class* FUN_00aea730_Class::BSWin32AudioListener_BSWin32AudioListener(int aiValue)
+BSWin32AudioListener* BSWin32AudioListener::BSWin32AudioListener_BSWin32AudioListener(int aiValue)
 {
     vtbl = (void*)&DAT_010a3bb4;
     vtbl = (void*)&DAT_010a3b7c;
@@ -348,11 +349,12 @@ extern MemoryManager g_memoryManager;
 struct FUN_00aeaa80_Class
 {
     void __thiscall FUN_00aea770();
-    void* __thiscall FUN_00aeaa80(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_00aea770, deallocates this via g_memoryManager when flags has bit 1 set, and returns this.
 // @fnv 0x00aeaa80
-void* __thiscall FUN_00aeaa80_Class::FUN_00aeaa80(unsigned int flags)
+// src: EXE 0x00aeaa80
+void* __thiscall FUN_00aeaa80_Class::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00aea770();
     if (flags & 1)
@@ -447,7 +449,7 @@ bool FUN_00af2c50_Class::return_0_5(int a, int b)
 }
 
 extern int DAT_010a42dc;
-struct FUN_00af3570_Class
+struct BSSystemUtilitiesStrings
 {
     void* vtbl;
     int a[8];
@@ -456,7 +458,7 @@ struct FUN_00af3570_Class
 // Sets vtbl to &DAT_010a42dc and zeroes the eight-element array a, then returns this.
 // @fnv 0x00af3570
 // src: COMMUNITY 0x00af3570
-void* __thiscall FUN_00af3570_Class::BSSystemUtilitiesStrings_BSSystemUtilitiesStrings()
+void* __thiscall BSSystemUtilitiesStrings::BSSystemUtilitiesStrings_BSSystemUtilitiesStrings()
 {
     vtbl = &DAT_010a42dc;
     for (unsigned int i = 0; i < 8; ++i)
@@ -466,7 +468,7 @@ void* __thiscall FUN_00af3570_Class::BSSystemUtilitiesStrings_BSSystemUtilitiesS
 
 void __cdecl _sprintf_s(char* dst, unsigned int size, const char* fmt, ...);
 
-struct FUN_00afd860_Class
+struct BSHash
 {
     unsigned char m_acCharacterBuffer[4];
     int iValue;
@@ -475,7 +477,7 @@ struct FUN_00afd860_Class
 
 // @fnv 0x00afd860
 // src: COMMUNITY 0x00afd860
-void __thiscall FUN_00afd860_Class::BSHash_MakeHashString(char* dst)
+void __thiscall BSHash::BSHash_MakeHashString(char* dst)
 {
     if (dst)
         _sprintf_s(dst, 0x20, "%c%02X%c%c%08X", m_acCharacterBuffer[3], m_acCharacterBuffer[2], m_acCharacterBuffer[1],
@@ -810,7 +812,7 @@ extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject);
 
 extern int DAT_010a33d0;
 
-struct FUN_00ae78a0_cls
+struct BSAudioManagerThread
 {
     void* m_vtbl;
     int unk04;
@@ -836,7 +838,7 @@ struct FUN_00ae78a0_cls
 // Resets the vtable pointer, closes the handles m_h40 and m_h34, then calls FUN_00aa63c0.
 // @fnv 0x00ae78a0
 // src: GUESS 0x00ae78a0 (confidence: medium)
-void FUN_00ae78a0_cls::CloseAudioManagerHandles()
+void BSAudioManagerThread::CloseAudioManagerHandles()
 {
     m_vtbl = (void*)&DAT_010a33d0;
     CloseHandle(m_h40);
@@ -1350,7 +1352,7 @@ struct FUN_00aea9d0_Listener
     {}
     virtual void vf34()
     {}
-    virtual void vf38()
+    virtual void PrintInfo()
     {}
     virtual void __stdcall vf3C(float value, int flag)
     {}
@@ -1405,7 +1407,7 @@ struct S_00aeaa10_Obj
     virtual void vf9();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -3662,14 +3664,14 @@ struct FUN_00afdb80_cls
     char pad00[8];
     unsigned int* m_08;
 
-    void UpdateFields_00afdb80();
+    void SwapEndian();
 };
 
 unsigned int* __cdecl FUN_00ec3bad(unsigned int* value);
 
 // @fnv 0x00afdb80
-// src: GUESS 0x00afdb80 (confidence: low)
-void FUN_00afdb80_cls::UpdateFields_00afdb80()
+// src: GUESS 0x00afdb80 (confidence: medium)
+void FUN_00afdb80_cls::SwapEndian()
 {
     Flag flag_ = {};
     bool copy = flag_.m_kPointB;
@@ -3686,7 +3688,7 @@ struct FUN_00afdc00_Item
     bool Test(int idx);
 };
 
-class FUN_00afdc00_cls
+class BSArchive
 {
   public:
     unsigned int unk00;
@@ -3704,7 +3706,7 @@ class FUN_00afdc00_cls
 
 // @fnv 0x00afdc00
 // src: COMMUNITY 0x00afdc00
-bool FUN_00afdc00_cls::BSArchive_IsFileEntryInArchive(int aiIndex)
+bool BSArchive::BSArchive_IsFileEntryInArchive(int aiIndex)
 {
     unsigned int n;
     unsigned int i;
@@ -5581,12 +5583,12 @@ struct FUN_00afdb20_Class
     int unk04;
     int m_08;
     int m_0c;
-    void UpdateFields_00afdb20();
+    void SwapEndian();
 };
 // Replaces m_08 and m_0c with FUN_00ec3bad applied to each of their current values.
 // @fnv 0x00afdb20
-// src: GUESS 0x00afdb20 (confidence: low)
-void FUN_00afdb20_Class::UpdateFields_00afdb20()
+// src: GUESS 0x00afdb20 (confidence: medium)
+void FUN_00afdb20_Class::SwapEndian()
 {
     Marker c0 = {};
     Marker f0 = c0;
@@ -6784,7 +6786,7 @@ struct Allocate114
 {
     void* Game_DoHeapAlloc(unsigned int);
 };
-struct FUN_00aeac20 : Worker114::FUN_00ae9360_Base
+struct BSWin32GameSound : Worker114::FUN_00ae9360_Base
 {
     unsigned int unk198;
     unsigned int unk19c;
@@ -6825,12 +6827,13 @@ struct FUN_00aeac20 : Worker114::FUN_00ae9360_Base
     float position218[sizeof(NiPoint3) / sizeof(float)];
     unsigned char flag224;
     unsigned int unk228, unk22c;
-    FUN_00aeac20(const char* name);
-    virtual ~FUN_00aeac20();
+    BSWin32GameSound(const char* name);
+    virtual ~BSWin32GameSound();
 };
 // Initializes the object by copying name into fileName, zeroing fields, allocating 0x12 bytes, and setting default values for unk20e through unk214.
 // @fnv 0x00aeac20
-FUN_00aeac20::FUN_00aeac20(const char* name)
+// src: EXE 0x00aeac20
+BSWin32GameSound::BSWin32GameSound(const char* name)
 {
     if (name)
     {

@@ -326,7 +326,7 @@ void BSAnimGroupSequence::ValidateTargets()
     for (unsigned int index = 0; index < m_uiNumControlledBlocks; index++)
     {
         NiControllerSequence__IDTag* tag = &m_pkIDTags[index];
-        if (!object->vf38()->GetObjectByName(*tag->GetObjectName()))
+        if (!object->PrintInfo()->GetObjectByName(*tag->GetObjectName()))
         {
             root->AddNamedAVObject(*tag->GetObjectName(), 0);
             m_pInterpArray[index].m_spInterpController = static_cast<NiInterpController*>(0);
@@ -365,7 +365,8 @@ NiTimeController__CycleType __fastcall GetSequenceCycleType(NiControllerSequence
 void CopySoundText(char*, const char*);
 char* FindSoundChar(char*, int);
 // @fnv 0x004eef00
-bool __cdecl PlaySequenceSounds(NiControllerSequence* sequence, TESObjectREFR* reference)
+// src: COMMUNITY 0x004eef00
+bool __cdecl BSAnimGroupSequence_PlaySounds(NiControllerSequence* sequence, TESObjectREFR* reference)
 {
     bool result2 = false;
     if (sequence && sequence->GetState() == 1)

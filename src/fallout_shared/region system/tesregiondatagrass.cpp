@@ -11,11 +11,12 @@ void __cdecl _Deallocate(void*);
 struct Dummy1690
 {
     void FUN_004f1730();
-    void* FUN_004f1690(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_004f1730, then frees this via _Deallocate when flags has bit 1 set, and returns this.
 // @fnv 0x004f1690
-void* Dummy1690::FUN_004f1690(unsigned int flags)
+// src: EXE 0x004f1690
+void* Dummy1690::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_004f1730();
     if (flags & 1)

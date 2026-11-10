@@ -20,7 +20,8 @@ extern const AccumRotationMatrix DAT_011a9448;
 
 // The shared class has no declaration for this override; keep its implementation here.
 // @fnv 0x00a393c0
-void __fastcall RemoveAccumulatedInterpolator(NiBlendAccumTransformInterpolator* self, int, unsigned char idx)
+// src: COMMUNITY 0x00a393c0
+void __fastcall NiBlendAccumTransformInterpolator_RemoveInterpInfo(NiBlendAccumTransformInterpolator* self, int, unsigned char idx)
 {
     if (self->m_ucInterpCount == 1 && idx == self->m_ucSingleIdx &&
         !static_cast<const NiQuatTransform&>(self->m_kAccumulatedTransform).IsMarkedInvalid())

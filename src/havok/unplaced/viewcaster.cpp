@@ -132,7 +132,7 @@ struct PathingCopyBlock
     int unk1C;
 };
 
-struct FUN_00632d40_shell : PathingCopyBase
+struct hkpRootCdPoint : PathingCopyBase
 {
     int unk20;
     int unk24;
@@ -141,13 +141,13 @@ struct FUN_00632d40_shell : PathingCopyBase
     int unk4C;
     PathingCopyBlock unk50;
 
-    FUN_00632d40_shell& hkpRootCdPoint_hkpRootCdPoint(const FUN_00632d40_shell& other);
+    hkpRootCdPoint& hkpRootCdPoint_hkpRootCdPoint(const hkpRootCdPoint& other);
 };
 
 // Copy-assigns all members of the source object into this object and returns a reference to this.
 // @fnv 0x00632d40
 // src: XBOX_PDB 0x00632d40
-FUN_00632d40_shell& FUN_00632d40_shell::hkpRootCdPoint_hkpRootCdPoint(const FUN_00632d40_shell& other)
+hkpRootCdPoint& hkpRootCdPoint::hkpRootCdPoint_hkpRootCdPoint(const hkpRootCdPoint& other)
 {
     PathingCopyBase::operator=(other);
     unk20 = other.unk20;

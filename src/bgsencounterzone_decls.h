@@ -9,7 +9,7 @@
 class BGSEncounterZone : public TESForm
 {
   public:
-    unsigned short GetCalculatedLevel();
+    unsigned short GetCalcedZoneLevel();
     bool QMatchPCBelowMin();
     unsigned char GetByteAt1D();
     BGSEncounterZone();
@@ -29,7 +29,7 @@ class BGSEncounterZone : public TESForm
     void RevertAndClearIfChanged(BGSLoadFormBuffer* buffer);
     bool Compare_00526000(TESForm* other);
     void Copy_00525fa0(TESForm* source);
-    static void CreateDefaultEncounterZone();
+    static void CreateNoZone();
     static BGSEncounterZone* ms_pDefaultEncounterZone;
     // base TESForm at +0x0, size 24
     EncounterZoneData Data;   // +0x18, 8 bytes

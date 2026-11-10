@@ -187,7 +187,7 @@ struct Item48
 PathingInfoEntry* PathingSolution::GetPathingInfoEntry(PathingInfoEntry& aItem)
 {
     void* v1 = ((PathBuilder*)((char*)this + 8))->AdvanceCounter();
-    void* v2 = ((PathBuilder*)((char*)this + 8))->GetElementAddress30_006e8f40(v1);
+    void* v2 = ((PathBuilder*)((char*)this + 8))->BSSimpleArray_GetAt(v1);
     new (v2) Item48(aItem);
     return (PathingInfoEntry*)v1;
 }
@@ -323,7 +323,7 @@ struct Item48
 unsigned int PathingSolution::AddPathingItem(void* a, TESObjectREFR* pRefr)
 {
     void* idx = ((PathBuilder*)((char*)this + 8))->AdvanceCounter();
-    void* mem = ((PathBuilder*)((char*)this + 8))->GetElementAddress30_006e8f40(idx);
+    void* mem = ((PathBuilder*)((char*)this + 8))->BSSimpleArray_GetAt(idx);
     new (mem) fnv_006c99c0::Item48(a, pRefr);
     return (unsigned int)idx;
 }
@@ -530,7 +530,7 @@ int FUN_006cc5e0_shell::PathBuilder_AddNodesFromNavMesh(PathingLocation* aStartL
                     ftargetRadius = g_011e024c_arg1;
                 else
                     ftargetRadius = ((PathingRequest*)pRequest)->GetCenterRadius();
-                if (delta.GetSquaredXYLength() < ftargetRadius * ftargetRadius && std::abs(delta.z) < 180.0)
+                if (delta.NiPoint3_SqrXYLength() < ftargetRadius * ftargetRadius && std::abs(delta.z) < 180.0)
                 {
                     if (!((PathingRequest*)pRequest)->GetByteAtOffset9B())
                         return 2;
@@ -588,7 +588,7 @@ int FUN_006cc5e0_shell::PathBuilder_AddNodesFromNavMesh(PathingLocation* aStartL
                         ftargetRadius = g_011e024c_arg1;
                     else
                         ftargetRadius = ((PathingRequest*)pRequest)->GetCenterRadius();
-                    if (delta.GetSquaredXYLength() < ftargetRadius * ftargetRadius && std::abs(delta.z) < 180.0)
+                    if (delta.NiPoint3_SqrXYLength() < ftargetRadius * ftargetRadius && std::abs(delta.z) < 180.0)
                         break;
                 }
                 if (BadNodes.NiTListBase_DFALL_NiTListItem_BSAnimGroupSequence_const_BSAnimGroupSequence_const_IsEmpty() || pass == imaxPassCount - 1)
@@ -686,14 +686,14 @@ void FUN_006c9380_shell::PathingSolution_RemoveNode(int aiValue)
 
 void __fastcall FUN_006cf180(void*);
 
-struct FUN_006cb480_shell
+struct RayCastPath
 {
     void* ProcessAndReturnValue_006cb480();
 };
 
 // @fnv 0x006cb480
 // src: GUESS 0x006cb480 (confidence: low)
-void* FUN_006cb480_shell::ProcessAndReturnValue_006cb480()
+void* RayCastPath::ProcessAndReturnValue_006cb480()
 {
     FUN_006cf180(this + 8);
     return this;
@@ -721,13 +721,13 @@ void Mid::PathingNode_SetActionAtNode(int aiValue)
     *(int*)this = *(int*)this | 3;
 }
 
-struct FUN_006cd880_shell
+struct NavMeshSearch
 {
     void SetField2084(int param_2);
 };
 
 // @fnv 0x006cd880
-void FUN_006cd880_shell::SetField2084(int aiValue)
+void NavMeshSearch::SetField2084(int aiValue)
 {
     *(int*)((char*)this + 0x2084) = aiValue;
 }
@@ -939,12 +939,13 @@ struct FUN_006c9fc0_cls
 {
     int unk00;
     PathingSolution* m_04;
-    bool FindPathSegmentEnd(int a1, int* p1, int* p2);
+    bool PathBuilder_FindLoadedNodeIndices(int a1, int* p1, int* p2);
 };
 
 // Checks the path node at a1, then scans forward from a1+1 until a node is invalid or flagged, storing the start in p1 and the end index in p2.
 // @fnv 0x006c9fc0
-bool FUN_006c9fc0_cls::FindPathSegmentEnd(int aiStartIndex, int* piStartOut, int* piEndOut)
+// src: COMMUNITY 0x006c9fc0
+bool FUN_006c9fc0_cls::PathBuilder_FindLoadedNodeIndices(int aiStartIndex, int* piStartOut, int* piEndOut)
 {
     void* pFirstNode = reinterpret_cast<PathingStepC_006dd4f0*>(
                            reinterpret_cast<PathingStepB_00717e50*>(
@@ -1157,7 +1158,7 @@ struct FUN_006cb3a0_Tail
     void Call0();
 };
 
-struct FUN_006cb3a0_cls
+struct RayCastPathRequest
 {
     int unk00;
     int unk04;
@@ -1165,11 +1166,12 @@ struct FUN_006cb3a0_cls
     FUN_006cb3a0_Sub m_30;
     FUN_006cb3a0_Tail m_58;
 
-    FUN_006cb3a0_cls();
+    RayCastPathRequest();
 };
 
 // @fnv 0x006cb3a0
-FUN_006cb3a0_cls::FUN_006cb3a0_cls()
+// src: COMMUNITY 0x006cb3a0
+RayCastPathRequest::RayCastPathRequest()
 {
     m_58.Call0();
 }
@@ -1316,7 +1318,7 @@ struct TriArr
 };
 struct TESshell
 {
-    float GetCellHeightAtPosition(NiPoint3* pt, void* cell);
+    float TES_GetWaterHeight(NiPoint3* pt, void* cell);
 };
 extern TESshell* DAT_011dea10;
 extern float DAT_0101e2bc;
@@ -1358,7 +1360,7 @@ bool ThisCls::ComputePathingLocation(ArgObj* a0, ArgObj* a1, PathingLocation* ap
             navPtr.Modelloader_GetReferencedThis()->FUN_00558220(&reinterpret_cast<NiPoint3&>(wpt28), wIdxW);
             NiPoint3 xtmp40 = (upt4c + pt34G) * DAT_0104e2b8 + reinterpret_cast<NiPoint3&>(wpt28) * DAT_0101e2bc;
             float vf50;
-            vf50 = DAT_011dea10->GetCellHeightAtPosition(&xtmp40, navPtr.Modelloader_GetReferencedThis()->GetParentCell());
+            vf50 = DAT_011dea10->TES_GetWaterHeight(&xtmp40, navPtr.Modelloader_GetReferencedThis()->GetParentCell());
             if (vf50 + DAT_0104f2f0 > xtmp40.z)
                 xtmp40.z = vf50;
             *apOutLocation = *(PathingLocation*)&PLocShell(xtmp40, navPtr.Modelloader_GetReferencedThis()->GetNavMeshInfo_0068efb0(), wIdxW);
@@ -1396,7 +1398,7 @@ bool ThisCls::ComputePathingLocation(ArgObj* a0, ArgObj* a1, PathingLocation* ap
         if (bestIdxz != 0xffff)
         {
             navPtr.Modelloader_GetReferencedThis()->FUN_00558220(&reinterpret_cast<NiPoint3&>(pt90N), (unsigned short)bestIdxz);
-            rf94 = DAT_011dea10->GetCellHeightAtPosition(&reinterpret_cast<NiPoint3&>(pt90N), navPtr.Modelloader_GetReferencedThis()->GetParentCell());
+            rf94 = DAT_011dea10->TES_GetWaterHeight(&reinterpret_cast<NiPoint3&>(pt90N), navPtr.Modelloader_GetReferencedThis()->GetParentCell());
             if (rf94 + DAT_0104f2f0 > pt90N.z)
                 pt90N.z = rf94;
             *apOutLocation = *(PathingLocation*)&PLocShell(
@@ -1819,7 +1821,7 @@ bool Builder501::TryAddClosestPoint(unsigned int index, EdgeInput501* input, BSS
         NiPoint3 position = solution->GetVirtualNode_006e78b0(index)->FUN_00717e50()->FUN_005c3420();
         PointStorage closest;
         GetClosestPointOnSegment((NiPoint3*)&closest, position, (NiPoint3&)mesh, (NiPoint3&)start);
-        if (((NiPoint3&)closest - position).GetSquaredXYLength() < request->GetCenterRadius() * request->GetCenterRadius() &&
+        if (((NiPoint3&)closest - position).NiPoint3_SqrXYLength() < request->GetCenterRadius() * request->GetCenterRadius() &&
             ((NiPoint3&)closest - position).z > -64.0 && ((NiPoint3&)closest - position).z < 180.0)
         {
             PointStorage center;
@@ -4475,7 +4477,7 @@ struct FUN_006c93f0_Object
 {
     int unk00;
     FUN_006c93f0_Collection* collection;
-    bool FindPathSegmentEnd(int index, int* firstIndex, int* lastIndex);
+    bool PathBuilder_FindLoadedNodeIndices(int index, int* firstIndex, int* lastIndex);
     bool PathBuilder_BuildDetailedPath(int flag, int index);
     int ProcessIndexRange(int index);
 };
@@ -4484,7 +4486,7 @@ int FUN_006c93f0_Object::ProcessIndexRange(int index)
 {
     int firstIndex = -1;
     int lastIndex = -1;
-    if (!FindPathSegmentEnd(index, &firstIndex, &lastIndex))
+    if (!PathBuilder_FindLoadedNodeIndices(index, &firstIndex, &lastIndex))
         return 0;
     for (unsigned int i = 0; i < collection->PathingSolution_GetVirtualNodeCount(); ++i)
         collection->GetVirtualNode_006e78b0(i)->FUN_00717e50()->FUN_006ddbe0();
@@ -4681,7 +4683,7 @@ class FUN_006cd5a0
 class TESWorld
 {
   public:
-    double GetCellHeightAtPosition(const NiPoint3&, void*);
+    double TES_GetWaterHeight(const NiPoint3&, void*);
 };
 extern SettingT<GameSettingCollection> DAT_011d6ef0;
 extern NiPoint3 DAT_011a9484;
@@ -4704,11 +4706,11 @@ bool PathBuilderMethods::PathBuilder_TryBuildStraightPath(PathingLocation* pStar
     if (!Pathing_CheckLineOfSight(pStart, pEndLocation, 0, &filter))
         return false;
 
-    if (g_TES->GetCellHeightAtPosition(((PathingLocation*)pStart)->FUN_005c3420(),
+    if (g_TES->TES_GetWaterHeight(((PathingLocation*)pStart)->FUN_005c3420(),
                                        ((PathingLocation*)pStart)->FUN_006dd4f0()) +
                 25.0 >
             ((PathingLocation*)pStart)->FUN_005c3420().z ||
-        g_TES->GetCellHeightAtPosition(((PathingLocation*)pEndLocation)->FUN_005c3420(),
+        g_TES->TES_GetWaterHeight(((PathingLocation*)pEndLocation)->FUN_005c3420(),
                                        ((PathingLocation*)pEndLocation)->FUN_006dd4f0()) +
                 25.0 >
             ((PathingLocation*)pEndLocation)->FUN_005c3420().z)
@@ -7429,12 +7431,12 @@ void __cdecl Pathing_ComputeFinalTangentForActor(NiColor*, float, PathingLocatio
 class PathBuilder_Child : public PathBuilder
 {
   public:
-    bool FindPathSegmentEnd(unsigned int, unsigned int&, unsigned int&);
+    bool PathBuilder_FindLoadedNodeIndices(unsigned int, unsigned int&, unsigned int&);
     bool FUN_006ca850(Actor*);
     bool PathBuilder_BuildDetailedPath(Actor* a1, unsigned int a2);
 };
 
-// Calls FindPathSegmentEnd, stores its indices, invokes FUN_006ca850, and may update endpoint node colors when adjacent nodes are over 4096 units apart.
+// Calls PathBuilder_FindLoadedNodeIndices, stores its indices, invokes FUN_006ca850, and may update endpoint node colors when adjacent nodes are over 4096 units apart.
 // @fnv 0x006ca0e0
 // src: COMMUNITY 0x006ca0e0
 bool PathBuilder_Child::PathBuilder_BuildDetailedPath(Actor* apActor, unsigned int aiSegmentIndex)
@@ -7444,7 +7446,7 @@ bool PathBuilder_Child::PathBuilder_BuildDetailedPath(Actor* apActor, unsigned i
     unsigned int iStart = 0xffffffff;
     {
         unsigned int iEnd = 0xffffffff;
-        if (!this->FindPathSegmentEnd(aiSegmentIndex, iStart, iEnd))
+        if (!this->PathBuilder_FindLoadedNodeIndices(aiSegmentIndex, iStart, iEnd))
         {
             return true;
         }

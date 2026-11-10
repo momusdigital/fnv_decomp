@@ -220,14 +220,15 @@ void FUN_00e12140_cls::hkgpMesh_setPartIdsAsPlaneIndices()
 extern "C" void __cdecl Deallocate(void*);
 extern int DAT_010eadfc;
 
-struct FUN_00e22450 {
+struct hkGskShape {
     void* m_p;
-    FUN_00e22450(char f);
+    hkGskShape(char f);
 };
 
 // Constructor that sets m_p to DAT_010eadfc and, if bit 0 of f is set, calls Deallocate on this.
 // @fnv 0x00e22450
-FUN_00e22450::FUN_00e22450(char acFlags)
+// src: EXE 0x00e22450
+hkGskShape::hkGskShape(char acFlags)
 {
     m_p = &DAT_010eadfc;
     if (acFlags & 1)
@@ -249,13 +250,13 @@ void FUN_00e238e0_::ProcessState_00e238e0()
 void __cdecl ProcessEntries();
 void __cdecl hkgpAbstractMeshDefinitions_List_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Triangle_struct_hkgpAbstractMeshDefinitions_List_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Vertex_struct_hkgpTriangulatorBase_VertexBase_struct_hkGeometryProcessing_PoolAllocator_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Vertex_32_struct_hkContainerHeapAllocator_Item_struct_hkGeometryProcessing_PoolAllocator_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Triangle_32_struct_hkContainerHeapAllocator_reset();
 
-struct FUN_00e24a80_Class {
+struct hkgpAbstractMesh {
     void __thiscall hkgpAbstractMesh_hkgpTriangulatorType_hkgpTriangulatorBase_VertexBase_hkgpTriangulatorBase_TriangleBase_hkgpTriangulatorBase_DefaultEdgeData_hkContainerHeapAllocator_hkContainerHeapAllocator_1_Edge_hkgpTriangulatorType_hkgpTriangulatorBase_VertexBase_hkgpTriangulatorBase_TriangleBase_hkgpTriangulatorBase_DefaultEdgeData_hkContainerHeapAllocator_hkContainerHeapAllocator_1_Vertex_hkgpTriangulatorType_hkgpTriangulatorBase_VertexBase_hkgpTriangulatorBase_TriangleBase_hkgpTriangulatorBase_();
 };
 
 // @fnv 0x00e24a80
 // src: COMMUNITY 0x00e24a80
-void __thiscall FUN_00e24a80_Class::hkgpAbstractMesh_hkgpTriangulatorType_hkgpTriangulatorBase_VertexBase_hkgpTriangulatorBase_TriangleBase_hkgpTriangulatorBase_DefaultEdgeData_hkContainerHeapAllocator_hkContainerHeapAllocator_1_Edge_hkgpTriangulatorType_hkgpTriangulatorBase_VertexBase_hkgpTriangulatorBase_TriangleBase_hkgpTriangulatorBase_DefaultEdgeData_hkContainerHeapAllocator_hkContainerHeapAllocator_1_Vertex_hkgpTriangulatorType_hkgpTriangulatorBase_VertexBase_hkgpTriangulatorBase_TriangleBase_hkgpTriangulatorBase_()
+void __thiscall hkgpAbstractMesh::hkgpAbstractMesh_hkgpTriangulatorType_hkgpTriangulatorBase_VertexBase_hkgpTriangulatorBase_TriangleBase_hkgpTriangulatorBase_DefaultEdgeData_hkContainerHeapAllocator_hkContainerHeapAllocator_1_Edge_hkgpTriangulatorType_hkgpTriangulatorBase_VertexBase_hkgpTriangulatorBase_TriangleBase_hkgpTriangulatorBase_DefaultEdgeData_hkContainerHeapAllocator_hkContainerHeapAllocator_1_Vertex_hkgpTriangulatorType_hkgpTriangulatorBase_VertexBase_hkgpTriangulatorBase_TriangleBase_hkgpTriangulatorBase_()
 {
     ((void (__thiscall *)(void*))ProcessEntries)(this + 8);
     ((void (__thiscall *)(void*))hkgpAbstractMeshDefinitions_List_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Triangle_struct_hkgpAbstractMeshDefinitions_List_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Vertex_struct_hkgpTriangulatorBase_VertexBase_struct_hkGeometryProcessing_PoolAllocator_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Vertex_32_struct_hkContainerHeapAllocator_Item_struct_hkGeometryProcessing_PoolAllocator_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Triangle_32_struct_hkContainerHeapAllocator_reset)(this + 0x20);
@@ -2109,10 +2110,10 @@ struct VectorGroup { int unk00,unk04; VecData* first; VecData* second; VecData* 
 struct InputPacket { int unk00,unk04,unk08,unk0c,unk10,unk14,unk18,unk1c; VectorGroup* group; };
 struct Triple { Components first,second,third; };
 int __cdecl hkGeometryProcessing_checkTrianglesIntersection(void*,const Triple*);
-struct FUN_00e22270_Class { int unk00; unsigned int flags; int unk08,unk0c,output; float hkgpMeshInternals_TriangleOverlap_addLeaf(InputPacket*); };
+struct TriangleOverlap { int unk00; unsigned int flags; int unk08,unk0c,output; float hkgpMeshInternals_TriangleOverlap_addLeaf(InputPacket*); };
 // @fnv 0x00e22270
 // src: HAVOK_LIB 0x00e22270
-float FUN_00e22270_Class::hkgpMeshInternals_TriangleOverlap_addLeaf(InputPacket* input) {
+float TriangleOverlap::hkgpMeshInternals_TriangleOverlap_addLeaf(InputPacket* input) {
  __declspec(align(16)) Triple values;
  VectorGroup* group=input->group;
  values.first.copy(group->first);
@@ -2131,7 +2132,7 @@ struct Target
     virtual void Forward(int a);
 };
 
-struct FUN_00e22470_cls
+struct ShapeBridge
 {
     int unk00;
     Target* m_04;
@@ -2140,7 +2141,7 @@ struct FUN_00e22470_cls
 
 // @fnv 0x00e22470
 // src: HAVOK_LIB 0x00e22470
-void FUN_00e22470_cls::IConvexOverlapImpl_ShapeBridge_getSupportingVertex(int a)
+void ShapeBridge::IConvexOverlapImpl_ShapeBridge_getSupportingVertex(int a)
 {
     m_04->Forward(a);
 }
@@ -3434,12 +3435,13 @@ namespace fnvc_adapt { hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() thro
 struct FUN_00e21e00_cls {
     int m_vptr;
 
-    FUN_00e21e00_cls* FUN_00e21e00(unsigned char acFlags);
+    FUN_00e21e00_cls* ScalarDeletingDestructor(unsigned char acFlags);
 };
 
 // Sets the vtable pointer and, if bit 0 of acFlags is set, frees this object through the audio allocator.
 // @fnv 0x00e21e00
-FUN_00e21e00_cls* FUN_00e21e00_cls::FUN_00e21e00(unsigned char acFlags)
+// src: EXE 0x00e21e00
+FUN_00e21e00_cls* FUN_00e21e00_cls::ScalarDeletingDestructor(unsigned char acFlags)
 {
     m_vptr = (int)&DAT_010eacf4;
     if (acFlags & 1) {
@@ -4090,12 +4092,12 @@ typedef unsigned int BufferAddress138;
 struct FUN_00e227f0_cls {
     unsigned int unk00;
     SceneSet* m_04;
-    void* ComputeValues_00e227f0(BufferAddress138 bufferAddress);
+    void* PrismShape_getAabb(BufferAddress138 bufferAddress);
 };
 
 // @fnv 0x00e227f0
-// src: GUESS 0x00e227f0 (confidence: low)
-void* FUN_00e227f0_cls::ComputeValues_00e227f0(BufferAddress138 bufferAddress) {
+// src: GUESS 0x00e227f0 (confidence: medium)
+void* FUN_00e227f0_cls::PrismShape_getAabb(BufferAddress138 bufferAddress) {
     __declspec(align(16)) SceneVec L[6];
     SceneSet* s = m_04;
     SceneBone* b = s->m_08;
@@ -4553,13 +4555,13 @@ public:
     HkgpmeshListNodeView* m_2c;
 
     bool hkgpMesh_isClosedManifold();
-    float SumNodeTripleProducts() throw();
+    float hkgpMesh_computeArea() throw();
 };
 
 // If FUN_00e12920 succeeds, sums the first component of FUN_00cd51c0 over the m_2c node list and divides by DAT_01034208; otherwise returns 0.
 // @fnv 0x00e136c0
 // src: GUESS 0x00e136c0 (confidence: medium)
-float FUN_00e136c0_cls::SumNodeTripleProducts() throw()
+float FUN_00e136c0_cls::hkgpMesh_computeArea() throw()
 {
     float sum = 0.0f;
     if (hkgpMesh_isClosedManifold())
@@ -4846,7 +4848,7 @@ struct FUN_00e221e0_Input {
 
 float __cdecl hkGeometryProcessing_squaredDistanceFromPointToTriangle(const Vec4* point, const Vec4* a, const Vec4* b, const Vec4* c, Float4* closest, Float4* weights);
 
-struct FUN_00e221e0_Collector {
+struct NearestFeaturePolicy {
     int unk00;
     int unk04;
     int unk08;
@@ -4864,7 +4866,7 @@ struct FUN_00e221e0_Collector {
 };
 
 // @fnv 0x00e221e0
-float FUN_00e221e0_Collector::UpdateClosestPoint(FUN_00e221e0_Input* input)
+float NearestFeaturePolicy::UpdateClosestPoint(FUN_00e221e0_Input* input)
 {
     FUN_00e221e0_Triangle* tri = input->unk20;
     Float4 closest;
@@ -6226,10 +6228,10 @@ AabbE21F FUN_00e21fc0_cls::hkgpMesh_TriangleShape_getBoundingBox() const
     return kAabb;
 }
 
-struct FUN_00e226b0_cls {
+struct PrismShape {
     unsigned int unk00;
     SceneSet* m_04;
-    void FindSupportingBoneCandidate(SceneVec* v, SceneVec* out);
+    void getSupportingVertex(SceneVec* v, SceneVec* out);
 };
 
 static __forceinline float SceneDot3(const SceneVec* a, const SceneVec* b) {
@@ -6250,8 +6252,8 @@ static __forceinline void SceneCopyBone(volatile SceneVec* dst, const SceneBone*
 
 // Picks the candidate (two per bone for three bones) with the largest dot product against v, storing it in out with its index encoded in w.
 // @fnv 0x00e226b0
-// src: GUESS 0x00e226b0 (confidence: medium)
-void FUN_00e226b0_cls::FindSupportingBoneCandidate(SceneVec* v, SceneVec* out) {
+// src: GUESS 0x00e226b0 (confidence: high)
+void PrismShape::getSupportingVertex(SceneVec* v, SceneVec* out) {
     __declspec(align(16)) SceneVec L;
     SceneBone* ptr = m_04->m_08;
 
@@ -7239,7 +7241,7 @@ struct FUN_00e21e60_pair {
     unsigned int m_u20;
 };
 
-struct FUN_00e21e60_cls {
+struct WeldingPolicy {
     float unk00;
     float unk04;
     float unk08;
@@ -7254,7 +7256,7 @@ struct FUN_00e21e60_cls {
 // If the squared distance from m_v10 to the scaled sum of p's two vectors is <= m_f20, stores p->m_u20 in m_u24; always returns 1.0f.
 // @fnv 0x00e21e60
 // src: XBOX_PDB 0x00e21e60
-float FUN_00e21e60_cls::hkgpMesh_WeldingPolicy_addLeaf(FUN_00e21e60_pair* p)
+float WeldingPolicy::hkgpMesh_WeldingPolicy_addLeaf(FUN_00e21e60_pair* p)
 {
     __m128 sum = _mm_add_ps(p->m_v10, p->m_v00);
     __m128 half = _mm_load_ss(&DAT_01016248);
@@ -7739,18 +7741,19 @@ nextEdge:;
 
 
 
-struct FUN_00e21e30 {
+struct TriangleShape {
     int unk4;
-    FUN_00e21e30();
-// Empty virtual destructor of the FUN_00e21e30 class.
+    TriangleShape();
+// Empty virtual destructor of the TriangleShape class.
 // @fnv 0x00e21e30
-    virtual ~FUN_00e21e30() {}
+// src: GUESS 0x00e21e30 (confidence: high)
+    virtual ~TriangleShape() {}
     void operator delete(void* p, unsigned int nbytes) {
         (*reinterpret_cast<hkMemoryRouter*>(&::hkMemoryRouter_getInstance())).heap().blockFree(p, static_cast<int>(nbytes));
     }
 };
 
-FUN_00e21e30::FUN_00e21e30() {}
+TriangleShape::TriangleShape() {}
 
 extern "C" void __cdecl Deallocate(void*);
 
@@ -8839,7 +8842,7 @@ struct Factory360 { Builder360* hkgpMesh_clone();
 int* hkgpMesh_cutAndCap(int* result, int input, Pieces* output, float low, float high); };
 void __cdecl ResizeAudioStream(void*, void*, int);
 struct Hull360 {
-    float ComputeScaledPowerRatio();
+    float hkgpConvexHull_getSphericity();
     float hkgpConvexHull_getVolume();
 };
 // Builds pieces and checks each hull against high/low; on success appends all pieces to output, else destroys them; the status is written through result.
@@ -8859,7 +8862,7 @@ int* Factory360::hkgpMesh_cutAndCap(int* result, int input, Pieces* output, floa
         for (int i = 0; i < pieces.GetLogicalSize(); ++i) {
             Hull360* hull = (Hull360*)pieces[i]->GetConvexHull();
             if (!hull) *out = 2;
-            else if (hull->ComputeScaledPowerRatio() < high || hull->hkgpConvexHull_getVolume() < low) *out = 8;
+            else if (hull->hkgpConvexHull_getSphericity() < high || hull->hkgpConvexHull_getVolume() < low) *out = 8;
         }
         if (*out == 0) {
             for (int i = 0; i < pieces.GetLogicalSize(); ++i) {
@@ -15142,7 +15145,7 @@ struct FUN_00e237b0_List {
 };
 extern "C" hkMemoryRouter* __cdecl hkMemoryRouter_getInstance();
 extern "C" void __cdecl ResizeAudioStream(void*, FUN_00e237b0_List*, unsigned int);
-struct FUN_00e237b0_Owner {
+struct SimpleCollector {
     void* unk00;
     FUN_00e237b0_List list;
     double hkgpMeshInternals_SimpleCollector_addLeaf(FUN_00e237b0_Input* input);
@@ -15150,7 +15153,7 @@ struct FUN_00e237b0_Owner {
 // Appends input->entry to the owner's list, growing the list by 4 if it is at capacity, and returns 1.0.
 // @fnv 0x00e237b0
 // src: XBOX_PDB 0x00e237b0
-double FUN_00e237b0_Owner::hkgpMeshInternals_SimpleCollector_addLeaf(FUN_00e237b0_Input* input) {
+double SimpleCollector::hkgpMeshInternals_SimpleCollector_addLeaf(FUN_00e237b0_Input* input) {
     void* entry = input->entry;
     FUN_00e237b0_List* values = &list;
     hkMemoryRouter* alloc = hkMemoryRouter_getInstance();

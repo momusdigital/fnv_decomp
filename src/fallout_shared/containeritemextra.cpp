@@ -158,14 +158,15 @@ struct Holder0040e9f0
     float m_fHealth;
 
     void* GetValueIfFormType42();
-    void WriteToChunk();
+    void ContainerItemExtra_Save();
 };
 
 bool TESForm_QEndianSwapOnSave();
-void AppendChunk(int, void*, int);
+void TESForm___AddChunkData(int, void*, int);
 
 // @fnv 0x0040e6c0
-void Holder0040e9f0::WriteToChunk()
+// src: COMMUNITY 0x0040e6c0
+void Holder0040e9f0::ContainerItemExtra_Save()
 {
     if (reinterpret_cast<ContainerItemExtra*>(this)->IsDefault())
         return;
@@ -194,7 +195,7 @@ void Holder0040e9f0::WriteToChunk()
     if (TESForm_QEndianSwapOnSave())
         fileData.Endian();
 
-    AppendChunk(kContainerItemExtraChunk, &fileData, 0xc);
+    TESForm___AddChunkData(kContainerItemExtraChunk, &fileData, 0xc);
 
     if (TESForm_QEndianSwapOnSave())
         fileData.Endian();

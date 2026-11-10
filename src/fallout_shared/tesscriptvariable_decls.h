@@ -5,6 +5,6 @@ class TESFile;
 class ScriptVariableEndian
 {
   public:
-    void ProcessState_005e2870();
+    void SCRIPT_LOCAL_Endian();
 };
 #endif

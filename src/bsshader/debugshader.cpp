@@ -141,7 +141,7 @@ BSShader* BloodSplatterBeamShader::CreateShader()
     shader->Initialize();
     shader->InitializeShaderData();
     shader->ConfigureShaderPass();
-    shader->UseShaderDeclaration(decl);
+    shader->NiD3DShader_SetShaderDecl(decl);
     return shader;
 }
 

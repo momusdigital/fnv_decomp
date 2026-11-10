@@ -21,7 +21,7 @@ class TESWaterSystem
     NiTPointerList<WaterSurface*> m_kWaterZoneList;
 
     void UpdateWaterZone(TESObjectREFR*, TESObjectREFR*, float); // @ref 0x004e5df0 UpdateWaterZone@TESWaterSystem
-    WaterSurface* GetWaterZone(TESObjectREFR*, TESObjectREFR*, float); // @ref 0x004e59f0
+    WaterSurface* FindWaterGroup(TESObjectREFR*, TESObjectREFR*, float); // @ref 0x004e59f0
     void TESWaterSystem_UpdateWaterSystem(BSFaceGenAnimationData* data, ShadowSceneNode* scene);
     static void TESWaterSystem_SetIsUnderWater(int index);
     void SetWaterHeight(TESObjectREFR*, TESObjectREFR*, float); // @ref 0x004e5c80 SetWaterHeight@TESWaterSystem

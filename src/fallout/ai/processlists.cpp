@@ -613,11 +613,12 @@ struct FUN_0096bbc0_cls
 {
     char pad[4];
     MobileObjectProcessArray pa;
-    void ProcessMobileObjects(FUN_0096bbc0_list* l);
+    void ProcessLists_IterateMobs(FUN_0096bbc0_list* l);
 };
 // Iterates the process list for the given process type, calling l->v0 on each loaded MobileObject.
 // @fnv 0x0096bbc0
-void FUN_0096bbc0_cls::ProcessMobileObjects(FUN_0096bbc0_list* apList)
+// src: COMMUNITY 0x0096bbc0
+void FUN_0096bbc0_cls::ProcessLists_IterateMobs(FUN_0096bbc0_list* apList)
 {
     unsigned int end = pa.GetTail((PROCESS_TYPE)apList->GetFirst());
     for (unsigned int i = pa.GetHead((PROCESS_TYPE)apList->GetFirst()); i < end; i++)
@@ -986,7 +987,7 @@ void* __fastcall BSSimpleArray_Animation_1024_BSSimpleArray_Animation_1024(void*
 typedef char _sizecheck__LARGE_INTEGER[sizeof(_LARGE_INTEGER) == 8 ? 1 : -1];
 struct FUN_0096b050_shell : public ProcessLists
 {
-    void UpdateLowProcesses(float, bool);
+    void ProcessLists_UpdateLowList(float, bool);
 };
 
 struct MobileObjectExt
@@ -1167,7 +1168,8 @@ extern RecursiveSpinLock DAT_011f11a0;
 extern const double _gModifierZero;
 
 // @fnv 0x0096b050
-void FUN_0096b050_shell::UpdateLowProcesses(float afDelta, bool abSleeping)
+// src: COMMUNITY 0x0096b050
+void FUN_0096b050_shell::ProcessLists_UpdateLowList(float afDelta, bool abSleeping)
 {
     bool bstopflag;
     BSSimpleList<MobileObject*>* TempList;
@@ -1452,7 +1454,7 @@ void ProcessListsHigh::MiddleHighProcess_CalculateLightValue(float afDelta, bool
 namespace fnv_00977cb0 {
 struct FUN_00977cb0_shell : public ProcessLists
 {
-    void StartActorDialogue(int, TESObjectREFR*, bool);
+    void ProcessLists_CommentOnPlayerAction(int, TESObjectREFR*, bool);
 };
 
 struct PCH
@@ -1952,7 +1954,8 @@ extern PC7d* g_thePlayer;
 
 // Picks a nearby actor for the given dialogue action, validates it, and starts a topic on it, resetting the cooldown timer.
 // @fnv 0x00977cb0
-void FUN_00977cb0_shell::StartActorDialogue(int eaction, TESObjectREFR* apObject, bool abMakecomment)
+// src: COMMUNITY 0x00977cb0
+void FUN_00977cb0_shell::ProcessLists_CommentOnPlayerAction(int eaction, TESObjectREFR* apObject, bool abMakecomment)
 {
     if (!eaction)
         return;
@@ -2247,8 +2250,8 @@ struct Animation
     void SetEquipModifier(float);
     float GetReloadModifier();
     float GetEquipModifier();
-    BSAnimGroupSequence* GetAnimationSequence(BSAnimGroupSequence*, unsigned short, int);
-    BSAnimGroupSequence* GetAnimationSequence(unsigned short, int);
+    BSAnimGroupSequence* StartGroup(BSAnimGroupSequence*, unsigned short, int);
+    BSAnimGroupSequence* StartGroup(unsigned short, int);
     void AssignControllerManager(void*);
     static void FindHighestPriorityCallback(NiAVObject*, FindData*);
     BSAnimGroupSequence* GetHighestPriority(NiAVObject*);
@@ -2324,9 +2327,9 @@ struct MobileLightHelper
     void SetByteAt14E(bool);
 };
 void __cdecl UpdateAnimSceneGraph(unsigned int, void*);
-struct FUN_0087cf10_shell
+struct BSParallelArrayTask
 {
-    FUN_0087cf10_shell* Construct(void(__cdecl*)(unsigned int, void*), void*, unsigned int);
+    BSParallelArrayTask* Construct(void(__cdecl*)(unsigned int, void*), void*, unsigned int);
 };
 struct TaskQueueParallelManager
 {
@@ -2371,7 +2374,7 @@ void FUN_0096c970_shell::ProcessLists_ParallelUpdateAnimationScenegraph()
         if (animationArray.GetTarget())
         {
             IndexedTaskData animationArrayTask;
-            ((FUN_0087cf10_shell*)&animationArrayTask)
+            ((BSParallelArrayTask*)&animationArrayTask)
                 ->Construct(UpdateAnimSceneGraph, &animationArray, animationArray.GetTarget());
             DAT_01202df4->BSParallelTaskManager_RunTask_1(&animationArrayTask);
         }
@@ -2380,7 +2383,7 @@ void FUN_0096c970_shell::ProcessLists_ParallelUpdateAnimationScenegraph()
 
 struct FUN_0096cb50_shell : public ProcessLists
 {
-    void UpdateHighProcessActors();
+    void ProcessLists_RunActorRagdollAnimationUpdates();
 };
 
 struct RagH
@@ -2392,11 +2395,12 @@ struct RagH
 struct ActorDialogueHelper
 {
     bool IsInDialogueWithPlayer() const;
-    void UpdateRagdollController(unsigned char);
+    void Actor_UpdateRagdollAnimation(unsigned char);
 };
 
 // @fnv 0x0096cb50
-void FUN_0096cb50_shell::UpdateHighProcessActors()
+// src: COMMUNITY 0x0096cb50
+void FUN_0096cb50_shell::ProcessLists_RunActorRagdollAnimationUpdates()
 {
     for (unsigned int i = ((MobileObjectProcessArray*)((char*)this + 4))->GetHead(PROCESS_TYPE_PROCESS_TYPE_HIGH);
          i < ((MobileObjectProcessArray*)((char*)this + 4))->GetTail(PROCESS_TYPE_PROCESS_TYPE_HIGH); ++i)
@@ -2410,7 +2414,7 @@ void FUN_0096cb50_shell::UpdateHighProcessActors()
             if (pactor->GetNiNode() && bhasControllerEnabled && !((BSFadeNode*)pactor->GetNiNode())->NiNode_QNotVisible() &&
                 !((ActorDialogueHelper*)pactor)->IsInDialogueWithPlayer())
             {
-                ((ActorDialogueHelper*)pactor)->UpdateRagdollController(1);
+                ((ActorDialogueHelper*)pactor)->Actor_UpdateRagdollAnimation(1);
             }
             else if (bhasControllerEnabled)
             {
@@ -2833,7 +2837,7 @@ struct FUN_009722e0_shell
 };
 struct FUN_0047eb90_shell
 {
-    void ForwardCall_0047eb90(int);
+    void TESFaction_SetPCAnEnemy(int);
 };
 struct FUN_0041cf00_shell
 {
@@ -2875,7 +2879,7 @@ SL* FUN_00971fd0_shell::ProcessLists_RemoveCrimesForYieldCheck(float afTime)
                     {
                         FUN_0047eb90_shell* pRef = *(FUN_0047eb90_shell**)pNode->_ref_006815c0();
                         if (!((FUN_009722e0_shell*)&g_kProcessLists)->IsActorInOtherList(pRef, pItem))
-                            pRef->ForwardCall_0047eb90(0);
+                            pRef->TESFaction_SetPCAnEnemy(0);
                         pNode = (NodeS*)((TESFormList*)pNode)->GetFirst();
                     }
                 }
@@ -3366,12 +3370,13 @@ struct FUN_009785d0_shell
 {
     int unk0;
     MobileObjectProcessArray processes;
-    void RemoveDetectionEventsFromActors();
+    void ProcessLists_RemoveDetectionEventsOnActors();
 };
 
 // Iterates the high-priority process list and, for each actor, removes its current AI process's detection event.
 // @fnv 0x009785d0
-void FUN_009785d0_shell::RemoveDetectionEventsFromActors()
+// src: COMMUNITY 0x009785d0
+void FUN_009785d0_shell::ProcessLists_RemoveDetectionEventsOnActors()
 {
     MobileObject* pObject = 0;
     for (unsigned int i = processes.GetHead(PROCESS_TYPE_PROCESS_TYPE_HIGH);
@@ -3389,12 +3394,13 @@ struct FUN_0096bc50_shell
 {
     unsigned int pad0;
     MobileObjectProcessArray processes;
-    unsigned int CountHighProcessActors();
+    unsigned int ProcessLists_CountHighActors();
 };
 
 // Counts the actors among the high-priority processes by iterating the process list and testing each item with IsActor.
 // @fnv 0x0096bc50
-unsigned int FUN_0096bc50_shell::CountHighProcessActors()
+// src: COMMUNITY 0x0096bc50
+unsigned int FUN_0096bc50_shell::ProcessLists_CountHighActors()
 {
     unsigned int count = 0;
     for (unsigned int index = processes.GetHead(PROCESS_TYPE_PROCESS_TYPE_HIGH);
@@ -5883,7 +5889,7 @@ struct Obj
     void Projectile_CheckRefDeleted(Obj* a);
     bool FUN_00440da0();
     void Explosion_CheckRefDeleted(Obj* a);
-    void ProcessCombatTarget(Obj* a);
+    void CombatManager_ClearReferencePointers(Obj* a);
 };
 struct ArrObj
 {
@@ -5955,7 +5961,7 @@ void Host::ProcessLists_ReferDestructorNullOut(Obj* apObject)
     Obj* objA6;
     int i8;
 
-    DAT_011f1958->ProcessCombatTarget(apObject);
+    DAT_011f1958->CombatManager_ClearReferencePointers(apObject);
     if (apObject->v100())
     {
         if (DAT_011dea3c->BSFile_GetDevice()->ExtraDataList_GetFollowerExtra() != 0)
@@ -8142,8 +8148,8 @@ struct FUN_0096d810_shell : public ProcessLists
 {
     float ProcessLists_GetSystemTimeClock();
     void FUN_0096d4b0(float afTime);
-    void StartActorDialogue(int a1, int a2, int a3);
-    void UpdateLowProcesses(float afTime, bool abFlag);
+    void ProcessLists_CommentOnPlayerAction(int a1, int a2, int a3);
+    void ProcessLists_UpdateLowList(float afTime, bool abFlag);
     void UpdateLowListProcessLists(float afTime, bool abFlag);
     void ProcessLists_UpdateMiddleHighList(float afTime, bool abFlag);
     void UpdateCrimeLists();
@@ -8168,7 +8174,7 @@ void FUN_0096d810_shell::ProcessLists_UpdateProcessLists()
     DAT_011a39c4 = DAT_011de7b8.FUN_00867d20();
     DAT_011e0360 = DAT_011de7b8.FUN_00867d60();
     FUN_008d5bc0();
-    StartActorDialogue(((FUN_009640b0_player*)DAT_011dea3c)->GetActionObjectItemId(),
+    ProcessLists_CommentOnPlayerAction(((FUN_009640b0_player*)DAT_011dea3c)->GetActionObjectItemId(),
                        ((FUN_009640b0_player*)DAT_011dea3c)->PlayerCharacter_GetRecentAction(), 0);
     BSDoorHavokController_ReenableDoors();
     if (Setting_Int(&DAT_011c3ea4) == 1)
@@ -8208,7 +8214,7 @@ void FUN_0096d810_shell::ProcessLists_UpdateProcessLists()
     {
         if (m_bUpdateLowProcesses && !Main_GetSceneIsComplex() && ((FUN_0040fbf0_lock*)&DAT_011f11a0)->BSSpinLock_TryLock())
         {
-            UpdateLowProcesses(0.0f, false);
+            ProcessLists_UpdateLowList(0.0f, false);
             ((FUN_0040fbf0_lock*)&DAT_011f11a0)->BSSpinLock_Unlock();
         }
         if (m_bUpdateLowListProcessLists && !Main_GetSceneIsComplex())
@@ -10007,7 +10013,7 @@ bool FUN_009722e0_shell::IsActorInOtherList(Actor* pActor, FUN_009722e0_member* 
 namespace fnv_00972aa0 {
 struct S_972aa0_Actor
 {
-    void ForwardCall_0047eb90(int a);
+    void TESFaction_SetPCAnEnemy(int a);
 };
 struct S_972aa0_ActorNode
 {
@@ -10077,7 +10083,7 @@ void S_972aa0_Owner::RemoveCrimeById(unsigned int uiCrimeId)
                 {
                     S_972aa0_Actor* actor = *actors->FUN_006815c0();
                     if (!DAT_011e0e80.IsActorInOtherList(actor, crime))
-                        actor->ForwardCall_0047eb90(0);
+                        actor->TESFaction_SetPCAnEnemy(0);
                     actors = actors->FUN_00726070();
                 }
                 list->RemoveMatchingItem(crime);
@@ -10338,7 +10344,7 @@ struct FUN_008f25e0
     ~FUN_008f25e0();
     TESForm* GetHavokWorldObjectCountInSceneGraph_0084e3a0();
     TESForm* FUN_0044ddc0();
-    void RemoveActorAndDecrementCount(Actor*);
+    void Crime_RemoveWitness(Actor*);
 };
 struct CrimeListView
 {
@@ -10379,7 +10385,7 @@ void CrimeProcess::ProcessLists_NullOutActorInCrimeList(TESForm* form)
             else if (form->IsActor())
             {
                 Actor* actor = static_cast<Actor*>(form);
-                removed->RemoveActorAndDecrementCount(actor);
+                removed->Crime_RemoveWitness(actor);
             }
             if (!crime)
             {
@@ -12483,7 +12489,7 @@ struct Sh0041cb10
 };
 struct Sh0041c930
 {
-    void AllocateStorage_0041c930(int a, int b, int c, int d, int e, int f);
+    void ExtraDataList_SetPackageExtra(int a, int b, int c, int d, int e, int f);
 };
 struct Sh0042ce10
 {
@@ -12562,7 +12568,7 @@ void Menu75x::ProcessLists_NullOutActorsPackage(int arg)
             }
             if (((Sh0041cb10*)((::TESObjectREFR*)p)->BSFile_GetDevice())->ExtraDataList_GetPackageExtra() == (void*)arg)
             {
-                ((Sh0041c930*)((::TESObjectREFR*)p)->BSFile_GetDevice())->AllocateStorage_0041c930(0, 0, 0, 0, 0, 0);
+                ((Sh0041c930*)((::TESObjectREFR*)p)->BSFile_GetDevice())->ExtraDataList_SetPackageExtra(0, 0, 0, 0, 0, 0);
             }
             p = 0;
         }
@@ -12958,12 +12964,12 @@ struct Radio652
     bool unk11;
     int unk14;
     ReceiverList652 receivers;
-    void LoadRadioFields(Buffer652*);
+    void FalloutRadio_StationState_LoadGame(Buffer652*);
 };
 // Reads radio fields, receiver list, and optional conversation from a Buffer652 stream.
 // @fnv 0x00836240
-// src: GUESS 0x00836240 (confidence: medium)
-void Radio652::LoadRadioFields(Buffer652* buffer)
+// src: COMMUNITY 0x00836240
+void Radio652::FalloutRadio_StationState_LoadGame(Buffer652* buffer)
 {
     buffer->LoadData(&unk08, 4);
     buffer->LoadData(&unk0c, 4);

@@ -200,7 +200,8 @@ void hkpCharacterMotion::ApplyImpulseAtPoint(const hkVector4& imp, const hkVecto
 }
 
 // @fnv 0x00d1ef80
-void hkpCharacterMotion::vf5c(float afTimestep, const hkVector4& force)
+// src: EXE 0x00d1ef80
+void hkpCharacterMotion::applyForce(float afTimestep, const hkVector4& force)
 {
     LocalM128 timestep = _mm_load_ps1(&afTimestep);
     hkVector4 impulse;

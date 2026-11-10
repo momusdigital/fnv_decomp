@@ -280,13 +280,13 @@ extern "C" void __cdecl Object_ComputeMemberLayoutRecursively(unsigned int value
 class FUN_00dc1bb0_Class
 {
   public:
-    void UpdateState_00dc1bb0(unsigned int param1, unsigned int param2, int param3);
+    void hkStructureLayout_computeMemberOffsetsInplace(unsigned int param1, unsigned int param2, int param3);
 };
 
 // Calls FindSlot on the object with param1 and, if the result exceeds object->unk08, calls FUN_00dc1960 with this, object and param3.
 // @fnv 0x00dc1bb0
-// src: GUESS 0x00dc1bb0 (confidence: low)
-void FUN_00dc1bb0_Class::UpdateState_00dc1bb0(unsigned int uiValue, unsigned int pObject, int param3)
+// src: GUESS 0x00dc1bb0 (confidence: high)
+void FUN_00dc1bb0_Class::hkStructureLayout_computeMemberOffsetsInplace(unsigned int uiValue, unsigned int pObject, int param3)
 {
     FUN_00cb18f0_Obj* object = reinterpret_cast<FUN_00cb18f0_Obj*>(pObject);
     int result = object->FindSlot(uiValue);

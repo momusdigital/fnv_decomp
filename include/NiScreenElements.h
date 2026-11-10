@@ -30,6 +30,6 @@ class NiScreenElements : public NiTriShape
     void NiAVObject_Update(NiUpdateData* data);
     void NiScreenElements_Draw(ScreenSink* sink);
     void __fastcall FUN_00a89760();
-    NiScreenElements* __thiscall FUN_00a87830(unsigned int flags);
+    NiScreenElements* __thiscall ScalarDeletingDestructor(unsigned int flags);
 
 };

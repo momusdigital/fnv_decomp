@@ -54,8 +54,8 @@ class TESResponse
     void SetSpeakerIdle(TESIdleForm* idle);                        // 0x0050f9c0
     DIALOGUE_EMOTION GetEmotion();                                 // 0x00559450 (folded +0 getter)
     const char* GetDialogueText();                                 // 0x00616de0
-    static void BuildQuestTopicName(TESQuest* quest, TESTopic* topic, char* buffer, unsigned int size); // 0x006172c0
-    void BuildResponseFileName(TESQuest* quest, TESTopic* topic, TESTopicInfo* info, BSStringT<char>& name); // 0x00617400
+    static void GetAudioQuestTopicCombined(TESQuest* quest, TESTopic* topic, char* buffer, unsigned int size); // 0x006172c0
+    void GetAudioFilename(TESQuest* quest, TESTopic* topic, TESTopicInfo* info, BSStringT<char>& name); // 0x00617400
     unsigned int GetResponseID();                                  // 0x006174b0
     void Load(TESFile* file);                                      // 0x00617530
     void InitItem(TESForm* owner);                                 // 0x00617580

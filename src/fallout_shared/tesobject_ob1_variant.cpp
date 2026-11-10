@@ -1367,17 +1367,18 @@ void ReportAssertionViolation(const char* file, int line);
 }
 using namespace binac3;
 
-struct FUN_00ac3df0
+struct FutBinaryFileC
 {
     BxString kPath;
     BxString kName;
     int unk3c;
-    FUN_00ac3df0(BxString name);
+    FutBinaryFileC(BxString name);
     virtual void v00();
 };
 
 // @fnv 0x00ac3df0
-FUN_00ac3df0::FUN_00ac3df0(BxString name)
+// src: EXE 0x00ac3df0
+FutBinaryFileC::FutBinaryFileC(BxString name)
 {
     kName = name;
     if (kName.size() == 8)
@@ -4541,7 +4542,7 @@ struct ItemVector : GvVector<InsertItem>
     typedef unsigned int size_type;
     typedef GvConstIterator<InsertItem> const_iterator;
 // src: GUESS 0x0065dd90 (confidence: low)
-    void ForwardCall_0065dd90(pointer a, pointer b)
+    void vector__Destroy(pointer a, pointer b)
     {
         GvDestroyRange(a, b, this->_Alval);
     }
@@ -4579,14 +4580,14 @@ void ItemVector::InsertFilledElements_00abeb00(const_iterator _Where, size_type 
         }
         catch (...)
         {
-            ForwardCall_0065dd90(_Newvec, _Ptr);
+            vector__Destroy(_Newvec, _Ptr);
             this->_Alval.deallocate(_Newvec, _Capacity);
             throw;
         }
         _Count += size();
         if (_Myfirst != 0)
         {
-            ForwardCall_0065dd90(_Myfirst, _Mylast);
+            vector__Destroy(_Myfirst, _Mylast);
             this->_Alval.deallocate(_Myfirst, _Myend - _Myfirst);
         }
         _Myend = _Newvec + _Capacity;
@@ -4603,7 +4604,7 @@ void ItemVector::InsertFilledElements_00abeb00(const_iterator _Where, size_type 
         }
         catch (...)
         {
-            ForwardCall_0065dd90(_Where._Myptr + _Count, _Mylast + _Count);
+            vector__Destroy(_Where._Myptr + _Count, _Mylast + _Count);
             throw;
         }
         _Mylast += _Count;
@@ -4702,10 +4703,10 @@ class FUN_0044a4c0 : public BxStringVal
 // src: GUESS 0x00ac9da0 (confidence: low)
     int UpdateFields_00ac9da0(const FUN_0044a4c0& right) const
     {
-        return ProcessAndReturnValue_00ac6100(0, length, right.data(), right.size());
+        return basic_string__Copy_s(0, length, right.data(), right.size());
     }
 // src: GUESS 0x00ac6100 (confidence: low)
-    int ProcessAndReturnValue_00ac6100(unsigned int off, unsigned int count, const char* text, unsigned int size) const
+    int basic_string__Copy_s(unsigned int off, unsigned int count, const char* text, unsigned int size) const
     {
         if (length < off)
             StringBase::_Xran();
@@ -4716,7 +4717,7 @@ class FUN_0044a4c0 : public BxStringVal
     }
     int compare(const char* s) const
     {
-        return ProcessAndReturnValue_00ac6100(0, length, s, BxStrTraits::length(s));
+        return basic_string__Copy_s(0, length, s, BxStrTraits::length(s));
     }
 };
 inline bool operator==(const FUN_0044a4c0& a, const FUN_0044a4c0& b)
@@ -4775,8 +4776,8 @@ class ParserStream : virtual public ParserIos
   public:
     virtual ~ParserStream();
     int count;
-    int ProcessAndReturnValue_00aca7a0();
-    int ProcessAndReturnValue_00aca560();
+    int basic_istream_peek();
+    int basic_istream_get();
 };
 extern ParserStream& __cdecl Object_ProcessEntries_00ad43a0(ParserStream&, FUN_0044a4c0&);
 extern ParserStream& __cdecl Runtime_ProcessEntries_00ad5770(ParserStream&, FUN_0044a4c0&, char);
@@ -4817,11 +4818,11 @@ bool __cdecl TESObject_ProcessEntries_00ac7f50(ParserStream* stream, ParserPairs
         char next;
         while (!stream->eof() && !stream->fail())
         {
-            next = stream->ProcessAndReturnValue_00aca7a0();
+            next = stream->basic_istream_peek();
             if (next == '\n' || stream->eof() || stream->fail())
                 break;
             else if (next == ' ' || next == '\t')
-                next = stream->ProcessAndReturnValue_00aca560();
+                next = stream->basic_istream_get();
             else
                 break;
         }
@@ -5871,7 +5872,7 @@ template <class T> struct PairInsertionVector : PairVectorVal<T>
         return p + n;
     }
 
-    void ForwardCall_0065dc60(T*, T*);
+    void vector__Destroy(T*, T*);
     template <class I> T* _Umove(I first, I last, T* dest)
     {
         return PairUncheckedMove(first, last, dest, this->_Alval);
@@ -5884,7 +5885,7 @@ template <class T> struct PairInsertionVector : PairVectorVal<T>
 };
 
 // src: GUESS 0x0065dc60 (confidence: low)
-template <class T> inline void PairInsertionVector<T>::ForwardCall_0065dc60(T* first, T* last)
+template <class T> inline void PairInsertionVector<T>::vector__Destroy(T* first, T* last)
 {
     GvDestroyRange(first, last, this->_Alval);
 }
@@ -5917,14 +5918,14 @@ void PairInsertionVector<T>::UpdateState_00abe310(GvConstIterator<T> _Where, uns
         }
         catch (...)
         {
-            ForwardCall_0065dc60(_Newvec, _Ptr);
+            vector__Destroy(_Newvec, _Ptr);
             this->_Alval.deallocate(_Newvec, _Capacity);
             throw;
         }
         _Count += size();
         if (_Myfirst != 0)
         {
-            ForwardCall_0065dc60(_Myfirst, _Mylast);
+            vector__Destroy(_Myfirst, _Mylast);
             this->_Alval.deallocate(_Myfirst, _Myend - _Myfirst);
         }
         _Myend = _Newvec + _Capacity;
@@ -5941,7 +5942,7 @@ void PairInsertionVector<T>::UpdateState_00abe310(GvConstIterator<T> _Where, uns
         }
         catch (...)
         {
-            ForwardCall_0065dc60(_Where._Myptr + _Count, _Mylast + _Count);
+            vector__Destroy(_Where._Myptr + _Count, _Mylast + _Count);
             throw;
         }
         _Mylast += _Count;

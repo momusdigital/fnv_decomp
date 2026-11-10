@@ -419,7 +419,7 @@ NiObject* __cdecl CreateDerived();
 NiObject* __cdecl CreateInterpDerivedBc36();
 NiObject* __cdecl VolumetricFogShaderProperty_CreateObject();
 NiObject* __cdecl CreateSpawnedObj9441();
-NiObject* __cdecl CreateShaderAccumulator();
+NiObject* __cdecl BSTextureData_CreateObject();
 extern const char g_011f9140_arg0[];
 extern const char g_011f9f00_arg0[];
 extern const char g_011fa010_arg0[];
@@ -455,7 +455,7 @@ void RegisterNiStreamFactories()
     NiStream::RegisterObjectLoader(g_01201fb0_arg0, VolumetricFogShaderProperty_CreateObject);
     NiStream::RegisterObjectLoader(g_012005b8_arg0, CreateSpawnedObject90);
     NiStream::RegisterObjectLoader(g_011f9f00_arg0, FUN_00b60f50);
-    NiStream::RegisterObjectLoader(g_01204378_arg0, CreateShaderAccumulator);
+    NiStream::RegisterObjectLoader(g_01204378_arg0, BSTextureData_CreateObject);
     NiStream::RegisterObjectLoader(g_0120044c_arg0, BSShaderTextureSet_CreateObject);
     NiStream::RegisterObjectLoader(g_01201fa8_arg0, CreateInterpDerivedBc36);
     NiStream::RegisterObjectLoader(g_01201f9c_arg0, CreateDerived);
@@ -4083,7 +4083,7 @@ NativeB66810* __cdecl BSShaderManager_CreateTangentSpaceSimple(NiGeometry* apGeo
         result->second = new TangentPoint3[count];
         memmove(result->GetFirst(), firstData, bytes);
         memmove(result->GetSecond(), secondData, bytes);
-        apGeometry->DeleteExtraDataByKey(NiFixedString(NiGlobalStringTable::AddString(DAT_010ad7a8), 0));
+        apGeometry->NiObjectNET_RemoveExtraData(NiFixedString(NiGlobalStringTable::AddString(DAT_010ad7a8), 0));
         return result;
     }
     if (!apGeometry->IsTriBasedGeometry())

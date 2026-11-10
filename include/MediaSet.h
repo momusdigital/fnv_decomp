@@ -52,7 +52,7 @@ public:
     virtual ~MediaSet();
     void ResetFormData();
     void SaveMediaSet();
-    bool UpdateLayerLocation(unsigned int, bool, MediaLocationController*);
+    bool UpdateLocation(unsigned int, bool, MediaLocationController*);
     bool PointLocation(unsigned int, bool, MediaLocationController*);
     bool UpdateBattleState(bool, unsigned int, int);
     void UpdateIncidental(unsigned int);

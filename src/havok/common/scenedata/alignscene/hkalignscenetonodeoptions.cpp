@@ -65,12 +65,13 @@ class hkAlignSceneToNodeOptions : public hkReferencedObject
     int m_iOptionValue;
     FUN_00cb0c00_class m_kNodeName;
 
-    hkAlignSceneToNodeOptions* FUN_00e4afa0(unsigned int uiFlags) throw();
+    hkAlignSceneToNodeOptions* ScalarDeletingDestructor(unsigned int uiFlags) throw();
 };
 
 // Destroys the object and, when uiFlags has bit 0 set, frees its memory via operator delete; returns this.
 // @fnv 0x00e4afa0
-hkAlignSceneToNodeOptions* hkAlignSceneToNodeOptions::FUN_00e4afa0(unsigned int uiFlags) throw()
+// src: EXE 0x00e4afa0
+hkAlignSceneToNodeOptions* hkAlignSceneToNodeOptions::ScalarDeletingDestructor(unsigned int uiFlags) throw()
 {
     this->hkAlignSceneToNodeOptions::~hkAlignSceneToNodeOptions();
     if (uiFlags & 1)

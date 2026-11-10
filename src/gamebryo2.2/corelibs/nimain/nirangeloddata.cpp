@@ -11,8 +11,8 @@ class D60Stream;
 class RangeLODDataOperations : public NiRangeLODData
 {
   public:
-    void UpdateWorldRanges(const LODObject* pkLOD);
-    void SaveRanges(D60Stream& kStream);
+    void NiRangeLODData_UpdateWorldData(const LODObject* pkLOD);
+    void NiRangeLODData_SaveBinary(D60Stream& kStream);
 };
 
 // src/gamebryo2.2/corelibs/nimain/nirangeloddata.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/_fallout3/platforms/common/code/gamebryo2.2/corelibs/nimain/nirangeloddata.cpp).
@@ -129,7 +129,8 @@ struct Base00aa09a0
 extern int DAT_010a073c;
 extern NiPoint3 _NiPoint3_ZERO;
 // @fnv 0x00a97c00
-NiRangeLODData* CreateRangeLODData()
+// src: EXE 0x00a97c00
+NiRangeLODData* NiRangeLODData_CreateObject()
 {
     NiRangeLODData* p = (NiRangeLODData*)BSFadeNode::operator new(0x28);
     if (p)
@@ -411,7 +412,8 @@ class A97E20LODData
 };
 
 // @fnv 0x00a97e20
-void __fastcall LoadRangeLODData(NiRangeLODData* self, int, A97E20Stream& kStream)
+// src: EXE 0x00a97e20
+void __fastcall NiRangeLODData_LoadBinary(NiRangeLODData* self, int, A97E20Stream& kStream)
 {
     ((A97E20LODData*)self)->LoadBinary(kStream);
     ((A97E20Point3*)&self->m_kCenter)->LoadBinary(kStream);
@@ -628,7 +630,8 @@ class D60Base
 
 // Saves the base data, color, key count and each key's time and value to the stream.
 // @fnv 0x00a97d60
-void RangeLODDataOperations::SaveRanges(D60Stream& kStream)
+// src: EXE 0x00a97d60
+void RangeLODDataOperations::NiRangeLODData_SaveBinary(D60Stream& kStream)
 {
     ((D60Base*)this)->SaveBinary(kStream);
     ((D60Color*)&m_kCenter)->SaveBinary(kStream);
@@ -696,7 +699,8 @@ int A97EF0Sprintf(char* buf, unsigned int size, const char* fmt, ...);
 
 // Appends formatted strings for m_kCenter, m_kWorldCenter, and each range entry to pkStrings.
 // @fnv 0x00a97ef0
-void __fastcall GetRangeLODDataViewerStrings(NiRangeLODData* self, int, A97EF0Strings* pkStrings)
+// src: EXE 0x00a97ef0
+void __fastcall NiRangeLODData_GetViewerStrings(NiRangeLODData* self, int, A97EF0Strings* pkStrings)
 {
     pkStrings->Add(A97EF0GetViewerString(DAT_011f5ef8));
     pkStrings->Add(((const NiPoint3*)&self->m_kCenter)->FormatToBuffer("m_kCenter"));
@@ -795,7 +799,8 @@ struct LODObject
 
 // Transforms m_kCenter into m_kWorldCenter and scales each range's near and far planes by the LOD object's world scale.
 // @fnv 0x00a97780
-void RangeLODDataOperations::UpdateWorldRanges(const LODObject* pkLOD)
+// src: COMMUNITY 0x00a97780
+void RangeLODDataOperations::NiRangeLODData_UpdateWorldData(const LODObject* pkLOD)
 {
     const WTransform& kWorld = pkLOD->m_kWorldSpaceTransform;
     *(WPoint3*)&GetWorldCenter() = kWorld.m_kOrientation * (kWorld.m_fScale * *(const WPoint3*)&m_kCenter) + kWorld.m_kTranslation;

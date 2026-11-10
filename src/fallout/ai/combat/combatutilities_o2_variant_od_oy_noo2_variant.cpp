@@ -63,7 +63,7 @@ struct FUN_004a3fb0_shell
 {
     void __thiscall bhkPickData_SetAllCollector(hkpAllRayHitCollector* p);
 };
-struct FUN_004a3da0_shell
+struct bhkPickData
 {
     void __thiscall bhkPickData_SetFrom(void* p);
 };
@@ -148,7 +148,7 @@ bool __cdecl CombatUtilities_CalculateProjectileLOS(void* a0, void* a1, float a2
 
     if (v2c == gModifierZero)
     {
-        ((FUN_004a3da0_shell*)&obj410)->bhkPickData_SetFrom(&vecStart);
+        ((bhkPickData*)&obj410)->bhkPickData_SetFrom(&vecStart);
         ((FUN_004a3eb0_shell*)&obj410)->bhkPickData_SetTo(&pos);
         v30 = ((FUN_00553ee0_shell*)((TESObjectREFR*)a0)->GetTarget(&obj410))->TESObjectCELL_Pick();
         v34 = Projectile_ProcessTargetPick(&obj410, 0, a1, &frac, 0, 3.4028234663852886e38f);
@@ -186,7 +186,7 @@ bool __cdecl CombatUtilities_CalculateProjectileLOS(void* a0, void* a1, float a2
             pos.x += v430 * v468;
             pos.y += v430 * v46c;
             pos.z += v488;
-            ((FUN_004a3da0_shell*)&obj410)->bhkPickData_SetFrom(&vecStart);
+            ((bhkPickData*)&obj410)->bhkPickData_SetFrom(&vecStart);
             ((FUN_004a3eb0_shell*)&obj410)->bhkPickData_SetTo(&pos);
             v30 = ((FUN_00553ee0_shell*)((TESObjectREFR*)a0)->GetTarget(&obj410))->TESObjectCELL_Pick();
             v34 = Projectile_ProcessTargetPick(&obj410, 0, a1, &frac, 0, 3.4028234663852886e38f);

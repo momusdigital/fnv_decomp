@@ -95,14 +95,14 @@ void MagicProjectile_AddTrackedProjectile(float value)
 
 hkVector4& __cdecl NI2HK(hkVector4&, NiPoint3 const&);
 
-struct FUN_00810510_Class
+struct bhkCharacterControllerCinfo
 {
     void __thiscall bhkCharacterControllerCinfo_SetPosition(NiPoint3 const&);
 };
 
 // @fnv 0x00810510
 // src: XBOX_PDB 0x00810510
-void __thiscall FUN_00810510_Class::bhkCharacterControllerCinfo_SetPosition(NiPoint3 const& aPoint)
+void __thiscall bhkCharacterControllerCinfo::bhkCharacterControllerCinfo_SetPosition(NiPoint3 const& aPoint)
 {
     NI2HK(*(hkVector4*)this, aPoint);
 }
@@ -422,7 +422,7 @@ struct FUN_00c85c80_Class
 {
     unsigned int bhkWorldObject_GetAVObject(int);
 };
-struct FUN_00810660_Class
+struct bhkCharacterController
 {
     char pad[0x594];
     Flt f;
@@ -430,7 +430,7 @@ struct FUN_00810660_Class
 };
 // @fnv 0x00810660
 // src: XBOX_PDB 0x00810660
-unsigned int FUN_00810660_Class::bhkCharacterController_GetNiObject()
+unsigned int bhkCharacterController::bhkCharacterController_GetNiObject()
 {
     return f ? reinterpret_cast<FUN_00c85c80_Class*>(f.operator unsigned int())->bhkWorldObject_GetAVObject(0) : 0;
 }
@@ -458,12 +458,13 @@ extern "C" void __cdecl Deallocate(void*);
 struct FUN_0081de70_shell
 {
     void __thiscall FUN_0081de70();
-    void* __thiscall FUN_0081dcd0(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_0081de70, then frees this via Deallocate when flags has bit 1 set, and returns this.
 // @fnv 0x0081dcd0
-void* __thiscall FUN_0081de70_shell::FUN_0081dcd0(unsigned int flags)
+// src: EXE 0x0081dcd0
+void* __thiscall FUN_0081de70_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0081de70();
     if (flags & 1)
@@ -555,7 +556,7 @@ struct FUN_0081dbb0 : P0_0081dbb0, P1_0081dbb0
     float f88;
     unsigned int unk8C, unk90, unk94, unk98, unk9C, unkA0, unkA4;
 };
-struct FUN_008117d0 : FUN_0081dbb0
+struct MagicBoltProjectile : FUN_0081dbb0
 {
     NiPointer<AnimIdle> spA8;
     int iAC;
@@ -567,11 +568,12 @@ struct FUN_008117d0 : FUN_0081dbb0
     int iC4;
     BSSoundHandle kSound;
     float fD4;
-    FUN_008117d0();
+    MagicBoltProjectile();
 };
 
 // @fnv 0x008117d0
-FUN_008117d0::FUN_008117d0() : spA8(0), spB4(0), spB8(0), spBC(0), spC0(0)
+// src: EXE 0x008117d0
+MagicBoltProjectile::MagicBoltProjectile() : spA8(0), spB4(0), spB8(0), spBC(0), spC0(0)
 {
     ((FUN_008133d0_shell*)this)->MagicBoltProjectile_SetState(0);
     f88 = 4096.0f;
@@ -658,14 +660,15 @@ FUN_0080a900* CalmEffect_Create(void* apArg1, void* apArg2, void* apArg3)
 }
 
 
-struct FUN_0080c070 : ActiveEffect
+struct CureEffect : ActiveEffect
 {
     int f48;
     int f4c;
-    FUN_0080c070(MagicCaster* a, MagicItem* b, EffectItem* c, int d);
+    CureEffect(MagicCaster* a, MagicItem* b, EffectItem* c, int d);
 };
 // @fnv 0x0080c070
-FUN_0080c070::FUN_0080c070(MagicCaster* a, MagicItem* pItem, EffectItem* pEffect, int d)
+// src: EXE 0x0080c070
+CureEffect::CureEffect(MagicCaster* a, MagicItem* pItem, EffectItem* pEffect, int d)
     : ActiveEffect(a, pItem, pEffect)
 {
     f48 = d;
@@ -686,18 +689,18 @@ FUN_0080cd30_t* __cdecl DetectLifeEffect_Create(int aiArg1, int aiArg2, int aiAr
     return new FUN_0080cd30_t(aiArg1, aiArg2, aiArg3);
 }
 
-struct FUN_0080d1a0 : ActiveEffect
+struct DisintegrateArmorEffect : ActiveEffect
 {
     int f48;
-    FUN_0080d1a0(MagicCaster*, MagicItem*, EffectItem*);
-    ~FUN_0080d1a0();
+    DisintegrateArmorEffect(MagicCaster*, MagicItem*, EffectItem*);
+    ~DisintegrateArmorEffect();
 };
 
-// Allocates and constructs a FUN_0080d1a0 object from the three arguments and returns the new pointer.
+// Allocates and constructs a DisintegrateArmorEffect object from the three arguments and returns the new pointer.
 // @fnv 0x0080d430
-FUN_0080d1a0* CreateFUN_0080d1a0(MagicCaster* aiArg1, MagicItem* aiArg2, EffectItem* aiArg3)
+DisintegrateArmorEffect* CreateFUN_0080d1a0(MagicCaster* aiArg1, MagicItem* aiArg2, EffectItem* aiArg3)
 {
-    return new FUN_0080d1a0(aiArg1, aiArg2, aiArg3);
+    return new DisintegrateArmorEffect(aiArg1, aiArg2, aiArg3);
 }
 
 struct FUN_0080d900
@@ -773,13 +776,14 @@ struct EffectStorage
     EffectStorage(MagicCaster*, MagicItem*, EffectItem*);
 };
 extern int DAT_01079b3c;
-struct FUN_0080ba90 : EffectStorage
+struct CommandHumanoidEffect : EffectStorage
 {
-    FUN_0080ba90(MagicCaster* a, MagicItem* b, EffectItem* c);
+    CommandHumanoidEffect(MagicCaster* a, MagicItem* b, EffectItem* c);
 };
 // Constructs the EffectStorage base from the caster, item and effect item, then sets the object's vtable pointer to DAT_01079b3c.
 // @fnv 0x0080ba90
-FUN_0080ba90::FUN_0080ba90(MagicCaster* a, MagicItem* pItem, EffectItem* pEffectItem)
+// src: EXE 0x0080ba90
+CommandHumanoidEffect::CommandHumanoidEffect(MagicCaster* a, MagicItem* pItem, EffectItem* pEffectItem)
     : EffectStorage(a, pItem, pEffectItem)
 {
     *(int*)this = (int)&DAT_01079b3c;
@@ -803,9 +807,9 @@ S_0080bac0_Obj* __cdecl CommandHumanoidEffect_Create(int aiArg1, int aiArg2, int
 
 // @fnv 0x0080c260
 // src: COMMUNITY 0x0080c260
-FUN_0080c070* __cdecl CureEffect_Create(MagicCaster* apCaster, MagicItem* apMagicItem, EffectItem* apEffectItem)
+CureEffect* __cdecl CureEffect_Create(MagicCaster* apCaster, MagicItem* apMagicItem, EffectItem* apEffectItem)
 {
-    return new FUN_0080c070(apCaster, apMagicItem, apEffectItem, 1);
+    return new CureEffect(apCaster, apMagicItem, apEffectItem, 1);
 }
 
 // @fnv 0x0080c2e0
@@ -817,17 +821,17 @@ FUN_0080c0b0* CureParalysis_Create(MagicCaster* apCaster, MagicItem* apMagicItem
 
 // @fnv 0x0080c360
 // src: COMMUNITY 0x0080c360
-FUN_0080c070* __cdecl CureAddition_Create(MagicCaster* apCaster, MagicItem* apMagicItem, EffectItem* apEffectItem)
+CureEffect* __cdecl CureAddition_Create(MagicCaster* apCaster, MagicItem* apMagicItem, EffectItem* apEffectItem)
 {
-    return new FUN_0080c070(apCaster, apMagicItem, apEffectItem, 10);
+    return new CureEffect(apCaster, apMagicItem, apEffectItem, 10);
 }
 
-// Allocates and returns a new FUN_0080c070 constructed from the caster, magic item and effect item with a value of 5.
+// Allocates and returns a new CureEffect constructed from the caster, magic item and effect item with a value of 5.
 // @fnv 0x0080c3e0
 // src: COMMUNITY 0x0080c3e0
-FUN_0080c070* __cdecl CurePoision_CurePoision(MagicCaster* apCaster, MagicItem* apMagicItem, EffectItem* apEffectItem)
+CureEffect* __cdecl CurePoision_CurePoision(MagicCaster* apCaster, MagicItem* apMagicItem, EffectItem* apEffectItem)
 {
-    return new FUN_0080c070(apCaster, apMagicItem, apEffectItem, 5);
+    return new CureEffect(apCaster, apMagicItem, apEffectItem, 5);
 }
 
 struct FUN_00803ed0
@@ -842,14 +846,14 @@ struct FUN_0080d930 : FUN_00803ed0
 FUN_0080d930::~FUN_0080d930()
 {}
 
-struct FUN_00622290_cls
+struct CFilter
 {
     void __thiscall SetPackedValue(int a, int b, int c);
 };
 struct FUN_00810590_Class
 {
     char pad[0x84];
-    FUN_00622290_cls sub;
+    CFilter sub;
     void bhkCharacterControllerCinfo_SetColFilter(int a, int b);
 };
 // Calls the sub-object's method with the two arguments and a zero third argument.
@@ -860,19 +864,20 @@ void FUN_00810590_Class::bhkCharacterControllerCinfo_SetColFilter(int aiArg1, in
     sub.SetPackedValue(aiArg1, aiArg2, 0);
 }
 
-struct FUN_008192a0 : FUN_0081dbb0
+struct MagicFogProjectile : FUN_0081dbb0
 {
     char pad[0x14];
     BSSoundHandle sound;
     unsigned int fC8;
     unsigned int fCC;
 
-    FUN_008192a0();
+    MagicFogProjectile();
 };
 
 // Initializes fCC and fC8 to zero.
 // @fnv 0x008192a0
-FUN_008192a0::FUN_008192a0()
+// src: EXE 0x008192a0
+MagicFogProjectile::MagicFogProjectile()
 {
     fCC = 0;
     fC8 = 0;
@@ -1426,18 +1431,19 @@ struct FUN_0080f6e0_sub
     char pad[0xc];
     FUN_0080f6e0_sub();
 };
-struct FUN_0080f6e0 : FUN_0081dbb0
+struct MagicBallProjectile : FUN_0081dbb0
 {
     char pad[0xc];
     FUN_0080f6e0_sub m_b4;
     unsigned int m_c0;
-    FUN_0080f6e0();
-    virtual ~FUN_0080f6e0();
+    MagicBallProjectile();
+    virtual ~MagicBallProjectile();
 };
 
 // Initializes the object: constructs the m_b4 sub-object and sets m_c0 to 0.
 // @fnv 0x0080f6e0
-FUN_0080f6e0::FUN_0080f6e0() : m_b4()
+// src: EXE 0x0080f6e0
+MagicBallProjectile::MagicBallProjectile() : m_b4()
 {
     m_c0 = 0;
 }
@@ -1951,7 +1957,7 @@ struct FUN_0081f1e0_Virtual
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40();
     virtual void vf44();
@@ -2649,21 +2655,23 @@ void __thiscall FUN_00800870_Class::UpdateProgress(float value)
 }
 
 
-struct FUN_0080cd30_Class : ValueModifierEffect
+struct DetectLifeEffect : ValueModifierEffect
 {
-    FUN_0080cd30_Class(MagicCaster*, MagicItem*, EffectItem*);
+    DetectLifeEffect(MagicCaster*, MagicItem*, EffectItem*);
 };
 
 // Constructs the ValueModifierEffect base and installs the derived vtable.
 // @fnv 0x0080cd30
-FUN_0080cd30_Class::FUN_0080cd30_Class(MagicCaster* apCaster, MagicItem* apMagicItem,
+// src: EXE 0x0080cd30
+DetectLifeEffect::DetectLifeEffect(MagicCaster* apCaster, MagicItem* apMagicItem,
                                                    EffectItem* apEffectItem)
     : ValueModifierEffect(apCaster, apMagicItem, apEffectItem)
 {
 }
 
 // @fnv 0x0080d1a0
-FUN_0080d1a0::FUN_0080d1a0(MagicCaster* a, MagicItem* b, EffectItem* c)
+// src: EXE 0x0080d1a0
+DisintegrateArmorEffect::DisintegrateArmorEffect(MagicCaster* a, MagicItem* b, EffectItem* c)
     : ActiveEffect(a, b, c)
 {
     f48 = 0;
@@ -2673,43 +2681,46 @@ FUN_0080d1a0::FUN_0080d1a0(MagicCaster* a, MagicItem* b, EffectItem* c)
 // the base routine using `this`, installs the class vtable pointer into the
 // object and returns itself.
 
-struct FUN_0080d6b0_cls : ActiveEffect
+struct DisintegrateWeaponEffect : ActiveEffect
 {
-    FUN_0080d6b0_cls(MagicCaster*, MagicItem*, EffectItem*);
+    DisintegrateWeaponEffect(MagicCaster*, MagicItem*, EffectItem*);
 };
 
 // Constructs the ActiveEffect base and installs the derived vtable.
 // @fnv 0x0080d6b0
-FUN_0080d6b0_cls::FUN_0080d6b0_cls(MagicCaster* a, MagicItem* b, EffectItem* c)
+// src: EXE 0x0080d6b0
+DisintegrateWeaponEffect::DisintegrateWeaponEffect(MagicCaster* a, MagicItem* b, EffectItem* c)
     : ActiveEffect(a, b, c)
 {
 }
 
-struct FUN_0080d900_cls : ActiveEffect
+struct DispelEffect : ActiveEffect
 {
-    FUN_0080d900_cls(MagicCaster*, MagicItem*, EffectItem*);
+    DispelEffect(MagicCaster*, MagicItem*, EffectItem*);
 };
 
 // Constructs the ActiveEffect base and installs the derived vtable.
 // @fnv 0x0080d900
-FUN_0080d900_cls::FUN_0080d900_cls(MagicCaster* a1, MagicItem* a2, EffectItem* a3)
+// src: EXE 0x0080d900
+DispelEffect::DispelEffect(MagicCaster* a1, MagicItem* a2, EffectItem* a3)
     : ActiveEffect(a1, a2, a3)
 {
 }
 
-struct FUN_0080f390_shell : ActiveEffect
+struct LockEffect : ActiveEffect
 {
-    FUN_0080f390_shell(MagicCaster* a, MagicItem* b, EffectItem* c);
+    LockEffect(MagicCaster* a, MagicItem* b, EffectItem* c);
 };
-// Constructs a FUN_0080f390_shell ActiveEffect, passing a, b, c to the base and setting the vtable to DAT_0107a4ac.
+// Constructs a LockEffect ActiveEffect, passing a, b, c to the base and setting the vtable to DAT_0107a4ac.
 // @fnv 0x0080f390
-FUN_0080f390_shell::FUN_0080f390_shell(MagicCaster* apCaster, MagicItem* apItem, EffectItem* apEffect)
+// src: EXE 0x0080f390
+LockEffect::LockEffect(MagicCaster* apCaster, MagicItem* apItem, EffectItem* apEffect)
     : ActiveEffect(apCaster, apItem, apEffect)
 {
 }
 
 namespace fnv_0081de70 {
-class FUN_0081de70_cls;
+class MagicProjectile;
 
 struct Obj68
 {
@@ -2718,7 +2729,7 @@ struct Obj68
 
 struct GlobalGate
 {
-    void Enter(FUN_0081de70_cls* self, int r);
+    void Enter(MagicProjectile* self, int r);
 };
 
 struct GlobalMgr
@@ -2758,7 +2769,7 @@ class PrimaryBase
     int unk14;
 };
 
-class FUN_0081de70_cls : public PrimaryBase, public SecondaryBase
+class MagicProjectile : public PrimaryBase, public SecondaryBase
 {
   public:
     int unk1c;
@@ -2797,12 +2808,13 @@ class FUN_0081de70_cls : public PrimaryBase, public SecondaryBase
     char* m_a0;
 
     void Flush(int x);
-    virtual ~FUN_0081de70_cls();
+    virtual ~MagicProjectile();
 };
 
 // If m_68 is set calls g_gate.Enter(this, m_68->Get()); logs v5(0, 1) of m_a0+0x18 if its Check() > 0; calls Flush(0) when g_mgr->Query() is false.
 // @fnv 0x0081de70
-FUN_0081de70_cls::~FUN_0081de70_cls()
+// src: EXE 0x0081de70
+MagicProjectile::~MagicProjectile()
 {
     if (m_68 != 0)
     {

@@ -169,7 +169,7 @@ struct Date
     ~Date();
 };
 bool __cdecl TESForm_QEndianSwapOnSave();
-void __cdecl AppendChunk(unsigned int id, void* p, unsigned int size);
+void __cdecl TESForm___AddChunkData(unsigned int id, void* p, unsigned int size);
 
 // @fnv 0x0067c570
 // src: XBOX_PDB 0x0067c570
@@ -180,7 +180,7 @@ void TESPatrolPackageData::Save_0067c570()
     patrolData[0] = m_bPrimaryComparisonFlag;
     if (TESForm_QEndianSwapOnSave())
         ((Date*)patrolData)->Date::~Date();
-    AppendChunk(0x54504b50, patrolData, 2);
+    TESForm___AddChunkData(0x54504b50, patrolData, 2);
     if (TESForm_QEndianSwapOnSave())
         ((Date*)patrolData)->Date::~Date();
 }

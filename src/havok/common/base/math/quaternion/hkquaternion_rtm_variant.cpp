@@ -50,7 +50,7 @@ struct SubObj
 
     void CallSub(Block64* p);
 };
-__declspec(align(16)) struct FUN_00cf5950_cls
+__declspec(align(16)) struct hkpTransformShape
 {
     unsigned int unk00;
     unsigned int unk04;
@@ -88,7 +88,7 @@ struct S00cb2550_Quat
 static void quaternionFromRotatation(S00cb2550_Quat* self, const S00cb2550_Rot& r);
 void S00cb2550_caller(S00cb2550_Quat* q, const S00cb2550_Rot& r);
 
-__declspec(align(16)) struct FUN_00cb2450_cls
+__declspec(align(16)) struct hkQuaternion
 {
     __m128 m_00;
     void hkQuaternion_setAxisAngle(__m128* v, float a1);
@@ -101,7 +101,7 @@ struct LFrame
 };
 // @fnv 0x00cb2450
 // src: XBOX_PDB 0x00cb2450
-void FUN_00cb2450_cls::hkQuaternion_setAxisAngle(__m128* v, float a1)
+void hkQuaternion::hkQuaternion_setAxisAngle(__m128* v, float a1)
 {
     LFrame f;
     f.x = (float)(a1 * 0.5);

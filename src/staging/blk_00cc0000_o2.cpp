@@ -464,12 +464,13 @@ extern "C" void __cdecl _delete(void* p, int flags);
 void __cdecl FUN_00cc1520();
 
 struct FUN_00cc1710_Class {
-    FUN_00cc1710_Class* __thiscall FUN_00cc1710(int a);
+    FUN_00cc1710_Class* __thiscall ScalarDeletingDestructor(int a);
 };
 
 // Calls FUN_00cc1520, then if bit 0 of a is set frees this with _delete, and returns this.
 // @fnv 0x00cc1710
-FUN_00cc1710_Class* __thiscall FUN_00cc1710_Class::FUN_00cc1710(int aiFlags)
+// src: EXE 0x00cc1710
+FUN_00cc1710_Class* __thiscall FUN_00cc1710_Class::ScalarDeletingDestructor(int aiFlags)
 {
     FUN_00cc1520();
     if (aiFlags & 1)
@@ -492,14 +493,14 @@ struct FUN_00a7b290_shell
     bool FUN_00a7b290(NiStream* apStream);
 };
 
-struct FUN_00cc1990_class : FUN_00a7b290_shell
+struct bhkExtraData : FUN_00a7b290_shell
 {
     bool bhkExtraData_RegisterStreamables(NiStream* apStream);
 };
 
 // @fnv 0x00cc1990
 // src: XBOX_PDB 0x00cc1990
-bool FUN_00cc1990_class::bhkExtraData_RegisterStreamables(NiStream* apStream)
+bool bhkExtraData::bhkExtraData_RegisterStreamables(NiStream* apStream)
 {
     bool bResult = FUN_00a7b290(apStream);
 
@@ -549,16 +550,16 @@ void* __thiscall FUN_00cc1f60_Class::FUN_00cc1f60(bool flag)
     return this;
 }
 
-void __cdecl FUN_00cc2ac0();
+void __cdecl bhkSpringAction();
 void __cdecl operator delete(void* p, unsigned int size);
 struct FUN_00cc2b40_class {
     FUN_00cc2b40_class* __thiscall FUN_00cc2b40(int flag);
 };
-// Calls FUN_00cc2ac0, frees this with operator delete when flag bit 0 is set, and returns this.
+// Calls bhkSpringAction, frees this with operator delete when flag bit 0 is set, and returns this.
 // @fnv 0x00cc2b40
 FUN_00cc2b40_class* __thiscall FUN_00cc2b40_class::FUN_00cc2b40(int flag)
 {
-    FUN_00cc2ac0();
+    bhkSpringAction();
     if (flag & 1)
         operator delete(this, 0x10);
     return this;
@@ -567,7 +568,7 @@ FUN_00cc2b40_class* __thiscall FUN_00cc2b40_class::FUN_00cc2b40(int flag)
 namespace fnv_00cc3a30 {
 extern "C" void __cdecl _delete(void*, unsigned int);
 
-void __cdecl FUN_00cc39b0();
+void __cdecl bhkDashpotAction();
 
 struct GSGeometry
 {
@@ -576,11 +577,11 @@ struct GSGeometry
     GSGeometry* FUN_00cc3a30(int flags);
 };
 
-// Calls FUN_00cc39b0, deletes this with size 0x10 when flags has bit 0 set, and returns this.
+// Calls bhkDashpotAction, deletes this with size 0x10 when flags has bit 0 set, and returns this.
 // @fnv 0x00cc3a30
 GSGeometry* GSGeometry::FUN_00cc3a30(int flags)
 {
-    FUN_00cc39b0();
+    bhkDashpotAction();
     if (flags & 1)
         _delete(this, 0x10);
     return this;
@@ -610,18 +611,18 @@ FUN_00cc5110_Class* FUN_00cc5110_Class::FUN_00cc5110(int flags)
 namespace fnv_00cc74e0 {
 extern "C" void __cdecl operator delete(void*, unsigned int);
 
-void __cdecl FUN_00cc7450();
+void __cdecl bhkPrismaticConstraint();
 
 struct FUN_00cc74e0_Class {
-    void __thiscall FUN_00cc7450();
+    void __thiscall bhkPrismaticConstraint();
     void* __thiscall FUN_00cc74e0(int flags);
 };
 
-// Calls FUN_00cc7450, then deletes this with size 16 when flags has bit 0 set, and returns this.
+// Calls bhkPrismaticConstraint, then deletes this with size 16 when flags has bit 0 set, and returns this.
 // @fnv 0x00cc74e0
 void* __thiscall FUN_00cc74e0_Class::FUN_00cc74e0(int flags)
 {
-    FUN_00cc7450();
+    bhkPrismaticConstraint();
     if (flags & 1)
         operator delete(this, 16);
     return this;
@@ -632,15 +633,15 @@ namespace fnv_00cc8500 {
 extern "C" void __cdecl _delete(void*, unsigned int);
 
 struct FUN_00cc8500_class {
-    void FUN_00cc8480();
+    void bhkHingeLimitsConstraint();
     void* FUN_00cc8500(int flags);
 };
 
-// Calls FUN_00cc8480, then frees this with _delete when flags has bit 0 set, and returns this.
+// Calls bhkHingeLimitsConstraint, then frees this with _delete when flags has bit 0 set, and returns this.
 // @fnv 0x00cc8500
 void* FUN_00cc8500_class::FUN_00cc8500(int flags)
 {
-    FUN_00cc8480();
+    bhkHingeLimitsConstraint();
     if (flags & 1)
         _delete(this, 0x10);
     return this;
@@ -671,13 +672,13 @@ void FUN_00d53220();
 
 extern "C" void __cdecl operator delete(void*, unsigned int);
 
-struct FUN_00cc8d80_class {
-    FUN_00cc8d80_class* __thiscall FUN_00cc8d80(int);
+struct bhkConstraintChain {
+    bhkConstraintChain* __thiscall FUN_00cc8d80(int);
 };
 
 // Calls FUN_00d53220, deletes this with size 0x10 when bit 0 of arg is set, and returns this.
 // @fnv 0x00cc8d80
-FUN_00cc8d80_class* __thiscall FUN_00cc8d80_class::FUN_00cc8d80(int arg)
+bhkConstraintChain* __thiscall bhkConstraintChain::FUN_00cc8d80(int arg)
 {
     FUN_00d53220();
     if (arg & 1)
@@ -686,16 +687,16 @@ FUN_00cc8d80_class* __thiscall FUN_00cc8d80_class::FUN_00cc8d80(int arg)
 }
 }  // namespace fnv_00cc8d80
 
-void __cdecl FUN_00cc8ce0();
+void __cdecl bhkBallSocketConstraintChain();
 void __cdecl operator delete(void* p, unsigned int size);
 struct FUN_00cc8da0_Class {
     FUN_00cc8da0_Class* FUN_00cc8da0(bool b);
 };
-// Calls FUN_00cc8ce0, then deletes this object with size 16 when b has bit 0 set, and returns this.
+// Calls bhkBallSocketConstraintChain, then deletes this object with size 16 when b has bit 0 set, and returns this.
 // @fnv 0x00cc8da0
 FUN_00cc8da0_Class* FUN_00cc8da0_Class::FUN_00cc8da0(bool b)
 {
-    FUN_00cc8ce0();
+    bhkBallSocketConstraintChain();
     if (b & 1)
         operator delete(this, 16);
     return this;
@@ -704,12 +705,12 @@ FUN_00cc8da0_Class* FUN_00cc8da0_Class::FUN_00cc8da0(bool b)
 extern "C" void __cdecl _delete(void*, int);
 extern "C" void __cdecl FUN_00d54e60();
 
-struct FUN_00ccb160_class {
+struct bhkHeightFieldShape {
     void* __thiscall FUN_00ccb160(int arg);
 };
 
 // @fnv 0x00ccb160
-void* __thiscall FUN_00ccb160_class::FUN_00ccb160(int arg)
+void* __thiscall bhkHeightFieldShape::FUN_00ccb160(int arg)
 {
     FUN_00d54e60();
     if (arg & 1)
@@ -717,7 +718,7 @@ void* __thiscall FUN_00ccb160_class::FUN_00ccb160(int arg)
     return this;
 }
 
-void __cdecl FUN_00ccbc00();
+void __cdecl bhkExtendedMeshShape();
 
 void __cdecl _delete(void*, unsigned int);
 
@@ -725,11 +726,11 @@ struct FUN_00ccc420_class {
     void* __thiscall FUN_00ccc420(int);
 };
 
-// Calls FUN_00ccbc00, then if bit 0 of a is set frees this with size 0x18, and returns this.
+// Calls bhkExtendedMeshShape, then if bit 0 of a is set frees this with size 0x18, and returns this.
 // @fnv 0x00ccc420
 void* __thiscall FUN_00ccc420_class::FUN_00ccc420(int aiFlags)
 {
-    FUN_00ccbc00();
+    bhkExtendedMeshShape();
     if (aiFlags & 1)
         _delete(this, 0x18);
     return this;
@@ -738,21 +739,21 @@ void* __thiscall FUN_00ccc420_class::FUN_00ccc420(int aiFlags)
 void __cdecl operator delete(void* p, unsigned int size);
 
 struct FUN_00ccc720_holder {
-    void FUN_00ccc720();
+    void bhkExtendedMeshShapeData();
     void* __thiscall DestroyHolder(int arg);
 };
 
-// Calls FUN_00ccc720, then frees this with operator delete when arg has bit 0 set, and returns this.
+// Calls bhkExtendedMeshShapeData, then frees this with operator delete when arg has bit 0 set, and returns this.
 // @fnv 0x00cccfb0
 void* __thiscall FUN_00ccc720_holder::DestroyHolder(int aiFlags)
 {
-    FUN_00ccc720();
+    bhkExtendedMeshShapeData();
     if (aiFlags & 1)
         operator delete(this, 0x10);
     return this;
 }
 
-void FUN_00ccd080();
+void bhkCylinderShape();
 
 void __cdecl operator delete(void* p, unsigned int size);
 
@@ -760,11 +761,11 @@ struct FUN_00ccd150_cls {
     FUN_00ccd150_cls* __thiscall FUN_00ccd150(int flags);
 };
 
-// Calls FUN_00ccd080, then frees this with operator delete when flags has bit 0 set, and returns this.
+// Calls bhkCylinderShape, then frees this with operator delete when flags has bit 0 set, and returns this.
 // @fnv 0x00ccd150
 FUN_00ccd150_cls* __thiscall FUN_00ccd150_cls::FUN_00ccd150(int flags)
 {
-    FUN_00ccd080();
+    bhkCylinderShape();
     if (flags & 1)
         operator delete(this, 0x14);
     return this;
@@ -788,13 +789,13 @@ int FUN_00ccf870_class::FUN_00ccf870(int flags)
 
 extern float DAT_0104da48;
 
-struct FUN_00cd3290_class {
+struct bhkCharacterPointCollector {
     void bhkCharacterPointCollector_reset();
 };
 
 // @fnv 0x00cd3290
 // src: XBOX_PDB 0x00cd3290
-void FUN_00cd3290_class::bhkCharacterPointCollector_reset()
+void bhkCharacterPointCollector::bhkCharacterPointCollector_reset()
 {
     *(float*)((char*)this + 4) = DAT_0104da48;
     *(int*)((char*)this + 0x14) = 0;
@@ -899,12 +900,12 @@ struct BhkReferenceState {
     unsigned int m_uiData2;
     unsigned char m_bFlag;
 };
-struct FUN_00cc23c0_class {
+struct bhkCachingShapePhantom {
     BhkReferenceState* __thiscall InitializeRefObject();
 };
 // Calls Initialize, sets the vtable and clears data fields and a flag, incrementing four global counters along the way.
 // @fnv 0x00cc23c0
-BhkReferenceState* __thiscall FUN_00cc23c0_class::InitializeRefObject()
+BhkReferenceState* __thiscall bhkCachingShapePhantom::InitializeRefObject()
 {
     BhkReferenceState* self = (BhkReferenceState*)this;
     self->Initialize();
@@ -998,14 +999,14 @@ extern "C" void __cdecl _delete(void*, int);
 extern int DAT_010ca4dc;
 extern int DAT_0126866c;
 
-struct FUN_00ccb180_class {
+struct bhkPlaneShape {
     int* m_p;
-    FUN_00ccb180_class* __thiscall FUN_00ccb180(int flag);
+    bhkPlaneShape* __thiscall FUN_00ccb180(int flag);
 };
 
 // Resets m_p to DAT_010ca4dc, decrements DAT_0126866c, calls FUN_00d54e60, and deletes this when flag bit 0 is set.
 // @fnv 0x00ccb180
-FUN_00ccb180_class* __thiscall FUN_00ccb180_class::FUN_00ccb180(int flag)
+bhkPlaneShape* __thiscall bhkPlaneShape::FUN_00ccb180(int flag)
 {
     m_p = &DAT_010ca4dc;
     --DAT_0126866c;
@@ -1070,12 +1071,12 @@ extern int DAT_01030bf4;
 extern int DAT_01030b0c;
 extern int DAT_01030a24;
 extern int DAT_010caa0c;
-struct FUN_00cce990_shell : BhkReferenceState {
+struct bhkConvexTransformShape : BhkReferenceState {
     BhkReferenceState* UpdateState_00cce990();
 };
 // @fnv 0x00cce990
 // src: GUESS 0x00cce990 (confidence: low)
-BhkReferenceState* FUN_00cce990_shell::UpdateState_00cce990()
+BhkReferenceState* bhkConvexTransformShape::UpdateState_00cce990()
 {
     Initialize();
     m_iUnk = 0;
@@ -1328,49 +1329,51 @@ struct DerivedStandin : A51BF0Base, S_00cb79d0_Base {
 
 // Allocates and constructs a DerivedStandin object, returning its pointer.
 // @fnv 0x00cc2bc0
-void* CreateDerivedStandin()
+// src: EXE 0x00cc2bc0
+void* bhkSpringAction_CreateObject()
 {
     return new DerivedStandin;
 }
 
 struct FUN_00cc4180_Class {
-    void __thiscall FUN_00cc4180();
+    void __thiscall bhkAngularDashpotAction();
     void* __thiscall FUN_00cc4200(int flag);
 };
 // @fnv 0x00cc4200
 void* FUN_00cc4180_Class::FUN_00cc4200(int flag)
 {
-    FUN_00cc4180();
+    bhkAngularDashpotAction();
     if (flag & 1)
         _delete(this, 16);
     return this;
 }
 
 struct FUN_00cc47f0_t {
-    void __thiscall FUN_00cc47f0();
+    void __thiscall bhkBreakableConstraint();
     FUN_00cc47f0_t* __thiscall FUN_00cc48e0(int a);
 };
-// Calls FUN_00cc47f0, then deletes this with size 0x10 when bit 0 of a is set, and returns this.
+// Calls bhkBreakableConstraint, then deletes this with size 0x10 when bit 0 of a is set, and returns this.
 // @fnv 0x00cc48e0
 FUN_00cc47f0_t* __thiscall FUN_00cc47f0_t::FUN_00cc48e0(int aiFlags)
 {
-    FUN_00cc47f0();
+    bhkBreakableConstraint();
     if (aiFlags & 1)
         _delete(this, 0x10);
     return this;
 }
 
 extern int DAT_010c99e0;
-struct FUN_00cc4990 {
+struct hkBreakableConstraintCinfo {
     void* m_pVtable;
     unsigned int m_uiRefCount;
     unsigned int m_uiValue1;
     unsigned int m_uiData1;
     unsigned int m_uiData2;
-    FUN_00cc4990();
+    hkBreakableConstraintCinfo();
 };
 // @fnv 0x00cc4990
-FUN_00cc4990::FUN_00cc4990()
+// src: EXE 0x00cc4990
+hkBreakableConstraintCinfo::hkBreakableConstraintCinfo()
 {
     m_uiRefCount = 0;
     m_uiValue1 = 1;
@@ -1411,7 +1414,8 @@ struct Derived5130 : S_00cb79d0_Base {
 
 // Allocates and constructs a Derived5130 object, returning the new instance.
 // @fnv 0x00cc5130
-void* CreateDerived5130()
+// src: EXE 0x00cc5130
+void* bhkWheelConstraint_CreateObject()
 {
     return new Derived5130;
 }
@@ -1419,17 +1423,18 @@ void* CreateDerived5130()
 
 extern int DAT_010c9af0;
 
-struct FUN_00cc51c0 {
+struct hkWheelConstraintCinfo {
     void* m_pVtable;
     unsigned int m_uiRefCount;
     unsigned int m_uiValue1;
     unsigned int m_uiData1;
     unsigned int m_uiData2;
-    FUN_00cc51c0();
+    hkWheelConstraintCinfo();
 };
 
 // @fnv 0x00cc51c0
-FUN_00cc51c0::FUN_00cc51c0()
+// src: EXE 0x00cc51c0
+hkWheelConstraintCinfo::hkWheelConstraintCinfo()
 {
     m_uiRefCount = 0;
     m_uiValue1 = 1;
@@ -1439,14 +1444,14 @@ FUN_00cc51c0::FUN_00cc51c0()
 }
 
 struct FUN_00cc5f10_Class {
-    void __thiscall FUN_00cc5e60();
+    void __thiscall bhkRagdollLimitsConstraint();
     FUN_00cc5f10_Class* __thiscall FUN_00cc5f10(unsigned int flag);
 };
 
 // @fnv 0x00cc5f10
 FUN_00cc5f10_Class* FUN_00cc5f10_Class::FUN_00cc5f10(unsigned int flag)
 {
-    FUN_00cc5e60();
+    bhkRagdollLimitsConstraint();
     if (flag & 1)
         _delete(this, 0x10);
     return this;
@@ -1523,7 +1528,7 @@ struct FUN_00cc7090_Constraint {
     float m_fPlaneMaxAngle;
 };
 
-struct FUN_00cc7090_class {
+struct hkRagdollConstraintCinfo {
     void* m_pVtable;
     FUN_00cc7090_Constraint* m_pConstraint;
 
@@ -1532,7 +1537,7 @@ struct FUN_00cc7090_class {
 };
 
 // @fnv 0x00cc7090
-void FUN_00cc7090_class::AppendConstraintParams(StrArr* strArr)
+void hkRagdollConstraintCinfo::AppendConstraintParams(StrArr* strArr)
 {
     this->hkConstraintCinfo_GetViewerStrings(strArr);
 
@@ -1725,16 +1730,17 @@ Object_00cc7500* bhkPrismaticConstraint_CreateObject()
 }  // namespace fnv_00cc7500
 
 extern int DAT_010c9d60;
-struct FUN_00cc7590 {
+struct hkPrismaticConstraintCinfo {
     void* m_pVtable;
     int m_iRefCount;
     int m_iData1;
     int m_iData2;
     int m_iData3;
-    FUN_00cc7590();
+    hkPrismaticConstraintCinfo();
 };
 // @fnv 0x00cc7590
-FUN_00cc7590::FUN_00cc7590()
+// src: EXE 0x00cc7590
+hkPrismaticConstraintCinfo::hkPrismaticConstraintCinfo()
 {
     m_iRefCount = 0;
     m_iData1 = 1;
@@ -1759,16 +1765,17 @@ FUN_00cc7da0_shell* FUN_00cc7da0_shell::FUN_00cc7da0(int flags)
 }
 
 extern int DAT_010c9f38;
-struct FUN_00cc7f10 {
+struct hkGenericConstraintCinfo {
     int* m_pVTable;
     unsigned int m_uiRefCount;
     unsigned int m_uiValue1;
     unsigned int m_uiData1;
     unsigned int m_uiData2;
-    FUN_00cc7f10();
+    hkGenericConstraintCinfo();
 };
 // @fnv 0x00cc7f10
-FUN_00cc7f10::FUN_00cc7f10()
+// src: EXE 0x00cc7f10
+hkGenericConstraintCinfo::hkGenericConstraintCinfo()
 {
     m_uiRefCount = 0;
     m_uiValue1 = 1;
@@ -1819,12 +1826,12 @@ void* bhkHingeLimitsConstraint_CreateObject()
 struct FUN_00cc94b0_Class {
     void __thiscall FreeSpawnedStorage();
 };
-struct FUN_00cc9540_Class : FUN_00cc94b0_Class {
-    FUN_00cc9540_Class* __thiscall FUN_00cc9540(char flag);
+struct hkBallSocketChainCinfo : FUN_00cc94b0_Class {
+    hkBallSocketChainCinfo* __thiscall FUN_00cc9540(char flag);
 };
 
 // @fnv 0x00cc9540
-FUN_00cc9540_Class* FUN_00cc9540_Class::FUN_00cc9540(char flag)
+hkBallSocketChainCinfo* hkBallSocketChainCinfo::FUN_00cc9540(char flag)
 {
     FUN_00cc94b0_Class::FreeSpawnedStorage();
     if (flag & 1)
@@ -1859,14 +1866,15 @@ inline bhkBvTreeShape::bhkBvTreeShape()
 namespace fnv_00cc9e60 {
 // Allocates and constructs a new bhkBvTreeShape, returning the pointer.
 // @fnv 0x00cc9e60
-bhkBvTreeShape* CreateBhkBvTreeShape()
+// src: EXE 0x00cc9e60
+bhkBvTreeShape* bhkMoppBvTreeShape_CreateObject()
 {
     return new bhkBvTreeShape;
 }
 }  // namespace fnv_00cc9e60
 
 struct FUN_00cca8d0_shell {
-    void __thiscall FUN_00cca8d0();
+    void __thiscall bhkTriangleShape();
 };
 
 struct FUN_00cca9a0_class : FUN_00cca8d0_shell {
@@ -1876,7 +1884,7 @@ struct FUN_00cca9a0_class : FUN_00cca8d0_shell {
 // @fnv 0x00cca9a0
 FUN_00cca8d0_shell* FUN_00cca9a0_class::DestroyOrDelete(int flags)
 {
-    FUN_00cca8d0();
+    bhkTriangleShape();
     if (flags & 1)
         _delete(this, 0x14);
     return this;
@@ -1954,7 +1962,8 @@ struct BD70_Object : S_00cb79d0_Base {
 
 // Allocates and constructs a BD70_Object, returning it as an S_00cb79d0_Base pointer.
 // @fnv 0x00ccbd70
-S_00cb79d0_Base* __cdecl CreateBD70Object()
+// src: EXE 0x00ccbd70
+S_00cb79d0_Base* __cdecl bhkExtendedMeshShape_CreateObject()
 {
     return new BD70_Object;
 }
@@ -2061,15 +2070,15 @@ void Object::bhkShapeCollection_GetViewerStrings(StrArr* pStrArr)
 }  // namespace fnv_00cd2fd0
 
 extern int DAT_010cb3c4;
-struct FUN_00cd44c0_cls {
+struct bhkCharacterStateSwimming {
     int m_vft;
     unsigned short m_kPointA;
     unsigned short m_kPointB;
-    FUN_00cd44c0_cls* SetVirtualTable_00cd44c0();
+    bhkCharacterStateSwimming* SetVirtualTable_00cd44c0();
 };
 // @fnv 0x00cd44c0
 // src: GUESS 0x00cd44c0 (confidence: low)
-FUN_00cd44c0_cls* FUN_00cd44c0_cls::SetVirtualTable_00cd44c0()
+bhkCharacterStateSwimming* bhkCharacterStateSwimming::SetVirtualTable_00cd44c0()
 {
     m_kPointB = 1;
     m_vft = (int)&DAT_010cb3c4;
@@ -2077,15 +2086,16 @@ FUN_00cd44c0_cls* FUN_00cd44c0_cls::SetVirtualTable_00cd44c0()
 }
 
 extern int DAT_010cb3f0;
-struct FUN_00cd47e0_t {
+struct bhkCharacterStateOnGround {
     void* m_pVtable;
     unsigned int m_uiRefCount;
     unsigned char m_bFlag;
     unsigned short m_usFlags;
-    FUN_00cd47e0_t();
+    bhkCharacterStateOnGround();
 };
 // @fnv 0x00cd47e0
-FUN_00cd47e0_t::FUN_00cd47e0_t()
+// src: EXE 0x00cd47e0
+bhkCharacterStateOnGround::bhkCharacterStateOnGround()
 {
     *(unsigned short*)((char*)this + 6) = 1;
     m_pVtable = (void*)&DAT_010cb3f0;
@@ -2473,7 +2483,8 @@ struct FUN_00cc1d80_object {
 };
 extern "C" char DAT_011f49e0;
 // @fnv 0x00cc1ef0
-FUN_00cc1d80_object* __cdecl CreateObjectWithGlobal()
+// src: EXE 0x00cc1ef0
+FUN_00cc1d80_object* __cdecl bhkExtraData_CreateObject()
 {
     FUN_00cc1d80_object* value = new FUN_00cc1d80_object;
     value->AssignFixedString(&DAT_011f49e0);
@@ -2665,7 +2676,8 @@ struct RefObject24_b9018 {
 
 // Allocates and constructs a RefObject24_b9018 via its operator new and returns the pointer.
 // @fnv 0x00cc2410
-RefObject24_b9018* CreateRefObject24() {
+// src: EXE 0x00cc2410
+RefObject24_b9018* bhkCachingShapePhantom_CreateObject() {
     return new RefObject24_b9018();
 }
 
@@ -3094,7 +3106,7 @@ public:
     void Init();
 };
 
-class FUN_00cc2a00_cls {
+class bhkSimpleShapePhantom {
 public:
     unsigned int m_00;
     unsigned int m_04;
@@ -3108,7 +3120,7 @@ public:
 // Returns m_0c, allocating and initialising a new object first if it is null; sets *out to whether it was created.
 // @fnv 0x00cc2a00
 // src: COMMUNITY 0x00cc2a00
-FUN_00cc2a00_obj* FUN_00cc2a00_cls::bhkShapePhantom_CreateCInfo(bool* abCreated) {
+FUN_00cc2a00_obj* bhkSimpleShapePhantom::bhkShapePhantom_CreateCInfo(bool* abCreated) {
     TlsFlagGuard guard;
     bool created = (m_0c == 0);
     *abCreated = created;
@@ -3439,12 +3451,13 @@ struct FUN_00cc3270_base {
     virtual ~FUN_00cc3270_base();
 };
 
-struct FUN_00cc3270 : FUN_00cc3270_base {
-    virtual ~FUN_00cc3270();
+struct bhkMotorAction : FUN_00cc3270_base {
+    virtual ~bhkMotorAction();
 };
 
 // @fnv 0x00cc3270
-FUN_00cc3270::~FUN_00cc3270()
+// src: EXE 0x00cc3270
+bhkMotorAction::~bhkMotorAction()
 {
     ReleaseConstraint(reinterpret_cast<bhkConstraint*>(this));
     --DAT_012685b8;
@@ -3453,8 +3466,8 @@ FUN_00cc3270::~FUN_00cc3270()
 extern int DAT_012685bc;
 
 // @fnv 0x00cc32e0
-// src: GUESS 0x00cc32e0 (confidence: low)
-void* __cdecl Object_GetGlobalObjectAddress_00cc32e0()
+// src: EXE 0x00cc32e0
+void* __cdecl bhkMotorAction_GetRTTI()
 {
     return &DAT_012685bc;
 }
@@ -3468,13 +3481,13 @@ int __cdecl bhkNiTriStripsShape_GetCinfoSize() {
 void __cdecl FUN_00aa1460(void* p, unsigned int size);
 struct S_00cc3300 {
     int unk00, unk04, unk08, unk0c;
-    void FUN_00cc3270();
+    void bhkMotorAction();
     S_00cc3300* FUN_00cc3300(unsigned int flags);
 };
 // @fnv 0x00cc3300
 S_00cc3300* S_00cc3300::FUN_00cc3300(unsigned int flags)
 {
-    FUN_00cc3270();
+    bhkMotorAction();
     if (flags & 1)
         FUN_00aa1460(this, 0x10);
     return this;
@@ -3582,7 +3595,8 @@ struct PhysicsElement {
 
 // Allocates and constructs a new PhysicsElement, returning the pointer.
 // @fnv 0x00cc33a0
-PhysicsElement* __cdecl CreatePhysicsElement() {
+// src: EXE 0x00cc33a0
+PhysicsElement* __cdecl bhkMotorAction_CreateObject() {
     return new PhysicsElement();
 }
 }  // namespace fnv_00cc33a0
@@ -4082,15 +4096,16 @@ public:
     int unk04;
 };
 
-class FUN_00cc39b0 : public FUN_00cc39b0_base {
+class bhkDashpotAction : public FUN_00cc39b0_base {
 public:
-    virtual ~FUN_00cc39b0();
+    virtual ~bhkDashpotAction();
     void unk08();
 };
 
 // Calls unk08 on this object and decrements the global counter DAT_012685c4.
 // @fnv 0x00cc39b0
-FUN_00cc39b0::~FUN_00cc39b0()
+// src: EXE 0x00cc39b0
+bhkDashpotAction::~bhkDashpotAction()
 {
     this->unk08();
     DAT_012685c4--;
@@ -4127,7 +4142,8 @@ struct DerivedStandin2 : A51BF0Base, S_00cb79d0_Base {
 
 // Allocates and constructs a DerivedStandin2 object, returning its pointer.
 // @fnv 0x00cc3b30
-void* CreateDerivedStandin2() {
+// src: EXE 0x00cc3b30
+void* bhkDashpotAction_CreateObject() {
     return new DerivedStandin2();
 }
 
@@ -5151,8 +5167,8 @@ FUN_00cc4500_cls* FUN_00cc4500_cls::hkAngularDashpotActionCinfo_hkAngularDashpot
 extern int g_012685e0;
 
 // @fnv 0x00cc4860
-// src: GUESS 0x00cc4860 (confidence: low)
-int* __cdecl Object_GetGlobalObjectAddress_00cc4860()
+// src: EXE 0x00cc4860
+int* __cdecl bhkBreakableConstraint_GetRTTI()
 {
     return &g_012685e0;
 }
@@ -5980,7 +5996,8 @@ struct CC5930_Obj : CC5930_Base {
 
 // Allocates and constructs a CC5930_Obj, returning the new object.
 // @fnv 0x00cc5930
-CC5930_Obj* __cdecl CreateCC5930Obj()
+// src: EXE 0x00cc5930
+CC5930_Obj* __cdecl bhkStiffSpringConstraint_CreateObject()
 {
     return new CC5930_Obj;
 }
@@ -6084,12 +6101,13 @@ void CC5DD0BallJoint::hkStiffSpringConstraintCinfo_SaveBinary(NiStream& kStream)
 
 extern int DAT_01268600;
 
-struct FUN_00cc5e60 : bhkConstraint {
-    ~FUN_00cc5e60();
+struct bhkRagdollLimitsConstraint : bhkConstraint {
+    ~bhkRagdollLimitsConstraint();
 };
 
 // @fnv 0x00cc5e60
-FUN_00cc5e60::~FUN_00cc5e60()
+// src: EXE 0x00cc5e60
+bhkRagdollLimitsConstraint::~bhkRagdollLimitsConstraint()
 {
     ReleaseConstraint(this);
     --DAT_01268600;
@@ -6098,8 +6116,8 @@ FUN_00cc5e60::~FUN_00cc5e60()
 extern int DAT_01268604;
 
 // @fnv 0x00cc5ed0
-// src: GUESS 0x00cc5ed0 (confidence: low)
-int* __cdecl Runtime_GetDAT01268604Address()
+// src: EXE 0x00cc5ed0
+int* __cdecl bhkRagdollLimitsConstraint_GetRTTI()
 {
     return &DAT_01268604;
 }
@@ -6109,7 +6127,7 @@ struct FUN_00cc5ee0_interface
     virtual void __thiscall FUN_00cc5ee0_call(int value) = 0;
 };
 
-struct FUN_00cc5ee0_class
+struct bhkRagdollConstraint
 {
     void* unk00;
     void* unk04;
@@ -6120,7 +6138,7 @@ struct FUN_00cc5ee0_class
 };
 
 // @fnv 0x00cc5ee0
-void __thiscall FUN_00cc5ee0_class::ClearInterface(char abClear)
+void __thiscall bhkRagdollConstraint::ClearInterface(char abClear)
 {
     if (abClear != 0)
     {
@@ -6467,14 +6485,15 @@ public:
     int unk04;
 };
 
-class FUN_00cc7450 : public FUN_00cc7450_base {
+class bhkPrismaticConstraint : public FUN_00cc7450_base {
 public:
-    virtual ~FUN_00cc7450();
+    virtual ~bhkPrismaticConstraint();
     void unk08();
 };
 
 // @fnv 0x00cc7450
-FUN_00cc7450::~FUN_00cc7450()
+// src: EXE 0x00cc7450
+bhkPrismaticConstraint::~bhkPrismaticConstraint()
 {
     this->unk08();
     DAT_01268618--;
@@ -6908,11 +6927,12 @@ void* FUN_00cc83b0_Class::bhkFixedConstraint_CreateCinfo(bool* created) {
 }  // namespace fnv_00cc83b0
 
 extern int DAT_01268630;
-struct FUN_00cc8480 : bhkConstraint {
-    ~FUN_00cc8480();
+struct bhkHingeLimitsConstraint : bhkConstraint {
+    ~bhkHingeLimitsConstraint();
 };
 // @fnv 0x00cc8480
-FUN_00cc8480::~FUN_00cc8480()
+// src: EXE 0x00cc8480
+bhkHingeLimitsConstraint::~bhkHingeLimitsConstraint()
 {
     ReleaseConstraint(this);
     DAT_01268630--;
@@ -7054,11 +7074,12 @@ struct S_cc8ce0_Base {
     virtual ~S_cc8ce0_Base();
     void bhkSerializable_Kill();
 };
-struct FUN_00cc8ce0 : S_cc8ce0_Base {
-    ~FUN_00cc8ce0();
+struct bhkBallSocketConstraintChain : S_cc8ce0_Base {
+    ~bhkBallSocketConstraintChain();
 };
 // @fnv 0x00cc8ce0
-FUN_00cc8ce0::~FUN_00cc8ce0() {
+// src: EXE 0x00cc8ce0
+bhkBallSocketConstraintChain::~bhkBallSocketConstraintChain() {
     bhkSerializable_Kill();
     DAT_0126863c--;
 }
@@ -7073,8 +7094,8 @@ int* __cdecl bhkBallSocketConstraintChain_GetRTTI()
 }
 
 // @fnv 0x00cc8d60
-// src: GUESS 0x00cc8d60 (confidence: low)
-int __cdecl Object_ComputeValue_00cc8d60()
+// src: EXE 0x00cc8d60
+int __cdecl bhkBallSocketConstraintChain_QCinfoSize()
 {
     return 44;
 }
@@ -7338,7 +7359,8 @@ struct PhysicsObject : PhysicsAllocator, PhysicsReference {
 
 // Allocates and constructs a new PhysicsObject via PhysicsAllocator::operator new and returns it.
 // @fnv 0x00cc9700
-PhysicsObject* __cdecl CreatePhysicsObject()
+// src: EXE 0x00cc9700
+PhysicsObject* __cdecl bhkBallAndSocketConstraint_CreateObject()
 {
     return new PhysicsObject;
 }
@@ -7433,7 +7455,7 @@ public:
     BCC9B80ShapeData* m_pUserData;
 };
 
-class FUN_00cc9b80_cls : public BCC9B80Base {
+class hkBallAndSocketConstraintCinfo : public BCC9B80Base {
 public:
     void hkBallAndSocketConstraintCinfo_LoadBinary(NiStream& kStream);
 };
@@ -7441,7 +7463,7 @@ public:
 // Loads the base data, then reads the shape data's m_kMin and m_kMax vectors from the stream.
 // @fnv 0x00cc9b80
 // src: XBOX_PDB 0x00cc9b80
-void FUN_00cc9b80_cls::hkBallAndSocketConstraintCinfo_LoadBinary(NiStream& kStream)
+void hkBallAndSocketConstraintCinfo::hkBallAndSocketConstraintCinfo_LoadBinary(NiStream& kStream)
 {
     BCC9B80Base::LoadBinary(kStream);
 
@@ -7485,16 +7507,17 @@ public:
     void Shutdown();
 };
 
-class FUN_00cc9c60 : public CC9C60Base {
+class bhkMoppBvTreeShape : public CC9C60Base {
 public:
-    virtual ~FUN_00cc9c60();
+    virtual ~bhkMoppBvTreeShape();
 
     static unsigned int ms_uiInstances;
 };
 
 // Destructor that calls Shutdown and decrements the static instance counter ms_uiInstances.
 // @fnv 0x00cc9c60
-FUN_00cc9c60::~FUN_00cc9c60()
+// src: EXE 0x00cc9c60
+bhkMoppBvTreeShape::~bhkMoppBvTreeShape()
 {
     Shutdown();
     --ms_uiInstances;
@@ -7522,14 +7545,15 @@ struct BaseObject {
     virtual ~BaseObject();
 };
 
-struct FUN_00cc9d00 : BaseObject {
+struct hkScaledMoppBvTreeShape : BaseObject {
     hkReferencedObject* m_pPointer;
-    FUN_00cc9d00(int a, int b, hkReferencedObject* pkObject);
-    virtual ~FUN_00cc9d00();
+    hkScaledMoppBvTreeShape(int a, int b, hkReferencedObject* pkObject);
+    virtual ~hkScaledMoppBvTreeShape();
 };
 
 // @fnv 0x00cc9d00
-FUN_00cc9d00::FUN_00cc9d00(int aiArg1, int aiArg2, hkReferencedObject* pkObject) : BaseObject(aiArg1, aiArg2) {
+// src: EXE 0x00cc9d00
+hkScaledMoppBvTreeShape::hkScaledMoppBvTreeShape(int aiArg1, int aiArg2, hkReferencedObject* pkObject) : BaseObject(aiArg1, aiArg2) {
     m_pPointer = pkObject;
     if (pkObject)
         pkObject->addReference();
@@ -8011,7 +8035,8 @@ public:
 
 // Allocates and constructs a new CCAA80Object, returning the pointer.
 // @fnv 0x00ccaa80
-CCAA80Object* __cdecl CreateCCAA80Object()
+// src: EXE 0x00ccaa80
+CCAA80Object* __cdecl bhkTriangleShape_CreateObject()
 {
     return new CCAA80Object;
 }
@@ -8862,7 +8887,8 @@ struct TargetObject : AllocationBase, S_00c87c30_Base {
 
 // Allocates and constructs a TargetObject, returning the new instance.
 // @fnv 0x00ccb200
-TargetObject* __cdecl CreateTargetObject() {
+// src: EXE 0x00ccb200
+TargetObject* __cdecl bhkPlaneShape_CreateObject() {
     return new TargetObject();
 }
 
@@ -9089,7 +9115,7 @@ struct FUN_00ccb3e0_Class {
     virtual void vf09();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -9115,7 +9141,7 @@ struct FUN_00ccb3e0_Class {
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();
@@ -9579,7 +9605,8 @@ struct FunObj_b9645 : public FunObjBase_b9645 {
 
 // Allocates and constructs a new FunObj_b9645, returning the new object.
 // @fnv 0x00ccb9a0
-FunObj_b9645* CreateFunObj() {
+// src: EXE 0x00ccb9a0
+FunObj_b9645* bhkExtendedMeshShapeData_CreateObject() {
     return new FunObj_b9645();
 }
 
@@ -10384,8 +10411,8 @@ void CCCF00RigidBody::bhkExtendedMeshShape_SaveBinary(NiStream& kStream) {
 // FUN_00ccd0f0 : a one-line function - getter
 extern int g_target_00ccd0f0;
 // @fnv 0x00ccd0f0
-// src: GUESS 0x00ccd0f0 (confidence: low)
-void* Runtime_GetTarget00ccd0f0Address() { return &g_target_00ccd0f0; }
+// src: EXE 0x00ccd0f0
+void* bhkCylinderShape_GetRTTI() { return &g_target_00ccd0f0; }
 
 namespace fnv_00ccd1d0 {
 extern int DAT_01267e30;
@@ -11311,7 +11338,8 @@ struct RefObject20_b9084 {
 
 // Allocates and constructs a RefObject20_b9084 via its operator new and returns the new object.
 // @fnv 0x00ccdd00
-RefObject20_b9084* CreateRefObject20() {
+// src: EXE 0x00ccdd00
+RefObject20_b9084* bhkConvexVerticesShape_CreateObject() {
     return new RefObject20_b9084();
 }
 
@@ -13269,7 +13297,7 @@ int __cdecl Object_ReturnSix()
 
 extern int DAT_010cb344;
 
-struct FUN_00cd3c90_cls
+struct bhkCharacterStateProjectile
 {
     void* m_pVtable;
     unsigned short m_uiValue1;
@@ -13280,7 +13308,7 @@ struct FUN_00cd3c90_cls
 
 // @fnv 0x00cd3c90
 // src: GUESS 0x00cd3c90 (confidence: low)
-void* FUN_00cd3c90_cls::InitializeFields_00cd3c90()
+void* bhkCharacterStateProjectile::InitializeFields_00cd3c90()
 {
     m_uiUnk = 1;
     m_pVtable = (void*)&DAT_010cb344;
@@ -13302,31 +13330,32 @@ struct SpawnedObjectBase
     }
 };
 
-struct FUN_00cd3f90 : SpawnedObjectBase
+struct bhkCharacterStateInAir : SpawnedObjectBase
 {
     virtual void Unk00();
 
-    FUN_00cd3f90();
+    bhkCharacterStateInAir();
 };
 
 // @fnv 0x00cd3f90
-FUN_00cd3f90::FUN_00cd3f90()
+// src: EXE 0x00cd3f90
+bhkCharacterStateInAir::bhkCharacterStateInAir()
 {
 }
 
 extern char DAT_010cb398[];
 
-struct FUN_00cd4260_cls {
+struct bhkCharacterStateJumping {
     void* m_vptr;
     unsigned short unk04;
     unsigned short m_w06;
 
-    FUN_00cd4260_cls* SetVirtualTable_00cd4260();
+    bhkCharacterStateJumping* SetVirtualTable_00cd4260();
 };
 
 // @fnv 0x00cd4260
 // src: GUESS 0x00cd4260 (confidence: low)
-FUN_00cd4260_cls* FUN_00cd4260_cls::SetVirtualTable_00cd4260()
+bhkCharacterStateJumping* bhkCharacterStateJumping::SetVirtualTable_00cd4260()
 {
     m_w06 = 1;
     m_vptr = DAT_010cb398;
@@ -13532,15 +13561,16 @@ struct ChainD_cls : public ChainC_cls {
     }
 };
 
-struct FUN_00cd7e80 : public ChainD_cls {
+struct bhkCharControllerShape : public ChainD_cls {
     virtual void unkE4();
     void CreateShapeAndApplyParam(unsigned int a);
-    FUN_00cd7e80(unsigned int a);
+    bhkCharControllerShape(unsigned int a);
 };
 
 // Runs CreateShapeAndApplyParam with a, then increments DAT_0126869c.
 // @fnv 0x00cd7e80
-FUN_00cd7e80::FUN_00cd7e80(unsigned int auiValue) {
+// src: EXE 0x00cd7e80
+bhkCharControllerShape::bhkCharControllerShape(unsigned int auiValue) {
     CreateShapeAndApplyParam(auiValue);
     DAT_0126869c += 1;
 }
@@ -13568,7 +13598,7 @@ struct FUN_00cd8820_Block128 {
 
 
 
-class FUN_00cd8820_cls {
+class hkaFootPlacementIkSolver {
 public:
     void* m_pVtable;
     unsigned short m_04;
@@ -13591,12 +13621,13 @@ public:
     __declspec(align(16)) unsigned char m_c0[sizeof(hkVector4)];
     __declspec(align(16)) unsigned char m_d0[sizeof(hkVector4)];
     __declspec(align(16)) unsigned char m_e0[sizeof(hkVector4)];
-    FUN_00cd8820_cls(const FUN_00cd8820_Block128* src);
+    hkaFootPlacementIkSolver(const FUN_00cd8820_Block128* src);
 };
 
 // Initializes the object: sets the vtable, copies the 128-byte block and a vector from src, zeroes floats and bytes, and copies three vectors from DAT_01267e30.
 // @fnv 0x00cd8820
-FUN_00cd8820_cls::FUN_00cd8820_cls(const FUN_00cd8820_Block128* apSource) {
+// src: EXE 0x00cd8820
+hkaFootPlacementIkSolver::hkaFootPlacementIkSolver(const FUN_00cd8820_Block128* apSource) {
     m_pVtable = (void*)&DAT_010cb644;
     m_06 = 1;
     m_10 = *apSource;
@@ -14277,12 +14308,12 @@ struct FUN_00cdeac0_cls {
     unsigned char unkA0;
     unsigned char unkA1;
     unsigned char m_bA2;
-    unsigned char* __thiscall CopyFieldA2ToOutput_00cdeac0(unsigned char* pOut);
+    unsigned char* __thiscall hkpRagdollConstraintData_getMotorsActive(unsigned char* pOut);
 };
 
 // @fnv 0x00cdeac0
-// src: GUESS 0x00cdeac0 (confidence: low)
-unsigned char* FUN_00cdeac0_cls::CopyFieldA2ToOutput_00cdeac0(unsigned char* pOut)
+// src: GUESS 0x00cdeac0 (confidence: medium)
+unsigned char* FUN_00cdeac0_cls::hkpRagdollConstraintData_getMotorsActive(unsigned char* pOut)
 {
     *pOut = m_bA2;
     return pOut;
@@ -14297,9 +14328,9 @@ public:
     struct HkBool { char m_cBooleanValue; HkBool() {} HkBool(bool b) { m_cBooleanValue = (char)b; } HkBool& operator=(bool b) { m_cBooleanValue = (char)b; return *this; } } m_bEnableState;
 };
 
-class FUN_00cdf560 : public RangeBase {
+class hkpPositionConstraintMotor : public RangeBase {
 public:
-    FUN_00cdf560(int iUnused);
+    hkpPositionConstraintMotor(int iUnused);
     virtual void v0();
     float m_fMinimum;
     float m_fMaximum;
@@ -14311,7 +14342,8 @@ public:
 
 // Initializes the range bounds to -1000000 and 1000000, enables the range flag, and sets factor, scale and exponent defaults.
 // @fnv 0x00cdf560
-FUN_00cdf560::FUN_00cdf560(int iUnused)
+// src: EXE 0x00cdf560
+hkpPositionConstraintMotor::hkpPositionConstraintMotor(int iUnused)
 {
     m_fMinimum = -1000000.0f;
     m_fMaximum = 1000000.0f;
@@ -14339,19 +14371,20 @@ struct CDF760Member {
     }
 };
 
-class FUN_00cdf760 {
+class hkpMalleableConstraintData {
 public:
     int unk04;
     int unk08;
     int unk0C;
     CDF760Member m_kMember;
 
-    FUN_00cdf760(CDF760FinishFlag flag);
+    hkpMalleableConstraintData(CDF760FinishFlag flag);
     virtual void vfunc00();
 };
 
 // @fnv 0x00cdf760
-FUN_00cdf760::FUN_00cdf760(CDF760FinishFlag flag) : m_kMember(flag) {
+// src: EXE 0x00cdf760
+hkpMalleableConstraintData::hkpMalleableConstraintData(CDF760FinishFlag flag) : m_kMember(flag) {
     if (flag.m_bFinishing)
         m_kMember.hkpBridgeConstraintAtom_init(this);
 }
@@ -15014,14 +15047,14 @@ struct CC61F0ConstraintData {
     float m_fB0;
     float m_fB4;
 };
-struct FUN_00cc61f0_class : bhkConstraintBaseSI_blk_00cc0000_o2 {
+struct hkRagdollLimitsConstraintCinfo : bhkConstraintBaseSI_blk_00cc0000_o2 {
     void hkRagdollLimitsConstraintCinfo_LoadBinary(NiStream& kStream);
 };
 
 // Loads the base constraint data, reads two rotations (byte-swapping them if the stream is not little-endian) and five floats into the constraint data.
 // @fnv 0x00cc61f0
 // src: XBOX_PDB 0x00cc61f0
-void FUN_00cc61f0_class::hkRagdollLimitsConstraintCinfo_LoadBinary(NiStream& kStream)
+void hkRagdollLimitsConstraintCinfo::hkRagdollLimitsConstraintCinfo_LoadBinary(NiStream& kStream)
 {
     LoadBinaryBase(kStream);
     CC61F0ConstraintData* pkData = reinterpret_cast<CC61F0ConstraintData*>(m_pData);
@@ -15125,7 +15158,8 @@ struct Constraint78 : ConstraintBase78 {
 };
 // Allocates and constructs a new Constraint78 object, returning the pointer.
 // @fnv 0x00cc67a0
-Constraint78* __cdecl CreateConstraint()
+// src: EXE 0x00cc67a0
+Constraint78* __cdecl bhkRagdollConstraint_CreateObject()
 {
     return new Constraint78;
 }
@@ -15682,7 +15716,7 @@ struct CcaOwner {
     virtual void vf09();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -15708,7 +15742,7 @@ struct CcaOwner {
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41(int a);
@@ -17310,7 +17344,7 @@ struct SaveCtx {
     SaveStream* m_pBinaryStream;
 };
 
-class FUN_00cc8a10_cls {
+class hkHingeLimitsConstraintCinfo {
 public:
     void* unk00;
     unsigned char* m_pSub;
@@ -17323,7 +17357,7 @@ static inline void CC8A10Write(SaveCtx* c, void* p, unsigned int n)
     c->m_pBinaryStream->Write(p, n);
 }
 // @fnv 0x00cc8a10
-void FUN_00cc8a10_cls::WriteSubData(int apCtx) {
+void hkHingeLimitsConstraintCinfo::WriteSubData(int apCtx) {
     SaveCtx* c = (SaveCtx*)apCtx;
     unsigned char* sub = m_pSub;
     CC8A10Write(c, sub + 0x20, 0x30);
@@ -17723,7 +17757,7 @@ CpuOpaque* __cdecl bhkPoseArray_GetRTTI()
 struct FUN_00a5d2f0_shell {
     bool FUN_00a5d2f0(void* apStream);
 };
-struct FUN_00cc1310_class : FUN_00a5d2f0_shell {
+struct bhkPoseArray : FUN_00a5d2f0_shell {
     unsigned int m_uiUnk0;
     unsigned int m_uiUnk4;
     unsigned int m_uiCount;
@@ -17732,7 +17766,7 @@ struct FUN_00cc1310_class : FUN_00a5d2f0_shell {
 };
 // @fnv 0x00cc1310
 // src: XBOX_PDB 0x00cc1310
-bool FUN_00cc1310_class::bhkPoseArray_RegisterStreamables(void* apStream)
+bool bhkPoseArray::bhkPoseArray_RegisterStreamables(void* apStream)
 {
     bool b = FUN_00a5d2f0(apStream);
     if (b) {
@@ -17981,7 +18015,8 @@ inline bhkGenericConstraint::bhkGenericConstraint() { ++DAT_01268f74; }
 inline bhkFixedConstraint::bhkFixedConstraint() { ++DAT_01268624; }
 // Allocates and constructs a new bhkFixedConstraint object and returns it.
 // @fnv 0x00cc7e70
-bhkFixedConstraint* CreateFixedConstraint() { return new bhkFixedConstraint; }
+// src: EXE 0x00cc7e70
+bhkFixedConstraint* bhkFixedConstraint_CreateObject() { return new bhkFixedConstraint; }
 
 struct FUN_00d53d90 : hkReferencedObject {
     int unk08;
@@ -19152,7 +19187,8 @@ void BhkShapeLinkObject();
 
 // Reads and links the child shapes. The shared class omits LinkObject; retain its ECX receiver and stack argument here.
 // @fnv 0x00cd0170
-void __fastcall LinkConvexListShape(bhkConvexListShape* shape, void*, NiStream& kStream)
+// src: EXE 0x00cd0170
+void __fastcall bhkConvexListShape_LinkObject(bhkConvexListShape* shape, void*, NiStream& kStream)
 {
     AutoMemContext kContext(0x10);
     char cTmp;
@@ -19291,7 +19327,8 @@ struct CC1290Object {
 
 // Allocates and returns a new CC1290Object instance via its operator new.
 // @fnv 0x00cc1290
-CC1290Object* __cdecl CreateCC1290Object()
+// src: EXE 0x00cc1290
+CC1290Object* __cdecl bhkPoseArray_CreateObject()
 {
     return new CC1290Object;
 }
@@ -19534,7 +19571,7 @@ struct CC3D60Owner
     virtual void vf09();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -19560,7 +19597,7 @@ struct CC3D60Owner
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();
@@ -19736,7 +19773,8 @@ struct CC42A0Object : CC42A0Base
 };
 // Allocates and returns a new CC42A0Object instance via its operator new.
 // @fnv 0x00cc42a0
-CC42A0Object* CreateCC42A0Object()
+// src: EXE 0x00cc42a0
+CC42A0Object* bhkAngularDashpotAction_CreateObject()
 {
     return new CC42A0Object;
 }
@@ -19953,13 +19991,13 @@ void DataViewer::hkBreakableConstraintCinfo_GetViewerStrings(ViewerStrings* stri
     }
 }
 
-struct FUN_00d4f2a0 {
+struct hkpRagdollLimitsData {
     int unk00;
     unsigned short m_us4;
-    FUN_00d4f2a0();
+    hkpRagdollLimitsData();
     void* operator new(unsigned int, unsigned int n) {
         void* b = hkMemoryRouter_getInstance()->heap().AllocateMemoryBlock(n);
-        ((FUN_00d4f2a0*)b)->m_us4 = (unsigned short)n;
+        ((hkpRagdollLimitsData*)b)->m_us4 = (unsigned short)n;
         return b;
     }
     void operator delete(void*, unsigned int) {}
@@ -19967,23 +20005,23 @@ struct FUN_00d4f2a0 {
 
 struct S00cc6030_Cls {
     void* unk00;
-    FUN_00d4f2a0* unk04;
+    hkpRagdollLimitsData* unk04;
     int hkRagdollLimitsConstraintCinfo_CreateData();
 };
 
-// Allocates a FUN_00d4f2a0 object of 0xc0 bytes into unk04 if it is null, then returns 0xc0.
+// Allocates a hkpRagdollLimitsData object of 0xc0 bytes into unk04 if it is null, then returns 0xc0.
 // @fnv 0x00cc6030
 // src: XBOX_PDB 0x00cc6030
 int S00cc6030_Cls::hkRagdollLimitsConstraintCinfo_CreateData()
 {
     if (unk04 == 0)
     {
-        unk04 = new (0xc0u) FUN_00d4f2a0();
+        unk04 = new (0xc0u) hkpRagdollLimitsData();
     }
     return 0xc0;
 }
 
-struct FUN_00d52fc0 : hkReferencedObject
+struct hkpHingeLimitsData : hkReferencedObject
 {
     int unk08;
     int unk0C;
@@ -20023,23 +20061,23 @@ struct FUN_00d52fc0 : hkReferencedObject
     int unk94;
     int unk98;
     int unk9C;
-    FUN_00d52fc0();
+    hkpHingeLimitsData();
 };
 struct CC86C0Owner
 {
     int unk00;
-    FUN_00d52fc0* m_pObject;
+    hkpHingeLimitsData* m_pObject;
     int hkHingeLimitsConstraintCinfo_CreateData();
 };
-// Allocates m_pObject if null and returns the size of the FUN_00d52fc0 object.
+// Allocates m_pObject if null and returns the size of the hkpHingeLimitsData object.
 // @fnv 0x00cc86c0
 // src: XBOX_PDB 0x00cc86c0
 int CC86C0Owner::hkHingeLimitsConstraintCinfo_CreateData()
 {
     TlsHeapGuard guard;
     if (!m_pObject)
-        m_pObject = new FUN_00d52fc0;
-    return sizeof(FUN_00d52fc0);
+        m_pObject = new hkpHingeLimitsData;
+    return sizeof(hkpHingeLimitsData);
 }
 
 extern int DAT_010ca050;
@@ -20284,7 +20322,7 @@ struct CcbcOwnerBase {
     ~CcbcOwnerBase() { FUN_00cd2de0(); }
 };
 
-class FUN_00ccbc00 : public CcbcOwnerBase {
+class bhkExtendedMeshShape : public CcbcOwnerBase {
 public:
     void* volatile m_pVtable;
     unsigned int unk04;
@@ -20292,12 +20330,13 @@ public:
     unsigned int unk0c;
     unsigned int unk10;
     NiPointer<NiReferenceState> m_14;
-    ~FUN_00ccbc00();
+    ~bhkExtendedMeshShape();
 };
 
 // Sets vtable to DAT_010ca744, zeroes m_14 in each m_b4 element, calls FUN_00c876a0, decrements DAT_01268678, and releases m_14.m_pObject.
 // @fnv 0x00ccbc00
-FUN_00ccbc00::~FUN_00ccbc00() {
+// src: EXE 0x00ccbc00
+bhkExtendedMeshShape::~bhkExtendedMeshShape() {
     m_pVtable = (void*)&DAT_010ca744;
     FUN_00ccbc00_inner* x = m_08;
     if ((int)x->m_b8 > 0) {
@@ -20376,7 +20415,7 @@ struct CCD460Owner
     virtual void vf09();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -20402,7 +20441,7 @@ struct CCD460Owner
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();
@@ -20932,13 +20971,13 @@ const LocalM128* __fastcall ScaleMatrixColumns(hkMatrix3* matrix, int, const Loc
     return scale;
 }
 
-struct FUN_00cd7d20_Class {
+struct hkCharControllerShape {
     void __thiscall hkCharControllerShape_getAabb(float* param1, float param2, float* param3);
 };
 
 // @fnv 0x00cd7d20
 // src: XBOX_PDB 0x00cd7d20
-void FUN_00cd7d20_Class::hkCharControllerShape_getAabb(float* param1, float afScalar, float* apResult) {
+void hkCharControllerShape::hkCharControllerShape_getAabb(float* param1, float afScalar, float* apResult) {
 
     LocalM128 v_this30 = *reinterpret_cast<LocalM128*>(reinterpret_cast<char*>(this) + 0x30);
 
@@ -20978,24 +21017,24 @@ public:
 struct SrcD;
 void __cdecl LoadIntoArray(SrcD* src, hkArrayBase<char>* a, hkArrayBase<char>* b);
 struct SrcD { int m_iWordAt00; int m_iWordAt04; };
-class FUN_00cd7e80 {
+class bhkCharControllerShape {
 public:
     char pad[0x14];
-    FUN_00cd7e80(FUN_00cce290* data);
+    bhkCharControllerShape(FUN_00cce290* data);
     static void* operator new(unsigned int size) { return Object_DispatchCommandFour(size); }
     static void operator delete(void* p) { FUN_00aa1460(p); }
 };
-// Builds a FUN_00cd7e80 from a temporary data struct filled from src when src->m_iWordAt04 is nonzero, otherwise returns null.
+// Builds a bhkCharControllerShape from a temporary data struct filled from src when src->m_iWordAt04 is nonzero, otherwise returns null.
 // @fnv 0x00cd7f50
-FUN_00cd7e80* CreateFromSource(SrcD* src)
+bhkCharControllerShape* CreateFromSource(SrcD* src)
 {
     TlsHeapGuard guard;
-    FUN_00cd7e80* result = 0;
+    bhkCharControllerShape* result = 0;
     FUN_00cce290 data;
     data.m_iWordAt04 = DAT_010c72bc;
     if (src->m_iWordAt04 != 0) {
         LoadIntoArray(src, &data.m_14, &data.m_8);
-        result = new FUN_00cd7e80(&data);
+        result = new bhkCharControllerShape(&data);
     }
     return result;
 }
@@ -21184,7 +21223,7 @@ struct ConstraintDataBase_s : RefObjectBase_s {
     void setSolvingFlag(hkBool_s flag);
 };
 
-struct FUN_00cdf2f0 : ConstraintDataBase_s {
+struct hkpRagdollConstraintData : ConstraintDataBase_s {
     int unk0C;
     RagdollAtoms_s m_kBridgeAtoms;
     unsigned char m_kBodyALocalFrameStorage[sizeof(Transform)];
@@ -21244,16 +21283,17 @@ struct FUN_00cdf2f0 : ConstraintDataBase_s {
     float unk130;
     float unk134;
 
-    FUN_00cdf2f0();
+    hkpRagdollConstraintData();
 };
 
 __declspec(noinline) void ConstraintDataBase_s::setSolvingFlag(hkBool_s flag)
 {
-    static_cast<FUN_00cdf2f0*>(this)->unk116 = (unsigned char)((flag.m_cBooleanValue != 0) * 0x38);
+    static_cast<hkpRagdollConstraintData*>(this)->unk116 = (unsigned char)((flag.m_cBooleanValue != 0) * 0x38);
 }
 
 // @fnv 0x00cdf2f0
-FUN_00cdf2f0::FUN_00cdf2f0()
+// src: EXE 0x00cdf2f0
+hkpRagdollConstraintData::hkpRagdollConstraintData()
 {
     reinterpret_cast<Transform*>(m_kBodyALocalFrameStorage)->setIdentity();
     reinterpret_cast<Transform*>(m_kBodyBLocalFrameStorage)->setIdentity();
@@ -21293,7 +21333,7 @@ extern float DAT_0104da48;
 struct CdfSubObject
 {
     volatile unsigned char m_00;
-    void FindFloatTableIndex(float* value);
+    void SetReal(float* value);
 };
 
 class CdfObject
@@ -21619,7 +21659,7 @@ CdfObject* CdfObject::hkpRagdollConstraintData_Atoms_Atoms()
     m_116 = 1;
     m_12a = 0;
     m_128 = 5;
-    m_12b.FindFloatTableIndex(&one);
+    m_12b.SetReal(&one);
     m_12c = DAT_0104da48;
     return this;
 }
@@ -21773,16 +21813,17 @@ public:
     void Shutdown();
 };
 
-class FUN_00cc4180 : public CC4180Base {
+class bhkAngularDashpotAction : public CC4180Base {
 public:
-    virtual ~FUN_00cc4180();
+    virtual ~bhkAngularDashpotAction();
 
     static unsigned int ms_uiInstances;
 };
 
 // Calls Shutdown and decrements the static instance counter ms_uiInstances.
 // @fnv 0x00cc4180
-FUN_00cc4180::~FUN_00cc4180()
+// src: EXE 0x00cc4180
+bhkAngularDashpotAction::~bhkAngularDashpotAction()
 {
     Shutdown();
     --ms_uiInstances;
@@ -21795,16 +21836,17 @@ public:
 
 extern int g_iCC47F0Count;
 
-class FUN_00cc47f0 : public CC47F0Base {
+class bhkBreakableConstraint : public CC47F0Base {
 public:
     void Release();
 
-    virtual ~FUN_00cc47f0();
+    virtual ~bhkBreakableConstraint();
 };
 
 // Destructor that calls Release and decrements the global g_iCC47F0Count.
 // @fnv 0x00cc47f0
-FUN_00cc47f0::~FUN_00cc47f0() {
+// src: EXE 0x00cc47f0
+bhkBreakableConstraint::~bhkBreakableConstraint() {
     Release();
     --g_iCC47F0Count;
 }
@@ -21855,16 +21897,17 @@ struct FUN_00ccbb50 {
     static void operator delete[](void* p) { g_memoryManager.Deallocate(p); }
 };
 
-class FUN_00ccc720 : public NiReferenceState {
+class bhkExtendedMeshShapeData : public NiReferenceState {
 public:
     unsigned int unk08;
     FUN_00ccbb50* entries;
-    virtual ~FUN_00ccc720();
+    virtual ~bhkExtendedMeshShapeData();
 };
 
 // Destructor that deletes the entries array inside an AutoMemContext(16) scope.
 // @fnv 0x00ccc720
-FUN_00ccc720::~FUN_00ccc720() {
+// src: EXE 0x00ccc720
+bhkExtendedMeshShapeData::~bhkExtendedMeshShapeData() {
     AutoMemContext context(16);
     delete[] entries;
 }
@@ -22155,7 +22198,7 @@ struct FUN_00cdfe00_Object {
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual int* vf40();
 };
@@ -23529,16 +23572,17 @@ void PickSelf::hkpCachingShapePhantomRay_castRay(RayArg *arg1, BestOut *arg2)
 
 extern "C" int DAT_012685ac;
 void __cdecl bhkSerializable_Kill();
-struct FUN_00c8a720 {
+struct bhkBinaryAction {
   void* vtable;
-  virtual ~FUN_00c8a720();
+  virtual ~bhkBinaryAction();
 };
-struct FUN_00cc2ac0 : FUN_00c8a720 {
-  virtual ~FUN_00cc2ac0();
+struct bhkSpringAction : bhkBinaryAction {
+  virtual ~bhkSpringAction();
 };
 // Destructor that calls FUN_00c876a0 and decrements the global DAT_012685ac.
 // @fnv 0x00cc2ac0
-FUN_00cc2ac0::~FUN_00cc2ac0() {
+// src: EXE 0x00cc2ac0
+bhkSpringAction::~bhkSpringAction() {
   bhkSerializable_Kill();
   --DAT_012685ac;
 }
@@ -23759,7 +23803,7 @@ struct NewObj : B0, Inner
     }
 };
 
-struct FUN_00cc5c70_cls
+struct bhkStiffSpringConstraint
 {
     int m_00;
     int m_04;
@@ -23772,7 +23816,7 @@ struct FUN_00cc5c70_cls
 // Creates a NewObj if m_0c is null, sets out to whether it was newly created, and returns the m_0c pointer.
 // @fnv 0x00cc5c70
 // src: XBOX_PDB 0x00cc5c70
-Inner* FUN_00cc5c70_cls::bhkStiffSpringConstraint_CreateCinfo(bool* abCreated)
+Inner* bhkStiffSpringConstraint::bhkStiffSpringConstraint_CreateCinfo(bool* abCreated)
 {
     TlsGuard_t guard;
     *abCreated = (m_0c == 0);

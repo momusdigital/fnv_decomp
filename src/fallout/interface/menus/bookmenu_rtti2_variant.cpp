@@ -99,12 +99,12 @@ struct Holder73b430
     void __thiscall CallInnerFoo();
 };
 extern unsigned int DAT_01077abc;
-struct FUN_007e7a80 : Menu
+struct TraitSelectMenu : Menu
 {
     char _pad[0x50];
     int m_78;
     int m_7c;
-    FUN_007e7a80();
+    TraitSelectMenu();
 };
 FUN_0073b020_shell* __cdecl _FUN_004b7210();
 int __cdecl __ftol2_sse(double);

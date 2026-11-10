@@ -272,7 +272,8 @@ static inline NiBackToFrontAccumulator* InitializeBackToFrontAccumulator(NiBackT
 }
 
 // @fnv 0x00aa0f50
-NiBackToFrontAccumulator* __fastcall CloneBackToFrontAccumulator(NiBackToFrontAccumulator* self, void*, CloningProcess& kCloning)
+// src: EXE 0x00aa0f50
+NiBackToFrontAccumulator* __fastcall NiBackToFrontAccumulator_CreateClone(NiBackToFrontAccumulator* self, void*, CloningProcess& kCloning)
 {
     NiBackToFrontAccumulator* pkObject = InitializeBackToFrontAccumulator(
         static_cast<NiBackToFrontAccumulator*>(BSFaceGenMorphData::operator new(sizeof(NiBackToFrontAccumulator))));

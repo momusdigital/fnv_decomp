@@ -10,7 +10,7 @@ public:
     virtual ~ExtraAction();
 
     ExtraAction();
-    void* FUN_0041b680(unsigned int flags);
+    void* BSExtraData_ScalarDeletingDestructor(unsigned int flags);
 
     unsigned char eAction;
     unsigned char layoutPaddingD[3];

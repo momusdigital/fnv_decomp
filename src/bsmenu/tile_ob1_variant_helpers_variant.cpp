@@ -124,7 +124,7 @@ struct TileValue_00a0a270 {
     void Tile_Value_SetFloat_00a0a270(float afValue, bool abClearActions);
 };
 struct TileValueOwner_00a01000 {
-    TileValue_00a0a270* GetOrCreateTraitValue(int aiTrait);
+    TileValue_00a0a270* Tile_AddValue(int aiTrait);
 };
 struct FUN_00a012d0_t {
     void Tile_Set(int aiTrait, float afValue, bool abClearActions);
@@ -336,7 +336,7 @@ struct FUN_00a0d220_cls {
 
     void BaseCleanup();
 
-    FUN_00a0d220_cls* FUN_00a0d220(unsigned int auiFlags);
+    FUN_00a0d220_cls* ScalarDeletingDestructor(unsigned int auiFlags);
 };
 // Claim: clm_0814eff69ec3418ebf5d -> FUN_00a0d280 (0x00a0d280, 24 bytes)
 // Flags: /MT /Od /Oy- /GS /EHsc /Gy /Ob1
@@ -376,7 +376,7 @@ struct FUN_00a0d280_cls {
     int m_08;
     Sub_0043a010 m_sub;
 
-    void ProcessState_00a0d280();
+    void NiTMapBase_NewItem();
 };
 struct MM {
     void* Allocate(unsigned int auiSize);
@@ -474,10 +474,10 @@ struct Item_00a0ba50 {
 };
 void __cdecl Tile_DeleteGlobalItems();
 void __cdecl AutoTileLock_AutoTileLock();
-extern "C" void __cdecl Object___imp__LeaveCriticalSection_Thunk();
+extern "C" void __cdecl Tile_Unlock();
 struct TileSearchLock {
     TileSearchLock() { AutoTileLock_AutoTileLock(); }
-    ~TileSearchLock() { Object___imp__LeaveCriticalSection_Thunk(); }
+    ~TileSearchLock() { Tile_Unlock(); }
 };
 struct TileFloatList {
     void* m_vtbl;
@@ -510,15 +510,15 @@ struct TileTemplateNew_ac80 {
     static void* operator new(unsigned int auiSize) { return ((TilePool_ac80*)&DAT_011f6238)->Game_DoHeapAlloc(auiSize); }
     static void operator delete(void* apMem) { DAT_011f6238.MemoryManager_Deallocate(apMem); }
 };
-struct FUN_00a0ac80 {
+struct Tile_BuildStorage {
     TileCollection* pTemplate;
     TileTemplateList_ac80 xList;
     int iUnk0C;
     bool bOwns;
-    FUN_00a0ac80();
+    Tile_BuildStorage();
 };
 void AutoTileLock_AutoTileLock();
-void Object___imp__LeaveCriticalSection_Thunk();
+void Tile_Unlock();
 class TileV;
 class TileValueV
 {
@@ -532,7 +532,7 @@ class FnvTileLock
 {
 public:
     FnvTileLock() { AutoTileLock_AutoTileLock(); }
-    ~FnvTileLock() { Object___imp__LeaveCriticalSection_Thunk(); }
+    ~FnvTileLock() { Tile_Unlock(); }
 };
 inline bool HasValue(TileValueV* pList, int m_iValueId)
 {
@@ -697,7 +697,7 @@ struct S00ac5490_Base {
     S00ac5490_Base(S00ac5490_Str s);
     virtual ~S00ac5490_Base();
 };
-struct FUN_00ac5490 : public S00ac5490_Base {
+struct BSFaceGenBinaryFile : public S00ac5490_Base {
     int unk08;
     int unk0C;
     int unk10;
@@ -714,7 +714,7 @@ struct FUN_00ac5490 : public S00ac5490_Base {
     int unk3C;
     int unk40;
     int unk44;
-    FUN_00ac5490(S00ac5490_Str a);
+    BSFaceGenBinaryFile(S00ac5490_Str a);
 };
 struct _RTL_CRITICAL_SECTION;
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(_RTL_CRITICAL_SECTION*);
@@ -795,11 +795,11 @@ public:
 extern const char* DAT_011f34cc;
 
 void AutoTileLock_AutoTileLock();
-void Object___imp__LeaveCriticalSection_Thunk();
+void Tile_Unlock();
 
 struct TileListLock {
     TileListLock() { AutoTileLock_AutoTileLock(); }
-    ~TileListLock() { Object___imp__LeaveCriticalSection_Thunk(); }
+    ~TileListLock() { Tile_Unlock(); }
 };
 
 struct ExtraNode {
@@ -837,11 +837,11 @@ int Tile_GetTileFromNode(ExtraNode* pkNode)
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile* lpAddend);
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* lpAddend);
 void __cdecl AutoTileLock_AutoTileLock();
-void __cdecl Object___imp__LeaveCriticalSection_Thunk();
+void __cdecl Tile_Unlock();
 class MenuLockA01 {
 public:
     MenuLockA01() { AutoTileLock_AutoTileLock(); }
-    ~MenuLockA01() { Object___imp__LeaveCriticalSection_Thunk(); }
+    ~MenuLockA01() { Tile_Unlock(); }
 };
 class RefObjectA01 {
 public:
@@ -951,7 +951,7 @@ struct ClipTile {
     unsigned int unk08, unk0c, unk10, unk14, unk18, unk1c, unk20, unk24, unk28;
     ClipNode* model;
     __forceinline ClipNode* Model() { return model; }
-    bool IsTraitNonZero(int);
+    bool Tile_IsTrue(int);
     bool FUN_00a03c60();
     void Tile_ReClipChildren(float left, float top, float right, float bottom);
 };
@@ -1071,12 +1071,12 @@ struct MenuArray {
 extern MenuArray DAT_011f3508;
 int __cdecl Tile_GetMenuByClass(int id);
 void __cdecl AutoTileLock_AutoTileLock();
-void __cdecl Object___imp__LeaveCriticalSection_Thunk();
+void __cdecl Tile_Unlock();
 extern const double _gModifierZero;
 class MenuLockB35 {
 public:
     MenuLockB35() { AutoTileLock_AutoTileLock(); }
-    ~MenuLockB35() { Object___imp__LeaveCriticalSection_Thunk(); }
+    ~MenuLockB35() { Tile_Unlock(); }
 };
 unsigned int __cdecl BSstrlen(const char* text);
 unsigned int __cdecl BSMAX(unsigned int a, unsigned int b);
@@ -1320,7 +1320,7 @@ struct EvalTile {
  int unk04,unk08,unk0c,unk10,unk14,unk18,unk1c,unk20,unk24,unk28,unk2c;
  unsigned flags;
  __forceinline bool Flag(unsigned mask) { return (flags&mask)!=0; }
- EvalReference* GetIndexedTraitValue(int,int);
+ EvalReference* Tile_GetUnderscoreValue(int,int);
  void Tile_FinalPostParse(int,float,const char*);
 };
 struct TraitLookup { bool FUN_00a1e380(int,int*); };
@@ -1375,7 +1375,7 @@ void EvalValue::Tile_Value_SetFloat(bool update) {
    text3=reference5->text;
    if(reference5->trait>=10000) DAT_011f3308.FUN_00a1e380(reference5->trait,&lookup4);
    if(lookup4==-1) {
-    resolvedA=reference5->tile->GetIndexedTraitValue(reference5->trait,fnv_FloatToInt(fValue));
+    resolvedA=reference5->tile->Tile_GetUnderscoreValue(reference5->trait,fnv_FloatToInt(fValue));
     if(resolvedA) { operandTmp=resolvedA->value; text3=resolvedA->text; }
    }
   }

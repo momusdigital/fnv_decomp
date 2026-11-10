@@ -31,6 +31,6 @@ public:
     void CopyConditionsFromListForm(TESForm* form);
     bool IsNotEqual(TESForm* form);
     void Save_0058fcc0();
-    int GetConditionIndex(TESForm* form);
+    int GetItemIndex(TESForm* form);
     void SaveFormList(BGSSaveFormBuffer* buffer);
 };

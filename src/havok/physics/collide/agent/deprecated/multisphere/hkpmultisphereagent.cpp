@@ -238,7 +238,7 @@ struct FUN_00d44f90_Data
     unsigned int value;
 };
 
-struct FUN_00d44f90_Class
+struct hkpSymmetricAgent
 {
     void GetPenetrations(void* first, void* second, void* third, FUN_00d44f90_Data* data);
     void UpdateState_00d44f90(void* first, void* second, void* third, unsigned int value);
@@ -247,7 +247,7 @@ struct FUN_00d44f90_Class
 // Builds a data record from value, DAT_0104da48 and DAT_010ce7fc, then calls GetPenetrations with second, first and third.
 // @fnv 0x00d44f90
 // src: GUESS 0x00d44f90 (confidence: low)
-void FUN_00d44f90_Class::UpdateState_00d44f90(void* first, void* second, void* third, unsigned int value)
+void hkpSymmetricAgent::UpdateState_00d44f90(void* first, void* second, void* third, unsigned int value)
 {
     FUN_00d44f90_Data data;
     data.value = value;

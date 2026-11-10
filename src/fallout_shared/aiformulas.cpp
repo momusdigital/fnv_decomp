@@ -22,7 +22,7 @@ class AIFormulas
 #include "../../include/ActorValue.h"
 namespace ActorValue
 {
-    float __cdecl ClampValue(Index, float);
+    float __cdecl ClampActorValue(Index, float);
 }
 
 // Returns base plus the attribute and luck contributions, each scaled by a runtime float setting and passed through a helper.
@@ -111,7 +111,7 @@ void __cdecl AiFormulas_CalculateDerivedFatigue(int*, float);
 void __cdecl AiFormulas_AVDeriveFatigue(int* pObj)
 {
     float result = reinterpret_cast<ActorValueOwner*>(pObj)->GetPermanentActorValueAdjustment((ActorValue::Index)7);
-    result = ActorValue::ClampValue((ActorValue::Index)7, result);
+    result = ActorValue::ClampActorValue((ActorValue::Index)7, result);
     AiFormulas_CalculateDerivedFatigue(pObj, result);
 }
 
@@ -173,7 +173,7 @@ extern SettingT_GameSettingCollection_ originalRuntimeFloatSetting312;
 float __cdecl AiFormulas_AVDeriveHealingRate(ActorValueOwner* apActor)
 {
     float fresult = 0.0f;
-    switch (apActor->GetActorValueAsInteger(7))
+    switch (apActor->GetClampedActorValueI(7))
     {
     case 6:
         fresult = g_011cd4d8.Float()->f;
@@ -215,7 +215,7 @@ void __cdecl ComputeActorLevel(ActorValueOwner*, float);
 void __cdecl AiFormulas_AVDeriveHealth(ActorValueOwner* p)
 {
     float f = p->GetPermanentActorValueAdjustment((ActorValue::Index)7);
-    f = ActorValue::ClampValue((ActorValue::Index)7, f);
+    f = ActorValue::ClampActorValue((ActorValue::Index)7, f);
     ComputeActorLevel(p, f);
 }
 }  // namespace fnv_00643670
@@ -311,7 +311,7 @@ bool __fastcall ActorIsStub(Actor* actor);
 class NPCFormulaQueries : public TESNPC
 {
 public:
-    unsigned int ComputeAttributeValue(int);
+    unsigned int TESNPC_GetFormHealthLeveled(int);
     unsigned int ComputeDerivedValue(int);
 };
 // Computes a level value from afLevel and runtime float settings, branching on v218/v360 and adjusting for stub actors or positive GetLevel.
@@ -333,7 +333,7 @@ float __cdecl ComputeActorLevel(ActorValueOwner* apObj, float afLevel)
     if (ActorIsStub(pActor2) && b4 && !b3)
     {
         NPCFormulaQueries* pBase2 = static_cast<NPCFormulaQueries*>(pActor2->GetActorBase());
-        fResult = (float)pBase2->ComputeAttributeValue(0);
+        fResult = (float)pBase2->TESNPC_GetFormHealthLeveled(0);
     }
     else if (b3 && pActor2->GetActorValueOwnerType() > 0)
     {
@@ -510,10 +510,10 @@ float __cdecl GetSkillValue(ActorValueOwner* apActor, int aiSkill, bool abCurren
             {
                 fResult = CalcSkillBase(
                     fResult,
-                    ActorValue::ClampValue((ActorValue::Index)iAttribute,
+                    ActorValue::ClampActorValue((ActorValue::Index)iAttribute,
                                            apActor->GetBaseActorValueFloat((ActorValue::Index)iAttribute) +
                                                apActor->GetDamageActorValue((ActorValue::Index)iAttribute)),
-                    ActorValue::ClampValue((ActorValue::Index)11,
+                    ActorValue::ClampActorValue((ActorValue::Index)11,
                                            apActor->GetBaseActorValueFloat((ActorValue::Index)11) +
                                                apActor->GetDamageActorValue((ActorValue::Index)11)));
             }

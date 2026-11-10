@@ -147,10 +147,10 @@ struct ShapeD22DC0 : public ReferencedD22DC0
     hkTransform m_kMotionTransform;
     int m_type;
 };
-struct FUN_00d58510 : public ShapeD22DC0
+struct hkDisplayCylinder : public ShapeD22DC0
 {
-    FUN_00d58510(const Vector4D22DC0& kA, const Vector4D22DC0& kB, float fRadius, int iA, int iB) throw();
-    virtual ~FUN_00d58510() throw();
+    hkDisplayCylinder(const Vector4D22DC0& kA, const Vector4D22DC0& kB, float fRadius, int iA, int iB) throw();
+    virtual ~hkDisplayCylinder() throw();
     Vector4D22DC0 m_kA;
     Vector4D22DC0 m_kB;
     float m_fBoundRadius;
@@ -159,7 +159,8 @@ struct FUN_00d58510 : public ShapeD22DC0
 };
 
 // @fnv 0x00d58510
-FUN_00d58510::FUN_00d58510(const Vector4D22DC0& kA, const Vector4D22DC0& kB, float afBoundRadius, int iA,
+// src: EXE 0x00d58510
+hkDisplayCylinder::hkDisplayCylinder(const Vector4D22DC0& kA, const Vector4D22DC0& kB, float afBoundRadius, int iA,
                            int iB) throw()
     : ShapeD22DC0(9), m_iA(iA), m_iB(iB)
 {

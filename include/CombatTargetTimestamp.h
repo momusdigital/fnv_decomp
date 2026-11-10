@@ -18,6 +18,6 @@ public:
     void SaveGame(BGSSaveGameBuffer*);
     void LoadGame(BGSLoadGameBuffer*);
     void LoadGame(BGSLoadFormBuffer*);
-    void SaveTimeStamp(BGSSaveFormBuffer*);
-    void SaveTimeStamp(void*);
+    void CombatTimeStamp_SaveGame(BGSSaveFormBuffer*);
+    void CombatTimeStamp_SaveGame(void*);
 };

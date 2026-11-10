@@ -338,7 +338,7 @@ void LoadingMenu::CollectLoadScreens(BSSimpleArray<TESLoadScreen*, 1024>& aLoadS
         if ((GetFloat(5) && reinterpret_cast<TESLoadScreen*>(entry->GetItem())->IsRefFlag400Set()) ||
             (!GetFloat(5) &&
              ((pLocation && reinterpret_cast<TESLoadScreen*>(entry->GetItem())
-                                      ->MatchesFormLocation(pLocation)) ||
+                                      ->CanDisplayForForm(pLocation)) ||
               (!pLocation && reinterpret_cast<TESLoadScreen*>(entry->GetItem())->IsDefaultLoadScreen()))))
         {
             unsigned int index = reinterpret_cast<BSSimpleArray<NavMeshInfo*, 1024>*>(&aLoadScreens)
@@ -994,7 +994,7 @@ class NiRendererV
     virtual void SetBackgroundColor(int*);
 };
 
-struct FUN_00424940_shell
+struct BGSSaveLoadManager
 {
     char InterfaceManager_GetMenuMode();
 };
@@ -1052,7 +1052,7 @@ void LoadingMenu::InitLoadingMenu(TESForm* apLocation)
         (*(Tile**)((char*)this + 4))->Set(0xfad, Tile::GetInterfaceScale(), true);
     }
 
-    if (((fnv_007890e0::FUN_00424940_shell*)InterfaceManager_GetSingleton())->InterfaceManager_GetMenuMode() != 3)
+    if (((fnv_007890e0::BGSSaveLoadManager*)InterfaceManager_GetSingleton())->InterfaceManager_GetMenuMode() != 3)
         ((fnv_007890e0::FUN_0041fd00_shell*)InterfaceManager_GetSingleton())->FUN_0041fd00(2);
 
     HUDMainMenu::UpdateVisibilityState(5);
@@ -1156,10 +1156,10 @@ void LoadingMenu::InitLoadingMenu(TESForm* apLocation)
             *(NiProperty**)((char*)this + 0x1f0) = pav->GetProperty(fnv_007890e0::NiShadeProperty_GetType());
         }
 
-        this->UpdateLoadingScreens();
+        this->MakeLoadScreenList();
         if (!DAT_011a0294)
         {
-            this->UpdateLoadingScreenText(false);
+            this->SetScreenInfo(false);
             this->LoadingMenu_AdvanceScreen();
             this->ApplyLoadingScreenTexture(false);
             this->UpdateLoadingScreenTip();
@@ -1185,7 +1185,7 @@ void LoadingMenu::InitLoadingMenu(TESForm* apLocation)
     {
         if (!BSAudio::GetSingleton()->TESRegionData_GetPriority())
         {
-            BSAudio::GetSingleton()->SetUseMultipleThreads(true);
+            BSAudio::GetSingleton()->SetMultiThreaded(true);
             this->SetFloatFlag(2, true);
         }
     }
@@ -1193,7 +1193,7 @@ void LoadingMenu::InitLoadingMenu(TESForm* apLocation)
     {
         if (!BSAudio::GetSingleton()->TESRegionData_GetPriority())
         {
-            BSAudio::GetSingleton()->SetUseMultipleThreads(true);
+            BSAudio::GetSingleton()->SetMultiThreaded(true);
             this->SetFloatFlag(2, true);
         }
         BSAudio::GetSingleton()->SetAudioProperty(2, 1000, 6000);
@@ -1483,11 +1483,11 @@ void LoadingMenu::Update_00789820()
             if (!DAT_011a0294 && DAT_011c3f3c->GetValue() == _gModifierZero && !StartMenu_MainMenuIsActive() &&
                 (!this->GetFloat(3) ||
                  ((Tile*)this->m_pTiles[34])->ContainsTrait(0xfa3)))
-                this->UpdateLoadingScreenText(0);
+                this->SetScreenInfo(0);
             ::LoadingMenu_AdvanceScreen((char*)this);
             this->ApplyLoadingScreenTexture(0);
             ((NiControllerManager*)((TESTopicInfo*)p3dtile)->GetConversationData())
-                ->StopSequence(GetLoadingTileSequence(p3dtile), 0.0f);
+                ->DeactivateSequence(GetLoadingTileSequence(p3dtile), 0.0f);
             this->UpdateLoadingScreenTip();
             if (DAT_011a0294 && this->m_pkLoadScreenList == &this->m_kLoadScreenItems)
                 this->SetFloatFlag(0, true);
@@ -1744,11 +1744,12 @@ void _Deallocate(void*);
 struct S0078d3f0
 {
     void FUN_0078d420();
-    void* FUN_0078d3f0(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_0078d420 on this, deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x0078d3f0
-void* S0078d3f0::FUN_0078d3f0(unsigned int flags)
+// src: EXE 0x0078d3f0
+void* S0078d3f0::ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_0078d420();
     if (flags & 1)
@@ -1872,7 +1873,7 @@ LoadingMenu::~LoadingMenu()
         fnv_007887a0::FalloutAudioMedia::FadeOutMedia(4000, (MEDIATYPE)0);
     }
     if (this->GetFloat(2) && BSAudio::GetSingleton()->TESRegionData_GetPriority())
-        BSAudio::GetSingleton()->SetUseMultipleThreads(false);
+        BSAudio::GetSingleton()->SetMultiThreaded(false);
     ((fnv_007887a0::S1740*)BSAudio::GetSingleton())->BSAudio_UnMute(1000);
     DAT_011a0294 = false;
     fnv_007887a0::LoadingMenu_FlushLoadScreenList((char*)this);
@@ -1899,7 +1900,8 @@ struct LoadScreenNode_r8a280
 
 // Hashes the current candidate's full name, then sets the description and game-setting text on menu tiles and marks DAT_011a0295 true.
 // @fnv 0x0078a280
-void LoadingMenu::UpdateLoadingScreenText(bool abRefreshCurrent)
+// src: COMMUNITY 0x0078a280
+void LoadingMenu::SetScreenInfo(bool abRefreshCurrent)
 {
     unsigned int iplateno = 0;
     const char* pName = reinterpret_cast<TESFullName*>(reinterpret_cast<char*>(*((LoadScreenNode_r8a280*)m_pkLoadScreenList)->_ref_006815c0()) + offsetof(TESLoadScreen, FullNameComponent) - offsetof(TESFullName, m_kName))->GetFullName();
@@ -2218,7 +2220,8 @@ int IsSpecial(const char*);
 void NextScreen(int*, int);
 // Clears and rebuilds the loading screen list from settings or gathered entries, adds a fallback entry, refreshes the menu and selects the first entry.
 // @fnv 0x0078a5a0
-void LoadingMenu::UpdateLoadingScreens()
+// src: COMMUNITY 0x0078a5a0
+void LoadingMenu::MakeLoadScreenList()
 {
     bool cleared = false;
     if (!((ScreenList*)&m_kLoadScreenItems)->Empty())
@@ -2698,16 +2701,16 @@ void LoadingMenu::Reset_00788ab0(int aiExtraCandidates)
             FUN_0078aec0();
         }
         pLocation = (TESForm*)aiExtraCandidates;
-        UpdateLoadingScreens();
+        MakeLoadScreenList();
         pLocation = (TESForm*)aiExtraCandidates;
         m_uiLoadScreenIndex = gm_GetTickCount();
         ++m_uiSecondStateValue;
-        this->UpdateLoadingScreenText(0);
+        this->SetScreenInfo(0);
         fnv_00788ab0::LoadingMenu_AdvanceScreen((char*)this);
         this->ApplyLoadingScreenTexture(0);
         FUN_0078abd0();
         ++m_uiSecondStateValue;
-        this->UpdateLoadingScreenText(0);
+        this->SetScreenInfo(0);
         fnv_00788ab0::LoadingMenu_AdvanceScreen((char*)this);
         this->ApplyLoadingScreenTexture(0);
         FUN_0078abd0();

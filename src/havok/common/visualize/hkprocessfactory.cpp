@@ -22,14 +22,15 @@ struct FUN_00dd9580_Class
 {
     void* vtable;
     unsigned short unk04;
-    void FUN_00dd94c0();
-    FUN_00dd9580_Class* FUN_00dd9580(char flags);
+    void hkProcessFactory();
+    FUN_00dd9580_Class* ScalarDeletingDestructor(char flags);
 };
-// Calls FUN_00dd94c0, then if bit 0 of flags is set notifies the service interface with this and unk04, and returns this.
+// Calls hkProcessFactory, then if bit 0 of flags is set notifies the service interface with this and unk04, and returns this.
 // @fnv 0x00dd9580
-FUN_00dd9580_Class* FUN_00dd9580_Class::FUN_00dd9580(char flags)
+// src: EXE 0x00dd9580
+FUN_00dd9580_Class* FUN_00dd9580_Class::ScalarDeletingDestructor(char flags)
 {
-    FUN_00dd94c0();
+    hkProcessFactory();
     if (flags & 1)
     {
         FUN_00dd9580_Service* service = hkMemoryRouter_getInstance();
@@ -164,17 +165,18 @@ struct S_00dd94c0_Base
     {}
 };
 
-struct FUN_00dd94c0 : S_00dd94c0_Base
+struct hkProcessFactory : S_00dd94c0_Base
 {
     int unk08;
     S_00dd94c0_Array m_entries;
     CRITICAL_SECTION* m_lock;
-    virtual ~FUN_00dd94c0() throw();
+    virtual ~hkProcessFactory() throw();
 };
 
 // Deletes the critical section, calls notify with the lock and 0x18, then clears m_entries.
 // @fnv 0x00dd94c0
-FUN_00dd94c0::~FUN_00dd94c0() throw()
+// src: EXE 0x00dd94c0
+hkProcessFactory::~hkProcessFactory() throw()
 {
     CRITICAL_SECTION* lock = m_lock;
     if (lock)

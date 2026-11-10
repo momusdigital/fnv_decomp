@@ -281,7 +281,7 @@ void NiAVObject::CopyMembers_00a5ac90(NiAVObject* dest, CloningProcess& process)
     if (m_kPropertyList.m_kItemCount.m_uiCount)
         NiAVObject_CloneProperties(dest, &m_kPropertyList, process);
     if (m_spCollisionObject)
-        dest->AssignCollisionObject((NiCollisionObject*)m_spCollisionObject->MakeClone(process));
+        dest->SetCollisionObject((NiCollisionObject*)m_spCollisionObject->MakeClone(process));
 }
 
 // Copies the previous world bound, and if flags 19/13 conditions or a zero radius apply, allocates or updates m_kWorldBound and refreshes the flag bit 22.

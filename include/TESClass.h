@@ -17,7 +17,7 @@ public:
     bool IsTagSkill(ActorValue::Index aeSkill);
     bool IsTagSkill(ActorValue::Index aeSkill) const;
     unsigned int FUN_006286d0();
-    void SetClassSkillAtIndex(int index, ActorValue::Index skill);
+    void SetTagSkill(int index, ActorValue::Index skill);
     void ResetFormData();
     virtual void LoadGame(BGSLoadFormBuffer* buffer);
     bool Load(TESFile* file);

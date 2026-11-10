@@ -96,7 +96,7 @@ struct EntryTable
     ~EntryTable();
 };
 
-struct FUN_006ed220
+struct PathSmoother
 {
     char pad00[0x30];
     EntryPool m_kEntryPool;
@@ -107,11 +107,12 @@ struct FUN_006ed220
     EntryArrayC m_kFreeC;
     EntryTable m_kTable;
 
-    ~FUN_006ed220();
+    ~PathSmoother();
 };
 
 // @fnv 0x006ed220
-FUN_006ed220::~FUN_006ed220()
+// src: COMMUNITY 0x006ed220
+PathSmoother::~PathSmoother()
 {
     for (unsigned int i = 0; i < m_kActive.FUN_0044ddc0(); i++)
     {

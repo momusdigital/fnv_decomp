@@ -33,7 +33,8 @@ int* __cdecl NiFloatsExtraDataPoint3Controller_CreateObject()
 // These file-local entry points use ECX for the shared controller, with the
 // unused EDX argument preserving the original stack arguments and cleanup.
 // @fnv 0x00a4ec80
-NiFloatsExtraDataPoint3Controller* __fastcall ClonePoint3Controller(
+// src: EXE 0x00a4ec80
+NiFloatsExtraDataPoint3Controller* __fastcall NiFloatsExtraDataPoint3Controller_CreateClone(
     NiFloatsExtraDataPoint3Controller* self, int, void* proc)
 {
     NiFloatsExtraDataPoint3Controller* p = (NiFloatsExtraDataPoint3Controller*)BSFadeNode::operator new(0x48);
@@ -51,7 +52,8 @@ NiFloatsExtraDataPoint3Controller* __fastcall ClonePoint3Controller(
 }
 
 // @fnv 0x00a4ee90
-void __fastcall LoadPoint3Controller(NiFloatsExtraDataPoint3Controller* self, int, void* stream)
+// src: EXE 0x00a4ee90
+void __fastcall NiFloatsExtraDataPoint3Controller_LoadBinary(NiFloatsExtraDataPoint3Controller* self, int, void* stream)
 {
     ((NiPSysModifierCtlr*)self)->NiPSysModifierCtlr::LoadBinary(*(NiStream*)stream);
     // The shared stream types keep their binary storage opaque.
@@ -95,7 +97,8 @@ char* __cdecl _FUN_00a7d330(void* value);
 char* __cdecl NiGetViewerString_00a7d4d0(char const* name, int value);
 
 // @fnv 0x00a4eed0
-void __fastcall GetPoint3ControllerViewerStrings(NiFloatsExtraDataPoint3Controller* self, int, StrArr* strings)
+// src: EXE 0x00a4eed0
+void __fastcall NiFloatsExtraDataPoint3Controller_GetViewerStrings(NiFloatsExtraDataPoint3Controller* self, int, StrArr* strings)
 {
     AddExtraDataViewerStrings(strings);
 

@@ -34,7 +34,7 @@ public:
     float TESObjectREFR_GetRelevantWaterHeight();
     void* TESObjectREFR_GetWorldSpace();
     void* FUN_008d6f30();
-    void PathToLocation(PathingRequest*, PathPoint*, void*, void*, float, int);
+    void Actor_BuildRequest(PathingRequest*, PathPoint*, void*, void*, float, int);
     void SetPathingRequestAvoidNodes(PathingRequest*);
     void StopMoving_008b3ab0();
     void UpdatePathing(PathActor_actormover* actor);
@@ -955,7 +955,7 @@ void FUN_006e29f0_shell::InitFromActor(Actor* apActor)
         ((FUN_006e2b50_shell*)this)
             ->SetCantOpenDoors(((FUN_006e29f0_sub*)((char*)apActor->GetActorBase() + 0x30))->v10());
     }
-    ((FUN_006e2bb0_shell*)this)->SetInitialPathHeading(apActor->GetCurrentTargetDistance(false));
+    ((FUN_006e2bb0_shell*)this)->SetInitialPathHeading(apActor->GetHeading(false));
 }
 }  // namespace fnv_006e29f0
 
@@ -1905,7 +1905,8 @@ struct PathQuery
 };
 
 // @fnv 0x009de2b0
-bool ActorMover::GetPathCoordinate(NiPoint3* position)
+// src: COMMUNITY 0x009de2b0
+bool ActorMover::GetCurrentGoal(NiPoint3* position)
 {
     if (m_pActorNode.operator->() && m_pActorNode.operator->()->PathingSolution_IsValid())
     {
@@ -2154,7 +2155,7 @@ void ActorMover::HandlePathResult(int aiResult)
                 NiPoint3 kDelta =
                     reinterpret_cast<PathingGraphNode*>(((PathingSolution*)m_pActorNode.operator->())->GetVirtualNode(GetPathingLastNodeIndex((PathingSolution*)m_pActorNode.operator->())))->FUN_00717e50().GetPoint() -
                     *static_cast<const Actor*>(pActor)->GetPos();
-                if (kDelta.GetSquaredXYLength() <= request.operator->()->FUN_009b0bd0() * request.operator->()->FUN_009b0bd0())
+                if (kDelta.NiPoint3_SqrXYLength() <= request.operator->()->FUN_009b0bd0() * request.operator->()->FUN_009b0bd0())
                 {
                     break;
                 }
@@ -2402,7 +2403,7 @@ struct Area
 struct ActormoverMapView
 {
     Area* TES_GetNavMeshInfoMap(World*, unsigned int);
-    double GetCellHeightAtPosition(const NiPoint3&, Cell*);
+    double TES_GetWaterHeight(const NiPoint3&, Cell*);
 };
 extern ActormoverMapView* DAT_011dea10;
 unsigned int PackShortPair(unsigned short, unsigned short);
@@ -2461,11 +2462,11 @@ void ActorMover::SetEnabled(bool abEnabled)
             Cell* to = ((NiPointer<ActorMovement::Request>*)&request)->operator->()->NiAVObject_GetRotate_006a9540()->FUN_006dd4f0();
             if (fromSlot12 && to)
             {
-                bool fromAboveSlot13 = DAT_011dea10->GetCellHeightAtPosition(
+                bool fromAboveSlot13 = DAT_011dea10->TES_GetWaterHeight(
                                            ((NiPointer<ActorMovement::Request>*)&request)->operator->()->GetOffsetC()->FUN_005c3420(), fromSlot12) >
                                        ((NiPointer<ActorMovement::Request>*)&request)->operator->()->GetOffsetC()->FUN_005c3420().z;
                 bool toAboveSlot1 =
-                    DAT_011dea10->GetCellHeightAtPosition(((NiPointer<ActorMovement::Request>*)&request)->operator->()->NiAVObject_GetRotate_006a9540()->FUN_005c3420(), to) >
+                    DAT_011dea10->TES_GetWaterHeight(((NiPointer<ActorMovement::Request>*)&request)->operator->()->NiAVObject_GetRotate_006a9540()->FUN_005c3420(), to) >
                     ((NiPointer<ActorMovement::Request>*)&request)->operator->()->NiAVObject_GetRotate_006a9540()->FUN_005c3420().z;
                 if (fromAboveSlot13 != toAboveSlot1)
                     intervalSlot1 = DAT_01092234;
@@ -2814,7 +2815,7 @@ struct Sol13
     Sol13();
     ~Sol13();
     unsigned int GetObjectFlags();
-    float GetTotalPathLength();
+    float ComputeDetailedPathLength();
     NiPoint3 GetPointAtDistance(float a, float b);
 };
 bool __cdecl FUN_006d0900(Helper13* h, Sol13* s);
@@ -2869,10 +2870,10 @@ void ActorMover::UpdateTargeting()
         if (0 != bA4 && 0 != zX)
         {
             bool resultB;
-            resultB = g_TES->GetCellHeightAtPosition(&((Req*)(PathingRequest*)request)->GetOffsetC()->FUN_005c3420(), bA4) >
+            resultB = g_TES->TES_GetWaterHeight(&((Req*)(PathingRequest*)request)->GetOffsetC()->FUN_005c3420(), bA4) >
                       ((Req*)(PathingRequest*)request)->GetOffsetC()->FUN_005c3420().z;
             bool y6;
-            y6 = g_TES->GetCellHeightAtPosition(&((Req*)(PathingRequest*)request)->NiAVObject_GetRotate_006a9540()->FUN_005c3420(), zX) >
+            y6 = g_TES->TES_GetWaterHeight(&((Req*)(PathingRequest*)request)->NiAVObject_GetRotate_006a9540()->FUN_005c3420(), zX) >
                  ((Req*)(PathingRequest*)request)->NiAVObject_GetRotate_006a9540()->FUN_005c3420().z;
             if (resultB != y6)
                 iAB = true;
@@ -2910,7 +2911,7 @@ void ActorMover::UpdateTargeting()
                     if (((Actor13*)pActor)->Actor_GetWidth() * (double)0.5f > 100.0)
                         iB2 = _runtimeFloatSettingDefault38;
                     float i4;
-                    i4 = bB4.GetTotalPathLength();
+                    i4 = bB4.ComputeDetailedPathLength();
                     float cell3;
                     cell3 = i4 - iB2;
                     if (cell3 < _gModifierZero)
@@ -3531,7 +3532,8 @@ void __cdecl FUN_00fc8480();
 void __cdecl _atexit(void(__cdecl*)(void));
 // Returns a pointer to a function-local static PathManager.
 // @fnv 0x0047d0b0
-PathManager* __cdecl GetPathManager()
+// src: COMMUNITY 0x0047d0b0
+PathManager* __cdecl PathManager_QInstance()
 {
     static PathManager pManager;
     return &pManager;
@@ -3558,7 +3560,7 @@ class FUN_00491040_shell
 class AnimData : public FUN_00491040_shell
 {
   public:
-    void GetMovement(NiPoint3* outDelta, Actor* actor, int a3, int a4);
+    void Animation_GetDelta(NiPoint3* outDelta, Actor* actor, int a3, int a4);
     bool IsHighestPriority();
 };
 
@@ -3581,11 +3583,11 @@ void ActorMover::SetCurrentFrameMoveModeAndDelta()
         {
             if (HasActorMovementAnimation(this->pActor))
             {
-                anim->GetMovement((NiPoint3*)&moveDelta, this->pActor, 1, 0);
+                anim->Animation_GetDelta((NiPoint3*)&moveDelta, this->pActor, 1, 0);
             }
             else
             {
-                anim->GetMovement((NiPoint3*)&moveDelta, this->pActor, 0, 1);
+                anim->Animation_GetDelta((NiPoint3*)&moveDelta, this->pActor, 0, 1);
             }
         }
         else
@@ -4120,7 +4122,7 @@ struct PathManager14
 };
 
 struct PathManager;
-PathManager* __cdecl GetPathManager();
+PathManager* __cdecl PathManager_QInstance();
 bool __fastcall TESObjectCELL_GetAttached(void*);
 void __cdecl DetailedActorPathHandler_UpdateAvoidNodesForPath(void*, BackgroundPathRequest14*, void*);
 void __fastcall ActorMover_ClearCurrentData(TESForm*);
@@ -4150,7 +4152,7 @@ bool ActorMover::BackGroundBuildPath(const PathingRequest* apRequest)
         if (same3 && !zA3 && !zB9)
         {
             NiPoint3 diff8 = locA5->FUN_005c3420() - locB2->FUN_005c3420();
-            if ((double)((const NiPoint3*)&diff8)->GetSquaredXYLength() <=
+            if ((double)((const NiPoint3*)&diff8)->NiPoint3_SqrXYLength() <=
                 (double)((BackgroundPathRequest14*)apRequest)->FUN_009b0bd0() *
                     (double)((BackgroundPathRequest14*)apRequest)->FUN_009b0bd0())
             {
@@ -4227,7 +4229,7 @@ bool ActorMover::BackGroundBuildPath(const PathingRequest* apRequest)
         {
             m_queue = new ActorPathingMessageQueue();
         }
-        if (!((PathManager14*)GetPathManager())->BuildPath((*(NiPointer<BackgroundPathRequest14>*)&request), m_queue, !sleeping))
+        if (!((PathManager14*)PathManager_QInstance())->BuildPath((*(NiPointer<BackgroundPathRequest14>*)&request), m_queue, !sleeping))
         {
             (::ActorMover_ClearCurrentData)((TESForm*)this);
             eState = 7;
@@ -4251,7 +4253,7 @@ struct TaskQueueInterface
 
 struct FUN_0087b650_shell
 {
-    void QueueActorLocationTask(Actor*, const NiPoint3*);
+    void TaskQueueInterface_QueueActorSetPosition(Actor*, const NiPoint3*);
 };
 
 struct FUN_0087b190_shell
@@ -4284,7 +4286,7 @@ bool ActorMover::MoveActorToLocation(const NiPoint3& aNewLoc)
 {
     if (IsConditionMet())
     {
-        ((FUN_0087b650_shell*)TaskQueueInterface::GetInstance())->QueueActorLocationTask(pActor, &aNewLoc);
+        ((FUN_0087b650_shell*)TaskQueueInterface::GetInstance())->TaskQueueInterface_QueueActorSetPosition(pActor, &aNewLoc);
         ((FUN_0087b190_shell*)TaskQueueInterface::GetInstance())->QueueActorTask(pActor);
     }
     else

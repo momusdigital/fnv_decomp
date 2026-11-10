@@ -95,8 +95,8 @@ public:
     float DotProduct(const LocalVec3* other) const;
     float Length() const;
     float LengthSquared() const;
-    float GetSquaredXYLength();
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength();
+    float NiPoint3_SqrXYLength() const;
     Elem16& expand(Allocator& allocator);
 
     void SetComponents(float x, float y, float z);
@@ -994,14 +994,14 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void*);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void*);
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile*);
 
-struct FUN_00e7dbc0_Class
+struct NiDX9AdditionalDepthStencilBufferData
 {
     void ReleaseStorage_00e7dbc0();
 };
 
 // @fnv 0x00e7dbc0
 // src: GUESS 0x00e7dbc0 (confidence: low)
-void FUN_00e7dbc0_Class::ReleaseStorage_00e7dbc0()
+void NiDX9AdditionalDepthStencilBufferData::ReleaseStorage_00e7dbc0()
 {
     *(int*)this = (int)&DAT_010ef184;
     EnterCriticalSection(&DAT_0126f600);
@@ -2419,7 +2419,7 @@ struct TexDevice
     virtual void __stdcall vf9() = 0;
     virtual void __stdcall vf10() = 0;
     virtual void __stdcall vf11() = 0;
-    virtual void __stdcall vf12() = 0;
+    virtual void __stdcall SetMapName() = 0;
     virtual void __stdcall vf13() = 0;
     virtual void __stdcall vf14() = 0;
     virtual void __stdcall vf15() = 0;
@@ -2446,7 +2446,7 @@ struct TexRenderer
     virtual void vf9() = 0;
     virtual void vf10() = 0;
     virtual void vf11() = 0;
-    virtual void vf12() = 0;
+    virtual void SetMapName() = 0;
     virtual void vf13() = 0;
     virtual void vf14() = 0;
     virtual void vf15() = 0;
@@ -2472,7 +2472,7 @@ struct TexRenderer
     virtual void vf35() = 0;
     virtual void vf36() = 0;
     virtual void vf37() = 0;
-    virtual void vf38() = 0;
+    virtual void PrintInfo() = 0;
     virtual void vf39() = 0;
     virtual unsigned Flags() = 0;
     int unk004;
@@ -3346,11 +3346,12 @@ struct FUN_00e68ea0_cls
 
     void BaseCleanup();
 
-    FUN_00e68ea0_cls* FUN_00e68ea0(unsigned char acFlags);
+    FUN_00e68ea0_cls* ScalarDeletingDestructor(unsigned char acFlags);
 };
 
 // @fnv 0x00e68ea0
-FUN_00e68ea0_cls* FUN_00e68ea0_cls::FUN_00e68ea0(unsigned char acFlags)
+// src: EXE 0x00e68ea0
+FUN_00e68ea0_cls* FUN_00e68ea0_cls::ScalarDeletingDestructor(unsigned char acFlags)
 {
     *(void* volatile*)&m_vptr = DAT_010ed37c;
     FUN_00e68ea0_held* pRefCounted = *(FUN_00e68ea0_held* volatile*)&m_74;
@@ -5158,10 +5159,11 @@ struct E74Accumulator
 };
 struct FUN_00e74a40_shell : E74Accumulator
 {
-    void AddGeometryToBatch(E74Geometry* pkGeom);
+    void NiDX9Renderer_AddToBatch(E74Geometry* pkGeom);
 };
 // @fnv 0x00e74a40
-void FUN_00e74a40_shell::AddGeometryToBatch(E74Geometry* pkGeom)
+// src: COMMUNITY 0x00e74a40
+void FUN_00e74a40_shell::NiDX9Renderer_AddToBatch(E74Geometry* pkGeom)
 {
     E74GeomData* pkData = pkGeom->m_spGeometryData;
     E74SkinInstance* pkSkin = pkGeom->m_spSkinningInstance;
@@ -5920,7 +5922,7 @@ struct FUN_00e74c00_cls
     void** m_ppCallbackData;
 
     bool RendererRecreateHook();
-    bool HandleDeviceLost();
+    bool NiDX9Renderer_LostDeviceRestore();
 };
 
 typedef int(__stdcall* FNVSlot3Fn)(void*);
@@ -5929,7 +5931,8 @@ typedef bool(__cdecl* FNVCallbackFn)(void*);
 
 // Calls slot 3 on m_p288, optionally slot 128, and on device-lost codes runs the restore callbacks or FUN_00e736b0.
 // @fnv 0x00e74c00
-bool FUN_00e74c00_cls::HandleDeviceLost()
+// src: EXE 0x00e74c00
+bool FUN_00e74c00_cls::NiDX9Renderer_LostDeviceRestore()
 {
     void* obj = m_p288;
     int code = ((FNVSlot3Fn)(*(void***)obj)[3])(obj);
@@ -6771,7 +6774,7 @@ int FnvCpu_FUN_00e68800_CpuObject::NiDX9TextureData_GetD3DTexture()
     return value;
 }
 
-struct FUN_00e76620_cls
+struct NiDX9ShaderDeclaration
 {
     int unk00;
     int unk04;
@@ -6792,7 +6795,7 @@ struct FUN_00e76620_cls
 
 // @fnv 0x00e76620
 // src: COMMUNITY 0x00e76620
-unsigned char FUN_00e76620_cls::NiDX9ShaderDeclaration_GetSoftwareVertexProcessing()
+unsigned char NiDX9ShaderDeclaration::NiDX9ShaderDeclaration_GetSoftwareVertexProcessing()
 {
     return unk34;
 }
@@ -7088,7 +7091,7 @@ struct FUN_00e69620_Target
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40();
     virtual void vf44();
@@ -8076,7 +8079,7 @@ class ItemE7CF
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40();
     virtual void vf44();
@@ -9183,8 +9186,8 @@ class GlobalObjectO2_00a7b610;
 extern GlobalObjectO2_00a7b610 g_0126f59c;
 
 // @fnv 0x00e7cd30
-// src: GUESS 0x00e7cd30 (confidence: low)
-GlobalObjectO2_00a7b610* Runtime_GetField0126f59cAddress()
+// src: EXE 0x00e7cd30
+GlobalObjectO2_00a7b610* NiDX92DBufferData_GetRTTI()
 {
     return &g_0126f59c;
 }

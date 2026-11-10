@@ -82,7 +82,7 @@ extern int DAT_010a2f9c;
 struct FUN_00ac9c30_class
 {
     void* m_p;
-    void* __thiscall FUN_00ac9c30(int flags);
+    void* __thiscall ScalarDeletingDestructor(int flags);
 };
 struct FUN_00acad30_class
 {
@@ -218,7 +218,7 @@ struct FUN_00ad3ee0
     FUN_00ad3ee0(int a);
 };
 char __cdecl FUN_00ec379c(char, char*);
-struct FUN_00ad3f20_Class
+struct ctype
 {
     int m_iWordAt00;
     int m_iWordAt04;
@@ -542,7 +542,7 @@ class Holder44_FUN_00ac5c00
   public:
     void Reset();
 };
-class FUN_00ac5c00_cls
+class BSFaceGenBinaryFile
 {
   public:
     unsigned int unk00;
@@ -692,7 +692,7 @@ struct FUN_00ac6100_cls
     unsigned int m_14;
     unsigned int m_18;
 
-    int ProcessAndReturnValue_00ac6100(unsigned int a1, unsigned int a2, int a3, unsigned int a4);
+    int basic_string__Copy_s(unsigned int a1, unsigned int a2, int a3, unsigned int a4);
 };
 int __cdecl FUN_00ec4835(char* p, int a, unsigned int n);
 void __cdecl FUN_00ec30e8();
@@ -800,7 +800,7 @@ struct S_00ac9da0_class
     int unk10;
     int unk14;
 
-    void __thiscall ProcessAndReturnValue_00ac6100(int a, int b, void* c, int d);
+    void __thiscall basic_string__Copy_s(int a, int b, void* c, int d);
     void __thiscall UpdateFields_00ac9da0(S_00ac9da0_string* a);
 };
 struct FUN_00aca4e0_frame
@@ -886,7 +886,7 @@ struct FUN_00aca4e0_cls
     int unk24;
     unsigned int m_28;
     void UpdateState_00ac9ff0(unsigned int flags, unsigned char mode);
-    void AddStateFlags(unsigned int a1, unsigned char a2);
+    void basic_ios_setstate(unsigned int a1, unsigned char a2);
 };
 struct FUN_00ec3280_class
 {
@@ -917,7 +917,7 @@ struct FUN_00aca9f0_Cls
     FUN_00aca9f0_P* m_20;
     char _24[0xc];
     int* m_30;
-    int UpdateState_00aca9f0();
+    int basic_streambuf_sgetc();
 };
 struct ListSentinelNode
 {
@@ -925,7 +925,7 @@ struct ListSentinelNode
     ListSentinelNode* m_04;
     ListSentinelNode* m_08;
 };
-struct FUN_00acb1a0_cls
+struct _Tree
 {
     int m_00;
     int m_04;
@@ -936,7 +936,7 @@ struct FUN_00acb1a0_cls
     ListSentinelNode* m_18;
     int m_1c;
 
-    void ProcessEntries_00acf0b0(void* p);
+    void _Erase(void* p);
     void ResetListSentinel();
 };
 extern int DAT_010a30fc;
@@ -1039,7 +1039,7 @@ class FUN_00acd930_cls
     int m_00, m_04, m_08, m_0c, m_10, m_14, m_18, m_1c, m_20, m_24, m_28, m_2c, m_30, m_34, m_38, m_3c, m_40, m_44,
         m_48;
     int m_4c;
-    FUN_00acd930_cls* EvaluateValue_00acd930(int a1, int a2);
+    FUN_00acd930_cls* basic_filebuf_setbuf(int a1, int a2);
     void Unk_acfc10(int a, int b);
 };
 int __cdecl FUN_00ecda70(void* resource);
@@ -1208,7 +1208,7 @@ class FUN_00ace860_cls
     int* m_30;
 
     unsigned char* DecrementAndPostIncrement();
-    int ProcessAndReturnValue_00ace860();
+    int basic_streambuf_sbumpc();
 };
 class AceHolder
 {
@@ -1333,7 +1333,7 @@ class FUN_00aced20_cls
     void* m_0c;
     void* m_10;
     void* m_14;
-    bool ProcessAndReturnValue_00aced20(unsigned int count);
+    bool vector__Buy(unsigned int count);
 };
 void Object_Length_error_Thunk();
 void* Runtime_AllocateElementArray28Checked(unsigned int count, unsigned int flags);
@@ -1580,11 +1580,11 @@ struct FNVSourceStringX
     unsigned int m_uiCharacterCount;
     unsigned int m_uiCapacity;
 };
-struct FUN_00ad3550_cls
+struct _String_const_iterator
 {
     FNVSourceStringX* m_pSource;
     char* m_pPos;
-    FUN_00ad3550_cls* __thiscall InitFromSource(char* a1, FNVSourceStringX* a2);
+    _String_const_iterator* __thiscall InitFromSource(char* a1, FNVSourceStringX* a2);
 };
 // ForwardToV07: thiscall member (3 stack args) that forwards to its own
 // virtual slot 7 (vftable offset 0x1C) with four arguments, the last one
@@ -2228,7 +2228,7 @@ struct FUN_00ac03a0_cls
     {
         return AllocateChecked(_Count, (char*)0);
     }
-    bool ProcessAndReturnValue_00ac03a0(unsigned int n);
+    bool vector__Buy(unsigned int n);
 };
 
 // src: GUESS 0x00ac0b00 (confidence: medium)
@@ -2320,7 +2320,7 @@ inline void Object_Length_error_Thunk()
 
 // @fnv 0x00ac03a0
 // src: GUESS 0x00ac03a0 (confidence: low)
-bool FUN_00ac03a0_cls::ProcessAndReturnValue_00ac03a0(unsigned int n)
+bool FUN_00ac03a0_cls::vector__Buy(unsigned int n)
 {
     m_0c = 0, m_10 = 0, m_14 = 0;
     if (n == 0)
@@ -2898,8 +2898,8 @@ template <class T> struct VectorDataT : FUN_00ad33c0
     {
         return Iterator(last, this);
     }
-// src: GUESS 0x00abc260 (confidence: medium)
-    bool AllocateZeroedElementStorage(unsigned int count)
+// src: GUESS 0x00abc260 (confidence: high)
+    bool vector__Buy(unsigned int count)
     {
         first = 0, last = 0, end = 0;
         if (count == 0)
@@ -2946,7 +2946,7 @@ struct FUN_00ac08b0 : VectorData
 // @fnv 0x00ac08b0
 FUN_00ac08b0::FUN_00ac08b0(const FUN_00ac08b0& right) : VectorData(right.allocator)
 {
-    if (AllocateZeroedElementStorage(right.size()))
+    if (vector__Buy(right.size()))
     {
         try
         {
@@ -3433,12 +3433,12 @@ inline void unchecked_uninitialized_fill_nS(_FwdIt _First, _Diff _Count, const _
 class FUN_00ac0ab0_Vector : public vectorS<int>
 {
   public:
-    pointer EvaluateValue_00ac0ab0(pointer _Ptr, size_type _Count, const int& _Val);
+    pointer vector__Ufill(pointer _Ptr, size_type _Count, const int& _Val);
 };
 
 // @fnv 0x00ac0ab0
-// src: GUESS 0x00ac0ab0 (confidence: low)
-FUN_00ac0ab0_Vector::pointer FUN_00ac0ab0_Vector::EvaluateValue_00ac0ab0(pointer _Ptr, size_type _Count, const int& _Val)
+// src: GUESS 0x00ac0ab0 (confidence: medium)
+FUN_00ac0ab0_Vector::pointer FUN_00ac0ab0_Vector::vector__Ufill(pointer _Ptr, size_type _Count, const int& _Val)
 {
     unchecked_uninitialized_fill_nS(_Ptr, _Count, _Val, this->_Alval);
     return (_Ptr + _Count);
@@ -17167,11 +17167,11 @@ struct GvBinaryFile
     virtual void v00();
     void FutBinaryFileC_close();
     bool FutBinaryFileC_readHeader(char* data, unsigned int count, bool exact);
-    bool ProcessAndReturnValue_00ac4f00(const BxString& path);
+    bool FutBinaryFileC_openForAppend(const BxString& path);
 };
 // @fnv 0x00ac4f00
-// src: GUESS 0x00ac4f00 (confidence: low)
-bool GvBinaryFile::ProcessAndReturnValue_00ac4f00(const BxString& path)
+// src: COMMUNITY 0x00ac4f00
+bool GvBinaryFile::FutBinaryFileC_openForAppend(const BxString& path)
 {
     FutBinaryFileC_close();
     pFile = fopen(path.c_str(), "a+b");
@@ -18233,10 +18233,10 @@ struct FnvString : FnvStringBase
     {
         unsigned int otherLength = other->size();
         const char* otherData = other->data();
-        return const_cast<FnvString*>(this)->ProcessAndReturnValue_00ac6100(0, m_fRestLength, otherData, otherLength);
+        return const_cast<FnvString*>(this)->basic_string__Copy_s(0, m_fRestLength, otherData, otherLength);
     }
-// src: GUESS 0x00ac6100 (confidence: low)
-    inline int ProcessAndReturnValue_00ac6100(unsigned int pos, unsigned int length, const char* text, unsigned int numLines)
+// src: GUESS 0x00ac6100 (confidence: medium)
+    inline int basic_string__Copy_s(unsigned int pos, unsigned int length, const char* text, unsigned int numLines)
     {
         if (m_fRestLength < pos)
             FUN_00ec30e8();
@@ -18298,7 +18298,7 @@ struct FnvString : FnvStringBase
     }
     __forceinline int compare(const char* text)
     {
-        return ProcessAndReturnValue_00ac6100(0, m_fRestLength, text, length(text));
+        return basic_string__Copy_s(0, m_fRestLength, text, length(text));
     }
     __forceinline bool equal(const char* text)
     {
@@ -18336,8 +18336,8 @@ struct FnvIos
 struct FnvInput
 {
     FnvInputVtable* m_ppVirtualMethodTable;
-    int ProcessAndReturnValue_00aca7a0();
-    int ProcessAndReturnValue_00aca560();
+    int basic_istream_peek();
+    int basic_istream_get();
 };
 extern char DAT_01011584;
 extern "C" void __cdecl Object_ProcessEntries_00ad43a0(FnvInput*, FnvString*);
@@ -18392,12 +18392,12 @@ bool __cdecl FutPairParser(FnvInput* input, FnvMap* output, FnvString* exclude, 
         while (!((FnvIos*)((char*)input + input->m_ppVirtualMethodTable->m_iosOffset))->eof() &&
                !((FnvIos*)((char*)input + input->m_ppVirtualMethodTable->m_iosOffset))->fail())
         {
-            ch = (char)input->ProcessAndReturnValue_00aca7a0();
+            ch = (char)input->basic_istream_peek();
             if (ch == '\n' || ((FnvIos*)((char*)input + input->m_ppVirtualMethodTable->m_iosOffset))->eof() ||
                 ((FnvIos*)((char*)input + input->m_ppVirtualMethodTable->m_iosOffset))->fail())
                 break;
             else if (ch == ' ' || ch == '\t')
-                ch = (char)input->ProcessAndReturnValue_00aca560();
+                ch = (char)input->basic_istream_get();
             else
                 break;
         }
@@ -18823,7 +18823,7 @@ struct FUN_00ad0210 : FUN_00aca9a0
 struct FUN_00ac9df0_Q : virtual IosQ
 {
     void ProcessState_00ad03e0();
-    FUN_00ac9df0_Q& UpdateState_00ac9df0(char c);
+    FUN_00ac9df0_Q& basic_ostream_put(char c);
 };
 inline FUN_00ad0210::~FUN_00ad0210()
 {
@@ -18831,8 +18831,8 @@ inline FUN_00ad0210::~FUN_00ad0210()
         _Myostr->ProcessState_00ad03e0();
 }
 // @fnv 0x00ac9df0
-// src: GUESS 0x00ac9df0 (confidence: low)
-FUN_00ac9df0_Q& FUN_00ac9df0_Q::UpdateState_00ac9df0(char _Ch)
+// src: GUESS 0x00ac9df0 (confidence: high)
+FUN_00ac9df0_Q& FUN_00ac9df0_Q::basic_ostream_put(char _Ch)
 {
     int _State = 0;
     const FUN_00ad0210 _Ok(*this);
@@ -19096,7 +19096,7 @@ inline void Dead51()
 }
 struct SbQ
 {
-    int ProcessAndReturnValue_00ace860();
+    int basic_streambuf_sbumpc();
 };
 struct IosBaseQ
 {
@@ -19170,15 +19170,15 @@ struct FUN_00aca560_Q : virtual IosQ
 {
     int _Chcount;
     bool ProcessEntries_00ace390(bool n);
-    int ProcessAndReturnValue_00aca560();
+    int basic_istream_get();
 };
 // @fnv 0x00aca560
 inline FUN_00aca9a0::FUN_00aca9a0(FUN_00aca560_Q& s, bool n) : FUN_00ad2fa0(s)
 {
     _Ok = _Myistr->ProcessEntries_00ace390(n);
 }
-// src: GUESS 0x00aca560 (confidence: low)
-int FUN_00aca560_Q::ProcessAndReturnValue_00aca560()
+// src: GUESS 0x00aca560 (confidence: high)
+int FUN_00aca560_Q::basic_istream_get()
 {
     int _Meta = 0;
     int _State = 0;
@@ -19191,7 +19191,7 @@ int FUN_00aca560_Q::ProcessAndReturnValue_00aca560()
     {
         try
         {
-            if (EqInt(Eof(), _Meta = rdbuf()->ProcessAndReturnValue_00ace860()))
+            if (EqInt(Eof(), _Meta = rdbuf()->basic_streambuf_sbumpc()))
                 _State |= 3;
             else
                 ++_Chcount;
@@ -19274,7 +19274,7 @@ inline void Dead51()
 }
 struct SbQ
 {
-    int UpdateState_00aca9f0();
+    int basic_streambuf_sgetc();
 };
 struct IosBaseQ
 {
@@ -19348,15 +19348,15 @@ struct FUN_00aca7a0_Q : virtual IosQ
 {
     int _Chcount;
     bool ProcessEntries_00ace390(bool n);
-    int ProcessAndReturnValue_00aca7a0();
+    int basic_istream_peek();
 };
 // @fnv 0x00aca7a0
 inline FUN_00aca9a0::FUN_00aca9a0(FUN_00aca7a0_Q& s, bool n) : FUN_00ad2fa0(s)
 {
     _Ok = _Myistr->ProcessEntries_00ace390(n);
 }
-// src: GUESS 0x00aca7a0 (confidence: low)
-int FUN_00aca7a0_Q::ProcessAndReturnValue_00aca7a0()
+// src: GUESS 0x00aca7a0 (confidence: high)
+int FUN_00aca7a0_Q::basic_istream_peek()
 {
     int _State = 0;
     _Chcount = 0;
@@ -19369,7 +19369,7 @@ int FUN_00aca7a0_Q::ProcessAndReturnValue_00aca7a0()
     {
         try
         {
-            if (EqInt(Eof(), _Meta = rdbuf()->UpdateState_00aca9f0()))
+            if (EqInt(Eof(), _Meta = rdbuf()->basic_streambuf_sgetc()))
                 _State |= 1;
         }
         catch (...)
@@ -21564,12 +21564,12 @@ struct FUN_00acbf60_SB
         *m_IGcount -= n;
         *m_IGnext += n;
     }
-    int ProcessAndReturnValue_00acbf60(int meta);
+    int basic_stringbuf_pbackfail(int meta);
 };
 typedef FUN_00acbf60_Tr Tr;
 // @fnv 0x00acbf60
-// src: GUESS 0x00acbf60 (confidence: low)
-int FUN_00acbf60_SB::ProcessAndReturnValue_00acbf60(int meta)
+// src: GUESS 0x00acbf60 (confidence: high)
+int FUN_00acbf60_SB::basic_stringbuf_pbackfail(int meta)
 {
     if (gptr() == 0 || gptr() <= eback() ||
         (!Tr::eq_int_type(Tr::eof(), meta) && !Tr::eq(Tr::to_char_type(meta), gptr()[-1]) && (m_iSeekLow & 2) != 0))
@@ -21621,11 +21621,11 @@ struct FUN_00acc070_SB
     {
         return (unsigned char)c;
     }
-    int UpdateState_00acc070();
+    int basic_stringbuf_underflow();
 };
 // @fnv 0x00acc070
-// src: GUESS 0x00acc070 (confidence: low)
-int FUN_00acc070_SB::UpdateState_00acc070()
+// src: GUESS 0x00acc070 (confidence: high)
+int FUN_00acc070_SB::basic_stringbuf_underflow()
 {
     if (gptr() == 0)
         return -1;
@@ -21809,11 +21809,11 @@ struct FUN_00accef0_FB
         *m_IGcount = (int)(l - n);
     }
     int std_basic_streambuf_char_std_char_traits_char_Gndec();
-    int UpdateState_00accef0(int meta);
+    int basic_filebuf_pbackfail(int meta);
 };
 // @fnv 0x00accef0
-// src: GUESS 0x00accef0 (confidence: low)
-int FUN_00accef0_FB::UpdateState_00accef0(int meta)
+// src: GUESS 0x00accef0 (confidence: high)
+int FUN_00accef0_FB::basic_filebuf_pbackfail(int meta)
 {
     if (gptr() != 0 && eback() < gptr() &&
         (TrF::eq_int_type(TrF::eof(), meta) || TrF::eq_int_type(TrF::to_int_type(gptr()[-1]), meta)))
@@ -22514,7 +22514,7 @@ inline void Dead51()
 
 struct SbQ
 {
-    int UpdateState_00aca9f0();
+    int basic_streambuf_sgetc();
     int EvaluateValue_00ace7d0();
 };
 struct FUN_00acb720
@@ -22635,7 +22635,7 @@ bool IstrQ::ProcessEntries_00ace390(bool _Noskip)
             const CtypeQ& _Ctype_fac = Runtime_UpdateState_00ad38d0(IosBaseQ::CopyEntryAndIncrementCounter());
             try
             {
-                int _Meta = IosQ::rdbufA()->UpdateState_00aca9f0();
+                int _Meta = IosQ::rdbufA()->basic_streambuf_sgetc();
                 for (;; _Meta = IosQ::rdbufB()->EvaluateValue_00ace7d0())
                     if (EqInt(Eof(), _Meta))
                     {
@@ -23124,12 +23124,12 @@ template <class _Ty> class vectorS : public _Vector_valS<_Ty>
 class FUN_00acefd0_Vector : public vectorS<int>
 {
   public:
-    iterator UpdateState_00acefd0(const_iterator _First_arg, const_iterator _Last_arg);
+    iterator vector_erase(const_iterator _First_arg, const_iterator _Last_arg);
 };
 
 // @fnv 0x00acefd0
-// src: GUESS 0x00acefd0 (confidence: low)
-FUN_00acefd0_Vector::iterator FUN_00acefd0_Vector::UpdateState_00acefd0(const_iterator _First_arg, const_iterator _Last_arg)
+// src: GUESS 0x00acefd0 (confidence: high)
+FUN_00acefd0_Vector::iterator FUN_00acefd0_Vector::vector_erase(const_iterator _First_arg, const_iterator _Last_arg)
 {
     iterator _First = _Make_iter(_First_arg);
     iterator _Last = _Make_iter(_Last_arg);
@@ -24930,12 +24930,12 @@ struct GvStrPair
 using namespace erasead1;
 struct FUN_00ad1a90 : public GvVector<GvStrPair>
 {
-    GvIterator<GvStrPair> UpdateState_00ad1a90(GvConstIterator<GvStrPair> _First_arg,
+    GvIterator<GvStrPair> vector_erase(GvConstIterator<GvStrPair> _First_arg,
                                              GvConstIterator<GvStrPair> _Last_arg);
 };
 // @fnv 0x00ad1a90
-// src: GUESS 0x00ad1a90 (confidence: low)
-GvIterator<GvStrPair> FUN_00ad1a90::UpdateState_00ad1a90(GvConstIterator<GvStrPair> _First_arg,
+// src: GUESS 0x00ad1a90 (confidence: high)
+GvIterator<GvStrPair> FUN_00ad1a90::vector_erase(GvConstIterator<GvStrPair> _First_arg,
                                                        GvConstIterator<GvStrPair> _Last_arg)
 {
     GvIterator<GvStrPair> _First = _Make_iter(_First_arg);
@@ -25275,12 +25275,12 @@ struct FUN_00ad2640_class : _Vector_val<VecStr, allocator<VecStr> >
     VecStr* _Myfirst;
     VecStr* _Mylast;
     VecStr* _Myend;
-    void __thiscall _Destroy_range_Thunk(VecStr* _First, VecStr* _Last);
+    void __thiscall vector__Destroy(VecStr* _First, VecStr* _Last);
 };
 
 // @fnv 0x00ad2640
 // src: GUESS 0x00ad2640 (confidence: medium)
-void __thiscall FUN_00ad2640_class::_Destroy_range_Thunk(VecStr* _First, VecStr* _Last)
+void __thiscall FUN_00ad2640_class::vector__Destroy(VecStr* _First, VecStr* _Last)
 {
     _Destroy_range(_First, _Last, this->_Alval);
 }
@@ -27847,9 +27847,9 @@ inline void Dead51()
 }
 struct SbQ
 {
-    int UpdateState_00aca9f0();
+    int basic_streambuf_sgetc();
     int EvaluateValue_00ace7d0();
-    int ProcessAndReturnValue_00ace860();
+    int basic_streambuf_sbumpc();
 };
 struct IosBaseQ
 {
@@ -27981,7 +27981,7 @@ FUN_00ad5770_Q& Runtime_ProcessEntries_00ad5770(FUN_00ad5770_Q& _Istr, StrQ& _St
             _Str.EraseRange(0, (unsigned int)-1);
             const int _Metadelim = ToInt(_Delim);
             Dead6();
-            int _Meta = _Istr.rdbuf()->UpdateState_00aca9f0();
+            int _Meta = _Istr.rdbuf()->basic_streambuf_sgetc();
             Dead1();
             for (;; _Meta = _Istr.rdbuf()->EvaluateValue_00ace7d0())
                 if (EqInt(Eof(), _Meta))
@@ -27993,7 +27993,7 @@ FUN_00ad5770_Q& Runtime_ProcessEntries_00ad5770(FUN_00ad5770_Q& _Istr, StrQ& _St
                 {
                     _Changed = true;
                     Dead5();
-                    _Istr.rdbuf()->ProcessAndReturnValue_00ace860();
+                    _Istr.rdbuf()->basic_streambuf_sbumpc();
                     break;
                 }
                 else
@@ -32126,12 +32126,12 @@ struct TreeNode00acf0b0
 };
 
 // @fnv 0x00acf0b0
-// src: GUESS 0x00acf0b0 (confidence: low)
-void FUN_00acb1a0_cls::ProcessEntries_00acf0b0(void* p)
+// src: GUESS 0x00acf0b0 (confidence: medium)
+void _Tree::_Erase(void* p)
 {
     for (TreeNode00acf0b0* node = (TreeNode00acf0b0*)p; !node->m_45; p = node)
     {
-        ProcessEntries_00acf0b0(node->m_08);
+        _Erase(node->m_08);
         node = node->m_00;
         ((TreeNode00acf0b0*)p)->Destroy(0);
         FormHeapFreeAndLog_00401030(p);
@@ -33311,7 +33311,7 @@ struct Str43B0
 
     void fopen_0044a730(bool _Built, u32 _Newsize);
     Str43B0& AssignSubstring(Str43B0 const& _Right, u32 _Roff, u32 _Count);
-    int ProcessAndReturnValue_00ac6100(u32 a1, u32 a2, char* a3, u32 a4);
+    int basic_string__Copy_s(u32 a1, u32 a2, char* a3, u32 a4);
 
     Str43B0()
     {
@@ -33347,7 +33347,7 @@ struct Str43B0
     }
     int compare(char* p)
     {
-        return ProcessAndReturnValue_00ac6100(0, m_Mysize, p, length(p));
+        return basic_string__Copy_s(0, m_Mysize, p, length(p));
     }
 
     char& operator[](u32 _Off)
@@ -38279,7 +38279,7 @@ struct FUN_00ad3450_node
     signed char m_45;
 };
 
-class FUN_00ad3450_cls
+class _Tree_const_iterator
 {
   public:
     FUN_00ad3450_node* m_00;
@@ -38293,7 +38293,7 @@ class FUN_00ad3450_cls
 
 // @fnv 0x00ad3450
 // src: GUESS 0x00ad3450 (confidence: low)
-void FUN_00ad3450_cls::ProcessEntries_00ad3450()
+void _Tree_const_iterator::ProcessEntries_00ad3450()
 {
     {
         if (!this->has())
@@ -38559,8 +38559,8 @@ struct FileGuard
 }  // namespace ac3_signature
 
 // @fnv 0x00ac3fe0
-// src: GUESS 0x00ac3fe0 (confidence: low)
-bool FutBinaryFileC::ProcessAndReturnValue_00ac3fe0(const ::BxString& path)
+// src: COMMUNITY 0x00ac3fe0
+bool FutBinaryFileC::isCorrectFileId(const ::BxString& path)
 {
     using ac3_signature::FileGuard;
     using ac3_signature::futSetLastError;
@@ -39647,8 +39647,8 @@ struct EraseIteratorView
 };
 struct EraseVectorView : vecacd::VcVector
 {
-// src: GUESS 0x00ad2640 (confidence: medium)
-    inline void _Destroy_range_Thunk(EraseInner* from, EraseInner* to)
+// src: GUESS 0x00ad2640 (confidence: high)
+    inline void vector__Destroy(EraseInner* from, EraseInner* to)
     {
         _Destroy_rangeS<EraseAlloc<EraseInner> >(from, to, (EraseAlloc<EraseInner>&)_Alval);
     }
@@ -39664,7 +39664,7 @@ vecacd::VcIterator EraseVectorView::UpdateState_00ad0110(vecacd::VcConstIterator
     if (((EraseIteratorView*)&a)->ProcessAndReturnValue_00ac0460(*(EraseIteratorView*)&b))
     {
         pos = vecacd::Object_ProcessAndReturnValue_00ad5180(b._Myptr, _Mylast, a._Myptr);
-        _Destroy_range_Thunk((EraseInner*)pos, (EraseInner*)_Mylast);
+        vector__Destroy((EraseInner*)pos, (EraseInner*)_Mylast);
         _Mylast = pos;
     }
     return a;
@@ -40768,12 +40768,12 @@ struct GvBinaryFile
     virtual void v00();
     void FutBinaryFileC_close();
     bool FutBinaryFileC_readHeader(char* data, unsigned int count, bool exact);
-    bool ProcessAndReturnValue_00ac4b00(const BxString& path);
+    bool FutBinaryFileC_openForUpdate(const BxString& path);
 };
 
 // @fnv 0x00ac4b00
-// src: GUESS 0x00ac4b00 (confidence: low)
-bool GvBinaryFile::ProcessAndReturnValue_00ac4b00(const BxString& path)
+// src: COMMUNITY 0x00ac4b00
+bool GvBinaryFile::FutBinaryFileC_openForUpdate(const BxString& path)
 {
     FutBinaryFileC_close();
     pFile = fopen(path.c_str(), "r+b");
@@ -40875,7 +40875,7 @@ struct S5540_String : S5540_StringVal
         }
         return *this;
     }
-    int ProcessAndReturnValue_00ac6100(unsigned int off, unsigned int n0, const char* ptr, unsigned int count) const;
+    int basic_string__Copy_s(unsigned int off, unsigned int n0, const char* ptr, unsigned int count) const;
     S5540_String(const S5540_String& right) : S5540_StringVal(right._Alval)
     {
         fopen_0044a730(false, 0);
@@ -40915,7 +40915,7 @@ struct S5540_String : S5540_StringVal
     }
     int compare(const char* ptr) const
     {
-        return ProcessAndReturnValue_00ac6100(0, _Mysize, ptr, length(ptr));
+        return basic_string__Copy_s(0, _Mysize, ptr, length(ptr));
     }
     char& operator[](unsigned int off)
     {
@@ -41173,7 +41173,7 @@ bool S5540_Stream::BSFaceGenBinaryFile_openForRead(S5540_String name, bool flag)
     if (m_20 != &vec[0])
     {
         futSetLastError(2, name);
-        ((FUN_00ac5c00_cls*)this)->ClearHolders();
+        ((BSFaceGenBinaryFile*)this)->ClearHolders();
         return false;
     }
     if (flags[5] > '0')
@@ -41181,7 +41181,7 @@ bool S5540_Stream::BSFaceGenBinaryFile_openForRead(S5540_String name, bool flag)
         if (m_20[5] != flags[5])
         {
             futSetLastError(4, name);
-            ((FUN_00ac5c00_cls*)this)->ClearHolders();
+            ((BSFaceGenBinaryFile*)this)->ClearHolders();
             return false;
         }
     }
@@ -41249,8 +41249,8 @@ struct ByteVectorVal : FUN_00ad33c0
     {
         throw LengthException(vector_length_message);
     }
-// src: GUESS 0x00ac03a0 (confidence: low)
-    bool ProcessAndReturnValue_00ac03a0(unsigned int count)
+// src: GUESS 0x00ac03a0 (confidence: high)
+    bool vector__Buy(unsigned int count)
     {
         first = 0, last = 0, end = 0;
         if (count == 0)
@@ -41309,7 +41309,7 @@ inline ByteIterator::ByteIterator(unsigned char* p, const AuxContainer* c)
 // @fnv 0x00ac5f00
 FUN_00ac5f00::FUN_00ac5f00(const FUN_00ac5f00& right) : ByteVectorVal(right.allocator)
 {
-    if (ProcessAndReturnValue_00ac03a0(right.size()))
+    if (vector__Buy(right.size()))
     {
         try
         {
@@ -45697,8 +45697,8 @@ class StringVectorStorage : public rstd::_Container_base_aux_alloc_real<rstd::al
     {
         throw rstd::length_error("vector<T> too long");
     }
-// src: GUESS 0x00aced20 (confidence: low)
-    bool ProcessAndReturnValue_00aced20(size_type count)
+// src: GUESS 0x00aced20 (confidence: medium)
+    bool vector__Buy(size_type count)
     {
         first = 0, last = 0, limit = 0;
         if (count == 0)
@@ -45745,7 +45745,7 @@ class FUN_00ad3150 : public StringVectorStorage
 // @fnv 0x00ad3150
 FUN_00ad3150::FUN_00ad3150(const FUN_00ad3150& source) : StringVectorStorage(source._Alval)
 {
-    if (ProcessAndReturnValue_00aced20(source.size()))
+    if (vector__Buy(source.size()))
     {
         try
         {
@@ -45933,15 +45933,16 @@ class FileBuffer : public FUN_00ad0630
     }
 };
 }
-class FUN_00acdc90 : public output_file::Output
+class basic_ofstream : public output_file::Output
 {
   public:
     output_file::FileBuffer fileBuffer;
-    FUN_00acdc90(const char* name, int mode, int protection);
-    virtual ~FUN_00acdc90();
+    basic_ofstream(const char* name, int mode, int protection);
+    virtual ~basic_ofstream();
 };
 // @fnv 0x00acdc90
-FUN_00acdc90::FUN_00acdc90(const char* name, int mode, int protection) : output_file::Output(&fileBuffer)
+// src: GUESS 0x00acdc90 (confidence: high)
+basic_ofstream::basic_ofstream(const char* name, int mode, int protection) : output_file::Output(&fileBuffer)
 {
     if (fileBuffer.UpdateState_00acfab0(name, mode | 2, protection) == 0)
         output_file::Ios::setstate(2);

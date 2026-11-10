@@ -5,14 +5,14 @@
 void __fastcall Object_ForwardCall_0059cee0(void*);
 void __cdecl Deallocate(void*);
 
-struct FUN_0062a2f0
+struct SpecificItemCollector
 {
     void* DeleteThis(unsigned int flags);
 };
 
 // Calls FUN_0059cee0 on this, frees this via Deallocate when flags has bit 1 set, and returns this.
 // @fnv 0x0062a2f0
-void* FUN_0062a2f0::DeleteThis(unsigned int flags)
+void* SpecificItemCollector::DeleteThis(unsigned int flags)
 {
     Object_ForwardCall_0059cee0(this);
     if (flags & 1)

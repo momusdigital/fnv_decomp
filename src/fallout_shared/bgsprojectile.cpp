@@ -50,7 +50,7 @@ public:
     void CopyFromProjectile(TESForm* copy);
     bool IsNotEqual(TESForm* compare);
     virtual void QueueResourceLoad(IO_TASK_PRIORITY a, QueuedFile* b);
-    int GetProjectileCloneCount(TESObjectWEAP* sourceWeapon);
+    int BGSProjectile_GetPreCloneCount(TESObjectWEAP* sourceWeapon);
     int GetKind();
     int GetKindCode();
     S_004fdfb0_Obj* GetPreloadObject();
@@ -325,7 +325,8 @@ void* BGSProjectileMethods::DestroyIfFlagged(unsigned int flags)
 
 int __cdecl MinInt(int, int);
 // @fnv 0x004fe080
-int BGSProjectileMethods::GetProjectileCloneCount(TESObjectWEAP* apSourceWeapon)
+// src: COMMUNITY 0x004fe080
+int BGSProjectileMethods::BGSProjectile_GetPreCloneCount(TESObjectWEAP* apSourceWeapon)
 {
     int icloneCount = 5;
     if (GetKind() == 0x40000 ||
@@ -337,7 +338,7 @@ int BGSProjectileMethods::GetProjectileCloneCount(TESObjectWEAP* apSourceWeapon)
     else if (apSourceWeapon)
     {
         int iprojectiles = (int)((TESCreature*)apSourceWeapon)->TESObjectWEAP_GetShotsPerSecond() *
-                           apSourceWeapon->GetDamageForActor(false, false, 0);
+                           apSourceWeapon->GetNumProjectiles(false, false, 0);
         int iprojectilesPerSecond7 = iprojectiles * 3;
         if (GetKind() != 0x20000)
             iprojectilesPerSecond7 =
@@ -356,13 +357,13 @@ template <int N> struct EndianSizeTag
 
 void BSEndian(unsigned char*, EndianSizeTag<0>);
 
-struct FUN_004fccf0_shell
+struct BGSProjectileData
 {
     void SwapEndianFields();
 };
 
 // @fnv 0x004fccf0
-void FUN_004fccf0_shell::SwapEndianFields()
+void BGSProjectileData::SwapEndianFields()
 {
     BSEndian(reinterpret_cast<unsigned char*>(this), EndianSizeTag<0>());
     BSEndian(reinterpret_cast<unsigned char*>(this) + 4, EndianSizeTag<0>());
@@ -734,7 +735,7 @@ int TESObjectWEAP::GetClipRounds(bool abAddExtra)
 {
     if (abAddExtra)
     {
-        return (unsigned char)GetModdedWeaponValue(static_cast<WEAPON_MOD_EFFECT>(2), 0) +
+        return (unsigned char)GetModEffectValue(static_cast<WEAPON_MOD_EFFECT>(2), 0) +
                BGSClipRoundsForm::GetClipRounds();
     }
     else
@@ -775,7 +776,7 @@ void WriteValue(unsigned int, int);
 // @fnv 0x004fda00
 void BGSProjectileMethods::WriteProjectileSave()
 {
-    BeginFormRecord();
+    TESForm_StartForm();
     TESFullName::Save_00487010();
     TESModel::WriteToBuffer(0x4c444f4d, 0x54444f4d);
     BGSDestructibleObjectForm::Save();
@@ -814,5 +815,5 @@ void BGSProjectileMethods::WriteProjectileSave()
         m_kProjectileModel.WriteToBuffer(0x314d414e, 0x324d414e);
     }
     WriteValue(0x4d414e56, m_eSoundLevel);
-    FinishFormRecord();
+    TESForm_CloseForm();
 }

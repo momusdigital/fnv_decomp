@@ -32,19 +32,19 @@
 // All object layout comes from TESFaction.
 struct FactionAccess : TESFaction
 {
-    int GetReaction(TESFaction* faction);
+    int TESFaction_GetFactionReaction(TESFaction* faction);
     int AddRank();
     void* DestroyAndFree(unsigned int flags);
     unsigned short GetFactionSaveSize(unsigned int flags);
     void SaveLegacyGame(unsigned int flags);
     void LoadLegacyGame(unsigned int flags, unsigned int currentFlags);
-    void SetFactionFlag(int flag, bool value);
-    void SetReaction(TESForm* form, int value);
-    void ModifyReaction(int form, int value);
-    void ResolveReactions(unsigned int flags, unsigned int currentFlags);
+    void TESFaction_SetFlag(int flag, bool value);
+    void TESFaction_SetFactionReaction(TESForm* form, int value);
+    void TESFaction_ModFactionReaction(int form, int value);
+    void TESFaction_InitLoadGameTES(unsigned int flags, unsigned int currentFlags);
     void ModifyReputation(int count, bool modifyReputation);
-    void CopyFaction(TESForm* form);
-    void SaveFactionGame(BGSSaveFormBuffer* buffer);
+    void TESFaction_CopyFrom(TESForm* form);
+    void TESFaction_AppendSaveLoadFormBuffer(BGSSaveFormBuffer* buffer);
 };
 
 extern "C" void* __cdecl memset(void*, int, unsigned int);
@@ -138,20 +138,22 @@ struct TT005fc900
     virtual ~TT005fc900();
     char p[0xc];
 };
-struct FUN_005fc900 : public SB005fc900
+struct RANK_DATA : public SB005fc900
 {
     SB005fc900 s;
     TT005fc900 t;
-    ~FUN_005fc900();
+    ~RANK_DATA();
 };
-// Destructor for FUN_005fc900 that destroys its embedded SB005fc900 and TT005fc900 members.
+// Destructor for RANK_DATA that destroys its embedded SB005fc900 and TT005fc900 members.
 // @fnv 0x005fc900
-FUN_005fc900::~FUN_005fc900()
+// src: COMMUNITY 0x005fc900
+RANK_DATA::~RANK_DATA()
 {}
 
 
 // @fnv 0x005fd3b0
-int FactionAccess::GetReaction(TESFaction* pFaction)
+// src: COMMUNITY 0x005fd3b0
+int FactionAccess::TESFaction_GetFactionReaction(TESFaction* pFaction)
 {
     return TESReactionForm::GetReactionValue(pFaction);
 }
@@ -257,7 +259,7 @@ unsigned int FUN_005ff520_shell::TESIdleForm_GetIndexForChild(unsigned int apFor
     if (*reinterpret_cast<NiFormArray**>(reinterpret_cast<char*>(this) + 0x40))
     {
         index = (*reinterpret_cast<NiFormArray**>(reinterpret_cast<char*>(this) + 0x40))
-                    ->GetIndexOfForm(reinterpret_cast<TESForm*>(apForm));
+                    ->GetIndexForForm(reinterpret_cast<TESForm*>(apForm));
     }
     return index;
 }
@@ -316,14 +318,16 @@ void FactionAccess::LoadLegacyGame(unsigned int aiFlags, unsigned int aiCurrentF
 
 // Sets or clears the given bit in m_flags based on value, then calls v18(2).
 // @fnv 0x005fc970
-void FactionAccess::SetFactionFlag(int flag, bool value)
+// src: COMMUNITY 0x005fc970
+void FactionAccess::TESFaction_SetFlag(int flag, bool value)
 {
     value ? data.iFlags |= flag : data.iFlags &= ~flag;
     MarkAsModified(2);
 }
 
 // @fnv 0x005fd3d0
-void FactionAccess::SetReaction(struct TESForm* form, int v)
+// src: COMMUNITY 0x005fd3d0
+void FactionAccess::TESFaction_SetFactionReaction(struct TESForm* form, int v)
 {
     TESReactionForm::SetReactionValue(form, v);
     MarkAsModified(4);
@@ -331,7 +335,8 @@ void FactionAccess::SetReaction(struct TESForm* form, int v)
 
 // Calls the helper's FUN_0048c0b0 with a and b, then invokes virtual v18 with 4.
 // @fnv 0x005fd400
-void FactionAccess::ModifyReaction(int aiArg1, int aiArg2)
+// src: COMMUNITY 0x005fd400
+void FactionAccess::TESFaction_ModFactionReaction(int aiArg1, int aiArg2)
 {
     TESReactionForm::ModReaction(reinterpret_cast<TESForm*>(aiArg1), aiArg2);
     MarkAsModified(4);
@@ -342,7 +347,8 @@ struct ReactionResolver
     void ResolveGroupReactionForms(unsigned int, unsigned int);
 };
 // @fnv 0x005fd660
-void FactionAccess::ResolveReactions(unsigned int auiArg1, unsigned int auiArg2)
+// src: EXE 0x005fd660
+void FactionAccess::TESFaction_InitLoadGameTES(unsigned int auiArg1, unsigned int auiArg2)
 {
     reinterpret_cast<SkyObject*>(this)->Update(auiArg1, auiArg2);
     ((ReactionResolver*)((char*)this + 0x24))->ResolveGroupReactionForms(auiArg1, auiArg2);
@@ -371,7 +377,8 @@ struct Flt
 
 // Copies faction data from apCopy: base copy, rotation, noon sound, then deep-copies each rank entry into this faction's rank list.
 // @fnv 0x005fd210
-void FactionAccess::CopyFaction(TESForm* apCopy)
+// src: EXE 0x005fd210
+void FactionAccess::TESFaction_CopyFrom(TESForm* apCopy)
 {
     BSSimpleList<FactionRankPresentation*>* pDestRankList;
     {
@@ -403,7 +410,8 @@ void FactionAccess::CopyFaction(TESForm* apCopy)
 }
 
 // @fnv 0x005fd690
-void FactionAccess::SaveFactionGame(BGSSaveFormBuffer* buffer)
+// src: EXE 0x005fd690
+void FactionAccess::TESFaction_AppendSaveLoadFormBuffer(BGSSaveFormBuffer* buffer)
 {
     ((BGSSaveFormBuffer*)this)->SaveIfChanged(buffer);
     ((BGSSaveFormBuffer*)((char*)this + 0x24))->FUN_0048c9d0(buffer);
@@ -440,7 +448,8 @@ struct Reaction_5fd850
 };
 // Iterates all factions and their reactions; for friend/ally reactions not reciprocated, warns and forces the other faction to be a friend.
 // @fnv 0x005fd850
-void ValidateFactionReactions()
+// src: COMMUNITY 0x005fd850
+void TESFaction_CheckFactionReactions()
 {
     BSSimpleList<TESFaction*>* pIter = (BSSimpleList<TESFaction*>*)TESDataHandler_GetFactions((int)g_dataHandler);
     while (pIter)

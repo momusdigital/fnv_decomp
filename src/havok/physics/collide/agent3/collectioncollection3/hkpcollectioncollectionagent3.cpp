@@ -56,7 +56,7 @@ void __cdecl Object__hkAgent1nMachine_WarpTime_Thunk_00d34d80(void* apUnused, vo
     _hkAgent1nMachine_WarpTime(b, afValue1, afValue2, e);
 }
 
-struct FUN_00cf5830_cls {
+struct hkpListShape {
     int unk00;
     int unk04;
     int unk08;
@@ -70,7 +70,7 @@ struct FUN_00cf5830_cls {
 
 // @fnv 0x00cf5830
 // src: HAVOK_LIB 0x00cf5830
-int FUN_00cf5830_cls::hkpListShape_getNumChildShapes() {
+int hkpListShape::hkpListShape_getNumChildShapes() {
     return m_0c - m_16;
 }
 

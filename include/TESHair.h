@@ -16,7 +16,7 @@ public:
     // TESForm vtable slot 8 (vftable 0x1049b9c slot 8 = 0x5fdcb0)
     bool LoadForm(TESFile* file);
     bool IsValidForNPC(TESNPC* npc);
-    bool IsHairValidForNPC(TESNPC* npc);
+    bool TESHair_CanBeHairForNPC(TESNPC* npc);
     void ResetFormData();
     bool TESHair_GetPlayable();
     bool TESHair_CanBeMale();

@@ -328,16 +328,16 @@ struct FUN_00e0ac80_Alloc
 
 BSAudio* __cdecl hkMemoryRouter_getInstance(void);
 
-struct FUN_00e0ac80_class
+struct hkpMoppDefaultSplitter
 {
     int unk00;
     unsigned short m_04;
 
-    FUN_00e0ac80_class* __thiscall Construct(int flags);
+    hkpMoppDefaultSplitter* __thiscall Construct(int flags);
 };
 
 // @fnv 0x00e0ac80
-FUN_00e0ac80_class* FUN_00e0ac80_class::Construct(int flags)
+hkpMoppDefaultSplitter* hkpMoppDefaultSplitter::Construct(int flags)
 {
     reinterpret_cast<FUN_00e09bd0_Obj*>(this)->Hkpmoppdefaultsplitter_UpdateState_00e09bd0();
 
@@ -883,13 +883,13 @@ SplitNode* SplitBuilder::hkpMoppDefaultSplitter_split(SplitNode* parent, SplitLi
     return node;
 }
 
-void* __cdecl AllocateWithHeader(void* pvAllocator, int iNumBytes);
+void* __cdecl hkMemoryRouter_easyAlloc(void* pvAllocator, int iNumBytes);
 void __cdecl hkMemoryRouter_easyFree(void* pvAllocator, void* pvMem);
 
 template <typename T> inline T* hkAllocateStackE0A5(int n)
 {
     void* pvAllocator = (void*)hkMemoryRouter_getInstance()->pListener;
-    return (T*)AllocateWithHeader(pvAllocator, n * sizeof(T));
+    return (T*)hkMemoryRouter_easyAlloc(pvAllocator, n * sizeof(T));
 }
 
 template <typename T> inline void hkDeallocateStackE0A5(T* p)

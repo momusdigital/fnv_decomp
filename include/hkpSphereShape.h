@@ -19,7 +19,7 @@ public:
     virtual void GetFirstVertex(hkVector4& kVec) const;
     virtual void GetSupportVertex(const hkVector4& kDirection, Vector4WithInt24W& kSupportingVertexOut) const;
     virtual void GetVerticesFromIds(const hkpVertexId* pIds, int iNumIds, Vector4WithInt24W* pVertices) const;
-    virtual int WeldContactPoint(hkpVertexId* pFeaturePoints, hkUint8& kNumFeaturePoints,
+    virtual int hkpTriangleShape_weldContactPointImpl(hkpVertexId* pFeaturePoints, hkUint8& kNumFeaturePoints,
                                  hkVector4& kContactPointWs, const hkTransform* pThisObjTransform,
                                  const hkpConvexShape* pCollidingShape, const hkTransform* pCollidingTransform,
                                  hkVector4& kSeparatingNormalInOut) const;

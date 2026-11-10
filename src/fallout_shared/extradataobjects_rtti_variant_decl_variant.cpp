@@ -77,7 +77,7 @@ struct ReflectReference554
     TESObjectREFR* m_pWorldReferenceInfo;
     unsigned int flags;
 };
-void ResolveFormID(unsigned int*, TESFile*);
+void TESForm_AddCompileIndex(unsigned int*, TESFile*);
 TESForm* TESForm_GetFormByNumericID(unsigned int);
 void Warning_005b5e40(const char*, ...);
 void __cdecl operator delete(void*);
@@ -97,7 +97,7 @@ void ReflectReferences554::ExtraReflectorRefs_InitItem(TESForm* form)
         bool removed = false;
         ReflectReference554* item3 = position->GetItem();
         unsigned int formID5 = reinterpret_cast<unsigned int>(item3->m_pWorldReferenceInfo);
-        ResolveFormID(&formID5, form->FUN_00484e60(-1));
+        TESForm_AddCompileIndex(&formID5, form->FUN_00484e60(-1));
         TESObjectREFR* reference_2 = dynamic_cast<TESObjectREFR*>(TESForm_GetFormByNumericID(formID5));
         if (!reference_2 || !reference_2->TESObjectREFR_GetRefPersists_005653d0())
         {

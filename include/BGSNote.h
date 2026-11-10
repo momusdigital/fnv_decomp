@@ -46,13 +46,13 @@ public:
     void* Release(unsigned int flags);
     void ClearNoteData();
     void SaveNote();
-    void SetNoteTexture(TESTexture* texture);
+    void SetNoteImage(TESTexture* texture);
     void SetNoteText(TESDescription* text);
     BSSimpleList<TESQuest*>* GetOwnerQuests();
 
-    void ChangeNoteType(NOTE_TYPE type);
+    void SetNoteType(NOTE_TYPE type);
     bool Load(TESFile* file);
-    TESTexture* GetNoteTexture();
+    TESTexture* GetNoteImage();
     TESSound* GetNoteSound();
     void SetNoteSound(TESSound* sound);
     TESTopic* GetNoteTopic();
@@ -61,7 +61,7 @@ public:
     void SetNoteSpeaker(TESActorBase* speaker);
     void ResetFormData();
     int GetNoteType();
-    TESDescription* GetNoteDescription();
+    TESDescription* GetNoteText();
     bool GetUnk7d();
-    void SetSoundNotePlayed(bool played);
+    void SetHasBeenRead(bool played);
 };

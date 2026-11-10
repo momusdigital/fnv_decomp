@@ -115,7 +115,7 @@ struct FUN_004523c0_shell : public BGSSaveLoadGame
 {
     bool TESObjectCELL_GetAttaching();
 };
-int __fastcall GetByteAtOffset38(void*);
+int __fastcall TESObjectCELL_GetState(void*);
 struct FUN_00452420_shell
 {
     unsigned int pad0;   // +0x00
@@ -233,7 +233,7 @@ struct ModelLoader
     void QueueTESModel(TESModel*, int, QueuedFile*, TESObjectREFR*);
     void QueueModelWithOptions(TESModel*, int, QueuedFile*, TESObjectREFR*, bool, bool);
     void QueueModelList(void*, FileEntryListCollection*, int, QueuedFile*, char*);
-    void QueueFileList(void*, int, QueuedFile*, char*);
+    void QueueKFList(void*, int, QueuedFile*, char*);
     void QueueReplacementKFList(void*, Animation*, int, QueuedFile*, char*);
     void QueueHead(TESNPC*, void*, int, QueuedFile*);
     void QueueBipedAnimation(BipedAnim*, void*, int, QueuedFile*, int);
@@ -287,7 +287,7 @@ struct ModelLoader
     unsigned int GetBackgroundCloningCount();
     unsigned int GetQueuedReferenceCount();
     unsigned int GetQueuedHelmetCount();
-    bool AddModel(char*, Model*);
+    bool Animation_AddAnimation(char*, Model*);
     bool AddKF(char*, KFModel*);
     NiNode* LoadFile(char*, int, bool, bool, bool, bool);
     KFModel* LoadKF(char*);
@@ -305,7 +305,7 @@ struct ModelLoader
     void SetLoadingEnabled(bool);
     void ReleaseFile(char*);
     void ReleaseKFFile(char*);
-    void UpdateReferenceNode(TESObjectREFR*, NiNode*);
+    void LoadAddonNodes(TESObjectREFR*, NiNode*);
     void UpdateModelNode(NiNode*);
     bool QHasDelayedFree();
     static int GetArchiveTypeIndexForIOFileIndex(int);
@@ -529,7 +529,7 @@ inline void* const& NextHolder(HolderNode*& pos)
     return element;
 }
 
-struct FUN_00b631d0_cls
+struct BSShaderAccumulator
 {
     int unk00;
     int unk04;
@@ -612,7 +612,7 @@ struct FUN_00b631d0_cls
 
 // @fnv 0x00b631d0
 // src: XBOX_PDB 0x00b631d0
-void FUN_00b631d0_cls::BSShaderAccumulator_ClearAllQueries()
+void BSShaderAccumulator::BSShaderAccumulator_ClearAllQueries()
 {
     unsigned int state;
     int i = 0;

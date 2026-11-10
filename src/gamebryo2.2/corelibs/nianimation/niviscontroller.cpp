@@ -234,7 +234,8 @@ inline void SetVisAppCulled(NiAVObject* target, bool appCulled)
 }
 
 // @fnv 0x00a44e10
-void __fastcall UpdateVisController(NiVisController* controller, void*, NiUpdateData& kUpdateData)
+// src: EXE 0x00a44e10
+void __fastcall NiVisController_Update(NiVisController* controller, void*, NiUpdateData& kUpdateData)
 {
     if (GetVisManagerControlled(controller))
     {

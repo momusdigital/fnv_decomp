@@ -322,7 +322,7 @@ public:
     void SetCurrentVersion(unsigned char);
     void SetDeferInitForms(bool);
     void SetFadingInFromSaveGame(bool);
-    void SetFormFlags(TESForm*, unsigned int);
+    void ForceChange(TESForm*, unsigned int);
     bool SetFormLoaded(TESForm*);
     void SetInitObject(bool);
     void SetIniting(bool);

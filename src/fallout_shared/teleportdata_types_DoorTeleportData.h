@@ -16,7 +16,7 @@ class TeleportableReference
     unsigned char layoutPadding1D[3];
     TESForm* GetTeleportDestinationForm(void);
     TESWorldSpace* GetTeleportWorldspace(void);
-    void SetLinkedDoorReference(TESObjectREFR* reference, bool set);
+    void DoorTeleportData_SetConnectedCellsPublic(TESObjectREFR* reference, bool set);
     DoorCell* DoorTeleportData_GetTeleportCell(void);
     bool InitItem(TESForm* form);
     void Load(TESFile* file);

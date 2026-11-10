@@ -215,7 +215,8 @@ extern "C" void __cdecl Deallocate(void*);
 
 // Frees the pointer stored at this+0x190+idx*4 and sets that slot to null.
 // @fnv 0x00981340
-void __fastcall FreeCombatStateSlot(CombatState* state, ControllerStackArg<int> index)
+// src: COMMUNITY 0x00981340
+void __fastcall CombatState_ClearCombatItem(CombatState* state, ControllerStackArg<int> index)
 {
     void* p = *(void**)((char*)state + index.value * 4 + 0x190);
     Deallocate(p);
@@ -277,7 +278,8 @@ void __cdecl Deallocate(void*);
 
 // Calls FUN_0097e3e0, then deallocates this if bit 0 of flags is set, and returns this.
 // @fnv 0x0097e460
-void* CombatPlanner::FUN_0097e460(unsigned int flags)
+// src: EXE 0x0097e460
+void* CombatPlanner::ScalarDeletingDestructor(unsigned int flags)
 {
     this->CombatPlanner::~CombatPlanner();
     if (flags & 1)
@@ -296,7 +298,8 @@ void CombatController::ResetEmbeddedWeaponSwitchTimer(void* apArg, bool b)
 }
 
 // @fnv 0x0097fb60
-unsigned int __fastcall GetControllerIdle(CombatController* controller)
+// src: COMMUNITY 0x0097fb60
+unsigned int __fastcall CombatState_GetSecondaryCoverLocation(CombatController* controller)
 {
     return reinterpret_cast<unsigned int>(controller->unkE8.value);
 }
@@ -509,7 +512,7 @@ int InventoryChanges::GetObjectCount(int apObject)
     if (icount < 0)
         icount *= -1;
     InventoryStackRecord* pchange =
-        GetOrCreateInventoryEntry(reinterpret_cast<TESBoundObject*>(apObject), true, 0);
+        GetObjectInList(reinterpret_cast<TESBoundObject*>(apObject), true, 0);
     if (pchange)
     {
         if (icount == 0 && !reinterpret_cast<BSSimpleListRef*>(pchange)->GetItem())
@@ -999,7 +1002,8 @@ struct Owner
 
 // Constructs a CombatPlanner, obtains an Owner via FUN_00994bd0(this, 1), then deletes it.
 // @fnv 0x0097fb80
-void __fastcall PlanControllerActions(CombatController* controller)
+// src: COMMUNITY 0x0097fb80
+void __fastcall CombatController_DebugCombatPlan(CombatController* controller)
 {
     CombatPlanner planner;
     Owner* ptr = (Owner*)planner.CreatePlan_0(controller, 1);
@@ -1011,7 +1015,7 @@ namespace fnv_0097feb0 {
 class Animation;
 struct FUN_00497280_shell
 {
-    unsigned int GetFieldAt124();
+    unsigned int Animation_GetAnimSequenceMap();
 };
 
 // @fnv 0x0097feb0
@@ -1023,7 +1027,7 @@ float CombatController_GetPowerAttackHitTime(Actor* apActor, ANIM_GROUP_ENUM aeP
     {
         Animation* panim = reinterpret_cast<Animation*>(apActor->GetAnimData());
         AnimSequenceBase* panimSeq;
-        if (((NiTPointerMap<unsigned short, AnimSequenceBase*>*)((FUN_00497280_shell*)panim)->GetFieldAt124())
+        if (((NiTPointerMap<unsigned short, AnimSequenceBase*>*)((FUN_00497280_shell*)panim)->Animation_GetAnimSequenceMap())
                 ->GetAt(eanimGroup, panimSeq))
         {
             TESAnimGroup* panimGroup = panimSeq->GetSequenceAtIndex(-1)->GetAnimGroup();
@@ -1191,7 +1195,7 @@ struct FUN_0067a700_shell
 
 struct FUN_0067a720_shell
 {
-    void SetFlag4000000(bool);
+    void TESPackage_SetContinueDuringCombat(bool);
 };
 
 struct FUN_00898200_Owner
@@ -1272,7 +1276,7 @@ void CombatController::FinishedPackageTask()
         else
         {
             ((FUN_00898200_Owner*)this)->SetFlag2000000(false);
-            ((FUN_0067a720_shell*)this)->SetFlag4000000(false);
+            ((FUN_0067a720_shell*)this)->TESPackage_SetContinueDuringCombat(false);
         }
     }
 }
@@ -1645,7 +1649,8 @@ CombatProcedure* __cdecl CreateCombatProcedure(int);
 
 // Reads a procedure type byte from the load buffer; if not 0xFF, looks up the procedure, assigns it, and calls its virtual load methods.
 // @fnv 0x009823c0
-void __fastcall LoadControllerProcedure(CombatController* controller, ControllerStackArg<CombatProcedure**> arpProcedure, ControllerStackArg<BGSLoadFormBuffer*> apLoadGameBuffer)
+// src: COMMUNITY 0x009823c0
+void __fastcall CombatController_LoadProcedure(CombatController* controller, ControllerStackArg<CombatProcedure**> arpProcedure, ControllerStackArg<BGSLoadFormBuffer*> apLoadGameBuffer)
 {
     char cprocedureType;
     cprocedureType = 0xff;
@@ -2807,7 +2812,7 @@ extern "C" void CombatStateTargetChanged();
 struct Registry80830
 {
     void RemoveValueFromGroup(void*, int);
-    void AddAttackerToTarget(void*, int);
+    void CombatTargetMap_AddTargetAttacker(void*, int);
 };
 struct World80830
 {
@@ -2853,7 +2858,7 @@ void CombatController::SetTarget_00980830(void* target)
     if ((*reinterpret_cast<void**>(&pTarget)))
     {
         reinterpret_cast<Related80830*>(m_pCombatData)->CombatGroup_IncrementAttackerCount((*reinterpret_cast<void**>(&pTarget)));
-        ((World80830*)BGSSaveLoadGlobalDataWorldspacePtr)->FUN_00441110()->AddAttackerToTarget((*reinterpret_cast<void**>(&pTarget)), reinterpret_cast<int>(GetFieldBC()));
+        ((World80830*)BGSSaveLoadGlobalDataWorldspacePtr)->FUN_00441110()->CombatTargetMap_AddTargetAttacker((*reinterpret_cast<void**>(&pTarget)), reinterpret_cast<int>(GetFieldBC()));
     }
     if (!byteF8)
     {
@@ -3170,7 +3175,7 @@ void CombatController::LoadGame_00981d00(BGSLoadFormBuffer* buffer)
     reinterpret_cast<CombatStateLoadFn>(CombatStateLoadFromStream)(m_pModifier, buffer);
     reinterpret_cast<ControllerLoadProcedureFn>(ControllerLoadProcedure)(this, &m_pkCurrentProcedure, buffer);
     reinterpret_cast<ControllerLoadProcedureFn>(ControllerLoadProcedure)(this, &m_pkQueuedProcedure, buffer);
-    unsigned int count4 = buffer->ReadElementCount();
+    unsigned int count4 = buffer->LoadVariableSizedValue();
     (*reinterpret_cast<fnv_00981d00::ProcArrayStand*>(&unk8C)).FUN_006f2290(count4, true);
     for (unsigned int i3 = 0; i3 < count4; i3++)
     {

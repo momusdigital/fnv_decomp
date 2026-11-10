@@ -475,18 +475,18 @@ FUN_00a2ceb0_cls& FUN_00a2ceb0_cls::Clear() {
 extern unsigned char DAT_01096968;
 typedef int (__stdcall *FnInterlockedDecrement)(void*);
 extern FnInterlockedDecrement DAT_00fdf1c4;
-struct FUN_00a31260_StandIn {
+struct ControlledBlock {
     void* p0;
     void* p1;
     void* p2;
     unsigned char b3;
     unsigned char b4;
-    void ReleaseReferencedObjectsAndResetFlags();
+    void ClearValues();
 };
 // Releases p0 and p1 via an interlocked decrement and virtual destructor when the count reaches zero, then clears p2 and sets b3/b4.
 // @fnv 0x00a31260
 // src: GUESS 0x00a31260 (confidence: medium)
-void FUN_00a31260_StandIn::ReleaseReferencedObjectsAndResetFlags()
+void ControlledBlock::ClearValues()
 {
     FnInterlockedDecrement pfnDecrement = DAT_00fdf1c4;
     void* obj;
@@ -690,13 +690,13 @@ void* FUN_00a2e790_StandIn::DestroyFixedStringMap(unsigned char deleting)
 
 struct FUN_00a39120_cls {
     float x, y, z, w;
-    NiQuaternion* ScaleFourComponents(NiQuaternion* out, float s);
+    NiQuaternion* NiQuaternion_Scale(NiQuaternion* out, float s);
 };
 
 // Multiplies x, y, z and w by s, stores the result in out via Set, and returns out.
 // @fnv 0x00a39120
 // src: GUESS 0x00a39120 (confidence: medium)
-NiQuaternion* FUN_00a39120_cls::ScaleFourComponents(NiQuaternion* out, float afScale)
+NiQuaternion* FUN_00a39120_cls::NiQuaternion_Scale(NiQuaternion* out, float afScale)
 {
     out->SetValues(x * afScale, y * afScale, z * afScale, w * afScale);
     return out;
@@ -4078,7 +4078,8 @@ inline void* __cdecl operator new(unsigned int, void* memory) throw() {
 }
 // Allocates a NiFloatInterpolator via NiMemObject::operator new and placement-constructs it, returning null on allocation failure.
 // @fnv 0x00a3c570
-NiFloatInterpolator* __cdecl CreateNiFloatInterpolator() {
+// src: EXE 0x00a3c570
+NiFloatInterpolator* __cdecl NiFloatInterpolator_CreateObject() {
     void* memory = NiMemObject::operator new(sizeof(NiFloatInterpolator));
     if (memory)
         return ::new (memory) NiFloatInterpolator;
@@ -4320,15 +4321,16 @@ struct FUN_00a3ca30 {
 
 extern "C" void __cdecl _NiFree_00aa10f0(void*) throw();
 
-struct FUN_00a3dd40 : FUN_00a3ca30 {
+struct NiPathInterpolator : FUN_00a3ca30 {
     S_a3dd40_Ptr m_kPointA;
     S_a3dd40_Ptr m_kPointB;
     void* m_p;
-    virtual ~FUN_00a3dd40() throw();
+    virtual ~NiPathInterpolator() throw();
 };
 
 // @fnv 0x00a3dd40
-FUN_00a3dd40::~FUN_00a3dd40() throw()
+// src: EXE 0x00a3dd40
+NiPathInterpolator::~NiPathInterpolator() throw()
 {
     m_kPointA = 0;
     m_kPointB = 0;

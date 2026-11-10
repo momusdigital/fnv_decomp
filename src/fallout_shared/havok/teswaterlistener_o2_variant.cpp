@@ -11,7 +11,7 @@
 
 struct FUN_0062e750_shell
 {
-    void* __thiscall FUN_0062e750(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
     void __thiscall FUN_0062e860();
 };
 void __cdecl _Deallocate(void* p);
@@ -28,7 +28,7 @@ extern "C" double __cdecl _exp(double);
 float ExpFloat(float value);
 extern float _gModifierZero;
 float __cdecl SignOfFloat(float a);
-struct FUN_005631e0_shell
+struct bhkWorldObject
 {
     int __thiscall MaskWithField(int a);
     bool __thiscall IsNonZero(int a);

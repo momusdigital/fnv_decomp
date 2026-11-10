@@ -298,11 +298,11 @@ struct FUN_00404760_shell
 void FUN_00404760_shell::EffectItem_SetConditions(PerkEntryConditionSet* source)
 {
     if (source)
-        ((PerkEntryConditionSet*)((char*)this + 0x1c))->CopyConditions(source, 0);
+        ((PerkEntryConditionSet*)((char*)this + 0x1c))->TESCondition_Copy(source, 0);
     else
     {
         PerkEntryConditionSet empty;
-        ((PerkEntryConditionSet*)((char*)this + 0x1c))->CopyConditions(&empty, 0);
+        ((PerkEntryConditionSet*)((char*)this + 0x1c))->TESCondition_Copy(&empty, 0);
     }
 }
 
@@ -348,7 +348,8 @@ struct ListOps_680a70
 
 // Clears this list, then walks the nodes of a1, appending a new TESConditionItem built from each node's form to the destination list.
 // @fnv 0x00680a70
-void PerkEntryConditionSet::CopyConditions(PerkEntryConditionSet* apSourceList, PerkEntryConditionSet* a2)
+// src: COMMUNITY 0x00680a70
+void PerkEntryConditionSet::TESCondition_Copy(PerkEntryConditionSet* apSourceList, PerkEntryConditionSet* a2)
 {
     ((ListOps_680a70*)this)->FUN_00680fe0();
     ListOps_680a70* dst = ((ListOps_680a70*)this)->FUN_006815c0();

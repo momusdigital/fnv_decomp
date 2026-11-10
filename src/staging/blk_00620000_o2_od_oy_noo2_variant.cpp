@@ -1633,7 +1633,7 @@ struct ObjArray
     Node*& NiTSet_NiControllerSequence_NiTMallocInterface_NiControllerSequence_GetAt(unsigned);
     void hkLocalArray_hkpRigidBody_hkLocalArray_hkpRigidBody(int);
     void hkArray_hkpRigidBody_hkContainerHeapAllocator_pushBack(Node**);
-    int ProcessEntries_00629f10(Node**, int, int);
+    int hkArray_indexOf(Node**, int, int);
 };
 struct ItemList
 {
@@ -1693,7 +1693,7 @@ struct Owner
     void LoadedAreaBound_CheckForDynamicBodiesOutsideBound();
     void FUN_00628da0();
     void LoadedAreaBound_WarpActor(Ref*);
-    void MoveToDestination(Node*, ObjArray*);
+    void LoadedAreaBound_WarpBody(Node*, ObjArray*);
     void LoadedAreaBound_Update(Cell*, int);
 };
 // @fnv 0x006271b0
@@ -1758,7 +1758,7 @@ void Owner::LoadedAreaBound_Update(Cell* next, int flag)
             for (int j = 0; j < second.FUN_00726070(); j++)
             {
                 Node* node = second.NiTSet_NiControllerSequence_NiTMallocInterface_NiControllerSequence_GetAt(j);
-                if (seen.ProcessEntries_00629f10(&node, 0, -1) == -1)
+                if (seen.hkArray_indexOf(&node, 0, -1) == -1)
                 {
                     Ref* ref = TESHavokUtilities_FindCollidableRef(node->TESDataHandler_GetWorldSpaceList());
                     if (node && node->hkpRigidBody_getMotionType() != 4 && node->hkpRigidBody_getMotionType() != 5 && node->hkpRigidBody_getMotionType() != 7)
@@ -1786,7 +1786,7 @@ void Owner::LoadedAreaBound_Update(Cell* next, int flag)
                         else
                         {
                             ObjArray more;
-                            MoveToDestination(other, &more);
+                            LoadedAreaBound_WarpBody(other, &more);
                             for (int k = 0; k < more.FUN_00726070(); k++)
                                 seen.hkArray_hkpRigidBody_hkContainerHeapAllocator_pushBack(&more.NiTSet_NiControllerSequence_NiTMallocInterface_NiControllerSequence_GetAt(k));
                         }
@@ -2950,8 +2950,8 @@ class SmoothListV
 extern SmoothListV g_kSmoothListV;
 
 // @fnv 0x0062ab60
-// src: GUESS 0x0062ab60 (confidence: low)
-void __cdecl hkVector4_ProcessEntries_0062ab60(const hkVector4& kTarget, void* pvRef)
+// src: COMMUNITY 0x0062ab60
+void __cdecl TESArrowTargetListener_RemoveArrowTarget(const hkVector4& kTarget, void* pvRef)
 {
     SmoothEntryV* pkEntry = 0;
     if (!g_kSmoothListV.IsEmpty())

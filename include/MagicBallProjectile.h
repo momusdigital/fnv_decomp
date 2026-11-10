@@ -8,5 +8,5 @@ public:
     virtual ~MagicBallProjectile();
 
     void FUN_0080fb30();
-    void* FUN_0080f7e0(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };

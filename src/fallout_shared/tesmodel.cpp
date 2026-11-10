@@ -230,7 +230,7 @@ void FileEntryList::Load(TESFile* file, TESForm* form, char* name)
         FileFormCollection* pdata = (FileFormCollection*)_alloca(iusablesize);
         memset(pdata, 0, iusablesize);
         file->GetChunkData(pdata, iusablesize);
-        WriteFileEntryToBuffer(pdata, icount, form, name);
+        TESTextureList_LoadFromBuffer(pdata, icount, form, name);
     }
 }
 
@@ -324,7 +324,7 @@ class B479FB0Idle
 class B479FB0Actor
 {
   public:
-    bool HasIdleInFormArray(B479FB0Idle* pkIdle);
+    bool Actor_CanUseIdle(B479FB0Idle* pkIdle);
 };
 
 class B479FB0IdleList
@@ -351,7 +351,7 @@ bool B479FB0IdleList::BGSIdleCollection_HasIdleForActor(B479FB0Actor* pkActor, i
         for (int i = 0; i < m_ucCount; i++)
         {
             B479FB0Idle* pkIdle = m_ppkIdles[i];
-            if (pkIdle && pkActor->HasIdleInFormArray(pkIdle) && pkIdle->FUN_005ff430(pkActor, iArg, true))
+            if (pkIdle && pkActor->Actor_CanUseIdle(pkIdle) && pkIdle->FUN_005ff430(pkActor, iArg, true))
                 return true;
         }
     }
@@ -463,7 +463,8 @@ void __cdecl Warning_005b5e40(const char* fmt, ...);
 
 // Stores the count and allocates an array, then for each Elem builds two keys, looks up an archive entry, and logs a warning when the lookup fails.
 // @fnv 0x00489670
-void FileEntryList::WriteFileEntryToBuffer(FileFormCollection* aElems, unsigned int count, TESForm* form, char* model)
+// src: COMMUNITY 0x00489670
+void FileEntryList::TESTextureList_LoadFromBuffer(FileFormCollection* aElems, unsigned int count, TESForm* form, char* model)
 {
     FUN_004898a0_shell* s = GetFltValue(1);
     if (!(s != 0 && ((FUN_004898a0_shell*)((char*)s + 0x160))->BSArchive_HasEmbeddedFileNames() &&

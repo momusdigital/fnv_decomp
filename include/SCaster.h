@@ -21,7 +21,7 @@ public:
     SForm* vf2C();
     void vf30();
     Obj34* vf34();
-    void vf38();
+    void PrintInfo();
     void vf3C();
     void vf40();
     Obj44* vf44();

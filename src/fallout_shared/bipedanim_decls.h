@@ -244,15 +244,15 @@ class BipedAnim
     float m_fFadeAlpha;
     TESObjectREFR* m_pActor;
     void ProcessQueuedHelmet(IO_TASK_PRIORITY, NiPointer<QueuedHelmet>&, QueuedFile*);
-    void QueueBipedObjectLoads(unsigned int, IO_TASK_PRIORITY, QueuedFile*);
-    void LoadBipedObject(TESNPC*, BIPED_OBJECT, IO_TASK_PRIORITY, QueuedFile*);
+    void QueueSkinTextures(unsigned int, IO_TASK_PRIORITY, QueuedFile*);
+    void QueueSkinTexture(TESNPC*, BIPED_OBJECT, IO_TASK_PRIORITY, QueuedFile*);
     void RequestModelLoad(IO_TASK_PRIORITY, QueuedFile*, NiPointer<QueuedHelmet>&, BIPED_OBJECT);
-    void CompleteModelLoadTask();
-    NiNode* GetBoneNode(BIPED_BONE);
+    void RemoveAllParts();
+    NiNode* GetParentBone(BIPED_BONE);
     void AttachFaceGenNode();
     void RemoveBipedWeapon();
     void SetBipedVisibility(bool);
-    NiAVObject* PrepareBipedModel(NiNode*, BIPED_OBJECT, bool, bool, BSFaceGenModel*);
+    NiAVObject* ApplySkinnedObjects(NiNode*, BIPED_OBJECT, bool, bool, BSFaceGenModel*);
     NiAVObject* AttachBipedModel(NiNode*, NiNode*, BIPED_OBJECT, bool, bool, BSFaceGenModel*);
     static void AttachFaceGenNode(NiNode*, NiNode*, NiNode*, BipedAnim*, BIPED_OBJECT, BSFaceGenModel*);
     void UpdateSkinInstance(NiAVObject*, bool);
@@ -263,14 +263,14 @@ class BipedAnim
     void QueueItem(IO_TASK_PRIORITY, void*, BIPED_OBJECT);
     static bool CanLoadHiddenBipedObjects();
     static void ApplyReferenceExtraData(NiNode*, NiNode*, BIPED_OBJECT, TESObjectREFR*);
-    static BSShaderPPLightingProperty* FindLightingShaderProperty(NiAVObject*);
-    static BIPED_OBJECT GetBipedObjectFromShaderProperty(NiAVObject*, BSShaderPPLightingProperty*);
-    bool IsModelPathMatch(TESModel*, char*);
+    static BSShaderPPLightingProperty* GetLightingProperty(NiAVObject*);
+    static BIPED_OBJECT GetSkinBipedObject(NiAVObject*, BSShaderPPLightingProperty*);
+    bool Get1stPersonModelFileName(TESModel*, char*);
     TESModel* GetModelForSlot(BIPED_OBJECT, TESModel*);
     TESModel* BipedAnim_Store1stPersonModel(BIPED_OBJECT, char*);
     void RemovePart(BIPED_OBJECT, bool, TESForm*);
     void RemovePartsByParent(TESForm*);
-    void SetBipedObject(TESForm*, TESModel*, BIPED_OBJECT);
+    void SetBipedPart(TESForm*, TESModel*, BIPED_OBJECT);
     void UpdateRaceSex(TESRace*, SEX);
 };
 extern PlayerCharacter* g_thePlayer;
@@ -287,7 +287,7 @@ void BSFaceGenManager_ClearBodyTexturesFromPalette(TESBoundObject*);
 bool IsObjectProcessable(NiObject*);
 bool UpdateObjectVisibility(NiAVObject*);
 int __cdecl Warning(const char*, ...);
-void AddNodeEntries(int, NiAVObject*);
+void BGSBodyPart_HideLimb(int, NiAVObject*);
 class DialogMenuInterfaceCalls
 {
   public:

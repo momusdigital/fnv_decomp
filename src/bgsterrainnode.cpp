@@ -270,7 +270,7 @@ struct FUN_006fd980_shell
     void* pBlock;
     int f18, f1c;
     FUN_006fd980_shell* pChildren[4];
-    void ClearSelectedParts(int a);
+    void BGSTerrainNode_UnloadData(int a);
     void BGSTerrainNode_UnloadDataRecurse(int a);
 };
 // @fnv 0x006fd980
@@ -278,7 +278,7 @@ struct FUN_006fd980_shell
 void FUN_006fd980_shell::BGSTerrainNode_UnloadDataRecurse(int aiFlags)
 {
     if (pChunk || pBlock)
-        ClearSelectedParts(aiFlags);
+        BGSTerrainNode_UnloadData(aiFlags);
     for (int i = 0; i < 4; i++)
     {
         if (pChildren[i])
@@ -548,7 +548,7 @@ struct ClearPartA
 {
     int unk00;
     ~ClearPartA();
-    void SetAllAppCulled();
+    void BGSTerrainChunk_Hide();
 };
 struct ClearPartB
 {
@@ -592,13 +592,13 @@ struct FUN_006fd7b0_Owner
     int unk58;
     bool bCheckOwner;
 
-    void ClearSelectedParts(unsigned int auiFlags);
+    void BGSTerrainNode_UnloadData(unsigned int auiFlags);
 };
 
 // Deletes pPartA/pPartB/pPartC according to auiFlags bits, conditionally keeping pPartA, and clears pFlagHolder->bActive.
 // @fnv 0x006fd7b0
-// src: GUESS 0x006fd7b0 (confidence: medium)
-void FUN_006fd7b0_Owner::ClearSelectedParts(unsigned int auiFlags)
+// src: COMMUNITY 0x006fd7b0
+void FUN_006fd7b0_Owner::BGSTerrainNode_UnloadData(unsigned int auiFlags)
 {
     if (bInitialized && pPartA && (auiFlags & 1))
     {
@@ -608,7 +608,7 @@ void FUN_006fd7b0_Owner::ClearSelectedParts(unsigned int auiFlags)
             pPartA = 0;
         }
         else
-            pPartA->SetAllAppCulled();
+            pPartA->BGSTerrainChunk_Hide();
     }
     if (pPartB && (auiFlags & 2))
     {
@@ -728,7 +728,7 @@ struct TerrainUpdate
     bool GetByteAtOffset5C();
     bool BGSTerrainNode_CheckMeshSolidUnderMe(bool);
     void UpdateTileFromChunk();
-    void ClearSelectedParts(int);
+    void BGSTerrainNode_UnloadData(int);
     void BGSTerrainNode_UnloadDataRecurse(int);
     WorldRefUpdate* Get();
     bool BGSTerrainNode_CheckIntersectsLoadedRange();
@@ -760,7 +760,7 @@ void TerrainUpdate::UpdateTerrainNode(void* arg, bool update)
                 if (children[loadedIndex2]->chunk && children[loadedIndex2]->chunk->GetInitialized())
                     children[loadedIndex2]->UpdateTileFromChunk();
             }
-            ClearSelectedParts(1);
+            BGSTerrainNode_UnloadData(1);
         }
         if (BGSTerrainNode_CheckMeshSolidUnderMe(true))
             childrenLoaded = true;
@@ -918,7 +918,7 @@ void TerrainNodeX::UpdateVisibility(TerrainVisibility* pVisibility, int unused)
                         int y3 = m_sY + j_;
                         unsigned int idx5 = iLevel * i + j_;
                         TESObjectCELL* pCell4 = pWorld->GetCellAtGridPosition(x5, y3);
-                        if (!pVis3->Chk(idx5) && g_TES->IsCellBuffered(pCell4, true))
+                        if (!pVis3->Chk(idx5) && g_TES->IsCellLoaded(pCell4, true))
                             pVis3->Hide(idx5);
                         else
                             pVis3->Show(idx5);
@@ -953,7 +953,7 @@ struct FUN_006f5160
     void* GetNiObj(bool);
     unsigned char FUN_00529ea0();
     void BGSDistantObjectBlock_Attach();
-    unsigned char GetByteAtOffset35();
+    unsigned char BGSDistantObjectBlock_GetHighPriority();
     void ResetAndCreateTask(Ret006f*, int, unsigned short, unsigned short);
     void BGSDistantObjectBlock_SwitchToHigh(Ret006f*, int, unsigned short, unsigned short);
     unsigned char GetField24();
@@ -998,9 +998,9 @@ void Node006f::UpdateBlock(int a, bool abFlag)
             }
             if (block)
             {
-                if (block->GetByteAtOffset35() && flag)
+                if (block->BGSDistantObjectBlock_GetHighPriority() && flag)
                     block->ResetAndCreateTask(Modelloader_GetReferencedThis()->Modelloader_GetReferencedThis(), f4, f8, fa);
-                else if (!block->GetByteAtOffset35() && !flag)
+                else if (!block->BGSDistantObjectBlock_GetHighPriority() && !flag)
                     block->BGSDistantObjectBlock_SwitchToHigh(Modelloader_GetReferencedThis()->Modelloader_GetReferencedThis(), f4, f8, fa);
             }
             if (block->GetField24())

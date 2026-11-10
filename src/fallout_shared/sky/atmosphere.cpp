@@ -408,7 +408,7 @@ struct FUN_00633cc0_ElemB
     FUN_00633cc0_ElemB();
 };
 
-struct FUN_00633cc0 : FUN_00633cc0_SkyObject
+struct Clouds : FUN_00633cc0_SkyObject
 {
     int unk04;
     FUN_00633cc0_ElemA m_kPointA[4];
@@ -419,13 +419,14 @@ struct FUN_00633cc0 : FUN_00633cc0_SkyObject
 
     void Clouds_ZeroGeo();
     void Clouds_ClearTransTextures();
-    FUN_00633cc0();
+    Clouds();
     virtual void vf();
 };
 
 // Initializes the object: clears m_58, calls FUN_00633d90 and FUN_00634930, then sets m_5a to 0.
 // @fnv 0x00633cc0
-FUN_00633cc0::FUN_00633cc0() : m_58(0)
+// src: EXE 0x00633cc0
+Clouds::Clouds() : m_58(0)
 {
     Clouds_ZeroGeo();
     Clouds_ClearTransTextures();

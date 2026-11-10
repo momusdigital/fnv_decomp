@@ -279,7 +279,7 @@ struct Renderer
     virtual void vf09();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -305,7 +305,7 @@ struct Renderer
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();
@@ -550,7 +550,7 @@ void LockPickMenu::HandleLockPickAction(int aiCode, int aiUnused)
         float fPerk = 0.0f;
         FUN_005e58f0(0x20, g_player_011dea3c, &fPerk);
         if (FUN_00476c00()->FUN_00aa5230(100) <
-            (unsigned int)GamePlayFormulas_GetForceLockChance(g_player_011dea3c->kAVOwner.GetActorValueAsInteger(0x24), g_aiLockLevels_011da28c[m_70]))
+            (unsigned int)GamePlayFormulas_GetForceLockChance(g_player_011dea3c->kAVOwner.GetClampedActorValueI(0x24), g_aiLockLevels_011da28c[m_70]))
         {
             m_98 = 1;
             m_90 = 90.0f;
@@ -638,7 +638,7 @@ extern OSGlobals* DAT_011dea0c;
 
 struct FooA
 {
-    int __thiscall GetAxisState(int a0, int a1);
+    int __thiscall OSInputGlobals_GetControllerValue(int a0, int a1);
 };
 struct DummyA
 {
@@ -675,7 +675,7 @@ void __thiscall LockPickMenu::RotateLockpick()
     denom = DAT_0102978c;
     if (InterfaceManager_Has360Controller())
     {
-        cnt4 = ((FooA*)DAT_011dea0c->Main_GetControls())->GetAxisState(0, 7);
+        cnt4 = ((FooA*)DAT_011dea0c->Main_GetControls())->OSInputGlobals_GetControllerValue(0, 7);
         if (NiAbs_00408820((float)cnt4) <= DAT_010718f0)
         {
             cnt4 = 0;
@@ -1056,7 +1056,7 @@ Tile* CreateLockpickMenu(LockRef* pkLockRef, int aiLockLevel, bool bDebug)
     LKInterface* pkInterfaceVal = (LKInterface*)InterfaceManager_GetSingleton();
     int iLockLevelNum = pkLockRef ? FUN_00430b40(((LKRef*)pkLockRef)->TESObjectREFR_GetLockLevel()) : aiLockLevel;
     iLockLevelNum = MinInt(BSMAX_00647b70(iLockLevelNum, 0), 4);
-    if (pkLockRef && g_player_011dea3c->kAVOwner.GetActorValueAsInteger(0x24) < g_aiLockLevels_011da28c[iLockLevelNum])
+    if (pkLockRef && g_player_011dea3c->kAVOwner.GetClampedActorValueI(0x24) < g_aiLockLevels_011da28c[iLockLevelNum])
     {
         BSsprintf(acMessageVal, 0x104, DAT_011d1efc.FUN_00403df0(), g_aiLockLevels_011da28c[iLockLevelNum]);
         DispatchMessageToSink(acMessageVal, 0, "Interface\\Icons\\Message Icons\\glow_message_padlock.dds", 0, 2.0f, 0);
@@ -1083,7 +1083,7 @@ Tile* CreateLockpickMenu(LockRef* pkLockRef, int aiLockLevel, bool bDebug)
         BSsprintf(acLabel, 0x40, "%d", DAT_011da204->m_74);
         DAT_011da204->m_pkSkillTile->Tile_Set_00a01350(DAT_011da1f8, acLabel, 1);
         BSsprintf(acLabel, 0x40, "%s [%d", DAT_011d345c.FUN_00403df0(),
-                     GamePlayFormulas_GetForceLockChance(g_player_011dea3c->kAVOwner.GetActorValueAsInteger(0x24),
+                     GamePlayFormulas_GetForceLockChance(g_player_011dea3c->kAVOwner.GetClampedActorValueI(0x24),
                                   g_aiLockLevels_011da28c[DAT_011da204->m_70]));
         FUN_00406d50(acLabel, 0x40, "%]");
         DAT_011da204->m_pkSkillLabel->Tile_Set_00a01350(0xfc4, acLabel, 1);
@@ -1135,7 +1135,7 @@ LockPickMenu::LockPickMenu()
 {
     xTraitValue = xGetTrait("_Value", -1);
     xTraitX = xGetTrait("_x", -1);
-    m_74 = xThePlayer->m_kAV.GetActorValueAsInteger(0x24);
+    m_74 = xThePlayer->m_kAV.GetClampedActorValueI(0x24);
     m_78 = (float)m_74;
     m_8c = 0.0f;
     m_94 = 1.0f + m_78 * *xS0de0.Float();
@@ -1195,7 +1195,7 @@ struct xIface
 xIface* xF4b7210();
 struct xControls
 {
-    int GetAxisState(int, int);
+    int OSInputGlobals_GetControllerValue(int, int);
     void ResetTargetState();
     void Controls_Rumble(float, float, int, int, int, int, int);
 };
@@ -1636,7 +1636,7 @@ void LockPickMenu::DoIdle_0078eb50()
     int qfTOqo = 0x7fff;
     if (xF4b7210()->InterfaceManager_Has360Controller())
     {
-        qsSDDgz = xg_os_11dea0c->Main_GetControls()->GetAxisState(0, 9);
+        qsSDDgz = xg_os_11dea0c->Main_GetControls()->OSInputGlobals_GetControllerValue(0, 9);
         if (xF408820((float)qsSDDgz) <= 8689.0)
             qsSDDgz = 0;
         qrEZrs = -qsSDDgz / 32767.0;

@@ -75,7 +75,7 @@ void TraitSelectMenu_Close()
         if (!g_BGSSaveLoadGame->BGSSaveLoadGame_GetSaveGameLoading())
             DAT_011e0e80.UpdateActor3D();
         DAT_011db00c->GetTile()->Set(0x1772, 1);
-        DAT_011db00c->LoadMenuData();
+        DAT_011db00c->StartFadeOut();
     }
 }
 }  // namespace fnv_007e7de0

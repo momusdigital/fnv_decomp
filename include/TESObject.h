@@ -22,7 +22,7 @@ public:
     virtual void SetPlayable(bool value);
     virtual NiNode* _CreateNiNode(TESObjectREFR* reference, bool arg1);
     virtual void Destroy3DModel(TESObjectREFR* requester);
-    virtual bool HasLoaded3D();
+    virtual bool IsMarker();
     virtual bool IsModelValid() const;
     virtual void UpdateModel3D();
     virtual bool IsBoundItem();
@@ -61,7 +61,7 @@ public:
 
     NiNode* Get3DObject(TESObjectREFR* requester, bool abFirstPerson);
     NiNode* Create3DForReference(TESObjectREFR* reference);
-    bool HasLoaded3D() const;
+    bool IsMarker() const;
     bool IsInternal();
     bool IsInternalMarker();
     bool IsBoundAnimObject();

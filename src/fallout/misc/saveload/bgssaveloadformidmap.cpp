@@ -55,7 +55,7 @@ struct SaveLoadFile
     void SeekCurrent(int);
     char* GetFileName();
     static SaveLoadFile* CreateFileA(char*, bool, unsigned int);
-    void SetSaveFileName(char*);
+    void SetMostRecentSaveGame(char*);
     char* GetSaveFileName();
     BSFile* QFile();
     unsigned int GetSimulatedFileSize();
@@ -95,18 +95,18 @@ void FUN_00846e70_shell::LoadFormIDMap(SaveLoadFile* apFile)
     }
 }
 
-struct FUN_00846de0_cls
+struct BGSSaveLoadGame
 {
     unsigned char __thiscall GetByteAtOffset(unsigned char param_1);
 };
 
 // @fnv 0x00846de0
-unsigned char __thiscall FUN_00846de0_cls::GetByteAtOffset(unsigned char param_1)
+unsigned char __thiscall BGSSaveLoadGame::GetByteAtOffset(unsigned char param_1)
 {
     return ((unsigned char*)this)[param_1 + 0x44];
 }
 
-extern FUN_00846de0_cls* g_BGSSaveLoadGame;
+extern BGSSaveLoadGame* g_BGSSaveLoadGame;
 // Remaps a form ID's mod index through g_BGSSaveLoadGame; returns the original ID if the index is 0xFF, or 0 if the remap fails.
 // @fnv 0x00846d80
 unsigned int FUN_00846d80_cls::RemapFormID(unsigned int formID)
@@ -193,7 +193,7 @@ struct SaveLoadFile
     void SeekCurrent(int);
     char* GetFileName();
     static SaveLoadFile* CreateFileA(char*, bool, unsigned int);
-    void SetSaveFileName(char*);
+    void SetMostRecentSaveGame(char*);
     char* GetSaveFileName();
     BSFile* QFile();
     unsigned int GetSimulatedFileSize();
@@ -211,7 +211,7 @@ struct FUN_00846d20_shell : public FormIDConverter
 };
 void __cdecl ReadFileIntoBuffer(SaveLoadFile*, unsigned int*, unsigned int);
 
-struct FUN_00846e00_cls : public FormIDConverter
+struct BGSSaveLoadFormIDMap : public FormIDConverter
 {
     void BGSSaveLoadFormIDMap_Save(SaveLoadFile* file);
 };
@@ -219,7 +219,7 @@ struct FUN_00846e00_cls : public FormIDConverter
 // Passes the count minus one and each converted index value to FUN_00845d20 with file and size 4.
 // @fnv 0x00846e00
 // src: COMMUNITY 0x00846e00
-void FUN_00846e00_cls::BGSSaveLoadFormIDMap_Save(SaveLoadFile* file)
+void BGSSaveLoadFormIDMap::BGSSaveLoadFormIDMap_Save(SaveLoadFile* file)
 {
     unsigned int count = this->m_uiFormIDCount - 1;
     ReadFileIntoBuffer(file, &count, 4);

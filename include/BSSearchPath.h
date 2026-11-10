@@ -12,5 +12,5 @@ public:
     static void* operator new(unsigned int uiSize);
 
     void SetVptr00();
-    void* FUN_00b01480(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };

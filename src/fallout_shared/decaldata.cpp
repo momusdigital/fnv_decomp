@@ -55,14 +55,14 @@ template <int N> struct EndianSizeTag
 
 void __cdecl BSEndian(int*, EndianSizeTag<4>);
 
-struct FUN_00593370_shell
+struct DECAL_DATA_DATA
 {
     void SwapEndianFields();
 };
 
 // Byte-swaps eight 4-byte fields of this object via BSEndian, in the order 0,1,2,3,6,4,5,8.
 // @fnv 0x00593370
-void FUN_00593370_shell::SwapEndianFields()
+void DECAL_DATA_DATA::SwapEndianFields()
 {
     BSEndian((int*)this, EndianSizeTag<4>());
     BSEndian((int*)this + 1, EndianSizeTag<4>());
@@ -75,18 +75,18 @@ void FUN_00593370_shell::SwapEndianFields()
 }
 
 bool __cdecl TESForm_QEndianSwapOnSave();
-void __cdecl AppendChunk(void*, void*, unsigned int);
+void __cdecl TESForm___AddChunkData(void*, void*, unsigned int);
 struct FUN_00593320_shell
 {
-    void ProcessState_00593320(void*);
+    void DecalData_Save(void*);
 };
 // @fnv 0x00593320
-// src: GUESS 0x00593320 (confidence: low)
-void FUN_00593320_shell::ProcessState_00593320(void* a1)
+// src: COMMUNITY 0x00593320
+void FUN_00593320_shell::DecalData_Save(void* a1)
 {
     if (TESForm_QEndianSwapOnSave())
         ((DecalData*)this)->SwapEndianFields();
-    AppendChunk(a1, this, 0x24);
+    TESForm___AddChunkData(a1, this, 0x24);
     if (TESForm_QEndianSwapOnSave())
         ((DecalData*)this)->SwapEndianFields();
 }

@@ -45,9 +45,9 @@ public:
 
     void ResetFormData();
     CreatureSounds* GetCreatureSounds();
-    CreatureSounds* GetMutableCreatureSounds();
+    CreatureSounds* CreateCreatureSounds();
     TESCreature* GetSoundCreature();
-    void SetCreatureSoundsFrom(TESCreature* soundCreature);
+    void SetSoundCreature(TESCreature* soundCreature);
     BGSImpactDataSet* GetImpactDataSet();
     void SetImpactDataSet(BGSImpactDataSet* impactDataSet);
     BGSListForm* GetField158();

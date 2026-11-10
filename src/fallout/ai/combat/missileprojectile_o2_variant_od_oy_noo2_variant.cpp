@@ -1149,7 +1149,7 @@ void MissileProjectile::ProcessImpale()
                             v25c = *((V*)static_cast<const MobileObject*>(this)->GetPos());
                             V9 m28c;
                             m28c.FUN_006815c0();
-                            m28c.FUN_004a0c90(GetCurrentTargetDistance(false));
+                            m28c.FUN_004a0c90(GetHeading(false));
                             V9 m2b0;
                             m2b0.FUN_006815c0();
                             m2b0.FUN_00524ac0(GetLooking());
@@ -1214,7 +1214,7 @@ void MissileProjectile::ProcessImpale()
                                     v83c = *((V*)static_cast<const MobileObject*>(this)->GetPos());
                                     V9 m86c;
                                     m86c.FUN_006815c0();
-                                    m86c.FUN_004a0c90(GetCurrentTargetDistance(false));
+                                    m86c.FUN_004a0c90(GetHeading(false));
                                     V9 m890;
                                     m890.FUN_006815c0();
                                     m890.FUN_00524ac0(GetLooking());

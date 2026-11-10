@@ -6,7 +6,7 @@
 class hkpPlaneShape : public hkpHeightFieldShape
 {
 public:
-    virtual void vf12();
+    virtual void SetMapName();
 
     hkVector4 m_kTriangleNormal;
     hkVector4 m_kAabbCenter;

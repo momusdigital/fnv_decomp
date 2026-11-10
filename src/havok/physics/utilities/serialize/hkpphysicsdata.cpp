@@ -272,28 +272,28 @@ hkpWorld* PhysicsDataExt::CreateWorld(char bRegisterWithMemoryManager) throw()
 }
 
 namespace fnv_00d4c8e0 {
-class FUN_00dcecc0
+class hkpPhysicsSystemWithContacts
 {
   public:
-    virtual ~FUN_00dcecc0() throw();
+    virtual ~hkpPhysicsSystemWithContacts() throw();
     unsigned short m_usMemSizeAndFlags;
     short m_sReferenceCount;
 
     static void operator delete(void* p) throw()
     {
-        ((hkThreadMemory*)hkMemoryRouter_getInstance())->heap().blockFree(p, static_cast<FUN_00dcecc0*>(p)->m_usMemSizeAndFlags);
+        ((hkThreadMemory*)hkMemoryRouter_getInstance())->heap().blockFree(p, static_cast<hkpPhysicsSystemWithContacts*>(p)->m_usMemSizeAndFlags);
     }
 
-    FUN_00dcecc0* Destroy(unsigned int uiFlags) throw();
+    hkpPhysicsSystemWithContacts* Destroy(unsigned int uiFlags) throw();
 };
 
 // Runs the destructor and, when bit 0 of uiFlags is set, frees the object through the heap allocator, then returns this.
 // @fnv 0x00d4c8e0
-FUN_00dcecc0* FUN_00dcecc0::Destroy(unsigned int uiFlags) throw()
+hkpPhysicsSystemWithContacts* hkpPhysicsSystemWithContacts::Destroy(unsigned int uiFlags) throw()
 {
-    this->FUN_00dcecc0::~FUN_00dcecc0();
+    this->hkpPhysicsSystemWithContacts::~hkpPhysicsSystemWithContacts();
     if (uiFlags & 1)
-        FUN_00dcecc0::operator delete(this);
+        hkpPhysicsSystemWithContacts::operator delete(this);
     return this;
 }
 }  // namespace fnv_00d4c8e0

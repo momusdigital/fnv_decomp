@@ -111,7 +111,7 @@ extern int DAT_010d1f90;
 extern int DAT_010d1f80;
 extern int DAT_010d1f70;
 
-struct FUN_00d68770_cls
+struct hkpInactiveContactPointViewer
 {
     int* m_pVtbl00;
     int m_unk04;
@@ -126,11 +126,11 @@ struct FUN_00d68770_cls
     int* m_pVtbl28;
 
     void BaseConstruct(int aParam, int aFlags);
-    FUN_00d68770_cls* Construct(int aParam);
+    hkpInactiveContactPointViewer* Construct(int aParam);
 };
 
 // @fnv 0x00d68770
-FUN_00d68770_cls* FUN_00d68770_cls::Construct(int aParam)
+hkpInactiveContactPointViewer* hkpInactiveContactPointViewer::Construct(int aParam)
 {
     BaseConstruct(aParam, 0xff008000);
     m_pVtbl00 = &DAT_010d1fb0;
@@ -300,8 +300,8 @@ struct S_00d6adf0_Obj
     virtual void vfn00(int arg);
 };
 // @fnv 0x00d6adf0
-// src: GUESS 0x00d6adf0 (confidence: low)
-void __cdecl Runtime_ForwardCall_00d6adf0(S_00d6adf0_Obj* obj)
+// src: COMMUNITY 0x00d6adf0
+void __cdecl cleanupLoadedObject_hkpConstraintInstance(S_00d6adf0_Obj* obj)
 {
     obj->vfn00(0);
 }
@@ -317,16 +317,16 @@ int* __cdecl Object_GetGlobalObjectAddress_00d6ae00()
 
 struct FUN_00c90e00_Obj
 {
-    void __thiscall FUN_00c90e00(int value);
+    void __thiscall hkpWorldCinfo(int value);
 };
 
 // @fnv 0x00d6ae90
-// src: GUESS 0x00d6ae90 (confidence: low)
-void __cdecl Runtime_ProcessState_00d6ae90(FUN_00c90e00_Obj* pObj, int iValue)
+// src: COMMUNITY 0x00d6ae90
+void __cdecl finishLoadedObject_hkpWorldCinfo(FUN_00c90e00_Obj* pObj, int iValue)
 {
     if (pObj != 0)
     {
-        pObj->FUN_00c90e00(iValue);
+        pObj->hkpWorldCinfo(iValue);
     }
 }
 
@@ -338,8 +338,8 @@ struct VtblForwarder
 };
 
 // @fnv 0x00d6aeb0
-// src: GUESS 0x00d6aeb0 (confidence: low)
-int __cdecl Runtime_ForwardCall_00d6aeb0(VtblForwarder* p)
+// src: COMMUNITY 0x00d6aeb0
+int __cdecl cleanupLoadedObject_hkpWorldCinfo(VtblForwarder* p)
 {
     return p->v0(0);
 }
@@ -490,7 +490,8 @@ class hkDerivedD6A : public hkBaseD6A
 
 // Placement-constructs an hkDerivedD6A at pvObject with a finish-loaded flag built from iFinishing, if pvObject is non-null.
 // @fnv 0x00d6ae10
-void __cdecl ConstructHkDerived(void* pvObject, int iFinishFlag)
+// src: COMMUNITY 0x00d6ae10
+void __cdecl finishLoadedObject_hkpConstraintInstance(void* pvObject, int iFinishFlag)
 {
     if (pvObject)
     {
@@ -574,12 +575,12 @@ void hkOArchive::write16(short i)
 struct FUN_00d60600_class
 {
     void __thiscall WriteSwapped(int a, int b, int c);
-    void __thiscall WriteSwapped_Thunk(int a, int b);
+    void __thiscall hkOArchive_write64(int a, int b);
 };
 
 // @fnv 0x00d60b20
 // src: GUESS 0x00d60b20 (confidence: medium)
-void __thiscall FUN_00d60600_class::WriteSwapped_Thunk(int a, int aiValue)
+void __thiscall FUN_00d60600_class::hkOArchive_write64(int a, int aiValue)
 {
     WriteSwapped(a, 8, aiValue);
 }
@@ -1100,7 +1101,7 @@ struct FUN_00ddccb0_Obj
     void FUN_00ddccb0(int a1);
 };
 
-struct FUN_00d62ef0_cls
+struct hkpWorldSnapshotViewer
 {
     int* unk00;
     int unk04;
@@ -1114,7 +1115,7 @@ struct FUN_00d62ef0_cls
     int unk24;
     unsigned char unk28;
 
-    FUN_00d62ef0_cls* UpdateState_00d62ef0(int aParam, unsigned char aValue);
+    hkpWorldSnapshotViewer* UpdateState_00d62ef0(int aParam, unsigned char aValue);
 };
 
 extern int DAT_010d1720;
@@ -1124,7 +1125,7 @@ extern int DAT_010d16f0;
 // Calls FUN_00ddccb0 with aParam, then stores three global addresses and aValue into the object's fields and returns this.
 // @fnv 0x00d62ef0
 // src: GUESS 0x00d62ef0 (confidence: low)
-FUN_00d62ef0_cls* __thiscall FUN_00d62ef0_cls::UpdateState_00d62ef0(int aParam, unsigned char aValue)
+hkpWorldSnapshotViewer* __thiscall hkpWorldSnapshotViewer::UpdateState_00d62ef0(int aParam, unsigned char aValue)
 {
     ((FUN_00ddccb0_Obj*)this)->FUN_00ddccb0(aParam);
     unk00 = &DAT_010d1720;
@@ -1430,13 +1431,13 @@ class hkIfaceBD642
     virtual void b0() = 0;
 };
 
-class FUN_00d64260 : public FUN_00ddccb0, public hkIfaceAD642, public hkIfaceBD642
+class hkpSweptTransformDisplayViewer : public FUN_00ddccb0, public hkIfaceAD642, public hkIfaceBD642
 {
   public:
     hkArray<void*> m_ppData;
 
-    FUN_00d64260(void* p) throw();
-    virtual ~FUN_00d64260() throw();
+    hkpSweptTransformDisplayViewer(void* p) throw();
+    virtual ~hkpSweptTransformDisplayViewer() throw();
     virtual void p8();
     virtual void p20();
     virtual void a0();
@@ -1445,7 +1446,8 @@ class FUN_00d64260 : public FUN_00ddccb0, public hkIfaceAD642, public hkIfaceBD6
 
 // Constructs the object by forwarding p to the base constructor and default-initializing the void* array member.
 // @fnv 0x00d64260
-FUN_00d64260::FUN_00d64260(void* p) throw() : FUN_00ddccb0(p)
+// src: EXE 0x00d64260
+hkpSweptTransformDisplayViewer::hkpSweptTransformDisplayViewer(void* p) throw() : FUN_00ddccb0(p)
 {}
 
 struct FnvCpu_FUN_00d645f0_CpuBlock;
@@ -1454,7 +1456,7 @@ struct FnvCpu_FUN_00d645f0_CpuBlock
 {
     unsigned int unk00;
     unsigned short size;
-    FnvCpu_FUN_00d645f0_CpuBlock* FUN_00d64260(unsigned int value);
+    FnvCpu_FUN_00d645f0_CpuBlock* hkpSweptTransformDisplayViewer(unsigned int value);
 };
 // @fnv 0x00d645f0
 // src: XBOX_PDB 0x00d645f0
@@ -1463,7 +1465,7 @@ void* __cdecl hkpSweptTransformDisplayViewer_create(unsigned int value)
     hkMemoryRouter* holder = static_cast<hkMemoryRouter*>(hkMemoryRouter_getInstance());
     FnvCpu_FUN_00d645f0_CpuBlock* block = static_cast<FnvCpu_FUN_00d645f0_CpuBlock*>(reinterpret_cast<hkMemoryAllocator*>(holder->m_heap)->blockAlloc(60));
     block->size = 60;
-    block = block->FUN_00d64260(value);
+    block = block->hkpSweptTransformDisplayViewer(value);
     if (block)
         return reinterpret_cast<char*>(block) + 8;
     return 0;

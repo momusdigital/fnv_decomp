@@ -14,7 +14,7 @@ public:
     virtual ~NiD3DVertexShader();
 
     virtual void vf31();
-    virtual void SetShaderUsage(unsigned int uiUsage);
+    virtual void SetUsage(unsigned int uiUsage);
     virtual int IsRecreated();
     virtual void SetD3DPixelShader(void* hShader);
     virtual COMUnknownInterface* GetShaderDeclaration() const;

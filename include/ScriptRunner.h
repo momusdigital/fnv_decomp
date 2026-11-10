@@ -32,10 +32,10 @@ public:
     bool m_bExecutionFlagSet;
 
     ScriptRunner();
-    bool ParseOutput(Script* script, SCRIPT_OUTPUT& output, unsigned int& offset, int& lineSize,
+    bool GetNextLine(Script* script, SCRIPT_OUTPUT& output, unsigned int& offset, int& lineSize,
                      TESObjectREFR** reference, bool skipReference);
-    void SetErrorMessage(Script* script, char* message, ...);
-    bool ParseBlock(Script* script, const SCRIPT_OUTPUT output, TESObjectREFR* reference, int& blockSize,
+    void ScriptError(Script* script, char* message, ...);
+    bool EvaluateLine(Script* script, const SCRIPT_OUTPUT output, TESObjectREFR* reference, int& blockSize,
                     const unsigned int inputOffset, unsigned int& lineOffset, const unsigned int lineNumber,
                     bool skip, bool skipBlock);
     void SetError(Script* script, SCRIPT_ERROR error);

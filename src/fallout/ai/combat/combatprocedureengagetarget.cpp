@@ -98,7 +98,7 @@ void CombatProcedureEngageTarget::SaveGame(BGSSaveFormBuffer* buffer)
 
     buffer->SaveData(reinterpret_cast<void*>(reinterpret_cast<char*>(this) + 0x33), 1, 0);
 
-    reinterpret_cast<CombatTargetTimestamp*>(reinterpret_cast<char*>(this) + 0x60)->SaveTimeStamp(buffer);
+    reinterpret_cast<CombatTargetTimestamp*>(reinterpret_cast<char*>(this) + 0x60)->CombatTimeStamp_SaveGame(buffer);
 }
 
 namespace fnv_009d5990 {
@@ -268,7 +268,7 @@ bool Procedure::CheckAndApply(bool mode)
         Actor* actor = CombatProcedure_GetAttacker();
         Actor* targetActor3 = GetTarget_00996e00();
         RequestA request;
-        actor->PathToLocation(&request, static_cast<const Actor*>(targetActor3)->GetPos(), actor->FUN_008d6f30(),
+        actor->Actor_BuildRequest(&request, static_cast<const Actor*>(targetActor3)->GetPos(), actor->FUN_008d6f30(),
                               actor->TESObjectREFR_GetWorldSpace(DAT_0101e57c), false);
         request.PathingRequestClosePoint_SetMinDistance(range);
         request.SetMaxDistance_006e5ee0(height);
@@ -292,7 +292,7 @@ bool Procedure::CheckAndApply(bool mode)
         if (!controller5->CombatState_CheckMovement_009a02a0(query2.FUN_006815c0(), true, false))
             return false;
         PathRequest_combatprocedureengagetarget request2;
-        actor2->PathToLocation(&request2, query2.CombatLocation_GetPoint(), actor2->FUN_008d6f30(),
+        actor2->Actor_BuildRequest(&request2, query2.CombatLocation_GetPoint(), actor2->FUN_008d6f30(),
                                actor2->TESObjectREFR_GetWorldSpace(DAT_0101e57c), false);
         if (!actor2->SetPathingRequestAvoidNodes(&request2))
             return false;
@@ -324,7 +324,7 @@ static const char text_15[] = "MOVING_TO_TARGET";
 static const char text_16[] = "Optimal location pathing CheckMovement failed: %.02f/%.02f";
 static const char text_17[] = "Optimal location pathing LOS check failed: %.02f/%.02f";
 static const char text_18[] = "Optimal location path building failed: %.02f/%.02f";
-/// Position + cell/world id at +0x0c (16 bytes); Distance at 0x00527a80 (FUN_00527a80_shell::DistanceTo in
+/// Position + cell/world id at +0x0c (16 bytes); Distance at 0x00527a80 (FUN_00527a80_shell::BGSWorldLocation_GetDistance in
 // bgsworldlocation.cpp) returns FLT_MAX when the ids differ. Not the 12-byte shared NiPoint3.
 struct WorldLocation
 {
@@ -910,7 +910,7 @@ void EngageProc::UpdateEngagement()
                 m_bDodgeWait = ctrlD->IsCovered();
                 m_timer28.Reset();
                 PathRequest_combatprocedureengagetarget req2;
-                actorZ->PathToLocation(reinterpret_cast<PathingRequest*>(&req2), *reinterpret_cast<const NiPoint3*>(&m_dodgePos),
+                actorZ->Actor_BuildRequest(reinterpret_cast<PathingRequest*>(&req2), *reinterpret_cast<const NiPoint3*>(&m_dodgePos),
                                        actorZ->FUN_008d6f30(), reinterpret_cast<void*>(actorZ->TESObjectREFR_GetWorldSpace()),
                                        0.0f, 0);
                 if (actorZ->SetPathingRequestAvoidNodes(&req2))
@@ -949,7 +949,7 @@ void EngageProc::UpdateEngagement()
                     if (ctrlD->FindDodge(&search, tooFar4 ? 4 : 8, 0, dodgeDist, DAT_0104e0e8))
                     {
                         PathRequest_combatprocedureengagetarget req34;
-                        actorZ->PathToLocation(
+                        actorZ->Actor_BuildRequest(
                             reinterpret_cast<PathingRequest*>(&req34), *reinterpret_cast<const NiPoint3*>(search.GetResult()),
                             actorZ->FUN_008d6f30(), reinterpret_cast<void*>(actorZ->TESObjectREFR_GetWorldSpace()), DAT_0101e57c, 0);
                         RawPoint dir;
@@ -993,7 +993,7 @@ void EngageProc::UpdateEngagement()
                             if (ctrlD->CanReachPos(&navPos3, targetLocX.GetContainingCell(), 1, 0))
                             {
                                 PathRequest_combatprocedureengagetarget req5;
-                                actorZ->PathToLocation(
+                                actorZ->Actor_BuildRequest(
                                     reinterpret_cast<PathingRequest*>(&req5), *reinterpret_cast<const NiPoint3*>(&navPos3),
                                     reinterpret_cast<void*>(coordX3), reinterpret_cast<void*>(coordY), DAT_0101e704, 0);
                                 if (!actorZ->SetPathingRequestAvoidNodes(&req5))
@@ -1037,7 +1037,7 @@ void EngageProc::UpdateEngagement()
                 if (ctrlD->FindDodge(&search2, 3, 0, dist, DAT_0104e0e8))
                 {
                     PathRequest_combatprocedureengagetarget req62;
-                    actorZ->PathToLocation(
+                    actorZ->Actor_BuildRequest(
                         reinterpret_cast<PathingRequest*>(&req62), *reinterpret_cast<const NiPoint3*>(search2.GetResult()),
                         actorZ->FUN_008d6f30(), reinterpret_cast<void*>(actorZ->TESObjectREFR_GetWorldSpace()), DAT_0101e57c, 0);
                     RawPoint dir2;
@@ -1286,11 +1286,11 @@ struct FUN_00906f60
     FUN_00906f60();
 };
 
-struct FUN_0097ee20_shell
+struct CombatLocation
 {
     int data[4];
     void BGSWorldLocation_BGSWorldLocation();
-    FUN_0097ee20_shell()
+    CombatLocation()
     {
         BGSWorldLocation_BGSWorldLocation();
     }
@@ -1318,8 +1318,8 @@ struct FUN_009d3a00 : public FUN_009ca680
     FUN_00906f60 m28;
     bool b30, b31, b32, b33;
     NiPoint3_T pt34;
-    FUN_0097ee20_shell m40;
-    FUN_0097ee20_shell m50;
+    CombatLocation m40;
+    CombatLocation m50;
     FUN_00435de0_ctor m60;
 
     FUN_009d3a00();

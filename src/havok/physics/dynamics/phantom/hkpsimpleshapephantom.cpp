@@ -68,12 +68,13 @@ struct FUN_00d1f9c0_StandIn
     unsigned short size;
 
     void FUN_00d1f780();
-    void* FUN_00d1f9c0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_00d1f780, then if flags has bit 1 set frees this through the memory router's free with this->size, and returns this.
 // @fnv 0x00d1f9c0
-void* FUN_00d1f9c0_StandIn::FUN_00d1f9c0(unsigned int flags)
+// src: EXE 0x00d1f9c0
+void* FUN_00d1f9c0_StandIn::ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_00d1f780();
 
@@ -89,8 +90,8 @@ void* FUN_00d1f9c0_StandIn::FUN_00d1f9c0(unsigned int flags)
 }
 
 // @fnv 0x00d1f220
-// src: GUESS 0x00d1f220 (confidence: high)
-int Object_ReturnOne_00d1f220()
+// src: COMMUNITY 0x00d1f220
+int hkpSimpleShapePhantom_getType()
 {
     return 1;
 }
@@ -318,12 +319,13 @@ void __cdecl ResizeAudioStream(void* allocator, void* array, int elementSize);
 
 struct FUN_00d1f690_Member : hkpSimpleShapePhantom
 {
-    void AddCollisionDetail(void* object);
+    void hkpSimpleShapePhantom_addOverlappingCollidable(void* object);
 };
 
 // If the object's first pointer is non-null and FUN_00ca94c0 returns 0, appends the object to the collision detail array, growing it when full, and sets a flag.
 // @fnv 0x00d1f690
-void FUN_00d1f690_Member::AddCollisionDetail(void* object)
+// src: COMMUNITY 0x00d1f690
+void FUN_00d1f690_Member::hkpSimpleShapePhantom_addOverlappingCollidable(void* object)
 {
     if (*reinterpret_cast<void**>(object) != 0)
     {

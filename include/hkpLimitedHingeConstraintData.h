@@ -19,7 +19,7 @@ public:
     virtual void vf09(int* a1, int* a2);
     virtual int vf10(int a);
     virtual void vf11(int a, int b, int c);
-    virtual void vf12(int a, int b);
+    virtual void SetMapName(int a, int b);
     virtual void vf13(unsigned char* output);
     virtual void vf14(int a);
     virtual void* vf15(int arg);

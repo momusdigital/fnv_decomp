@@ -59,9 +59,9 @@ class TESFile
     bool m_bOptimizedFile;            // +0x429
     bool m_bIsDLC;                    // +0x42A
     unsigned char layoutPadding42B[1];
-    TESFile* GetParentTESFile();
-    TESFile* GetThreadSafeRootFile();
-    TESFile* GetFileForThread(unsigned int threadID);
+    TESFile* GetThreadSafeFile();
+    TESFile* GetThreadSafeParent();
+    TESFile* GetThreadSafeFileForThread(unsigned int threadID);
     bool IsEndianConversionRequired();
     bool IsCurrentFormCompressed();
     TESFile(const char* path, const char* filename, NiFile::OpenMode openMode);
@@ -71,7 +71,7 @@ class TESFile
     void SetMasterFile(bool master);
     unsigned char GetFileCompileIndex();
     void SetCompileIndex(unsigned char index);
-    bool CheckMasterFiles(BSSimpleList<TESFile*>* files, bool unknown);
+    bool GenIndexTable(BSSimpleList<TESFile*>* files, bool unknown);
     void SetThreadSafeParent(TESFile* parent);
     bool OpenTESFile(NiFile::OpenMode openMode, bool closeOverride);
     void InitializeComponent();
@@ -94,7 +94,7 @@ class TESFile
     unsigned int GetOffsetChunk();
     unsigned int GetFORMSize();
     bool HasNextForm();
-    bool IsGroupOpen();
+    bool NextGroup();
 
   protected:
     BSSimpleList<_ULARGE_INTEGER*>* GetMasterDataList();

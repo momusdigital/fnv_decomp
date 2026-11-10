@@ -8,7 +8,7 @@
 // src/fallout/magic/magiclight.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/_fallout3/platforms/common/code/fallout/magic/magiclight.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
-struct FUN_0081c470_shell
+struct MagicLight
 {
     char pad0[0x10];
     float m_fFadeInTime;
@@ -19,7 +19,7 @@ struct FUN_0081c470_shell
 
 // @fnv 0x0081c470
 // src: XBOX_PDB 0x0081c470
-void FUN_0081c470_shell::MagicLight_Fade(bool abIn, float afTime)
+void MagicLight::MagicLight_Fade(bool abIn, float afTime)
 {
     bFadeInActive = abIn;
     m_fFadeOutTime = afTime;

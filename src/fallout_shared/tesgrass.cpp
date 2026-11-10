@@ -38,7 +38,7 @@ bool TESGrass::LoadForm(TESFile* file)
             break;
         }
         if (chunk == 0x41544144 && file->IsEndianConversionRequired())
-            Data.ResetGrassData();
+            Data.TESGrass_GRASS_DATA_Endian();
         if (!file->NextChunk())
             break;
     }
@@ -336,10 +336,10 @@ void FUN_0050a1d0_shell::TESGrass_Save()
     ((FUN_004855a0*)this)->M();
     ((FUN_004891d0_shell*)((char*)this + 0x30))->WriteToBuffer(0x4c444f4d, 0x54444f4d);
     if (TESForm_QEndianSwapOnSave())
-        ((TESGrass__GRASS_DATA*)((char*)this + 0x48))->ResetGrassData();
+        ((TESGrass__GRASS_DATA*)((char*)this + 0x48))->TESGrass_GRASS_DATA_Endian();
     ((FUN_00485e00_shell*)this)->TESForm___SaveData((int)((char*)this + 0x48), 0x20);
     if (TESForm_QEndianSwapOnSave())
-        ((TESGrass__GRASS_DATA*)((char*)this + 0x48))->ResetGrassData();
+        ((TESGrass__GRASS_DATA*)((char*)this + 0x48))->TESGrass_GRASS_DATA_Endian();
     ((FUN_00485680*)this)->M();
 }
 
@@ -559,7 +559,8 @@ void __cdecl BSEndian_00407a90(void* destination, unsigned char reset);
 void __cdecl BSEndian_00401080(void* destination, unsigned char reset);
 // Resets the grass data members by calling FUN_00407a90 on one field and FUN_00401080 on five others with zero-initialized ResetState values.
 // @fnv 0x0050a120
-void TESGrass__GRASS_DATA::ResetGrassData()
+// src: COMMUNITY 0x0050a120
+void TESGrass__GRASS_DATA::TESGrass_GRASS_DATA_Endian()
 {
     ResetState b0 = {};
     BSEndian_00407a90(&m_usUnitsFromSurface, b0.value);

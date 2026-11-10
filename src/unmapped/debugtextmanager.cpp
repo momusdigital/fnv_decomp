@@ -68,7 +68,7 @@ int __thiscall FUN_00802860_class::ResetField()
 // Stand-in for the page registry object passed to FUN_00802220.
 struct PageTable
 {
-    void SetEntryStateByKey(int index, int value);
+    void BSDismemberSkinInstance_SetBodyPartEnabled(int index, int value);
 };
 
 // Stand-in for the class that owns FUN_00802220 (this pointer is unused by it).
@@ -77,8 +77,8 @@ struct PageTable
 // src: COMMUNITY 0x00802220
 void FontManager::VATSEffect_SetBodyPartEnabled(PageTable* pPages, int index, unsigned char value)
 {
-    pPages->SetEntryStateByKey((unsigned short)index, value);
-    pPages->SetEntryStateByKey(index * 1000, value);
+    pPages->BSDismemberSkinInstance_SetBodyPartEnabled((unsigned short)index, value);
+    pPages->BSDismemberSkinInstance_SetBodyPartEnabled(index * 1000, value);
 }
 
 struct FUN_00450f90_cls
@@ -94,7 +94,7 @@ struct FUN_0043f220_cls
     FUN_0043f220_cls* __thiscall GetEntryAt(int b);
 };
 
-struct FUN_00802260_cls
+struct FOVATSEffectManager
 {
     virtual void v00();
     virtual void v01();
@@ -219,12 +219,12 @@ struct FUN_00802260_cls
     virtual void v78();
     virtual void v79();
     virtual FUN_0043f220_cls* v7a();
-    void __thiscall FOVATSEffectManager_ShowBipedObjectOnActor(FUN_00802260_cls* a1, int a2, unsigned char a3);
+    void __thiscall FOVATSEffectManager_ShowBipedObjectOnActor(FOVATSEffectManager* a1, int a2, unsigned char a3);
 };
 
 // @fnv 0x00802260
 // src: COMMUNITY 0x00802260
-void __thiscall FUN_00802260_cls::FOVATSEffectManager_ShowBipedObjectOnActor(FUN_00802260_cls* a1, int a2, unsigned char abFlag)
+void __thiscall FOVATSEffectManager::FOVATSEffectManager_ShowBipedObjectOnActor(FOVATSEffectManager* a1, int a2, unsigned char abFlag)
 {
     FUN_0043f220_cls* p = a1->v7a();
     if (p != 0)
@@ -404,7 +404,7 @@ class FUN_008027d0
 FUN_008027d0::FUN_008027d0() : m_iSlotCount(1), m_kFormatEntries(37), m_iArrayLength(0), m_iFirst(0), m_iLast(0)
 {}
 
-struct FUN_008029c0_class
+struct DebugTextManager
 {
     int unk00;
     int unk04;
@@ -420,7 +420,7 @@ struct FUN_008029c0_class
 
 // @fnv 0x008029c0
 // src: COMMUNITY 0x008029c0
-bool FUN_008029c0_class::DebugTextManager_SetScreenDebugPage(const char* apPage, int value)
+bool DebugTextManager::DebugTextManager_SetScreenDebugPage(const char* apPage, int value)
 {
     int result = reinterpret_cast<FUN_00802a20_class*>(this)->DebugTextManager_FindPageIndex(apPage);
 
@@ -737,7 +737,7 @@ struct NodeObj
 
 struct MgrObj
 {
-    void __thiscall SetEntryStateByKey(int index, int value);
+    void __thiscall BSDismemberSkinInstance_SetBodyPartEnabled(int index, int value);
 };
 
 bool __cdecl Animation_FindSkinnedNode(NiObj* o);
@@ -946,10 +946,10 @@ void __thiscall This8022::FOVATSEffectManager_RestoreBodyParts()
                             int ptr;
                             for (ptr = 0; 15 > ptr; ptr++)
                             {
-                                f23->SetEntryStateByKey((unsigned short)ptr, 1);
-                                f23->SetEntryStateByKey(ptr * 1000, 1);
-                                f23->SetEntryStateByKey(ptr + 100, 0);
-                                f23->SetEntryStateByKey(ptr + 200, 0);
+                                f23->BSDismemberSkinInstance_SetBodyPartEnabled((unsigned short)ptr, 1);
+                                f23->BSDismemberSkinInstance_SetBodyPartEnabled(ptr * 1000, 1);
+                                f23->BSDismemberSkinInstance_SetBodyPartEnabled(ptr + 100, 0);
+                                f23->BSDismemberSkinInstance_SetBodyPartEnabled(ptr + 200, 0);
                             }
                         }
                         x30 = 0;

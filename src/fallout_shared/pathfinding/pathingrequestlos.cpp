@@ -52,7 +52,7 @@ void* PathingRequestLOS::DestroyAndFree(unsigned int flags)
 void PathingRequestLOS::LoadGame(BGSLoadFormBuffer* buffer)
 {
     PathingRequest::LoadGame(buffer);
-    unsigned int count = buffer->ReadElementCount();
+    unsigned int count = buffer->LoadVariableSizedValue();
     m_b4.SetSize(count, 1);
     unsigned int i = 0;
     for (; i < count; ++i)

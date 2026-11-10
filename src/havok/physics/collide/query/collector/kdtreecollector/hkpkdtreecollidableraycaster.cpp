@@ -143,18 +143,18 @@ struct SpawnedBase
     {}
 };
 
-struct FUN_00d979f0_cls : SpawnedBase
+struct hkKdTreeCollidableRayBundleCaster : SpawnedBase
 {
     int m_i04;
     int m_i08;
     int m_i0C;
     int m_i10;
 
-    FUN_00d979f0_cls* ResetFields() throw();
+    hkKdTreeCollidableRayBundleCaster* ResetFields() throw();
 };
 
 // @fnv 0x00d979f0
-FUN_00d979f0_cls* FUN_00d979f0_cls::ResetFields() throw()
+hkKdTreeCollidableRayBundleCaster* hkKdTreeCollidableRayBundleCaster::ResetFields() throw()
 {
     this->SpawnedBase::~SpawnedBase();
     m_i04 = 0;
@@ -168,13 +168,14 @@ FUN_00d979f0_cls* FUN_00d979f0_cls::ResetFields() throw()
 
 void __cdecl operator delete(void* pvMem);
 
-class FUN_00d979a0
+class hkKdTreeBundleCastCollector
 {
 // @fnv 0x00d979a0
+// src: EXE 0x00d979a0
   public:
-    FUN_00d979a0()
+    hkKdTreeBundleCastCollector()
     {}
-    virtual ~FUN_00d979a0()
+    virtual ~hkKdTreeBundleCastCollector()
     {}
 
     static void* operator new(unsigned int, void* p)
@@ -190,7 +191,7 @@ class FUN_00d979a0
 // Placement construction so the vtable (and with it the deleting destructor) is emitted.
 void* D979A0Make(void* pvMem)
 {
-    return new (pvMem) FUN_00d979a0;
+    return new (pvMem) hkKdTreeBundleCastCollector;
 }
 
 extern "C" unsigned __int64 __rdtsc(void);

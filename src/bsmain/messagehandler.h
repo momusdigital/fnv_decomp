@@ -40,7 +40,8 @@ const char* MessageHandler::GetWarningFileName()
 }
 
 // @fnv 0x004694c0
-float MessageHandler::GetSpeechProgress()
+// src: COMMUNITY 0x004694c0
+float MessageHandler::TESFile_GetFileVersion()
 {
     // Speech progress lives at this offset in the original game layout.
     return *reinterpret_cast<const float*>(reinterpret_cast<const char*>(this) + 0x3dc);

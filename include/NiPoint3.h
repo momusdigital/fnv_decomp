@@ -88,7 +88,7 @@ class NiPoint3
     float XYLength();
     float SqrXYLength();
     float GetLengthSquared();
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength() const;
     float GetLen() const;
     float Magnitude() const;
     void ComputeMagnitude();
@@ -180,7 +180,7 @@ class NiPoint3
     void AddBinormal(const NiPoint3& point);
     void AddZTo(float& output) const;
     void AssignOutput(const NiPoint3& point);
-    float UpdateCombatStyle();
+    float NiPoint3_SqrLength();
 
     void LoadBinary(NiStream* stream);
     void LoadBinary(NiStream& stream);

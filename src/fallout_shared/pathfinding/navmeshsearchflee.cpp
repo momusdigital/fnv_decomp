@@ -72,7 +72,7 @@ bool NavMeshSearchFlee::IsNodeValid(const AStarNode<NavMeshTriangleReference, Na
     if (apNode == GetFieldAt2050())
         return false;
     NiPoint3 nodeCenter = apNode->kNode.FastNavMeshTriLocation_GetLocation();
-    float fsqrLength = (pRequest->GetOrigin()->FUN_005c3420() - nodeCenter).GetSquaredXYLength();
+    float fsqrLength = (pRequest->GetOrigin()->FUN_005c3420() - nodeCenter).NiPoint3_SqrXYLength();
     if (fsqrLength < static_cast<const PathingRequest*>(pRequest)->GetFloatAtOffsetB0() *
                         static_cast<const PathingRequest*>(pRequest)->GetFloatAtOffsetB0())
         return false;
@@ -104,7 +104,8 @@ struct FleeNodeLayout
 
 // Stores the navmesh and triangle on the node, computes the triangle center, and sets the node cost from the flee range minus the distance to the avoid vector.
 // @fnv 0x006a9580
-void NavMeshSearchFlee::SetNodeFleeCost(AStarNode<NavMeshTriangleReference, NavMeshTriangleEdgeReference>* apNode,
+// src: COMMUNITY 0x006a9580
+void NavMeshSearchFlee::SetNodeData(AStarNode<NavMeshTriangleReference, NavMeshTriangleEdgeReference>* apNode,
                                      NavMesh* apNavMesh, unsigned short aiTriangle)
 {
     reinterpret_cast<FleeNodeLayout*>(apNode)->m_pLocationNavMesh = apNavMesh;
@@ -162,7 +163,7 @@ bool NavMeshSearchFlee::StartFleeSearch(PathingRequest* request, const FleeStart
         static_cast<FleeAvoidNodes*>(static_cast<const PathingRequest*>(pRequest)->GetString())->PathingAvoidNodeArray_ComputeCenter(a, kAvoidVector);
     AStarNode<NavMeshTriangleReference, NavMeshTriangleEdgeReference>* p =
         FUN_006a7c90(GetKeyForNode_006a94f0(start->m_pLocationNavMesh, start->m_usTriangleIdentifier), start, 0.0f);
-    SetNodeFleeCost(p, start->m_pLocationNavMesh, start->m_usTriangleIdentifier);
+    SetNodeData(p, start->m_pLocationNavMesh, start->m_usTriangleIdentifier);
     if (!request->NiAVObject_GetRotate_006a9540()->PathingLocation_QUnused())
     {
         bHasDestination = true;
@@ -302,7 +303,7 @@ bool NavMeshSearchFlee::ExpandNode(Node* node, NodeArray* output)
             switch (FUN_006a7e00(GetKeyForNode_006a94f0(), edgeData, triangle, extra, &neighbour))
             {
             case 0:
-                SetNodeFleeCost(reinterpret_cast<SearchNode*>(neighbour), edgeData, triangle);
+                SetNodeData(reinterpret_cast<SearchNode*>(neighbour), edgeData, triangle);
             case 1:
                 neighbour->parentMesh = node->edgeData;
                 neighbour->parentTriangle = node->triangle;

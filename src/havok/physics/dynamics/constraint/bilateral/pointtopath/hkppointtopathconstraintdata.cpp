@@ -702,12 +702,13 @@ PathDeleteRouter* __cdecl hkMemoryRouter_getInstance();
 struct PathDeleteData : hkpPointToPathConstraintData
 {
     void __thiscall Destroy();
-    void* __thiscall FUN_00deef10(unsigned char flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned char flags);
 };
 
 // Calls the base destructor, then if flags bit 0 is set, releases this block through the router heap using m_usMemSizeAndFlags, and returns this.
 // @fnv 0x00deef10
-void* __thiscall PathDeleteData::FUN_00deef10(unsigned char flags)
+// src: EXE 0x00deef10
+void* __thiscall PathDeleteData::ScalarDeletingDestructor(unsigned char flags)
 {
     Destroy();
     if (flags & 1)

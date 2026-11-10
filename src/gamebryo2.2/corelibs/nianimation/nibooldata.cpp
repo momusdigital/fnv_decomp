@@ -67,7 +67,8 @@ void* __cdecl _FUN_00a7d330(void*);
 char* __cdecl NiGetViewerString_00a7d510(char const*, unsigned int);
 
 // @fnv 0x00a53ba0
-void __fastcall GetBoolViewerStrings(NiBoolData* data, void*, StrArr* apViewerStrings)
+// src: EXE 0x00a53ba0
+void __fastcall NiBoolData_GetViewerStrings(NiBoolData* data, void*, StrArr* apViewerStrings)
 {
     AppendCameraPathEntries(apViewerStrings);
 
@@ -159,7 +160,7 @@ void __cdecl NiAnimationKey_CopySequence(unsigned int mode, NiAnimationKey::KeyT
 void __fastcall CloneBoolDataForTimeRange(NiBoolData* data, void*, float startTime, float endTime, NiPointer<NiBoolData>& output)
 {
     NiBoolData* original = 0;
-    data->ResolveObjectPointer(reinterpret_cast<NiPointer<NiObject>&>(original));
+    data->CreateDeepCopy(reinterpret_cast<NiPointer<NiObject>&>(original));
 
     NiBoolData* copy = original;
     if (copy != 0)

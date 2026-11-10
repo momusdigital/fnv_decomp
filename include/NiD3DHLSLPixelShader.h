@@ -28,7 +28,7 @@ public:
     virtual void SetShaderInterface(ID3DXConstantTable* pkTable);
 
     void __thiscall UpdateState_00e96c90();
-    void* __thiscall FUN_00e95cd0(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
     unsigned int GetVariableCount();
     void SetEntryPoint_00e95cf0(const char* pcEntryPoint);
     unsigned int __thiscall NiD3DVertexShader_GetShaderHandle();

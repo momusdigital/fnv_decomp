@@ -88,7 +88,7 @@ class B479FB0Idle
 class B479FB0Actor
 {
   public:
-    bool HasIdleInFormArray(B479FB0Idle* pkIdle);
+    bool Actor_CanUseIdle(B479FB0Idle* pkIdle);
 };
 class B479FB0IdleList
 {

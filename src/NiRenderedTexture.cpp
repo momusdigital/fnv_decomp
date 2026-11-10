@@ -51,7 +51,7 @@ NiRenderedTexture* NiRenderedTexture::Create(const NiFixedString& name, unsigned
     texture->m_bUseDepthBuffer = ms_bUseDepthBuffer;
     texture->m_ePixelFormat = ms_eDepthStencilFormat;
     texture->m_bUseMipMaps = ms_bUseMipMaps;
-    if (!dxRenderer->CreateRenderedTexture(texture, msaa))
+    if (!dxRenderer->TESWaterSystem_CreateQuadShape(texture, msaa))
     {
         delete texture;
         return 0;

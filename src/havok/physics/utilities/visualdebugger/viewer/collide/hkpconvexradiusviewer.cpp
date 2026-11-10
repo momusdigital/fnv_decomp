@@ -700,7 +700,7 @@ struct Watch_d65f
 struct Phantom_d65f : Base_d65f, Listener_d65f, Watch2_d65f
 {
     hkArray<Node_d65f*> m_kNodeCollection;
-    void ClearItemArray(int index);
+    void hkpConvexRadiusViewer_removeAllGeometries(int index);
     void hkpConvexRadiusViewer_removeWorld(int index);
 };
 
@@ -711,7 +711,7 @@ void Phantom_d65f::hkpConvexRadiusViewer_removeWorld(int index)
 {
     m_kNodeCollection[index]->m_pCollisionAgent->hkpWorld_removeEntityListener(this);
     m_kNodeCollection[index]->m_pCollisionAgent->ClearValue(this);
-    ClearItemArray(index);
+    hkpConvexRadiusViewer_removeAllGeometries(index);
     delete m_kNodeCollection[index];
     m_kNodeCollection.removeAt(index);
 }
@@ -1223,7 +1223,7 @@ struct S_00d68c00_Query
     int unk04;
     int unk08;
     int unk0c;
-    void FUN_00de3060(S_00d68c00_Real* r) throw();
+    void hkpConvexRadiusBuilder(S_00d68c00_Real* r) throw();
     void UpdateFields_00de4420(int a, S_00d68c00_Arr* arr) throw();
 };
 
@@ -1286,7 +1286,7 @@ void S_00d68c00_Sub::hkpConvexRadiusViewer_entityAddedCallback(S_00d68c00_Arg* a
     S_00d68c00_Real radius;
     radius.FUN_00de3050();
     S_00d68c00_Query query;
-    query.FUN_00de3060(&radius);
+    query.hkpConvexRadiusBuilder(&radius);
     query.UpdateFields_00de4420(a2->unk10, &arr);
     for (int i = arr.size - 1; i >= 0; i--)
     {
@@ -1399,13 +1399,13 @@ struct FUN_00d68b20_cls
     int unk2c;
     SpawnItem** m_30;
 
-    void ClearItemArray(int idx);
+    void hkpConvexRadiusViewer_removeAllGeometries(int idx);
 };
 
 // Calls v05 on each element of the item at idx, then conditionally calls FUN_00c908c0 on its array and sets the array size to 0.
 // @fnv 0x00d68b20
-// src: GUESS 0x00d68b20 (confidence: medium)
-void FUN_00d68b20_cls::ClearItemArray(int idx)
+// src: COMMUNITY 0x00d68b20
+void FUN_00d68b20_cls::hkpConvexRadiusViewer_removeAllGeometries(int idx)
 {
     SpawnItem* item = m_30[idx];
     for (int i = 0; i < item->arr.size; ++i)

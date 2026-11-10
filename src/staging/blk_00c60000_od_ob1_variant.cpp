@@ -110,8 +110,8 @@ public:
     float DotProduct(const LocalVec3* other) const;
     float Length() const;
     float LengthSquared() const;
-    float GetSquaredXYLength();
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength();
+    float NiPoint3_SqrXYLength() const;
     Elem16& expand(Allocator& allocator);
 
     void SetComponents(float x, float y, float z);
@@ -280,7 +280,7 @@ struct FUN_00c61810_class
 {
     void* BSWArray_GetRTTI();
 };
-struct FUN_00c61820_class
+struct PArrayPoint
 {
     void* PArrayPoint_Copy(int);
 };
@@ -314,7 +314,7 @@ struct FUN_00c63950_class
 };
 struct GlobalObject_00a7b610;
 extern GlobalObject_00a7b610 g_012043c8;
-void __cdecl NiFixedString_CopyMemory_00c63c30(int, int);
+void __cdecl BSDecalPlacementVectorExtraData_FindDecalPlacementVectorGroupRecurse(int, int);
 void __cdecl CallWithSameArgumentTwice(int a);
 struct FUN_00c644d0_Class
 {
@@ -354,10 +354,10 @@ struct FUN_00c65680_Class
     void* m_iWordAt04;
     void __thiscall FUN_00c65680();
 };
-struct FUN_00c600c0_class
+struct BSPSysStripUpdateModifier
 {
     void* __thiscall UpdateState_00c5fd50();
-    void* __thiscall FUN_00c600c0(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
     static void __cdecl operator delete(void* p, unsigned int size);
 };
 struct FUN_00c613a0_Class
@@ -393,7 +393,7 @@ struct FUN_00c63970_class : NiPSysModifier
 };
 void __cdecl FUN_00c63b40(void* p);
 void __cdecl operator delete(void* p, unsigned int size);
-struct FUN_00c64930_Class
+struct BSReference
 {
     void BSReference_LinkObject(int a);
 };
@@ -854,7 +854,7 @@ struct PositionModifierObject_b9439
         return Object_DispatchCommandFour(size);
     }
 };
-PositionModifierObject_b9439* CreatePositionModifierObject();
+PositionModifierObject_b9439* BSParentVelocityModifier_CreateObject();
 struct Pad32
 {
     unsigned int a0, a1, a2, a3, a4, a5, a6, a7;
@@ -1066,10 +1066,10 @@ class NiPSysPositionModifierBase
     unsigned char m_16;
     unsigned char m_17;
 };
-class FUN_00c633b0 : public NiPSysPositionModifierBase
+class BSParentVelocityModifier : public NiPSysPositionModifierBase
 {
   public:
-    FUN_00c633b0(const char* pcName);
+    BSParentVelocityModifier(const char* pcName);
     float m_f18;
     int m_1c;
     float m_f20;
@@ -1077,7 +1077,8 @@ class FUN_00c633b0 : public NiPSysPositionModifierBase
     NiPoint3 m_kPoint30;
 };
 // @fnv 0x00c633b0
-FUN_00c633b0::FUN_00c633b0(const char* pcName) : NiPSysPositionModifierBase(NiFixedString(pcName), 0xbb8)
+// src: EXE 0x00c633b0
+BSParentVelocityModifier::BSParentVelocityModifier(const char* pcName) : NiPSysPositionModifierBase(NiFixedString(pcName), 0xbb8)
 {
     m_kPoint24 = NiPoint3::ZERO;
     m_kPoint30 = NiPoint3::ZERO;
@@ -1927,17 +1928,18 @@ struct BaseObj
     void BSPSysArrayEmitter_SetupArray();
 };
 
-struct FUN_00c61a10 : BaseObj
+struct BSPSysArrayEmitter : BaseObj
 {
     int m_58;
     SubObj m_5c;
-    FUN_00c61a10(int p1, int p2, int p3, float f0, float f1, float f2, float f3, float f4, float f5, NiColorA q, float g0,
+    BSPSysArrayEmitter(int p1, int p2, int p3, float f0, float f1, float f2, float f3, float f4, float f5, NiColorA q, float g0,
                  float g1, float g2, float g3);
-    virtual ~FUN_00c61a10();
+    virtual ~BSPSysArrayEmitter();
 };
 
 // @fnv 0x00c61a10
-FUN_00c61a10::FUN_00c61a10(int p1, int p2, int p3, float f0, float f1, float f2, float f3, float f4, float f5, NiColorA q,
+// src: EXE 0x00c61a10
+BSPSysArrayEmitter::BSPSysArrayEmitter(int p1, int p2, int p3, float f0, float f1, float f2, float f3, float f4, float f5, NiColorA q,
                            float g0, float g1, float g2, float g3)
     : BaseObj(p1, p2, f0, f1, f2, f3, f4, f5, q, g0, g1, g2, g3), m_58(p3)
 {
@@ -2839,8 +2841,8 @@ struct ObjC63
 };
 
 // @fnv 0x00c63c30
-// src: GUESS 0x00c63c30 (confidence: low)
-bool __cdecl NiFixedString_CopyMemory_00c63c30(ObjC63* obj, ObjC63* root)
+// src: COMMUNITY 0x00c63c30
+bool __cdecl BSDecalPlacementVectorExtraData_FindDecalPlacementVectorGroupRecurse(ObjC63* obj, ObjC63* root)
 {
     if (obj->v0c())
     {
@@ -2889,7 +2891,7 @@ bool __cdecl NiFixedString_CopyMemory_00c63c30(ObjC63* obj, ObjC63* root)
                 Child* c = (Child*)p->children.GetAt(i);
                 if (c)
                 {
-                    if (NiFixedString_CopyMemory_00c63c30((ObjC63*)c, root))
+                    if (BSDecalPlacementVectorExtraData_FindDecalPlacementVectorGroupRecurse((ObjC63*)c, root))
                         c = 0;
                 }
                 i++;

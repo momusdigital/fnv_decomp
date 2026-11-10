@@ -108,7 +108,7 @@ struct CoordVec : ContainerBase
         return CoordIter(m_pHeadNode, this);
         DeadQ1();
     }
-    CoordConstIter EvaluateValue_0065fd10() const;
+    CoordConstIter vector_begin() const;
     CoordConstIter end() const
     {
         return CoordConstIter(m_last, this);
@@ -131,7 +131,7 @@ CoordVec& CoordVec::ProcessEntries_00aaef90(const CoordVec& rhs)
         ? (void)0
         : ReportAssertionViolation("d:\\_fallout3\\platforms\\common\\code\\sdk\\facegen\\matrixVT.hpp", 0x29e);
     CoordIter it2 = begin();
-    CoordConstIter it1 = rhs.EvaluateValue_0065fd10();
+    CoordConstIter it1 = rhs.vector_begin();
     for (; it2.IsNotIdentical(end()) && it1.IsNotIdentical(rhs.end()); it2++, it1++)
         *it2.ProcessEntries_0064dda0() -= (*it1.ProcessEntries_0064dda0());
     return *this;

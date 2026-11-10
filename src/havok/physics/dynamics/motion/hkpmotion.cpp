@@ -193,7 +193,8 @@ void hkpMotion::SetRotationalVelocity(const hkVector4& velocity)
 
 // Reads inverse mass, returning zero for zero inverse mass and the reciprocal otherwise.
 // @fnv 0x00c86430
-float hkpMotion::GetMassValue()
+// src: COMMUNITY 0x00c86430
+float hkpMotion::getMass()
 {
     LocalM128 v = m_kInertiaAndMassInv.m_vComponents;
     float invMass;

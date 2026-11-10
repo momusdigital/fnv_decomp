@@ -207,7 +207,8 @@ void TESForm::MarkAsModified(unsigned int flags)
 }
 // Forwards this form and the given flags to g_BGSSaveLoadGame's handler with the third argument set to true.
 // @fnv 0x00484b90
-void TESForm::SetFormFlags(int flags)
+// src: COMMUNITY 0x00484b90
+void TESForm::ForceChange(int flags)
 {
     g_BGSSaveLoadGame->NotifyFormIDChanged(this, flags, true);
 }
@@ -265,7 +266,8 @@ TESFile* TESForm::GetOwnerMaster()
 
 // Looks up editorID in the form table and returns the matching TESForm, or null if editorID is empty or not found.
 // @fnv 0x00483a00
-TESForm* TESForm::LookupFormByEditorID(const char* editorID)
+// src: COMMUNITY 0x00483a00
+TESForm* TESForm::GetFormByEditorID(const char* editorID)
 {
     TESForm* form = 0;
     if (editorID && *editorID && ms_pEditorIDMap && ms_pEditorIDMap->GetAt(editorID, form))
@@ -299,7 +301,7 @@ void TESForm::InitializeFormIDMap()
 // @fnv 0x00484f50
 void TESForm::SetFile(TESFile* file)
 {
-    TESFile* parentFile = file ? file->GetThreadSafeRootFile() : 0;
+    TESFile* parentFile = file ? file->GetThreadSafeParent() : 0;
     if (parentFile)
     {
         file = parentFile;
@@ -443,7 +445,8 @@ extern int DAT_011c54f0;
 extern unsigned int DAT_011c54f4;
 
 // @fnv 0x00486890
-int __cdecl FindFormEnumIndex(unsigned int aiFormString)
+// src: COMMUNITY 0x00486890
+int __cdecl TESForm_GetFormTypeFromFormString(unsigned int aiFormString)
 {
     if (aiFormString == DAT_011c54f4)
     {
@@ -561,7 +564,8 @@ void FUN_00483c70_shell::TESForm_RemoveFromDataStructures()
 }
 
 // @fnv 0x00485d50
-void ResolveFormID(unsigned int* aiID, TESFile* apFile)
+// src: COMMUNITY 0x00485d50
+void TESForm_AddCompileIndex(unsigned int* aiID, TESFile* apFile)
 {
     if (g_TESSaveLoadGame->GetLoading())
     {
@@ -603,10 +607,10 @@ struct IdleAnimationManager
     NiFormArray* GetRootIdleArray(char*);
     NiFormArray* GetIdleArray(TESForm*);
     NiFormArray* GetIdleArray(char*);
-    static void BuildIdlePath(char*, char*);
+    static void TESIdleManager_GetIdleDirName(char*, char*);
     void* FindIdleArrayEntry(char*, int);
     void ClearIdleData();
-    static TESObject* GetCurrentUsedItem();
+    static TESObject* TESIdleManager_GetUsedItem();
     static void SetUsedItem(TESObject*);
     static void SetUsedItemLevel(int);
     static int GetUsedItemLevel();
@@ -1044,22 +1048,22 @@ bool FUN_004854e0_shell::IsGroupFormOfType(FormRecordHeader* apGroupFORM, bool a
     return bretval;
 }
 
-extern "C" void __cdecl AppendChunk(int, int, int);
+extern "C" void __cdecl TESForm___AddChunkData(int, int, int);
 
 // @fnv 0x004856d0
 // src: XBOX_PDB 0x004856d0
 void __cdecl TESForm_AddChunk(int arg)
 {
-    AppendChunk(arg, 0, 0);
+    TESForm___AddChunkData(arg, 0, 0);
 }
 
-void __cdecl AppendChunk(void* a1, void* a2, void* a3);
+void __cdecl TESForm___AddChunkData(void* a1, void* a2, void* a3);
 
 // @fnv 0x004856f0
 // src: XBOX_PDB 0x004856f0
 void __cdecl TESForm_AddChunkArray(void* apArg1, void* apArg2, void* apArg3)
 {
-    AppendChunk(apArg1, apArg2, apArg3);
+    TESForm___AddChunkData(apArg1, apArg2, apArg3);
 }
 
 void __cdecl TESForm_AddChunkArray32(void* arg0, void* arg1, void* arg2);
@@ -1376,7 +1380,8 @@ void __cdecl BSEndian(unsigned char*, EndianSizeTag<1>);
 void __cdecl BSEndian(unsigned short*, EndianSizeTag<2>);
 void __cdecl BSEndian(int*, EndianSizeTag<4>);
 // @fnv 0x00470650
-void __fastcall ConvertFormRecordEndian(FormRecordHeader* record)
+// src: COMMUNITY 0x00470650
+void __fastcall FORM_Endian(FormRecordHeader* record)
 {
     BSEndian((unsigned char*)record, EndianSizeTag<1>());
     BSEndian((unsigned char*)((char*)record + 4), EndianSizeTag<1>());
@@ -1411,7 +1416,7 @@ unsigned char FUN_00483d20_shell::SaveIfNotTemporary(TESFile* apFile)
     if (IsTemporary())
         return 0;
     SaveForm();
-    eRetVal = static_cast<TES_RETURN_CODE>(apFile->WriteFormContents(this));
+    eRetVal = static_cast<TES_RETURN_CODE>(apFile->AddTESForm(this));
     return eRetVal == 0;
 }
 
@@ -1426,7 +1431,7 @@ bool FUN_00483fc0_shell::WriteToFile(TESFile* apFile)
         return false;
     if (IsDeleted())
     {
-        apFile->WriteForm(this);
+        apFile->StartForm(this);
         apFile->RewriteFormHeader();
         return true;
     }
@@ -1575,11 +1580,11 @@ extern int DAT_011c54d0;
 bool TESForm_QEndianSwapOnSave();
 struct Holder : public TESForm
 {
-    void FinishFormRecord();
+    void TESForm_CloseForm();
 };
 // @fnv 0x00485680
-// src: GUESS 0x00485680 (confidence: medium)
-void Holder::FinishFormRecord()
+// src: COMMUNITY 0x00485680
+void Holder::TESForm_CloseForm()
 {
     FormRecordHeader* pForm;
     if (IsTemporary())
@@ -1587,7 +1592,7 @@ void Holder::FinishFormRecord()
     pForm = (FormRecordHeader*)DAT_011c54cc;
     pForm->length = DAT_011c54d0 - 0x18;
     if (TESForm_QEndianSwapOnSave())
-        ConvertFormRecordEndian(pForm);
+        FORM_Endian(pForm);
 }
 
 struct FUN_00485b60
@@ -1747,7 +1752,7 @@ struct blob12
 typedef char _sizecheck_TESFullName[sizeof(TESFullName) == 12 ? 1 : -1];
 struct FormComponentArray
 {
-    void InitializeFromForm(TESForm*);
+    void FormComponentCollection_InitFormComponentArray(TESForm*);
     void ClearFormComponentArray();
     void InitializeDataAllComponents();
     void ClearDataAllComponents();
@@ -1767,7 +1772,7 @@ struct FUN_0047c050
     void* m_pComponents[38];
     FUN_0047c050();
     ~FUN_0047c050();
-    void InitializeFromForm(TESForm*);
+    void FormComponentCollection_InitFormComponentArray(TESForm*);
     void CallElements();
 };
 
@@ -1798,7 +1803,7 @@ void FUN_00483720_shell::ClearFormData()
         break;
     default: {
         FUN_0047c050 components;
-        components.InitializeFromForm(this);
+        components.FormComponentCollection_InitFormComponentArray(this);
         components.CallElements();
         break;
     }
@@ -1858,7 +1863,7 @@ struct blob12
 typedef char _sizecheck_TESFullName[sizeof(TESFullName) == 12 ? 1 : -1];
 struct FormComponentArray
 {
-    void InitializeFromForm(TESForm*);
+    void FormComponentCollection_InitFormComponentArray(TESForm*);
     void ClearFormComponentArray();
     void InitializeDataAllComponents();
     void ClearDataAllComponents();
@@ -1911,7 +1916,7 @@ void FUN_00483870_shell::TESForm_ClearDataAllComponents()
         break;
     default: {
         FUN_0047c050 components;
-        ((FormComponentArray*)&components)->InitializeFromForm(this);
+        ((FormComponentArray*)&components)->FormComponentCollection_InitFormComponentArray(this);
         ((Holder_47c5b0*)&components)->FormComponentCollection_ClearDataAllComponents();
         break;
     }
@@ -2166,7 +2171,7 @@ class TesformOffset08View : public TESForm
 {
   public:
     unsigned int GetFlags();
-    void BeginFormRecord();
+    void TESForm_StartForm();
 };
 
 extern void* DAT_011c54cc;
@@ -2183,8 +2188,8 @@ extern FormEnumEntry DAT_01187008[];
 int __cdecl return15();
 
 // @fnv 0x004855a0
-// src: GUESS 0x004855a0 (confidence: medium)
-void TesformOffset08View::BeginFormRecord()
+// src: COMMUNITY 0x004855a0
+void TesformOffset08View::TESForm_StartForm()
 {
     FormRecordHeader* pForm;
 
@@ -2215,7 +2220,7 @@ void* _Reallocate(void* buffer, unsigned int size);
 void _FUN_00485910(int value, int size);
 unsigned char _FUN_00401500();
 
-struct FUN_004141e0_class
+struct NAVMESH_PORTAL
 {
     unsigned int chunk;
     unsigned short length;
@@ -2223,7 +2228,8 @@ struct FUN_004141e0_class
 };
 
 // @fnv 0x00485990
-void AppendChunk(unsigned int chunk, const void* data, unsigned int size)
+// src: COMMUNITY 0x00485990
+void TESForm___AddChunkData(unsigned int chunk, const void* data, unsigned int size)
 {
     unsigned int offset;
     {
@@ -2239,14 +2245,14 @@ void AppendChunk(unsigned int chunk, const void* data, unsigned int size)
             {
                 unsigned char* dataDestination;
                 {
-                    FUN_004141e0_class* newChunk;
+                    NAVMESH_PORTAL* newChunk;
 
                     offset = DAT_011c54d0;
                     DAT_011c54d0 = DAT_011c54d0 + size + 6;
                     DAT_011c54cc = _Reallocate(DAT_011c54cc, DAT_011c54d0);
 
                     newChunk =
-                        reinterpret_cast<FUN_004141e0_class*>(static_cast<unsigned char*>(DAT_011c54cc) + offset);
+                        reinterpret_cast<NAVMESH_PORTAL*>(static_cast<unsigned char*>(DAT_011c54cc) + offset);
                     chunkData = static_cast<unsigned char*>(DAT_011c54cc) + offset;
 
                     newChunk->chunk = chunk;
@@ -2266,14 +2272,14 @@ void AppendChunk(unsigned int chunk, const void* data, unsigned int size)
 }
 
 namespace fnv_00485a70 {
-struct FUN_004141e0_class
+struct NAVMESH_PORTAL
 {
     unsigned char _padding[3];
 
     void CHUNK_Endian();
 };
 
-struct CHUNK : public FUN_004141e0_class
+struct CHUNK : public NAVMESH_PORTAL
 {
     unsigned short length;
 };
@@ -2667,20 +2673,20 @@ bool ActionCaller::InvokeAction(int target, void* key, unsigned char mode, int u
     return false;
 }
 
-struct FUN_0050f780_Class
+struct TESBoundAnimObject
 {
     void __thiscall ForwardTo008d0600(int arg1, unsigned char arg2);
     void __thiscall FUN_008d0600(int arg1, unsigned char arg2);
 };
 
 // @fnv 0x0050f780
-void FUN_0050f780_Class::ForwardTo008d0600(int arg1, unsigned char arg2)
+void TESBoundAnimObject::ForwardTo008d0600(int arg1, unsigned char arg2)
 {
     FUN_008d0600(arg1, arg2);
 }
 
 bool __cdecl TESForm_QEndianSwapOnSave();
-void __cdecl AppendChunk(unsigned int record, const void* data, unsigned int bytes);
+void __cdecl TESForm___AddChunkData(unsigned int record, const void* data, unsigned int bytes);
 struct Record
 {
     unsigned char field0;
@@ -2707,7 +2713,7 @@ void __thiscall FUN_005e9620_class::BGSPerkEntry_StartPerkEntry(unsigned char va
     {
         data.FUN_00483710();
     }
-    AppendChunk(0x454b5250, &data, 3);
+    TESForm___AddChunkData(0x454b5250, &data, 3);
     if (TESForm_QEndianSwapOnSave())
     {
         data.FUN_00483710();
@@ -2756,17 +2762,18 @@ extern "C" int __cdecl FUN_00b47370(CompressionStream*);
 // b = stored original size, q = input size, cf = zlib stream,
 // eb = compression capacity, f = compressed size.
 // @fnv 0x00483d70
-void CompressSaveLoadRecord()
+// src: COMMUNITY 0x00483d70
+void TESForm_CompressSaveBuffer()
 {
     if (DAT_011c54cc && (unsigned int)DAT_011c54d0 > 24)
     {
         FormRecordHeader* c = (FormRecordHeader*)DAT_011c54cc;
         if (TESForm_QEndianSwapOnSave())
-            ConvertFormRecordEndian(c);
+            FORM_Endian(c);
         if (c->flags & 0x40000)
         {
             if (TESForm_QEndianSwapOnSave())
-                ConvertFormRecordEndian(c);
+                FORM_Endian(c);
             return;
         }
         unsigned int q = DAT_011c54d0 - 24;
@@ -2803,7 +2810,7 @@ void CompressSaveLoadRecord()
         c->flags |= 0x40000;
         c->length = k - 24;
         if (TESForm_QEndianSwapOnSave())
-            ConvertFormRecordEndian(c);
+            FORM_Endian(c);
         __memcpy(j, c, 24);
         j += 24;
         unsigned int b = q;
@@ -3170,7 +3177,7 @@ FUN_00483370::FUN_00483370()
 }  // namespace fnv_00483370
 
 bool __cdecl TESForm_QEndianSwapOnSave();
-void __cdecl AppendChunk(void*, void*, void*);
+void __cdecl TESForm___AddChunkData(void*, void*, void*);
 void* __cdecl FormHeap_Allocate(unsigned int size);
 void __cdecl FormHeapFreeAndLog_00401030(void* p);
 void* __cdecl FUN_00401460(void* dst, void* src, unsigned int size);
@@ -3212,12 +3219,12 @@ void __cdecl TESForm_AddChunkArray32(void* apDestination, void* apSource, void* 
 
             BSEndian_00401080(&p4[i], BoolBox().value);
         }
-        AppendChunk(apDestination, p4, (void*)bytes7);
+        TESForm___AddChunkData(apDestination, p4, (void*)bytes7);
         delete[] p4;
     }
     else
     {
-        AppendChunk(apDestination, apSource, (void*)bytes7);
+        TESForm___AddChunkData(apDestination, apSource, (void*)bytes7);
     }
 }
 
@@ -3317,7 +3324,7 @@ bool TESFileRecordLoader::LoadRecord(void* src, int unused, TESFile* file)
 }  // namespace fnv_0069da40
 
 extern unsigned int kGroupFormType;
-int __cdecl FindFormEnumIndex(unsigned int);
+int __cdecl TESForm_GetFormTypeFromFormString(unsigned int);
 
 struct FUN_00484150_shell : public TESForm
 {
@@ -3340,7 +3347,7 @@ bool FUN_00484150_shell::IsFormTypeBelowThreshold(FormRecordHeader* apGroupForm)
         switch (apGroupForm->iFormID)
         {
         case 0:
-            v2 = FindFormEnumIndex(apGroupForm->flags);
+            v2 = TESForm_GetFormTypeFromFormString(apGroupForm->flags);
             v1 = GetFormType();
             switch (v2)
             {

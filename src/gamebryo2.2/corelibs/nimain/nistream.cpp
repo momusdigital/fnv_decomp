@@ -3461,11 +3461,12 @@ struct Holder66070
 {
     void* vf;
     void* mem;
-    void* FUN_00a66070(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 // Saves mem, sets vf to DAT_0109bd4c, calls FUN_00a644a0 with the saved pointer, and conditionally calls _DeallocateAlias on this.
 // @fnv 0x00a66070
-void* Holder66070::FUN_00a66070(unsigned int flags)
+// src: EXE 0x00a66070
+void* Holder66070::ScalarDeletingDestructor(unsigned int flags)
 {
     void* tmp = mem;
     vf = (void*)&DAT_0109bd4c;

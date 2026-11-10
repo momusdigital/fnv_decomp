@@ -63,14 +63,14 @@ struct FUN_00d467c0
 {
     void write(const char* a, unsigned int b);
 };
-struct FUN_00d468a0_obj
+struct hkMemoryTrackStreamWriter
 {
     unsigned int pad[2];
     FUN_00d467c0* p;
     unsigned int WriteToStream(unsigned int arg, unsigned int b);
 };
 // @fnv 0x00d468a0
-unsigned int FUN_00d468a0_obj::WriteToStream(unsigned int apData, unsigned int auiSize)
+unsigned int hkMemoryTrackStreamWriter::WriteToStream(unsigned int apData, unsigned int auiSize)
 {
     p->write((const char*)apData, auiSize);
     return auiSize;
@@ -133,7 +133,7 @@ void FUN_00d46c80_cls::hkMemoryTrackStreamReader_skip(int aiDelta)
 }
 
 extern int DAT_010cf734;
-struct FUN_00d466e0
+struct hkMemoryTrackStreamReader
 {
     void* unk00;
     short unk04;
@@ -141,11 +141,12 @@ struct FUN_00d466e0
     int unk08;
     int unk0C;
     int unk10;
-    FUN_00d466e0(int a, int b);
+    hkMemoryTrackStreamReader(int a, int b);
 };
 // Initializes the object: sets unk06 to 1, points unk00 at DAT_010cf734, stores b in unk10 and a in unk08, and clears unk0C.
 // @fnv 0x00d466e0
-FUN_00d466e0::FUN_00d466e0(int a, int b)
+// src: EXE 0x00d466e0
+hkMemoryTrackStreamReader::hkMemoryTrackStreamReader(int a, int b)
 {
     unk06 = 1;
     unk00 = &DAT_010cf734;
@@ -221,7 +222,7 @@ struct FUN_00d469e0_Obj
 {
     void FreeAllChunks();
 };
-struct FUN_00d46be0_Cls
+struct hkMemoryTrack
 {
     int m00;
     int m04;
@@ -232,7 +233,7 @@ struct FUN_00d46be0_Cls
 };
 // @fnv 0x00d46be0
 // src: GUESS 0x00d46be0 (confidence: low)
-void FUN_00d46be0_Cls::UpdateFields_00d46be0()
+void hkMemoryTrack::UpdateFields_00d46be0()
 {
     reinterpret_cast<FUN_00d469e0_Obj*>(this)->FreeAllChunks();
     hkMemoryRouter* res = &HavokHeap::hkMemoryRouter_getInstance();

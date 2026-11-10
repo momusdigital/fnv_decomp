@@ -123,7 +123,7 @@ void BGSReconstructFormsInAllFilesMap::BuildMap()
         state.file = 0;
         state.map = 0;
         GetNext(state.position, state.file, state.map);
-        state.threadSafeFile = state.file->GetParentTESFile();
+        state.threadSafeFile = state.file->GetThreadSafeFile();
         state.map->BuildMap(state.threadSafeFile, &m_kFormChangeMap);
     }
 
@@ -656,7 +656,7 @@ TESFile* ReconstructFilesSourceLookup::BGSReconstructFormsInAllFilesMap_GetFileF
     {
         return pfile;
     }
-    return g_dataHandler->GetCompiledFileByIndex(aiFormID >> 24);
+    return g_dataHandler->GetCompiledFile(aiFormID >> 24);
 }
 
 namespace fnv_00844040 {
@@ -1804,26 +1804,27 @@ struct FormTypeReader
     unsigned int FUN_00401170();
 };
 
-void __cdecl ResolveFormID(unsigned int* numericID, TESFile* file);
+void __cdecl TESForm_AddCompileIndex(unsigned int* numericID, TESFile* file);
 extern "C" void __cdecl Warning_005b5e40(const char* format, ...);
 extern char DAT_01014168[];
 extern char DAT_01014100[];
 
-struct FUN_0040e7f0_owner
+struct ContainerItemExtra
 {
     TESForm* primary;
     TESGlobal* secondary;
-    void ResolveFormReferences(FormContext* context);
+    void ContainerItemExtra_InitItem(FormContext* context);
 };
 
 // Resolves primary and secondary form references through the file context, logging failures and clearing secondary when primary is null.
 // @fnv 0x0040e7f0
-void FUN_0040e7f0_owner::ResolveFormReferences(FormContext* context)
+// src: COMMUNITY 0x0040e7f0
+void ContainerItemExtra::ContainerItemExtra_InitItem(FormContext* context)
 {
     if (primary != 0)
     {
         unsigned int numericID = (unsigned int)primary;
-        ResolveFormID(&numericID, context->FUN_00484e60(-1));
+        TESForm_AddCompileIndex(&numericID, context->FUN_00484e60(-1));
         primary = _ref_004839c0(numericID);
         if (primary == 0)
         {
@@ -1836,7 +1837,7 @@ void FUN_0040e7f0_owner::ResolveFormReferences(FormContext* context)
         if (((FormTypeReader*)primary)->FUN_00401170() == 42 && secondary != 0)
         {
             unsigned int uiSecondaryID = (unsigned int)secondary;
-            ResolveFormID(&uiSecondaryID, context->FUN_00484e60(-1));
+            TESForm_AddCompileIndex(&uiSecondaryID, context->FUN_00484e60(-1));
             secondary = dynamic_cast<TESGlobal*>(_ref_004839c0(uiSecondaryID));
             if (secondary == 0)
             {
@@ -1876,7 +1877,7 @@ struct ReconstructEntry
     void ProcessRef(FormWithSaveCheck*, int, int);
     void GetOrCreateEntry(int, int, int, FormWithSaveCheck*, int, int);
 };
-int __cdecl GetCellCoordKey(int, int);
+int __cdecl TESObjectCELL_CalcExtGroupBlockKey(int, int);
 struct CellBlockSaveLoadOperations : BGSReconstructCellBlocksMap
 {
     void ReconstructFormEntry(int, int, int, FormWithSaveCheck*, int, int);
@@ -1897,7 +1898,7 @@ void CellBlockSaveLoadOperations::ReconstructFormEntry(int value, int formID, in
     }
     else
     {
-        handle3 = GetCellCoordKey(formID, context);
+        handle3 = TESObjectCELL_CalcExtGroupBlockKey(formID, context);
         entry7 = 0;
         if (!GetAt(handle3, reinterpret_cast<BGSReconstructCellSubBlocksMap*&>(entry7)))
         {
@@ -2542,7 +2543,7 @@ struct RebuildHeader
 // TESFile does not yet expose these two reconstruction operations.
 struct ReconstructionFileOperations : TESFile
 {
-    void ResetFileState(bool);
+    void TESRewind(bool);
     void SkipCurrentForm();
 };
 
@@ -2587,7 +2588,7 @@ struct RebuildOutput
 };
 
 
-void ResolveFormID(unsigned int*, TESFile*);
+void TESForm_AddCompileIndex(unsigned int*, TESFile*);
 
 unsigned int PackShortPair(unsigned short, unsigned short);
 
@@ -2597,7 +2598,7 @@ void* ourMemset(void*, int, unsigned int);
 
 void SaveGameWarning(const char*, ...);
 
-const char* FindFormEnumIndex(unsigned int);
+const char* TESForm_GetFormTypeFromFormString(unsigned int);
 const char* GetStringForByte(const char*);
 
 extern unsigned int DAT_01187014, DAT_01187020, DAT_011872b4, DAT_01187314, DAT_011873c8;
@@ -2615,7 +2616,7 @@ void BGSReconstructFormsInFileMap::BuildMap(TESFile* file, FormChangeMap* output
     if (!static_cast<unsigned int>(iCount))
         return;
 
-    static_cast<ReconstructionFileOperations*>(file)->ResetFileState(true);
+    static_cast<ReconstructionFileOperations*>(file)->TESRewind(true);
 
     RebuildHeader* pData7 = reinterpret_cast<RebuildHeader*>(file->GetRecordHeader());
 
@@ -2698,7 +2699,7 @@ void BGSReconstructFormsInFileMap::BuildMap(TESFile* file, FormChangeMap* output
 
                     unsigned int id = pData7->label;
 
-                    ResolveFormID(&id, file);
+                    TESForm_AddCompileIndex(&id, file);
 
                     if (reinterpret_cast<RebuildMap*>(m_pExteriorMap)->FUN_00853130(id, &world8))
                     {
@@ -2944,7 +2945,7 @@ void BGSReconstructFormsInFileMap::BuildMap(TESFile* file, FormChangeMap* output
 
                 else
                     SaveGameWarning("Form %08X with type %s was not able to be reconstructed", id,
-                                 GetStringForByte(FindFormEnumIndex(pData7->type)));
+                                 GetStringForByte(TESForm_GetFormTypeFromFormString(pData7->type)));
 
                 ++restoredA;
             }

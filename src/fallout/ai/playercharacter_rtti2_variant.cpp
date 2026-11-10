@@ -1071,13 +1071,13 @@ struct FormRecord
     FormRecord* FUN_005e3fa0();
     bool BGSBodyPart_GetToHitChance();
     PlayercharacterListNodeView* BSFile_GetDevice();
-    FormRecord* FindItemByDoneFlag(bool);
+    FormRecord* TESQuestStage_GetStageItem(bool);
     bool TESTextureList_GetTextureCount();
     FormRecord* TESMain_GetThread();
     unsigned int FUN_00726070();
     FormRecord* FUN_00502430();
     void TESClass_SaveGameTES();
-    void SerializeFaceGenData(void*);
+    void TESNPC_SaveFaceGen(void*);
 };
 
 struct SaveMap
@@ -2222,7 +2222,7 @@ void PlayerSave::PlayerCharacter_SaveGame(unsigned int flags)
                 while (questEntries3 && !questEntries3->FUN_008256d0())
                 {
                     FormRecord* questEntry = *questEntries3->FUN_006815c0();
-                    if (quest == questEntry->FindItemByDoneFlag(questFlag))
+                    if (quest == questEntry->TESQuestStage_GetStageItem(questFlag))
                     {
                         completed = questEntry->TESTextureList_GetTextureCount();
                         break;
@@ -2257,7 +2257,7 @@ void PlayerSave::PlayerCharacter_SaveGame(unsigned int flags)
         }
         {
             FormRecord* acoustic = BGSSaveFormBuffer_GetForm();
-            acoustic->SerializeFaceGenData(this);
+            acoustic->TESNPC_SaveFaceGen(this);
             const char* playerName3 = TESObjectREFR_GetFullName();
             unsigned char nameSize = (unsigned char)(strlen(playerName3) + 1);
             TESForm_SaveGameDataOLD(&nameSize, 1);

@@ -40,42 +40,43 @@ struct SizedBase
     {}
 };
 
-struct FUN_00dfc2c0 : SizedBase
+struct hkpTyremarksWheel : SizedBase
 {
     ArrayMember m_kArray;
 
-    FUN_00dfc2c0();
+    hkpTyremarksWheel();
 
     // Empty virtual destructor; the m_kArray member's destructor then frees its array through the allocator.
 // @fnv 0x00dfc2c0
-    virtual ~FUN_00dfc2c0() throw()
+// src: EXE 0x00dfc2c0
+    virtual ~hkpTyremarksWheel() throw()
     {}
 
     static void operator delete(void* apMemory) throw()
     {
         hkMemoryRouter* pHolder = hkMemoryRouter_getInstance();
         hkMemoryAllocator* pAllocator = reinterpret_cast<hkMemoryAllocator*>(pHolder->m_heap);
-        pAllocator->blockFree(apMemory, ((FUN_00dfc2c0*)apMemory)->m_uSize);
+        pAllocator->blockFree(apMemory, ((hkpTyremarksWheel*)apMemory)->m_uSize);
     }
 };
 
-FUN_00dfc2c0::FUN_00dfc2c0()
+hkpTyremarksWheel::hkpTyremarksWheel()
 {
     m_i08 = 0;
 }
 
 namespace fnv_00dfc330 {
-struct FUN_00dfc330
+struct hkpTyremarksInfo
 {
     unsigned short m_usMemSizeAndFlags;
     short m_sReferenceCount;
 
-    FUN_00dfc330();
-    virtual ~FUN_00dfc330();
+    hkpTyremarksInfo();
+    virtual ~hkpTyremarksInfo();
 
     static void operator delete(void* p, unsigned int nbytes)
     {
-        FUN_00dfc330* b = static_cast<FUN_00dfc330*>(p);
+        hkpTyremarksInfo* b = static_cast<hkpTyremarksInfo*>(p);
         hkMemoryRouter* pHolder = hkMemoryRouter_getInstance();
         hkMemoryAllocator* pAllocator = reinterpret_cast<hkMemoryAllocator*>(pHolder->m_heap);
         pAllocator->blockFree(p, b->m_usMemSizeAndFlags);
@@ -84,6 +85,7 @@ struct FUN_00dfc330
 
 // Empty default constructor of a class with size/flags and reference count fields.
 // @fnv 0x00dfc330
-FUN_00dfc330::FUN_00dfc330()
+// src: EXE 0x00dfc330
+hkpTyremarksInfo::hkpTyremarksInfo()
 {}
 }  // namespace fnv_00dfc330

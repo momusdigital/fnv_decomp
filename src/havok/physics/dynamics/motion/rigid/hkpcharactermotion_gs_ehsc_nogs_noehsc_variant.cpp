@@ -14,7 +14,8 @@
 
 // The shared character class lacks this override; keep its body here with the original ECX/stack ABI.
 // @fnv 0x00d1f050
-void __fastcall GetCharacterProjectedPointVelocity(const hkpCharacterMotion* motion, void*,
+// src: COMMUNITY 0x00d1f050
+void __fastcall hkpCharacterMotion_getProjectedPointVelocity(const hkpCharacterMotion* motion, void*,
                                                    const hkVector4* pos, const hkVector4* normal,
                                                    float* out_vel, float* out_inv_mass)
 {

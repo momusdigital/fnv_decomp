@@ -36,8 +36,8 @@ extern int DAT_01269028;
 extern char DAT_010c65b0;
 void hkpBroadphaseViewer_Create();
 // @fnv 0x00d6ad40
-// src: GUESS 0x00d6ad40 (confidence: low)
-void __cdecl Object_UpdateFields_00d6ad40()
+// src: COMMUNITY 0x00d6ad40
+void __cdecl hkpBroadphaseViewer_registerViewer()
 {
     DAT_01269028 = DAT_01269cd0->hkProcessFactory_registerProcess(&DAT_010c65b0, (void*)&hkpBroadphaseViewer_Create);
 }

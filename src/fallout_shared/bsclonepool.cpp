@@ -187,13 +187,14 @@ struct FUN_004b0c80
 };
 }
 
-struct FUN_004b0910_cls : public List4b0910
+struct BSClonePools : public List4b0910
 {
-    void AddKeyedItems(Key4b0910* pkKey, unsigned int ItemUpdateArray);
+    void BSClonePools_MakeClones(Key4b0910* pkKey, unsigned int ItemUpdateArray);
 };
 
 // @fnv 0x004b0910
-void FUN_004b0910_cls::AddKeyedItems(Key4b0910* pkKey, unsigned int ItemUpdateArray)
+// src: COMMUNITY 0x004b0910
+void BSClonePools::BSClonePools_MakeClones(Key4b0910* pkKey, unsigned int ItemUpdateArray)
 {
     if (!pkKey)
         return;

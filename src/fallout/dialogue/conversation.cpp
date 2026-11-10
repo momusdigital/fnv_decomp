@@ -98,7 +98,7 @@ struct FormRecordMetadata
     unsigned char iFlags[4];
     unsigned char cVersion;
 };
-void __fastcall LoadDialogueItemFromSave(DialogueItem*);
+void __fastcall DialogueItem_LoadGame(DialogueItem*);
 extern TESSaveLoadGame* g_TESSaveLoadGame;
 TESForm* TESForm_GetFormByNumericID(unsigned int);
 void FNV_Warning(const char*, ...);
@@ -142,7 +142,7 @@ void Conversation::LoadFromSave()
     for (unsigned int i = 0; i < icount; i++)
     {
         DialogueItem* pdialogueItem = new DialogueItem;
-        LoadDialogueItemFromSave(pdialogueItem);
+        DialogueItem_LoadGame(pdialogueItem);
         m_kDialogueItems.AddTail(pdialogueItem);
     }
     short sCurrentItemIndex;
@@ -216,7 +216,7 @@ DialogueItem* Conversation::GetDialogueItemByIndex(unsigned short aiIndex)
 void Conversation::LoadGameBGS_0083c330(BGSLoadFormBuffer* buffer)
 {
     short count;
-    unsigned int currentItem = buffer->ReadElementCount();
+    unsigned int currentItem = buffer->LoadVariableSizedValue();
     unsigned int index = 0;
 
     for (; index < currentItem; ++index)

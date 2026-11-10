@@ -97,7 +97,8 @@ void BGSCameraPath::InitItem()
 extern "C" const char fnv_MessageMultipleNext[];
 
 // @fnv 0x0058b190
-void BGSCameraPath::SetPathArray(NiFormArray* paths)
+// src: COMMUNITY 0x0058b190
+void BGSCameraPath::FixNextPaths(NiFormArray* paths)
 {
     if (!paths)
         return;
@@ -156,7 +157,7 @@ void BGSCameraPath::SetPathArray(NiFormArray* paths)
         locals.currentIndex -= locals.invalidCount;
         paths->SetFormAtIndex(locals.currentIndex + 1, locals.nextPath);
         paths->Compact();
-        locals.nextPath->SetPathArray(paths);
+        locals.nextPath->FixNextPaths(paths);
     }
 }
 
@@ -177,7 +178,7 @@ bool BGSCameraPath::Load(TESFile* file)
             NiFormArray* paths;
         } removalInfo;
         removalInfo.paths = DAT_011ca700->GetPathArray();
-        removalInfo.index = removalInfo.paths->GetIndexOfForm(this);
+        removalInfo.index = removalInfo.paths->GetIndexForForm(this);
         if (removalInfo.index != 0xffffffff)
         {
             ((NiTLargeArray<TESTopicInfo*, NiTMallocInterface<TESTopicInfo*> >*)removalInfo.paths)
@@ -287,7 +288,7 @@ bool BGSCameraPath::HasMissingPathArray()
     {
         if (locals.previous)
         {
-            unsigned int previousIndex = locals.paths->GetIndexOfForm(locals.previous);
+            unsigned int previousIndex = locals.paths->GetIndexForForm(locals.previous);
             if (previousIndex != 0xffffffff)
                 ++previousIndex;
             locals.index = previousIndex;
@@ -295,7 +296,7 @@ bool BGSCameraPath::HasMissingPathArray()
         if (locals.index == 0xffffffff || IsDeleted())
             locals.index = locals.paths->GetSize() + 1;
         locals.paths->SetFormAtIndex(locals.index, this);
-        SetPathArray(locals.paths);
+        FixNextPaths(locals.paths);
     }
     else
     {
@@ -404,7 +405,7 @@ void BGSCameraPath::Save_0058ac10()
         BGSCameraShot* pshot;
         unsigned int shotFormID;
 
-        TESForm::BeginFormRecord();
+        TESForm::TESForm_StartForm();
         reinterpret_cast<TESConditionSave_bgscamerapath*>(GetConditions())->ProcessItems();
 
         memset(&ids, 0, 8);
@@ -449,7 +450,7 @@ void BGSCameraPath::Save_0058ac10()
         }
     }
 
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_CloseForm();
 }
 
 void* __cdecl __memcpy(void*, const void*, unsigned int);
@@ -542,7 +543,7 @@ BGSCameraPath::~BGSCameraPath()
             NiFormArray* pArray = DAT_011ca700->GetPathArray();
             if (pArray)
             {
-                unsigned int uiPathIndex = pArray->GetIndexOfForm(this);
+                unsigned int uiPathIndex = pArray->GetIndexForForm(this);
                 if (uiPathIndex != -1)
                 {
                     BGSCameraPath* pNextPath = (BGSCameraPath*)pArray->GetFormAt(uiPathIndex + 1);

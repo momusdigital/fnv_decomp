@@ -14,7 +14,7 @@ extern "C" char DAT_011837c4, DAT_01183028, DAT_010120d8, DAT_010125c0, DAT_0101
 struct File
 {
     int TESFile_GetTESChunk();
-    void ReadChunkInt(unsigned*);
+    void TESFile_Read32(unsigned*);
     void FUN_004726f0();
 };
 struct Item
@@ -27,7 +27,7 @@ struct Item
 };
 void* __cdecl operator new(unsigned);
 void __cdecl operator delete(void*);
-void __cdecl ResolveFormID(unsigned*, File*);
+void __cdecl TESForm_AddCompileIndex(unsigned*, File*);
 TESForm* __cdecl TESForm_GetFormByNumericID(unsigned);
 void* __cdecl FUN_00ec43fb(void*, int, void*, void*, int);
 void __cdecl Warning_005b5e40(const char*, ...);
@@ -49,8 +49,8 @@ void List::EffectItemList_Load(File* file, const char* name)
     switch (file->TESFile_GetTESChunk())
     {
     case 0x44494645:
-        file->ReadChunkInt(&id);
-        ResolveFormID(&id, file);
+        file->TESFile_Read32(&id);
+        TESForm_AddCompileIndex(&id, file);
         effect = dynamic_cast<EffectSetting*>(TESForm_GetFormByNumericID(id));
         if (effect)
         {

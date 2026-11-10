@@ -45,10 +45,10 @@ struct CopyComponentState
 class B81390Extra
 {
   public:
-    void ResolveFormReferences(TESForm* pkOwner);
+    void ContainerItemExtra_InitItem(TESForm* pkOwner);
 };
 
-void __cdecl ResolveFormID(unsigned int* puiFormID, TESFile* file);
+void __cdecl TESForm_AddCompileIndex(unsigned int* puiFormID, TESFile* file);
 TESForm* __cdecl TESForm_GetFormByNumericID(unsigned int auiFormId);
 void __cdecl Warning_005b5e40(const char* pcFormat, ...);
 
@@ -67,7 +67,7 @@ class B81390ContainerObject
 void B81390ContainerObject::ContainerObject_InitItem(TESForm* pkOwner)
 {
     unsigned int auiFormId = (unsigned int)m_pPointer;
-    ResolveFormID(&auiFormId, pkOwner->FUN_00484e60(-1));
+    TESForm_AddCompileIndex(&auiFormId, pkOwner->FUN_00484e60(-1));
     m_pPointer = dynamic_cast<TESBoundObject*>(TESForm_GetFormByNumericID(auiFormId));
     if (!m_pPointer)
     {
@@ -86,5 +86,5 @@ void B81390ContainerObject::ContainerObject_InitItem(TESForm* pkOwner)
         }
     }
     if (m_pkExtra)
-        m_pkExtra->ResolveFormReferences(pkOwner);
+        m_pkExtra->ContainerItemExtra_InitItem(pkOwner);
 }

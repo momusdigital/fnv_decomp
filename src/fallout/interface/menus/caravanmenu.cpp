@@ -35,7 +35,7 @@ class NiNode;
 class BSShaderRenderUtility_caravanmenu
 {
 public:
-    bool IsRenderTargetId(unsigned int value);
+    bool TESDataHandler_IsFormIDCreated(unsigned int value);
     static void InitializeMultiBounds();
     static void SetRenderCamera(NiCamera* camera, BSShaderAccumulator* accumulator, bool unused);
     static void SetRenderCamera(AnimIdle* camera, AnimIdle* accumulator, bool unused);
@@ -2319,12 +2319,12 @@ struct CurrencyLink
 struct CurrencyList
 {
     CurrencyLink* head;
-    int GetCountableItemCount();
+    int InventoryChanges_GetGoldAmount();
 };
 struct CurrencyReference;
 struct CurrencyHandler
 {
-    void UpdateInventoryForReference(CurrencyReference* reference);
+    void TESDataHandler_CreateBarterContainer(CurrencyReference* reference);
     CurrencyList* TESDataHandler_GetBarterContainer();
 };
 extern CurrencyHandler* g_011c3f2c;
@@ -3037,9 +3037,9 @@ struct CurrencyQuery
 void CurrencyQuery::ComputePlayerAndTargetTotals()
 {
     playerTotal = 0;
-    g_011c3f2c->UpdateInventoryForReference(g_011dea3c);
+    g_011c3f2c->TESDataHandler_CreateBarterContainer(g_011dea3c);
     CurrencyList* list = g_011c3f2c->TESDataHandler_GetBarterContainer();
-    playerTotal = list->GetCountableItemCount();
+    playerTotal = list->InventoryChanges_GetGoldAmount();
     CurrencyLink* link5 = list->head;
     CurrencyForm* form = 0;
     while (link5 && *link5->FUN_006815c0())
@@ -3059,9 +3059,9 @@ void CurrencyQuery::ComputePlayerAndTargetTotals()
         link5 = link5->FUN_00726070();
     }
     targetTotal = 0;
-    g_011c3f2c->UpdateInventoryForReference(target);
+    g_011c3f2c->TESDataHandler_CreateBarterContainer(target);
     list = g_011c3f2c->TESDataHandler_GetBarterContainer();
-    targetTotal = list->GetCountableItemCount();
+    targetTotal = list->InventoryChanges_GetGoldAmount();
     link5 = list->head;
     form = 0;
     while (link5 && *link5->FUN_006815c0())
@@ -16247,7 +16247,7 @@ struct CMIntfMgr
 };
 struct CMInput
 {
-    int GetAxisState(int a, int b);
+    int OSInputGlobals_GetControllerValue(int a, int b);
 };
 struct CMOSGlobals
 {
@@ -16558,8 +16558,8 @@ void CaravanGame::CaravanMenu_DoIdle()
     float my = 0.0f;
     if (CMFn::InterfaceManager_GetSingleton()->InterfaceManager_Has360Controller())
     {
-        padX = ((CMOSGlobals*)g_osGlobals)->Main_GetControls()->GetAxisState(0, 7);
-        padY = ((CMOSGlobals*)g_osGlobals)->Main_GetControls()->GetAxisState(0, 8);
+        padX = ((CMOSGlobals*)g_osGlobals)->Main_GetControls()->OSInputGlobals_GetControllerValue(0, 7);
+        padY = ((CMOSGlobals*)g_osGlobals)->Main_GetControls()->OSInputGlobals_GetControllerValue(0, 8);
         if (CMFn::NiAbs_00408820((float)padX) <= DAT_010718f0)
             padX = 0;
         mx = padX / DAT_01029790;

@@ -51,11 +51,11 @@ struct FUN_00dee620
 };
 extern "C" void __cdecl hkVector4_ProcessEntries_00dedf10(void*, void*, void*, void*, int, int);
 void __cdecl hkGeometryProcessing_generateRandomDistribution(void* first, void* second, void* third, void* fourth);
-struct FUN_00dee6b0_Class
+struct ConstFunction
 {
     int unk00;
     float unk04;
-    float GetUnk04(int testFlag);
+    float getValue(int testFlag);
 };
 extern int DAT_010cd664;
 
@@ -64,7 +64,7 @@ struct FUN_00dee6c0_cls
 {
     int m_vptr;
 
-    FUN_00dee6c0_cls* FUN_00dee6c0(unsigned char acFlags);
+    FUN_00dee6c0_cls* ScalarDeletingDestructor(unsigned char acFlags);
 };
 inline hkSimdReal::hkSimdReal()
 {}
@@ -102,7 +102,7 @@ __forceinline hkSimdReal hkVector4::lengthSquared3() const
 extern const hkVector4 DAT_010c7160;
 float __cdecl hkVector4_GetPointSegmentSquaredDistance(const hkVector4& a, const hkVector4& b, const hkVector4& c, float* out);
 extern LocalM128 DAT_010c71d0;
-struct FUN_00dee640_cls
+struct NearestFeaturePolicy
 {
     int unk00;
     int unk04;
@@ -207,13 +207,13 @@ struct Sub20_cls
 {
     Triangle* UpdateFields_00e241a0(Triangle* node);
 };
-struct FUN_00e19200_cls
+struct hkgpMesh
 {
     unsigned int unk00;
     unsigned int unk04;
     Sub08_cls m_08;
     Sub20_cls m_20;
-    void SplitTriangleWithNewVertex(Triangle* a, const LocalM128* b, int c);
+    void splitTriangle(Triangle* a, const LocalM128* b, int c);
 };
 extern LocalM128 DAT_01017d10;
 extern float DAT_01011d78;

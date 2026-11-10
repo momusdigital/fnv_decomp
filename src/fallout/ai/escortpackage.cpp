@@ -149,7 +149,7 @@ void EscortActorPackageData::LoadGame(BGSLoadFormBuffer* apLoadGameBuffer)
     pPackage = dynamic_cast<TESPackage*>(_ref_004839c0(apLoadGameBuffer->BGSLoadGameBuffer::ReadFormIdentifier()));
     m_pEscortPackageData = pPackage ? GetEscortPackageData(pPackage) : 0;
 
-    unsigned int isaveGameCount = apLoadGameBuffer->BGSLoadGameBuffer::ReadElementCount();
+    unsigned int isaveGameCount = apLoadGameBuffer->BGSLoadGameBuffer::LoadVariableSizedValue();
     for (unsigned int uiIndex = 0; uiIndex < isaveGameCount; uiIndex++)
     {
         Actor* pForm = 0;

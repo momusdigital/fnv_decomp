@@ -245,11 +245,12 @@ bool FUN_007ae160_Obj::IsSelected()
 struct RaceMenuOption
 {
     Tile* m_pTGF;
-    int GetFloat1005();
+    int RaceSexMenu_MenuOption_GetValue();
 };
 
 // @fnv 0x007b3740
-int RaceMenuOption::GetFloat1005()
+// src: COMMUNITY 0x007b3740
+int RaceMenuOption::RaceSexMenu_MenuOption_GetValue()
 {
     return (int)m_pTGF->GetFloat(0x1005);
 }
@@ -257,7 +258,7 @@ int RaceMenuOption::GetFloat1005()
 struct TileValueAccessor
 {
     Tile* m_tile;
-    int __thiscall GetFloat1005();
+    int __thiscall RaceSexMenu_MenuOption_GetValue();
     void __thiscall RaceSexMenu_MenuOption_SetValue(int value);
     void __thiscall RaceSexMenu_MenuOption_SetRange(int aiLow, int aiHigh);
 };
@@ -269,9 +270,9 @@ void __thiscall TileValueAccessor::RaceSexMenu_MenuOption_SetRange(int aiLow, in
     {
         ((Tile*)m_tile)->Set(0x1006, aiLow);
         ((Tile*)m_tile)->Set(0x1007, aiHigh);
-        if (GetFloat1005() < aiLow)
+        if (RaceSexMenu_MenuOption_GetValue() < aiLow)
             RaceSexMenu_MenuOption_SetValue(aiLow);
-        if (GetFloat1005() > aiHigh)
+        if (RaceSexMenu_MenuOption_GetValue() > aiHigh)
             RaceSexMenu_MenuOption_SetValue(aiHigh);
     }
 }
@@ -281,11 +282,12 @@ namespace fnv_007b3970 {
 struct FUN_007b3970_shell
 {
     Tile* m_tile;
-    void SetTileEnabled(bool abEnabled);
+    void RaceSexMenu_MenuOption_SetEnabled(bool abEnabled);
 };
 // If m_tile is set, calls Set on it with the "_enabled" key and abEnabled.
 // @fnv 0x007b3970
-void FUN_007b3970_shell::SetTileEnabled(bool abEnabled)
+// src: COMMUNITY 0x007b3970
+void FUN_007b3970_shell::RaceSexMenu_MenuOption_SetEnabled(bool abEnabled)
 {
     if (m_tile)
         m_tile->Set(GetTileValueID("_enabled", -1), abEnabled);
@@ -360,13 +362,13 @@ struct TileValueAccessor
     int _00;
     unsigned int _04;
 };
-struct FUN_007b4210_shell
+struct RaceSexMenu_MenuOptionList
 {
     TileValueAccessor* FindByColor(unsigned int);
 };
 // Walks the tile list from this object, returning the first entry whose _04 equals aiColor, or null if none matches.
 // @fnv 0x007b4210
-TileValueAccessor* FUN_007b4210_shell::FindByColor(unsigned int aiColor)
+TileValueAccessor* RaceSexMenu_MenuOptionList::FindByColor(unsigned int aiColor)
 {
     void* piter;
     TileValueAccessor* popt;
@@ -495,16 +497,17 @@ struct GlobalObject_00869f00
 struct MenuOption2
 {
     MenuOption2* FindByColor(int);
-    void SetTileEnabled(bool);
+    void RaceSexMenu_MenuOption_SetEnabled(bool);
     void RaceSexMenu_MenuOption_SetRange(int, int);
 };
 void __cdecl TESNPC_FillCharGenPresetList(TESRace*, int, GlobalObject_00869f00*);
 struct FUN_007af610_shell
 {
-    void UpdateHairMenuOption();
+    void RaceSexMenu_MakePresetHeadList();
 };
 // @fnv 0x007af610
-void FUN_007af610_shell::UpdateHairMenuOption()
+// src: COMMUNITY 0x007af610
+void FUN_007af610_shell::RaceSexMenu_MakePresetHeadList()
 {
     ((GlobalObject_00869f00*)((char*)this + 0xdc))->Clear(false);
     TESNPC_FillCharGenPresetList((TESRace*)(*((TESNPC**)((char*)this + 0xd8)))->TESNPC_GetRace(),
@@ -513,11 +516,11 @@ void FUN_007af610_shell::UpdateHairMenuOption()
     MenuOption2* popt = ((MenuOption2*)*((MenuOption2**)((char*)this + 0x30)))->FindByColor(0x18);
     if (((GlobalObject_00869f00*)((char*)this + 0xdc))->NiTListBase_DFALL_NiTListItem_BSAnimGroupSequence_const_BSAnimGroupSequence_const_IsEmpty())
     {
-        popt->SetTileEnabled(false);
+        popt->RaceSexMenu_MenuOption_SetEnabled(false);
     }
     else
     {
-        popt->SetTileEnabled(true);
+        popt->RaceSexMenu_MenuOption_SetEnabled(true);
         popt->RaceSexMenu_MenuOption_SetRange(true, ((GlobalObject_00869f00*)((char*)this + 0xdc))->GetFlags());
     }
 }
@@ -529,7 +532,7 @@ struct FUN_005fdf40_shell
 };
 struct FUN_005fc5f0_shell
 {
-    bool CanBeNPC(TESNPC*);
+    bool CanBeEyesForNPC(TESNPC*);
 };
 
 struct HairNode
@@ -550,11 +553,12 @@ struct FUN_007b1ca0_t
     TESNPC* pNPC;
     void RebuildFaceGen(int);
     void UpdateEyeTextures();
-    void UpdateHairAndEyes();
+    void RaceSexMenu_ValidateHairAndEyes();
 };
 
 // @fnv 0x007b1ca0
-void FUN_007b1ca0_t::UpdateHairAndEyes()
+// src: COMMUNITY 0x007b1ca0
+void FUN_007b1ca0_t::RaceSexMenu_ValidateHairAndEyes()
 {
     if (!pNPC->GetHair()->IsValidForNPC((::TESNPC*)pNPC))
     {
@@ -572,9 +576,9 @@ void FUN_007b1ca0_t::UpdateHairAndEyes()
         pNPC->SetHair(m_pHair);
         RebuildFaceGen(1);
     }
-    if (!((FUN_005fc5f0_shell*)((MiddleHighProcess*)pNPC)->MiddleHighProcess::GetAnimation())->CanBeNPC(pNPC))
+    if (!((FUN_005fc5f0_shell*)((MiddleHighProcess*)pNPC)->MiddleHighProcess::GetAnimation())->CanBeEyesForNPC(pNPC))
     {
-        pNPC->SetEyes(((TESRace*)pNPC->TESNPC_GetRace())->GetReferencedValue());
+        pNPC->SetEyeColor(((TESRace*)pNPC->TESNPC_GetRace())->GetReferencedValue());
         UpdateEyeTextures();
     }
     ((FUN_007adc60_shell*)this)->RaceSexMenu_SetFlag(0, true);
@@ -594,11 +598,12 @@ struct FUN_007fd660_shell
 extern PC_00605d70* g_thePlayer;
 struct FUN_007b1ae0_shell
 {
-    void UpdateShadowSceneNode();
+    void RaceSexMenu_NiUpdatePlayer3D();
 };
 // Updates the shadow scene node for the player's node, then updates the node and, if a condition holds, calls FUN_007fd660 with 1.0f.
 // @fnv 0x007b1ae0
-void FUN_007b1ae0_shell::UpdateShadowSceneNode()
+// src: COMMUNITY 0x007b1ae0
+void FUN_007b1ae0_shell::RaceSexMenu_NiUpdatePlayer3D()
 {
     NiAdditionalGeometryData::GetShadowSceneNodeForIndex(3)->RemoveSceneObject(g_thePlayer->GetNode(false), false);
     NiUpdateData data(0.0f, false, false);
@@ -657,7 +662,7 @@ void FUN_007b5180_shell::CreateMenuOption()
 {
     int ilow;
     int ihigh;
-    UpdateHairMenuOption();
+    RaceSexMenu_MakePresetHeadList();
     m_pCurrentOption = ((MenuOption2*)*(void**)((char*)this + 0x30))->FindByColor(0x18);
     ((RaceSexMenu_MenuOption*)m_pCurrentOption)->RaceSexMenu_MenuOption_GetRange(ilow, ihigh);
     ((TileValueAccessor*)m_pCurrentOption)->RaceSexMenu_MenuOption_SetValue(ilow);
@@ -665,10 +670,10 @@ void FUN_007b5180_shell::CreateMenuOption()
     m_pCurrentOption = 0;
 }
 
-// TESNPC.h lacks RandomizeFace(int, int, int).
+// TESNPC.h lacks TESNPC_RandomizeFaceCoord(int, int, int).
 struct FUN_00601830_shell
 {
-    void RandomizeFace(int, int, int);
+    void TESNPC_RandomizeFaceCoord(int, int, int);
 };
 struct FUN_007adc60_shell
 {
@@ -699,7 +704,7 @@ void __cdecl RaceSexMenu_RandomizeCallback()
     {
         if (ConsumeByteAtE4() == 1 || ((FUN_007adc30_shell*)DAT_011da634)->RaceSexMenu_IsFlagged(7))
         {
-            ((FUN_00601830_shell*)(void*)(*((char**)DAT_011da634 + 0xd8 / 4)))->RandomizeFace(1, 0, 1);
+            ((FUN_00601830_shell*)(void*)(*((char**)DAT_011da634 + 0xd8 / 4)))->TESNPC_RandomizeFaceCoord(1, 0, 1);
             ((FUN_007adc60_shell*)DAT_011da634)->RaceSexMenu_SetFlag(7, true);
             ((FUN_007b18f0_shell*)DAT_011da634)->HandleMenuKey(0x22);
             ((FUN_007b18f0_shell*)DAT_011da634)->HandleMenuKey(0x23);
@@ -777,7 +782,7 @@ struct GlobalObject_0045cf30
 extern GlobalObject_0045cf30 g_011db620;
 void* __cdecl operator new(unsigned int);
 void __cdecl operator delete(void*);
-struct FUN_007ac9f0
+struct FORenderedMenuRaceSex
 {
     int unk000;
     int unk004;
@@ -871,7 +876,7 @@ struct FUN_007ac9f0
     int unk164;
     int unk168;
     int unk16c;
-    FUN_007ac9f0();
+    FORenderedMenuRaceSex();
     void FUN_007ac9d0(int);
 };
 
@@ -929,7 +934,7 @@ Tile* __cdecl GetOrCreateMenuTile(int param)
         if (*g_011db620.Bool())
         {
             Tile::UpdateAll(false);
-            FUN_007ac9f0* pRenderData = new FUN_007ac9f0;
+            FORenderedMenuRaceSex* pRenderData = new FORenderedMenuRaceSex;
             pRenderData->FUN_007ac9d0(param);
             ((MagicHitEffect*)pRenderData)->FUN_00984f60((unsigned int)tile);
             ((NiPick*)pRenderData)->SetTarget_00705fc0((void*)tile->GetModel_0056c7f0());
@@ -1214,7 +1219,7 @@ void RaceMenuClickState::RaceSexMenu_DoDownClick(int iType, Tile* pkClickedTile)
     case 0x69:
         m_pkClickedTile = pkClickedTile;
         m_pkOption = m_apkLists[GetCurrentPage()]->GetTile(pkClickedTile->FUN_0045cd60());
-        m_iValue = m_pkOption->GetFloat1005();
+        m_iValue = m_pkOption->RaceSexMenu_MenuOption_GetValue();
     case 1:
         m_fTime = GetInterfaceTimer7AE()->GetTime();
     }
@@ -1225,7 +1230,7 @@ struct Hair
     unsigned int unk00, unk04, unk08, unk0c, unk10, unk14;
     TESFullName fullName;
     bool TESHair_GetPlayable();
-    bool IsHairValidForNPC(TESNPC*);
+    bool TESHair_CanBeHairForNPC(TESNPC*);
 };
 struct HairNode
 {
@@ -1240,7 +1245,7 @@ struct HairOption
 };
 struct HairOptions
 {
-    void ReleaseStorage_007b45b0();
+    void RaceSexMenu_MenuOptionList_Clear();
     HairOption* RaceSexMenu_List_AddListItemWithID(const char*, int);
     HairOption* BGSSaveFormBuffer_GetForm();
     bool RaceSexMenu_MenuOptionList_DoGamepad(int);
@@ -1311,11 +1316,11 @@ struct HairMenu
 // @fnv 0x007af300
 void HairMenu::PopulateHairOptions()
 {
-    options->ReleaseStorage_007b45b0();
+    options->RaceSexMenu_MenuOptionList_Clear();
     HairOption* pChosenOption = 0;
     for (HairNode* node = (HairNode*)DAT_011c3f2c->GetTESHairList(); node && *node->FUN_006815c0(); node = node->FUN_00726070())
     {
-        if ((*node->FUN_006815c0())->TESHair_GetPlayable() && (*node->FUN_006815c0())->IsHairValidForNPC(npc))
+        if ((*node->FUN_006815c0())->TESHair_GetPlayable() && (*node->FUN_006815c0())->TESHair_CanBeHairForNPC(npc))
         {
             HairOption* option = options->RaceSexMenu_List_AddListItemWithID((*node->FUN_006815c0())->fullName.GetFullName(), 27);
             option->FUN_00403550(*node->FUN_006815c0());
@@ -1560,7 +1565,7 @@ int __cdecl BSStringT_char_SPrintF(::BSStringT<char>*, const char*, ...);
 struct HairOption
 {
     int FUN_00726070();
-    int GetFloat1005();
+    int RaceSexMenu_MenuOption_GetValue();
     void RaceSexMenu_MenuOption_SetDisplay(const char*);
 };
 struct HairOptionList
@@ -1593,7 +1598,7 @@ struct HairMenu
     HairOptionList* unk40;
     void ApplyHairOption(HairOption* option);
     void RaceSexMenu_SetHairColor(int);
-    void UpdatePackedColorAndFaceGen();
+    void RaceSexMenu_ChangeHairColor();
 };
 // @fnv 0x007af900
 void HairMenu::ApplyHairOption(HairOption* option)
@@ -1607,9 +1612,9 @@ void HairMenu::ApplyHairOption(HairOption* option)
         bool found;
         {
             ::BSStringT<char> name;
-            BSStringT_char_SPrintF(&name, "iHairColor%02d", option->GetFloat1005());
+            BSStringT_char_SPrintF(&name, "iHairColor%02d", option->RaceSexMenu_MenuOption_GetValue());
             found = GameSettingCollection::Instance()->GetSetting(name, &valueSetting);
-            BSStringT_char_SPrintF(&name, "sHairColor%d", option->GetFloat1005());
+            BSStringT_char_SPrintF(&name, "sHairColor%d", option->RaceSexMenu_MenuOption_GetValue());
             found = GameSettingCollection::Instance()->GetSetting(name, &setting);
             option->RaceSexMenu_MenuOption_SetDisplay(setting->String());
             RaceSexMenu_SetHairColor(*(int*)valueSetting->Int());
@@ -1619,7 +1624,7 @@ void HairMenu::ApplyHairOption(HairOption* option)
     {
         unk40->FindByColor(29)->RaceSexMenu_MenuOption_SetDisplay(g_011d3528.String());
     }
-    UpdatePackedColorAndFaceGen();
+    RaceSexMenu_ChangeHairColor();
 }
 }  // namespace fnv_007af900
 
@@ -1773,7 +1778,7 @@ struct Target
     int unk0d0;
     ScenePointer scene;
     ScaleObject* scale;
-    void UpdateShadowSceneNode();
+    void RaceSexMenu_NiUpdatePlayer3D();
     bool RaceSexMenu_RotatePlayer(float, bool);
 };
 // @fnv 0x007b1970
@@ -1797,7 +1802,7 @@ bool Target::RaceSexMenu_RotatePlayer(float offset, bool force)
     f.SetMatrixElement(2, 2, scale->TESNPC_GetHeight());
     p = p.FUN_0043f8d0(f);
     scene.Modelloader_GetReferencedThis()->SetRotate_0043fa80(&p);
-    UpdateShadowSceneNode();
+    RaceSexMenu_NiUpdatePlayer3D();
     return true;
 }
 
@@ -2043,7 +2048,7 @@ struct BaseB50
 };
 struct FaceB50
 {
-    void BuildAppearance(BaseB50*, SnapshotB50*, int, bool);
+    void TESRace_GetFaceGenData(BaseB50*, SnapshotB50*, int, bool);
 };
 struct ObjectB50
 {
@@ -2339,10 +2344,10 @@ struct HostB50
     unsigned unk0d4;
     TESNPC* data;
     bool RebuildFaceGen(bool);
-    void UpdateShadowSceneNode();
+    void RaceSexMenu_NiUpdatePlayer3D();
 };
 char* __cdecl FUN_00657820(char*, int);
-void __cdecl BuildHairFaceGenNodes(NodeB50**, NodeB50**, SnapshotB50*, bool);
+void __cdecl BSFaceGenManager_AttachHairToHead(NodeB50**, NodeB50**, SnapshotB50*, bool);
 extern unsigned DAT_011f4a04;
 ObjectB50* __cdecl NiObject_DynamicCast(unsigned*, void*);
 void __cdecl FUN_00b57e30(NodeB50*, int, int);
@@ -2368,7 +2373,7 @@ bool HostB50::RebuildFaceGen(bool rebuild)
     {
         char p[32];
         SnapshotB50 i;
-        pPlayer->v37c()->BuildAppearance(pPlayer->BGSSaveFormBuffer_GetForm(), &i, pPlayer->FUN_0087f4c0(), false);
+        pPlayer->v37c()->TESRace_GetFaceGenData(pPlayer->BGSSaveFormBuffer_GetForm(), &i, pPlayer->FUN_0087f4c0(), false);
         NodeB50* h = pPlayer->v1ac(false);
         NodeB50* cf = pPlayer->v1b0(false);
         for (int i = 0; i < 2; i++)
@@ -2377,7 +2382,7 @@ bool HostB50::RebuildFaceGen(bool rebuild)
             if (part)
                 h->v0e8(part);
         }
-        BuildHairFaceGenNodes(&h, &cf, &i, false);
+        BSFaceGenManager_AttachHairToHead(&h, &cf, &i, false);
         j = pPlayer->FUN_00950a60(false);
         void* a = j->GetControllerManager_00496940()->GetStringAtOffset();
         if (a)
@@ -2454,7 +2459,7 @@ bool HostB50::RebuildFaceGen(bool rebuild)
     }
     NiUpdateData l(0, false, false);
     pPlayer->v1ac(false)->NiAVObject_Update(l);
-    UpdateShadowSceneNode();
+    RaceSexMenu_NiUpdatePlayer3D();
     return true;
 }
 }  // namespace fnv_007b2b50
@@ -2468,7 +2473,7 @@ struct Trait
 struct MenuOptionFor3760
 {
     Tile* tile;
-    int __thiscall GetFloat1005();
+    int __thiscall RaceSexMenu_MenuOption_GetValue();
     void __thiscall RaceSexMenu_MenuOption_GetRange(int& fTargetUpperBound, int& fMinimumInputValue);
     bool __thiscall RaceSexMenu_MenuOption_SetValue(int value);
 };
@@ -2480,7 +2485,7 @@ bool MenuOptionFor3760::RaceSexMenu_MenuOption_SetValue(int value)
 {
     if (tile != 0)
     {
-        int currentValue = GetFloat1005();
+        int currentValue = RaceSexMenu_MenuOption_GetValue();
         int fTargetUpperBound, fMinimumInputValue;
         RaceSexMenu_MenuOption_GetRange(fTargetUpperBound, fMinimumInputValue);
         if (value < fTargetUpperBound)
@@ -2612,7 +2617,7 @@ struct FUN_007b3af0 : S_007b3af0_Base
     int unk0c;
     int unk10;
     S_007b3af0_Item* m_item;
-    void ReleaseStorage_007b45b0();
+    void RaceSexMenu_MenuOptionList_Clear();
     ~FUN_007b3af0();
 };
 // Deletes m_item, clears it to null, then calls FUN_007b45b0.
@@ -2621,7 +2626,7 @@ FUN_007b3af0::~FUN_007b3af0()
 {
     delete m_item;
     m_item = 0;
-    ReleaseStorage_007b45b0();
+    RaceSexMenu_MenuOptionList_Clear();
 }
 
 struct TempString_007b3bb0
@@ -2838,13 +2843,13 @@ struct FUN_007b45b0_shell
     void* Modelloader_GetReferencedThis();
     NodeT*& NiTPointerListBase_NiTPointerAllocator_unsigned_int_Tile_GetNext(void*& it);
     void FUN_004ed900();
-    void ReleaseStorage_007b45b0();
+    void RaceSexMenu_MenuOptionList_Clear();
 };
 
 // Iterates the list from FUN_00559450, deleting each node's m_item and the node, then calls FUN_004ed900 and clears m_20.
 // @fnv 0x007b45b0
-// src: GUESS 0x007b45b0 (confidence: low)
-void FUN_007b45b0_shell::ReleaseStorage_007b45b0()
+// src: GUESS 0x007b45b0 (confidence: medium)
+void FUN_007b45b0_shell::RaceSexMenu_MenuOptionList_Clear()
 {
     void* it = Modelloader_GetReferencedThis();
     while (it != 0)
@@ -3329,7 +3334,7 @@ struct InitRaceMenu
     int unk120;
     Tile* FUN_00726070();
     void BuildMorphOptions();
-    void UpdateHairMenuOption();
+    void RaceSexMenu_MakePresetHeadList();
     bool RaceSexMenu_SetActiveList(int);
     void FUN_00a1dc20(int);
     void SetupRaceMenu(int mode);
@@ -3483,7 +3488,7 @@ void InitRaceMenu::SetupRaceMenu(int mode)
                             valueac = -12.4f;
                             valueb0 = 135.0f;
                             valueb4 = -0.77f;
-                            UpdateHairMenuOption();
+                            RaceSexMenu_MakePresetHeadList();
                             break;
                         default:
                             title.Set(DAT_01075a4c, 0);
@@ -3499,7 +3504,7 @@ void InitRaceMenu::SetupRaceMenu(int mode)
                             valueac = -11.4f;
                             valueb0 = 135.0f;
                             valueb4 = -0.8f;
-                            UpdateHairMenuOption();
+                            RaceSexMenu_MakePresetHeadList();
                             break;
                         }
                         if (FUN_004b7220() != 1)
@@ -3638,7 +3643,7 @@ struct Sound
 };
 struct Input
 {
-    int GetAxisState(int, int);
+    int OSInputGlobals_GetControllerValue(int, int);
     int Controls_GetMouseButton(int, int);
 };
 struct OS
@@ -3784,8 +3789,8 @@ void RaceSexMenuState::UpdateZoomAndScroll()
         {
             int horizontalSlot1 = 0;
             int verticalSlot17 = 0;
-            horizontalSlot1 = DAT_011dea0c->Main_GetControls()->GetAxisState(0, 9);
-            verticalSlot17 = DAT_011dea0c->Main_GetControls()->GetAxisState(0, 10);
+            horizontalSlot1 = DAT_011dea0c->Main_GetControls()->OSInputGlobals_GetControllerValue(0, 9);
+            verticalSlot17 = DAT_011dea0c->Main_GetControls()->OSInputGlobals_GetControllerValue(0, 10);
             int absXSlot10 = BSAbs(horizontalSlot1);
             int absYSlot39 = BSAbs(verticalSlot17);
             RaceSexMenu_SetFlag(5, 0);
@@ -3904,7 +3909,7 @@ struct Audio67
 Audio67* BSAudio_QInstance();
 struct Value67
 {
-    int GetAxisState();
+    int OSInputGlobals_GetControllerValue();
 };
 struct Input67
 {
@@ -4027,7 +4032,7 @@ bool Menu67::HandleAction(int action, int argument)
     {
         if (action >= 0)
         {
-            int key = DAT_011dea0c->Main_GetControls(0, 7)->GetAxisState();
+            int key = DAT_011dea0c->Main_GetControls(0, 7)->OSInputGlobals_GetControllerValue();
             RaceSexMenu_SetFlag(4, action != 4 && action != 3 && BSAbs(key) < 0x1ea9);
         }
         switch (action)
@@ -4514,8 +4519,8 @@ struct FaceActor
 };
 void BSFaceGenManager_MergeFaceGenCoord(void*, void*, MorphData*, int, float);
 void* FUN_00651b30();
-int BSFaceGenManager_GetFaceGenManagerVectorSize(int, int);
-float GetMorphCoordinateValue(MorphData*, int, int, int);
+int BSFaceGenManager_GetMaxControlID(int, int);
+float BSFaceGenManager_GetFaceCoordValue(MorphData*, int, int, int);
 float BSMIN(float, float);
 float BSMAX_00404010(float, float);
 struct MorphMenuOption
@@ -4648,11 +4653,11 @@ void FaceMorphMenu::BuildMorphOptions()
     MorphData morphs[4];
     BSFaceGenManager_MergeFaceGenCoord(actor->race.FUN_00726070()->GetMeanFaceCoord((SEX)actor->FUN_005f0cc0()), actor->FUN_00601800(), morphs, 0,
                  0.0f);
-    for (int index = 0; index < (FUN_00651b30(), BSFaceGenManager_GetFaceGenManagerVectorSize(0, 0)); ++index)
+    for (int index = 0; index < (FUN_00651b30(), BSFaceGenManager_GetMaxControlID(0, 0)); ++index)
     {
         if (shape[index].group < 20 && shape[index].name)
         {
-            float value = GetMorphCoordinateValue(morphs, 0, 0, index);
+            float value = BSFaceGenManager_GetFaceCoordValue(morphs, 0, 0, index);
             value = BSMAX_00404010(BSMIN(value, shape[index].maximum), shape[index].minimum);
             MorphMenuOption* option = lists[shape[index].group]->RaceSexMenu_MenuOptionList_AddSliderOption(
                 shape[index].name, 34, static_cast<int>(shape[index].minimum * 10.0),
@@ -4662,7 +4667,7 @@ void FaceMorphMenu::BuildMorphOptions()
         }
     }
     {
-        float value = GetMorphCoordinateValue(morphs, 1, 0, 29);
+        float value = BSFaceGenManager_GetFaceCoordValue(morphs, 1, 0, 29);
         value = BSMAX_00404010(BSMIN(value, tone[29].maximum), tone[29].minimum);
         MorphMenuOption* option = lists[tone[29].group]->RaceSexMenu_MenuOptionList_AddSliderOption(
             tone[29].name, 35, static_cast<int>(tone[29].minimum * 10.0), static_cast<int>(tone[29].maximum * 10.0),
@@ -4671,7 +4676,7 @@ void FaceMorphMenu::BuildMorphOptions()
         option->FUN_00403550(29);
     }
     {
-        float value = GetMorphCoordinateValue(morphs, 1, 0, 28);
+        float value = BSFaceGenManager_GetFaceCoordValue(morphs, 1, 0, 28);
         value = BSMAX_00404010(BSMIN(value, tone[28].maximum), tone[28].minimum);
         MorphMenuOption* option = lists[tone[28].group]->RaceSexMenu_MenuOptionList_AddSliderOption(
             tone[28].name, 35, static_cast<int>(tone[28].minimum * 10.0), static_cast<int>(tone[28].maximum * 10.0),
@@ -4680,7 +4685,7 @@ void FaceMorphMenu::BuildMorphOptions()
         option->FUN_00403550(28);
     }
     {
-        float value = GetMorphCoordinateValue(morphs, 1, 0, 30);
+        float value = BSFaceGenManager_GetFaceCoordValue(morphs, 1, 0, 30);
         value = BSMAX_00404010(BSMIN(value, tone[30].maximum), tone[30].minimum);
         MorphMenuOption* option = lists[tone[30].group]->RaceSexMenu_MenuOptionList_AddSliderOption(
             tone[30].name, 35, static_cast<int>(tone[30].minimum * 10.0), static_cast<int>(tone[30].maximum * 10.0),
@@ -4689,7 +4694,7 @@ void FaceMorphMenu::BuildMorphOptions()
         option->FUN_00403550(30);
     }
     {
-        float value = GetMorphCoordinateValue(morphs, 1, 0, 31);
+        float value = BSFaceGenManager_GetFaceCoordValue(morphs, 1, 0, 31);
         value = BSMAX_00404010(BSMIN(value, tone[31].maximum), tone[31].minimum);
         MorphMenuOption* option = lists[tone[31].group]->RaceSexMenu_MenuOptionList_AddSliderOption(
             tone[31].name, 35, static_cast<int>(tone[31].minimum * 10.0), static_cast<int>(tone[31].maximum * 10.0),
@@ -4698,7 +4703,7 @@ void FaceMorphMenu::BuildMorphOptions()
         option->FUN_00403550(31);
     }
     {
-        float value = GetMorphCoordinateValue(morphs, 1, 0, 8);
+        float value = BSFaceGenManager_GetFaceCoordValue(morphs, 1, 0, 8);
         value = BSMAX_00404010(BSMIN(value, tone[8].maximum), tone[8].minimum);
         MorphMenuOption* option = lists[tone[8].group]->RaceSexMenu_MenuOptionList_AddSliderOption(
             tone[8].name, 35, static_cast<int>(tone[8].minimum * 10.0), static_cast<int>(tone[8].maximum * 10.0),
@@ -4707,7 +4712,7 @@ void FaceMorphMenu::BuildMorphOptions()
         option->FUN_00403550(8);
     }
     {
-        float value = GetMorphCoordinateValue(morphs, 1, 0, 9);
+        float value = BSFaceGenManager_GetFaceCoordValue(morphs, 1, 0, 9);
         value = BSMAX_00404010(BSMIN(value, tone[9].maximum), tone[9].minimum);
         MorphMenuOption* option = lists[tone[9].group]->RaceSexMenu_MenuOptionList_AddSliderOption(
             tone[9].name, 35, static_cast<int>(tone[9].minimum * 10.0), static_cast<int>(tone[9].maximum * 10.0),
@@ -4716,7 +4721,7 @@ void FaceMorphMenu::BuildMorphOptions()
         option->FUN_00403550(9);
     }
     {
-        float value = GetMorphCoordinateValue(morphs, 1, 0, 18);
+        float value = BSFaceGenManager_GetFaceCoordValue(morphs, 1, 0, 18);
         value = BSMAX_00404010(BSMIN(value, tone[18].maximum), tone[18].minimum);
         MorphMenuOption* option = lists[tone[18].group]->RaceSexMenu_MenuOptionList_AddSliderOption(
             tone[18].name, 35, static_cast<int>(tone[18].minimum * 10.0), static_cast<int>(tone[18].maximum * 10.0),
@@ -4725,7 +4730,7 @@ void FaceMorphMenu::BuildMorphOptions()
         option->FUN_00403550(18);
     }
     {
-        float value = GetMorphCoordinateValue(morphs, 1, 0, 27);
+        float value = BSFaceGenManager_GetFaceCoordValue(morphs, 1, 0, 27);
         value = BSMAX_00404010(BSMIN(value, tone[27].maximum), tone[27].minimum);
         MorphMenuOption* option = lists[tone[27].group]->RaceSexMenu_MenuOptionList_AddSliderOption(
             tone[27].name, 35, static_cast<int>(tone[27].minimum * 10.0), static_cast<int>(tone[27].maximum * 10.0),
@@ -4734,7 +4739,7 @@ void FaceMorphMenu::BuildMorphOptions()
         option->FUN_00403550(27);
     }
     {
-        float value = GetMorphCoordinateValue(morphs, 1, 0, 22);
+        float value = BSFaceGenManager_GetFaceCoordValue(morphs, 1, 0, 22);
         value = BSMAX_00404010(BSMIN(value, tone[22].maximum), tone[22].minimum);
         MorphMenuOption* option = lists[tone[22].group]->RaceSexMenu_MenuOptionList_AddSliderOption(
             tone[22].name, 35, static_cast<int>(tone[22].minimum * 10.0), static_cast<int>(tone[22].maximum * 10.0),
@@ -4743,7 +4748,7 @@ void FaceMorphMenu::BuildMorphOptions()
         option->FUN_00403550(22);
     }
     {
-        float value = GetMorphCoordinateValue(morphs, 1, 0, 5);
+        float value = BSFaceGenManager_GetFaceCoordValue(morphs, 1, 0, 5);
         value = BSMAX_00404010(BSMIN(value, tone[5].maximum), tone[5].minimum);
         MorphMenuOption* option = lists[tone[5].group]->RaceSexMenu_MenuOptionList_AddSliderOption(
             tone[5].name, 35, static_cast<int>(tone[5].minimum * 10.0), static_cast<int>(tone[5].maximum * 10.0),
@@ -4752,7 +4757,7 @@ void FaceMorphMenu::BuildMorphOptions()
         option->FUN_00403550(5);
     }
     {
-        float value = GetMorphCoordinateValue(morphs, 1, 0, 6);
+        float value = BSFaceGenManager_GetFaceCoordValue(morphs, 1, 0, 6);
         value = BSMAX_00404010(BSMIN(value, tone[6].maximum), tone[6].minimum);
         MorphMenuOption* option = lists[tone[6].group]->RaceSexMenu_MenuOptionList_AddSliderOption(
             tone[6].name, 35, static_cast<int>(tone[6].minimum * 10.0), static_cast<int>(tone[6].maximum * 10.0),
@@ -4761,7 +4766,7 @@ void FaceMorphMenu::BuildMorphOptions()
         option->FUN_00403550(6);
     }
     {
-        float value = GetMorphCoordinateValue(morphs, 1, 0, 3);
+        float value = BSFaceGenManager_GetFaceCoordValue(morphs, 1, 0, 3);
         value = BSMAX_00404010(BSMIN(value, tone[3].maximum), tone[3].minimum);
         MorphMenuOption* option = lists[tone[3].group]->RaceSexMenu_MenuOptionList_AddSliderOption(
             tone[3].name, 35, static_cast<int>(tone[3].minimum * 10.0), static_cast<int>(tone[3].maximum * 10.0),
@@ -4814,7 +4819,7 @@ struct SliderActor
     void* FUN_00601800();
 };
 void __cdecl BSFaceGenManager_MergeFaceGenCoord(const char*, void*, FUN_00449610*, int, float);
-float __cdecl GetMorphCoordinateValue(FUN_00449610*, int, int, int);
+float __cdecl BSFaceGenManager_GetFaceCoordValue(FUN_00449610*, int, int, int);
 struct SliderMenu
 {
     int unk00, unk04, unk08, unk0c, unk10, unk14, unk18, unk1c, unk20, unk24;
@@ -4842,7 +4847,7 @@ bool SliderMenu::ClampSliderOptions(int iStartIndex, int iEndIndex, int bForward
                 {
                     int low, high;
                     {
-                        int value = (int)(GetMorphCoordinateValue(values, bForward, 0, option->FUN_0044ddc0()) * 10.0);
+                        int value = (int)(BSFaceGenManager_GetFaceCoordValue(values, bForward, 0, option->FUN_0044ddc0()) * 10.0);
                         option->RaceSexMenu_MenuOption_GetRange(low, high);
                         if (value < low)
                         {
@@ -4871,7 +4876,7 @@ float __cdecl BSMAX_00404010(float a, float b);
 
 struct PlayerStandIn
 {
-    float GetActorHeight() const;
+    float Actor_GetHeight() const;
 };
 
 struct PosTarget
@@ -4942,7 +4947,7 @@ struct RaceSexMenuCamera
     float fProgress;
     PosTargetPtr m_spTargetObject;
 
-    void UpdateShadowSceneNode();
+    void RaceSexMenu_NiUpdatePlayer3D();
     bool UpdateProgress(float afDelta, bool abForce);
 };
 
@@ -4956,8 +4961,8 @@ bool RaceSexMenuCamera::UpdateProgress(float afDelta, bool abForce)
         return false;
     ((PosTarget*)m_spTargetObject)
         ->NiAVObject_SetTranslate_004bc1f0((fEndX - fStartX) * fProgress + fStartX, (fEndY - fStartY) * fProgress + fStartY,
-                       ((PlayerStandIn*)g_thePlayer)->GetActorHeight() * ((fEndZ - fStartZ) * fProgress + fStartZ));
-    UpdateShadowSceneNode();
+                       ((PlayerStandIn*)g_thePlayer)->Actor_GetHeight() * ((fEndZ - fStartZ) * fProgress + fStartZ));
+    RaceSexMenu_NiUpdatePlayer3D();
     return true;
 }
 
@@ -5021,7 +5026,7 @@ struct FaceModel
     unsigned char BSFaceGenModel_HasEGTData();
     void BSFaceGenModel_ForceLoadModelTexture();
     void ApplyShape(void*, AppearanceObject*, int);
-    bool ApplyTextureCoordinate(void*, struct TexturePointer&, unsigned int);
+    bool ApplyCoordinateTexturingToMesh(void*, struct TexturePointer&, unsigned int);
 };
 struct SkinObject
 {
@@ -5339,7 +5344,7 @@ struct AppearanceMenu
     int unk11c;
     int unk120;
     int faceData;
-    void UpdateShadowSceneNode();
+    void RaceSexMenu_NiUpdatePlayer3D();
     void UpdateFaceGen(bool remove, bool shape, bool texture);
 };
 // @fnv 0x007b1e70
@@ -5423,14 +5428,14 @@ void AppearanceMenu::UpdateFaceGen(bool remove, bool shape, bool texture)
                     TexturePointer pkTexture(0);
                     if (!object->BSFaceGenModel_HasEGTData())
                         object->BSFaceGenModel_ForceLoadModelTexture();
-                    object->ApplyTextureCoordinate(coordinates, pkTexture, General_uiEGTClampSize_Get());
+                    object->ApplyCoordinateTexturingToMesh(coordinates, pkTexture, General_uiEGTClampSize_Get());
                     (*(SetHairTextureFn**)generated)[63](generated, 1, pkTexture);
                 }
             }
             controller = appearancePlayer->RootB(0);
         }
     }
-    UpdateShadowSceneNode();
+    RaceSexMenu_NiUpdatePlayer3D();
 }
 
 class Player511;
@@ -5661,7 +5666,7 @@ struct RaceMenuFaceRefreshState
     int unkd0;
     int unkd4;
     TESNPC* npc;
-    void UpdateShadowSceneNode();
+    void RaceSexMenu_NiUpdatePlayer3D();
     void RaceSexMenu_UpdatePlayerBody();
 };
 // @fnv 0x007b25a0
@@ -5687,7 +5692,7 @@ void RaceMenuFaceRefreshState::RaceSexMenu_UpdatePlayerBody()
     Matrix node2 = DAT_011a9448;
     object->SetRotate_0043fa80(&_g_thePlayer->TESObjectREFR_MultipleMatrixByRace(node2));
     DAT_01202d98->IOManager_LoadAllQueuedPriorities();
-    UpdateShadowSceneNode();
+    RaceSexMenu_NiUpdatePlayer3D();
     Interface_GetPipboy()->Update();
     Interface_GetPipboy()->Refresh();
 }
@@ -5959,20 +5964,20 @@ void PendingMenu::HandlePendingTileAction()
         }
         else if (action == 100)
         {
-            changed = pendingOption->RaceSexMenu_MenuOption_SetValue(pendingOption->GetFloat1005() - pendingOption->ReadOptionValue());
+            changed = pendingOption->RaceSexMenu_MenuOption_SetValue(pendingOption->RaceSexMenu_MenuOption_GetValue() - pendingOption->ReadOptionValue());
         }
         else if (action == 104)
         {
-            changed = pendingOption->RaceSexMenu_MenuOption_SetValue(pendingOption->GetFloat1005() + pendingOption->ReadOptionValue());
+            changed = pendingOption->RaceSexMenu_MenuOption_SetValue(pendingOption->RaceSexMenu_MenuOption_GetValue() + pendingOption->ReadOptionValue());
         }
         else if (action == 102)
         {
-            changed = pendingOption->RaceSexMenu_MenuOption_SetValue(pendingOption->GetFloat1005() -
+            changed = pendingOption->RaceSexMenu_MenuOption_SetValue(pendingOption->RaceSexMenu_MenuOption_GetValue() -
                                                   (int)pendingTile->GetParent()->FUN_00a011b0(0x1008));
         }
         else if (action == 103)
         {
-            changed = pendingOption->RaceSexMenu_MenuOption_SetValue(pendingOption->GetFloat1005() +
+            changed = pendingOption->RaceSexMenu_MenuOption_SetValue(pendingOption->RaceSexMenu_MenuOption_GetValue() +
                                                   (int)pendingTile->GetParent()->FUN_00a011b0(0x1008));
         }
         else if (action == 105)
@@ -6001,7 +6006,7 @@ struct FUN_00449610
 struct Option7
 {
     int FUN_00726070();
-    int GetFloat1005();
+    int RaceSexMenu_MenuOption_GetValue();
     void ApplyToAllTiles();
     Option7* FindByColor(int);
     void RaceSexMenu_MenuOption_SetDisplay(const char*);
@@ -6194,7 +6199,7 @@ void Menu7::HandleOptionSelection()
     }
     else if (selected->FUN_00726070() == 24)
     {
-        npc->FUN_00603790(forms.FUN_00877a30(selected->GetFloat1005() - 1));
+        npc->FUN_00603790(forms.FUN_00877a30(selected->RaceSexMenu_MenuOption_GetValue() - 1));
         for (int indexB = 0; indexB < 20; indexB++)
             lists[indexB]->ApplyToAllTiles();
         HandleMenuKey(34);
@@ -6218,7 +6223,7 @@ void Menu7::HandleOptionSelection()
     }
     else if (selected->FUN_00726070() == 26)
     {
-        int amount7 = selected->GetFloat1005();
+        int amount7 = selected->RaceSexMenu_MenuOption_GetValue();
         amount7 = (int)(amount7 * 5.550000190734863 + 9.449999809265137);
         FUN_00449610 base3[4];
         FUN_00449610 result6[4];
@@ -6314,7 +6319,7 @@ class HCNPC
     TESRace* TESNPC_GetRace();
     void SetRace(int iValue, int iFlag);
     void SetHair(int iValue);
-    void SetEyes(int iValue);
+    void SetEyeColor(int iValue);
 };
 
 struct HCPlayerSub
@@ -6363,8 +6368,8 @@ class HCPlayer
     int unk090;
     HCPlayerSub m_kSub94;  // +0x94
     void FUN_0095e5f0();
-    void ApplyActorSpells();
-    void UpdateHurtReaction(int iValue);
+    void Actor_DispelPermanentMagic();
+    void Actor_QueueReplacementLocomotions(int iValue);
 };
 
 struct HCName
@@ -6428,7 +6433,7 @@ class HCMenuView
     int FUN_007dcc00();
     void CreateMenuOption();
     void RaceSexMenu_UpdatePlayerBody();
-    void UpdateHairAndEyes();
+    void RaceSexMenu_ValidateHairAndEyes();
     bool RaceSexMenu_IsFlagged(int m_iValueId);
     void RebuildFaceGen(int iValue);
     void UpdateEyeTextures();
@@ -6462,24 +6467,24 @@ void HCMenuView::RaceSexMenu_DoClick(int aiIndex, Tile* pkTile)
             {
                 if (pkOption->FUN_00726070() == 0x17)
                 {
-                    m_pkNPC->TESNPC_GetRace()->ClearFaceGenUndo();
+                    m_pkNPC->TESNPC_GetRace()->KillEGTData();
                     ((HCPlayer*)DAT_011dea3c)->FUN_0095e5f0();
                     ((HCPlayer*)DAT_011dea3c)->m_kSub94.MagicTarget_DispelAllSpells(0);
-                    ((HCPlayer*)DAT_011dea3c)->ApplyActorSpells();
+                    ((HCPlayer*)DAT_011dea3c)->Actor_DispelPermanentMagic();
                     m_pkNPC->SetRace(pkOption->FUN_0044ddc0(), 0);
                 }
                 else
                 {
-                    m_pkNPC->TESNPC_GetRace()->ClearFaceGenUndo();
+                    m_pkNPC->TESNPC_GetRace()->KillEGTData();
                     m_pkNPC->m_kFlags.FUN_0047dd50(1, pkOption->FUN_00726070() == 0x16, 1);
                     bUpdatePlayer = true;
                 }
                 CreateMenuOption();
                 RaceSexMenu_UpdatePlayerBody();
-                UpdateHairAndEyes();
+                RaceSexMenu_ValidateHairAndEyes();
                 bChangedTmp = true;
                 if (bUpdatePlayer)
-                    ((HCPlayer*)DAT_011dea3c)->UpdateHurtReaction(1);
+                    ((HCPlayer*)DAT_011dea3c)->Actor_QueueReplacementLocomotions(1);
             }
             break;
         case 0x19:
@@ -6500,7 +6505,7 @@ void HCMenuView::RaceSexMenu_DoClick(int aiIndex, Tile* pkTile)
         case 0x21:
             if (!pkOption->IsSelected())
             {
-                m_pkNPC->SetEyes(pkOption->FUN_0044ddc0());
+                m_pkNPC->SetEyeColor(pkOption->FUN_0044ddc0());
                 UpdateEyeTextures();
                 bChangedTmp = true;
             }
@@ -6546,12 +6551,12 @@ void HCMenuView::RaceSexMenu_DoClick(int aiIndex, Tile* pkTile)
             m_pkSelectedOption = pkOption;
             HandlePendingTileAction();
         }
-        else if (aiIndex == 2 && pkTile->IsTraitNonZero(0xfa3))
+        else if (aiIndex == 2 && pkTile->Tile_IsTrue(0xfa3))
         {
             m_apLists[iList]->RaceSexMenu_MenuOptionList_ScrollBy(1);
             UpdateMinusPlusTiles();
         }
-        else if (aiIndex == 3 && pkTile->IsTraitNonZero(0xfa3))
+        else if (aiIndex == 3 && pkTile->Tile_IsTrue(0xfa3))
         {
             m_apLists[iList]->RaceSexMenu_MenuOptionList_ScrollBy(-1);
             UpdateMinusPlusTiles();
@@ -6653,7 +6658,7 @@ class RSMenuTarget
     int unk_0d0;
     int unk_0d4;
     TESNPC* m_npc;  // offset 0xd8
-    void UpdateShadowSceneNode();
+    void RaceSexMenu_NiUpdatePlayer3D();
     bool UpdateEyeTextures();
 };
 
@@ -6723,7 +6728,7 @@ bool RSMenuTarget::UpdateEyeTextures()
         }
     }
 
-    this->UpdateShadowSceneNode();
+    this->RaceSexMenu_NiUpdatePlayer3D();
     return true;
 }
 }  // namespace fnv_007b27c0
@@ -6795,13 +6800,13 @@ struct FUN_007b3660_shell
     int unkD0;
     int unkD4;
     FUN_007b3720_shell_* mD8;
-    void UpdatePackedColorAndFaceGen();
+    void RaceSexMenu_ChangeHairColor();
     void RebuildFaceGen(int);
 };
 // Iterates m40's entries, reads the values of types 0x1e/0x1f/0x20 into f0/mid/hi, packs them into a 24-bit value passed to mD8, then calls RebuildFaceGen(0).
 // @fnv 0x007b3660
-// src: GUESS 0x007b3660 (confidence: medium)
-void FUN_007b3660_shell::UpdatePackedColorAndFaceGen()
+// src: COMMUNITY 0x007b3660
+void FUN_007b3660_shell::RaceSexMenu_ChangeHairColor()
 {
     int iter;
     int f0 = -1;
@@ -6814,13 +6819,13 @@ void FUN_007b3660_shell::UpdatePackedColorAndFaceGen()
         switch (((FUN_00726070_shell*)u1)->FUN_00726070())
         {
         case 0x1e:
-            f0 = ((RaceMenuOption*)u1)->GetFloat1005();
+            f0 = ((RaceMenuOption*)u1)->RaceSexMenu_MenuOption_GetValue();
             break;
         case 0x1f:
-            mid = ((RaceMenuOption*)u1)->GetFloat1005();
+            mid = ((RaceMenuOption*)u1)->RaceSexMenu_MenuOption_GetValue();
             break;
         case 0x20:
-            hi = ((RaceMenuOption*)u1)->GetFloat1005();
+            hi = ((RaceMenuOption*)u1)->RaceSexMenu_MenuOption_GetValue();
             break;
         }
     }
@@ -6898,10 +6903,10 @@ class FGNode
     void SetRotate_0043fa80(const void* pkRotate);
     void NiAVObject_SetScale(float fScale);
     FGProperty* FUN_00a59d30(int iType);
-    void ForwardToSubobject(FGProperty* pkProperty);
+    void NiAVObject_DetachProperty(FGProperty* pkProperty);
     void NiAVObject_AttachProperty(FGShape* pkShape);
     void FUN_00874460(int iFlags);
-    unsigned short CallTargetV36();
+    unsigned short NiGeometry_GetActiveVertexCount();
     FGSkin* NiGeometry_GetModelData();
     void UpdateProperties();
 };
@@ -7023,14 +7028,14 @@ int BSstrcmp(const char* pcA, const char* pcB);
 FGGeometry* FUN_006530e0(void* pvData);
 FGGenerator* FUN_006521e0();
 void BSFaceGenManager_CopyFaceGenCoord(FGGenerator* pkGeneratorCur, FUN_00449610* pkCoords, int iA, int iB);
-void GetModelNifFilename(::BSStringT<char>* pkOut, const char* pcPath);
+void BSFaceGenManager_GetAsNIFFile(::BSStringT<char>* pkOut, const char* pcPath);
 void BSFaceGenManager_GetAsNIFFileLowLOD(::BSStringT<char>* pkOut, const char* pcPath);
-void BuildModelFilename(::BSStringT<char>* pkOut, const char* pcPath);
+void BSFaceGenManager_GetAsNIFFileHighLOD(::BSStringT<char>* pkOut, const char* pcPath);
 void HashPathComponents(const char* pcPath, FGPoint2* pkA, FGPoint2* pkB);
 int FindFileEntryInArchives(int iFlag, FGPoint2* pkA, FGPoint2* pkB, const char* pcPath);
-const char* GetModelEgtFilename(::BSStringT<char>* pkOut, const char* pcPath);
-const char* BuildTriPathAndSet(::BSStringT<char>* pkOut, const char* pcPath, int iIndex);
-const char* BuildEgmFilename(::BSStringT<char>* pkOut, const char* pcPath, int iIndex);
+const char* BSFaceGenManager_GetAsEGTFile(::BSStringT<char>* pkOut, const char* pcPath);
+const char* BSFaceGenManager_GetAsTRIFile(::BSStringT<char>* pkOut, const char* pcPath, int iIndex);
+const char* BSFaceGenManager_GetAsEGMFile(::BSStringT<char>* pkOut, const char* pcPath, int iIndex);
 FGModel* GetOrCreateFaceGenModel(const char* pcTri, const char* pcPath, const char* pcEgm, const char* pcEgt, int iA,
                                  int iB, int iC);
 void FUN_00b57e30(FGNode* pkNode, int iA, int iB);
@@ -7062,14 +7067,14 @@ void BSFaceGenManager_ReplaceFaceMeshLOD(FGRoot* pkRoot, int iMode)
                 FUN_00449610 akCoordsLocal[4];
                 FGGenerator* pkGeneratorCur = FUN_006521e0();
                 BSFaceGenManager_CopyFaceGenCoord(pkGeneratorCur, akCoordsLocal, 0, 0);
-                GetModelNifFilename(&kModelPath, pkSampleGeom->GetFloatValue());
+                BSFaceGenManager_GetAsNIFFile(&kModelPath, pkSampleGeom->GetFloatValue());
                 switch (iMode)
                 {
                 case 0:
                     BSFaceGenManager_GetAsNIFFileLowLOD(&kPathLast, kModelPath.String());
                     break;
                 case 1:
-                    BuildModelFilename(&kPathLast, kModelPath.String());
+                    BSFaceGenManager_GetAsNIFFileHighLOD(&kPathLast, kModelPath.String());
                 }
                 if (!kPathLast.String())
                     return;
@@ -7080,9 +7085,9 @@ void BSFaceGenManager_ReplaceFaceMeshLOD(FGRoot* pkRoot, int iMode)
                 if (!iFoundItem)
                     return;
                 FGPtr<FGModel> m_pRenderedNodeEntry(GetOrCreateFaceGenModel(
-                    BuildEgmFilename(&kTriPathData, kPathLast.String(), -1), kPathLast.String(),
-                    BuildTriPathAndSet(&kEgmPathEntry, kPathLast.String(), -1),
-                    GetModelEgtFilename(&kEgtPath, kPathLast.String()), 1, -1, 0));
+                    BSFaceGenManager_GetAsEGMFile(&kTriPathData, kPathLast.String(), -1), kPathLast.String(),
+                    BSFaceGenManager_GetAsTRIFile(&kEgmPathEntry, kPathLast.String(), -1),
+                    BSFaceGenManager_GetAsEGTFile(&kEgtPath, kPathLast.String()), 1, -1, 0));
                 if (!m_pRenderedNodeEntry->BSFaceGenModel_ApplyCoordinateToNewMesh(akCoordsLocal, &spFaceTmp) || !spFaceTmp)
                     return;
                 spFaceTmp->AssignFixedString(NiFixedString("FaceGenFace"));
@@ -7096,10 +7101,10 @@ void BSFaceGenManager_ReplaceFaceMeshLOD(FGRoot* pkRoot, int iMode)
                 FGNameBuffer kBufferData(0x101);
                 FGShape* pkShape = pkChildPropertyValue->FUN_00a5d2c0(&kBufferData);
                 pkShape->BSShaderPPLightingProperty_StoreExtraDataPointers(pkProperty->Explosion_GetActorCause());
-                pkFaceInfo->ForwardToSubobject(pkProperty);
+                pkFaceInfo->NiAVObject_DetachProperty(pkProperty);
                 pkFaceInfo->NiAVObject_AttachProperty(pkShape);
                 pkFaceInfo->FUN_00874460(pkChild->CombatController_GetTarget());
-                unsigned short usFlags = pkFaceInfo->CallTargetV36();
+                unsigned short usFlags = pkFaceInfo->NiGeometry_GetActiveVertexCount();
                 if (pkFaceInfo->NiGeometry_GetModelData()->FUN_00a67360(1))
                 {
                     FGLink kLink;

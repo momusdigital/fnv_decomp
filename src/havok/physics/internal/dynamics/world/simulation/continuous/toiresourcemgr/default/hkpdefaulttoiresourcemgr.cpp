@@ -47,7 +47,7 @@ class hkpDefaultToiResourceMgr
     int m_iMaxNumToiResources;
 
     void* AllocateMemory(int, int, hkpToiResources*);
-    void* FUN_00d9fc70(unsigned char flag);
+    void* ScalarDeletingDestructor(unsigned char flag);
 
     hkBool Object_UpdateFields_00d9fb40(const hkpToiEvent& event) throw();
     hkResult AllocateToiResources(const hkpToiEvent& event, const hkArray<hkpToiEvent>& otherEvents,
@@ -83,7 +83,8 @@ typedef void(__thiscall* FUN_00d9fc70_Callback)(MemoryManager*, void*, unsigned 
 
 // Destroys the manager, optionally releases its storage, and returns this.
 // @fnv 0x00d9fc70
-void* hkpDefaultToiResourceMgr::FUN_00d9fc70(unsigned char flag)
+// src: EXE 0x00d9fc70
+void* hkpDefaultToiResourceMgr::ScalarDeletingDestructor(unsigned char flag)
 {
     this->hkpDefaultToiResourceMgr::~hkpDefaultToiResourceMgr();
 
@@ -114,8 +115,8 @@ int __cdecl hkpDefaultToiResourceMgr_ReturnOne()
 extern int DAT_0126955c;
 
 // @fnv 0x00d9fc60
-// src: GUESS 0x00d9fc60 (confidence: low)
-int* __cdecl Object_GetGlobalObjectAddress_00d9fc60()
+// src: EXE 0x00d9fc60
+int* __cdecl hkpDefaultToiResourceMgr_getClassType()
 {
     return &DAT_0126955c;
 }

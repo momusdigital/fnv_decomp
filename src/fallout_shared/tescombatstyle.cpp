@@ -59,7 +59,7 @@ bool TESCombatStyle::Load(TESFile* file)
         case 0x44415343:
             file->GetChunkData(&m_kUInt32ChunkData, 0x54);
             if (((TESFileExtra*)file)->FUN_00401680())
-                SwapUInt32ChunkData(&m_kUInt32ChunkData);
+                AdvancedCombatStyleData_Endian(&m_kUInt32ChunkData);
             break;
         case 0x44535343:
             file->GetChunkData(&m_kUnsignedIntArray16, 0x40);
@@ -128,28 +128,29 @@ void* __fastcall DeleteCombatStyle(TESCombatStyle* self, void*, unsigned int fla
 
 bool __cdecl TESForm_QEndianSwapOnSave();
 
-void __cdecl AppendChunk(unsigned int, void*, unsigned int);
+void __cdecl TESForm___AddChunkData(unsigned int, void*, unsigned int);
 
 // @fnv 0x005053c0
-void __fastcall SaveCombatStyle(TESCombatStyle* self)
+// src: EXE 0x005053c0
+void __fastcall TESCombatStyle_SaveForm(TESCombatStyle* self)
 {
-    self->BeginFormRecord();
+    self->TESForm_StartForm();
     if (TESForm_QEndianSwapOnSave())
         self->Data.SwapEndianFields();
-    AppendChunk(0x44545343, &self->Data, 0x5c);
+    TESForm___AddChunkData(0x44545343, &self->Data, 0x5c);
     if (TESForm_QEndianSwapOnSave())
         self->Data.SwapEndianFields();
     if (TESForm_QEndianSwapOnSave())
-        SwapUInt32ChunkData(&self->m_kUInt32ChunkData);
-    AppendChunk(0x44415343, &self->m_kUInt32ChunkData, 0x54);
+        AdvancedCombatStyleData_Endian(&self->m_kUInt32ChunkData);
+    TESForm___AddChunkData(0x44415343, &self->m_kUInt32ChunkData, 0x54);
     if (TESForm_QEndianSwapOnSave())
-        SwapUInt32ChunkData(&self->m_kUInt32ChunkData);
-    if (TESForm_QEndianSwapOnSave())
-        self->m_kUnsignedIntArray16.SwapEndianFields();
-    AppendChunk(0x44535343, &self->m_kUnsignedIntArray16, 0x40);
+        AdvancedCombatStyleData_Endian(&self->m_kUInt32ChunkData);
     if (TESForm_QEndianSwapOnSave())
         self->m_kUnsignedIntArray16.SwapEndianFields();
-    self->FinishFormRecord();
+    TESForm___AddChunkData(0x44535343, &self->m_kUnsignedIntArray16, 0x40);
+    if (TESForm_QEndianSwapOnSave())
+        self->m_kUnsignedIntArray16.SwapEndianFields();
+    self->TESForm_CloseForm();
 }
 
 void __memcpy(void* __dst, const void* __src, unsigned int __n);
@@ -180,7 +181,8 @@ typedef EndianSizeTag<0> BSIntToType0;
 void __cdecl BSEndian(unsigned char*, BSIntToType0);
 
 // @fnv 0x005057a0
-void __fastcall SwapUInt32ChunkData(UInt32ChunkData* self)
+// src: COMMUNITY 0x005057a0
+void __fastcall AdvancedCombatStyleData_Endian(UInt32ChunkData* self)
 {
     BSEndian((unsigned char*)self + 0x00, BSIntToType0());
     BSEndian((unsigned char*)self + 0x04, BSIntToType0());

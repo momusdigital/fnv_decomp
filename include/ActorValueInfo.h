@@ -46,7 +46,7 @@ public:
     char* GetEnumeratedName(int);
     static unsigned int GetActorValueFormID(ActorValue::Index);
     static unsigned int GetActorValueFormID(int);
-    static int GetAffectedActorValue(unsigned int);
+    static int GetActorValueIndex(unsigned int);
 
     char* m_pName;
     BSStringT<char> m_cAbbreviation;

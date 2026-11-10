@@ -305,7 +305,7 @@ struct SerializedShapeState {
     int m_c4;
     int m_c8;
 };
-struct FUN_00caa840_shell {
+struct hkLimitedHingeConstraintCinfo {
     void* m_iWordAt00;
     SerializedShapeState* m_data;
     void hkConstraintCinfo_SaveBinary(Ctx_00caa840* ctx);
@@ -380,7 +380,7 @@ struct FUN_00c91140_Class {
     unsigned int m_88;
     unsigned int m_8C;
     int m_90;
-    void UpdateFields_00c91140();
+    void hkpWorld_internalExecutePendingBodyOperations();
 };
 struct S_00cf7540_Ref {
     void* m_p;
@@ -397,7 +397,7 @@ struct FUN_00c91190_Class {
 };
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void*);
 struct FUN_00c911d0_Class {
-    void __thiscall EnterLock(void*);
+    void __thiscall hkpWorld_lockIslandForConstraintUpdate(void*);
 };
 extern void (__stdcall *DAT_00fdf05c)(void*);
 struct FUN_00c911f0_Class {
@@ -564,7 +564,7 @@ struct FUN_00c91270_cls
     Target* m_5C;
     void ahkpWorld_updateKdTree(int a);
 };
-struct FUN_00c98250_Class {
+struct hkpNullContactMgrFactory {
     void* m_iWordAt00;
     void* m_iWordAt04;
     void* m_8;
@@ -623,12 +623,12 @@ inline C67Owner* getEntityOwner(C67Collidable* coll)
 struct C67Sink {
     void RemoveEntities(C67Entry** entries, unsigned int count);
 };
-class FUN_00c67aa0_Class {
+class bhkWorldM {
 public:
     virtual void vf00(); virtual void vf01(); virtual void vf02(); virtual void vf03();
     virtual void vf04(); virtual void vf05(); virtual void vf06(); virtual void vf07();
     virtual void vf08(); virtual void vf09(); virtual void vf10(); virtual void vf11();
-    virtual void vf12(); virtual void vf13(); virtual void vf14(); virtual void vf15();
+    virtual void SetMapName(); virtual void vf13(); virtual void vf14(); virtual void vf15();
     virtual void vf16(); virtual void vf17(); virtual void vf18(); virtual void vf19();
     virtual void vf20(); virtual void vf21(); virtual void vf22(); virtual void vf23();
     virtual void vf24(); virtual void vf25(); virtual void vf26(); virtual void vf27();
@@ -652,7 +652,7 @@ struct WorldExt : public hkpWorld {
     void hkpWorld_stepDeltaTime(float f) throw();
     void hkpWorld_stepMultithreaded(int a, int b, float f) throw();
     void FUN_00c91120() throw();
-    void UpdateFields_00c91140() throw();
+    void hkpWorld_internalExecutePendingBodyOperations() throw();
 };
 struct Class_012677d0 {
     int unk00;
@@ -1209,7 +1209,7 @@ struct PendingOperation {
 struct FUN_00c936a0_World : hkpWorld {
     void hkpWorld_queueOperation(PendingOperation* op);
     void FUN_00c91120();
-    void UpdateFields_00c91140();
+    void hkpWorld_internalExecutePendingBodyOperations();
 
     hkpPhantom* hkpWorld_addPhantom(hkpPhantom* phantom);
 };
@@ -2156,7 +2156,7 @@ struct FUN_00c91620_Class {
     int m_a4;
     void hkpWorld_queueOperation(FUN_00c91620_Args* args);
     void FUN_00c91120();
-    void UpdateFields_00c91140();
+    void hkpWorld_internalExecutePendingBodyOperations();
     unsigned char* ProcessTarget(unsigned char* result, FUN_00c91620_Target* target);
 };
 void __cdecl hkpWorldOperationUtil_removeEntityBP(FUN_00c91620_Class* self, FUN_00c91620_Target* target);
@@ -2545,11 +2545,11 @@ public:
             if (m_iPendingOperationCount)
                 FUN_00c91120();
             if (m_iPendingOperationQueueCount == 1 && m_iQueuedOperationCount)
-                UpdateFields_00c91140();
+                hkpWorld_internalExecutePendingBodyOperations();
         }
     }
     void FUN_00c91120();
-    void UpdateFields_00c91140();
+    void hkpWorld_internalExecutePendingBodyOperations();
     void hkpWorld_queueOperation(const RemoveActionOpC92C& kOp);
     void hkpWorld_removePhantom(ActionC92C* pkAction);
 };
@@ -3125,7 +3125,7 @@ struct C97E80ReleaseShell {
 };
 struct C97E80CleanupShell {
     void __thiscall FUN_00c91120();
-    void __thiscall UpdateFields_00c91140();
+    void __thiscall hkpWorld_internalExecutePendingBodyOperations();
 };
 void __cdecl hkpWorldOperationUtil_removeConstraintImmediately(hkpWorld* world, C97E80Action* action, int flags);
 struct C97E80Return { bool m_iResultCode; };
@@ -3949,7 +3949,7 @@ struct CallRet : hkpWorld {
     void hkpWorld_updateCollisionFilterOnEntity(CollisionEntity*, int, int);
     void hkpWorld_queueOperation(FilterCommand*);
     void FUN_00c91120();
-    void UpdateFields_00c91140();
+    void hkpWorld_internalExecutePendingBodyOperations();
 };
 __forceinline void releasePairs(PairArray& pairs) {
 hkMemoryRouter* router = (hkMemoryRouter*)hkMemoryRouter_getInstance();
@@ -4564,7 +4564,7 @@ static __declspec(noinline) void SyncOverlap(hkpPhantom* phantom,CollidableC944*
     }
 }
 struct PhantomArgC944 { hkpPhantom* p; PhantomArgC944(hkpPhantom* q) : p(q) {} };
-struct WorldC944 : hkpWorld { void UpdatePhantom(hkpPhantom*, int); void hkpWorld_queueOperation(PendingOp*); void FUN_00c91120(); void UpdateFields_00c91140(); };
+struct WorldC944 : hkpWorld { void UpdatePhantom(hkpPhantom*, int); void hkpWorld_queueOperation(PendingOp*); void FUN_00c91120(); void hkpWorld_internalExecutePendingBodyOperations(); };
 extern "C" unsigned __int64 __rdtsc(void);
 extern "C" void _ReadWriteBarrier(void);
 inline void* getMemoryRouter() throw() { return &hkRouterXc937a0::hkMemoryRouter_getInstance(); }
@@ -4589,7 +4589,7 @@ struct MyExecPending {
     void __thiscall FUN_00c91120() throw();
 };
 struct MyExecBodyPending {
-    void __thiscall UpdateFields_00c91140() throw();
+    void __thiscall hkpWorld_internalExecutePendingBodyOperations() throw();
 };
 
 
@@ -4798,11 +4798,11 @@ void __cdecl _hkAgentNnMachine_UpdateShapeCollectionFilter(S96_Constraint*,void*
 void __cdecl hkpWorldAgentUtil_removeAgentAndItsToiEvents(S96_Constraint*);
 struct S96_RemovalList {S96_Constraint** data; int size; int capacity; S96_Constraint* local[32]; void clear(){size=0;} int GetLogicalSize() const {return size;} S96_Constraint*& back(){return data[size-1];} void popBack(){--size;}};
 struct S96_WorldShell : hkpWorld {
- void hkpWorld_queueOperation(const S96_Operation&); void hkpWorld_updateCollisionFilterOnEntity(void*,int,int); void UpdatePhantom(void*,int); void FUN_00c91120(); void UpdateFields_00c91140();
+ void hkpWorld_queueOperation(const S96_Operation&); void hkpWorld_updateCollisionFilterOnEntity(void*,int,int); void UpdatePhantom(void*,int); void FUN_00c91120(); void hkpWorld_internalExecutePendingBodyOperations();
  __forceinline void S96_attempt() {
   if(!m_iCriticalOperationsLockCount && !m_bBlockExecutingPendingOperations) {
    if(m_iPendingOperationCount) FUN_00c91120();
-   if(m_iPendingOperationQueueCount==1 && m_iQueuedOperationCount) UpdateFields_00c91140();
+   if(m_iPendingOperationQueueCount==1 && m_iQueuedOperationCount) hkpWorld_internalExecutePendingBodyOperations();
   }
  }
  static __forceinline void S96_TimerBegin(const char* name) {
@@ -5781,7 +5781,7 @@ int vsRBS; hkpSimulationIsland*vlSI; } ;
 enum MtAccessChecking{ MT_ACCESS_CHECKING_ENABLED=0,MT_ACCESS_CHECKING_DISABLED} ; inline const EnumIntegerValue*getCollisionFilter()const throw();
 enum CachedAabbUpdate{ SHIFT_BROADPHASE_UPDATE_ENTITY_AABBS,SHIFT_BROADPHASE_IGNORE_ENTITY_AABBS} ; inline const TA2<hkpSimulationIsland*>&getActiveSimulationIslands()const throw();
 public:__forceinline void lockCriticalOperations()throw(); __forceinline void unlockCriticalOperations()throw(); __forceinline int areCriticalOperationsLocked()const throw(); __forceinline void unlockAndAttemptToExecutePendingOperations()throw();
-__forceinline void attemptToExecutePendingOperations(bool executeBodyOperations=true)throw(); void hkpWorld_queueOperation(const TWO1::TypeTag&operation)throw(); private:void FUN_00c91120()throw(); void UpdateFields_00c91140()throw();
+__forceinline void attemptToExecutePendingOperations(bool executeBodyOperations=true)throw(); void hkpWorld_queueOperation(const TWO1::TypeTag&operation)throw(); private:void FUN_00c91120()throw(); void hkpWorld_internalExecutePendingBodyOperations()throw();
 public:public:TS2*vs3; TV4 vg1; hkpSimulationIsland*vfI; TRB*vfRB;
 TA2<hkpSimulationIsland*>vaSI; TA2<hkpSimulationIsland*>viSI; TA2<hkpSimulationIsland*>vdSI; TWMM*vmM;
 TRP<TWMAWD>vmWD; TB vaOROOSM; TBP*vbP; class TTWM*vkTM;
@@ -6240,7 +6240,7 @@ static __forceinline void Sbp_initArray(Sbp_Island**& data, int& size, int& cap,
 struct Sbp_World : hkpWorld {
     void hkpWorld_shiftBroadPhase(const LocalM128& rawShift, LocalM128& rawEffective, int update);
     void FUN_00c91120();
-    void UpdateFields_00c91140();
+    void hkpWorld_internalExecutePendingBodyOperations();
 };
 static __forceinline void doShift(Sbp_World* self,const LocalM128& rawShift, LocalM128& rawEffective, int update);
 typedef float hkReal_S;
@@ -6846,7 +6846,7 @@ struct BroadPhaseDispatcher {
 struct World_RemovePhantomBatch : hkpWorld {
     void hkpWorld_queueOperation(RemovePhantomBatchOp* op) throw();
     void FUN_00c91120() throw();
-    void UpdateFields_00c91140() throw();
+    void hkpWorld_internalExecutePendingBodyOperations() throw();
     void hkpWorld_removePhantomBatch(hkpPhantom** phantomBatch, int numPhantoms);
 };
 struct __declspec(align(16)) Vec_00c98780 {
@@ -7054,7 +7054,7 @@ struct PendingOp {
 struct WorldHelper : public hkpWorld {
     void __thiscall hkpWorld_queueOperation(void* op) throw();
     void __thiscall FUN_00c91120() throw();
-    void __thiscall UpdateFields_00c91140() throw();
+    void __thiscall hkpWorld_internalExecutePendingBodyOperations() throw();
 
     void hkpWorld_addPhantomBatch(hkpPhantom* const* phantomBatch, int numPhantoms) throw();
 };
@@ -7108,13 +7108,13 @@ void WorldHelper::hkpWorld_addPhantomBatch(hkpPhantom* const* phantomBatch, int 
             FUN_00c91120();
         }
         if (m_iPendingOperationQueueCount == 1 && m_iQueuedOperationCount != 0) {
-            UpdateFields_00c91140();
+            hkpWorld_internalExecutePendingBodyOperations();
         }
     }
 }
 
 }
-struct PendingCalls_00c97510 { void FUN_00c91120(); void UpdateFields_00c91140(); };
+struct PendingCalls_00c97510 { void FUN_00c91120(); void hkpWorld_internalExecutePendingBodyOperations(); };
 struct hkAllocQ70 {
     virtual void unk00();
     virtual void unk04();
@@ -7362,7 +7362,7 @@ struct ObjectVtableCtor {
     void (__thiscall* vf2c)(ObjectCtor*);
     void (__thiscall* vf30)(ObjectCtor*);
     void (__thiscall* vf34)(ObjectCtor*);
-    void (__thiscall* vf38)(ObjectCtor*);
+    void (__thiscall* PrintInfo)(ObjectCtor*);
     void (__thiscall* vf3c)(ObjectCtor*);
     void (__thiscall* vf40)(ObjectCtor*);
     void (__thiscall* vf44)(ObjectCtor*);
@@ -7371,7 +7371,7 @@ struct ObjectVtableCtor {
     void (__thiscall* vf50)(ObjectCtor*);
     void (__thiscall* vf54)(ObjectCtor*);
     void (__thiscall* vf58)(ObjectCtor*);
-    void (__thiscall* vf5c)(ObjectCtor*);
+    void (__thiscall* applyForce)(ObjectCtor*);
     void (__thiscall* vf60)(ObjectCtor*);
     void (__thiscall* vf64)(ObjectCtor*);
     void (__thiscall* vf68)(ObjectCtor*);
@@ -7461,13 +7461,13 @@ struct ObjectCtor {
     ObjectCtor* hkpCollisionDispatcher_hkpCollisionDispatcher(void*,ObjectCtor*);
     ObjectCtor* FUN_00cbfba0();
     ObjectCtor* ProcessAndReturnValue_00cf6da0(int);
-    ObjectCtor* FUN_00d02c80(WorldCtor*);
+    ObjectCtor* hkpMultiThreadedSimulation(WorldCtor*);
     ObjectCtor* InitializeFields_00d0d020(WorldCtor*);
     ObjectCtor* FUN_00cf87c0(WorldCtor*);
     ObjectCtor* FUN_00d07830(WorldCtor*);
     ObjectCtor* AllocateStorage_00ca8c90(void*);
     ObjectCtor* FUN_00d0b710(WorldCtor*,int,int);
-    ObjectCtor* FUN_00d0b250();
+    ObjectCtor* hkpDefaultWorldMaintenanceMgr();
     ObjectCtor* FUN_00d0a2d0(WorldCtor*,int);
     ObjectCtor* FUN_00d08cf0(WorldCtor*,int,float);
     ObjectCtor* FUN_00cfca20(WorldCtor*);
@@ -7696,7 +7696,7 @@ struct StreamCtor {
     StreamCtor* FUN_00cb1600(char*,int);
     StreamCtor* ProcessAndReturnValue_00cc01c0(const char*);
     StreamCtor* WriteInt(int);
-    StreamCtor* EvaluateValue_00cc02d0(int);
+    StreamCtor* hkOstream_printf(int);
     void FUN_00cc00e0();
 };
 struct ErrorCtor {
@@ -7984,7 +7984,7 @@ WorldCtor* WorldCtor::hkpWorld_hkpWorld(WorldInfoCtor* info, int version) {
         stream.ProcessAndReturnValue_00cc01c0("** Havok libs built with version [")
               ->WriteInt(0x111d4)
               ->ProcessAndReturnValue_00cc01c0("], used with code built with [")
-              ->EvaluateValue_00cc02d0(version)
+              ->hkOstream_printf(version)
               ->ProcessAndReturnValue_00cc01c0("]. **");
         if(DAT_01268360->report(3,0x53c94b42,(char*)buffer,".\\World\\hkpWorld.cpp",0xbb5))
             __debugbreak();
@@ -8136,7 +8136,7 @@ WorldCtor* WorldCtor::hkpWorld_hkpWorld(WorldInfoCtor* info, int version) {
         modifyLock=object ? object->ProcessAndReturnValue_00cf6da0(4000) : 0;
         object=(ObjectCtor*)worldAlloc(0x18);
         propertyLock=object ? object->ProcessAndReturnValue_00cf6da0(4000) : 0;
-        simulation=allocObject<ObjectCtor>(0x180)->FUN_00d02c80(this);
+        simulation=allocObject<ObjectCtor>(0x180)->hkpMultiThreadedSimulation(this);
         minIsland=info->minIsland;
         break;
     case 2: simulation=allocObject<ObjectCtor>(0x50)->InitializeFields_00d0d020(this); break;
@@ -8184,7 +8184,7 @@ WorldCtor* WorldCtor::hkpWorld_hkpWorld(WorldInfoCtor* info, int version) {
         int behavior=info->borderBehavior;
         broadphaseBorder=pendingBorder->FUN_00d0b710(this,behavior,info->postponeBorder);
     } else broadphaseBorder=0;
-    kdTree=allocObject<ObjectCtor>(0x10)->FUN_00d0b250();
+    kdTree=allocObject<ObjectCtor>(0x10)->hkpDefaultWorldMaintenanceMgr();
     kdTree->vtable->vf0c(kdTree,this);
     callbackUtil=0;
     if(info->flagE0) hkpCollisionCallbackUtil_addCollisionCallbackUtil(this);

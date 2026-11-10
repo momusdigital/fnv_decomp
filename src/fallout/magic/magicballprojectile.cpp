@@ -79,11 +79,12 @@ inline NiPoint3 operator*(float scalar, const NiPoint3& point)
 
 struct FUN_00810a80_shell
 {
-    float GetFloatAtOffset53C();
+    float bhkCharacterController_QWaterHeight();
 };
 
 // @fnv 0x00810a80
-float FUN_00810a80_shell::GetFloatAtOffset53C()
+// src: COMMUNITY 0x00810a80
+float FUN_00810a80_shell::bhkCharacterController_QWaterHeight()
 {
     return ((float*)((char*)this + 0x53c))[0];
 }
@@ -108,7 +109,8 @@ void FUN_00822a20_shell::CheckModifierNonZero(float a)
 void _Deallocate(void*);
 
 // @fnv 0x0080f7e0
-void* MagicBallProjectile::FUN_0080f7e0(unsigned int flags)
+// src: EXE 0x0080f7e0
+void* MagicBallProjectile::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0080fb30();
     if (flags & 1)
@@ -163,7 +165,7 @@ unsigned short FUN_00811070_shell::MagicBallProjectile_GetSaveSize(unsigned int 
     return isize;
 }
 
-struct FUN_008229d0_shell
+struct MagicSprayProjectile
 {
     void ForwardCall_00822a00();
     void* FUN_008229d0(unsigned int);
@@ -171,7 +173,7 @@ struct FUN_008229d0_shell
 void _Deallocate(void*);
 // Calls FUN_00822a00, then deallocates this when bit 0 of flags is set, and returns this.
 // @fnv 0x008229d0
-void* FUN_008229d0_shell::FUN_008229d0(unsigned int flags)
+void* MagicSprayProjectile::FUN_008229d0(unsigned int flags)
 {
     ForwardCall_00822a00();
     if (flags & 1)
@@ -738,7 +740,7 @@ struct ProjectileImpact
     virtual void vf9();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -764,7 +766,7 @@ struct ProjectileImpact
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();
@@ -1176,7 +1178,7 @@ struct Effect
 };
 struct Info
 {
-    float GetFloatAtOffset53C();
+    float bhkCharacterController_QWaterHeight();
 };
 
 extern Setting originalRuntimeFUN_00403e20Setting1130;
@@ -1450,7 +1452,7 @@ void AreaProjectile::MagicBallProjectile_Update(float afDeltaTime)
         case 1: {
             if (FUN_00440d80())
                 break;
-            if (HK2NI(FUN_009306d0()->GetFloatAtOffset53C()) >= Position().z)
+            if (HK2NI(FUN_009306d0()->bhkCharacterController_QWaterHeight()) >= Position().z)
                 SetPosition(Position(), 0, 0, 1);
             NiPoint3 newPosition(0.0f, speed * afDeltaTime, 0.0f);
             NiPoint3 oldPosition = Position();
@@ -1874,7 +1876,7 @@ struct Flags
 };
 struct Controller
 {
-    float GetFloatAtOffset53C();
+    float bhkCharacterController_QWaterHeight();
     void bhkCharacterController_GetPosition(NiPoint3&);
     Flags bhkCharacterController_GetCollisionFilter();
     void bhkCharacterController_SetCollisionFilter(unsigned);
@@ -2000,7 +2002,7 @@ void Projectile::UpdateMotion(float delta)
     NiPoint3 original = reinterpret_cast<Node*>(GetNiNode())->GetTranslate_0043c490();
     if ((Anim*)reinterpret_cast<Ptr<Anim>&>(m_kImpactTransform.m_Rotate.m_pEntry[1][2]) && reinterpret_cast<int&>(m_kImpactTransform.m_Rotate.m_pEntry[2][0]) == 0)
     {
-        if (HK2NI(FUN_009306d0()->GetFloatAtOffset53C()) >= (*reinterpret_cast<NiPoint3*>(static_cast<const TESObjectREFR*>(this)->GetPos())).z)
+        if (HK2NI(FUN_009306d0()->bhkCharacterController_QWaterHeight()) >= (*reinterpret_cast<NiPoint3*>(static_cast<const TESObjectREFR*>(this)->GetPos())).z)
             reinterpret_cast<void (__thiscall*)(Projectile*, NiPoint3, int, int, int)>((*reinterpret_cast<void***>(this))[193])(this, (*reinterpret_cast<NiPoint3*>(static_cast<const TESObjectREFR*>(this)->GetPos())), 0, 0, 1);
         NiPoint3 movementVal(0.0f, reinterpret_cast<NiPoint2&>(kImpacts).x * delta, 0.0f);
         NiPoint3 before = NiPoint3_ZERO;
@@ -2135,14 +2137,14 @@ float __cdecl FUN_00406cc0(float);
 
 int __cdecl FUN_00ec62c0();
 
-struct FUN_0081a320_class;
+struct MagicFogProjectile;
 
 struct FUN_009306d0_shell
 {
     FUN_008106b0_shell* FUN_009306d0();
 };
 
-struct FUN_0081a320_class
+struct MagicFogProjectile
 {
 
     virtual void v0();
@@ -2633,7 +2635,7 @@ struct FUN_0081a320_class
 
     FUN_0081c320_shell* m_cc;
 
-    int FUN_008d6f30(NiPoint3 position, FUN_0081a320_class* owner, int x, int y, float ratio, float weight);
+    int FUN_008d6f30(NiPoint3 position, MagicFogProjectile* owner, int x, int y, float ratio, float weight);
 
     int FUN_00810fd0(int);
 
@@ -2644,7 +2646,7 @@ struct FUN_0081a320_class
 
 // @fnv 0x0081a320
 // src: COMMUNITY 0x0081a320
-void FUN_0081a320_class::MagicFogProjectile_Update(float afDeltaTime)
+void MagicFogProjectile::MagicFogProjectile_Update(float afDeltaTime)
 {
 
     if (afDeltaTime >= DAT_01012638)
@@ -2660,7 +2662,7 @@ void FUN_0081a320_class::MagicFogProjectile_Update(float afDeltaTime)
             if (reinterpret_cast<MobileObject*>(this)->FUN_00440d80())
                 return;
 
-            if (HK2NI(((FUN_009306d0_shell*)this)->FUN_009306d0()->GetFloatAtOffset53C()) >= v125()->z)
+            if (HK2NI(((FUN_009306d0_shell*)this)->FUN_009306d0()->bhkCharacterController_QWaterHeight()) >= v125()->z)
                 v193(reinterpret_cast<const NiPoint3&>(*v125()), 0, 0, 1);
 
             float distanceTraveled;
@@ -5650,7 +5652,7 @@ struct CleanupList
 // Declarations missing from the shared queue; inherit its layout without copying it.
 struct ActorDeletionQueueUnitMethods : ActorDeletionQueue_magicballprojectile
 {
-    CleanupList* GetOffset70Ptr();
+    CleanupList* ProcessLists_GetProjectilePostProcessList();
     void FUN_0096e870(void*);
     void FUN_008d0600(int, int);
 };
@@ -5659,7 +5661,7 @@ struct CleanupHandler
     bool TESDataHandler_GetClearingData();
 };
 extern CleanupHandler* DAT_011c3f2c;
-void hkVector4_ProcessEntries_0062ab60(CleanupVector&, void*);
+void TESArrowTargetListener_RemoveArrowTarget(CleanupVector&, void*);
 struct FUN_008cac60 : CleanupReference
 {
     virtual ~FUN_008cac60();
@@ -5669,7 +5671,7 @@ struct FUN_008cac60 : CleanupReference
 FUN_008cac60::~FUN_008cac60()
 {
     --DAT_011dfc98;
-    CleanupList* pCleanupList = static_cast<ActorDeletionQueueUnitMethods*>(&DAT_011e0e80)->GetOffset70Ptr();
+    CleanupList* pCleanupList = static_cast<ActorDeletionQueueUnitMethods*>(&DAT_011e0e80)->ProcessLists_GetProjectilePostProcessList();
     if (pCleanupList)
     {
         FUN_0092ec40* reference = this;
@@ -5685,7 +5687,7 @@ FUN_008cac60::~FUN_008cac60()
             CleanupVector audioVector;
             audioVector.FUN_006815c0();
             world->GetAudioPosition(audioVector);
-            hkVector4_ProcessEntries_0062ab60(audioVector, data->worldHandle);
+            TESArrowTargetListener_RemoveArrowTarget(audioVector, data->worldHandle);
         }
     }
     if (!detached && data && data->kind == 0 && data->actor && data->actor->IsActor())
@@ -6041,7 +6043,7 @@ struct PackageNodeHandler
 };
 struct MotionController
 {
-    float GetFloatAtOffset53C();
+    float bhkCharacterController_QWaterHeight();
     void bhkCharacterController_SetFallTime(float);
 };
 struct SaveService
@@ -6300,7 +6302,7 @@ void Controller::ArrowProjectile_Update(float afDelta)
         {
             NiPoint3 delta_pos(0.0f, velocity * afDelta, 0.0f);
             NiPoint3 oldPosition = reinterpret_cast<const NiPoint3&>(*v125());
-            if (HK2NI(FUN_009306d0()->GetFloatAtOffset53C()) >= v125()->z)
+            if (HK2NI(FUN_009306d0()->bhkCharacterController_QWaterHeight()) >= v125()->z)
             {
                 float stepScale = (lifetime - 1.0f * afDelta) / lifetime;
                 velocity = velocity * stepScale;
@@ -6411,7 +6413,7 @@ struct FUN_004e3cc0_Class
     float GetFloatAtOffset9C();
 };
 
-struct FUN_009ae5d0_shell
+struct Explosion
 {
     int unk00[36];
     float f90;
@@ -6444,7 +6446,7 @@ struct FUN_009ae5d0_shell
 // Checks iE4, goal Z delta, bD5, and actor-base values while conditionally calling four functions.
 // @fnv 0x009ae5d0
 // src: COMMUNITY 0x009ae5d0
-void FUN_009ae5d0_shell::Explosion_Update(int a1)
+void Explosion::Explosion_Update(int a1)
 {
     if (iE4 == 0)
     {

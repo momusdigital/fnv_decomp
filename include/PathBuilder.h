@@ -74,7 +74,7 @@ public:
     int AppendPathNodeLocations(int, BSSimpleArray<PathingLocation, 1024>*, TESObjectREFR*);
     bool BuildPathNodeLocation(PacketNodeRecord*, PacketNodeRecord*, PathingLocation&);
     int AppendNearbyPathLocations(PathingLocation*, BSSimpleArray<PathingLocation, 1024>*, int, TESObjectREFR*);
-    void* GetElementAddress30_006e8f40(void*);
+    void* BSSimpleArray_GetAt(void*);
     void* BSSimpleArray_VirtualPathingNode_1024_GetAt(void* a1);
     bool FindPath(const NiPoint3&, const NiPoint3&, void*, PathDoorView*);
     void* BSSimpleArray_VirtualPathingNode_1024_GetLast();

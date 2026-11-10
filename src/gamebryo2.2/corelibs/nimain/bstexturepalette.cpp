@@ -100,14 +100,14 @@ inline void* BSTexMapItem::operator new(size_t size)
     return g_memoryManager.Allocate(size);
 }
 
-struct FUN_00a617c0_shell : public TextureFileEntrySetter
+struct BSTexturePalette : public TextureFileEntrySetter
 {
     BSTexMapItem* FindOrInsertTexture(NiTexture* apTex);
 };
 
 // Looks up a texture by its path in a hash bucket, returning the matching item or inserting a new one and incrementing the count.
 // @fnv 0x00a617c0
-BSTexMapItem* FUN_00a617c0_shell::FindOrInsertTexture(NiTexture* apTex)
+BSTexMapItem* BSTexturePalette::FindOrInsertTexture(NiTexture* apTex)
 {
     const char* path = apTex->GetPath().m_kHandle;
     unsigned int offset = GetPathHash(path, true);

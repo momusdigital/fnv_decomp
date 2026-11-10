@@ -122,7 +122,7 @@ void NiPoint3Interpolator::CreateObject(int state, bool force)
             DAT_011f21c4 = 0;
             DAT_011f21c8 = 0;
             if (state10)
-                state10->ResetCameraState();
+                state10->BGSCameraShot_FreeCamera();
             DAT_011f21b8 = 0;
             state0c = 0;
             state10 = 0;

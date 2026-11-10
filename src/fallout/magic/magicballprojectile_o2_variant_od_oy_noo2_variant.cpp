@@ -9,7 +9,7 @@
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 struct FUN_00810a80_shell
 {
-    float GetFloatAtOffset53C();
+    float bhkCharacterController_QWaterHeight();
 };
 extern double _gModifierZero;
 struct FUN_00822a20_shell

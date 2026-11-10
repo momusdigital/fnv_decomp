@@ -404,7 +404,7 @@ struct FUN_0048e370_shell
 };
 struct FUN_0047b560_shell
 {
-    void LogFormIDs(void);
+    void BGSPickupPutdownSounds_Save(void);
 };
 struct FUN_004855a0
 {
@@ -426,16 +426,16 @@ struct FUN_00485e00_shell
 // @fnv 0x0059b1b0
 void TESCaravanMoney::SaveForm()
 {
-    TESForm::BeginFormRecord();
+    TESForm::TESForm_StartForm();
     ((S_00487010*)((char*)this + 0x30))->Save_00487010();
     reinterpret_cast<TESModelTextureSwap*>(reinterpret_cast<char*>(this) + sizeof(TESBoundObject) + sizeof(TESFullName))->ProcessAndFreeData(0x4c444f4d, 0x54444f4d, 0x53444f4d);
     ((FUN_0048e370_shell*)((char*)this + 0x5c))->TESTexture_Save(0x4e4f4349);
     BGSMessageIcon::Save(0x4f43494d);
-    ((FUN_0047b560_shell*)((char*)this + 0x80))->LogFormIDs();
+    ((FUN_0047b560_shell*)((char*)this + 0x80))->BGSPickupPutdownSounds_Save();
     ((FUN_00485e00_shell*)this)->TESForm_SaveData();
     ((TESModelTextureSwap*)GetModelTextureSwap(0))->ProcessAndFreeData(0x32444f4d, 0x54444f4d, 0x53444f4d);
     ((TESModelTextureSwap*)GetModelTextureSwap(1))->ProcessAndFreeData(0x33444f4d, 0x54444f4d, 0x53444f4d);
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_CloseForm();
 }
 
 void _Deallocate(void*);
@@ -463,7 +463,7 @@ struct S_0048cca0
 };
 struct FUN_0047b560_holder
 {
-    void LogFormIDs();
+    void BGSPickupPutdownSounds_Save();
 };
 extern "C" unsigned int _FUN_00485910(unsigned int, unsigned int);
 
@@ -475,19 +475,19 @@ struct CaravanCardWriter : TESCaravanCard
 // @fnv 0x0059a720
 void CaravanCardWriter::SaveForm()
 {
-    TESForm::BeginFormRecord();
+    TESForm::TESForm_StartForm();
     ((S_00487010*)((char*)this + 0x30))->Save_00487010();
     reinterpret_cast<TESModelTextureSwap*>(reinterpret_cast<char*>(this) + sizeof(TESBoundObject) + sizeof(TESFullName))->ProcessAndFreeData(0x4c444f4d, 0x54444f4d, 0x53444f4d);
     ((FUN_0048e370_obj*)((char*)this + 0x5c))->TESTexture_Save(0x4e4f4349);
     BGSMessageIcon::Save(0x4f43494d);
     ((S_0048cca0*)((char*)this + 0x80))->Save_0048cca0();
-    ((FUN_0047b560_holder*)((char*)this + 0x8c))->LogFormIDs();
+    ((FUN_0047b560_holder*)((char*)this + 0x8c))->BGSPickupPutdownSounds_Save();
     ((FUN_0048e370_obj*)static_cast<CaravanCardAccess*>(static_cast<TESCaravanCard*>(this))->GetFrontTexture())->TESTexture_Save(0x30305854);
     ((FUN_0048e370_obj*)GetBackTexture())->TESTexture_Save(0x31305854);
     _FUN_00485910(0x56544e49, data.m_uiSecondValue);
     _FUN_00485910(0x56544e49, data.m_uiFirstValue);
     ((FUN_00485e00_shell*)this)->TESForm_SaveData();
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_CloseForm();
 }
 
 struct CaravanCardSaveGame : TESCaravanCard
@@ -521,12 +521,13 @@ void TESCaravanMoney::ClearData()
 struct FUN_0059b910_shell
 {
     void FUN_0059b940();
-    void* FUN_0059b910(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 void _Deallocate(void*);
 // Calls FUN_0059b940, then frees this object with _Deallocate when bit 0 of flags is set, and returns this.
 // @fnv 0x0059b910
-void* FUN_0059b910_shell::FUN_0059b910(unsigned int flags)
+// src: EXE 0x0059b910
+void* FUN_0059b910_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0059b940();
     if (flags & 1)

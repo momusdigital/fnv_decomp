@@ -691,12 +691,13 @@ extern double DAT_010241b0;
 // The shared header lacks the channel pose query; reuse its layout and virtual key-count method.
 struct TransformChannelPoseQuery : NiTransformInterpolator
 {
-    bool IsChannelPosed(unsigned short mode);
+    bool NiTransformInterpolator_GetChannelPosed(unsigned short mode);
 };
 
 // For modes 0-2, rejects when m_2c is set and v56(mode) > 0, otherwise compares the mode's float field against DAT_010241b0.
 // @fnv 0x00a3f720
-bool TransformChannelPoseQuery::IsChannelPosed(unsigned short mode)
+// src: EXE 0x00a3f720
+bool TransformChannelPoseQuery::NiTransformInterpolator_GetChannelPosed(unsigned short mode)
 {
     double value;
     switch (mode)

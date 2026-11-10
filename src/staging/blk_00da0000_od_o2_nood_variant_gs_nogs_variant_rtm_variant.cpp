@@ -249,14 +249,14 @@ class S00da8180_AabbCastMachine
     const AabbCastInput* m_pRayCastInput;
     int m_isStartQuery;
 
-    void ProcessMoppCommands_00da71c0(const MachineVectorIndexRecord* query, const unsigned char* pc, Vector4Pair* fQuery, int level);
-    void ProcessAndReturnValue_00da8180(const AabbCastInput& input, void* castCollector, void* startCollector);
+    void hkpMoppAabbCastVirtualMachine_queryRayOnTree(const MachineVectorIndexRecord* query, const unsigned char* pc, Vector4Pair* fQuery, int level);
+    void hkpMoppAabbCastVirtualMachine_aabbCast(const AabbCastInput& input, void* castCollector, void* startCollector);
 };
 
 extern void visitLevel(int);
 
-// src: GUESS 0x00da71c0 (confidence: low)
-__declspec(noinline) void S00da8180_AabbCastMachine::ProcessMoppCommands_00da71c0(const MachineVectorIndexRecord* query,
+// src: COMMUNITY 0x00da71c0
+__declspec(noinline) void S00da8180_AabbCastMachine::hkpMoppAabbCastVirtualMachine_queryRayOnTree(const MachineVectorIndexRecord* query,
                                                                   const unsigned char* pc, Vector4Pair* fQuery,
                                                                   int level)
 {
@@ -266,13 +266,13 @@ __declspec(noinline) void S00da8180_AabbCastMachine::ProcessMoppCommands_00da71c
     child.m_vTo = fQuery->m_vTo;
     if (level < 3)
     {
-        ProcessMoppCommands_00da71c0(query, pc + 1, &child, level + 1);
+        hkpMoppAabbCastVirtualMachine_queryRayOnTree(query, pc + 1, &child, level + 1);
     }
 }
 
 // @fnv 0x00da8180
-// src: GUESS 0x00da8180 (confidence: low)
-void S00da8180_AabbCastMachine::ProcessAndReturnValue_00da8180(const AabbCastInput& input, void* castCollector, void* startCollector)
+// src: COMMUNITY 0x00da8180
+void S00da8180_AabbCastMachine::hkpMoppAabbCastVirtualMachine_aabbCast(const AabbCastInput& input, void* castCollector, void* startCollector)
 {
     if (!g_initFlag)
     {
@@ -307,5 +307,5 @@ void S00da8180_AabbCastMachine::ProcessAndReturnValue_00da8180(const AabbCastInp
     query.m_iValueAtOffset04 = 0;
     query.m_property = 0;
     m_isStartQuery = (*programCounter != 0xd) - 1;
-    ProcessMoppCommands_00da71c0(&query, programCounter, &fQuery, 0);
+    hkpMoppAabbCastVirtualMachine_queryRayOnTree(&query, programCounter, &fQuery, 0);
 }

@@ -179,17 +179,18 @@ class BDDCCB0WorldAddedListener
     virtual ~BDDCCB0WorldAddedListener();
 };
 
-class FUN_00ddccb0_cls : public BDDCCB0ReferencedObject, public BDDCCB0Process, public BDDCCB0WorldAddedListener
+class hkpWorldViewerBase : public BDDCCB0ReferencedObject, public BDDCCB0Process, public BDDCCB0WorldAddedListener
 {
   public:
-    FUN_00ddccb0_cls(const hkArrayBase<BDDCCB0ProcessContext*>& kContexts) throw();
-    virtual ~FUN_00ddccb0_cls();
+    hkpWorldViewerBase(const hkArrayBase<BDDCCB0ProcessContext*>& kContexts) throw();
+    virtual ~hkpWorldViewerBase();
 
     BDDCCB0PhysicsContext* m_pkContext;
 };
 
 // @fnv 0x00ddccb0
-FUN_00ddccb0_cls::FUN_00ddccb0_cls(const hkArrayBase<BDDCCB0ProcessContext*>& kContexts) throw()
+// src: EXE 0x00ddccb0
+hkpWorldViewerBase::hkpWorldViewerBase(const hkArrayBase<BDDCCB0ProcessContext*>& kContexts) throw()
     : BDDCCB0Process(true), m_pkContext(0)
 {
     int iSize = kContexts.GetLogicalSize();
@@ -316,13 +317,14 @@ unsigned char* __cdecl IsDotProductBelowThreshold(unsigned char* out, S_P a, S_P
 }
 }  // namespace fnv_00ddd040
 
-struct FUN_00ddcc40
+struct hkpPhysicsContextWorldListener
 {
-    virtual ~FUN_00ddcc40();
+    virtual ~hkpPhysicsContextWorldListener();
 };
 
 // @fnv 0x00ddcc40
-FUN_00ddcc40::~FUN_00ddcc40()
+// src: EXE 0x00ddcc40
+hkpPhysicsContextWorldListener::~hkpPhysicsContextWorldListener()
 {}
 
 struct Base1

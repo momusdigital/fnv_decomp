@@ -17,12 +17,13 @@ void TESFurniture::InitItem()
     if (static_cast<TESFormInitFlag*>(static_cast<TESForm*>(this))->IsFormInitialized())
         return;
     BGSDestructibleObjectForm::InitItem(this);
-    InitializeMarkerFlags();
+    VerifyMarkers();
     SetInitializationState(true);
 }
 
 // @fnv 0x005093f0
-bool TESFurniture::GetCanSitOn()
+// src: COMMUNITY 0x005093f0
+bool TESFurniture::CanSitOn()
 {
     if (m_iMarkerCount & 0x40000000)
         return true;
@@ -31,7 +32,8 @@ bool TESFurniture::GetCanSitOn()
 }
 
 // @fnv 0x00509420
-bool TESFurniture::GetCanSleepOn()
+// src: COMMUNITY 0x00509420
+bool TESFurniture::CanSleepOn()
 {
     if (m_iMarkerCount & 0x80000000)
         return true;
@@ -41,7 +43,8 @@ bool TESFurniture::GetCanSleepOn()
 
 // Returns true if the marker bit for aiMarker (below 0x20) is set in the marker mask.
 // @fnv 0x00509450
-bool TESFurniture::IsMarkerEnabled(unsigned int aiMarker)
+// src: COMMUNITY 0x00509450
+bool TESFurniture::GetMarkerEnabled(unsigned int aiMarker)
 {
     bool bEnabled = false;
     if (aiMarker < 0x20)
@@ -54,7 +57,8 @@ bool TESFurniture::IsMarkerEnabled(unsigned int aiMarker)
 }
 
 // @fnv 0x005094f0
-bool TESFurniture::IsFurnitureSleepMarker(unsigned int auMarker)
+// src: COMMUNITY 0x005094f0
+bool TESFurniture::IsSleepMarker(unsigned int auMarker)
 {
     bool bSleep = false;
     if (auMarker < 10)
@@ -64,7 +68,8 @@ bool TESFurniture::IsFurnitureSleepMarker(unsigned int auMarker)
 
 // Returns true when auMarker is between 10 and 20 inclusive or equals 26, otherwise false.
 // @fnv 0x00509510
-bool TESFurniture::IsFurnitureSitMarker(unsigned int auMarker)
+// src: COMMUNITY 0x00509510
+bool TESFurniture::IsSitMarker(unsigned int auMarker)
 {
     bool bSit = false;
     if (auMarker >= 10 && auMarker <= 20 || auMarker == 26)
@@ -132,7 +137,8 @@ bool TESFurniture::Load(TESFile* file)
 
 // Returns the offset for a marker index (1-40) from the marker table, scaling the z component by afScale - 1.
 // @fnv 0x00509920
-NiPoint3 TESFurniture::GetMarkerOffset(unsigned int auMarkerIndex, float afScale)
+// src: COMMUNITY 0x00509920
+NiPoint3 TESFurniture::GetMarkerTargetOffset(unsigned int auMarkerIndex, float afScale)
 {
     NiPoint3 offset = NiPoint3::ZERO;
     if (auMarkerIndex > 0 && auMarkerIndex <= 40)
@@ -153,7 +159,8 @@ TESObjectACTI::TESObjectACTI()
 }
 
 // @fnv 0x00509350
-void TESFurniture::InitializeMarkerFlags()
+// src: COMMUNITY 0x00509350
+void TESFurniture::VerifyMarkers()
 {
     if (IsTemporary())
         return;
@@ -209,7 +216,7 @@ void __fastcall BSFurnitureMarker_QMark(DummyThis* this_ptr, StackArg param_1)
 
 struct FUN_005099c0_shell : public TESFurniture
 {
-    float GetFurnitureHeading(unsigned int);
+    float TESFurniture_GetMarkerHeadingOffset(unsigned int);
 };
 
 struct FurnitureMarkerData
@@ -223,7 +230,8 @@ extern FurnitureMarkerData DAT_01189fa4[];
 
 // Returns the heading float from the furniture marker setting at aiIndex-1 when aiIndex is in 1..0x28, otherwise 0.0f.
 // @fnv 0x005099c0
-float FUN_005099c0_shell::GetFurnitureHeading(unsigned int aiIndex)
+// src: COMMUNITY 0x005099c0
+float FUN_005099c0_shell::TESFurniture_GetMarkerHeadingOffset(unsigned int aiIndex)
 {
     float fheading = 0.0f;
     if (aiIndex > 0 && aiIndex <= 0x28)
@@ -297,8 +305,8 @@ void __cdecl TESForm_AddChunk_00485910(unsigned int, int);
 
 struct FUN_00509280_obj : public TESFurniture
 {
-    void BeginFormRecord();
-    void FinishFormRecord();
+    void TESForm_StartForm();
+    void TESForm_CloseForm();
     void TESFurniture_Save();
 };
 
@@ -306,13 +314,13 @@ struct FUN_00509280_obj : public TESFurniture
 // src: XBOX_PDB 0x00509280
 void FUN_00509280_obj::TESFurniture_Save()
 {
-    BeginFormRecord();
+    TESForm_StartForm();
     ((S_00487010*)((char*)this + 0x30))->Save_00487010();
     ((S_0048a520*)((char*)this + 0x3c))->ProcessAndFreeData(0x4c444f4d, 0x54444f4d, 0x53444f4d);
     ((S_0048cca0*)((char*)this + 0x5c))->Save_0048cca0();
     ((S_00477f20*)((char*)this + 0x68))->FUN_00477f20();
     TESForm_AddChunk_00485910(0x4d414e4d, m_iMarkerCount);
-    FinishFormRecord();
+    TESForm_CloseForm();
 }
 
 struct FUN_005092f0_obj : public TESFurniture
@@ -329,7 +337,7 @@ void FUN_005092f0_obj::CopyFromFurniture(TESForm* apCopy)
         return;
     TESForm_CopyAllComponents(apCopy);
     m_iMarkerCount = pcopy->m_iMarkerCount;
-    InitializeMarkerFlags();
+    VerifyMarkers();
 }
 
 struct FUN_00509540_obj : public TESFurniture

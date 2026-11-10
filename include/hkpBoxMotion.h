@@ -20,7 +20,7 @@ public:
     virtual void ApplyImpulseAtPoint(const hkVector4& kImpulse, const hkVector4& kPoint);
     virtual void ApplyAngularImpulseToBodies(const hkVector4& kImpulse);
     virtual void vf58(float fTimestep, const hkVector4& kForce, const hkVector4& kPoint);
-    virtual void vf5c(float fTimestep, const hkVector4& kForce);
+    virtual void applyForce(float fTimestep, const hkVector4& kForce);
     virtual void StepMotion(float fTimestep, const hkVector4& kTorque);
 
     hkpBoxMotion* InitializeBoxMotion(int iA1, int iA2);

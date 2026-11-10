@@ -37,7 +37,7 @@ public:
     unsigned SumArrayUpToCount(int);
     unsigned int CallSlotMethod(int);
     void CallElementAt(int);
-    void SubmitTask();
+    void IOTask_AddToPostProcessQueue();
     void RunQueuedTask(unsigned int, int);
     void IOManager_LoadAllQueuedPriorities();
     void BSTaskManager_CancelTask(RefObj*, void*);

@@ -29,7 +29,7 @@ TESFollowPackageData* TESFollowPackageData::Construct(float afValue)
 
 extern "C" void* __cdecl memset(void*, int, unsigned int);
 extern "C" bool __cdecl TESForm_QEndianSwapOnSave();
-extern "C" void __cdecl AppendChunk(int, void*, int);
+extern "C" void __cdecl TESForm___AddChunkData(int, void*, int);
 struct BipedModelForm
 {
     void Endian();
@@ -46,7 +46,7 @@ void TESFollowPackageData::SaveFloatRecord()
     fValue = m_08;
     if (TESForm_QEndianSwapOnSave())
         ((BipedModelForm*)&fValue)->Endian();
-    AppendChunk(0x44464b50, &fValue, 4);
+    TESForm___AddChunkData(0x44464b50, &fValue, 4);
     if (TESForm_QEndianSwapOnSave())
         ((BipedModelForm*)&fValue)->Endian();
     if (m_04)

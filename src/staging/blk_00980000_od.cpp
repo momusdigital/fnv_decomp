@@ -469,7 +469,7 @@ Inner097* __thiscall FUN_0098fda0_Class::UnreachableLocation_UnreachableLocation
 
 extern int DAT_0108d93c;
 void __cdecl FUN_0098ffb0(void* self, int arg);
-struct FUN_0098ff80_class
+struct CombatGroupStrategyFlank
 {
     int* vfn;
     void __thiscall FUN_0098ffb0(int arg);
@@ -477,7 +477,7 @@ struct FUN_0098ff80_class
 };
 // @fnv 0x0098ff80
 // src: EXE 0x0098ff80
-int* __thiscall FUN_0098ff80_class::CombatGroupStrategyFlank_CombatGroupStrategyFlank(int arg)
+int* __thiscall CombatGroupStrategyFlank::CombatGroupStrategyFlank_CombatGroupStrategyFlank(int arg)
 {
     FUN_0098ffb0(arg);
     *reinterpret_cast<int**>(this) = &DAT_0108d93c;
@@ -502,16 +502,16 @@ FUN_0098ffb0::FUN_0098ffb0(int flag)
 }
 
 extern int DAT_0108d95c;
-struct FUN_0098ffe0_class
+struct CombatGroupStrategyFallBack
 {
     int* m_p;
     void FUN_0098ffb0(int arg);
-    FUN_0098ffe0_class* CombatGroupStrategyFallBack_CombatGroupStrategyFallBack(int arg);
+    CombatGroupStrategyFallBack* CombatGroupStrategyFallBack_CombatGroupStrategyFallBack(int arg);
 };
 // Calls FUN_0098ffb0 with arg, sets m_p to the address of DAT_0108d95c, and returns this.
 // @fnv 0x0098ffe0
 // src: EXE 0x0098ffe0
-FUN_0098ffe0_class* FUN_0098ffe0_class::CombatGroupStrategyFallBack_CombatGroupStrategyFallBack(int arg)
+CombatGroupStrategyFallBack* CombatGroupStrategyFallBack::CombatGroupStrategyFallBack_CombatGroupStrategyFallBack(int arg)
 {
     FUN_0098ffb0(arg);
     m_p = &DAT_0108d95c;
@@ -520,16 +520,17 @@ FUN_0098ffe0_class* FUN_0098ffe0_class::CombatGroupStrategyFallBack_CombatGroupS
 
 extern int DAT_0108d96c;
 
-struct FUN_00990010_class
+struct CombatGroupStrategyAmbush
 {
     int* vfn;
     void __thiscall FUN_0098ffb0(int arg);
-    FUN_00990010_class(int arg);
+    CombatGroupStrategyAmbush(int arg);
 };
 
 // Calls FUN_0098ffb0 with arg, then sets the vfn field to point at DAT_0108d96c.
 // @fnv 0x00990010
-FUN_00990010_class::FUN_00990010_class(int arg)
+// src: EXE 0x00990010
+CombatGroupStrategyAmbush::CombatGroupStrategyAmbush(int arg)
 {
     FUN_0098ffb0(arg);
     vfn = &DAT_0108d96c;
@@ -540,7 +541,7 @@ struct FUN_009905a0_shell
     void UpdateMinProgress();
 };
 
-struct FUN_00990540_shell
+struct CombatGroupData
 {
     int m_00;
     int m_04;
@@ -551,7 +552,7 @@ struct FUN_00990540_shell
 
 // @fnv 0x00990540
 // src: XBOX_PDB 0x00990540
-int __thiscall FUN_00990540_shell::CombatGroupData_GetMemberMinimumTargetDetection()
+int __thiscall CombatGroupData::CombatGroupData_GetMemberMinimumTargetDetection()
 {
     if (m_0c == 0x7fffffff)
         reinterpret_cast<FUN_009905a0_shell*>(this)->UpdateMinProgress();
@@ -649,12 +650,12 @@ FUN_00993960* __thiscall FUN_00993960::Init(int a, int b)
 struct FUN_00993bf0_class
 {
     void __thiscall FUN_00993cd0();
-    void __thiscall ForwardCall_00993bf0();
+    void __thiscall NiTMap_NewItem();
 };
 
 // @fnv 0x00993bf0
-// src: GUESS 0x00993bf0 (confidence: low)
-void __thiscall FUN_00993bf0_class::ForwardCall_00993bf0()
+// src: GUESS 0x00993bf0 (confidence: high)
+void __thiscall FUN_00993bf0_class::NiTMap_NewItem()
 {
     reinterpret_cast<FUN_00993bf0_class*>(reinterpret_cast<char*>(this) + 0xc)->FUN_00993cd0();
 }
@@ -685,7 +686,7 @@ int FUN_009948b0::GetItem(int index)
     return *m_p[index];
 }
 
-struct FUN_00aa62e0_shell
+struct BSReadWriteLock
 {
     void BSReadWriteLock_UnlockWrite();
 };
@@ -699,7 +700,7 @@ struct FUN_00995890_shell
 // src: XBOX_PDB 0x00995890
 void FUN_00995890_shell::CombatCoverMap_UnlockForWrite()
 {
-    ((FUN_00aa62e0_shell*)((char*)this + 0x14))->BSReadWriteLock_UnlockWrite();
+    ((BSReadWriteLock*)((char*)this + 0x14))->BSReadWriteLock_UnlockWrite();
 }
 
 struct QuantityData
@@ -885,14 +886,14 @@ FUN_00996db0* FUN_00996db0::Init()
 }
 }  // namespace fnv_00996db0
 
-struct FUN_0099e010_Class
+struct PathingRequestCover
 {
     void PathingRequestCover_SetActorLocation(const NiPoint3& akPoint);
 };
 // Stores akPoint into the NiPoint3 located at offset 0xe0 of this object.
 // @fnv 0x0099e010
 // src: XBOX_PDB 0x0099e010
-void FUN_0099e010_Class::PathingRequestCover_SetActorLocation(const NiPoint3& akPoint)
+void PathingRequestCover::PathingRequestCover_SetActorLocation(const NiPoint3& akPoint)
 {
     *reinterpret_cast<NiPoint3*>(reinterpret_cast<char*>(this) + 0xe0) = reinterpret_cast<const NiPoint3&>(akPoint);
 }
@@ -909,7 +910,7 @@ NiTMapBase<DFALL<NiTMapItem<unsigned int, ReservedCoverLocation*> >, unsigned in
 
 struct FUN_0098c590_shell
 {
-    CombatSearchDoor* FindParentSpaceNode(int);
+    CombatSearchDoor* CombatGroup_GetCombatSearchDoor(int);
 };
 struct FUN_0098c6e0_class
 {
@@ -919,7 +920,7 @@ struct FUN_0098c6e0_class
 // src: XBOX_PDB 0x0098c6e0
 void FUN_0098c6e0_class::CombatGroup_InvestigatedSearchDoor(int arg)
 {
-    CombatSearchDoor* result = ((FUN_0098c590_shell*)this)->FindParentSpaceNode(arg);
+    CombatSearchDoor* result = ((FUN_0098c590_shell*)this)->CombatGroup_GetCombatSearchDoor(arg);
     if (result)
         result->pad[9] = 1;
 }
@@ -927,7 +928,7 @@ void FUN_0098c6e0_class::CombatGroup_InvestigatedSearchDoor(int arg)
 namespace fnv_0098c750 {
 struct FUN_0098c590_shell
 {
-    CombatSearchDoor* FindParentSpaceNode(int);
+    CombatSearchDoor* CombatGroup_GetCombatSearchDoor(int);
 };
 struct FUN_0098c750_class
 {
@@ -937,7 +938,7 @@ struct FUN_0098c750_class
 // src: XBOX_PDB 0x0098c750
 void __thiscall FUN_0098c750_class::CombatGroup_ReserveSearchDoor(int arg)
 {
-    CombatSearchDoor* p = ((FUN_0098c590_shell*)this)->FindParentSpaceNode(arg);
+    CombatSearchDoor* p = ((FUN_0098c590_shell*)this)->CombatGroup_GetCombatSearchDoor(arg);
     if (p)
         p->bReserved = true;
 }
@@ -980,12 +981,12 @@ unsigned char FUN_00982750_Class::UpdateState_00982750(float afValue)
     return r;
 }
 
-struct FUN_00982c20
+struct CoverReservationInfo
 {
     void Save(BGSSaveFormBuffer* buffer);
 };
 // @fnv 0x00982c20
-void __thiscall FUN_00982c20::Save(BGSSaveFormBuffer* buffer)
+void __thiscall CoverReservationInfo::Save(BGSSaveFormBuffer* buffer)
 {
     buffer->SaveData(this, 1, 0);
     buffer->SaveData(this + 1, 1, 0);
@@ -1053,7 +1054,8 @@ struct BSSimpleArray_ParentSpaceNode
 
 // Scans the array at offset 0x120 for a node whose a or b equals formID and returns it, otherwise returns 0.
 // @fnv 0x0098c590
-CombatSearchDoor* FUN_0098c590_shell::FindParentSpaceNode(int formID)
+// src: COMMUNITY 0x0098c590
+CombatSearchDoor* FUN_0098c590_shell::CombatGroup_GetCombatSearchDoor(int formID)
 {
     for (unsigned int i = 0; i < ((BSSimpleArray_ParentSpaceNode*)((char*)this + 0x120))->GetFlags(); ++i)
     {
@@ -1208,7 +1210,7 @@ void __cdecl CombatGroupStrategy_InitGroupStrategies()
 
 struct FUN_00991150_class
 {
-    void __thiscall FUN_00991150();
+    void __thiscall CombatManager();
 };
 struct FUN_00991050_class
 {
@@ -1217,7 +1219,7 @@ struct FUN_00991050_class
 // @fnv 0x00991050
 void* __thiscall FUN_00991050_class::FUN_00991050(unsigned int flags)
 {
-    ((FUN_00991150_class*)this)->FUN_00991150();
+    ((FUN_00991150_class*)this)->CombatManager();
     if (flags & 1)
         Deallocate(this);
     return this;
@@ -1344,14 +1346,14 @@ CombatGoal* CombatGoal_GetGoal(int index)
     return DAT_011f17a0[index];
 }
 
-struct FUN_00994e60_class
+struct CombatPlanNode
 {
     int m_dc;
     int m_e0;
     CombatWorldStateArray* __thiscall ResetState(CombatWorldStateArray* a);
 };
 // @fnv 0x00994e60
-CombatWorldStateArray* FUN_00994e60_class::ResetState(CombatWorldStateArray* a)
+CombatWorldStateArray* CombatPlanNode::ResetState(CombatWorldStateArray* a)
 {
     ((CombatWorldStateArray*)this)->CombatWorldStateArray_0(a);
     ((int*)((char*)this + 0xdc))[0] = 0;
@@ -1374,20 +1376,20 @@ void __thiscall FUN_00994ea0_class::AppendPair(int aiFirst, int aiSecond)
 
 void* __cdecl memset(void* dst, int value, unsigned int count);
 
-struct FUN_009958b0_Class
+struct CombatPlannerData
 {
     int m_00;
     char m_04[4];
     char m_08[0x58];
     char m_60[0x58];
     char m_b8[0x58];
-    FUN_009958b0_Class* CombatPlannerData_CombatPlannerData();
+    CombatPlannerData* CombatPlannerData_CombatPlannerData();
 };
 
 // Zeroes m_00 and clears the three 0x58-byte blocks at m_08, m_60 and m_b8, then returns this.
 // @fnv 0x009958b0
 // src: COMMUNITY 0x009958b0
-FUN_009958b0_Class* FUN_009958b0_Class::CombatPlannerData_CombatPlannerData()
+CombatPlannerData* CombatPlannerData::CombatPlannerData_CombatPlannerData()
 {
     m_00 = 0;
     memset(m_08, 0, 0x58);
@@ -1814,7 +1816,7 @@ bool FUN_00982df0_class::ReservedCoverLocation_CanReserveCoverLocation(unsigned 
 unsigned int __cdecl FUN_0042f5a0(unsigned int, unsigned int);
 struct FUN_006c0010_Class
 {
-    void ProcessEntries_006c0010(void*, void*, unsigned int);
+    void BSSimpleArray_MoveElements(void*, void*, unsigned int);
 };
 struct FUN_0072ba80_shell
 {
@@ -1835,7 +1837,7 @@ void FUN_0098f430_Class::BSSimpleArray_CombatSearchLocation_1024_RemoveFast(unsi
     unsigned int c = FUN_0042f5a0(m_08 - uiStartIndex - b, b);
     ((FUN_0072ba80_shell*)this)->FUN_0072ba80((char*)m_04 + uiStartIndex * 0x1c, b);
     ((FUN_006c0010_Class*)this)
-        ->ProcessEntries_006c0010((char*)m_04 + uiStartIndex * 0x1c, (char*)m_04 + m_08 * 0x1c - c * 0x1c, c);
+        ->BSSimpleArray_MoveElements((char*)m_04 + uiStartIndex * 0x1c, (char*)m_04 + m_08 * 0x1c - c * 0x1c, c);
     m_08 -= b;
 }
 
@@ -1978,11 +1980,12 @@ FUN_00982430* FUN_00982430::DeserializeFromFile()
 void __cdecl Deallocate(void*);
 struct FUN_009825b0_shell : FUN_00982460
 {
-    void* FUN_009825b0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls Init, then if the low bit of flags is set calls Deallocate on this, and returns this.
 // @fnv 0x009825b0
-void* FUN_009825b0_shell::FUN_009825b0(unsigned int flags)
+// src: EXE 0x009825b0
+void* FUN_009825b0_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     Init();
     if (flags & 1)
@@ -2018,12 +2021,12 @@ struct FUN_00982630_class
     unsigned char m_00;
     unsigned char m_01;
 
-    void __thiscall UpdateState_00982630(FUN_00982630_arg* arg);
+    void __thiscall CoverReservationInfo_CalculateSegmentInfo(FUN_00982630_arg* arg);
 };
 
 // @fnv 0x00982630
-// src: GUESS 0x00982630 (confidence: low)
-void FUN_00982630_class::UpdateState_00982630(FUN_00982630_arg* arg)
+// src: GUESS 0x00982630 (confidence: high)
+void FUN_00982630_class::CoverReservationInfo_CalculateSegmentInfo(FUN_00982630_arg* arg)
 {
     NiPoint3 distanceVector = arg->a - arg->b;
     float distance = distanceVector.Length();
@@ -2088,7 +2091,7 @@ struct S006bfd40
 
 struct FUN_006bf670_Class
 {
-    int* GetElementAddress_006bf670(int);
+    int* BSSimpleArray_GetAt(int);
 };
 
 float __cdecl GetActorScale(void);
@@ -2111,31 +2114,32 @@ struct FUN_0098bfb0_Record
 
 struct FUN_0098bfb0_Class
 {
-    void __thiscall StoreRecord(void* header, float value, int extra);
+    void __thiscall CombatGroup_AddSearchLocation(void* header, float value, int extra);
 };
 
 // @fnv 0x0098bfb0
-void __thiscall FUN_0098bfb0_Class::StoreRecord(void* header, float value, int extra)
+// src: COMMUNITY 0x0098bfb0
+void __thiscall FUN_0098bfb0_Class::CombatGroup_AddSearchLocation(void* header, float value, int extra)
 {
     unsigned int index = reinterpret_cast<S006bfd40*>(reinterpret_cast<char*>(this) + 0x110)->BSSimpleArray_CombatSearchLocation_1024_AddUninitialized();
 
     reinterpret_cast<FUN_0098bfb0_Record*>(
-        reinterpret_cast<FUN_006bf670_Class*>(reinterpret_cast<char*>(this) + 0x110)->GetElementAddress_006bf670(index))
+        reinterpret_cast<FUN_006bf670_Class*>(reinterpret_cast<char*>(this) + 0x110)->BSSimpleArray_GetAt(index))
         ->m_kHeader = *reinterpret_cast<const FUN_0098bfb0_Header*>(header);
 
     {
         CombatTargetTimestamp timestamp(GetActorScale());
 
         reinterpret_cast<FUN_0098bfb0_Record*>(
-            reinterpret_cast<FUN_006bf670_Class*>(reinterpret_cast<char*>(this) + 0x110)->GetElementAddress_006bf670(index))
+            reinterpret_cast<FUN_006bf670_Class*>(reinterpret_cast<char*>(this) + 0x110)->BSSimpleArray_GetAt(index))
             ->m_timestamp = *reinterpret_cast<int*>(&timestamp.fTimeStamp);
 
         reinterpret_cast<FUN_0098bfb0_Record*>(
-            reinterpret_cast<FUN_006bf670_Class*>(reinterpret_cast<char*>(this) + 0x110)->GetElementAddress_006bf670(index))
+            reinterpret_cast<FUN_006bf670_Class*>(reinterpret_cast<char*>(this) + 0x110)->BSSimpleArray_GetAt(index))
             ->m_uiFilterValue = extra;
 
         reinterpret_cast<FUN_0098bfb0_Record*>(
-            reinterpret_cast<FUN_006bf670_Class*>(reinterpret_cast<char*>(this) + 0x110)->GetElementAddress_006bf670(index))
+            reinterpret_cast<FUN_006bf670_Class*>(reinterpret_cast<char*>(this) + 0x110)->BSSimpleArray_GetAt(index))
             ->m_float = value;
     }
 }
@@ -2167,7 +2171,7 @@ struct FUN_0098c600_class
 // @fnv 0x0098c600
 void __thiscall FUN_0098c600_class::AddRadioReference(TESObjectREFR* pRef)
 {
-    if (reinterpret_cast<FUN_0098c590_shell*>(this)->FindParentSpaceNode(reinterpret_cast<int>(pRef)) != 0)
+    if (reinterpret_cast<FUN_0098c590_shell*>(this)->CombatGroup_GetCombatSearchDoor(reinterpret_cast<int>(pRef)) != 0)
     {
         return;
     }
@@ -2408,13 +2412,14 @@ int __thiscall FUN_0098fdd0_class::CombatGroupStrategy_GetName()
 }
 
 extern int DAT_0108d97c;
-struct FUN_00990040 : public FUN_0098ffb0
+struct CombatGroupStrategyAdvance : public FUN_0098ffb0
 {
-    FUN_00990040(int arg);
+    CombatGroupStrategyAdvance(int arg);
 };
 // Constructs the object by forwarding arg to the base constructor and setting mVtbl to DAT_0108d97c.
 // @fnv 0x00990040
-FUN_00990040::FUN_00990040(int arg) : FUN_0098ffb0(arg)
+// src: EXE 0x00990040
+CombatGroupStrategyAdvance::CombatGroupStrategyAdvance(int arg) : FUN_0098ffb0(arg)
 {
     mVtbl = &DAT_0108d97c;
 }
@@ -2573,12 +2578,13 @@ struct FUN_00993fd0_class
 {
     void** m_p;
     int m_uiItemCount;
-    void __thiscall AllocateItemArray(int arg);
+    void __thiscall CombatPlan_AllocateSteps(int arg);
 };
 
 // Stores arg as the count, allocates an array of that many pointers, and fills each with a new item.
 // @fnv 0x00993fd0
-void __thiscall FUN_00993fd0_class::AllocateItemArray(int aiCount)
+// src: COMMUNITY 0x00993fd0
+void __thiscall FUN_00993fd0_class::CombatPlan_AllocateSteps(int aiCount)
 {
     m_uiItemCount = aiCount;
     m_p = new void*[m_uiItemCount];
@@ -3505,11 +3511,11 @@ class PMX
     int unk00;
 };
 
-class FUN_00983080 : public B83080Base
+class CombatCoverMap : public B83080Base
 {
   public:
-    FUN_00983080();
-    virtual ~FUN_00983080();
+    CombatCoverMap();
+    virtual ~CombatCoverMap();
 
     S4ee810 m_kHandle;
     PMX m_kData;
@@ -3517,7 +3523,8 @@ class FUN_00983080 : public B83080Base
 
 // Constructs the object: initializes the B83080Base base with type 0x25 and the m_kHandle member with 0.
 // @fnv 0x00983080
-FUN_00983080::FUN_00983080() : B83080Base(0x25), m_kHandle(0)
+// src: EXE 0x00983080
+CombatCoverMap::CombatCoverMap() : B83080Base(0x25), m_kHandle(0)
 {}
 
 struct GroupStamp
@@ -3930,7 +3937,7 @@ struct CombatSearchMgr : FUN_0098c590_shell
 // src: XBOX_PDB 0x0098c710
 void CombatSearchMgr::CombatGroup_FailedToInvestigateSearchDoor(int arg)
 {
-    DoorExtraFields* door = (DoorExtraFields*)FindParentSpaceNode(arg);
+    DoorExtraFields* door = (DoorExtraFields*)CombatGroup_GetCombatSearchDoor(arg);
     if (door != 0)
     {
         door->unk0a = 0;
@@ -4051,11 +4058,12 @@ struct FUN_0098d1a0_shell
     int unk40;
     CombatTargetTimestamp stamp;
     unsigned int CombatGroup_GetMemberCount();
-    void UpdateChoiceSelection();
+    void CombatGroup_UpdateGroupStrategy();
 };
 // When more than one entry exists, picks a choice on the select timer, validates it on the validate timer, and clears it otherwise.
 // @fnv 0x0098d1a0
-void FUN_0098d1a0_shell::UpdateChoiceSelection()
+// src: COMMUNITY 0x0098d1a0
+void FUN_0098d1a0_shell::CombatGroup_UpdateGroupStrategy()
 {
     if (CombatGroup_GetMemberCount() > 1)
     {
@@ -4353,7 +4361,7 @@ void ClusterWork::UpdateGroups()
     RecenterClusters();
 }
 
-struct FUN_0098dc00_cls
+struct CombatGroupCluster
 {
     int unk00;
     int unk04;
@@ -4362,13 +4370,13 @@ struct FUN_0098dc00_cls
     int m_10;
 
     void Reset();
-    FUN_0098dc00_cls* InitializeFields_0098dc00();
+    CombatGroupCluster* InitializeFields_0098dc00();
 };
 
 // Calls Reset(), sets m_10 to 0, and returns this.
 // @fnv 0x0098dc00
 // src: GUESS 0x0098dc00 (confidence: low)
-FUN_0098dc00_cls* FUN_0098dc00_cls::InitializeFields_0098dc00()
+CombatGroupCluster* CombatGroupCluster::InitializeFields_0098dc00()
 {
     Reset();
     m_10 = 0;
@@ -4787,10 +4795,10 @@ class B1150ThreatList
     int unk08;
 };
 
-class FUN_00991150 : public B1150ThreatMapBase
+class CombatManager : public B1150ThreatMapBase
 {
   public:
-    ~FUN_00991150();
+    ~CombatManager();
     void Clear(int iFlags);
 
     B1150ThreatList m_kThreats;
@@ -4798,7 +4806,8 @@ class FUN_00991150 : public B1150ThreatMapBase
 
 // Destructor that calls Clear(0) to reset the threat map.
 // @fnv 0x00991150
-FUN_00991150::~FUN_00991150()
+// src: GUESS 0x00991150 (confidence: medium)
+CombatManager::~CombatManager()
 {
     Clear(0);
 }
@@ -6171,7 +6180,7 @@ void Center::UpdateCenter()
 
 struct NearbyPosition : ClusterPosition
 {
-    float DistanceTo(const NearbyPosition& other);
+    float BGSWorldLocation_GetDistance(const NearbyPosition& other);
 };
 struct NearbyActor
 {
@@ -6226,7 +6235,7 @@ void NearbyGroup::CollectNearbyRefs()
                 {
                     NearbyActor* actor = GetIntAt(i);
                     NearbyPosition point = actor->TESObjectREFR_GetWorldLocation();
-                    if (position.DistanceTo(point) < memberRadius * memberRadius)
+                    if (position.BGSWorldLocation_GetDistance(point) < memberRadius * memberRadius)
                         continue;
                     Pathing_FindTeleportDoorsForLocation(point.GetHavokWorldObjectCountInSceneGraph_0084e3a0(), point.FUN_006815c0(), searchRadius, &entries);
                 }
@@ -6390,7 +6399,7 @@ struct PositionGroup : GroupReset
     unsigned unk10c;
     ExpiringPositions positions;
     void CombatGroup_CalculateTargetSearchLocationScores(WeightedMember*, float*, float*, float*);
-    void StoreRecord(WeightedPosition*, float, unsigned);
+    void CombatGroup_AddSearchLocation(WeightedPosition*, float, unsigned);
     void UpdateExpiringPositions();
 };
 float __cdecl BSMAX_00404010(float, float);
@@ -6420,9 +6429,9 @@ void PositionGroup::UpdateExpiringPositions()
             if (member > firstWeight || secondWeight > firstWeight)
             {
                 if (member >= secondWeight)
-                    StoreRecord(&currentWeight->first, member, currentWeight->actor->GetHavokWorldObjectCountInSceneGraph_0084e3a0());
+                    CombatGroup_AddSearchLocation(&currentWeight->first, member, currentWeight->actor->GetHavokWorldObjectCountInSceneGraph_0084e3a0());
                 else
-                    StoreRecord(&currentWeight->second, secondWeight, currentWeight->actor->GetHavokWorldObjectCountInSceneGraph_0084e3a0());
+                    CombatGroup_AddSearchLocation(&currentWeight->second, secondWeight, currentWeight->actor->GetHavokWorldObjectCountInSceneGraph_0084e3a0());
             }
             else if (firstWeight > 0.0)
             {
@@ -6443,11 +6452,11 @@ void PositionGroup::UpdateExpiringPositions()
                     combinedVector.ScaleByInverse(closest + firstWeight);
                     WeightedPosition position;
                     position.FUN_0043a3c0(combinedVector, currentWeight->current.GetHavokWorldObjectCountInSceneGraph_0084e3a0());
-                    StoreRecord(&position, firstWeight, currentWeight->actor->GetHavokWorldObjectCountInSceneGraph_0084e3a0());
+                    CombatGroup_AddSearchLocation(&position, firstWeight, currentWeight->actor->GetHavokWorldObjectCountInSceneGraph_0084e3a0());
                 }
                 else
                 {
-                    StoreRecord(&currentWeight->current, firstWeight, currentWeight->actor->GetHavokWorldObjectCountInSceneGraph_0084e3a0());
+                    CombatGroup_AddSearchLocation(&currentWeight->current, firstWeight, currentWeight->actor->GetHavokWorldObjectCountInSceneGraph_0084e3a0());
                 }
             }
         }
@@ -6908,7 +6917,7 @@ struct CombatPair
 struct CombatValue
 {
     unsigned int value;
-    void SaveTimeStamp(CombatWriter*);
+    void CombatTimeStamp_SaveGame(CombatWriter*);
 };
 struct CombatRecord
 {
@@ -7023,7 +7032,7 @@ void SavedCombatState::WriteToStream(CombatWriter* writer)
     pair30.FUN_009a5eb0(writer);
     pair38.FUN_009a5eb0(writer);
     writer->FUN_00865e50(&flags40, 4, 0);
-    value44.SaveTimeStamp(writer);
+    value44.CombatTimeStamp_SaveGame(writer);
     pair48.FUN_009a5eb0(writer);
     pairb0.FUN_009a5eb0(writer);
     paira8.FUN_009a5eb0(writer);
@@ -7036,7 +7045,7 @@ void SavedCombatState::WriteToStream(CombatWriter* writer)
         writer->FUN_00865e50(&x, 12, 0);
         paird8.FUN_009a5eb0(writer);
         paire0.FUN_009a5eb0(writer);
-        valuee8.SaveTimeStamp(writer);
+        valuee8.CombatTimeStamp_SaveGame(writer);
         record.BGSWorldLocation_SaveGame(writer);
         writer->FUN_00865e50(&field10c, 4, 0);
         {
@@ -7048,7 +7057,7 @@ void SavedCombatState::WriteToStream(CombatWriter* writer)
                 item->BGSWorldLocation_SaveGame(writer);
                 writer->FUN_00865e50(&item->flags, 4, 0);
                 writer->FUN_00865db0(item->form, 0);
-                item->value.SaveTimeStamp(writer);
+                item->value.CombatTimeStamp_SaveGame(writer);
             }
         }
         {
@@ -7303,7 +7312,7 @@ struct CM993List
     int m_0c;
     int m_10;
     int m_14;
-    void AllocateItemArray(int count);
+    void CombatPlan_AllocateSteps(int count);
     void UpdateAllItems(int arg);
     CM993List* InitFromSources(int a1, int a2, CM993DstArray* keys, CM993SrcArray* srcs, int a5);
 };
@@ -7316,7 +7325,7 @@ CM993List* CM993List::InitFromSources(int a1, int a2, CM993DstArray* keys, CM993
     m_0c = a2;
     m_10 = -1;
     m_14 = a1;
-    AllocateItemArray(srcs->FUN_0044ddc0());
+    CombatPlan_AllocateSteps(srcs->FUN_0044ddc0());
     for (unsigned int i = 0; i < m_uiItemCount; i++)
     {
         CM993Src* src = srcs->BSSimpleArray_NiAVObject_1024_GetAt(m_uiItemCount - i - 1);
@@ -8424,8 +8433,8 @@ struct History
 State* __fastcall GameSettingCollection_File(Actor* owner);
 struct Evaluator
 {
-    void LockCombatTargetMap();
-    bool TryUseCoverItem(unsigned int, Node*, int, float, Params*, int, int);
+    void CombatCoverMap_LockForWrite();
+    bool CombatCoverMap_CanReserveCoverLocation(unsigned int, Node*, int, float, Params*, int, int);
     void CombatCoverMap_UnlockForWrite();
 };
 struct Danger
@@ -8515,7 +8524,7 @@ bool FindCombatPosition(Actor* owner, float range, bool quiet)
     if (FindNearbyTriangles(&searchSlot20, &stateSlot21->nodes))
     {
         if (!quiet)
-            DAT_011f1958->NiAVObject_GetParent()->LockCombatTargetMap();
+            DAT_011f1958->NiAVObject_GetParent()->CombatCoverMap_LockForWrite();
         for (unsigned int i = 0; i < stateSlot21->nodes.FUN_0044ddc0(); i++)
         {
 
@@ -8528,7 +8537,7 @@ bool FindCombatPosition(Actor* owner, float range, bool quiet)
             }
 
             Params params;
-            if (!DAT_011f1958->NiAVObject_GetParent()->TryUseCoverItem(idSlot31, node, 0, owner->GetFloatAtOffset68(), &params,
+            if (!DAT_011f1958->NiAVObject_GetParent()->CombatCoverMap_CanReserveCoverLocation(idSlot31, node, 0, owner->GetFloatAtOffset68(), &params,
                                                                1, 0))
             {
                 node->status = 9;
@@ -8904,7 +8913,7 @@ struct Out99
     void CombatLocation_SetTarget(Ref99*);
     void CombatLocation_SetRadius(float);
     void CombatLocation_SetPoint(void*, void*);
-    void AssignV4(Pos99*);
+    void CombatLocation_SetWorldLocation(Pos99*);
     void SetFlags(unsigned int, bool);
 };
 int Pathing_FindTeleportDoorsForLocation(void*, Pos99*, float, Array99*);
@@ -9180,7 +9189,7 @@ bool Self99::CombatState_FindBestFleeLocation(void* arg, Out99* output, int mode
             }
         }
         else
-            output->AssignV4(&fallback->point);
+            output->CombatLocation_SetWorldLocation(&fallback->point);
         return true;
     }
     output->SetFlags(1, 1);
@@ -9229,7 +9238,7 @@ struct Slot_009827c0_This
     unsigned char m_03;
     unsigned char m_04;
     unsigned char m_05;
-    void UpdateState_00982630(Slot_009827c0_Arg* a);
+    void CoverReservationInfo_CalculateSegmentInfo(Slot_009827c0_Arg* a);
     unsigned char UpdateState_00982750(float a);
     int ComputeBitMask();
     void ClearFields_00982b50();
@@ -9251,7 +9260,7 @@ bool Slot_009827c0_This::CoverReservationInfo_FindCoverReservation(Slot_009827c0
     }
     else
     {
-        UpdateState_00982630(arg);
+        CoverReservationInfo_CalculateSegmentInfo(arg);
     }
     if (!m_00 || !m_01)
         return false;
@@ -9455,16 +9464,16 @@ NiTMap<unsigned int, ReservedCoverLocation*>::~NiTMap()
     RemoveAll();
 }
 
-struct FUN_004d61b0
+struct NiTreeCtrl
 {
     unsigned char m_auiShapeKeys[0x30];
 
-    FUN_004d61b0(unsigned int, unsigned int, unsigned int, const char*, unsigned int, unsigned int, unsigned int,
+    NiTreeCtrl(unsigned int, unsigned int, unsigned int, const char*, unsigned int, unsigned int, unsigned int,
                  unsigned int);
-    ~FUN_004d61b0();
+    ~NiTreeCtrl();
 };
 
-struct FUN_009959f0_class : public FUN_004d61b0
+struct FUN_009959f0_class : public NiTreeCtrl
 {
     int m_30;
     int m_34;
@@ -9481,7 +9490,7 @@ extern unsigned int _data_011c16bc;
 // Constructs the base object with title "Combat Plan" and size 0x320 by 0x258, stores arg1, arg2, arg3 in m_30, m_34, m_38, then calls PopulateTree.
 // @fnv 0x009959f0
 FUN_009959f0_class::FUN_009959f0_class(int arg1, int arg2, int arg3)
-    : FUN_004d61b0(reinterpret_cast<TESSound*>(g_osGlobals)->Deallocate(),
+    : NiTreeCtrl(reinterpret_cast<TESSound*>(g_osGlobals)->Deallocate(),
                    reinterpret_cast<BlkOffset08View*>(g_osGlobals)->GetFlags(), 0, "Combat Plan", 0x80000000, 0x80000000, 0x320,
                    0x258),
       m_30(arg1), m_34(arg2), m_38(arg3)
@@ -9528,7 +9537,7 @@ int __cdecl BSsprintf(char*, int, const char*, ...);
 const char* __cdecl PrepareScriptMessage(const char*, bool);
 struct DebugEntryLabel
 {
-    void UpdateState_009aa150(char*, unsigned int, int);
+    void CombatWorldState_GetDebugText(char*, unsigned int, int);
 };
 // Recursively inserts a debug tree node and its children into the tree, formatting labels with cost and membership details.
 // @fnv 0x00995ef0
@@ -9584,7 +9593,7 @@ void DebugTree::InsertDebugTreeRecursively(int parent, DebugNode* node)
             DebugEntryLabel* entry = (DebugEntryLabel*)object->entries[i].object;
             if (entry)
             {
-                entry->UpdateState_009aa150(text, 260, -1);
+                entry->CombatWorldState_GetDebugText(text, 260, -1);
                 insert.text = (char*)PrepareScriptMessage(text, false);
                 insert.image = 6;
                 insert.selectedImage = insert.image;

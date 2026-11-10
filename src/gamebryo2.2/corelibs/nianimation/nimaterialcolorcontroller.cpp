@@ -172,7 +172,8 @@ static __forceinline NiPoint3Interpolator* CreateMaterialInterpolator(NiPosData*
 // The shared class has no declaration for this legacy material linker.
 // An explicit ECX object parameter preserves its original member-function ABI.
 // @fnv 0x00a4b4b0
-void __fastcall LinkMaterialColor(NiMaterialColorController* self, void*, NiStream* apStream)
+// src: EXE 0x00a4b4b0
+void __fastcall NiMaterialColorController_LinkObject(NiMaterialColorController* self, void*, NiStream* apStream)
 {
     self->NiInterpController::LinkObject(*apStream);
 

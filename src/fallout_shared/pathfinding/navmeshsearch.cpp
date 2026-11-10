@@ -123,7 +123,7 @@ bool NavMeshSearch::HasReachedGoal(const SearchNode* node)
     if (m_pPathingRequest && m_pPathingRequest->GetFloatAtOffset68() > 100.0)
     {
         NiPoint3 kDelta = (*reinterpret_cast<NavMeshTriangleReference*>(&unk2070)).FastNavMeshTriLocation_GetLocation() - node->GetNode().FastNavMeshTriLocation_GetLocation();
-        float fDistanceSquared = kDelta.GetSquaredXYLength();
+        float fDistanceSquared = kDelta.NiPoint3_SqrXYLength();
         float fHeightSquared = kDelta.z * kDelta.z;
         if (m_pPathingRequest->FUN_009b0bd0() * 0.25 * m_pPathingRequest->FUN_009b0bd0() > fDistanceSquared &&
             fHeightSquared < fDistanceSquared)
@@ -595,7 +595,7 @@ bool NavMeshSearchEdges::FindEdgeConnections(const SearchNode* current, BSSimple
                                     if (!(*reinterpret_cast<DoorAccessData*>(&unk208c)).CanUnlockDoor(lockData7, doorRef, canUnlock3))
                                         continue;
                                 }
-                                if (((TESObjectDOOR*)doorRef->GetObjectReference())->IsTeleportDoor())
+                                if (((TESObjectDOOR*)doorRef->GetObjectReference())->IsMinimalUse())
                                     usePenalty6 = DAT_01016410;
                             }
                         }

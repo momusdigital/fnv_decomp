@@ -29,7 +29,7 @@ public:
 // 0x00485b60 is not declared by the shared headers; this preserves its ECX-only call ABI.
 unsigned int __fastcall GetTerrainReferenceID(TESObjectREFR* reference);
 
-// Returns null if path is missing or not found, otherwise opens the file and returns the result of ReadAnimationFromStream on it.
+// Returns null if path is missing or not found, otherwise opens the file and returns the result of LipSynchAnim_LoadFromFile on it.
 // @fnv 0x004d52f0
 BGSTerrainManager* LoadBGSTerrainManager(const char* path)
 {
@@ -39,7 +39,7 @@ BGSTerrainManager* LoadBGSTerrainManager(const char* path)
         return 0;
     }
     file = FileFinder::GetFile(path, NiFile::READ_ONLY, 0x4000, 0x10);
-    return ReadAnimationFromStream(file);
+    return LipSynchAnim_LoadFromFile(file);
 }
 
 void __cdecl BGSTerrainChunk_ResetCullResults();
@@ -191,7 +191,8 @@ BGSDistantTreeBlock* BGSTerrainManager::GetDistantTreeBlockForPoint(void* a)
 }
 
 // @fnv 0x006fd010
-void BGSTerrainManager::AddTerrainReference(TESObjectREFR* a1)
+// src: COMMUNITY 0x006fd010
+void BGSTerrainManager::ShowTree(TESObjectREFR* a1)
 {
     unsigned int tmp = GetTerrainReferenceID(a1);
     {
@@ -250,11 +251,12 @@ struct S_00587f40
     int unk58;
     int unk5C;
     S_00587f40_List m_kNode;
-    void ClearAllLists();
+    void TESWorldSpace_ClearPersistentRefData();
 };
 
 // @fnv 0x00587f40
-void S_00587f40::ClearAllLists()
+// src: COMMUNITY 0x00587f40
+void S_00587f40::TESWorldSpace_ClearPersistentRefData()
 {
     DAT_011ca60c.BSCriticalSection_Enter(0);
     m_kNode.RemoveAll();

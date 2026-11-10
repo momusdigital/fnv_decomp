@@ -184,12 +184,13 @@ void __thiscall FUN_00589f50_shell::SetSound(void* apSound)
 struct Standin00589930
 {
     void UpdateFields_00589960();
-    void* FUN_00589930(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 void __cdecl _Deallocate(void*);
 // Calls FUN_00589960, then deallocates this if flags has bit 0 set, and returns this.
 // @fnv 0x00589930
-void* Standin00589930::FUN_00589930(unsigned int flags)
+// src: EXE 0x00589930
+void* Standin00589930::ScalarDeletingDestructor(unsigned int flags)
 {
     UpdateFields_00589960();
     if (flags & 1)

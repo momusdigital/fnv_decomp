@@ -71,18 +71,19 @@ void TESDescription::InitializeComponent()
     m_uiDescriptionFileOffset = 0;
 }
 
-void __cdecl WriteDescChunk(void*, int);
+void __cdecl TESDescription_SaveDescriptionData(void*, int);
 
 // @fnv 0x00482cb0
 // src: COMMUNITY 0x00482cb0
 void __thiscall TESDescription::Save_00482cb0()
 {
-    WriteDescChunk(this, 0x43534544);
+    TESDescription_SaveDescriptionData(this, 0x43534544);
 }
 
 void __cdecl TESForm_AddChunkArray(unsigned int, void*, unsigned int);
 // @fnv 0x00482cd0
-void __cdecl WriteDescChunk(void* apDesc, int aiChunk)
+// src: COMMUNITY 0x00482cd0
+void __cdecl TESDescription_SaveDescriptionData(void* apDesc, int aiChunk)
 {
     char empty;
     if (apDesc)
@@ -114,14 +115,14 @@ unsigned int __thiscall TESDescription::GetDescriptionLength()
 void __cdecl _Deallocate(void*);
 struct ClassFFB70
 {
-    void __thiscall FUN_004ffba0();
+    void __thiscall BGSTerminal();
     void* __thiscall DestroyIfFlagged(unsigned int);
 };
-// Calls FUN_004ffba0 on this, frees this with _Deallocate when flags has bit 1 set, and returns this.
+// Calls BGSTerminal on this, frees this with _Deallocate when flags has bit 1 set, and returns this.
 // @fnv 0x004ffb70
 void* __thiscall ClassFFB70::DestroyIfFlagged(unsigned int flags)
 {
-    this->FUN_004ffba0();
+    this->BGSTerminal();
     if (flags & 1)
         _Deallocate(this);
     return this;

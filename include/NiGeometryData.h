@@ -56,7 +56,7 @@ class NiGeometryData : public NiObject
     virtual void vf35();
     virtual unsigned short GetVertexCount();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual bool ContainsVertexData(int);
     virtual void vf40();
 
@@ -67,8 +67,8 @@ class NiGeometryData : public NiObject
     void SetCompressFlags(unsigned int);
     bool IsGeometryDataStreamable(bool);
     bool HasAdditionalGeometryData(unsigned int);
-    void SetByteAtOffset38(int);
-    void SetByteAtOffset38(unsigned char);
+    void SetKeepFlags(int);
+    void SetKeepFlags(unsigned char);
     void IncRefCount();
     void DecRefCount();
     void* GetSharedObject();

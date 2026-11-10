@@ -48,7 +48,7 @@ struct FUN_00541570_shell
 {
     char _pad[0x1c];
     unsigned char m_0x1c;
-    unsigned int GetField1C();
+    unsigned int TESLandTexture_GetHavokMaterialType();
 };
 void __cdecl ImpactMixer_SetGunshotsInitialized(bool b);
 extern float DAT_01016970;
@@ -73,7 +73,7 @@ struct TESWorldSpace;
 extern Actor* g_player_011dea3c;
 struct MaterialRecord
 {
-    int GetField1C();
+    int TESLandTexture_GetHavokMaterialType();
 };
 struct NavQueryResult
 {
@@ -368,7 +368,7 @@ struct ListenerOps
 };
 struct SoundOps
 {
-    unsigned char GetField45();
+    unsigned char GetMaxDistance();
     BGSSoundDescriptor* GetHavokWorldObjectCountInSceneGraph_0084e3a0(int);
     const char* TESSound_GetFilename();
 };

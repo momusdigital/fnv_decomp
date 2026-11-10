@@ -72,7 +72,8 @@ namespace fnv_00e8f170 {
 extern MemoryManager g_memoryManager;
 // Calls the object's destructor, then frees the object via g_memoryManager when _flags has bit 0 set, and returns _this.
 // @fnv 0x00e8f170
-void* __fastcall FUN_00e8f170(void* _this, int, unsigned int auiFlags)
+// src: EXE 0x00e8f170
+void* __fastcall ScalarDeletingDestructor(void* _this, int, unsigned int auiFlags)
 {
     DestroyGeometryBufferData((NiGeometryBufferData*)_this);
     if (auiFlags & 1)

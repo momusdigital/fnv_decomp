@@ -100,7 +100,7 @@ void TESNPC::InitDefaultWorn(TESObjectREFR* a2, bool a3, bool a4, bool a5, bool 
             bool val = true;
             TESBoundObject* p;
             p = item->FUN_0044ddc0();
-            if ((!res || !res->HasBipedModel(i, false, NULL)) && !a2->TESObjectREFR_WearingObject(p))
+            if ((!res || !res->FillsBipedSlot(i, false, NULL)) && !a2->TESObjectREFR_WearingObject(p))
             {
                 if (item->Modelloader_GetReferencedThis())
                 {
@@ -118,7 +118,7 @@ void TESNPC::InitDefaultWorn(TESObjectREFR* a2, bool a3, bool a4, bool a5, bool 
                 {
                     TESBipedModelForm* pInv;
                     pInv = TESBipedModelForm::GetFormAsBipedModel(p);
-                    if (pInv->HasBipedModel(2, false, NULL))
+                    if (pInv->FillsBipedSlot(2, false, NULL))
                     {
                         val = false;
                     }

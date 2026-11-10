@@ -36,7 +36,8 @@ const void* __cdecl NiFlipController_GetRTTI()
 }
 
 // @fnv 0x00a4f970
-void* __cdecl CreateNiFlipController()
+// src: EXE 0x00a4f970
+void* __cdecl NiFlipController_CreateObject()
 {
     void* p = BSFadeNode::operator new(0x54);
     if (p)
@@ -291,16 +292,17 @@ struct Map_a4d : MapMid_a4d
     virtual void v00();
 };
 
-struct FUN_00a4da20_cls : FUN_00a6d220
+struct NiKeyframeManager : FUN_00a6d220
 {
-    FUN_00a4da20_cls();
+    NiKeyframeManager();
     virtual void v00();
     Map_a4d kMap;
 };
 
 // Default constructor for a class that embeds a Map_a4d, which initialises its hash table with the default size.
 // @fnv 0x00a4da20
-FUN_00a4da20_cls::FUN_00a4da20_cls()
+// src: EXE 0x00a4da20
+NiKeyframeManager::NiKeyframeManager()
 {}
 
 // NiFlipController::Update: advance the interpolator, round its value to a texture index, clamp it,

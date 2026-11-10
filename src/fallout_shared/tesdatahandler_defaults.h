@@ -8,7 +8,7 @@ class CameraPathManager
 {
   public:
     void UpdateCameraPaths();
-    void InitializeCameraPaths();
+    void BGSCameraPathManager_CreateDefaultPath();
 };
 class TESGlobalMap
 {
@@ -16,7 +16,7 @@ class TESGlobalMap
     void SetAt(const char*, TESGlobal*);
 };
 namespace MagicSystem { void InitializeMagicSystem(); }
-void CreateDefaultTopics();
+void TESTopic_AddDefaultTopics();
 void BGSEquipType_GenerateDefaultMenuIcons();
 void RegisterEffectSetting(EffectSetting*);
 template <class T> unsigned int BSStringLength(const T*);

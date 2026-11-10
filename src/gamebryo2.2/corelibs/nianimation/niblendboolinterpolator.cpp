@@ -106,7 +106,8 @@ void* __fastcall FUN_00a56630(void* self, int, unsigned int flags)
 }
 
 // @fnv 0x00a56650
-NiBlendBoolInterpolator* __fastcall CloneBoolInterpolator(NiBlendBoolInterpolator* self, int, void* cloning)
+// src: EXE 0x00a56650
+NiBlendBoolInterpolator* __fastcall NiBlendBoolInterpolator_CreateClone(NiBlendBoolInterpolator* self, int, void* cloning)
 {
     NiBlendBoolInterpolator* object = static_cast<NiBlendBoolInterpolator*>(
         BSFadeNode::operator new(sizeof(NiBlendBoolInterpolator)));
@@ -143,7 +144,8 @@ bool NiBlendBoolInterpolator::UpdateAccumulatedTransform(float time, NiObjectNET
 }
 
 // @fnv 0x00a56920
-void __fastcall SaveBoolInterpolator(NiBlendBoolInterpolator* self, int, NiStream* stream)
+// src: EXE 0x00a56920
+void __fastcall NiBlendBoolInterpolator_SaveBinary(NiBlendBoolInterpolator* self, int, NiStream* stream)
 {
     self->NiBlendInterpolator::SaveBinary(*stream);
     NiBinaryStream* __restrict out = stream->m_pkOstr;

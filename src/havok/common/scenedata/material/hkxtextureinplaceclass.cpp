@@ -21,13 +21,13 @@ struct CpuObject
 {
     unsigned int unk00;
     unsigned short size;
-    void FUN_00e01750();
+    void hkxTextureInplace();
     CpuObject* DestroyIfFlagged(unsigned int flags);
 };
 // @fnv 0x00e017a0
 CpuObject* CpuObject::DestroyIfFlagged(unsigned int flags)
 {
-    FUN_00e01750();
+    hkxTextureInplace();
     if (flags & 1)
     {
         CpuAllocatorHolder* holder = hkMemoryRouter_getInstance();

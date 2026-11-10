@@ -557,7 +557,7 @@ struct TextureTransformOwner : InterpolationControllerBase
         _NiFree_00aa10f0(controllerID);
         controllerID = 0;
     }
-    void* FUN_00a46890(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     static void operator delete(void* memory, unsigned int size)
     {
         FUN_00aa1460(memory, size);
@@ -566,7 +566,8 @@ struct TextureTransformOwner : InterpolationControllerBase
 
 // Destroys the object and, if the first bit of flags is set, frees its memory with FUN_00aa1460.
 // @fnv 0x00a46890
-void* TextureTransformOwner::FUN_00a46890(unsigned int flags)
+// src: EXE 0x00a46890
+void* TextureTransformOwner::ScalarDeletingDestructor(unsigned int flags)
 {
     this->TextureTransformOwner::~TextureTransformOwner();
     if (flags & 1)

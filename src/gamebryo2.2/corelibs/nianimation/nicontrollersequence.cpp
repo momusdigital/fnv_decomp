@@ -70,7 +70,8 @@ void* NiControllerSequence::FUN_00a35820(unsigned int flags)
 
 // Walks the linked list at offset 0x58 from arg and returns false if this is found in it, true otherwise.
 // @fnv 0x00a30580
-bool __thiscall NiControllerSequence::IsNotInChain(void* pStart)
+// src: COMMUNITY 0x00a30580
+bool __thiscall NiControllerSequence::VerifyDependencies(void* pStart)
 {
     void* next = *reinterpret_cast<void**>(reinterpret_cast<unsigned char*>(pStart) + 0x58);
     if (next == 0)
@@ -93,10 +94,11 @@ extern MM_00a34450 g_memoryManager;
 extern int DAT_01096620;
 struct FUN_00a34450_shell
 {
-    void* __thiscall FUN_00a34450(unsigned int);
+    void* __thiscall ScalarDeletingDestructor(unsigned int);
 };
 // @fnv 0x00a34450
-void* __thiscall FUN_00a34450_shell::FUN_00a34450(unsigned int auiFlags)
+// src: EXE 0x00a34450
+void* __thiscall FUN_00a34450_shell::ScalarDeletingDestructor(unsigned int auiFlags)
 {
     void* p = *(void**)((char*)this + 4);
     *(void**)this = (void*)&DAT_01096620;
@@ -506,7 +508,7 @@ bool NiControllerSequence::CanSyncTo(void* arg)
             if (linked == this)
                 goto failure;
             typedef unsigned __int64 (__thiscall NiControllerSequence::*ChainQuery)(void*);
-            unsigned __int64 result = (this->*reinterpret_cast<ChainQuery>(&NiControllerSequence::IsNotInChain))(linked);
+            unsigned __int64 result = (this->*reinterpret_cast<ChainQuery>(&NiControllerSequence::VerifyDependencies))(linked);
             if (!static_cast<unsigned char>(result))
                 goto failure;
             arg = reinterpret_cast<void*>(static_cast<unsigned int>(result >> 32));
@@ -802,7 +804,7 @@ struct FUN_00a317e0_interp
     void* unk04;
     void* unk08;
     void* unk0C;
-    void __thiscall ReleaseReferencedObjectsAndResetFlags();
+    void __thiscall ClearValues();
 };
 
 struct FUN_00a317e0_tag
@@ -824,7 +826,7 @@ __declspec(noalias) void __thiscall NiControllerSequence::AssignInterpolatorRef(
     if (pNewRef)
         DAT_00fdf1c0((int*)&pNewRef->m_uiRefCount);
 
-    reinterpret_cast<FUN_00a317e0_interp*>(m_pInterpArray + index)->ReleaseReferencedObjectsAndResetFlags();
+    reinterpret_cast<FUN_00a317e0_interp*>(m_pInterpArray + index)->ClearValues();
 
     reinterpret_cast<FUN_00a317e0_tag*>(m_pkIDTags + index)->ResetStrings();
 
@@ -911,7 +913,8 @@ struct SlotInfo
 
 
 // @fnv 0x00a32bc0
-int NiControllerSequence::AssignSlot(NiRefObject* apRef, unsigned int auiValue, unsigned char aucFlag)
+// src: COMMUNITY 0x00a32bc0
+int NiControllerSequence::AddInterpolator(NiRefObject* apRef, unsigned int auiValue, unsigned char aucFlag)
 {
     unsigned int count = m_uiNumControlledBlocks;
     unsigned int idx = 0;
@@ -1503,7 +1506,7 @@ struct UpdateNote
 };
 struct UpdateNoteManager
 {
-    void DispatchByKey(UpdateNote* note);
+    void BSAnimNoteListener_Update(UpdateNote* note);
 };
 struct UpdateOwner
 {
@@ -1647,7 +1650,7 @@ void NiControllerSequence::Update_00a34ba0(float time, bool update)
                 if (!(((UpdateNote**)m_pkAnimNotes)[i]->time < localTime))
                     break;
                 m_sAnimNotesExtraDataIndex = i;
-                ((UpdateOwner*)m_pkOwnerManager)->noteManager->DispatchByKey(((UpdateNote**)m_pkAnimNotes)[i]);
+                ((UpdateOwner*)m_pkOwnerManager)->noteManager->BSAnimNoteListener_Update(((UpdateNote**)m_pkAnimNotes)[i]);
             }
         }
     }
@@ -2048,7 +2051,7 @@ struct MorphController31910 : NiSingleInterpControllerBase
     unsigned short BSMultiTargetTreadTransfController_AddInterpolatorTarget(Node31910*, unsigned short, MorphItem31910*);
     void SetSlotEntry(unsigned short, Node31910*, unsigned short, MorphItem31910*);
     Blend31910* FUN_00a358a0(unsigned short);
-    MorphController31910* FUN_00a36070(unsigned short, unsigned short);
+    MorphController31910* BSMultiTargetTreadTransfController(unsigned short, unsigned short);
 };
 struct Owner31910
 {
@@ -2274,7 +2277,7 @@ bool NiControllerSequence::ResolveTransformInterpolators(NiAVObject* targetObjec
             MorphController31910* tag = (MorphController31910*)Object_DispatchCommandFour(0x44);
             if (tag)
             {
-                tag = tag->FUN_00a36070(uiMorphEntries, usMorphTargetCount);
+                tag = tag->BSMultiTargetTreadTransfController(uiMorphEntries, usMorphTargetCount);
                 if (tag)
                 {
                     pMorphCtrl = tag;
@@ -3363,7 +3366,7 @@ bool NiControllerSequence::AssignControllers(void* apObjectName, NiInterpControl
         Assign33130(tag.m_kCtlrID, controller->V52());
         Assign33130(tag.m_kInterpolatorID, controller->V46(i));
         NiRefObject* interpolator = controller->V49(i);
-        int index = ((NiControllerSequence*)this)->AssignSlot(interpolator, (unsigned int)&tag, 255);
+        int index = ((NiControllerSequence*)this)->AddInterpolator(interpolator, (unsigned int)&tag, 255);
         if (index == -1)
         {
             tag.~FUN_00a312d0();
@@ -3714,7 +3717,7 @@ void NiControllerSequence::PopulatePoseSequence(NiControllerSequence* destinatio
             {
                 NiRefObject* interpolator = controller->GetInterpolator(index);
                 S00a32fa0_Tag tag;
-                unsigned int newIndex = destination->AssignSlot(
+                unsigned int newIndex = destination->AddInterpolator(
                     interpolator,
                     (unsigned int)new (&tag)
                         FUN_00a312d0((NiFixedString&)DAT_011f49e0, (NiFixedString&)DAT_011f49e0, (NiFixedString&)DAT_011f49e0,

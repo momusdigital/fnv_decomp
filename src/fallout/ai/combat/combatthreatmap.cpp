@@ -131,7 +131,7 @@ struct Flt
     operator unsigned int();
 };
 
-struct FUN_00497c10_struct
+struct AnimIdle
 {
     char pad0[8];
     unsigned int field_08;
@@ -144,7 +144,7 @@ struct FUN_00497c10_struct
 
 // Reads three 4-byte fields from the buffer, defaults field_08 to 1 when zero, and adds an animation when field_08 is 2 and field_10 is nonzero.
 // @fnv 0x00497c10
-void FUN_00497c10_struct::LoadAnimationData(BGSLoadFormBuffer* buffer, Animation* anim)
+void AnimIdle::LoadAnimationData(BGSLoadFormBuffer* buffer, Animation* anim)
 {
     buffer->ReadTypedData(static_cast<void*>(&field_08), 4u);
     buffer->ReadTypedData(static_cast<void*>(&field_0C), 4u);

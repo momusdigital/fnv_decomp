@@ -77,7 +77,7 @@ struct Caller
 
 struct Worker
 {
-    void __thiscall EnterLock(Accum* a);
+    void __thiscall hkpWorld_lockIslandForConstraintUpdate(Accum* a);
     void __thiscall hkpWorld_unlockIslandForConstraintUpdate(Accum* a);
 };
 
@@ -108,7 +108,7 @@ int __cdecl AccumulateShapes(Worker** a1, TargetClass* apTarget, Caller* apCalle
     }
 
     Accum* acc = apCaller->m_14;
-    (*a1)->EnterLock(acc);
+    (*a1)->hkpWorld_lockIslandForConstraintUpdate(acc);
 
     int count = apCaller->m_20->count;
     for (int i = 0; i < count; i++)

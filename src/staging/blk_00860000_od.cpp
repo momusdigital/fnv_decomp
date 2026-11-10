@@ -76,14 +76,14 @@ struct FUN_00865900_Class
     void __thiscall CreateInstance();
 };
 
-struct FUN_00865870_Class
+struct NiTMap
 {
     void __thiscall NiTMap_TESForm_BGSLoadGameSubBuffer_NewItem();
 };
 
 // @fnv 0x00865870
 // src: COMMUNITY 0x00865870
-void __thiscall FUN_00865870_Class::NiTMap_TESForm_BGSLoadGameSubBuffer_NewItem()
+void __thiscall NiTMap::NiTMap_TESForm_BGSLoadGameSubBuffer_NewItem()
 {
     ((FUN_00865900_Class*)((char*)this + 0xc))->CreateInstance();
 }
@@ -266,12 +266,12 @@ void FUN_00869e30_class::UpdateState_00869e30()
     j_Deallocate_NiTNewInterface_V_NiPointer_VNiAVObject_SAXPAV_NiPointer_VNiAVObject_Z(f);
 }
 
-struct FUN_0086c600_shell
+struct BSPackedTaskQueue
 {
     void SignalAtOffset();
 };
 // @fnv 0x0086c600
-void FUN_0086c600_shell::SignalAtOffset()
+void BSPackedTaskQueue::SignalAtOffset()
 {
     ((CountingSemaphore*)((char*)this + 0x14))->Signal();
 }
@@ -416,7 +416,7 @@ int FUN_00878130_Class::ResetAndGetValue()
 }
 
 namespace fnv_0087a6f0 {
-struct FUN_0086c600_shell
+struct BSPackedTaskQueue
 {
     void* __thiscall SignalAtOffset();
 };
@@ -430,7 +430,7 @@ struct FUN_0087a6f0_shell
 // src: COMMUNITY 0x0087a6f0
 void* __thiscall FUN_0087a6f0_shell::TaskQueueInterface_ThreadBeginSecondaryInput()
 {
-    return reinterpret_cast<FUN_0086c600_shell*>(reinterpret_cast<void**>(this)[1])->SignalAtOffset();
+    return reinterpret_cast<BSPackedTaskQueue*>(reinterpret_cast<void**>(this)[1])->SignalAtOffset();
 }
 }  // namespace fnv_0087a6f0
 
@@ -451,14 +451,14 @@ void __thiscall FUN_0087a710_shell::TaskQueueInterface_ThreadEndSecondaryInput()
     p->FUN_0086cdd0();
 }
 
-struct FUN_0087a770
+struct BSTCommonScrapHeapMessageQueue
 {
     bool IsEmpty();
     void DoWork();
 };
 
 // @fnv 0x0087a770
-void FUN_0087a770::DoWork()
+void BSTCommonScrapHeapMessageQueue::DoWork()
 {
     IsEmpty();
 }
@@ -609,14 +609,14 @@ struct ABD_005f92d0
     bool GetFlag(unsigned int) const;
 };
 
-struct FUN_0087f480_Class
+struct TESActorBaseData
 {
     bool TESActorBaseData_GetEssential();
 };
 
 // @fnv 0x0087f480
 // src: COMMUNITY 0x0087f480
-bool FUN_0087f480_Class::TESActorBaseData_GetEssential()
+bool TESActorBaseData::TESActorBaseData_GetEssential()
 {
     return ((ABD_005f92d0*)this)->GetFlag(2);
 }
@@ -1186,11 +1186,11 @@ void* __thiscall FUN_00877d50_Class::FUN_00877d50(unsigned int flags)
 struct FUN_00877e10_Class
 {
     void SetEntry(unsigned int, unsigned int);
-    unsigned int EvaluateValue_00877e10(unsigned int a, unsigned int b);
+    unsigned int NiTArray_SetAtGrow(unsigned int a, unsigned int b);
 };
 // @fnv 0x00877e10
-// src: GUESS 0x00877e10 (confidence: low)
-unsigned int FUN_00877e10_Class::EvaluateValue_00877e10(unsigned int a, unsigned int b)
+// src: GUESS 0x00877e10 (confidence: medium)
+unsigned int FUN_00877e10_Class::NiTArray_SetAtGrow(unsigned int a, unsigned int b)
 {
     if (a >= reinterpret_cast<unsigned short*>(this)[4])
         reinterpret_cast<StrArr*>(this)->SetSize(reinterpret_cast<unsigned short*>(this)[7] + a);
@@ -1441,7 +1441,7 @@ FUN_00864160::FUN_00864160(unsigned int ItemUpdateArray, int iExtra)
 
 struct TESForm;
 TESForm* __cdecl _ref_004839c0(int id);
-struct FUN_00867890_shell
+struct Calendar
 {
     TESForm* f0;
     TESForm* f1;
@@ -1456,7 +1456,7 @@ struct FUN_00867890_shell
 // Looks up six forms by id, adds the f3 global's value divided by 24 to the f4 global, stores it, resets f6 and calls FUN_00867a20.
 // @fnv 0x00867890
 // src: COMMUNITY 0x00867890
-void FUN_00867890_shell::Calendar_InitGlobals()
+void Calendar::Calendar_InitGlobals()
 {
     f0 = _ref_004839c0(0x35);
     f1 = _ref_004839c0(0x36);
@@ -1935,12 +1935,13 @@ float __cdecl BSFadeNode_GetLinkedActorAlpha(BSFadeNode* node)
 struct FUN_00863f30_shell
 {
     void __thiscall NiTLargePrimitiveArray_unsigned_int_Free();
-    void* __thiscall FUN_00863f30(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_008640e0, then deallocates this if flags has bit 0 set, and returns this.
 // @fnv 0x00863f30
-void* __thiscall FUN_00863f30_shell::FUN_00863f30(unsigned int flags)
+// src: EXE 0x00863f30
+void* __thiscall FUN_00863f30_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     NiTLargePrimitiveArray_unsigned_int_Free();
     if (flags & 1)
@@ -2054,7 +2055,7 @@ unsigned int __cdecl GetSizeTypeForSize(unsigned int value);
 unsigned int __cdecl GetSizeTypeSize(unsigned int value);
 void __cdecl WriteTypedValue(void* destination, unsigned int source, unsigned int count);
 
-struct FUN_008665d0_class
+struct BGSUnloadedFormBuffer
 {
     void* m_pData;
     void __thiscall BGSUnloadedFormBuffer_Initialize(void* source, unsigned int size, int value, unsigned char flag);
@@ -2063,7 +2064,7 @@ struct FUN_008665d0_class
 // Allocates a buffer sized from size, writes a flag and encoded size/value header, then copies size bytes from source into it.
 // @fnv 0x008665d0
 // src: COMMUNITY 0x008665d0
-void FUN_008665d0_class::BGSUnloadedFormBuffer_Initialize(void* source, unsigned int size, int value, unsigned char flag)
+void BGSUnloadedFormBuffer::BGSUnloadedFormBuffer_Initialize(void* source, unsigned int size, int value, unsigned char flag)
 {
     unsigned int data4 = GetSizeTypeForSize(size);
     unsigned int totalSize = GetSizeTypeSize(data4);
@@ -2259,18 +2260,19 @@ struct SoundPlaybackManager
 
 
 
-struct FUN_0086ce40_class
+struct Main
 {
     int vfn_00;
     int padding_04;
     unsigned int value_08;
 
-    void __thiscall InitAudioCallbacks();
+    void __thiscall Main_Main_AudioInit();
 };
 
 // Registers audio callbacks and a value on the BSAudio singleton, then calls FUN_0082f830.
 // @fnv 0x0086ce40
-void FUN_0086ce40_class::InitAudioCallbacks()
+// src: COMMUNITY 0x0086ce40
+void Main::Main_Main_AudioInit()
 {
     BSWin32Audio_Create();
 
@@ -2304,14 +2306,15 @@ struct FUN_00a69400
     FUN_00a69400(NiVisibleArray*);
 };
 extern void* DAT_01082ccc;
-struct FUN_00872ea0 : FUN_00a69400
+struct BSFadeNodeCuller : FUN_00a69400
 {
     void* m_vft;
-    FUN_00872ea0(NiVisibleArray*);
+    BSFadeNodeCuller(NiVisibleArray*);
 };
 // Constructs the object by forwarding the NiVisibleArray pointer to the base constructor and setting the vtable pointer to DAT_01082ccc.
 // @fnv 0x00872ea0
-FUN_00872ea0::FUN_00872ea0(NiVisibleArray* apVisibleArray) : FUN_00a69400(apVisibleArray)
+// src: EXE 0x00872ea0
+BSFadeNodeCuller::BSFadeNodeCuller(NiVisibleArray* apVisibleArray) : FUN_00a69400(apVisibleArray)
 {
     m_vft = &DAT_01082ccc;
 }
@@ -2321,12 +2324,13 @@ struct FUN_0044f600_class
 {
     void FUN_0044f700();
 };
-struct FUN_008779f0_class : FUN_0044f600_class
+struct RegSettingCollection : FUN_0044f600_class
 {
-    FUN_008779f0_class();
+    RegSettingCollection();
 };
 // @fnv 0x008779f0
-FUN_008779f0_class::FUN_008779f0_class()
+// src: EXE 0x008779f0
+RegSettingCollection::RegSettingCollection()
 {
     FUN_0044f700();
     *reinterpret_cast<void**>(this) = &DAT_01082ed8;
@@ -2476,13 +2480,13 @@ void FUN_0087ea80_shell::bhkRagdollController_Setphkobject090(unsigned int a)
 
 struct FlagHelper
 {
-    bool GetFlag8();
+    bool TESActorBaseData_GetRespawn();
 };
 // @fnv 0x0087f4a0
 // src: XBOX_PDB 0x0087f4a0
 bool __fastcall Actor_GetRespawn(Actor* actor)
 {
-    return reinterpret_cast<FlagHelper*>(reinterpret_cast<char*>(actor->GetActorBase()) + 0x30)->GetFlag8();
+    return reinterpret_cast<FlagHelper*>(reinterpret_cast<char*>(actor->GetActorBase()) + 0x30)->TESActorBaseData_GetRespawn();
 }
 
 class MapDtorWrap_b9629 : public NiTPointerMap<int, int>
@@ -2548,7 +2552,7 @@ struct FUN_00866570_Input
     unsigned int GetHavokWorldObjectCountInSceneGraph_0084e3a0();
     void* FUN_00726070();
 };
-struct FUN_00866570_Class : public FUN_008665d0_class
+struct FUN_00866570_Class : public BGSUnloadedFormBuffer
 {
     void InitFromInput(FUN_00866570_Input* input);
 };
@@ -3449,7 +3453,7 @@ struct ManagedEntry
 };
 void* __cdecl MemoryManager_Instance();
 ManagedEntry* __stdcall MemoryManager_Instance(int mode, unsigned int index, bool* enabled);
-struct FUN_00878080_Class
+struct MemoryLevelManager
 {
     int unk00;
     int unk04;
@@ -3461,7 +3465,7 @@ struct FUN_00878080_Class
 };
 // @fnv 0x00878080
 // src: COMMUNITY 0x00878080
-void FUN_00878080_Class::MemoryLevelManager_CheckMemoryLevel(int unused)
+void MemoryLevelManager::MemoryLevelManager_CheckMemoryLevel(int unused)
 {
     if (!control.BSCriticalSection_TryLock())
         return;
@@ -3525,7 +3529,7 @@ void Owner_008783a0::CallSubCallee()
 
 struct FUN_0087a730_target
 {
-    bool FUN_0087a770();
+    bool BSTCommonScrapHeapMessageQueue();
     bool GetField24();
 };
 
@@ -3535,12 +3539,12 @@ struct FUN_0087a730_cls
     bool TaskQueueInterface_QQueueFurtherTasks();
 };
 
-// Returns true when unk00's FUN_0087a770 and GetField24 both return false, otherwise false.
+// Returns true when unk00's BSTCommonScrapHeapMessageQueue and GetField24 both return false, otherwise false.
 // @fnv 0x0087a730
 // src: XBOX_PDB 0x0087a730
 bool FUN_0087a730_cls::TaskQueueInterface_QQueueFurtherTasks()
 {
-    if (!this->unk00->FUN_0087a770() && !this->unk00->GetField24())
+    if (!this->unk00->BSTCommonScrapHeapMessageQueue() && !this->unk00->GetField24())
         return true;
     return false;
 }
@@ -3990,7 +3994,7 @@ struct FUN_0086c160
     bool flag9c;
     FUN_00633c90 acca0;
     FUN_0086c160(int, int);
-    void InitAudioCallbacks();
+    void Main_Main_AudioInit();
 };
 // @fnv 0x0086c160
 FUN_0086c160::FUN_0086c160(int aiArg1, int aiArg2)
@@ -4034,7 +4038,7 @@ FUN_0086c160::FUN_0086c160(int aiArg1, int aiArg2)
     Controls_GetInstance()->LoadControlsFromIni();
     context.Leave();
     context.Enter(11, true, const_cast<char*>(DAT_010829c4), 3541);
-    InitAudioCallbacks();
+    Main_Main_AudioInit();
     context.Leave();
 }
 
@@ -5974,9 +5978,9 @@ struct FUN_005d8b10
     int unk04;
     FUN_005d8b10();
 };
-struct FUN_00872ea0
+struct BSFadeNodeCuller
 {
-    virtual ~FUN_00872ea0();
+    virtual ~BSFadeNodeCuller();
     int unk04;
     int unk08;
     int unk0c;
@@ -6012,7 +6016,7 @@ struct FUN_00872ea0
     int unk84;
     int unk88;
     int unk8c;
-    FUN_00872ea0(int a);
+    BSFadeNodeCuller(int a);
 };
 struct FUN_00633c90
 {
@@ -6025,17 +6029,18 @@ struct S_00872e00_Raw
     void* m_p;
     S_00872e00_Raw* FUN_00633c90(int a);
 };
-struct FUN_00872e00 : FUN_005d8b10
+struct HighActorCuller : FUN_005d8b10
 {
-    FUN_00872ea0 m08;
+    BSFadeNodeCuller m08;
     FUN_00633c90 m98;
     FUN_00633c90 m9c;
     S_00872e00_Raw ma0;
-    FUN_00872e00();
-    virtual ~FUN_00872e00();
+    HighActorCuller();
+    virtual ~HighActorCuller();
 };
 // @fnv 0x00872e00
-FUN_00872e00::FUN_00872e00() : m08(0), m98(0), m9c(0)
+// src: EXE 0x00872e00
+HighActorCuller::HighActorCuller() : m08(0), m98(0), m9c(0)
 {
     ma0.FUN_00633c90(0);
 }

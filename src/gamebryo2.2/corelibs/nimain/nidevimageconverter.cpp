@@ -1370,9 +1370,9 @@ struct ReaderStorage
     int unk178;
     int unk17C;
 };
-struct FUN_00a8d750 : ReaderStorage
+struct NiTGAReader : ReaderStorage
 {
-    __declspec(nothrow) FUN_00a8d750() throw();
+    __declspec(nothrow) NiTGAReader() throw();
 };
 struct FUN_00a8c190 : ReaderStorage
 {
@@ -1408,7 +1408,7 @@ NiDevImageConverter* __fastcall InitializeNiDevImageConverter(NiDevImageConverte
     self->m_kImageReaderList.m_pkHead = 0;
     self->m_kImageReaderList.m_pkTail = 0;
     self->m_kImageReaderList.AddHead(new (DAT_011f6238.Allocate(sizeof(ReaderStorage))) NiBMPReader);
-    self->m_kImageReaderList.AddHead(reinterpret_cast<NiImageReader*>(new FUN_00a8d750));
+    self->m_kImageReaderList.AddHead(reinterpret_cast<NiImageReader*>(new NiTGAReader));
     self->m_kImageReaderList.AddHead(reinterpret_cast<NiImageReader*>(new FUN_00a8c190));
     return self;
 }

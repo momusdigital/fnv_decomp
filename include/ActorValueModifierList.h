@@ -32,7 +32,7 @@ public:
     void ModifyModifier(char key, float delta, ClampStyle clamp);
     void ModifierList_SetModifier(char key, float value);
     static float ModifyAndClamp(float value, float delta, ClampStyle clamp);
-    void EraseModifier(Modifier* modifier);
+    void ModifierList_DeleteModifier(Modifier* modifier);
     void CopyModifierListFrom(ActorValueModifierList* other);
     void AppendModifier(Modifier* modifier);
     void RemoveAllModifiers();

@@ -75,10 +75,10 @@ void __cdecl _FUN_00485910(unsigned int, float);
 // @fnv 0x005a6460
 void TESGlobal::SaveForm()
 {
-    TESForm::BeginFormRecord();
+    TESForm::TESForm_StartForm();
     TESForm_AddChunk_3(0x4D414E46, cType);
     _FUN_00485910(0x56544C46, fValue);
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_CloseForm();
 }
 
 // @fnv 0x005a65e0

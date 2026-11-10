@@ -478,7 +478,7 @@ struct DebrisEffect : FUN_00682c40
 {
     void FUN_007e6580(bool);
     CellContext* GetHavokWorldObjectCountInSceneGraph_0084e3a0();
-    void AttachCollisionObject(int);
+    void BSTempEffectDebris_InitHavok(int);
     void SpawnDebris(int a4, int a5, int a6, int a7, int a8, float f9, bool b10);
 };
 // @fnv 0x00682d10
@@ -507,7 +507,7 @@ void DebrisEffect::SpawnDebris(int a4, int a5, int a6, int a7, int a8, float f9,
     static_cast<ScenePointer&>(m_18).Modelloader_GetReferencedThis()->SetRotate_0043fa80(a6);
     static_cast<ScenePointer&>(m_18).Modelloader_GetReferencedThis()->NiAVObject_SetScale(f9);
     ProcessPropertyTree(static_cast<ScenePointer&>(m_18).Modelloader_GetReferencedThis(), 5);
-    AttachCollisionObject(a4);
+    BSTempEffectDebris_InitHavok(a4);
     static_cast<ScenePointer&>(m_18).Modelloader_GetReferencedThis()->UpdateProperties();
     UpdateContext node(DAT_011c3c08, true, false);
     static_cast<ScenePointer&>(m_18).Modelloader_GetReferencedThis()->NiAVObject_Update(node);
@@ -868,7 +868,7 @@ struct FUN_00683190_shell
     virtual void v037();
     virtual WorldNode* Get3D();
     WorldCell* GetHavokWorldObjectCountInSceneGraph_0084e3a0();
-    void AttachCollisionObject(WorldActor* pkActor);
+    void BSTempEffectDebris_InitHavok(WorldActor* pkActor);
 };
 // @fnv 0x006830a0
 // src: COMMUNITY 0x006830a0
@@ -901,7 +901,8 @@ bool BSFaceGenKeyframe::BSTempEffectDebris_Update(float fArg)
 
 // Resolves the object from the 3D node (via fade or child nodes), then adds it to the cell's havok world with the actor's collision filter.
 // @fnv 0x00683190
-void FUN_00683190_shell::AttachCollisionObject(WorldActor* pkActor)
+// src: COMMUNITY 0x00683190
+void FUN_00683190_shell::BSTempEffectDebris_InitHavok(WorldActor* pkActor)
 {
     WorldNode* pk3D = Get3D();
     WorldObj* pkObj = (WorldObj*)pk3D;

@@ -65,18 +65,19 @@ struct D481D0RefVariant
     const D481D0Class* GetVariantValue() const;
 };
 
-struct FUN_00d481d0
+struct NamedVariant
 {
     D481D0StringPtr m_name;
     D481D0StringPtr m_pClassName;
     D481D0RefVariant m_pReferencedResource;
 
-    FUN_00d481d0(const char* name, D481D0ReferencedObject* object, const D481D0Class* pClassInfo);
+    NamedVariant(const char* name, D481D0ReferencedObject* object, const D481D0Class* pClassInfo);
 };
 
 // Stores the name, binds the object with its class, and caches the class name (or null) from the reference variant.
 // @fnv 0x00d481d0
-FUN_00d481d0::FUN_00d481d0(const char* name, D481D0ReferencedObject* object, const D481D0Class* apClass)
+// src: GUESS 0x00d481d0 (confidence: medium)
+NamedVariant::NamedVariant(const char* name, D481D0ReferencedObject* object, const D481D0Class* apClass)
 {
     m_name = name;
     m_pReferencedResource.set(object, apClass);
@@ -217,7 +218,7 @@ extern GlobalObjectO2_00d472a0 g_01268eb4;
 extern GlobalObjectO2_00d472a0 g_01268d4c;
 extern GlobalObjectO2_00d472a0 g_01268c14;
 
-struct FUN_00cc08f0_cls
+struct ConvertListener
 {
     unsigned int unk00;
     unsigned int unk04;
@@ -229,7 +230,7 @@ struct FUN_00cc08f0_cls
 // Checks type matchers on *a2, allocates and links a new object into m_08, or clears the pointer when the back-reference matches.
 // @fnv 0x00cc08f0
 // src: XBOX_PDB 0x00cc08f0
-void FUN_00cc08f0_cls::hkpHavokSnapshot_ConvertListener_addObjectCallback(void** a1, void** a2)
+void ConvertListener::hkpHavokSnapshot_ConvertListener_addObjectCallback(void** a1, void** a2)
 {
     void** cur = a2;
 

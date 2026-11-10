@@ -1103,7 +1103,7 @@ struct CapsuleTriangleQuery
     NiCapsuleBV* capsule;
     CollisionTriangle triangle;
     float inverseRadiusSquared, segmentParameter, triangleParameter;
-    void FUN_00eb3750(NiCapsuleBV*, const NiPoint3*, const NiPoint3*, const NiPoint3*, float, float, float, int);
+    void NiCapsuleTriIntersector(NiCapsuleBV*, const NiPoint3*, const NiPoint3*, const NiPoint3*, float, float, float, int);
     void Solve(int, int);
     float NiIntersector_GetContactTime();
     int FUN_00be0aa0();
@@ -1194,7 +1194,7 @@ bool __cdecl NiCapsuleBV_CapsuleTriFindIntersect(float afTime, NiCapsuleBV* apCa
         }
     }
     CapsuleTriangleQuery query;
-    query.FUN_00eb3750(apCapsule, apTriA, apTriB, apTriC, afTime, DAT_01017d00, DAT_010141cc, 0x20);
+    query.NiCapsuleTriIntersector(apCapsule, apTriA, apTriB, apTriC, afTime, DAT_01017d00, DAT_010141cc, 0x20);
     query.Solve((int)a2, (int)a6);
     *a7 = query.NiIntersector_GetContactTime();
     if (query.FUN_00be0aa0() != 3 && query.FUN_00be0aa0() != 2)

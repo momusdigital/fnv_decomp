@@ -48,7 +48,7 @@ public:
     virtual bool CompareWithBase(BaseFormComponent* component);
     virtual void CopyFromTemplateForm(TESActorBase* form);
     virtual bool GetNoVATSmelee() const;
-    virtual bool GetNoVATSranged() const;
+    virtual bool GetAllowPCDialogue() const;
     virtual bool GetAllowPickpocket() const;
     virtual bool GetIsGhost() const;
     virtual bool GetIsInvulnerable() const;
@@ -88,7 +88,7 @@ public:
     void SetTemplateUseFlags(unsigned short flags);
     bool __thiscall GetUsesLeveledTemplate();
     bool IsTemplateLeveled();
-    void SetTemplateReference(TESObjectREFR* reference);
+    void CalcTemplateForRef(TESObjectREFR* reference);
     static TESActorBase* GetTemplateForActorBase(TESActorBase*, TESActorBase*);
     static bool HasCircularTemplateHierarchy(TESActorBase*);
     static bool IsActorBaseInTemplateHierarchy(TESActorBase*, TESActorBase*);
@@ -106,7 +106,7 @@ public:
     bool GetRespawn();
     void SetRespawn(bool value);
     bool GetRunsInLow();
-    void UpdateRunsInLow(bool value, bool addChange);
+    void SetRunsInLow(bool value, bool addChange);
     bool GetKnockedDowns();
     void SetKnockedDowns(bool value);
     bool GetNotPushable();
@@ -141,7 +141,7 @@ public:
     void SetFatigue(unsigned short value);
     static int ConvertToInteger(float value);
     static char* GetActorDisplayName(Actor* actor);
-    void SetKarmaValue(float value);
+    void SetKarma(float value);
     void ModKarma(float value);
     unsigned short GetBarterGold();
     void SetBarterGold(unsigned short value);
@@ -183,7 +183,7 @@ public:
     void TESCreature_SetNoBloodSpray(bool value);
 
     bool GetVATSmeleeDisabled();
-    bool GetNoVATSranged();
+    bool GetAllowPCDialogue();
     bool GetCanBePickpocketed();
     bool GetIsGhost();
     bool GetIsInvulnerable();

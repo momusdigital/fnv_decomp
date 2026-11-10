@@ -1676,7 +1676,7 @@ static inline void ReleaseCtx(hkpWorld* c)
     if (c->m_bBlockExecutingPendingOperations != 0) return;
     if (c->m_iPendingOperationCount) c->FUN_00c91120();
     if (c->m_iPendingOperationQueueCount != 1) return;
-    if (c->m_iQueuedOperationCount) c->UpdateFields_00c91140();
+    if (c->m_iQueuedOperationCount) c->hkpWorld_internalExecutePendingBodyOperations();
 }
 struct ThisFull {
     int m_00; int m_04; int m_08;
@@ -2391,7 +2391,7 @@ static __forceinline void unlockContext(hkpWorld* ctx) {
         if (ctx->m_iPendingOperationCount)
             ctx->FUN_00c91120();
         if (ctx->m_iPendingOperationQueueCount == 1 && ctx->m_iQueuedOperationCount)
-            ctx->UpdateFields_00c91140();
+            ctx->hkpWorld_internalExecutePendingBodyOperations();
     }
 }
 struct S00d0e9c0_DwordPair { int a, b; };

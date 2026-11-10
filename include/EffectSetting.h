@@ -109,7 +109,7 @@ public:
     bool Load(TESFile* file);
     void UpdateEffectName(const char* name);
     BSStringT<char> GetEffectName() const;
-    bool HasEffectID();
+    bool IsAssociatedItemLoaded();
     int GetEffectID();
     void SetEffectID(int value);
     bool IsScriptEffect();
@@ -123,7 +123,7 @@ public:
     int UpdateCounter();
     void* TESDataHandler_GetRecipes();
     TESEffectShader* GetEffectShader_00407820();
-    bool UsesAssociatedActorValue();
+    bool IsAssociatedItemQueued();
     bool HasNoAssociatedActorValue();
     bool IsAssociatedFormUsed();
     bool GetFlag(unsigned int flags) const;

@@ -101,7 +101,7 @@ struct FUN_00cdf250_class
 struct TransformMatrix
 {
     hkVector4 row0, row1, row2, row3;
-    void CopyMaskedMatrixRows(int);
+    void hkTransform_setAbs(int);
 };
 // hkQsTransform layout with float rotation/scale lanes (0x00ce51f0 builds an hkTransform from it); kept local because the body reads the lanes as floats.
 struct QsTransformFloats
@@ -132,7 +132,7 @@ void QsTransformFloats::BuildMatrixFromRotationScaleAndPosition(int out)
     *(__m128*)&resultMatrix.row1 = *(__m128*)&combinedMatrix.row1;
     *(__m128*)&resultMatrix.row2 = *(__m128*)&combinedMatrix.row2;
     *(__m128*)&resultMatrix.row3 = *(__m128*)&position;
-    resultMatrix.CopyMaskedMatrixRows(out);
+    resultMatrix.hkTransform_setAbs(out);
 }
 
 struct S_00ce5290_Vector4

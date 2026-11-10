@@ -1,7 +1,8 @@
 
 #include "iomanager_decls.h"
 // @fnv 0x0043d690
-void IOManager::SubmitTask()
+// src: COMMUNITY 0x0043d690
+void IOManager::IOTask_AddToPostProcessQueue()
 {
     DAT_01202d98->IOManager_AddPostProcessTask(this);
 }

@@ -72,7 +72,7 @@ public:
     bool IsCellInterior() const;
     bool IsInterior();
     bool HasWater() const;  // 0x004518e0 (Xbox debug PDB TESObjectCELL::HasWater)
-    bool IsPointInCell(const NiPoint3& point);
+    bool IsPointInCellExterior(const NiPoint3& point);
     bool IsActorTrespassing(Actor* actor);
     bool IsOutdoorCell();
     bool IsCellPersistent();
@@ -87,17 +87,17 @@ public:
     void AddReference(TESObjectREFR* reference, bool persistent);
     void AddReference(RefX* reference, bool persistent);
     void RemoveReference(TESObjectREFR* reference);
-    void RemoveNonPersistentRefs();
-    void AddStaticRefsToList(BSSimpleList<const char*>* list);
+    void UnLoadAllTempData();
+    void AddAudioMarkersToList(BSSimpleList<const char*>* list);
     void AppendCellReferences(BSSimpleArray<TESObjectREFR*, 1024>& references);
     bool GetReferencesInArea(const NiPoint3& position, float radius,
                              const NiPoint3& rotation, float angle,
                              bool (__cdecl* callback)(TESObjectREFR*, long), long context);
     void CellRefLockEnter();
     void CellRefLockLeave();
-    void ClearCellReferenceList();
-    void CollectCellReferences(ReferenceCollectorDC* collector);
-    unsigned int CountReferencesWithFormType30();
+    void AddReferencesToLoadedReferenceCollection();
+    void BuildLocalMapDoorList(ReferenceCollectorDC* collector);
+    unsigned int GetLightCount();
     void Detach(bool detach);
     void SetDetachTime(unsigned int time, bool force);
     TESRegionList* GetRegionList(bool create);
@@ -111,15 +111,15 @@ public:
     void ClearAudioMarkers();
     ExteriorCellData* GetExteriorData();
     InteriorCellData* GetInteriorData();
-    bool HasCellExtraData();
+    bool GetLowestProcessMiddleLow();
     ExtraDataList* GetExtraDataList();
     void SetFlag40(bool value);
-    void ResetCellData();
+    void CreateCellData();
     void SetLightingTemplate(void* value);
     CellLightingTemplate* GetLightingTemplate();
     int GetCellStandValue();
-    float GetInteriorLightValue();
-    NiAVObject* GetCellChildAt(int index);
+    float GetDataClipDist();
+    NiAVObject* GetChildNode(int index);
     NiAVObject* GetDynamicNode();
     bool IsFormTypeBelowThreshold(FormGroupQuery* group);
     bool MatchForm(void* form);
@@ -145,10 +145,10 @@ public:
     TESWaterForm* Actor_GetRadiationLevel();
     void FillBarterContainer(Ref54* actor, Destination54* destination);
     void SaveGameTest();
-    void SetGridDataByte(int x, int y, MaskTexture** cache, int index, unsigned char value);
-    void ComputeCellRotationCenter(RotationPoint& center);
-    void ComputeCellRotationCenter(NiPoint3& center);
-    void ComputeCellRotationCenter(NiPoint3* center);
+    void PlaceCanopyShadowInAdjacentCell(int x, int y, MaskTexture** cache, int index, unsigned char value);
+    void CalcRefCenterPoint(RotationPoint& center);
+    void CalcRefCenterPoint(NiPoint3& center);
+    void CalcRefCenterPoint(NiPoint3* center);
     void AddFurnitureToList(G2* list);
     bool TESDataHandler_FormGroupLoadsInGame(FileH* file, CellFormGroupRecord* record);
     void TESObjectCELL_GetCOCPlacementInfo(RotationPoint& position, RotationPoint& rotation);
@@ -176,7 +176,7 @@ public:
     unsigned int GetDataDirectionalXY();
     unsigned int GetDirectionalZ();
     void GetDataFogColor(NiColor* color);
-    void RegisterReferenceInCell(TESObjectREFR* reference);
+    void AddAnimatedRef(TESObjectREFR* reference);
     TESGlobal* GetOwnershipGlobal();
     unsigned int GetDetachTime();
     BGSAcousticSpace* GetAcousticSpace_00547590();
@@ -199,12 +199,12 @@ public:
     void IOManager_Pause();
     void PerformCellNodeAttach(TESObjectREFR* reference, NiNode* parent);
     bool FindInFileFast(TESFile* file);
-    void UpdateNavMeshObstacles();
+    void AddObstaclesAndDoors();
     void AttachOrphanedChildren();
     bool RunScripts_0054c740(bool, bool);
-    void RecalcLeveledActorBases(bool);
+    void CalcLeveledCreatures(bool);
     void LoadGame_00555740(BGSLoadFormBuffer* buffer);
-    bool CheckWaterHeight(void* data, float* height);
+    bool GetWaterHeight(void* data, float* height);
     void UpdateCellExtraData(BSExtraData* value, bool flag);
     int GetCanopyShadowMask(int, int);
     void AddReference_0(TESObjectREFR* reference);
@@ -234,7 +234,7 @@ public:
     bool IsAttached();
     void AddSpaceRef(RefX* reference);
     bool IsInteriorCell();
-    void ProcessCellRefs();
+    void ClearRefList();
     void UpdateCell();
     SeenData_Stub* FUN_00555bc0();
     unsigned short GetSaveSize_00554b90(unsigned int flags);

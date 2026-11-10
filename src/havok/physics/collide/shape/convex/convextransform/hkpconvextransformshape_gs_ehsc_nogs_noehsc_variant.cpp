@@ -194,7 +194,7 @@ struct FUN_00d5de40_Child
     virtual void vf2c();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3c();
     virtual void vf40();
     virtual void vf44(hkVector4* value)
@@ -216,7 +216,7 @@ struct FUN_00d5de40_Obj
     virtual void vf2c();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3c();
     virtual void vf40();
     virtual void vf44(hkVector4* value)

@@ -85,7 +85,7 @@ ActiveEffect* ActiveEffect_LoadActiveEffect(BGSLoadFormBuffer* buffer)
     magicItem = MagicItem::GetMagicItemByID(magicItemID);
     if (magicItem)
     {
-        EffectItem* effect = magicItem->GetEffectItemAtIndex(recordIndex);
+        EffectItem* effect = magicItem->GetEffectItemByIndex(recordIndex);
         if (effect)
         {
             ActiveEffect* active = MagicEffectSystem_activeeffect_decl_variant::Activate(0, magicItem, effect, 0);

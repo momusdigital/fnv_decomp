@@ -101,7 +101,7 @@ template <> bool BSStringT<char>::Set(const BSStringT<char>& source)
     return length != 0;
 }
 
-void ResolveFormID(unsigned int*, TESFile*);
+void TESForm_AddCompileIndex(unsigned int*, TESFile*);
 TESForm* TESForm_GetFormByNumericID(unsigned int);
 void Warning_005b5e40(const char*, ...);
 void __cdecl operator delete(void*);
@@ -118,7 +118,7 @@ void ExtraDecalRefs::InitItem_00433db0(TESForm* form)
         bool removed = false;
         ReferenceIntersectionData* decal = position->GetItem();
         unsigned int formID = reinterpret_cast<unsigned int>(decal->m_pHitReference);
-        ResolveFormID(&formID, form->FUN_00484e60(-1));
+        TESForm_AddCompileIndex(&formID, form->FUN_00484e60(-1));
         TESObjectREFR* resolvedB = dynamic_cast<TESObjectREFR*>(TESForm_GetFormByNumericID(formID));
         if (!resolvedB)
         {

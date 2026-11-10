@@ -82,7 +82,7 @@ void __thiscall FUN_00aa4c40_class::BSCoreMessage_DisableContextMessages(int a)
 
 extern "C" void* DAT_010a2708;
 
-struct FUN_00aa4c60_class
+struct BSCoreMessage
 {
     void* m_p;
     void* BSCoreMessage_BSCoreMessage();
@@ -90,7 +90,7 @@ struct FUN_00aa4c60_class
 
 // @fnv 0x00aa4c60
 // src: COMMUNITY 0x00aa4c60
-void* FUN_00aa4c60_class::BSCoreMessage_BSCoreMessage()
+void* BSCoreMessage::BSCoreMessage_BSCoreMessage()
 {
     m_p = &DAT_010a2708;
     return this;
@@ -255,14 +255,14 @@ char __thiscall FUN_00aa4710_Class::MemoryManager_GetHeapStats(int a, unsigned c
     return flag_;
 }
 
-struct FUN_00aa4b20_Class
+struct BSListBase
 {
     void __thiscall ClearAndDeallocate(void* p);
 };
 
 // Sets the third int of p to zero, then passes p to MemoryManager::Deallocate.
 // @fnv 0x00aa4b20
-void __thiscall FUN_00aa4b20_Class::ClearAndDeallocate(void* p)
+void __thiscall BSListBase::ClearAndDeallocate(void* p)
 {
     ((int*)p)[2] = 0;
     void* arg = p;
@@ -473,13 +473,13 @@ struct FUN_00aba370_s
     unsigned int m_14;
     void __thiscall EraseRange(unsigned int a, unsigned int b);
     void __thiscall AppendChars(unsigned int a, unsigned char b);
-    void __thiscall ResizeStringRange(unsigned int pos, unsigned char b);
+    void __thiscall basic_string_resize(unsigned int pos, unsigned char b);
 };
 extern unsigned int DAT_010173f0;
 // If pos is within m_14, calls EraseRange with pos and DAT_010173f0; otherwise calls AppendChars with pos - m_14 and b.
 // @fnv 0x00aba370
 // src: GUESS 0x00aba370 (confidence: medium)
-void FUN_00aba370_s::ResizeStringRange(unsigned int pos, unsigned char ucValue)
+void FUN_00aba370_s::basic_string_resize(unsigned int pos, unsigned char ucValue)
 {
     unsigned int v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, va, vb, vc, vd;
     if (pos <= m_14)
@@ -490,20 +490,20 @@ void FUN_00aba370_s::ResizeStringRange(unsigned int pos, unsigned char ucValue)
 
 void __cdecl FUN_00ec7c56();
 
-struct FUN_00abbeb0_Class
+struct _Vector_iterator
 {
     int m0;
     int m4;
     int m8;
     unsigned int mC;
     unsigned int m10;
-    FUN_00abbeb0_Class* SetCheckedRangeSize(unsigned int size, FUN_00abbeb0_Class* p);
+    _Vector_iterator* SetCheckedRangeSize(unsigned int size, _Vector_iterator* p);
 };
 
 // Validates that p is non-null and size lies within p->mC..p->m10, otherwise calls FUN_00ec7c56, then copies p->m0 into m0 and stores size in m4.
 // @fnv 0x00abbeb0
 // src: GUESS 0x00abbeb0 (confidence: medium)
-FUN_00abbeb0_Class* FUN_00abbeb0_Class::SetCheckedRangeSize(unsigned int size, FUN_00abbeb0_Class* p)
+_Vector_iterator* _Vector_iterator::SetCheckedRangeSize(unsigned int size, _Vector_iterator* p)
 {
     m0 = 0;
     if (!(p && p->mC <= size && size <= p->m10))
@@ -760,7 +760,7 @@ extern MemoryManager DAT_011f6238;
 struct FUN_00aa4bb0_Class
 {
     void FUN_00aa4a60();
-    int __thiscall FUN_00aa4bb0(int arg);
+    int __thiscall ScalarDeletingDestructor(int arg);
 };
 
 struct FUN_00aa4bb0_Local
@@ -772,7 +772,8 @@ struct FUN_00aa4bb0_Local
 
 // Calls FUN_00aa4a60, then deallocates this via DAT_011f6238 when bit 0 of arg is set, and returns this.
 // @fnv 0x00aa4bb0
-int __thiscall FUN_00aa4bb0_Class::FUN_00aa4bb0(int aiFlags)
+// src: EXE 0x00aa4bb0
+int __thiscall FUN_00aa4bb0_Class::ScalarDeletingDestructor(int aiFlags)
 {
     FUN_00aa4bb0_Local local;
 
@@ -825,7 +826,7 @@ void ScrapHeapManager::RemoveEntry(unsigned int index)
     }
 }
 
-struct FUN_00aa5ff0_Class
+struct BSReadWriteLock
 {
     unsigned int m_uiItemCount;
     unsigned int m_uiThreadId;
@@ -840,7 +841,7 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedCompareExchange(volat
 
 // @fnv 0x00aa5ff0
 // src: XBOX_PDB 0x00aa5ff0
-void __thiscall FUN_00aa5ff0_Class::BSReadWriteLock_LockForRead()
+void __thiscall BSReadWriteLock::BSReadWriteLock_LockForRead()
 {
     unsigned long threadId = GetCurrentThreadId();
 
@@ -1505,13 +1506,13 @@ struct FUN_00abc180_cls
     unsigned int m8;
     unsigned int mC;
     unsigned int m10;
-    FUN_00abc180_Pair ProcessAndReturnValue_00abc180(unsigned int x, unsigned int a, unsigned int y, unsigned int b);
+    FUN_00abc180_Pair vector_erase(unsigned int x, unsigned int a, unsigned int y, unsigned int b);
 };
 
 // Validates indices a and b against mC/m10, builds two pairs from m0, and if they compare, updates m10 via FUN_00ac13c0 and returns the first pair.
 // @fnv 0x00abc180
-// src: GUESS 0x00abc180 (confidence: low)
-FUN_00abc180_Pair FUN_00abc180_cls::ProcessAndReturnValue_00abc180(unsigned int auiUnused, unsigned int auiIndexA,
+// src: GUESS 0x00abc180 (confidence: medium)
+FUN_00abc180_Pair FUN_00abc180_cls::vector_erase(unsigned int auiUnused, unsigned int auiIndexA,
                                                  unsigned int auiUnused2, unsigned int auiIndexB)
 {
     FUN_00abc180_Pair p9;
@@ -1593,13 +1594,13 @@ struct FUN_00abc260_cls
     unsigned int* m_0c;
     unsigned int* m_10;
     unsigned int* m_14;
-    bool AllocateZeroedElementStorage(unsigned int count);
+    bool vector__Buy(unsigned int count);
 };
 
 // Clears the three pointers, then allocates count zeroed elements and sets m_0c/m_10/m_14 to begin/begin/end; returns false when count is 0.
 // @fnv 0x00abc260
 // src: GUESS 0x00abc260 (confidence: medium)
-bool FUN_00abc260_cls::AllocateZeroedElementStorage(unsigned int count)
+bool FUN_00abc260_cls::vector__Buy(unsigned int count)
 {
     unsigned int cap;
     FUN_00abc260_frame buf;
@@ -2083,7 +2084,7 @@ struct __declspec(align(4)) FUN_00aba9a0_iter
     unsigned int unk3c;
 };
 
-struct FUN_00aba9a0_cls
+struct vector
 {
     unsigned int m_00;
     unsigned int m_04;
@@ -2099,7 +2100,7 @@ extern "C" unsigned int __cdecl Runtime_EvaluateValue_00ac1170(unsigned int, uns
 
 // @fnv 0x00aba9a0
 // src: GUESS 0x00aba9a0 (confidence: low)
-FUN_00aba9a0_pair* FUN_00aba9a0_cls::ProcessEntries_00aba9a0(FUN_00aba9a0_pair* out, unsigned int unk0c, unsigned int a,
+FUN_00aba9a0_pair* vector::ProcessEntries_00aba9a0(FUN_00aba9a0_pair* out, unsigned int unk0c, unsigned int a,
                                                   unsigned int uiUnused, unsigned int b)
 {
     FUN_00aba9a0_pair p9;
@@ -2371,16 +2372,16 @@ struct FUN_00aba0d0 : VectorVal<char>
     char* first;
     char* last;
     char* limit;
-    bool ProcessAndReturnValue_00ac03a0(unsigned int count);
+    bool vector__Buy(unsigned int count);
     void std_vector_char_std_allocator_char_Tidy();
-    void InitializeFilledElements(unsigned int count, const char& val);
+    void vector__Construct_n(unsigned int count, const char& val);
 };
 // If FUN_00ac03a0(count) succeeds, fills count copies of val from first and sets last to first + count; on exception calls FUN_00abc0a0 and rethrows.
 // @fnv 0x00abbfc0
 // src: GUESS 0x00abbfc0 (confidence: medium)
-void FUN_00aba0d0::InitializeFilledElements(unsigned int count, const char& val)
+void FUN_00aba0d0::vector__Construct_n(unsigned int count, const char& val)
 {
-    if (ProcessAndReturnValue_00ac03a0(count))
+    if (vector__Buy(count))
     {
         try
         {
@@ -2440,7 +2441,7 @@ namespace fnv_00aa6590 {
 #include <windows.h>
 
 // Wrapper that hands the caller's exit code to the Win32 ExitThread import.
-struct FUN_00aa6590_cls
+struct BSAudioManagerThread
 {
     int unk00;
     void __thiscall ForwardCall_00aa6590(unsigned int exitCode, int unused);
@@ -2448,7 +2449,7 @@ struct FUN_00aa6590_cls
 
 // @fnv 0x00aa6590
 // src: GUESS 0x00aa6590 (confidence: low)
-void __thiscall FUN_00aa6590_cls::ForwardCall_00aa6590(unsigned int exitCode, int unused)
+void __thiscall BSAudioManagerThread::ForwardCall_00aa6590(unsigned int exitCode, int unused)
 {
     ExitThread(exitCode);
 }

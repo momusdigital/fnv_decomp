@@ -38,10 +38,10 @@ struct ScriptUnitOperations : Script
 {
     void SaveHeader();
     void Save();
-    char FindVariableType(const char*, unsigned int*);
+    char Script_FindVariable(const char*, unsigned int*);
     bool IsDifferentFromCompileData(CompileDataStub*);
     bool IsDifferentFrom(Script*);
-    void ExecuteEffectOnTarget(TESObjectREFR*, ScriptLocals*);
+    void Script_RunScriptEffectFinish(TESObjectREFR*, ScriptLocals*);
 };
 class FormFlagRecord;
 class ScriptVariableInfo;
@@ -71,7 +71,7 @@ class TESGlobalValueReader
   public:
     float GetValue();
 };
-ScriptFunctionInfo* GetFunctionByOpcode(SCRIPT_OUTPUT output);
+ScriptFunctionInfo* ScriptCompiler_GetFunctionDef(SCRIPT_OUTPUT output);
 
 #include "../../include/MEM_CONTEXT.h"
 #include "../../include/SettingT_GameSettingCollection_.h"
@@ -127,7 +127,8 @@ Script::Script()
 }
 
 // @fnv 0x005ac740
-bool Script::IsConsolePlatform()
+// src: COMMUNITY 0x005ac740
+bool Script::GetProcessScripts()
 {
     return DAT_0118c685;
 }
@@ -145,7 +146,8 @@ void Script::InitItem()
 }
 
 // @fnv 0x005acc70
-void Script::CopyIdentifierBitsToValue(const unsigned int& id, double& value)
+// src: COMMUNITY 0x005acc70
+void Script::PutNumericIDInDouble(const unsigned int& id, double& value)
 {
     memcpy(&value, &id, sizeof(unsigned int));
 }
@@ -173,7 +175,8 @@ TESBoundObject* ScriptLocals::GetLocalData()
 
 // Runs this script on the given reference with the given locals and time via the singleton instance.
 // @fnv 0x005ac3c0
-void Script::AdvanceScript(TESObjectREFR* ref, ScriptLocals* locals, float time)
+// src: COMMUNITY 0x005ac3c0
+void Script::RunScriptEffectUpdate(TESObjectREFR* ref, ScriptLocals* locals, float time)
 {
     ScriptExecutor::Instance()->Run(this, ref, locals, 0, false, false, false, time);
 }
@@ -372,7 +375,8 @@ void* __cdecl memcpy(void*, const void*, unsigned int);
 
 // Copies the header, data, referenced objects, variables and text from another Script into this one, resetting the variable count.
 // @fnv 0x005aa420
-void Script::CopyScriptContents(Script* apScriptToCopy)
+// src: COMMUNITY 0x005aa420
+void Script::CopyResultScript(Script* apScriptToCopy)
 {
     if (!apScriptToCopy)
         return;
@@ -404,7 +408,7 @@ struct G2
 struct ATM
 {
     void QueryPerformanceCounter(int a);
-    void WaitForTasksDuringRendering();
+    void BSCriticalSection_Leave();
 };
 extern G2 g_011cac98;
 extern G2 g_011caca8;
@@ -422,7 +426,7 @@ void Script_AddPendingEnabledReference(int value)
         if (!Script_IsPendingEnabledReference(value))
             g_011caca8.AddHead(&value);
     }
-    g_011cacf8.WaitForTasksDuringRendering();
+    g_011cacf8.BSCriticalSection_Leave();
 }
 
 namespace fnv_005aa5d0 {
@@ -433,7 +437,7 @@ struct G2
 struct ATM
 {
     void QueryPerformanceCounter(int a);
-    void WaitForTasksDuringRendering();
+    void BSCriticalSection_Leave();
 };
 extern G2 g_011cac98;
 extern G2 g_011caca8;
@@ -452,7 +456,7 @@ void Script_RemoveDelayedScriptActionReference(int value)
         g_011cac98._ref_00905330(&value);
         g_011cace8._ref_00905330(&value);
         g_011cacb8._ref_00905330(&value);
-        g_011cacf8.WaitForTasksDuringRendering();
+        g_011cacf8.BSCriticalSection_Leave();
     }
 }
 }  // namespace fnv_005aa5d0
@@ -471,7 +475,7 @@ bool __cdecl Script_IsPendingDisabledReference(Actor* apRef)
     g_011cacf8.QueryPerformanceCounter(0);
     if (apRef && g_011cac98.IsInList(apRef))
         bretval = true;
-    g_011cacf8.WaitForTasksDuringRendering();
+    g_011cacf8.BSCriticalSection_Leave();
     return bretval;
 }
 }  // namespace fnv_005aa630
@@ -480,7 +484,7 @@ namespace fnv_005aa680 {
 extern BSSimpleList<Actor*> g_011caca8;
 extern ActorTaskManager g_011cacf8;
 
-// Checks whether apRef is non-null and present in g_011caca8, calling QueryPerformanceCounter and WaitForTasksDuringRendering around the check.
+// Checks whether apRef is non-null and present in g_011caca8, calling QueryPerformanceCounter and BSCriticalSection_Leave around the check.
 // @fnv 0x005aa680
 // src: XBOX_PDB 0x005aa680
 bool __cdecl Script_IsPendingEnabledReference(Actor* apRef)
@@ -489,7 +493,7 @@ bool __cdecl Script_IsPendingEnabledReference(Actor* apRef)
     g_011cacf8.QueryPerformanceCounter(0);
     if (apRef && g_011caca8.IsInList(apRef))
         bretval = true;
-    g_011cacf8.WaitForTasksDuringRendering();
+    g_011cacf8.BSCriticalSection_Leave();
     return bretval;
 }
 }  // namespace fnv_005aa680
@@ -546,7 +550,7 @@ void Script_RunDelayedScriptActionsOnReferences()
         g_011cacb8.RemoveHead();
         delete pref;
     }
-    g_011cacf8.WaitForTasksDuringRendering();
+    g_011cacf8.BSCriticalSection_Leave();
 }
 }  // namespace fnv_005aa720
 
@@ -887,7 +891,7 @@ namespace fnv_005aae20 {
 struct ATM
 {
     void QueryPerformanceCounter(int);
-    void WaitForTasksDuringRendering();
+    void BSCriticalSection_Leave();
 };
 
 struct G2
@@ -915,19 +919,19 @@ void __cdecl Script_RevertPendingReferences()
     g_011cac98.RemoveAll();
     g_011cacb8.RemoveAll();
     g_011cace8.RemoveAll();
-    g_011cacf8.WaitForTasksDuringRendering();
+    g_011cacf8.BSCriticalSection_Leave();
 }
 }  // namespace fnv_005aae20
 
 extern "C" bool __cdecl TESForm_QEndianSwapOnSave();
-extern "C" unsigned int __cdecl AppendChunk(unsigned int, void*, unsigned int);
+extern "C" unsigned int __cdecl TESForm___AddChunkData(unsigned int, void*, unsigned int);
 
 // @fnv 0x005abe00
 void ScriptUnitOperations::SaveHeader()
 {
     if (TESForm_QEndianSwapOnSave())
         m_kHeader.Endian();
-    AppendChunk(0x52484353, &m_kHeader, 0x14);
+    TESForm___AddChunkData(0x52484353, &m_kHeader, 0x14);
     if (TESForm_QEndianSwapOnSave())
         m_kHeader.Endian();
 }
@@ -986,7 +990,7 @@ namespace fnv_005aa6d0 {
 struct ATM
 {
     void QueryPerformanceCounter(int);
-    void WaitForTasksDuringRendering(void);
+    void BSCriticalSection_Leave(void);
 };
 
 struct LH
@@ -1006,7 +1010,7 @@ char __cdecl Script_IsPendingFadeDisabledReference(int* pItem)
     g_011cacf8.QueryPerformanceCounter(0);
     if (pItem && g_011cace8.IsInList(pItem))
         result = 1;
-    g_011cacf8.WaitForTasksDuringRendering();
+    g_011cacf8.BSCriticalSection_Leave();
     return result;
 }
 }  // namespace fnv_005aa6d0
@@ -1040,12 +1044,12 @@ void __thiscall FUN_00857ba0_class::ReadFromStream(int a, int b, int c)
 
 struct FUN_008586d0_class
 {
-    void __thiscall ReadFromStream_Thunk(int a, int b, int c);
+    void __thiscall TESSaveLoadGame_ReadBuffer(int a, int b, int c);
 };
 
 // @fnv 0x008586d0
 // src: GUESS 0x008586d0 (confidence: medium)
-void __thiscall FUN_008586d0_class::ReadFromStream_Thunk(int a, int b, int c)
+void __thiscall FUN_008586d0_class::TESSaveLoadGame_ReadBuffer(int a, int b, int c)
 {
     reinterpret_cast<FUN_00857ba0_class*>(this)->ReadFromStream(a, b, c);
 }
@@ -1125,7 +1129,7 @@ void ScriptLocals::LoadGame(BGSLoadFormBuffer* apLoadGameBuffer)
     bool bhasScriptEffectData;
     bool bonLoadFlagSet;
     {
-        unsigned int iVariableCount = apLoadGameBuffer->BGSLoadGameBuffer::ReadElementCount();
+        unsigned int iVariableCount = apLoadGameBuffer->BGSLoadGameBuffer::LoadVariableSizedValue();
         for (unsigned int iIndex = 0; iIndex < iVariableCount; iIndex++)
         {
             double fvalue = 0.0;
@@ -1136,7 +1140,7 @@ void ScriptLocals::LoadGame(BGSLoadFormBuffer* apLoadGameBuffer)
                 ivarID &= 0x7fffffff;
                 unsigned int irefID = 0;
                 apLoadGameBuffer->BGSLoadGameBuffer::ReadFormIdentifier(&irefID);
-                Script::CopyIdentifierBitsToValue(irefID, fvalue);
+                Script::PutNumericIDInDouble(irefID, fvalue);
             }
             else
             {
@@ -1178,7 +1182,8 @@ struct S006815c0
 } // namespace fnv_005ac020
 
 // @fnv 0x005ac020
-BSSimpleList<ScriptLocalVariable*>* Script::GetScriptEntryList()
+// src: COMMUNITY 0x005ac020
+BSSimpleList<ScriptLocalVariable*>* Script::CreateLocalList()
 {
     using namespace fnv_005ac020;
     AutoMemHelper tempMemContext(0x15, true, "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout Shared\\TESScript.cpp",
@@ -1271,18 +1276,18 @@ void ScriptLocals::ResetFormData(Script* dummy)
 }
 
 bool TESForm_QEndianSwapOnSave();
-void AppendChunk(unsigned int, char*, unsigned int);
+void TESForm___AddChunkData(unsigned int, char*, unsigned int);
 // @fnv 0x005abd90
 void ScriptUnitOperations::Save()
 {
-    TESForm::BeginFormRecord();
+    TESForm::TESForm_StartForm();
     TESForm::ClearData();
     if (TESForm_QEndianSwapOnSave())
         reinterpret_cast<ScriptHeaderData*>(reinterpret_cast<char*>(this) + 0x18)->Endian();
-    AppendChunk(0x52484353, reinterpret_cast<char*>(this) + 0x18, 0x14);
+    TESForm___AddChunkData(0x52484353, reinterpret_cast<char*>(this) + 0x18, 0x14);
     if (TESForm_QEndianSwapOnSave())
         reinterpret_cast<ScriptHeaderData*>(reinterpret_cast<char*>(this) + 0x18)->Endian();
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_CloseForm();
 }
 
 namespace fnv_005ac6a0 {
@@ -1294,7 +1299,8 @@ struct Flt
 } // namespace fnv_005ac6a0
 
 // @fnv 0x005ac6a0
-char ScriptUnitOperations::FindVariableType(const char* pcName, unsigned int* puiID)
+// src: COMMUNITY 0x005ac6a0
+char ScriptUnitOperations::Script_FindVariable(const char* pcName, unsigned int* puiID)
 {
     using namespace fnv_005ac6a0;
     BSSimpleList<ScriptVariableInfo*>* node = GetVariableList();
@@ -1319,7 +1325,7 @@ namespace fnv_005aa500 {
 struct ATM
 {
     void QueryPerformanceCounter(int);
-    void WaitForTasksDuringRendering();
+    void BSCriticalSection_Leave();
 };
 
 struct ContNode
@@ -1366,7 +1372,7 @@ void __cdecl Script_AddPendingDisabledReference(int aiTask, unsigned char abAlte
         }
     }
 
-    g_011cacf8.WaitForTasksDuringRendering();
+    g_011cacf8.BSCriticalSection_Leave();
 }
 }  // namespace fnv_005aa500
 
@@ -1391,7 +1397,7 @@ class ATM
 {
   public:
     void QueryPerformanceCounter(int value);
-    void WaitForTasksDuringRendering();
+    void BSCriticalSection_Leave();
 };
 
 TESForm* _GetFormByNumericID(unsigned int formID);
@@ -1403,7 +1409,8 @@ GlobalObject2_0096a2d0 g_011cace8;
 ATM g_011cacf8;
 
 // @fnv 0x005aaaf0
-void __cdecl LoadReferenceLists(BGSLoadFormBuffer* buffer)
+// src: COMMUNITY 0x005aaaf0
+void __cdecl Script_LoadPendingReferences(BGSLoadFormBuffer* buffer)
 {
     g_011cacf8.QueryPerformanceCounter(0);
     g_011caca8.RemoveAll();
@@ -1412,7 +1419,7 @@ void __cdecl LoadReferenceLists(BGSLoadFormBuffer* buffer)
     g_011cace8.RemoveAll();
 
     {
-        unsigned int count = buffer->ReadElementCount();
+        unsigned int count = buffer->LoadVariableSizedValue();
         if (count)
         {
             for (unsigned int index = 0; index < count; ++index)
@@ -1425,7 +1432,7 @@ void __cdecl LoadReferenceLists(BGSLoadFormBuffer* buffer)
     }
 
     {
-        unsigned int count = buffer->ReadElementCount();
+        unsigned int count = buffer->LoadVariableSizedValue();
         if (count)
         {
             for (unsigned int index = 0; index < count; ++index)
@@ -1438,7 +1445,7 @@ void __cdecl LoadReferenceLists(BGSLoadFormBuffer* buffer)
     }
 
     {
-        unsigned int count = buffer->ReadElementCount();
+        unsigned int count = buffer->LoadVariableSizedValue();
         if (count)
         {
             for (unsigned int index = 0; index < count; ++index)
@@ -1451,7 +1458,7 @@ void __cdecl LoadReferenceLists(BGSLoadFormBuffer* buffer)
     }
 
     {
-        unsigned int count = buffer->ReadElementCount();
+        unsigned int count = buffer->LoadVariableSizedValue();
         if (count)
         {
             for (unsigned int index = 0; index < count; ++index)
@@ -1463,7 +1470,7 @@ void __cdecl LoadReferenceLists(BGSLoadFormBuffer* buffer)
         }
     }
 
-    g_011cacf8.WaitForTasksDuringRendering();
+    g_011cacf8.BSCriticalSection_Leave();
 }
 }  // namespace fnv_005aaaf0
 
@@ -1523,13 +1530,15 @@ void Script::InitFromCompileData(CStringArgument* apCompileData)
 
 // Runs the script on the target reference with the given effect locals via the script runner singleton.
 // @fnv 0x005ac340
-void Script::ExecuteScript(TESObjectREFR* apTargetRef, ScriptLocals* apEffectLocals)
+// src: COMMUNITY 0x005ac340
+void Script::RunScriptEffectStart(TESObjectREFR* apTargetRef, ScriptLocals* apEffectLocals)
 {
     ScriptExecutor::Instance()->Run((Script*)this, apTargetRef, apEffectLocals, 0, 0, 1, 0, 0.0f);
 }
 
 // @fnv 0x005ac380
-void ScriptUnitOperations::ExecuteEffectOnTarget(TESObjectREFR* apTargetRef, ScriptLocals* apEffectLocals)
+// src: COMMUNITY 0x005ac380
+void ScriptUnitOperations::Script_RunScriptEffectFinish(TESObjectREFR* apTargetRef, ScriptLocals* apEffectLocals)
 {
     ScriptExecutor::Instance()->Run((Script*)this, apTargetRef, apEffectLocals, 0, 0, 0, 1, 0.0f);
 }
@@ -1542,7 +1551,8 @@ __declspec(thread) unsigned char FUN_005ac400_tls[0x269];
 
 // Compiles the script with the given compiler index and owner object, and if compilation succeeds and the script has data, runs it with the owner's locals.
 // @fnv 0x005ac400
-void Script::CompileScriptText(ScriptCompiler* compiler, COMPILER_NAME compilerIndex,
+// src: COMMUNITY 0x005ac400
+void Script::CompileAndRun(ScriptCompiler* compiler, COMPILER_NAME compilerIndex,
                                        TESObjectREFR* ownerObject)
 {
     AutoMemHelper tempMemContext(0x15, true, "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout Shared\\TESScript.cpp",
@@ -1624,7 +1634,8 @@ extern const char DAT_01012c78;
 extern Formatter* __cdecl TESForm_GetFormByNumericID(void* item);
 extern void __cdecl ProgramFlow(const char* message, ...);
 // @fnv 0x005a94f0
-unsigned short __fastcall GetScriptLocalsSerializedSize(ScriptLocals* pLocals)
+// src: COMMUNITY 0x005a94f0
+unsigned short __fastcall ScriptLocals_GetSaveSize(ScriptLocals* pLocals)
 {
     unsigned short bytes = 0;
     unsigned short original = bytes;
@@ -1984,7 +1995,8 @@ class BGSSaveFormBuffer_Write : public BGSSaveFormBuffer
 
 // Writes each of four global TESObjectREFR lists to the save buffer, counting non-null entries and patching each count at its recorded offset.
 // @fnv 0x005aa930
-void __cdecl WriteReferenceLists(BGSSaveFormBuffer* buffer)
+// src: COMMUNITY 0x005aa930
+void __cdecl Script_SavePendingReferences(BGSSaveFormBuffer* buffer)
 
 {
 
@@ -2124,7 +2136,7 @@ void __cdecl WriteReferenceLists(BGSSaveFormBuffer* buffer)
         }
     }
 
-    g_011cacf8.WaitForTasksDuringRendering();
+    g_011cacf8.BSCriticalSection_Leave();
 }
 
 int _mbscmp(const unsigned char* a, const unsigned char* b);
@@ -3126,7 +3138,7 @@ struct S4eb0_list
     void RemoveMatchingItem(ScriptReferencedObject** p);
 };
 
-void ResolveFormID(TESForm** form, TESFile* file);
+void TESForm_AddCompileIndex(TESForm** form, TESFile* file);
 TESForm* TESForm_GetFormByNumericID(TESForm* form);
 
 // @fnv 0x005ab400
@@ -3152,7 +3164,7 @@ void Script::InitItem(TESForm* form)
         bool ok3 = false;
         if (form7)
         {
-            ResolveFormID(&form7, pTemp);
+            TESForm_AddCompileIndex(&form7, pTemp);
             refTmp->pForm = TESForm_GetFormByNumericID(form7);
             if (refTmp->pForm)
                 ok3 = true;

@@ -50,13 +50,13 @@ struct D481D0RefVariant
     void set(D481D0ReferencedObject* obj, const D481D0Class* pClassInfo);
     const D481D0Class* GetVariantValue() const;
 };
-struct FUN_00d481d0
+struct NamedVariant
 {
     D481D0StringPtr m_name;
     D481D0StringPtr m_pClassName;
     D481D0RefVariant m_pReferencedResource;
 
-    FUN_00d481d0(const char* name, D481D0ReferencedObject* object, const D481D0Class* pClassInfo);
+    NamedVariant(const char* name, D481D0ReferencedObject* object, const D481D0Class* pClassInfo);
 };
 struct CC0D30Result
 {
@@ -145,7 +145,7 @@ extern GlobalObjectO2_00d472a0 g_01268bcc;
 extern GlobalObjectO2_00d472a0 g_01268eb4;
 extern GlobalObjectO2_00d472a0 g_01268d4c;
 extern GlobalObjectO2_00d472a0 g_01268c14;
-struct FUN_00cc08f0_cls
+struct ConvertListener
 {
     unsigned int unk00;
     unsigned int unk04;

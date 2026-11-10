@@ -1362,7 +1362,7 @@ bool ArrowImpactHandler::ArrowProjectile_ProcessCollisionReference(Caster8CD* pk
             pkListener->Add((void*)this);
         if (pkCaster)
         {
-            if (pkItem->GetBodyMass() > 0.0)
+            if (pkItem->GetDynamicMass() > 0.0)
             {
                 hkVector4 kTransform;
                 pkCaster->GetTransform(kTransform);

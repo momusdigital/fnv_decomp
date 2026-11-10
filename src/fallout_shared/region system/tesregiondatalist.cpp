@@ -79,7 +79,7 @@ struct ProbeBase
     virtual unsigned int v10();
 };
 
-class FUN_004f33c0_cls
+class TESRegionDataList
 {
   public:
     int TESRegionDataList_Find(unsigned int aValue);
@@ -90,7 +90,7 @@ class FUN_004f33c0_cls
 
 // @fnv 0x004f33c0
 // src: COMMUNITY 0x004f33c0
-bool FUN_004f33c0_cls::TESRegionDataList_Add(ProbeBase* apProbe)
+bool TESRegionDataList::TESRegionDataList_Add(ProbeBase* apProbe)
 {
     if (apProbe == 0 || TESRegionDataList_Find(apProbe->v10()))
     {

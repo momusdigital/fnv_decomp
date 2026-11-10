@@ -15,8 +15,8 @@ extern "C" void* const DAT_010cb1e4[];
 // src/havok/physics/utilities/visualdebugger/hkpphysicscontext.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/projects/fallout/code/havok/source/physics/utilities/visualdebugger/hkpphysicscontext.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
-void __cdecl Object_UpdateFields_00d6ad40();
-void __cdecl hkpMidphaseViewer_Create_SetDAT01269024();
+void __cdecl hkpBroadphaseViewer_registerViewer();
+void __cdecl hkpMidphaseViewer_registerViewer();
 void __cdecl RegisterCenterOfMass();
 void __cdecl RegisterConstraintsProcessFactory();
 void __cdecl RegisterConvexRadius();
@@ -39,8 +39,8 @@ void __cdecl RegisterWeldingViewer();
 // src: XBOX_PDB 0x00cd1ed0
 void __cdecl hkpPhysicsContext_registerAllPhysicsProcesses()
 {
-    Object_UpdateFields_00d6ad40();
-    hkpMidphaseViewer_Create_SetDAT01269024();
+    hkpBroadphaseViewer_registerViewer();
+    hkpMidphaseViewer_registerViewer();
     RegisterCenterOfMass();
     RegisterConstraintsProcessFactory();
     RegisterConvexRadius();
@@ -1326,7 +1326,7 @@ struct EmptyArray
     }
 };
 
-struct FUN_00cd25d0 : hkReferencedObject,
+struct hkpPhysicsContext : hkReferencedObject,
                       hkProcessContext,
                       hkpWorldDeletionListener,
                       hkpEntityListener,
@@ -1338,14 +1338,15 @@ struct FUN_00cd25d0 : hkReferencedObject,
     EmptyArray m_78;
     EmptyArray m_84;
 
-    FUN_00cd25d0();
+    hkpPhysicsContext();
     virtual void d04();
     virtual void d08();
 };
 
 // Constructs the object; the base classes and member arrays are initialized by their own constructors.
 // @fnv 0x00cd25d0
-FUN_00cd25d0::FUN_00cd25d0()
+// src: EXE 0x00cd25d0
+hkpPhysicsContext::hkpPhysicsContext()
 {}
 
 inline hkMemoryAllocator& physicsContextHeap(AllocatorState* state)
@@ -1789,13 +1790,14 @@ CD28F0Derived::CD28F0Derived()
 struct FUN_00cd1eb0_StandIn
 {
     int unk00;
-    int __thiscall FUN_00cd1eb0(int param);
+    int __thiscall ScalarDeletingDestructor(int param);
 };
 
 extern void __cdecl FormHeapFreeAndLog_00401030(void* ptr);
 
 // @fnv 0x00cd1eb0
-int __thiscall FUN_00cd1eb0_StandIn::FUN_00cd1eb0(int aiFlags)
+// src: EXE 0x00cd1eb0
+int __thiscall FUN_00cd1eb0_StandIn::ScalarDeletingDestructor(int aiFlags)
 {
     unk00 = (int)DAT_010cb1e4;
     if (aiFlags & 1)

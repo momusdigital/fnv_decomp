@@ -13,7 +13,7 @@ class NiQuaternion
     float m_fVectorY;     // +0x4, 4 bytes
     float m_fVectorZ;     // +0x8, 4 bytes
     float m_fScalarPart;  // +0xC, 4 bytes
-    void EnsureCanonicalSign();
+    void FastNormalize();
     void ToRotationMatrix(NiMatrix3_Xbox360&);
     // NiQuaternion
     // void __cdecl NiQuaternion::*(float)

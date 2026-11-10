@@ -67,13 +67,13 @@ void __thiscall hkpConvexListAgent::vf09(int a)
         hkpAgent1nSector_ProcessEntries_00da3510((char*)this + 0x30, (void*)a);
 }
 
-extern "C" void __cdecl hkpConvexListAgent_QueryClosestPointsAfterHullTest(int, int, int, int);
+extern "C" void __cdecl hkpConvexListAgent_staticGetClosestPoints(int, int, int, int);
 
 // @fnv 0x00d33b70
 // src: HAVOK_SRC 0x00d33b70
 void __fastcall hkpConvexListAgent_getClosestPoints(hkpConvexListAgent* self, void*, int aiArg1, int aiArg2, int aiArg3, int aiArg4)
 {
-    hkpConvexListAgent_QueryClosestPointsAfterHullTest(aiArg1, aiArg2, aiArg3, aiArg4);
+    hkpConvexListAgent_staticGetClosestPoints(aiArg1, aiArg2, aiArg3, aiArg4);
 }
 
 extern "C"
@@ -587,8 +587,8 @@ struct ContactPointPair
 
 // If TestGsk reports a hit calls QueryClosestPoints; else adds the closest point to a4 when its distance exceeds b's shape threshold, otherwise calls QueryClosestPoints.
 // @fnv 0x00d339d0
-// src: GUESS 0x00d339d0 (confidence: medium)
-extern "C" void __cdecl hkpConvexListAgent_QueryClosestPointsAfterHullTest(int apBodyA, int apBodyB, int a3, int apCollector)
+// src: COMMUNITY 0x00d339d0
+extern "C" void __cdecl hkpConvexListAgent_staticGetClosestPoints(int apBodyA, int apBodyB, int a3, int apCollector)
 {
     {
         hkMonitorStream* pForm = (hkMonitorStream*)TlsGetValue(DAT_0126835c);

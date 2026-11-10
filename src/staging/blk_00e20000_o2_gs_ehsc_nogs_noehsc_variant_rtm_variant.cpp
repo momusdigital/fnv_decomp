@@ -41,7 +41,7 @@ struct FUN_00e3f340_Class
     int __thiscall FindEntryByKey(int arg);
     void* __thiscall GetEntryByArg(int arg);
 };
-struct FUN_00e3f900_class
+struct hkxAttribute
 {
     int __thiscall ReturnSelf(int a);
     int __thiscall ProcessAndReturnValue_00e3f900(int a);
@@ -1188,7 +1188,7 @@ struct Base_b4888
         m_08 = 0;
     }
 };
-struct FUN_00e347c0 : Base_b4888
+struct hkaMeshBinding : Base_b4888
 {
     SubObj_b4888 m_0c;
     unsigned int m_10;
@@ -1199,7 +1199,7 @@ struct FUN_00e347c0 : Base_b4888
     unsigned int m_24;
     unsigned int m_28;
 
-    FUN_00e347c0();
+    hkaMeshBinding();
 };
 struct S_00e34950_Foo
 {
@@ -1214,7 +1214,7 @@ struct S_00e34950_Foo
     S_00e34950_Foo* Init();
 };
 extern int DAT_010df9f4;
-class FUN_00e39a80
+class hkpVehicleDefaultBrake
 {
   public:
     int m_vptr00;
@@ -1224,7 +1224,7 @@ class FUN_00e39a80
     int m_0c;
     int m_10;
     float m_14;
-    FUN_00e39a80();
+    hkpVehicleDefaultBrake();
 };
 struct S_00e3a270_RefObj
 {
@@ -1295,13 +1295,13 @@ struct LinkOwner
     void* unk08;
     void __thiscall hkpBridgeConstraintAtom_init(void*);
 };
-struct FUN_00e3b060_Class
+struct hkpStiffSpringChainData
 {
     void* vtable;
     int unk04;
     int unk08;
     LinkOwner links;
-    FUN_00e3b060_Class* __thiscall ReleaseLinks(ReleaseFlags flags);
+    hkpStiffSpringChainData* __thiscall ReleaseLinks(ReleaseFlags flags);
 };
 struct S_00e3c5b0_Obj
 {
@@ -1331,14 +1331,14 @@ struct S_00e3c5b0_Arr
         cap = (int)0x80000000;
     }
 };
-struct FUN_00e3c5b0 : S_00e3c5b0_Base
+struct hkpSimpleMeshShape : S_00e3c5b0_Base
 {
     S_00e3c5b0_Arr a;
     S_00e3c5b0_Arr b;
     S_00e3c5b0_Arr c;
     float unk3c;
     unsigned char unk40;
-    FUN_00e3c5b0(float f);
+    hkpSimpleMeshShape(float f);
 };
 struct FUN_00e3dfb0_arg
 {
@@ -1484,7 +1484,7 @@ struct BaseE3EAA0
     virtual void vf0();
     void Shutdown();
 };
-struct FUN_00e3ed80 : BaseE3EAA0
+struct hkxNode : BaseE3EAA0
 {
     hkStringPtr m_14;
     ReferenceCountedPointer m_18;
@@ -1492,7 +1492,7 @@ struct FUN_00e3ed80 : BaseE3EAA0
     hkArray<hkRefPtrE_blk_00e20000_o2_gs_ehsc_nogs_noehsc_variant_rtm_variant> m_28;
     hkArray<Pair8> m_34;
     hkStringPtr m_40;
-    virtual ~FUN_00e3ed80();
+    virtual ~hkxNode();
 };
 struct E3F0F0Less
 {
@@ -1522,7 +1522,7 @@ struct FUN_00e3f230_Entry
     unsigned int m_flagged;
     unsigned int unk04;
 };
-struct FUN_00e3f230_cls
+struct hkxEnvironment
 {
     int unk00;
     int unk04;

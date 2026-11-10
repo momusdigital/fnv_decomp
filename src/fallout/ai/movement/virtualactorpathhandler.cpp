@@ -45,7 +45,7 @@ struct PlayerComparisonCall : Actor
 class UseDoorCalls
 {
   public:
-    void QueueActorLocationTask();
+    void TaskQueueInterface_QueueActorSetPosition();
     void QueueActorTask();
 };
 class FullNameCall
@@ -361,7 +361,7 @@ struct DoorReference : TESObjectREFR
     bool TESObjectREFR_Activate(Actor*, bool, TESBoundObject*, int);
     int GetFormEditorIDLength();
     const char* TESObjectREFR_GetFullName();
-    int GetCellLoadState();
+    int MobileObject_GetDesiredProcessLevel();
 };
 struct CellNameView : TESForm
 {
@@ -374,7 +374,7 @@ struct PointComparison : NiPoint3
 };
 struct PointMagnitude : NiPoint3
 {
-    float GetSquaredXYLength();
+    float NiPoint3_SqrXYLength();
 };
 // Advances the door path node, moves the actor through the door, and returns -1, -2, 1 or 0 depending on the next node and actor position checks.
 // @fnv 0x009ead90
@@ -382,7 +382,7 @@ int VirtualActorPathHandler::GetVirtualNodeIndexAtPosition(NiPoint3& position)
 {
     if (AILinearTaskThreadManager_ShouldQueue3DTask())
     {
-        ((UseDoorCalls*)FUN_004537b0(pActor, position))->QueueActorLocationTask();
+        ((UseDoorCalls*)FUN_004537b0(pActor, position))->TaskQueueInterface_QueueActorSetPosition();
         ((UseDoorCalls*)FUN_004537b0(pActor))->QueueActorTask();
     }
     else
@@ -402,7 +402,7 @@ int VirtualActorPathHandler::GetVirtualNodeIndexAtPosition(NiPoint3& position)
             ((PointMagnitude&)(actorPosition - reinterpret_cast<const NiPoint3&>(((PathingGraphNode*)((PathingSolution*)pCurrentPathingSolution)->GetVirtualNode(m_uiPathPointIndex))
                                                    ->GetLocation()
                                                    .GetLocation<NiPoint3>())))
-                .GetSquaredXYLength();
+                .NiPoint3_SqrXYLength();
         if (distance > DAT_0102f078)
         {
             if (((PointComparison&)position).FUN_00439090(actorPosition))
@@ -421,7 +421,7 @@ int VirtualActorPathHandler::GetVirtualNodeIndexAtPosition(NiPoint3& position)
         }
     }
     position = *static_cast<const TESObjectREFR*>(pActor)->GetPos();
-    if (!((DoorReference*)pActor)->GetCellLoadState() && !((PlayerS*)g_thePlayer)->IsSleepingOrResting())
+    if (!((DoorReference*)pActor)->MobileObject_GetDesiredProcessLevel() && !((PlayerS*)g_thePlayer)->IsSleepingOrResting())
     {
         ++m_uiPathPointIndex;
         m_fPathValue16 = 0.0f;

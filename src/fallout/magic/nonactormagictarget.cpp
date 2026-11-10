@@ -46,18 +46,19 @@ struct B2_25ad0
     int m_08;
     B2_25ad0();
 };
-class FUN_00825ad0_cls : public B1_25ad0, public B2_25ad0
+class NonActorMagicCaster : public B1_25ad0, public B2_25ad0
 {
   public:
     int m_18;
     int m_1c;
     int m_20;
-    FUN_00825ad0_cls(int v);
+    NonActorMagicCaster(int v);
     virtual void Body();
 };
 // Initializes the base B1_25ad0 with 0x32, sets m_20 to v, and zeroes m_18 and m_1c.
 // @fnv 0x00825ad0
-FUN_00825ad0_cls::FUN_00825ad0_cls(int aiValue) : B1_25ad0(0x32), B2_25ad0()
+// src: EXE 0x00825ad0
+NonActorMagicCaster::NonActorMagicCaster(int aiValue) : B1_25ad0(0x32), B2_25ad0()
 {
     m_20 = aiValue;
     m_18 = 0;

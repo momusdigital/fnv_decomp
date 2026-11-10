@@ -12,7 +12,7 @@ BGSTextureSet* __cdecl BGSTextureSet_GetNullTextureSet();
 void __cdecl _Deallocate(void*);
 struct S591140
 {
-    void FUN_00591170();
+    void MESSAGEBOX_BUTTON();
     void* FUN_00591140(unsigned int);
 };
 void __cdecl _delete(void*, unsigned int);
@@ -32,7 +32,7 @@ struct Holder00592cc0
 {
     char _pad[56];
     FullNameEx _arr[6];
-    void SetFullNameByType(int, char const*);
+    void BGSTextureSet_SetBGSTextureFilename(int, char const*);
 };
 
 float __cdecl BSMIN(float, float);

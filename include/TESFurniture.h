@@ -18,22 +18,22 @@ public:
 
     void ResetFormData();
     bool Load(TESFile* file);
-    bool GetCanSitOn();
+    bool CanSitOn();
     void SetCanSitOn(bool bSit);
-    bool GetCanSleepOn();
+    bool CanSleepOn();
     void SetCanSleepOn(bool bSleep);
-    bool IsMarkerEnabled(unsigned int aiMarker);
+    bool GetMarkerEnabled(unsigned int aiMarker);
     void SetMarkerEnabled(unsigned int aiMarker, bool bEnabled);
     void UpdateSitSleepFlags(NiAVObject* apMarker);
     static unsigned int GetMarkerCount(NiAVObject* apMarker);
     static unsigned int GetMarkerNumber(NiAVObject* apMarker, unsigned int auMarker);
-    static bool __cdecl IsFurnitureSitMarker(unsigned int auMarker);
-    static bool __cdecl IsFurnitureSleepMarker(unsigned int auMarker);
-    void InitializeMarkerFlags();
-    NiPoint3 GetMarkerOffset(unsigned int auMarker, float afScale);
+    static bool __cdecl IsSitMarker(unsigned int auMarker);
+    static bool __cdecl IsSleepMarker(unsigned int auMarker);
+    void VerifyMarkers();
+    NiPoint3 GetMarkerTargetOffset(unsigned int auMarker, float afScale);
     float GetMarkerRotation(unsigned int auMarker);
     NiPoint3 FUN_00509920(unsigned int auMarker, float afScale);
-    float GetFurnitureHeading(unsigned int auMarker);
+    float TESFurniture_GetMarkerHeadingOffset(unsigned int auMarker);
     int _FNV_GetFormType();
 
     int m_iMarkerCount;

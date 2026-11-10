@@ -3,7 +3,7 @@
 //
 // Covered functions (MSVC9 SP1 15.00.30729.01, /Od /Oy- /GS /EHsc /Gy):
 //   0x00ae9ef0  BSGameSound::IsPlaying  (26 bytes)
-//   0x00ae9f10  BSGameSound::HasStatusFlag0x80000  (28 bytes)
+//   0x00ae9f10  BSGameSound::IsInDecay  (28 bytes)
 //   0x00ae9f30  BSGameSound::IsPaused  (26 bytes)
 //   0x00ae9f50  BSGameSound::GetVolume  (17 bytes)
 //   0x00ae9fb0  BSGameSound::SetListenerID  (25 bytes)
@@ -72,7 +72,7 @@ class BSGameSound
         return (uiSoundFlags & 0x20) != 0;
     }
 // @fnv 0x00ae9f10
-    bool HasStatusFlag0x80000()
+    bool IsInDecay()
     {
         return (uiSoundFlags & 0x80000) != 0;
     }

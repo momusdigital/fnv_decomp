@@ -200,7 +200,7 @@ FUN_00b27660_class::FUN_00b27660_class(int aiValue)
     c2c = 0;
 }
 
-struct FUN_00b373c0_class
+struct CWindEngine
 {
     float f0;
     float f4;
@@ -219,10 +219,11 @@ struct FUN_00b373c0_class
     int i38;
     float f3C;
     float f40;
-    FUN_00b373c0_class();
+    CWindEngine();
 };
 // @fnv 0x00b373c0
-FUN_00b373c0_class::FUN_00b373c0_class()
+// src: GUESS 0x00b373c0 (confidence: medium)
+CWindEngine::CWindEngine()
 {
     f0 = 0.0f;
     f4 = 0.25f;
@@ -398,15 +399,16 @@ FUN_00b3c470_class::FUN_00b3c470_class()
     i14 = 3;
 }
 
-struct FUN_00b3f030_Class
+struct CIdvCamera
 {
     int* vtbl;
-    FUN_00b3f030_Class();
+    CIdvCamera();
 };
 
 // Constructor: sets vtbl to DAT_010a5890 and zeroes three floats stored after the object.
 // @fnv 0x00b3f030
-FUN_00b3f030_Class::FUN_00b3f030_Class()
+// src: EXE 0x00b3f030
+CIdvCamera::CIdvCamera()
 {
     vtbl = &DAT_010a5890;
     float* p = (float*)(this + 1);
@@ -728,12 +730,12 @@ struct FUN_00b335c0_cls
     unsigned int unk08;
     unsigned int m_0c;
     unsigned int m_10;
-    ProbePair ProcessAndReturnValue_00b335c0(unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5);
+    ProbePair vector_erase(unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5);
 };
 
 // @fnv 0x00b335c0
 // src: GUESS 0x00b335c0 (confidence: low)
-ProbePair FUN_00b335c0_cls::ProcessAndReturnValue_00b335c0(unsigned int auiUnused, unsigned int a3, unsigned int auiUnused2,
+ProbePair FUN_00b335c0_cls::vector_erase(unsigned int auiUnused, unsigned int a3, unsigned int auiUnused2,
                                          unsigned int a5)
 {
     ProbePair result;
@@ -803,7 +805,7 @@ struct FUN_00b33af0_cls
     unsigned int m_0c;
     unsigned int m_10;
     unsigned int m_14;
-    FUN_00b33af0_pair* UpdateState_00b33af0(FUN_00b33af0_pair* out, unsigned int unk0c, unsigned int a, unsigned int unk14,
+    FUN_00b33af0_pair* vector_erase(FUN_00b33af0_pair* out, unsigned int unk0c, unsigned int a, unsigned int unk14,
                                     unsigned int b);
 };
 
@@ -811,7 +813,7 @@ extern "C" unsigned int __cdecl Runtime_EvaluateValue_00b35c30(unsigned int, uns
 
 // @fnv 0x00b33af0
 // src: GUESS 0x00b33af0 (confidence: low)
-FUN_00b33af0_pair* FUN_00b33af0_cls::UpdateState_00b33af0(FUN_00b33af0_pair* out, unsigned int unk0c, unsigned int a,
+FUN_00b33af0_pair* FUN_00b33af0_cls::vector_erase(FUN_00b33af0_pair* out, unsigned int unk0c, unsigned int a,
                                                   unsigned int unk14, unsigned int b)
 {
     FUN_00b33af0_pair p9;
@@ -1529,7 +1531,7 @@ struct RecordSequence
     SequenceRecord* m_0c;
     SequenceRecord* m_10;
     bool UpdateState_00b1f590(int n);
-    void UpdateFields_00b32c60();
+    void vector__Tidy();
     void InitializeFilledElements_00b32780(int n, const SequenceRecord* value);
 };
 extern void __cdecl Object_ProcessEntries_00b360a0(SequenceRecord*, int, const SequenceRecord*, void*, unsigned char, unsigned char);
@@ -1559,7 +1561,7 @@ void RecordSequence::InitializeFilledElements_00b32780(int n, const SequenceReco
         }
         catch (...)
         {
-            UpdateFields_00b32c60();
+            vector__Tidy();
             throw;
         }
     }

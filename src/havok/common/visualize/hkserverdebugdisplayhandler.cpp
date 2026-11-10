@@ -8,13 +8,14 @@
 
 extern int DAT_010d7cfc;
 void __cdecl _Deallocate(void*);
-struct FUN_00dd97c0
+struct hkDebugDisplayHandler
 {
     int* m_p;
-    FUN_00dd97c0(char f);
+    hkDebugDisplayHandler(char f);
 };
 // @fnv 0x00dd97c0
-FUN_00dd97c0::FUN_00dd97c0(char acFlags)
+// src: EXE 0x00dd97c0
+hkDebugDisplayHandler::hkDebugDisplayHandler(char acFlags)
 {
     m_p = &DAT_010d7cfc;
     if (acFlags & 1)
@@ -1110,24 +1111,25 @@ struct FUN_00dda660_MemoryRouter
 
 extern "C" FUN_00dda660_MemoryRouter& __cdecl hkMemoryRouter_getInstance();
 
-struct FUN_00dda660
+struct hkServerDebugDisplayHandler
 {
     unsigned short m_usMemSizeAndFlags;
     short m_sReferenceCount;
 
-    FUN_00dda660();
-    virtual ~FUN_00dda660();
+    hkServerDebugDisplayHandler();
+    virtual ~hkServerDebugDisplayHandler();
 
     static void operator delete(void* p, unsigned int nbytes)
     {
-        FUN_00dda660* b = static_cast<FUN_00dda660*>(p);
+        hkServerDebugDisplayHandler* b = static_cast<hkServerDebugDisplayHandler*>(p);
         hkMemoryRouter_getInstance().heap().ReleaseBlock(p, b->m_usMemSizeAndFlags);
     }
 };
 
 // The constructor has an empty body.
 // @fnv 0x00dda660
-FUN_00dda660::FUN_00dda660()
+// src: EXE 0x00dda660
+hkServerDebugDisplayHandler::hkServerDebugDisplayHandler()
 {}
 }  // namespace fnv_00dda660
 

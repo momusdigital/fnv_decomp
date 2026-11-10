@@ -111,16 +111,17 @@ char* FnvCpu_FUN_00eae710_CpuObject::NiIntersector_GetContactNormal()
 }
 
 extern MemoryManager g_memoryManager;
-struct FUN_00eae770
+struct NiIntersector
 {
-    virtual ~FUN_00eae770();
+    virtual ~NiIntersector();
     void operator delete(void* p)
     {
         g_memoryManager.Deallocate(p);
     }
 };
 // @fnv 0x00eae770
-FUN_00eae770::~FUN_00eae770()
+// src: EXE 0x00eae770
+NiIntersector::~NiIntersector()
 {}
 
 #include <float.h>

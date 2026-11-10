@@ -2,7 +2,8 @@
 #include "niavobject_types.h"
 
 // @fnv 0x004eff50
-void NiAVObject::UpdateTimeControllers(NiUpdateData& data, bool updateProperties)
+// src: COMMUNITY 0x004eff50
+void NiAVObject::UpdateObjectControllers(NiUpdateData& data, bool updateProperties)
 {
     NiTimeController* controller;
     if (updateProperties && GetHasPropertyController()) {
@@ -18,7 +19,8 @@ void NiAVObject::UpdateTimeControllers(NiUpdateData& data, bool updateProperties
 }
 
 // @fnv 0x005467e0
-void NiAVObject::EnsureWorldBound()
+// src: COMMUNITY 0x005467e0
+void NiAVObject::CreateBoundIfNone()
 {
     if (!m_kWorldBound) {
         SetObjectBound(new FourComponentFloatVector(0x100, 0));

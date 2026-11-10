@@ -46,7 +46,7 @@ struct FUN_00e42fe0_impl
     FUN_00e42fe0_vehicle** vehicles;
     int count;
 
-    int __thiscall GetTotalVehicleCount();
+    int __thiscall hkpVehicleLinearCastBatchingManager_getTotalNumWheels();
 };
 extern "C" void _ReadWriteBarrier(void);
 extern "C" unsigned __int64 __rdtsc(void);

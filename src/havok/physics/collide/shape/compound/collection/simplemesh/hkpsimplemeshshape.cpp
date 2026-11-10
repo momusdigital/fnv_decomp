@@ -105,7 +105,7 @@ public:
     // hkpShapeCollection has no declaration for its statistics implementation at 0x00d213e0.
     void CollectShapeStatistics(hkStatisticsCollector* collector, const hkClass* cls) const;
     void setTriangleWeldingInfo(int index, unsigned short value);
-    void setWeldingType(unsigned char type);
+    void initWeldingInfo(unsigned char type);
 
     hkArray<hkVector4> m_kVertices;
     hkArray<Triangle> m_uiTriangleCount;
@@ -125,7 +125,8 @@ void hkpSimpleMeshShape::setTriangleWeldingInfo(int index, unsigned short value)
 }
 
 // @fnv 0x00e3c260
-void hkpSimpleMeshShape::setWeldingType(unsigned char type)
+// src: EXE 0x00e3c260
+void hkpSimpleMeshShape::initWeldingInfo(unsigned char type)
 {
     m_eWeldingType = type;
 }

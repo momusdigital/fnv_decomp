@@ -58,17 +58,17 @@ void MediaLocationController::InitItem()
 {
     if (IsFormInitialized())
         return;
-    ProcessMediaSetList(&m_kMediaSetList1);
-    ProcessMediaSetList(&m_kMediaSetList2);
-    ProcessMediaSetList(&m_kMediaSetList3);
-    ProcessMediaSetList(&m_kMediaSetList4);
-    ProcessMediaSetList(&m_kMediaSetList5);
-    ProcessMediaSetList(&m_kMediaSetList6);
+    InitItemList(&m_kMediaSetList1);
+    InitItemList(&m_kMediaSetList2);
+    InitItemList(&m_kMediaSetList3);
+    InitItemList(&m_kMediaSetList4);
+    InitItemList(&m_kMediaSetList5);
+    InitItemList(&m_kMediaSetList6);
     if (pFaction)
     {
         unsigned int auiFormId = reinterpret_cast<unsigned int>(pFaction);
         TESForm::RemapFormIDForFile(auiFormId, GetFile(-1));
-        pFaction = g_dataHandler->GetFactionByFormID(auiFormId);
+        pFaction = g_dataHandler->GetFaction(auiFormId);
         if (!pFaction)
             Warning("MASTERFILE: Could not find reputation (%08X) for MediaLocationController", pFaction);
     }
@@ -77,7 +77,8 @@ void MediaLocationController::InitItem()
 
 // Walks a list of MediaSet form IDs, resolves each via TESForm lookup, warns and removes entries that fail to resolve.
 // @fnv 0x00596190
-void MediaLocationController::ProcessMediaSetList(BSSimpleList<MediaSet*>* apList)
+// src: COMMUNITY 0x00596190
+void MediaLocationController::InitItemList(BSSimpleList<MediaSet*>* apList)
 {
     BSSimpleList<MediaSet*>* pPrevNode = 0;
     while (apList && !apList->IsEmpty())
@@ -204,7 +205,8 @@ bool MediaLocationController::LoadForm(TESFile* apFile)
 
 // Picks a random MediaSet from the list, moves it to the tail, and returns it, or returns null if the list is empty.
 // @fnv 0x00595560
-MediaSet* MediaLocationController::GetMediaSetFromList(BSSimpleList<MediaSet*>* apList)
+// src: COMMUNITY 0x00595560
+MediaSet* MediaLocationController::GetRandomListItem(BSSimpleList<MediaSet*>* apList)
 {
     BSSimpleList<MediaSet*>* pList = apList;
     MediaSet* pResult = 0;
@@ -266,7 +268,7 @@ bool MediaLocationController::Update(bool abInCombat)
         m_pMediaSet = 0;
     }
     g = pFaction ? pFaction->GetFactionReaction(static_cast<TESFaction*>(
-                       BGSDefaultObjectManager::GetDefaultObjectByIndex(DEFAULT_OBJECT_DO_PLAYER_FACTION)))
+                       BGSDefaultObjectManager::GetDefaultObject(DEFAULT_OBJECT_DO_PLAYER_FACTION)))
                  : FIGHT_REACTION_FIGHT_REACTION_NEUTRAL;
     l = g_thePlayer->GetMusicMarkerReference();
     e = false;
@@ -274,7 +276,7 @@ bool MediaLocationController::Update(bool abInCombat)
     k *= k;
     NiPoint3 q = *static_cast<const TESObjectREFR*>(l->m_pMarkerReference)->GetPos();  // marker position
     NiPoint3 p = q - *static_cast<const TESObjectREFR*>(g_thePlayer)->GetPos();        // marker-to-player difference
-    r = p.GetSquaredXYLength();
+    r = p.NiPoint3_SqrXYLength();
     d = 1000.0f;
     if (r <= k)
         d = r / k;
@@ -341,16 +343,16 @@ bool MediaLocationController::Update(bool abInCombat)
                 switch (g)
                 {
                 case FIGHT_REACTION_FIGHT_REACTION_NEUTRAL:
-                    m_pMediaSet = GetMediaSetFromList(&m_kMediaSetList1);
+                    m_pMediaSet = GetRandomListItem(&m_kMediaSetList1);
                     break;
                 case FIGHT_REACTION_FIGHT_REACTION_ENEMY:
-                    m_pMediaSet = GetMediaSetFromList(&m_kMediaSetList4);
+                    m_pMediaSet = GetRandomListItem(&m_kMediaSetList4);
                     break;
                 case FIGHT_REACTION_FIGHT_REACTION_ALLY:
-                    m_pMediaSet = GetMediaSetFromList(&m_kMediaSetList2);
+                    m_pMediaSet = GetRandomListItem(&m_kMediaSetList2);
                     break;
                 case FIGHT_REACTION_FIGHT_REACTION_FRIEND:
-                    m_pMediaSet = GetMediaSetFromList(&m_kMediaSetList3);
+                    m_pMediaSet = GetRandomListItem(&m_kMediaSetList3);
                     break;
                 }
             }
@@ -360,19 +362,19 @@ bool MediaLocationController::Update(bool abInCombat)
                 {
                     break;
                 case DEADFACTION_LOCATION:
-                    m_pMediaSet = GetMediaSetFromList(&m_kMediaSetList5);
+                    m_pMediaSet = GetRandomListItem(&m_kMediaSetList5);
                     break;
                 case DEADFACTION_CONDITIONAL_NEUTRAL:
-                    m_pMediaSet = GetMediaSetFromList(&m_kMediaSetList1);
+                    m_pMediaSet = GetRandomListItem(&m_kMediaSetList1);
                     break;
                 case DEADFACTION_CONDITIONAL_ALLY:
-                    m_pMediaSet = GetMediaSetFromList(&m_kMediaSetList2);
+                    m_pMediaSet = GetRandomListItem(&m_kMediaSetList2);
                     break;
                 case DEADFACTION_CONDITIONAL_FRIEND:
-                    m_pMediaSet = GetMediaSetFromList(&m_kMediaSetList3);
+                    m_pMediaSet = GetRandomListItem(&m_kMediaSetList3);
                     break;
                 case DEADFACTION_CONDITIONAL_ENEMY:
-                    m_pMediaSet = GetMediaSetFromList(&m_kMediaSetList4);
+                    m_pMediaSet = GetRandomListItem(&m_kMediaSetList4);
                     break;
                 }
             }
@@ -388,7 +390,7 @@ bool MediaLocationController::Update(bool abInCombat)
             m_pMediaSet = 0;
         }
         if (!DAT_011dd378)
-            m_pMediaSet = GetMediaSetFromList(&m_kMediaSetList6);
+            m_pMediaSet = GetRandomListItem(&m_kMediaSetList6);
     }
     if (!bIsActive && m_pMediaSet)
         bIsActive = m_pMediaSet->Update(a, abInCombat, this);
@@ -401,12 +403,13 @@ bool MediaLocationController::Update(bool abInCombat)
 
 struct FUN_00595c80_shell : public NiPoint3
 {
-    float GetSquaredXYLength();
+    float NiPoint3_SqrXYLength();
 };
 
 // Returns the sum of the squared x and y components of this NiPoint3.
 // @fnv 0x00595c80
-float FUN_00595c80_shell::GetSquaredXYLength()
+// src: COMMUNITY 0x00595c80
+float FUN_00595c80_shell::NiPoint3_SqrXYLength()
 {
     return x * x + y * y;
 }
@@ -706,8 +709,8 @@ FUN_005960a0::~FUN_005960a0()
 
 struct MLCFormSaver
 {
-    void BeginFormRecord();
-    void FinishFormRecord();
+    void TESForm_StartForm();
+    void TESForm_CloseForm();
 };
 
 struct MLCFullNameSaver : public TESFullName
@@ -764,7 +767,7 @@ struct MLCSaver : public TESForm, public MLCFullNameSaver
 // @fnv 0x00596790
 void MLCSaver::SaveToStream()
 {
-    ((MLCFormSaver*)this)->BeginFormRecord();
+    ((MLCFormSaver*)this)->TESForm_StartForm();
     MLCFullNameSaver::Save_00487010();
     TESForm_AddChunk_00485910(CHUNK_ID_NAM1_ID, (unsigned int)iFlags);
     SaveChunkFloat(CHUNK_ID_NAM2_ID, m_fLowerWeightThreshold);
@@ -846,7 +849,7 @@ void MLCSaver::SaveToStream()
         TESForm_AddChunk_00485910(0x4d414e52, auiFormId);
     }
     TESForm_AddChunk_00485910(CHUNK_ID_FNAM_ID, (unsigned int)m_eRequiredFightReaction);
-    ((MLCFormSaver*)this)->FinishFormRecord();
+    ((MLCFormSaver*)this)->TESForm_CloseForm();
 }
 
 struct ListOps
@@ -1114,11 +1117,12 @@ struct ThisT
     unsigned int m_uiShortDelay;
     unsigned int m_uiLongDelay;
     bool MediaLocationController_GetDefaultTime();
-    bool IsWithinRange();
+    bool MediaLocationController_GetDayNight();
 };
 
 // @fnv 0x00595d30
-bool ThisT::IsWithinRange()
+// src: COMMUNITY 0x00595d30
+bool ThisT::MediaLocationController_GetDayNight()
 {
     ObjT* p;
     p = DAT_011dea10->FUN_008d8520();

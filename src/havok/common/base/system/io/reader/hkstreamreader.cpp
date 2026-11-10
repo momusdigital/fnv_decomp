@@ -59,8 +59,8 @@ int S_00cb1570::ReturnOne(void* pArg)
 }
 
 // @fnv 0x00cb1580
-// src: GUESS 0x00cb1580 (confidence: high)
-int __cdecl Object_ReturnOne()
+// src: EXE 0x00cb1580
+int __cdecl hkStreamReader_rewindToMark()
 {
     return 1;
 }

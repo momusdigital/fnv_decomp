@@ -6,7 +6,7 @@
 // src/havok/physics/collide/shape/convex/cylinder/hkpcylindershape.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/projects/fallout/code/havok/source/physics/collide/shape/convex/cylinder/hkpcylindershape.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 #include "../../../../../../../include/hkpCylinderShape.h"
-int __cdecl hkpCylinderShape_ReturnConstant_0x12();
+int __cdecl hkpCylinderShape_getNumCollisionSpheresImpl();
 extern char DAT_01268940[];
 void __cdecl hkReferencedObject_calcContentStatistics(void* item, const char* type);
 void __cdecl hkpCylinderShape_calcContentStatistics(void* item, const char*);

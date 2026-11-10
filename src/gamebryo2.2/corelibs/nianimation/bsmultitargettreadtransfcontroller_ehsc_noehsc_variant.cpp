@@ -484,7 +484,7 @@ struct SNAEntry
     }
     static void operator delete[](void*, unsigned int);
 };
-struct FUN_00a42f60 : SNAEntry
+struct BSBlendTreadTransfInterpolator : SNAEntry
 {
     long refs;
     int unk08;
@@ -498,8 +498,8 @@ struct FUN_00a42f60 : SNAEntry
     int unk28;
     int unk2c;
     int unk30;
-    __declspec(nothrow) FUN_00a42f60();
-    virtual ~FUN_00a42f60();
+    __declspec(nothrow) BSBlendTreadTransfInterpolator();
+    virtual ~BSBlendTreadTransfInterpolator();
 };
 struct NodeA35
 {
@@ -528,7 +528,7 @@ struct TargetA35
     int unk28;
     int unk2c;
     int unk30;
-    FUN_00a42f60* entries;
+    BSBlendTreadTransfInterpolator* entries;
     unsigned short count;
     NodeA35** nodes;
     unsigned short nodeCount;
@@ -542,7 +542,7 @@ void TargetA35::BSMultiTargetTreadTransfController_AllocateStorage(unsigned shor
     nodeCount = m;
     if (n)
     {
-        entries = new (ArrayCount(n)) FUN_00a42f60[n];
+        entries = new (ArrayCount(n)) BSBlendTreadTransfInterpolator[n];
         for (unsigned short i = 0; i < n; ++i)
             InterlockedIncrement(&entries[i].refs);
         nodes = (NodeA35**)_NiMalloc_00aa1070(sizeof(NodeA35*) * m);

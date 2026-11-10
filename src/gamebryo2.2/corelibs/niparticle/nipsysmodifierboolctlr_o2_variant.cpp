@@ -128,7 +128,7 @@ class C32CB0Interpolator
     virtual void vfn0C8();
     virtual void vfn0CC();
     virtual void vfn0D0();
-    virtual bool IsChannelPosed();
+    virtual bool NiTransformInterpolator_GetChannelPosed();
 };
 
 // @fnv 0x00c32cb0
@@ -140,7 +140,7 @@ void __fastcall NiPSysModifierBoolCtlr_Update(NiPSysModifierBoolCtlr* controller
         controller->m_fControllerTime = DAT_01096324;
     }
     else if (controller->DontDoUpdate(fTime) && (!controller->m_spControllerInterpolator.m_pObject ||
-             !((C32CB0Interpolator*)(NiInterpolator*)controller->m_spControllerInterpolator.m_pObject)->IsChannelPosed()))
+             !((C32CB0Interpolator*)(NiInterpolator*)controller->m_spControllerInterpolator.m_pObject)->NiTransformInterpolator_GetChannelPosed()))
     {
         return;
     }

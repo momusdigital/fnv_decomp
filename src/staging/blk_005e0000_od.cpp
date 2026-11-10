@@ -709,11 +709,12 @@ void* __thiscall FUN_005dd810_Class::NiTObjectArray_NiPointer_NiTexture_Destroy(
 void __cdecl Deallocate(void* p);
 struct FUN_005e0680_Class : FUN_005e0340Class
 {
-    void* __thiscall FUN_005e0680(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls the base destructor, frees this when flags has bit 0 set, and returns this.
 // @fnv 0x005e0680
-void* __thiscall FUN_005e0680_Class::FUN_005e0680(unsigned int flags)
+// src: EXE 0x005e0680
+void* __thiscall FUN_005e0680_Class::ScalarDeletingDestructor(unsigned int flags)
 {
     ReleaseStorage_005e0340();
     if (flags & 1)
@@ -909,11 +910,11 @@ void __cdecl BSEndian(unsigned char*, EndianSizeTag<0>);
 void __cdecl TESFile_TransformReferencedInt64(void*, EndianSizeTag<0>);
 struct T2870
 {
-    void __thiscall ProcessState_005e2870();
+    void __thiscall SCRIPT_LOCAL_Endian();
 };
 // @fnv 0x005e2870
-// src: GUESS 0x005e2870 (confidence: low)
-void __thiscall T2870::ProcessState_005e2870()
+// src: COMMUNITY 0x005e2870
+void __thiscall T2870::SCRIPT_LOCAL_Endian()
 {
     BSEndian((unsigned char*)this, EndianSizeTag<0>());
     TESFile_TransformReferencedInt64((char*)this + 8, EndianSizeTag<0>());
@@ -1412,13 +1413,13 @@ struct FUN_005ff520_shell
 };
 struct FUN_005ff560_shell
 {
-    void RemoveChildAndRelinkNeighbors(unsigned int);
+    void TESIdleForm_RemoveChildAtIndex(unsigned int);
 };
 struct FUN_005ff5d0_class
 {
     void TESIdleForm_RemoveChild(unsigned int a);
 };
-// If a is nonzero and the object's field at offset 0x40 is set, calls FUN_005ff520(a) and passes its result to RemoveChildAndRelinkNeighbors.
+// If a is nonzero and the object's field at offset 0x40 is set, calls FUN_005ff520(a) and passes its result to TESIdleForm_RemoveChildAtIndex.
 // @fnv 0x005ff5d0
 // src: COMMUNITY 0x005ff5d0
 void FUN_005ff5d0_class::TESIdleForm_RemoveChild(unsigned int uiValue)
@@ -1426,7 +1427,7 @@ void FUN_005ff5d0_class::TESIdleForm_RemoveChild(unsigned int uiValue)
     if (uiValue && *(unsigned int*)((char*)this + 0x40))
     {
         unsigned int r = ((FUN_005ff520_shell*)this)->TESIdleForm_GetIndexForChild(uiValue);
-        ((FUN_005ff560_shell*)this)->RemoveChildAndRelinkNeighbors(r);
+        ((FUN_005ff560_shell*)this)->TESIdleForm_RemoveChildAtIndex(r);
     }
 }
 
@@ -1805,14 +1806,14 @@ void hkDeallocateStack_char(void* p)
         ->hkStackMemory_deallocateStack((unsigned int)p);
 }
 
-struct FUN_005e3fe0_class
+struct PART_DATA
 {
     void __thiscall SwapEndianFields();
 };
 
 // Byte-swaps the fields at offsets 0x0, 0x14, 0x18, 0x28 through 0x40 and 0x50 of this object via BSEndian.
 // @fnv 0x005e3fe0
-void FUN_005e3fe0_class::SwapEndianFields()
+void PART_DATA::SwapEndianFields()
 {
     BSEndian(reinterpret_cast<unsigned char*>(this), EndianSizeTag<0>());
     BSEndian(reinterpret_cast<unsigned char*>(this) + 0x14, EndianSizeTag<0>());
@@ -1877,7 +1878,7 @@ class FNVObject
 };
 int __cdecl FNVCompare(void* key, void* a1);
 
-class FUN_005e0860_cls
+class SettingCollectionList
 {
   public:
     int unk000;
@@ -1953,7 +1954,7 @@ class FUN_005e0860_cls
 
 // Searches the cursor list for an object whose key matches a1, stores it in a2 and returns true, otherwise returns false.
 // @fnv 0x005e0860
-bool FUN_005e0860_cls::FindByKey(void* pKey, FNVObject** ppFound)
+bool SettingCollectionList::FindByKey(void* pKey, FNVObject** ppFound)
 {
     if (pKey == 0)
     {
@@ -2151,13 +2152,13 @@ struct FootIKConfiguration
     float f1C;
     StrArray strings;
     EntryArray entries;
-    void AssignEntriesStringsAndFloats(FootIKConfiguration* other);
+    void FootIK_DATA_Copy(FootIKConfiguration* other);
 };
 
 // Clears entries and strings, copies the other object's entry array and deep-copies its strings, then copies the float fields and flag.
 // @fnv 0x005ecb30
-// src: GUESS 0x005ecb30 (confidence: medium)
-void FootIKConfiguration::AssignEntriesStringsAndFloats(FootIKConfiguration* other)
+// src: COMMUNITY 0x005ecb30
+void FootIKConfiguration::FootIK_DATA_Copy(FootIKConfiguration* other)
 {
     entries.Clear(true);
     for (unsigned int i = 0; i < strings.GetSize(); i++)
@@ -2234,13 +2235,13 @@ struct StringEntryData
     unsigned char flag;
     StringArray strings;
     EntryArray entries;
-    void AssignEntriesAndStrings(StringEntryData* other);
+    void LookIK_DATA_Copy(StringEntryData* other);
 };
 
 // Clears entries and strings, then deep-copies the other object's entries, duplicated strings and flag into this object.
 // @fnv 0x005ecfd0
-// src: GUESS 0x005ecfd0 (confidence: medium)
-void StringEntryData::AssignEntriesAndStrings(StringEntryData* other)
+// src: COMMUNITY 0x005ecfd0
+void StringEntryData::LookIK_DATA_Copy(StringEntryData* other)
 {
     unsigned int i;
     unsigned int j3;
@@ -2294,12 +2295,12 @@ struct FUN_005eedc0_cls
 {
     int m_unk00;
     FUN_005eedc0_item* m_pEntries;
-    FUN_005eedc0_item* GetIndexedValue_005eedc0(int index);
+    FUN_005eedc0_item* BSSimpleArray_GetAt(int index);
 };
 
 // @fnv 0x005eedc0
-// src: GUESS 0x005eedc0 (confidence: low)
-FUN_005eedc0_item* FUN_005eedc0_cls::GetIndexedValue_005eedc0(int index)
+// src: GUESS 0x005eedc0 (confidence: medium)
+FUN_005eedc0_item* FUN_005eedc0_cls::BSSimpleArray_GetAt(int index)
 {
     return &m_pEntries[index];
 }
@@ -2388,7 +2389,7 @@ struct RootCls_b9637
     ~RootCls_b9637();
 };
 
-class FUN_005f21c0_cls : public RootCls_b9637
+class TESAnimGroup : public RootCls_b9637
 {
   public:
     virtual void unk00();
@@ -2403,12 +2404,13 @@ class FUN_005f21c0_cls : public RootCls_b9637
     int unk34;
     int unk38;
 
-    FUN_005f21c0_cls(unsigned short a);
-    void SetAnimGroupType(unsigned short a);
+    TESAnimGroup(unsigned short a);
+    void TESAnimGroup_SetType(unsigned short a);
 };
 
 // @fnv 0x005f21c0
-FUN_005f21c0_cls::FUN_005f21c0_cls(unsigned short a) : RootCls_b9637(), m_1c()
+// src: EXE 0x005f21c0
+TESAnimGroup::TESAnimGroup(unsigned short a) : RootCls_b9637(), m_1c()
 {
     unk18 = 0;
     unk28 = 0;
@@ -2418,7 +2420,7 @@ FUN_005f21c0_cls::FUN_005f21c0_cls(unsigned short a) : RootCls_b9637(), m_1c()
     unk2c = 0;
     m_1c = DAT_011f426c;
     unk30 = 0;
-    SetAnimGroupType(a);
+    TESAnimGroup_SetType(a);
     unk38 = 0;
     unk34 = 0;
 }
@@ -2762,12 +2764,13 @@ struct FUN_005f2b60_cls
     unsigned int GetCount();
     Entry* GetAt(unsigned int i);
     int GetKind();
-    void ProcessSoundEntries(Ref* ref, float fFrom, float fTo, Script* script);
+    void TESAnimGroup_PlaySounds(Ref* ref, float fFrom, float fTo, Script* script);
 };
 
 // Iterates the entry list, firing entries whose time falls in the range and dispatching sound, effect, shake and ref handling by entry type.
 // @fnv 0x005f2b60
-void FUN_005f2b60_cls::ProcessSoundEntries(Ref* ref, float fFrom, float fTo, Script* script)
+// src: COMMUNITY 0x005f2b60
+void FUN_005f2b60_cls::TESAnimGroup_PlaySounds(Ref* ref, float fFrom, float fTo, Script* script)
 {
     bool bWrap5 = false;
     float fMultVal = 1.0f;
@@ -3277,18 +3280,19 @@ class ThisMember_b3969
     ~ThisMember_b3969();
 };
 
-class FUN_005ffaf0 : public ThisBase_b3969
+class TESIdleManager : public ThisBase_b3969
 {
   public:
     unsigned char m_14;
     ThisMember_b3969 m_18;
 
-    FUN_005ffaf0();
+    TESIdleManager();
 };
 
 // Initialises the base with value 0x25 and flag true, constructs m_18 with 0 and true, and sets m_14 to 0.
 // @fnv 0x005ffaf0
-FUN_005ffaf0::FUN_005ffaf0() : ThisBase_b3969(0x25, true), m_18(0, true)
+// src: COMMUNITY 0x005ffaf0
+TESIdleManager::TESIdleManager() : ThisBase_b3969(0x25, true), m_18(0, true)
 {
     m_14 = 0;
 }
@@ -3408,7 +3412,8 @@ SkinPartObj_S* NiDynamicCast(const NiRTTI_S* rtti, SkinInst_S* obj);
 extern const NiRTTI_S g_011f49d8;
 
 // @fnv 0x005e4970
-void SetPartitionVisibility(int partition, AVObj_S* root)
+// src: COMMUNITY 0x005e4970
+void BGSBodyPart_ShowLimb(int partition, AVObj_S* root)
 {
     Node_S* nodeB = root->IsSceneNode();
     unsigned int i = 0;
@@ -3918,7 +3923,7 @@ void TESSound::CopyFromSound(TESForm* form)
 }
 
 void __cdecl TESForm_AddChunk_3(unsigned int chunkId, unsigned char value);
-void __cdecl AppendChunk(unsigned int chunkId, void* data, unsigned int size);
+void __cdecl TESForm___AddChunkData(unsigned int chunkId, void* data, unsigned int size);
 unsigned char __cdecl TESForm_QEndianSwapOnSave();
 
 // The shared sound header has no save/compare declarations. This method-only
@@ -3934,7 +3939,7 @@ public:
 // @fnv 0x005e2fa0
 void SoundRecordOperations::Save()
 {
-    reinterpret_cast<TESSound*>(this)->BeginFormRecord();
+    reinterpret_cast<TESSound*>(this)->TESForm_StartForm();
     reinterpret_cast<TESSound*>(this)->TESSoundFile::Save();
     TESForm_AddChunk_3(0x4d414e52, reinterpret_cast<TESSound*>(this)->m_cSoundFlag);
 
@@ -3943,14 +3948,14 @@ void SoundRecordOperations::Save()
         reinterpret_cast<TESSound*>(this)->data.SwapEndian();
     }
 
-    AppendChunk(0x44444e53, &reinterpret_cast<TESSound*>(this)->data, 0x24);
+    TESForm___AddChunkData(0x44444e53, &reinterpret_cast<TESSound*>(this)->data, 0x24);
 
     if (TESForm_QEndianSwapOnSave() != 0)
     {
         reinterpret_cast<TESSound*>(this)->data.SwapEndian();
     }
 
-    reinterpret_cast<TESSound*>(this)->FinishFormRecord();
+    reinterpret_cast<TESSound*>(this)->TESForm_CloseForm();
 }
 
 struct ContNode;
@@ -4148,11 +4153,12 @@ int FUN_005e50f0_Obj::GetValueByIndex(int index)
 
 struct FUN_005e5190_Class
 {
-    unsigned char GetByte63();
+    unsigned char BGSBodyPart_GetActorValue();
 };
 
 // @fnv 0x005e5190
-unsigned char FUN_005e5190_Class::GetByte63()
+// src: COMMUNITY 0x005e5190
+unsigned char FUN_005e5190_Class::BGSBodyPart_GetActorValue()
 {
     return reinterpret_cast<unsigned char*>(this)[0x63];
 }
@@ -4629,7 +4635,7 @@ BGSBodyPartData::~BGSBodyPartData()
 struct Skin55;
 struct Part55
 {
-    void SetEntryStateByKey(unsigned short partition, bool visible);
+    void BSDismemberSkinInstance_SetBodyPartEnabled(unsigned short partition, bool visible);
 };
 struct Node55;
 struct BaseObject55
@@ -4678,12 +4684,13 @@ struct Body55
     int unk2C;
     int unk30;
     Name55* names[15];
-    void HidePartitionsUnderAncestor(Object55* ancestor, Object55* root, int excluded, Object55* object);
+    void BGSBodyPartData_HideChildLimbs(Object55* ancestor, Object55* root, int excluded, Object55* object);
 };
 
 // For each named entry other than excluded, if the object found under root has ancestor as a parent, sets partition i of object's geometry skins not visible.
 // @fnv 0x005e55e0
-void Body55::HidePartitionsUnderAncestor(Object55* ancestor, Object55* root, int excluded, Object55* object)
+// src: COMMUNITY 0x005e55e0
+void Body55::BGSBodyPartData_HideChildLimbs(Object55* ancestor, Object55* root, int excluded, Object55* object)
 {
     Node55* node2 = object->IsSceneNode();
     for (int i = 0; i < 15; ++i)
@@ -4707,7 +4714,7 @@ void Body55::HidePartitionsUnderAncestor(Object55* ancestor, Object55* root, int
                     skin5 = geometry ? geometry->NiGeometry_GetSkinInstance() : 0;
                     Part55* partition2 = (Part55*)NiObject_DynamicCast(&g_011f49d8, skin5);
                     if (partition2)
-                        partition2->SetEntryStateByKey((unsigned short)i, false);
+                        partition2->BSDismemberSkinInstance_SetBodyPartEnabled((unsigned short)i, false);
                 } while (node2 && index < node2->FUN_0043b480());
                 break;
             }
@@ -4740,7 +4747,7 @@ struct Geometry : SceneObject
 };
 struct PartitionSkin
 {
-    void SetEntryStateByKey(unsigned short, bool);
+    void BSDismemberSkinInstance_SetBodyPartEnabled(unsigned short, bool);
 };
 struct ObjectName
 {
@@ -4765,11 +4772,12 @@ struct PartitionOwner
     int unk2C;
     int unk30;
     ObjectName* names[15];
-    void ApplyPartitionState(SceneObject* target, SceneObject* root, int excluded, SceneObject* source);
+    void BGSBodyPartData_ShowChildLimbs(SceneObject* target, SceneObject* root, int excluded, SceneObject* source);
 };
 // For each non-excluded name, if its node under root has target as an ancestor, enables that partition entry on the skin of each geometry in source.
 // @fnv 0x005e5750
-void PartitionOwner::ApplyPartitionState(SceneObject* target, SceneObject* root, int excluded, SceneObject* source)
+// src: COMMUNITY 0x005e5750
+void PartitionOwner::BGSBodyPartData_ShowChildLimbs(SceneObject* target, SceneObject* root, int excluded, SceneObject* source)
 {
     SceneNode* node = source->IsSceneNode();
     for (int i = 0; i < 15; ++i)
@@ -4796,7 +4804,7 @@ void PartitionOwner::ApplyPartitionState(SceneObject* target, SceneObject* root,
                         for (int j = 0; j < 15; ++j)
                         {
                             if (j == i)
-                                partitions->SetEntryStateByKey((unsigned short)i, true);
+                                partitions->BSDismemberSkinInstance_SetBodyPartEnabled((unsigned short)i, true);
                         }
                     }
                 } while (node && childIndex < node->FUN_0043b480());

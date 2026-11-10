@@ -52,7 +52,7 @@ class BSShaderProperty : public NiShadeProperty
     void FreeRenderPasses();
     void ClearRenderPasses();
     void SetObjectType(unsigned int type);
-    unsigned int GetObjectType();
+    unsigned int PackageLocation_GetLocObjectType();
     int QShader();
     void SetShader(int shader);
     float QEnvmapScale();

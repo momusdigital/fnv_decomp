@@ -89,7 +89,7 @@ __forceinline void hkpWorld::unlockAndAttemptToExecutePendingOperations()
         if (m_iPendingOperationCount)
             FUN_00c91120();
         if (m_iPendingOperationQueueCount == 1 && m_iQueuedOperationCount)
-            UpdateFields_00c91140();
+            hkpWorld_internalExecutePendingBodyOperations();
     }
 }
 
@@ -274,7 +274,7 @@ void FUN_00d87d70_cls::hkpConstraintCollisionFilter_constraintAddedCallback(A* p
     {
         return;
     }
-    d->UpdateFields_00c91140();
+    d->hkpWorld_internalExecutePendingBodyOperations();
 }
 
 struct S_00d87f60_Arg
@@ -657,11 +657,12 @@ struct ConstraintFilterDeleteReceiver
     unsigned int unk00;
     unsigned short size4, unk06;
     void FUN_00d87bf0();
-    ConstraintFilterDeleteReceiver* FUN_00d88000(unsigned int flags);
+    ConstraintFilterDeleteReceiver* ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_00d87bf0, then if flags has bit 0 set, releases this object via the BSAudio allocator using size4 bytes, and returns this.
 // @fnv 0x00d88000
-ConstraintFilterDeleteReceiver* ConstraintFilterDeleteReceiver::FUN_00d88000(unsigned int flags)
+// src: EXE 0x00d88000
+ConstraintFilterDeleteReceiver* ConstraintFilterDeleteReceiver::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00d87bf0();
     if (flags & 1u)

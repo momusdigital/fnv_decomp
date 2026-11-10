@@ -109,8 +109,8 @@ template <typename T, typename A> __forceinline hkArray<T, A>& hkArray<T, A>::op
 __forceinline hkAabb::hkAabb() {}
 
 // @fnv 0x00cf2460
-// src: GUESS 0x00cf2460 (confidence: high)
-int __cdecl Object_ReturnZero_00cf2460()
+// src: EXE 0x00cf2460
+int __cdecl hkpAabbPhantom_getType()
 {
     return 0;
 }

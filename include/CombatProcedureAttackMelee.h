@@ -31,7 +31,7 @@ public:
     virtual void LoadGame(BGSLoadFormBuffer* apBuffer);
     virtual void vf16();
 
-    int ChooseMeleeAttack(bool abMidAttack, float afDistance, float afReach,
+    int SelectAttack(bool abMidAttack, float afDistance, float afReach,
                           bool abTargetAttacking, bool abTargetPostAttack,
                           bool abTargetRecoiling, bool* abDoPowerAttack,
                           bool* abSwitchAttack);

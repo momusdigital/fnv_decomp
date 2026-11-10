@@ -68,10 +68,10 @@ class DE1F50Shape : public DE1F50ReferencedObject
     int unk58;
     int unk5C;
 };
-class FUN_00de1f50 : public DE1F50Shape
+class hkDisplayBox : public DE1F50Shape
 {
   public:
-    FUN_00de1f50(const DE1F50Vector4& v);
+    hkDisplayBox(const DE1F50Vector4& v);
     virtual void unk00();
 
     DE1F50Vector4 m_vector;

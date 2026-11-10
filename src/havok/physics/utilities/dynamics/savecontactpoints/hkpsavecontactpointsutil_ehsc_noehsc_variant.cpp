@@ -1812,7 +1812,7 @@ struct FUN_00dce7e0_local
     int unk04;
     int unk08;
     int unk0c;
-    void __thiscall FUN_00dce840(void*, void*);
+    void __thiscall hkEntitySelectorListed(void*, void*);
     void __thiscall ProcessArgument(int);
     void __thiscall Object_DoNothing();
 };

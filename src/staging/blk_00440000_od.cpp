@@ -122,7 +122,8 @@ template <class T> class LayoutNiPointer
 #undef __local_vftable_ctor_closure
 
 // @fnv 0x004410d0
-void NiGeometryData::SetByteAtOffset38(unsigned char aucValue)
+// src: COMMUNITY 0x004410d0
+void NiGeometryData::SetKeepFlags(unsigned char aucValue)
 {
     m_ucKeepFlags = aucValue;
 }
@@ -335,7 +336,7 @@ void __thiscall FUN_0044abd0_Class::ForwardCall_0044abd0(int aiValue)
     std_allocator_SIdvLeafTexture_allocator_SIdvLeafTexture(aiValue, 0);
 }
 
-struct FUN_0044ac20_class
+struct FOVATSEffectManager
 {
     int m;
     void FOVATSEffectManager_SetEffectMode(const int* p);
@@ -343,12 +344,12 @@ struct FUN_0044ac20_class
 
 // @fnv 0x0044ac20
 // src: COMMUNITY 0x0044ac20
-void FUN_0044ac20_class::FOVATSEffectManager_SetEffectMode(const int* piValue)
+void FOVATSEffectManager::FOVATSEffectManager_SetEffectMode(const int* piValue)
 {
     m = *piValue;
 }
 
-struct FUN_0044caa0_class
+struct LockFreeMap
 {
     int m_iWordAt00;
     int m_iWordAt04;
@@ -356,7 +357,7 @@ struct FUN_0044caa0_class
     unsigned int ModuloByField(unsigned int a);
 };
 // @fnv 0x0044caa0
-unsigned int FUN_0044caa0_class::ModuloByField(unsigned int auiValue)
+unsigned int LockFreeMap::ModuloByField(unsigned int auiValue)
 {
     return auiValue % m_8;
 }
@@ -406,15 +407,15 @@ void FUN_0044d6f0_This::InitVtblAndCall()
 
 extern int DAT_01017458;
 
-struct FUN_0044d7f0_class
+struct InterfacedClass
 {
     int* vfn;
-    FUN_0044d7f0_class* __thiscall InterfacedClass_InterfacedClass();
+    InterfacedClass* __thiscall InterfacedClass_InterfacedClass();
 };
 
 // @fnv 0x0044d7f0
 // src: EXE 0x0044d7f0
-FUN_0044d7f0_class* __thiscall FUN_0044d7f0_class::InterfacedClass_InterfacedClass()
+InterfacedClass* __thiscall InterfacedClass::InterfacedClass_InterfacedClass()
 {
     vfn = &DAT_01017458;
     return this;
@@ -580,33 +581,34 @@ void FUN_00450b60_Class::ClearList()
     ((List_009e03e0*)((char*)this + 0x94))->RemoveAll();
 }
 
-int __fastcall GetByteAtOffset38(void*);
+int __fastcall TESObjectCELL_GetState(void*);
 
 // @fnv 0x00450fb0
 // src: XBOX_PDB 0x00450fb0
 bool __fastcall TESObjectCELL_GetLoaded(void* pThis)
 {
-    return GetByteAtOffset38(pThis) == 3;
+    return TESObjectCELL_GetState(pThis) == 3;
 }
 
 struct FUN_00450fd0_class
 {
-    unsigned int GetByteAtOffset38() const;
+    unsigned int TESObjectCELL_GetState() const;
 };
 
 // @fnv 0x00450fd0
-unsigned int FUN_00450fd0_class::GetByteAtOffset38() const
+// src: COMMUNITY 0x00450fd0
+unsigned int FUN_00450fd0_class::TESObjectCELL_GetState() const
 {
     return ((const unsigned char*)this)[0x26];
 }
 
-int __fastcall GetByteAtOffset38(void*);
+int __fastcall TESObjectCELL_GetState(void*);
 
 // @fnv 0x00450ff0
 // src: XBOX_PDB 0x00450ff0
 bool __fastcall TESObjectCELL_GetAttached(void* self)
 {
-    return GetByteAtOffset38(self) == 6;
+    return TESObjectCELL_GetState(self) == 6;
 }
 
 struct FUN_004524f0_Class
@@ -817,14 +819,14 @@ int NiGeometryData::GetConsistency_00457b80()
     return m_usDirtyFlags & 0x7000;
 }
 
-struct FUN_00457ff0_class
+struct BSWin32FileCache
 {
     void BSFileCache_PauseFileCaching();
 };
 
 // @fnv 0x00457ff0
 // src: COMMUNITY 0x00457ff0
-void FUN_00457ff0_class::BSFileCache_PauseFileCaching()
+void BSWin32FileCache::BSFileCache_PauseFileCaching()
 {
     if (reinterpret_cast<int*>(this)[0x5c / 4] == 1)
         reinterpret_cast<int*>(this)[0x5c / 4] = 2;
@@ -1692,7 +1694,7 @@ struct Inner00446de0
     virtual void f3();
     virtual int f4();
 };
-struct FUN_00446de0_Class
+struct BackgroundCloneThread
 {
     char _pad[0x34];
     volatile int m34;
@@ -1702,7 +1704,7 @@ struct FUN_00446de0_Class
 // Returns the value from m38's f4() plus the volatile m34 field.
 // @fnv 0x00446de0
 // src: COMMUNITY 0x00446de0
-int __thiscall FUN_00446de0_Class::BackgroundCloneThread_GetQueuedCount()
+int __thiscall BackgroundCloneThread::BackgroundCloneThread_GetQueuedCount()
 {
     return m38->f4() + m34;
 }
@@ -1818,11 +1820,12 @@ void Dummy44a3a0::SetVtableAndProcessState_0044a3d0()
 
 struct FUN_0044a420_Class
 {
-    void* __thiscall FUN_0044a420(unsigned int);
+    void* __thiscall ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_0044a400 on this, then deallocates this when bit 0 of flags is set, and returns this.
 // @fnv 0x0044a420
-void* __thiscall FUN_0044a420_Class::FUN_0044a420(unsigned int flags)
+// src: EXE 0x0044a420
+void* __thiscall FUN_0044a420_Class::ScalarDeletingDestructor(unsigned int flags)
 {
     ((Dummy44a400*)this)->UpdateFields_0044a400();
     if (flags & 1)
@@ -1884,12 +1887,12 @@ char* __thiscall FUN_0044a970_Cls::std_string__Myptr()
 struct FUN_0044a9d0_Class
 {
     unsigned int __thiscall std_allocator_char_max_size();
-    unsigned int __thiscall GetAllocatorLimitMinusTerminator();
+    unsigned int __thiscall basic_string_max_size();
 };
 // Calls FUN_0065f7f0 and returns 1 when the result is at most 1, otherwise the result minus 1.
 // @fnv 0x0044a9d0
-// src: GUESS 0x0044a9d0 (confidence: medium)
-unsigned int __thiscall FUN_0044a9d0_Class::GetAllocatorLimitMinusTerminator()
+// src: GUESS 0x0044a9d0 (confidence: high)
+unsigned int __thiscall FUN_0044a9d0_Class::basic_string_max_size()
 {
     unsigned int a = std_allocator_char_max_size();
     return (a <= 1) ? 1 : a - 1;
@@ -2350,12 +2353,13 @@ namespace fnv_004505f0 {
 
 extern int DAT_010178bc;
 // The constructor assigns its original vtable explicitly.
-struct __declspec(novtable) FUN_004505f0 : NiNode
+struct __declspec(novtable) BSTempNodeManager : NiNode
 {
-    FUN_004505f0();
+    BSTempNodeManager();
 };
 // @fnv 0x004505f0
-FUN_004505f0::FUN_004505f0() : NiNode(0)
+// src: EXE 0x004505f0
+BSTempNodeManager::BSTempNodeManager() : NiNode(0)
 {
     *(int*)this = (int)&DAT_010178bc;
 }
@@ -2569,7 +2573,7 @@ void TES_SetCollisionDisableFlag(unsigned char a)
 
 struct FUN_00541570_shell
 {
-    unsigned int __thiscall GetField1C();
+    unsigned int __thiscall TESLandTexture_GetHavokMaterialType();
 };
 struct FUN_00457880_Class
 {
@@ -2585,7 +2589,7 @@ unsigned int __thiscall FUN_00457880_Class::TES_GetLandMaterialType(int arg)
     pRes = 2;
     pObj = TES_GetLandTexture(arg);
     if (pObj)
-        pRes = pObj->GetField1C();
+        pRes = pObj->TESLandTexture_GetHavokMaterialType();
     return pRes;
 }
 
@@ -2806,16 +2810,17 @@ unsigned int __thiscall S_FUN_0045bc00::NiNode_GetAtChecked(unsigned int uiIndex
     }
 }
 
-struct FUN_0045c4e0_This
+struct BSMultiBoundRoom
 {
     unsigned char pad[0xCC];
     int fieldCC;
     void __thiscall BSMultiBoundRoom_RemoveFrustum();
-    void __thiscall SetFieldCC(int);
+    void __thiscall BSMultiBoundRoom_SetCompoundFrustum(int);
 };
 // If fieldCC is set and differs from a, calls FUN_0045c520, then stores a into fieldCC.
 // @fnv 0x0045c4e0
-void __thiscall FUN_0045c4e0_This::SetFieldCC(int aiValue)
+// src: COMMUNITY 0x0045c4e0
+void __thiscall BSMultiBoundRoom::BSMultiBoundRoom_SetCompoundFrustum(int aiValue)
 {
     if (fieldCC != 0 && fieldCC != aiValue)
         BSMultiBoundRoom_RemoveFrustum();
@@ -3015,15 +3020,15 @@ struct FUN_00446dc0_Class
 // src: COMMUNITY 0x00446dc0
 int FUN_00446dc0_Class::ModelLoader_GetBackgroundCloningCount()
 {
-    return ((FUN_00446de0_Class*)*(void**)((char*)this + 0x28))->BackgroundCloneThread_GetQueuedCount();
+    return ((BackgroundCloneThread*)*(void**)((char*)this + 0x28))->BackgroundCloneThread_GetQueuedCount();
 }
 
-struct FUN_0044e0d0_Class
+struct QueuedFileEntry
 {
     unsigned long long GetValue64();
 };
 // @fnv 0x0044e0d0
-unsigned long long FUN_0044e0d0_Class::GetValue64()
+unsigned long long QueuedFileEntry::GetValue64()
 {
     return *(unsigned long long*)((char*)this + 0x10);
 }
@@ -3138,13 +3143,13 @@ void FUN_00452eb0_Class::TES_ClearCellLoaderTasks()
     DAT_011c9618->ExteriorCellLoader_CancelAllCellLoads();
 }
 
-struct FUN_004538e0_Class
+struct BSCriticalSection
 {
     void __thiscall BSCriticalSection_Lock(int);
 };
 // @fnv 0x004538e0
 // src: XBOX_PDB 0x004538e0
-void __thiscall FUN_004538e0_Class::BSCriticalSection_Lock(int)
+void __thiscall BSCriticalSection::BSCriticalSection_Lock(int)
 {
     EnterCriticalSection((LPCRITICAL_SECTION)this);
 }
@@ -5522,7 +5527,7 @@ struct FUN_004f3660
     int unk04;
     FUN_004f3660();
 };
-struct FUN_005ffaf0
+struct TESIdleManager
 {
     int unk00;
     int unk04;
@@ -5534,9 +5539,9 @@ struct FUN_005ffaf0
     int unk1c;
     int unk20;
     int unk24;
-    FUN_005ffaf0();
+    TESIdleManager();
 };
-struct FUN_0058b770
+struct BGSCameraPathManager
 {
     int unk00;
     int unk04;
@@ -5548,12 +5553,12 @@ struct FUN_0058b770
     int unk1c;
     int unk20;
     int unk24;
-    FUN_0058b770();
+    BGSCameraPathManager();
 };
 void* __cdecl operator new(unsigned int);
 void __cdecl operator delete(void*);
-extern FUN_005ffaf0* DAT_011cb6a0;
-extern FUN_0058b770* DAT_011ca700;
+extern TESIdleManager* DAT_011cb6a0;
+extern BGSCameraPathManager* DAT_011ca700;
 void __cdecl ourMemset(void*, int, unsigned int);
 struct GlobalObject_0048f200_d0054da00 : GlobalObject_0048f200
 {
@@ -5927,8 +5932,8 @@ FUN_0045d270::FUN_0045d270() : unk1dc(0, 1), unk1ec(0, 1)
     unk62c = 0;
     unk1dc.NiTArray_SetGrowBy(100);
     unk624 = new FUN_004f3660;
-    DAT_011cb6a0 = new FUN_005ffaf0;
-    DAT_011ca700 = new FUN_0058b770;
+    DAT_011cb6a0 = new TESIdleManager;
+    DAT_011ca700 = new BGSCameraPathManager;
     unk61f = 0;
     unk638 = 0;
     unk630 = 0;

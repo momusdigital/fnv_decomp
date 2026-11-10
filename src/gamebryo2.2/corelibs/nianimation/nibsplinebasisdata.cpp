@@ -21,7 +21,8 @@ void NiBSplineBasisData::LoadBinary(NiStream& stream)
 }
 
 // @fnv 0x00a52bb0
-bool __fastcall IsBSplineBasisDataEqual(NiBSplineBasisData* pkThis, void*, NiObject* pkObject)
+// src: EXE 0x00a52bb0
+bool __fastcall NiBSplineBasisData_IsEqual(NiBSplineBasisData* pkThis, void*, NiObject* pkObject)
 {
     if (!pkThis->NiObject::IsSameAs(pkObject))
         return false;
@@ -93,7 +94,7 @@ struct FUN_00a51ab0_base
     void InitBase(int a1, int a3);
 };
 
-struct FUN_00a51ab0_cls : FUN_00a51ab0_base
+struct NiBSplineColorInterpolator : FUN_00a51ab0_base
 {
     int m_vptr00;
     int unk04;
@@ -108,13 +109,13 @@ struct FUN_00a51ab0_cls : FUN_00a51ab0_base
     float m_28;
     int m_2c;
 
-    FUN_00a51ab0_cls* NiBSplineColorInterpolator_NiBSplineColorInterpolator(int a1, int a2, int a3);
+    NiBSplineColorInterpolator* NiBSplineColorInterpolator_NiBSplineColorInterpolator(int a1, int a2, int a3);
 };
 
 // Calls InitBase, sets the vtable pointer, zeroes four floats and stores a2 into m_2c, then returns this.
 // @fnv 0x00a51ab0
 // src: GAMEBRYO_LIB 0x00a51ab0
-FUN_00a51ab0_cls* FUN_00a51ab0_cls::NiBSplineColorInterpolator_NiBSplineColorInterpolator(int a1, int a2, int a3)
+NiBSplineColorInterpolator* NiBSplineColorInterpolator::NiBSplineColorInterpolator_NiBSplineColorInterpolator(int a1, int a2, int a3)
 {
     InitBase(a1, a3);
     m_vptr00 = (int)&DAT_01099d3c;
@@ -134,7 +135,8 @@ inline void* operator new(unsigned int, void* pMemory) throw()
 }
 
 // Construct in separately allocated storage so constructor failure has no delete cleanup.
-inline NiBSplineBasisData* AllocateBSplineBasisData()
+// src: EXE 0x00a52b60
+inline NiBSplineBasisData* NiBSplineBasisData_CreateObject()
 {
     void* pMemory = Object_DispatchCommandFour(sizeof(NiBSplineBasisData));
     if (pMemory)
@@ -152,7 +154,7 @@ inline NiBSplineBasisData* AllocateBSplineBasisData()
 // @fnv 0x00a52b00
 NiBSplineBasisData* __fastcall CloneBSplineBasisData(NiBSplineBasisData* pkThis, void*, CloningProcess& cloning)
 {
-    NiBSplineBasisData* pResult = AllocateBSplineBasisData();
+    NiBSplineBasisData* pResult = NiBSplineBasisData_CreateObject();
     pkThis->CreateVertexBufferSet(pResult, cloning);
     pResult->m_kBSplineBasis = pkThis->m_kBSplineBasis;
     return pResult;
@@ -161,7 +163,7 @@ NiBSplineBasisData* __fastcall CloneBSplineBasisData(NiBSplineBasisData* pkThis,
 // @fnv 0x00a52b60
 NiBSplineBasisData* CreateNiBSplineBasisData()
 {
-    return AllocateBSplineBasisData();
+    return NiBSplineBasisData_CreateObject();
 }
 
 template <class T> inline void WriteScalar(NiBinaryStream* pkOstr, const T& value)
@@ -172,7 +174,8 @@ template <class T> inline void WriteScalar(NiBinaryStream* pkOstr, const T& valu
 }
 // Saves the base NiObject data and the BSplineBasis control point count to the given NiStream.
 // @fnv 0x00a52c50
-void __fastcall SaveBSplineBasisData(NiBSplineBasisData* pkThis, void*, NiStream& stream)
+// src: EXE 0x00a52c50
+void __fastcall NiBSplineBasisData_SaveBinary(NiBSplineBasisData* pkThis, void*, NiStream& stream)
 {
     pkThis->NiObject::SaveBinary(stream);
     WriteScalar(stream.m_pkOstr, pkThis->m_kBSplineBasis.m_iNumControlPoints);

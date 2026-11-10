@@ -47,7 +47,7 @@ public:
     TESObjectCELL* GetInteriorCell();
     unsigned int GetNavMeshID();
     TESWorldSpace* GetParentWorldSpace();
-    void LoadNavMeshInfo(char*, TESFile*, int);
+    void NavMeshInfo_SetFromInfoChunk(char*, TESFile*, int);
     void LoadSerializedData(char*, TESFile*, int);
     void ReleaseNavMesh();
     bool ResolveNavMesh(NavMeshPtr&);

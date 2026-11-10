@@ -448,13 +448,14 @@ struct FUN_00ee88d0_base
     virtual ~FUN_00ee88d0_base();
 };
 
-struct FUN_00ee88d0_cls : FUN_00ee88d0_base
+struct NiShaderDeclaration : FUN_00ee88d0_base
 {
-    virtual ~FUN_00ee88d0_cls();
+    virtual ~NiShaderDeclaration();
 };
 
 // @fnv 0x00ee88d0
-FUN_00ee88d0_cls::~FUN_00ee88d0_cls()
+// src: EXE 0x00ee88d0
+NiShaderDeclaration::~NiShaderDeclaration()
 {}
 
 class FUN_00eea550_cls
@@ -669,16 +670,17 @@ struct MemberCount
     MemberCount() : m_iElementCount(0), m_pRayCursor(0), m_flags(0)
     {}
 };
-struct FUN_00eea580 : FixedStringBase
+struct NiMaterialResource : FixedStringBase
 {
     StringValue m_pHeadNode, m_iSecondInteger, m_third, m_fourth, m_fifth;
     unsigned int m_sState;
     MemberCount m_counts;
-    FUN_00eea580();
+    NiMaterialResource();
     virtual void Release();
 };
 // @fnv 0x00eea580
-FUN_00eea580::FUN_00eea580()
+// src: EXE 0x00eea580
+NiMaterialResource::NiMaterialResource()
 {
     m_sState = 1;
 }

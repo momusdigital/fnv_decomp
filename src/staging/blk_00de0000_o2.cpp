@@ -105,8 +105,8 @@ struct FUN_00dfbdf0_class
 };
 
 // @fnv 0x00dfbdf0
-// src: GUESS 0x00dfbdf0 (confidence: low)
-void Runtime_UpdateState_00dfbdf0(void* p, int a)
+// src: COMMUNITY 0x00dfbdf0
+void finishLoadedObject_hkpVehicleInstance(void* p, int a)
 {
     if (p)
     {
@@ -138,8 +138,8 @@ extern "C" void* DAT_010305a8;
 extern "C" void* DAT_010e222c;
 
 // @fnv 0x00dfd0f0
-// src: GUESS 0x00dfd0f0 (confidence: low)
-void Object_UpdateState_00dfd0f0(void* pObject, int b)
+// src: COMMUNITY 0x00dfd0f0
+void finishLoadedObject_hkpMultiRayShape(void* pObject, int b)
 {
     if (pObject)
     {
@@ -197,8 +197,8 @@ void Object_UpdateState_00dfda10(char* pObject, char* a)
 extern int DAT_010d3cc0;
 
 // @fnv 0x00dfde30
-// src: GUESS 0x00dfde30 (confidence: low)
-void Object_UpdateState_00dfde30(void* apObject)
+// src: COMMUNITY 0x00dfde30
+void finishLoadedObject_hkTraceStream(void* apObject)
 {
     if (apObject)
     {
@@ -222,8 +222,8 @@ struct FUN_00cb0a70_Class
 };
 
 // @fnv 0x00dfef50
-// src: GUESS 0x00dfef50 (confidence: low)
-void Object_UpdateState_00dfef50(int* pObject, int aiValue)
+// src: COMMUNITY 0x00dfef50
+void finishLoadedObject_hkpSpringAction(int* pObject, int aiValue)
 {
     if (pObject)
     {
@@ -244,8 +244,8 @@ struct FUN_00dff0f0_class
 
 // If p is non-null, sets p->m to &DAT_010cc2fc, calls FUN_00cb0a70 on the object at p+0x14 with a, then sets p->m to &DAT_010e6834.
 // @fnv 0x00dff0f0
-// src: GUESS 0x00dff0f0 (confidence: low)
-void Runtime_UpdateState_00dff0f0(FUN_00dff0f0_class* p, int aiValue)
+// src: COMMUNITY 0x00dff0f0
+void finishLoadedObject_hkpReorientAction(FUN_00dff0f0_class* p, int aiValue)
 {
     if (p)
     {
@@ -284,8 +284,8 @@ extern int DAT_010cc2fc;
 extern int DAT_010d0944;
 
 // @fnv 0x00dff340
-// src: GUESS 0x00dff340 (confidence: low)
-void __cdecl Object_UpdateFields_00dff340(void* apObject, void* arg)
+// src: COMMUNITY 0x00dff340
+void __cdecl finishLoadedObject_hkpMotorAction(void* apObject, void* arg)
 {
     if (apObject)
     {
@@ -331,8 +331,8 @@ extern int DAT_010cc2fc;
 extern int DAT_010d09f4;
 
 // @fnv 0x00dffbe0
-// src: GUESS 0x00dffbe0 (confidence: low)
-void __cdecl Object_UpdateFields_00dffbe0(int* pObject, int aiValue)
+// src: COMMUNITY 0x00dffbe0
+void __cdecl finishLoadedObject_hkpAngularDashpotAction(int* pObject, int aiValue)
 {
     if (pObject)
     {
@@ -372,8 +372,8 @@ void Object_ForwardCall_00dfbc70(FUN_00cb0c00_class* self)
 
 extern int DAT_010df89c;
 // @fnv 0x00dfbf50
-// src: GUESS 0x00dfbf50 (confidence: low)
-void __cdecl Runtime_UpdateState_00dfbf50(int* p)
+// src: COMMUNITY 0x00dfbf50
+void __cdecl finishLoadedObject_hkpVehicleDefaultSuspension(int* p)
 {
     if (p)
         *p = (int)&DAT_010df89c;
@@ -382,8 +382,8 @@ void __cdecl Runtime_UpdateState_00dfbf50(int* p)
 extern int DAT_010df9f4;
 
 // @fnv 0x00dfc060
-// src: GUESS 0x00dfc060 (confidence: low)
-void Object_UpdateFields_00dfc060(int* p)
+// src: COMMUNITY 0x00dfc060
+void finishLoadedObject_hkpVehicleDefaultBrake(int* p)
 {
     if (p)
         *p = (int)&DAT_010df9f4;
@@ -391,8 +391,8 @@ void Object_UpdateFields_00dfc060(int* p)
 
 extern int DAT_010dff44;
 // @fnv 0x00dfc130
-// src: GUESS 0x00dfc130 (confidence: low)
-void __cdecl Runtime_UpdateState_00dfc130(int* p)
+// src: COMMUNITY 0x00dfc130
+void __cdecl finishLoadedObject_hkpVehicleData(int* p)
 {
     if (p)
         *p = (int)&DAT_010dff44;
@@ -400,15 +400,15 @@ void __cdecl Runtime_UpdateState_00dfc130(int* p)
 
 typedef void(__thiscall* VTable0)(void*, int);
 // @fnv 0x00dfc230
-// src: GUESS 0x00dfc230 (confidence: low)
-void __cdecl Runtime_Helper_00dfc230(void** p)
+// src: COMMUNITY 0x00dfc230
+void __cdecl cleanupLoadedObject_hkpTyremarksWheel(void** p)
 {
     ((VTable0*)(*(void***)(p)))[0](p, 0);
 }
 
 // @fnv 0x00dfc250
-// src: GUESS 0x00dfc250 (confidence: low)
-void __cdecl Runtime_UpdateState_00dfc250(void** p)
+// src: COMMUNITY 0x00dfc250
+void __cdecl cleanupLoadedObject_hkpTyremarksInfo(void** p)
 {
     void(__thiscall * fn)(void*, int) = *(void(__thiscall**)(void*, int)) * p;
     fn(p, 0);
@@ -416,8 +416,8 @@ void __cdecl Runtime_UpdateState_00dfc250(void** p)
 
 extern int DAT_010e00cc;
 // @fnv 0x00dfc280
-// src: GUESS 0x00dfc280 (confidence: low)
-void __cdecl Object_UpdateFields_00dfc280(int* p)
+// src: COMMUNITY 0x00dfc280
+void __cdecl finishLoadedObject_hkpTyremarksWheel(int* p)
 {
     if (p)
         *p = (int)&DAT_010e00cc;
@@ -425,40 +425,40 @@ void __cdecl Object_UpdateFields_00dfc280(int* p)
 
 extern int DAT_010e00dc;
 // @fnv 0x00dfc2a0
-// src: GUESS 0x00dfc2a0 (confidence: low)
-void Object_UpdateFields_00dfc2a0(int* p)
+// src: COMMUNITY 0x00dfc2a0
+void finishLoadedObject_hkpTyremarksInfo(int* p)
 {
     if (p)
         *p = (int)&DAT_010e00dc;
 }
 
 // @fnv 0x00dfc380
-// src: GUESS 0x00dfc380 (confidence: low)
-void __cdecl Object_InvokeVirtualMethod_00dfc380(void** p)
+// src: COMMUNITY 0x00dfc380
+void __cdecl cleanupLoadedObject_hkpSerializedAgentNnEntry(void** p)
 {
     (**(void(__thiscall**)(void*, int))(*p))(p, 0);
 }
 
 extern int DAT_010e04ac;
 // @fnv 0x00dfc470
-// src: GUESS 0x00dfc470 (confidence: low)
-void __cdecl Runtime_UpdateState_00dfc470(int* p)
+// src: COMMUNITY 0x00dfc470
+void __cdecl finishLoadedObject_hkpSerializedDisplayRbTransforms(int* p)
 {
     if (p)
         *p = (int)&DAT_010e04ac;
 }
 
 // @fnv 0x00dfc500
-// src: GUESS 0x00dfc500 (confidence: low)
-void __cdecl Object_ProcessAndTransformResult_00dfc500(void* p)
+// src: COMMUNITY 0x00dfc500
+void __cdecl cleanupLoadedObject_hkpPoweredChainMapper(void* p)
 {
     ((void(__thiscall*)(void*, int)) * (void**)*(void**)p)(p, 0);
 }
 
 extern int DAT_010e0654;
 // @fnv 0x00dfc520
-// src: GUESS 0x00dfc520 (confidence: low)
-void __cdecl Object_UpdateFields_00dfc520(int* a)
+// src: COMMUNITY 0x00dfc520
+void __cdecl finishLoadedObject_hkpPoweredChainMapper(int* a)
 {
     if (a)
         *a = (int)&DAT_010e0654;
@@ -467,8 +467,8 @@ void __cdecl Object_UpdateFields_00dfc520(int* a)
 extern int DAT_0102e368;
 
 // @fnv 0x00dfc620
-// src: GUESS 0x00dfc620 (confidence: low)
-void __cdecl Object_UpdateFields_00dfc620(int* p)
+// src: COMMUNITY 0x00dfc620
+void __cdecl finishLoadedObject_hkpMoppCode(int* p)
 {
     if (p)
         *p = (int)&DAT_0102e368;
@@ -476,24 +476,24 @@ void __cdecl Object_UpdateFields_00dfc620(int* p)
 
 extern int DAT_010d0a64;
 // @fnv 0x00dfc6c0
-// src: GUESS 0x00dfc6c0 (confidence: low)
-void __cdecl Object_UpdateFields_00dfc6c0(int* p)
+// src: COMMUNITY 0x00dfc6c0
+void __cdecl finishLoadedObject_hkpWheelConstraintData(int* p)
 {
     if (p)
         *p = (int)&DAT_010d0a64;
 }
 
 // @fnv 0x00dfc700
-// src: GUESS 0x00dfc700 (confidence: low)
-void __cdecl Object_ProcessAndTransformResult_00dfc700(void* p)
+// src: COMMUNITY 0x00dfc700
+void __cdecl cleanupLoadedObject_hkpStiffSpringConstraintData(void* p)
 {
     ((void(__thiscall*)(void*, int))(*(void**)*(void**)p))(p, 0);
 }
 
 extern int DAT_010d0aac;
 // @fnv 0x00dfc730
-// src: GUESS 0x00dfc730 (confidence: low)
-void Runtime_UpdateState_00dfc730(int* p)
+// src: COMMUNITY 0x00dfc730
+void finishLoadedObject_hkpStiffSpringConstraintData(int* p)
 {
     if (p)
         *p = (int)&DAT_010d0aac;
@@ -501,8 +501,8 @@ void Runtime_UpdateState_00dfc730(int* p)
 
 extern int DAT_010e11ec;
 // @fnv 0x00dfc900
-// src: GUESS 0x00dfc900 (confidence: low)
-void __cdecl Object_UpdateFields_00dfc900(int* p)
+// src: COMMUNITY 0x00dfc900
+void __cdecl finishLoadedObject_hkpRotationalConstraintData(int* p)
 {
     if (p)
         *p = (int)&DAT_010e11ec;
@@ -510,24 +510,24 @@ void __cdecl Object_UpdateFields_00dfc900(int* p)
 
 extern int DAT_010da04c;
 // @fnv 0x00dfca90
-// src: GUESS 0x00dfca90 (confidence: low)
-void __cdecl Runtime_UpdateState_00dfca90(int* p)
+// src: COMMUNITY 0x00dfca90
+void __cdecl finishLoadedObject_hkpPulleyConstraintData(int* p)
 {
     if (p)
         *p = (int)&DAT_010da04c;
 }
 
 // @fnv 0x00dfcad0
-// src: GUESS 0x00dfcad0 (confidence: low)
-void __cdecl Runtime_Helper_00dfcad0(void** p)
+// src: COMMUNITY 0x00dfcad0
+void __cdecl cleanupLoadedObject_hkpPrismaticConstraintData(void** p)
 {
     ((void(__thiscall*)(void*, int))(**(void***)(p)))(p, 0);
 }
 
 extern int DAT_010d0b3c;
 // @fnv 0x00dfcb00
-// src: GUESS 0x00dfcb00 (confidence: low)
-void Object_UpdateFields_00dfcb00(int* p)
+// src: COMMUNITY 0x00dfcb00
+void finishLoadedObject_hkpPrismaticConstraintData(int* p)
 {
     if (p)
         *p = (int)&DAT_010d0b3c;
@@ -535,8 +535,8 @@ void Object_UpdateFields_00dfcb00(int* p)
 
 extern void* DAT_010d37e4;
 // @fnv 0x00dfcbf0
-// src: GUESS 0x00dfcbf0 (confidence: low)
-void __cdecl Runtime_UpdateState_00dfcbf0(void** p)
+// src: COMMUNITY 0x00dfcbf0
+void __cdecl finishLoadedObject_hkpPointToPlaneConstraintData(void** p)
 {
     if (p)
         *p = &DAT_010d37e4;
@@ -544,8 +544,8 @@ void __cdecl Runtime_UpdateState_00dfcbf0(void** p)
 
 extern int DAT_010c89e4;
 // @fnv 0x00dfcc60
-// src: GUESS 0x00dfcc60 (confidence: low)
-void __cdecl Object_UpdateFields_00dfcc60(int* p)
+// src: COMMUNITY 0x00dfcc60
+void __cdecl finishLoadedObject_hkpLimitedHingeConstraintData(int* p)
 {
     if (p)
         *p = (int)&DAT_010c89e4;
@@ -553,8 +553,8 @@ void __cdecl Object_UpdateFields_00dfcc60(int* p)
 
 extern int DAT_010d0be4;
 // @fnv 0x00dfccd0
-// src: GUESS 0x00dfccd0 (confidence: low)
-void __cdecl Runtime_UpdateState_00dfccd0(int* p)
+// src: COMMUNITY 0x00dfccd0
+void __cdecl finishLoadedObject_hkpHingeLimitsData(int* p)
 {
     if (p)
         *p = (int)&DAT_010d0be4;
@@ -562,16 +562,16 @@ void __cdecl Runtime_UpdateState_00dfccd0(int* p)
 
 typedef int(__thiscall* VFunc0)(void*, int);
 // @fnv 0x00dfcd10
-// src: GUESS 0x00dfcd10 (confidence: low)
-int __cdecl Object_EvaluateValue_00dfcd10(void* self)
+// src: COMMUNITY 0x00dfcd10
+int __cdecl cleanupLoadedObject_hkpHingeConstraintData(void* self)
 {
     return ((VFunc0*)*(void**)self)[0](self, 0);
 }
 
 extern int DAT_010c91ec;
 // @fnv 0x00dfcd40
-// src: GUESS 0x00dfcd40 (confidence: low)
-void __cdecl Object_UpdateFields_00dfcd40(int* p)
+// src: COMMUNITY 0x00dfcd40
+void __cdecl finishLoadedObject_hkpHingeConstraintData(int* p)
 {
     if (p)
         *p = (int)&DAT_010c91ec;
@@ -580,8 +580,8 @@ void __cdecl Object_UpdateFields_00dfcd40(int* p)
 extern int DAT_010d0cd4;
 
 // @fnv 0x00dfce90
-// src: GUESS 0x00dfce90 (confidence: low)
-void __cdecl Runtime_UpdateState_00dfce90(int* a)
+// src: COMMUNITY 0x00dfce90
+void __cdecl finishLoadedObject_hkpBallAndSocketConstraintData(int* a)
 {
     if (a)
         *a = (int)&DAT_010d0cd4;
@@ -593,8 +593,8 @@ struct FUN_00dfd7a0_vt
     virtual void v1(int);
 };
 // @fnv 0x00dfd7a0
-// src: GUESS 0x00dfd7a0 (confidence: low)
-void __cdecl Object_InvokeVirtualMethod_00dfd7a0(FUN_00dfd7a0_vt* p)
+// src: COMMUNITY 0x00dfd7a0
+void __cdecl cleanupLoadedObject_hkxNode(FUN_00dfd7a0_vt* p)
 {
     p->v0(0);
 }
@@ -608,13 +608,13 @@ void __cdecl Object_ForwardCall_00dfd7c0(void* arg)
 
 struct FUN_00dfd940_vt
 {
-    virtual void __thiscall Object_ForwardCall_00dfd940(int);
+    virtual void __thiscall cleanupLoadedObject_hkxMaterial(int);
 };
 // @fnv 0x00dfd940
-// src: GUESS 0x00dfd940 (confidence: low)
-void __cdecl Object_ForwardCall_00dfd940(FUN_00dfd940_vt* p)
+// src: COMMUNITY 0x00dfd940
+void __cdecl cleanupLoadedObject_hkxMaterial(FUN_00dfd940_vt* p)
 {
-    p->Object_ForwardCall_00dfd940(0);
+    p->cleanupLoadedObject_hkxMaterial(0);
 }
 
 // @fnv 0x00dfdb40
@@ -626,8 +626,8 @@ void __cdecl Object_ForwardCall_00dfdb40(void* p)
 
 extern int DAT_010e351c;
 // @fnv 0x00dfdb50
-// src: GUESS 0x00dfdb50 (confidence: low)
-void __cdecl Runtime_UpdateState_00dfdb50(int* p)
+// src: COMMUNITY 0x00dfdb50
+void __cdecl finishLoadedObject_hkxSparselyAnimatedEnum(int* p)
 {
     if (p)
         *p = (int)&DAT_010e351c;
@@ -635,8 +635,8 @@ void __cdecl Runtime_UpdateState_00dfdb50(int* p)
 
 extern "C" void* DAT_010e352c;
 // @fnv 0x00dfdb70
-// src: GUESS 0x00dfdb70 (confidence: low)
-void __cdecl Runtime_UpdateState_00dfdb70(void** p)
+// src: COMMUNITY 0x00dfdb70
+void __cdecl finishLoadedObject_hkxEnum(void** p)
 {
     if (p)
         *p = &DAT_010e352c;
@@ -652,8 +652,8 @@ void __cdecl Runtime_ForwardCall_00dfdf90(int a, int b)
 extern int DAT_010e3e5c;
 
 // @fnv 0x00dfdfb0
-// src: GUESS 0x00dfdfb0 (confidence: low)
-void __cdecl Runtime_UpdateState_00dfdfb0(int* p)
+// src: COMMUNITY 0x00dfdfb0
+void __cdecl finishLoadedObject_hkMonitorStreamColorTable(int* p)
 {
     if (p)
         *p = (int)&DAT_010e3e5c;
@@ -661,8 +661,8 @@ void __cdecl Runtime_UpdateState_00dfdfb0(int* p)
 
 extern int DAT_010e5474;
 // @fnv 0x00dfe340
-// src: GUESS 0x00dfe340 (confidence: low)
-void __cdecl Object_UpdateFields_00dfe340(void* p)
+// src: COMMUNITY 0x00dfe340
+void __cdecl finishLoadedObject_hkaInterleavedUncompressedAnimation(void* p)
 {
     if (p)
         *reinterpret_cast<int*>(p) = reinterpret_cast<int>(&DAT_010e5474);
@@ -673,16 +673,16 @@ struct FUN_00dfe430_class
     virtual int __thiscall ReturnSelf(int a);
 };
 // @fnv 0x00dfe430
-// src: GUESS 0x00dfe430 (confidence: low)
-int __cdecl Runtime_ForwardCall_00dfe430(FUN_00dfe430_class* p)
+// src: COMMUNITY 0x00dfe430
+int __cdecl cleanupLoadedObject_hkaFootstepAnalysisInfo(FUN_00dfe430_class* p)
 {
     return p->ReturnSelf(0);
 }
 
 extern int DAT_010e56d4;
 // @fnv 0x00dfe490
-// src: GUESS 0x00dfe490 (confidence: low)
-void __cdecl Runtime_UpdateState_00dfe490(int* p)
+// src: COMMUNITY 0x00dfe490
+void __cdecl finishLoadedObject_hkaFootstepAnalysisInfoContainer(int* p)
 {
     if (p)
         *p = (int)&DAT_010e56d4;
@@ -690,8 +690,8 @@ void __cdecl Runtime_UpdateState_00dfe490(int* p)
 
 extern int DAT_010e57a4;
 // @fnv 0x00dfe500
-// src: GUESS 0x00dfe500 (confidence: low)
-void __cdecl Object_UpdateFields_00dfe500(int* p)
+// src: COMMUNITY 0x00dfe500
+void __cdecl finishLoadedObject_hkaDefaultAnimatedReferenceFrame(int* p)
 {
     if (p)
         *p = (int)&DAT_010e57a4;
@@ -702,8 +702,8 @@ struct FUN_00dfe670_vt
     virtual void m_iWordAt00(int);
 };
 // @fnv 0x00dfe670
-// src: GUESS 0x00dfe670 (confidence: low)
-void __cdecl Runtime_ForwardCall_00dfe670(FUN_00dfe670_vt* p)
+// src: COMMUNITY 0x00dfe670
+void __cdecl cleanupLoadedObject_hkaAnimationPreviewColorContainer(FUN_00dfe670_vt* p)
 {
     p->m_iWordAt00(0);
 }
@@ -711,8 +711,8 @@ void __cdecl Runtime_ForwardCall_00dfe670(FUN_00dfe670_vt* p)
 extern int DAT_010e58c8;
 
 // @fnv 0x00dfe690
-// src: GUESS 0x00dfe690 (confidence: low)
-void __cdecl Runtime_UpdateState_00dfe690(int** p)
+// src: COMMUNITY 0x00dfe690
+void __cdecl finishLoadedObject_hkaAnimationPreviewColorContainer(int** p)
 {
     if (p)
         *p = &DAT_010e58c8;
@@ -720,16 +720,16 @@ void __cdecl Runtime_UpdateState_00dfe690(int** p)
 
 extern int DAT_010e59ac;
 // @fnv 0x00dfe700
-// src: GUESS 0x00dfe700 (confidence: low)
-void Object_UpdateFields_00dfe700(int* p)
+// src: COMMUNITY 0x00dfe700
+void finishLoadedObject_hkaAnimationContainer(int* p)
 {
     if (p)
         *p = (int)&DAT_010e59ac;
 }
 
 // @fnv 0x00dfeaa0
-// src: GUESS 0x00dfeaa0 (confidence: low)
-void __cdecl Object_InvokeVirtualMethod_00dfeaa0(void** p)
+// src: COMMUNITY 0x00dfeaa0
+void __cdecl cleanupLoadedObject_hkpVehicleRayCastWheelCollide(void** p)
 {
     ((void(__thiscall*)(void*, int))(*reinterpret_cast<void***>(p))[0])(p, 0);
 }
@@ -737,8 +737,8 @@ void __cdecl Object_InvokeVirtualMethod_00dfeaa0(void** p)
 extern int DAT_010e5b68;
 
 // @fnv 0x00dfeb60
-// src: GUESS 0x00dfeb60 (confidence: low)
-void __cdecl Object_UpdateFields_00dfeb60(int* p)
+// src: COMMUNITY 0x00dfeb60
+void __cdecl finishLoadedObject_hkpVehicleRayCastBatchingManager(int* p)
 {
     if (p)
         *p = (int)&DAT_010e5b68;
@@ -747,8 +747,8 @@ void __cdecl Object_UpdateFields_00dfeb60(int* p)
 extern int DAT_010e5b4c;
 
 // @fnv 0x00dfebd0
-// src: GUESS 0x00dfebd0 (confidence: low)
-void __cdecl Runtime_UpdateState_00dfebd0(int* p)
+// src: COMMUNITY 0x00dfebd0
+void __cdecl finishLoadedObject_hkpVehicleManager(int* p)
 {
     if (p)
         *p = (int)&DAT_010e5b4c;
@@ -756,8 +756,8 @@ void __cdecl Runtime_UpdateState_00dfebd0(int* p)
 
 extern int DAT_010e5bfc;
 // @fnv 0x00dfec10
-// src: GUESS 0x00dfec10 (confidence: low)
-void __cdecl Runtime_UpdateState_00dfec10(int* p)
+// src: COMMUNITY 0x00dfec10
+void __cdecl finishLoadedObject_hkpVehicleLinearCastBatchingManager(int* p)
 {
     if (p)
         *p = (int)&DAT_010e5bfc;
@@ -766,8 +766,8 @@ void __cdecl Runtime_UpdateState_00dfec10(int* p)
 extern int DAT_010e5d94;
 
 // @fnv 0x00dfec70
-// src: GUESS 0x00dfec70 (confidence: low)
-void __cdecl Runtime_UpdateState_00dfec70(int* p)
+// src: COMMUNITY 0x00dfec70
+void __cdecl finishLoadedObject_hkpVehicleDriverInputAnalogStatus(int* p)
 {
     if (p)
         *p = (int)&DAT_010e5d94;
@@ -775,16 +775,16 @@ void __cdecl Runtime_UpdateState_00dfec70(int* p)
 
 extern int DAT_010e5da8;
 // @fnv 0x00dfec90
-// src: GUESS 0x00dfec90 (confidence: low)
-void __cdecl Runtime_UpdateState_00dfec90(int** p)
+// src: COMMUNITY 0x00dfec90
+void __cdecl finishLoadedObject_hkpVehicleDefaultAnalogDriverInput(int** p)
 {
     if (p)
         *p = &DAT_010e5da8;
 }
 
 // @fnv 0x00dfecb0
-// src: GUESS 0x00dfecb0 (confidence: low)
-void __cdecl Runtime_Helper_00dfecb0(int* p)
+// src: COMMUNITY 0x00dfecb0
+void __cdecl cleanupLoadedObject_hkpVehicleDefaultVelocityDamper(int* p)
 {
     ((void(__thiscall*)(void*, int))(*(int*)p[0]))(p, 0);
 }
@@ -792,8 +792,8 @@ void __cdecl Runtime_Helper_00dfecb0(int* p)
 extern int DAT_010e5e9c;
 
 // @fnv 0x00dfecd0
-// src: GUESS 0x00dfecd0 (confidence: low)
-void __cdecl Runtime_UpdateState_00dfecd0(int* p)
+// src: COMMUNITY 0x00dfecd0
+void __cdecl finishLoadedObject_hkpVehicleDefaultVelocityDamper(int* p)
 {
     if (p)
         *p = (int)&DAT_010e5e9c;
@@ -801,8 +801,8 @@ void __cdecl Runtime_UpdateState_00dfecd0(int* p)
 
 extern int DAT_010e5ff4;
 // @fnv 0x00dfed10
-// src: GUESS 0x00dfed10 (confidence: low)
-void Runtime_UpdateState_00dfed10(int* p)
+// src: COMMUNITY 0x00dfed10
+void finishLoadedObject_hkpVehicleDefaultTransmission(int* p)
 {
     if (p)
         *p = (int)&DAT_010e5ff4;
@@ -811,8 +811,8 @@ void Runtime_UpdateState_00dfed10(int* p)
 extern int DAT_010e60c4;
 
 // @fnv 0x00dfee00
-// src: GUESS 0x00dfee00 (confidence: low)
-void __cdecl Object_UpdateFields_00dfee00(int* p)
+// src: COMMUNITY 0x00dfee00
+void __cdecl finishLoadedObject_hkpVehicleDefaultSteering(int* p)
 {
     if (p)
         *p = (int)&DAT_010e60c4;
@@ -820,8 +820,8 @@ void __cdecl Object_UpdateFields_00dfee00(int* p)
 
 extern int DAT_010e62a4;
 // @fnv 0x00dfeea0
-// src: GUESS 0x00dfeea0 (confidence: low)
-void __cdecl Object_UpdateFields_00dfeea0(int* p)
+// src: COMMUNITY 0x00dfeea0
+void __cdecl finishLoadedObject_hkpVehicleDefaultEngine(int* p)
 {
     if (p)
         *p = (int)&DAT_010e62a4;
@@ -830,8 +830,8 @@ void __cdecl Object_UpdateFields_00dfeea0(int* p)
 extern int DAT_010e6394;
 
 // @fnv 0x00dfeee0
-// src: GUESS 0x00dfeee0 (confidence: low)
-void __cdecl Object_UpdateFields_00dfeee0(int* p)
+// src: COMMUNITY 0x00dfeee0
+void __cdecl finishLoadedObject_hkpVehicleDefaultAerodynamics(int* p)
 {
     if (p)
         *p = (int)&DAT_010e6394;
@@ -839,8 +839,8 @@ void __cdecl Object_UpdateFields_00dfeee0(int* p)
 
 extern int DAT_010e66fc;
 // @fnv 0x00dfeff0
-// src: GUESS 0x00dfeff0 (confidence: low)
-void __cdecl Runtime_UpdateState_00dfeff0(int* p)
+// src: COMMUNITY 0x00dfeff0
+void __cdecl finishLoadedObject_hkpSerializedDisplayMarkerList(int* p)
 {
     if (p)
         *p = (int)&DAT_010e66fc;
@@ -848,8 +848,8 @@ void __cdecl Runtime_UpdateState_00dfeff0(int* p)
 
 extern int DAT_010e676c;
 // @fnv 0x00dff0d0
-// src: GUESS 0x00dff0d0 (confidence: low)
-void __cdecl Runtime_UpdateState_00dff0d0(int* p)
+// src: COMMUNITY 0x00dff0d0
+void __cdecl finishLoadedObject_hkpSerializedDisplayMarker(int* p)
 {
     if (p)
         *p = (int)&DAT_010e676c;
@@ -878,8 +878,8 @@ void __cdecl finishLoadedObjecthkpMouseSpringAction(void* pObject, void* b)
 
 typedef void(__thiscall* VTableFn)(void*, int);
 // @fnv 0x00dff3c0
-// src: GUESS 0x00dff3c0 (confidence: low)
-void __cdecl Object_ProcessState_00dff3c0(void* p)
+// src: COMMUNITY 0x00dff3c0
+void __cdecl cleanupLoadedObject_hkpGroupCollisionFilter(void* p)
 {
     ((VTableFn*)*(void**)p)[0](p, 0);
 }
@@ -904,32 +904,32 @@ void __cdecl Object_UpdateFields_00dff600(int* p)
 
 extern int DAT_010e75ec;
 // @fnv 0x00dff620
-// src: GUESS 0x00dff620 (confidence: low)
-void __cdecl Object_UpdateFields_00dff620(int** p)
+// src: COMMUNITY 0x00dff620
+void __cdecl finishLoadedObject_hkpDisplayBindingData(int** p)
 {
     if (p)
         *p = &DAT_010e75ec;
 }
 
 // @fnv 0x00dff9e0
-// src: GUESS 0x00dff9e0 (confidence: low)
-void __cdecl Object_InvokeVirtualMethod_00dff9e0(void** p)
+// src: COMMUNITY 0x00dff9e0
+void __cdecl cleanupLoadedObject_hkpDashpotAction(void** p)
 {
     (**(void(__thiscall**)(void*, int))(*p))(p, 0);
 }
 
 typedef int(__thiscall* Vfn)(void*, int);
 // @fnv 0x00dffa30
-// src: GUESS 0x00dffa30 (confidence: low)
-int __cdecl Runtime_EvaluateValue_00dffa30(void* obj)
+// src: COMMUNITY 0x00dffa30
+int __cdecl cleanupLoadedObject_hkpConstrainedSystemFilter(void* obj)
 {
     return reinterpret_cast<Vfn>(**reinterpret_cast<void***>(obj))(obj, 0);
 }
 
 extern int DAT_010e7c24;
 // @fnv 0x00dffc80
-// src: GUESS 0x00dffc80 (confidence: low)
-void __cdecl Object_UpdateFields_00dffc80(int* p)
+// src: COMMUNITY 0x00dffc80
+void __cdecl finishLoadedObject_hkpConvexPieceStreamData(int* p)
 {
     if (p)
         *p = (int)&DAT_010e7c24;
@@ -937,8 +937,8 @@ void __cdecl Object_UpdateFields_00dffc80(int* p)
 
 extern int DAT_010cc0d8;
 // @fnv 0x00dffda0
-// src: GUESS 0x00dffda0 (confidence: low)
-void __cdecl Object_UpdateFields_00dffda0(int* p)
+// src: COMMUNITY 0x00dffda0
+void __cdecl finishLoadedObject_hkpVelocityConstraintMotor(int* p)
 {
     if (p)
         *p = (int)&DAT_010cc0d8;
@@ -949,16 +949,16 @@ struct FUN_00dffdc0_vt
     virtual void m0(int);
 };
 // @fnv 0x00dffdc0
-// src: GUESS 0x00dffdc0 (confidence: low)
-void __cdecl Object_InvokeVirtualMethod_00dffdc0(FUN_00dffdc0_vt* p)
+// src: COMMUNITY 0x00dffdc0
+void __cdecl cleanupLoadedObject_hkpThinBoxMotion(FUN_00dffdc0_vt* p)
 {
     p->m0(0);
 }
 
 extern int DAT_010d3838;
 // @fnv 0x00dffe40
-// src: GUESS 0x00dffe40 (confidence: low)
-void __cdecl Object_UpdateFields_00dffe40(int* p)
+// src: COMMUNITY 0x00dffe40
+void __cdecl finishLoadedObject_hkpSpringDamperConstraintMotor(int* p)
 {
     if (p)
         *p = (int)&DAT_010d3838;
@@ -967,8 +967,8 @@ void __cdecl Object_UpdateFields_00dffe40(int* p)
 extern int DAT_010cb798;
 
 // @fnv 0x00dffee0
-// src: GUESS 0x00dffee0 (confidence: low)
-void Object_UpdateFields_00dffee0(int* p)
+// src: COMMUNITY 0x00dffee0
+void finishLoadedObject_hkpPositionConstraintMotor(int* p)
 {
     if (p)
         *p = (int)&DAT_010cb798;
@@ -979,8 +979,8 @@ struct FUN_00dfff60_vt
     virtual int __thiscall v0(int);
 };
 // @fnv 0x00dfff60
-// src: GUESS 0x00dfff60 (confidence: low)
-int __cdecl Object_InvokeVirtualMethod_00dfff60(FUN_00dfff60_vt* p)
+// src: COMMUNITY 0x00dfff60
+int __cdecl cleanupLoadedObject_hkpMalleableConstraintData(FUN_00dfff60_vt* p)
 {
     return p->v0(0);
 }
@@ -990,16 +990,16 @@ struct FUN_00dfffc0_VT
     virtual void m0(int);
 };
 // @fnv 0x00dfffc0
-// src: GUESS 0x00dfffc0 (confidence: low)
-void __cdecl Object_InvokeVirtualMethod_00dfffc0(FUN_00dfffc0_VT* p)
+// src: COMMUNITY 0x00dfffc0
+void __cdecl cleanupLoadedObject_hkpLinearParametricCurve(FUN_00dfffc0_VT* p)
 {
     p->m0(0);
 }
 
 extern void* DAT_010e80b4;
 // @fnv 0x00dfffe0
-// src: GUESS 0x00dfffe0 (confidence: low)
-void __cdecl Object_UpdateFields_00dfffe0(void** p)
+// src: COMMUNITY 0x00dfffe0
+void __cdecl finishLoadedObject_hkpLinearParametricCurve(void** p)
 {
     if (p)
         *p = &DAT_010e80b4;
@@ -1141,16 +1141,16 @@ int __cdecl _nlz(int arg)
 
 typedef void(__thiscall* Vfn0)(void*, int);
 // @fnv 0x00df6460
-// src: GUESS 0x00df6460 (confidence: low)
-void __cdecl Object_ProcessState_00df6460(void** p)
+// src: COMMUNITY 0x00df6460
+void __cdecl cleanupLoadedObject_hkpWorld(void** p)
 {
     ((Vfn0) * (void**)*p)(p, 0);
 }
 
 typedef int(__thiscall* VFunc_00dfb270)(void*, int);
 // @fnv 0x00dfb270
-// src: GUESS 0x00dfb270 (confidence: low)
-int __cdecl Runtime_EvaluateValue_00dfb270(void* p)
+// src: COMMUNITY 0x00dfb270
+int __cdecl cleanupLoadedObject_hkpMoppBvTreeShape(void* p)
 {
     return ((VFunc_00dfb270*)*(void**)p)[0](p, 0);
 }
@@ -1168,8 +1168,8 @@ void __cdecl CallMethodOnBothHelpers(FUN_00cb0a70_m_helper* pHelper, int iValue)
 
 typedef void(__thiscall* VFunc00dfb3f0)(void*, int);
 // @fnv 0x00dfb3f0
-// src: GUESS 0x00dfb3f0 (confidence: low)
-void __cdecl Runtime_Helper_00dfb3f0(void** p)
+// src: COMMUNITY 0x00dfb3f0
+void __cdecl cleanupLoadedObject_hkMemoryResourceHandle(void** p)
 {
     ((VFunc00dfb3f0) * ((void***)p)[0])(p, 0);
 }
@@ -1179,8 +1179,8 @@ struct FUN_00dfb450_vt
     virtual void m0(int);
 };
 // @fnv 0x00dfb450
-// src: GUESS 0x00dfb450 (confidence: low)
-void __cdecl Runtime_ForwardCall_00dfb450(FUN_00dfb450_vt* p)
+// src: COMMUNITY 0x00dfb450
+void __cdecl cleanupLoadedObject_hkMemoryResourceContainer(FUN_00dfb450_vt* p)
 {
     p->m0(0);
 }
@@ -1190,8 +1190,8 @@ struct FUN_00dfb890_vt
     virtual void v0(int);
 };
 // @fnv 0x00dfb890
-// src: GUESS 0x00dfb890 (confidence: low)
-void __cdecl Runtime_ForwardCall_00dfb890(FUN_00dfb890_vt* p)
+// src: COMMUNITY 0x00dfb890
+void __cdecl cleanupLoadedObject_hkaSplineCompressedAnimation(FUN_00dfb890_vt* p)
 {
     p->v0(0);
 }
@@ -1199,8 +1199,8 @@ void __cdecl Runtime_ForwardCall_00dfb890(FUN_00dfb890_vt* p)
 extern int DAT_010c4dec;
 
 // @fnv 0x00dfb9f0
-// src: GUESS 0x00dfb9f0 (confidence: low)
-void Runtime_UpdateState_00dfb9f0(int* pTarget, int iValue)
+// src: COMMUNITY 0x00dfb9f0
+void finishLoadedObject_hkaSkeleton(int* pTarget, int iValue)
 {
     if (pTarget)
     {
@@ -1211,16 +1211,16 @@ void Runtime_UpdateState_00dfb9f0(int* pTarget, int iValue)
 
 typedef void(__thiscall* VTable0_00dfba70)(void*, int);
 // @fnv 0x00dfba70
-// src: GUESS 0x00dfba70 (confidence: low)
-void __cdecl Runtime_Helper_00dfba70(void* p)
+// src: COMMUNITY 0x00dfba70
+void __cdecl cleanupLoadedObject_hkaMeshBinding(void* p)
 {
     ((VTable0_00dfba70**)(void**)p)[0][0](p, 0);
 }
 
 typedef void(__thiscall* VFn0)(void*, int);
 // @fnv 0x00dfbb30
-// src: GUESS 0x00dfbb30 (confidence: low)
-void __cdecl Runtime_UpdateState_00dfbb30(void* p)
+// src: COMMUNITY 0x00dfbb30
+void __cdecl cleanupLoadedObject_hkaDeltaCompressedAnimation(void* p)
 {
     VFn0 f = (VFn0) * (void**)*(void**)p;
     f(p, 0);
@@ -1274,50 +1274,50 @@ void __cdecl Object_DestroyFields_00dfbca0(S_00dfb720_Elem* p)
 
 typedef void(__thiscall* VTable0)(void*, int);
 // @fnv 0x00dfbcd0
-// src: GUESS 0x00dfbcd0 (confidence: low)
-void __cdecl Runtime_Helper_00dfbcd0(void* p)
+// src: COMMUNITY 0x00dfbcd0
+void __cdecl cleanupLoadedObject_hkpVehicleLinearCastWheelCollide(void* p)
 {
     ((VTable0*)*(void**)p)[0](p, 0);
 }
 
 typedef void(__thiscall* VFunc1)(void*, int);
 // @fnv 0x00dfbdd0
-// src: GUESS 0x00dfbdd0 (confidence: low)
-void __cdecl Runtime_Helper_00dfbdd0(void* p)
+// src: COMMUNITY 0x00dfbdd0
+void __cdecl cleanupLoadedObject_hkpVehicleInstance(void* p)
 {
     ((VFunc1*)*(void**)p)[0](p, 0);
 }
 
 struct FUN_00dfc040_vt
 {
-    virtual void __thiscall Object_ForwardCall_00dfc040(int);
+    virtual void __thiscall cleanupLoadedObject_hkpVehicleDefaultBrake(int);
 };
 // @fnv 0x00dfc040
-// src: GUESS 0x00dfc040 (confidence: low)
-void __cdecl Object_ForwardCall_00dfc040(FUN_00dfc040_vt* p)
+// src: COMMUNITY 0x00dfc040
+void __cdecl cleanupLoadedObject_hkpVehicleDefaultBrake(FUN_00dfc040_vt* p)
 {
-    p->Object_ForwardCall_00dfc040(0);
+    p->cleanupLoadedObject_hkpVehicleDefaultBrake(0);
 }
 
 typedef void(__thiscall* V00dfc790)(void*, int);
 // @fnv 0x00dfc790
-// src: GUESS 0x00dfc790 (confidence: low)
-void __cdecl Runtime_Helper_00dfc790(void** p)
+// src: COMMUNITY 0x00dfc790
+void __cdecl cleanupLoadedObject_hkpStiffSpringChainData(void** p)
 {
     ((V00dfc790)(*(void**)*p))(p, 0);
 }
 
 // @fnv 0x00dfc7f0
-// src: GUESS 0x00dfc7f0 (confidence: low)
-void __cdecl Runtime_UpdateState_00dfc7f0(int* p)
+// src: COMMUNITY 0x00dfc7f0
+void __cdecl cleanupLoadedObject_hkpSimpleShapePhantom(int* p)
 {
     int* vt = (int*)(*(void**)p);
     ((void(__thiscall*)(void*, int))(*vt))((void*)p, 0);
 }
 
 // @fnv 0x00dfc8d0
-// src: GUESS 0x00dfc8d0 (confidence: low)
-void __cdecl Runtime_UpdateState_00dfc8d0(void** p)
+// src: COMMUNITY 0x00dfc8d0
+void __cdecl cleanupLoadedObject_hkpRotationalConstraintData(void** p)
 {
     void** vt = (void**)*p;
     reinterpret_cast<VTable0>(vt[0])(p, 0);
@@ -1325,8 +1325,8 @@ void __cdecl Runtime_UpdateState_00dfc8d0(void** p)
 
 typedef void(__thiscall* Vfn_00dfcb60)(void*, int);
 // @fnv 0x00dfcb60
-// src: GUESS 0x00dfcb60 (confidence: low)
-void __cdecl Object_UpdateFields_00dfcb60(void* p)
+// src: COMMUNITY 0x00dfcb60
+void __cdecl cleanupLoadedObject_hkpPoweredChainData(void* p)
 {
     Vfn_00dfcb60 fn = ((Vfn_00dfcb60*)*(void**)p)[0];
     fn(p, 0);
@@ -1337,8 +1337,8 @@ struct FUN_00dfcc30_vt
     virtual void v0(int);
 };
 // @fnv 0x00dfcc30
-// src: GUESS 0x00dfcc30 (confidence: low)
-void __cdecl Runtime_ForwardCall_00dfcc30(FUN_00dfcc30_vt* p)
+// src: COMMUNITY 0x00dfcc30
+void __cdecl cleanupLoadedObject_hkpLimitedHingeConstraintData(FUN_00dfcc30_vt* p)
 {
     p->v0(0);
 }
@@ -1360,8 +1360,8 @@ struct FUN_00dfce00_vt
     virtual void __thiscall v0(int);
 };
 // @fnv 0x00dfce00
-// src: GUESS 0x00dfce00 (confidence: low)
-void __cdecl Object_InvokeVirtualMethod_00dfce00(FUN_00dfce00_vt* p)
+// src: COMMUNITY 0x00dfce00
+void __cdecl cleanupLoadedObject_hkpBallSocketChainData(FUN_00dfce00_vt* p)
 {
     p->v0(0);
 }
@@ -1371,27 +1371,27 @@ struct FUN_00dfcf00_vt
     virtual void m_iWordAt00(int);
 };
 // @fnv 0x00dfcf00
-// src: GUESS 0x00dfcf00 (confidence: medium)
-void __cdecl Object_M_iWordAt00_Thunk(FUN_00dfcf00_vt* p)
+// src: COMMUNITY 0x00dfcf00
+void __cdecl cleanupLoadedObject_hkpSimpleMeshShape(FUN_00dfcf00_vt* p)
 {
     p->m_iWordAt00(0);
 }
 
 struct FUN_00dfd240_vt
 {
-    virtual void __thiscall Object_ForwardCall_00dfd240(int);
+    virtual void __thiscall cleanupLoadedObject_hkpConvexVerticesShape(int);
 };
 // @fnv 0x00dfd240
-// src: GUESS 0x00dfd240 (confidence: low)
-void __cdecl Object_ForwardCall_00dfd240(FUN_00dfd240_vt* p)
+// src: COMMUNITY 0x00dfd240
+void __cdecl cleanupLoadedObject_hkpConvexVerticesShape(FUN_00dfd240_vt* p)
 {
-    p->Object_ForwardCall_00dfd240(0);
+    p->cleanupLoadedObject_hkpConvexVerticesShape(0);
 }
 
 typedef void(__thiscall* Vfn_00dfd620)(void*, int);
 // @fnv 0x00dfd620
-// src: GUESS 0x00dfd620 (confidence: low)
-void __cdecl Object_ProcessState_00dfd620(void* p)
+// src: COMMUNITY 0x00dfd620
+void __cdecl cleanupLoadedObject_hkxVertexBuffer(void* p)
 {
     ((Vfn_00dfd620*)*(void**)p)[0](p, 0);
 }
@@ -1410,8 +1410,8 @@ void __cdecl Runtime_ForwardCall_00dfd670(DFD680MeshData* p)
 extern int DAT_010e311c;
 // If p is non-null, stores &DAT_010e311c at p[0] and calls m(a) on the helper objects at p+5 and p+16.
 // @fnv 0x00dfd7d0
-// src: GUESS 0x00dfd7d0 (confidence: low)
-void Object_UpdateState_00dfd7d0(int* pObject, int aiValue)
+// src: COMMUNITY 0x00dfd7d0
+void finishLoadedObject_hkxNode(int* pObject, int aiValue)
 {
     if (pObject)
     {
@@ -1422,8 +1422,8 @@ void Object_UpdateState_00dfd7d0(int* pObject, int aiValue)
 }
 
 // @fnv 0x00dfda70
-// src: GUESS 0x00dfda70 (confidence: low)
-void __cdecl Runtime_UpdateState_00dfda70(void* p)
+// src: COMMUNITY 0x00dfda70
+void __cdecl cleanupLoadedObject_hkxEnvironment(void* p)
 {
     void(__thiscall * fn)(void*, int) = ((void(__thiscall*)(void*, int)) * (*(void***)p));
     fn(p, 0);
@@ -1438,8 +1438,8 @@ void Runtime_ProcessState_00dfdad0(int* a, int iValue)
 }
 
 // @fnv 0x00dfdb00
-// src: GUESS 0x00dfdb00 (confidence: low)
-void __cdecl Object_ProcessState_00dfdb00(void* p)
+// src: COMMUNITY 0x00dfdb00
+void __cdecl cleanupLoadedObject_hkxEnum(void* p)
 {
     ((VFunc0*)*(void**)p)[0](p, 0);
 }
@@ -1449,8 +1449,8 @@ struct FUN_00dfdb20_vt
     virtual void v0(int);
 };
 // @fnv 0x00dfdb20
-// src: GUESS 0x00dfdb20 (confidence: low)
-void __cdecl Object_InvokeVirtualMethod_00dfdb20(FUN_00dfdb20_vt* p)
+// src: COMMUNITY 0x00dfdb20
+void __cdecl cleanupLoadedObject_hkxSparselyAnimatedEnum(FUN_00dfdb20_vt* p)
 {
     p->v0(0);
 }
@@ -1473,13 +1473,13 @@ void __cdecl Runtime_ForwardCall_00dfdd50(S_00e3eaa0_Elem* p)
     p->S_00e3eaa0_Elem::~S_00e3eaa0_Elem();
 }
 
-struct FUN_00e3f900_class
+struct hkxAttribute
 {
     int ProcessAndReturnValue_00e3f900(int);
 };
 // @fnv 0x00dfdd60
 // src: GUESS 0x00dfdd60 (confidence: low)
-void __cdecl Object_ProcessState_00dfdd60(FUN_00e3f900_class* p, int a)
+void __cdecl Object_ProcessState_00dfdd60(hkxAttribute* p, int a)
 {
     if (p)
         p->ProcessAndReturnValue_00e3f900(a);
@@ -1518,16 +1518,16 @@ void __cdecl Object_DestroyFields_00dfe0c0(ArrayPair* p)
 
 typedef void(__thiscall* Vfn_00dfe270)(void*, int);
 // @fnv 0x00dfe270
-// src: GUESS 0x00dfe270 (confidence: low)
-void __cdecl Runtime_UpdateState_00dfe270(void* p)
+// src: COMMUNITY 0x00dfe270
+void __cdecl cleanupLoadedObject_hkaRagdollInstance(void* p)
 {
     Vfn_00dfe270 fn = *(Vfn_00dfe270*)*(void**)p;
     fn(p, 0);
 }
 
 // @fnv 0x00dfe2b0
-// src: GUESS 0x00dfe2b0 (confidence: low)
-void __cdecl Runtime_Helper_00dfe2b0(void* p)
+// src: COMMUNITY 0x00dfe2b0
+void __cdecl cleanupLoadedObject_hkaSkeletonMapper(void* p)
 {
     ((void(__thiscall*)(void*, int)) * (*(void***)p))(p, 0);
 }
@@ -1559,8 +1559,8 @@ struct FUN_00dfe320_vt
     virtual void m_iWordAt00(int);
 };
 // @fnv 0x00dfe320
-// src: GUESS 0x00dfe320 (confidence: medium)
-void __cdecl Object_M_iWordAt00_Thunk_00dfe320(FUN_00dfe320_vt* p)
+// src: COMMUNITY 0x00dfe320
+void __cdecl cleanupLoadedObject_hkaInterleavedUncompressedAnimation(FUN_00dfe320_vt* p)
 {
     p->m_iWordAt00(0);
 }
@@ -1578,15 +1578,15 @@ struct FUN_00dfe4e0_vt
     virtual void m0(int);
 };
 // @fnv 0x00dfe4e0
-// src: GUESS 0x00dfe4e0 (confidence: low)
-void __cdecl Object_InvokeVirtualMethod_00dfe4e0(FUN_00dfe4e0_vt* p)
+// src: COMMUNITY 0x00dfe4e0
+void __cdecl cleanupLoadedObject_hkaDefaultAnimatedReferenceFrame(FUN_00dfe4e0_vt* p)
 {
     p->m0(0);
 }
 
 // @fnv 0x00dfe590
-// src: GUESS 0x00dfe590 (confidence: low)
-void __cdecl Runtime_UpdateState_00dfe590(void* p)
+// src: COMMUNITY 0x00dfe590
+void __cdecl cleanupLoadedObject_hkaBoneAttachment(void* p)
 {
     void(__thiscall * fn)(void*, int);
     fn = (void(__thiscall*)(void*, int)) * ((void**)*((void**)p));
@@ -1610,8 +1610,8 @@ void __cdecl finishLoadedObjecthkaBoneAttachment(void* pObject, int iValue)
 
 extern int DAT_010e5a58;
 // @fnv 0x00dfe990
-// src: GUESS 0x00dfe990 (confidence: low)
-void __cdecl Object_UpdateState_00dfe990(void* apObject, int aiValue)
+// src: COMMUNITY 0x00dfe990
+void __cdecl finishLoadedObject_hkaAnimationBinding(void* apObject, int aiValue)
 {
     if (apObject)
     {
@@ -1621,8 +1621,8 @@ void __cdecl Object_UpdateState_00dfe990(void* apObject, int aiValue)
 }
 
 // @fnv 0x00dfeb40
-// src: GUESS 0x00dfeb40 (confidence: low)
-void __cdecl Object_UpdateFields_00dfeb40(void* p)
+// src: COMMUNITY 0x00dfeb40
+void __cdecl cleanupLoadedObject_hkpVehicleRayCastBatchingManager(void* p)
 {
     void(__thiscall * fn)(void*, int);
     fn = *reinterpret_cast<void(__thiscall**)(void*, int)>(*reinterpret_cast<void**>(p));
@@ -1630,16 +1630,16 @@ void __cdecl Object_UpdateFields_00dfeb40(void* p)
 }
 
 // @fnv 0x00dfebb0
-// src: GUESS 0x00dfebb0 (confidence: low)
-void __cdecl Runtime_Helper_00dfebb0(void** p)
+// src: COMMUNITY 0x00dfebb0
+void __cdecl cleanupLoadedObject_hkpVehicleManager(void** p)
 {
     ((void(__thiscall*)(void*, int))(**(void****)p))(p, 0);
 }
 
 typedef void(__thiscall* Vfn0)(void*, int);
 // @fnv 0x00dfebf0
-// src: GUESS 0x00dfebf0 (confidence: low)
-void __cdecl Runtime_Helper_00dfebf0(void* p)
+// src: COMMUNITY 0x00dfebf0
+void __cdecl cleanupLoadedObject_hkpVehicleLinearCastBatchingManager(void* p)
 {
     ((Vfn0*)*(void**)p)[0](p, 0);
 }
@@ -1649,8 +1649,8 @@ struct FUN_00dfec30_vt
     virtual void m0(int);
 };
 // @fnv 0x00dfec30
-// src: GUESS 0x00dfec30 (confidence: low)
-void __cdecl Runtime_ForwardCall_00dfec30(FUN_00dfec30_vt* p)
+// src: COMMUNITY 0x00dfec30
+void __cdecl cleanupLoadedObject_hkpVehicleDriverInputAnalogStatus(FUN_00dfec30_vt* p)
 {
     p->m0(0);
 }
@@ -1660,8 +1660,8 @@ struct FUN_00dfecf0_vt
     virtual void v0(int);
 };
 // @fnv 0x00dfecf0
-// src: GUESS 0x00dfecf0 (confidence: low)
-void __cdecl Runtime_ForwardCall_00dfecf0(FUN_00dfecf0_vt* p)
+// src: COMMUNITY 0x00dfecf0
+void __cdecl cleanupLoadedObject_hkpVehicleDefaultTransmission(FUN_00dfecf0_vt* p)
 {
     p->v0(0);
 }
@@ -1671,16 +1671,16 @@ struct FUN_00dfede0_vt
     virtual void v0(int);
 };
 // @fnv 0x00dfede0
-// src: GUESS 0x00dfede0 (confidence: low)
-void __cdecl Object_InvokeVirtualMethod_00dfede0(FUN_00dfede0_vt* p)
+// src: COMMUNITY 0x00dfede0
+void __cdecl cleanupLoadedObject_hkpVehicleDefaultSteering(FUN_00dfede0_vt* p)
 {
     p->v0(0);
 }
 
 typedef int(__thiscall* Vfn_00dfeec0)(void*, int);
 // @fnv 0x00dfeec0
-// src: GUESS 0x00dfeec0 (confidence: low)
-int __cdecl Object_GetIndexedValue_00dfeec0(void* p)
+// src: COMMUNITY 0x00dfeec0
+int __cdecl cleanupLoadedObject_hkpVehicleDefaultAerodynamics(void* p)
 {
     return ((Vfn_00dfeec0*)*(void**)p)[0](p, 0);
 }
@@ -1690,8 +1690,8 @@ struct FUN_00dfef00_vt
     virtual void __thiscall m0(int);
 };
 // @fnv 0x00dfef00
-// src: GUESS 0x00dfef00 (confidence: low)
-void __cdecl Object_InvokeVirtualMethod_00dfef00(FUN_00dfef00_vt* p)
+// src: COMMUNITY 0x00dfef00
+void __cdecl cleanupLoadedObject_hkpRejectChassisListener(FUN_00dfef00_vt* p)
 {
     p->m0(0);
 }
@@ -1701,42 +1701,42 @@ struct FUN_00dff1d0_vt
     virtual void m0(int);
 };
 // @fnv 0x00dff1d0
-// src: GUESS 0x00dff1d0 (confidence: low)
-void __cdecl Runtime_ForwardCall_00dff1d0(FUN_00dff1d0_vt* p)
+// src: COMMUNITY 0x00dff1d0
+void __cdecl cleanupLoadedObject_hkpPhysicsSystemWithContacts(FUN_00dff1d0_vt* p)
 {
     p->m0(0);
 }
 
 typedef void(__thiscall* VTable0)(void*, int);
 // @fnv 0x00dff300
-// src: GUESS 0x00dff300 (confidence: low)
-void __cdecl Object_ProcessState_00dff300(void** p)
+// src: COMMUNITY 0x00dff300
+void __cdecl cleanupLoadedObject_hkpMountedBallGun(void** p)
 {
     ((VTable0)(*(void**)*p))(p, 0);
 }
 
 struct FUN_00dff370_vt
 {
-    virtual void __thiscall Runtime_ForwardCall_00dff370(int);
+    virtual void __thiscall cleanupLoadedObject_hkpMotorAction(int);
 };
 // @fnv 0x00dff370
-// src: GUESS 0x00dff370 (confidence: low)
-void __cdecl Runtime_ForwardCall_00dff370(FUN_00dff370_vt* p)
+// src: COMMUNITY 0x00dff370
+void __cdecl cleanupLoadedObject_hkpMotorAction(FUN_00dff370_vt* p)
 {
-    p->Runtime_ForwardCall_00dff370(0);
+    p->cleanupLoadedObject_hkpMotorAction(0);
 }
 
 // @fnv 0x00dff540
-// src: GUESS 0x00dff540 (confidence: low)
-void __cdecl Object_ProcessState_00dff540(void** p)
+// src: COMMUNITY 0x00dff540
+void __cdecl cleanupLoadedObject_hkpFirstPersonGun(void** p)
 {
     ((Vfn)(*(void**)*p))(p, 0);
 }
 
 typedef void(__thiscall* VTable0)(void*, int);
 // @fnv 0x00dff580
-// src: GUESS 0x00dff580 (confidence: low)
-void __cdecl Object_ProcessState_00dff580(void** p)
+// src: COMMUNITY 0x00dff580
+void __cdecl cleanupLoadedObject_hkpDisplayBindingDataRigidBody(void** p)
 {
     ((VTable0)(*(VTable0*)*p))(p, 0);
 }
@@ -1744,8 +1744,8 @@ void __cdecl Object_ProcessState_00dff580(void** p)
 typedef void(__thiscall* VTable0)(void*, int);
 
 // @fnv 0x00dff5c0
-// src: GUESS 0x00dff5c0 (confidence: low)
-void __cdecl Object_ProcessState_00dff5c0(void* p)
+// src: COMMUNITY 0x00dff5c0
+void __cdecl cleanupLoadedObject_hkpDisplayBindingData(void* p)
 {
     ((VTable0*)*(void**)p)[0](p, 0);
 }
@@ -1757,8 +1757,8 @@ struct FUN_00dff9b0_m : FUN_00cb0a70
     void __thiscall m(int);
 };
 // @fnv 0x00dff9b0
-// src: GUESS 0x00dff9b0 (confidence: low)
-void __cdecl Object_UpdateState_00dff9b0(FUN_00dff9b0_m* pObject, int aiValue)
+// src: COMMUNITY 0x00dff9b0
+void __cdecl finishLoadedObject_hkpDashpotAction(FUN_00dff9b0_m* pObject, int aiValue)
 {
     if (pObject)
     {
@@ -1770,8 +1770,8 @@ void __cdecl Object_UpdateState_00dff9b0(FUN_00dff9b0_m* pObject, int aiValue)
 
 typedef void(__thiscall* VTblFn0)(void*, int);
 // @fnv 0x00dffc10
-// src: GUESS 0x00dffc10 (confidence: low)
-void __cdecl Runtime_Helper_00dffc10(void* p)
+// src: COMMUNITY 0x00dffc10
+void __cdecl cleanupLoadedObject_hkpAngularDashpotAction(void* p)
 {
     ((VTblFn0*)*(void**)p)[0](p, 0);
 }
@@ -1781,8 +1781,8 @@ struct FUN_00dffc60_vt
     virtual void m0(int);
 };
 // @fnv 0x00dffc60
-// src: GUESS 0x00dffc60 (confidence: low)
-void __cdecl Object_InvokeVirtualMethod_00dffc60(FUN_00dffc60_vt* p)
+// src: COMMUNITY 0x00dffc60
+void __cdecl cleanupLoadedObject_hkpConvexPieceStreamData(FUN_00dffc60_vt* p)
 {
     p->m0(0);
 }
@@ -1792,16 +1792,16 @@ struct FUN_00dffd80_vt
     virtual void __thiscall ReturnSelf(int);
 };
 // @fnv 0x00dffd80
-// src: GUESS 0x00dffd80 (confidence: low)
-void __cdecl Object_ForwardCall_00dffd80(FUN_00dffd80_vt* p)
+// src: COMMUNITY 0x00dffd80
+void __cdecl cleanupLoadedObject_hkpVelocityConstraintMotor(FUN_00dffd80_vt* p)
 {
     p->ReturnSelf(0);
 }
 
 typedef void(__thiscall* VTableFn)(void*, int);
 // @fnv 0x00dffe20
-// src: GUESS 0x00dffe20 (confidence: low)
-void __cdecl Object_ProcessState_00dffe20(void* p)
+// src: COMMUNITY 0x00dffe20
+void __cdecl cleanupLoadedObject_hkpSpringDamperConstraintMotor(void* p)
 {
     ((VTableFn*)*(void**)p)[0](p, 0);
 }
@@ -1811,16 +1811,16 @@ struct FUN_00dffe60_vt
     virtual void m_iWordAt00(int);
 };
 // @fnv 0x00dffe60
-// src: GUESS 0x00dffe60 (confidence: medium)
-void __cdecl Object_M_iWordAt00_Thunk_00dffe60(FUN_00dffe60_vt* p)
+// src: COMMUNITY 0x00dffe60
+void __cdecl cleanupLoadedObject_hkpSphereMotion(FUN_00dffe60_vt* p)
 {
     p->m_iWordAt00(0);
 }
 
 typedef void(__thiscall* Vfn0)(void*, int);
 // @fnv 0x00dfff00
-// src: GUESS 0x00dfff00 (confidence: low)
-void __cdecl Object_ProcessState_00dfff00(void* p)
+// src: COMMUNITY 0x00dfff00
+void __cdecl cleanupLoadedObject_hkpPointToPathConstraintData(void* p)
 {
     ((Vfn0*)*((void**)p))[0](p, 0);
 }
@@ -1879,7 +1879,7 @@ FUN_00de3050::FUN_00de3050() : m_iWordAt00(DAT_01017d00)
 
 extern int DAT_010d8214;
 
-class FUN_00de3060
+class hkpConvexRadiusBuilder
 {
   public:
     void* m_00;
@@ -1888,12 +1888,13 @@ class FUN_00de3060
     unsigned int m_08;
     unsigned int m_0c;
 
-    FUN_00de3060(const unsigned int* src);
+    hkpConvexRadiusBuilder(const unsigned int* src);
 };
 
 // Initializes the object: sets m_06 to 1, points m_00 at DAT_010d8214, copies *src into m_08 and zeroes m_0c.
 // @fnv 0x00de3060
-FUN_00de3060::FUN_00de3060(const unsigned int* src)
+// src: EXE 0x00de3060
+hkpConvexRadiusBuilder::hkpConvexRadiusBuilder(const unsigned int* src)
 {
     m_06 = 1;
     m_00 = (void*)&DAT_010d8214;
@@ -2827,7 +2828,7 @@ void* __cdecl Runtime_GetUnk126a3a8Address()
     return &g_unk126a3a8;
 }
 
-class FUN_00de8780_cls
+class hkMatrix4
 {
   public:
     float m_fValues[16];
@@ -2837,7 +2838,7 @@ class FUN_00de8780_cls
 
 // Checks all 16 floats for NaN or infinity via exponent bits and writes 0 to pResult if any is found, otherwise 1.
 // @fnv 0x00de8780
-unsigned char* FUN_00de8780_cls::HasNoNaNOrInf(unsigned char* pResult)
+unsigned char* hkMatrix4::HasNoNaNOrInf(unsigned char* pResult)
 {
     for (int i = 0; i < 16; ++i)
     {
@@ -3069,8 +3070,8 @@ struct Handler_cls
 };
 
 // @fnv 0x00df6440
-// src: GUESS 0x00df6440 (confidence: low)
-void __cdecl Object_ProcessState_00df6440(Handler_cls* pHandler, int value)
+// src: COMMUNITY 0x00df6440
+void __cdecl finishLoadedObject_hkpWorld(Handler_cls* pHandler, int value)
 {
     if (pHandler != 0)
         pHandler->Handle(value);
@@ -3186,15 +3187,15 @@ int* __cdecl Object_GetGlobalObjectAddress_00dfb280()
 
 struct FUN_00dfb2d0_class
 {
-    void __thiscall FUN_00dfb2d0(int a);
+    void __thiscall hkpMoppBvTreeShape(int a);
 };
 
 // @fnv 0x00dfb290
-// src: GUESS 0x00dfb290 (confidence: low)
-void __cdecl Object_ProcessState_00dfb290(FUN_00dfb2d0_class* pObject, int a)
+// src: COMMUNITY 0x00dfb290
+void __cdecl finishLoadedObject_hkpMoppBvTreeShape(FUN_00dfb2d0_class* pObject, int a)
 {
     if (pObject)
-        pObject->FUN_00dfb2d0(a);
+        pObject->hkpMoppBvTreeShape(a);
 }
 
 extern int DAT_0126aac0;
@@ -3233,8 +3234,8 @@ struct FUN_00dfb3d0_cls
 };
 
 // @fnv 0x00dfb3d0
-// src: GUESS 0x00dfb3d0 (confidence: low)
-void __cdecl Object_ProcessState_00dfb3d0(FUN_00dfb3d0_cls* pObject, int a1)
+// src: COMMUNITY 0x00dfb3d0
+void __cdecl finishLoadedObject_hkMemoryResourceHandle(FUN_00dfb3d0_cls* pObject, int a1)
 {
     if (pObject != 0)
     {
@@ -3257,8 +3258,8 @@ struct FUN_00e2ebc0_cls
 };
 
 // @fnv 0x00dfb430
-// src: GUESS 0x00dfb430 (confidence: low)
-void __cdecl Object_ProcessState_00dfb430(FUN_00e2ebc0_cls* pObject, void* pArg)
+// src: COMMUNITY 0x00dfb430
+void __cdecl finishLoadedObject_hkMemoryResourceContainer(FUN_00e2ebc0_cls* pObject, void* pArg)
 {
     if (pObject != 0)
         pObject->Init(pArg);
@@ -3314,8 +3315,8 @@ class DFB550Object
 };
 
 // @fnv 0x00dfb550
-// src: GUESS 0x00dfb550 (confidence: low)
-void Runtime_DestroySubobject_00dfb550(DFB550Object* pkObject)
+// src: COMMUNITY 0x00dfb550
+void cleanupLoadedObject_hkaWaveletCompressedAnimation(DFB550Object* pkObject)
 {
     pkObject->~DFB550Object();
 }
@@ -3354,8 +3355,8 @@ class DFB570Object
 };
 
 // @fnv 0x00dfb570
-// src: GUESS 0x00dfb570 (confidence: low)
-void Runtime_AllocateStorage_00dfb570(void* apMemory, int finishing)
+// src: COMMUNITY 0x00dfb570
+void finishLoadedObject_hkaWaveletCompressedAnimation(void* apMemory, int finishing)
 {
     DFB570FinishFlag flag;
     flag.m_bFinishing = finishing;
@@ -3398,7 +3399,7 @@ void* Object_GetGlobalObjectAddress_00dfb8a0()
     return &g_target_00dfb8a0;
 }
 
-// ResetVTable -- installs a fixed vtable on an object and, when the second
+// finishLoadedObject_hkaSplineCompressedAnimation -- installs a fixed vtable on an object and, when the second
 // argument is set, runs the object's update step afterwards.
 
 extern int DAT_010de0ec;  // vtable that gets installed
@@ -3414,7 +3415,8 @@ struct ResetVTableTarget
 };
 
 // @fnv 0x00dfb8b0
-void __cdecl ResetVTable(ResetVTableObj* pObj, int bUpdate)
+// src: COMMUNITY 0x00dfb8b0
+void __cdecl finishLoadedObject_hkaSplineCompressedAnimation(ResetVTableObj* pObj, int bUpdate)
 {
     if (pObj != 0)
     {
@@ -3478,14 +3480,14 @@ int* __cdecl Runtime_GetDAT0126aee0Address()
     return &DAT_0126aee0;
 }
 
-struct FUN_00ce5370_cls
+struct hkaSkeletonMapperData
 {
     void __thiscall UpdateState_00ce5370();
 };
 
 // @fnv 0x00dfb980
 // src: GUESS 0x00dfb980 (confidence: low)
-void __cdecl Object_ForwardCall_00dfb980(FUN_00ce5370_cls* p)
+void __cdecl Object_ForwardCall_00dfb980(hkaSkeletonMapperData* p)
 {
     p->UpdateState_00ce5370();
 }
@@ -3514,8 +3516,8 @@ struct FUN_00dfb9a0_cls
 };
 
 // @fnv 0x00dfb9a0
-// src: GUESS 0x00dfb9a0 (confidence: low)
-int __cdecl Object_InvokeVirtualMethod_00dfb9a0(FUN_00dfb9a0_cls* pObj)
+// src: COMMUNITY 0x00dfb9a0
+int __cdecl cleanupLoadedObject_hkaSkeleton(FUN_00dfb9a0_cls* pObj)
 {
     return pObj->v00(0);
 }
@@ -3545,8 +3547,8 @@ class FUN_00dfba50_cls
 };
 
 // @fnv 0x00dfba50
-// src: GUESS 0x00dfba50 (confidence: low)
-void __cdecl Object_ProcessState_00dfba50(FUN_00dfba50_cls* pObject, int a1)
+// src: COMMUNITY 0x00dfba50
+void __cdecl finishLoadedObject_hkaMeshBinding(FUN_00dfba50_cls* pObject, int a1)
 {
     if (pObject != 0)
     {
@@ -3639,8 +3641,8 @@ struct FUN_00dfbb50_cls
 };
 
 // @fnv 0x00dfbb50
-// src: GUESS 0x00dfbb50 (confidence: low)
-void __cdecl Object_UpdateState_00dfbb50(FUN_00dfbb50_cls* apObject, int a)
+// src: COMMUNITY 0x00dfbb50
+void __cdecl finishLoadedObject_hkaDeltaCompressedAnimation(FUN_00dfbb50_cls* apObject, int a)
 {
     if (apObject)
     {
@@ -3839,8 +3841,8 @@ struct FUN_00dfbf30_class
 };
 
 // @fnv 0x00dfbf30
-// src: GUESS 0x00dfbf30 (confidence: low)
-void __cdecl Runtime_ForwardCall_00dfbf30(void* p)
+// src: COMMUNITY 0x00dfbf30
+void __cdecl cleanupLoadedObject_hkpVehicleDefaultSuspension(void* p)
 {
     ((FUN_00dfbf30_class*)p)->m0(0);
 }
@@ -3909,8 +3911,8 @@ void __thiscall S_00dfc110_vt::m0(int)
 {}
 
 // @fnv 0x00dfc110
-// src: GUESS 0x00dfc110 (confidence: low)
-void __cdecl Runtime_ForwardCall_00dfc110(void* p)
+// src: COMMUNITY 0x00dfc110
+void __cdecl cleanupLoadedObject_hkpVehicleData(void* p)
 {
     ((S_00dfc110_vt*)p)->m0(0);
 }
@@ -3943,7 +3945,7 @@ struct BufferBase
     {}
 };
 
-struct FUN_00dfc150_cls : public BufferBase
+struct hkpVehicleData : public BufferBase
 {
     int unk04;
     int unk08;
@@ -3992,7 +3994,7 @@ struct FUN_00dfc150_cls : public BufferBase
 // Frees both owned buffers through the global allocator, resets their data pointers, counts and capacities, then destroys the base object.
 // @fnv 0x00dfc150
 // src: GUESS 0x00dfc150 (confidence: medium)
-void FUN_00dfc150_cls::FreeOwnedBuffersAndDestroyBase()
+void hkpVehicleData::FreeOwnedBuffersAndDestroyBase()
 {
     hkMemoryRouter* h = hkMemoryRouter_getInstance();
     Allocator* alloc = reinterpret_cast<Allocator*>(h->m_heap);
@@ -4138,8 +4140,8 @@ class VirtualDispatchObj
 };
 
 // @fnv 0x00dfc450
-// src: GUESS 0x00dfc450 (confidence: low)
-void __cdecl Runtime_ForwardCall_00dfc450(VirtualDispatchObj* p)
+// src: COMMUNITY 0x00dfc450
+void __cdecl cleanupLoadedObject_hkpSerializedDisplayRbTransforms(VirtualDispatchObj* p)
 {
     p->Invoke0(0);
 }
@@ -4239,8 +4241,8 @@ struct FUN_00dfc600_vt
     virtual void __thiscall m0(int);
 };
 // @fnv 0x00dfc600
-// src: GUESS 0x00dfc600 (confidence: low)
-void __cdecl Object_InvokeVirtualMethod_00dfc600(FUN_00dfc600_vt* p)
+// src: COMMUNITY 0x00dfc600
+void __cdecl cleanupLoadedObject_hkpMoppCode(FUN_00dfc600_vt* p)
 {
     p->m0(0);
 }
@@ -4287,8 +4289,8 @@ struct FUN_00dfc690_vt
 };
 
 // @fnv 0x00dfc690
-// src: GUESS 0x00dfc690 (confidence: low)
-void __cdecl Runtime_ForwardCall_00dfc690(FUN_00dfc690_vt* p)
+// src: COMMUNITY 0x00dfc690
+void __cdecl cleanupLoadedObject_hkpWheelConstraintData(FUN_00dfc690_vt* p)
 {
     p->m0(0);
 }
@@ -4354,8 +4356,8 @@ struct Handler_cls
 };
 
 // @fnv 0x00dfc770
-// src: GUESS 0x00dfc770 (confidence: low)
-void __cdecl Runtime_ProcessState_00dfc770(Handler_cls* pHandler, int value)
+// src: COMMUNITY 0x00dfc770
+void __cdecl finishLoadedObject_hkpStiffSpringChainData(Handler_cls* pHandler, int value)
 {
     if (pHandler != 0)
         pHandler->Handle(value);
@@ -4396,8 +4398,8 @@ class DFC810Object
 };
 
 // @fnv 0x00dfc810
-// src: GUESS 0x00dfc810 (confidence: low)
-void __cdecl Runtime_ProcessState_00dfc810(DFC810Object* pkObject, void* pvData)
+// src: COMMUNITY 0x00dfc810
+void __cdecl finishLoadedObject_hkpSimpleShapePhantom(DFC810Object* pkObject, void* pvData)
 {
     if (pkObject)
         pkObject->Process(pvData);
@@ -4465,7 +4467,7 @@ class SpawnedMid
     }
 };
 
-class FUN_00dfc850 : public SpawnedBase, public SpawnedMid
+class hkpSimpleShapePhantom : public SpawnedBase, public SpawnedMid
 {
   public:
     int m_a4;
@@ -4518,12 +4520,13 @@ class FUN_00dfc850 : public SpawnedBase, public SpawnedMid
     int m_160;
     int m_164;
     int m_168;
-    virtual ~FUN_00dfc850();
-    FUN_00dfc850(int a1);
+    virtual ~hkpSimpleShapePhantom();
+    hkpSimpleShapePhantom(int a1);
 };
 
 // @fnv 0x00dfc850
-FUN_00dfc850::FUN_00dfc850(int aiValue) : SpawnedBase(aiValue)
+// src: EXE 0x00dfc850
+hkpSimpleShapePhantom::hkpSimpleShapePhantom(int aiValue) : SpawnedBase(aiValue)
 {
     *(volatile int*)&m_160 = 0;
     *(volatile int*)&m_164 = 0;
@@ -4571,8 +4574,8 @@ struct FUN_00dfc940_class
 };
 
 // @fnv 0x00dfc940
-// src: GUESS 0x00dfc940 (confidence: low)
-void __cdecl Object_InvokeVirtualMethod_00dfc940(FUN_00dfc940_class* p)
+// src: COMMUNITY 0x00dfc940
+void __cdecl cleanupLoadedObject_hkpRagdollLimitsData(FUN_00dfc940_class* p)
 {
     p->m0(0);
 }
@@ -4686,8 +4689,8 @@ class DFC9D0Object
 };
 
 // @fnv 0x00dfc9d0
-// src: GUESS 0x00dfc9d0 (confidence: low)
-void Runtime_DestroySubobject_00dfc9d0(DFC9D0Object* pkObject)
+// src: COMMUNITY 0x00dfc9d0
+void cleanupLoadedObject_hkpRagdollConstraintData(DFC9D0Object* pkObject)
 {
     pkObject->~DFC9D0Object();
 }
@@ -4726,8 +4729,8 @@ class DFCA60Object
 };
 
 // @fnv 0x00dfca60
-// src: GUESS 0x00dfca60 (confidence: low)
-void Object_InvokeVirtualMethod_00dfca60(DFCA60Object* pkObject)
+// src: COMMUNITY 0x00dfca60
+void cleanupLoadedObject_hkpPulleyConstraintData(DFCA60Object* pkObject)
 {
     pkObject->~DFCA60Object();
 }
@@ -4791,8 +4794,8 @@ struct Handler_cls
 };
 
 // @fnv 0x00dfcb40
-// src: GUESS 0x00dfcb40 (confidence: low)
-void __cdecl Object_ProcessState_00dfcb40(Handler_cls* pHandler, int value)
+// src: COMMUNITY 0x00dfcb40
+void __cdecl finishLoadedObject_hkpPoweredChainData(Handler_cls* pHandler, int value)
 {
     if (pHandler != 0)
         pHandler->Handle(value);
@@ -4824,8 +4827,8 @@ struct FUN_00dfcbc0_vt
 
 // Calls the first virtual of the object passed in as the only argument.
 // @fnv 0x00dfcbc0
-// src: GUESS 0x00dfcbc0 (confidence: low)
-void __cdecl Object_InvokeVirtualMethod_00dfcbc0(FUN_00dfcbc0_vt* pObject)
+// src: COMMUNITY 0x00dfcbc0
+void __cdecl cleanupLoadedObject_hkpPointToPlaneConstraintData(FUN_00dfcbc0_vt* pObject)
 {
     pObject->m0(0);
 }
@@ -4894,8 +4897,8 @@ struct VtblForwarder
 };
 
 // @fnv 0x00dfcca0
-// src: GUESS 0x00dfcca0 (confidence: low)
-int __cdecl Object_InvokeVirtualMethod_00dfcca0(VtblForwarder* p)
+// src: COMMUNITY 0x00dfcca0
+int __cdecl cleanupLoadedObject_hkpHingeLimitsData(VtblForwarder* p)
 {
     return p->v0(0);
 }
@@ -4989,8 +4992,8 @@ struct DFD5E0
     void __thiscall FUN_00d53df0(void* p);
 };
 // @fnv 0x00dfcde0
-// src: GUESS 0x00dfcde0 (confidence: low)
-void __cdecl Object_ProcessState_00dfcde0(void* pTarget, void* b)
+// src: COMMUNITY 0x00dfcde0
+void __cdecl finishLoadedObject_hkpBallSocketChainData(void* pTarget, void* b)
 {
     if (pTarget != 0)
     {
@@ -5025,8 +5028,8 @@ struct VtblForwarder
 };
 
 // @fnv 0x00dfce60
-// src: GUESS 0x00dfce60 (confidence: low)
-int __cdecl Object_InvokeVirtualMethod_00dfce60(VtblForwarder* p)
+// src: COMMUNITY 0x00dfce60
+int __cdecl cleanupLoadedObject_hkpBallAndSocketConstraintData(VtblForwarder* p)
 {
     return p->v0(0);
 }
@@ -5082,8 +5085,8 @@ struct FUN_00dfcf20_cls
 };
 
 // @fnv 0x00dfcf20
-// src: GUESS 0x00dfcf20 (confidence: low)
-void __cdecl Object_ProcessState_00dfcf20(FUN_00dfcf20_cls* pObject, int aiValue)
+// src: COMMUNITY 0x00dfcf20
+void __cdecl finishLoadedObject_hkpSimpleMeshShape(FUN_00dfcf20_cls* pObject, int aiValue)
 {
     if (pObject != 0)
     {
@@ -5098,7 +5101,7 @@ extern "C" void* DAT_010cc344;
 extern "C" void* DAT_010e2144;
 extern "C" void* DAT_010e2124;
 
-struct FUN_00dfcf60_cls
+struct hkpSimpleMeshShape
 {
     void* m_vptr00;
     int m_04;
@@ -5110,11 +5113,11 @@ struct FUN_00dfcf60_cls
     unsigned char m_16;
     unsigned char m_17;
 
-    FUN_00dfcf60_cls* InitializeVtables(int flag);
+    hkpSimpleMeshShape* InitializeVtables(int flag);
 };
 
 // @fnv 0x00dfcf60
-FUN_00dfcf60_cls* FUN_00dfcf60_cls::InitializeVtables(int flag)
+hkpSimpleMeshShape* hkpSimpleMeshShape::InitializeVtables(int flag)
 {
     *(void* volatile*)&m_vptr00 = (void*)&DAT_010305a8;
     if (flag != 0)
@@ -5154,8 +5157,8 @@ struct FUN_00dfd0d0_cls
 };
 
 // @fnv 0x00dfd0d0
-// src: GUESS 0x00dfd0d0 (confidence: low)
-void Runtime_ForwardCall_00dfd0d0(FUN_00dfd0d0_cls* pTarget)
+// src: COMMUNITY 0x00dfd0d0
+void cleanupLoadedObject_hkpMultiRayShape(FUN_00dfd0d0_cls* pTarget)
 {
     pTarget->Call(0);
 }
@@ -5232,8 +5235,8 @@ unsigned char* __cdecl Runtime_GetDAT0126c0e0Address()
 }
 
 // @fnv 0x00dfd1c0
-// src: GUESS 0x00dfd1c0 (confidence: low)
-void __cdecl Object_ProcessAndTransformResult_00dfd1c0(void* p)
+// src: COMMUNITY 0x00dfd1c0
+void __cdecl cleanupLoadedObject_hkpListShape(void* p)
 {
     (*(void(__thiscall**)(void*, int)) * (int*)p)(p, 0);
 }
@@ -5256,8 +5259,8 @@ class FUN_00dfd1e0_cls
 };
 
 // @fnv 0x00dfd1e0
-// src: GUESS 0x00dfd1e0 (confidence: low)
-void __cdecl Object_ProcessState_00dfd1e0(FUN_00dfd1e0_cls* pObject, int aiValue)
+// src: COMMUNITY 0x00dfd1e0
+void __cdecl finishLoadedObject_hkpListShape(FUN_00dfd1e0_cls* pObject, int aiValue)
 {
     if (pObject != 0)
     {
@@ -5289,8 +5292,8 @@ struct S_00dfd260_Foo
 };
 
 // @fnv 0x00dfd260
-// src: GUESS 0x00dfd260 (confidence: low)
-void __cdecl Object_ProcessState_00dfd260(S_00dfd260_Foo* pFoo, int arg)
+// src: COMMUNITY 0x00dfd260
+void __cdecl finishLoadedObject_hkpConvexVerticesShape(S_00dfd260_Foo* pFoo, int arg)
 {
     if (pFoo)
     {
@@ -5331,8 +5334,8 @@ struct FUN_00dfd2e0_Class
 };
 
 // @fnv 0x00dfd2e0
-// src: GUESS 0x00dfd2e0 (confidence: low)
-void __cdecl Object_InvokeVirtualMethod_00dfd2e0(FUN_00dfd2e0_Class* param_1)
+// src: COMMUNITY 0x00dfd2e0
+void __cdecl cleanupLoadedObject_hkpCompressedMeshShape(FUN_00dfd2e0_Class* param_1)
 {
     param_1->VF00(0);
 }
@@ -5352,8 +5355,8 @@ struct FUN_00e3dbd0_class
 };
 
 // @fnv 0x00dfd300
-// src: GUESS 0x00dfd300 (confidence: low)
-void __cdecl Object_ProcessState_00dfd300(FUN_00e3dbd0_class* object, int value)
+// src: COMMUNITY 0x00dfd300
+void __cdecl finishLoadedObject_hkpCompressedMeshShape(FUN_00e3dbd0_class* object, int value)
 {
     if (object != 0)
         object->FUN_00e3dbd0(value);
@@ -5489,8 +5492,8 @@ class FUN_00dfd600_cls
 };
 
 // @fnv 0x00dfd600
-// src: GUESS 0x00dfd600 (confidence: low)
-void __cdecl Object_ProcessState_00dfd600(FUN_00dfd600_cls* target, unsigned int value)
+// src: COMMUNITY 0x00dfd600
+void __cdecl finishLoadedObject_hkxVertexBuffer(FUN_00dfd600_cls* target, unsigned int value)
 {
     if (target != 0)
     {
@@ -5554,8 +5557,8 @@ struct FUN_00dfd990_class
     FUN_00cb0a70_class field14;
 };
 // @fnv 0x00dfd990
-// src: GUESS 0x00dfd990 (confidence: low)
-void __cdecl Runtime_SetVtableAndProcessState_00dfd990(FUN_00dfd990_class* object, int value)
+// src: COMMUNITY 0x00dfd990
+void __cdecl finishLoadedObject_hkxMaterial(FUN_00dfd990_class* object, int value)
 {
     if (object)
     {
@@ -5579,8 +5582,8 @@ struct S_00e3f510_Foo
 };
 
 // @fnv 0x00dfda50
-// src: GUESS 0x00dfda50 (confidence: low)
-void __cdecl Object_ProcessState_00dfda50(void* pObject, int aiValue)
+// src: COMMUNITY 0x00dfda50
+void __cdecl finishLoadedObject_hkxEnvironment(void* pObject, int aiValue)
 {
     if (pObject)
     {
@@ -5707,8 +5710,8 @@ struct FUN_00dfde10_vtable
 };
 
 // @fnv 0x00dfde10
-// src: GUESS 0x00dfde10 (confidence: low)
-void __cdecl Runtime_ForwardCall_00dfde10(void* p)
+// src: COMMUNITY 0x00dfde10
+void __cdecl cleanupLoadedObject_hkTraceStream(void* p)
 {
     reinterpret_cast<FUN_00dfde10_vtable*>(p)->slot0(0);
 }
@@ -5835,8 +5838,8 @@ class DFDF50Object
 };
 
 // @fnv 0x00dfdf50
-// src: GUESS 0x00dfdf50 (confidence: low)
-void __cdecl Runtime_DestroySubobject_00dfdf50(DFDF50Object* pkObject)
+// src: COMMUNITY 0x00dfdf50
+void __cdecl cleanupLoadedObject_hkMonitorStreamColorTable(DFDF50Object* pkObject)
 {
     pkObject->~DFDF50Object();
 }
@@ -6077,8 +6080,8 @@ class FUN_00dfe250_cls
 };
 
 // @fnv 0x00dfe250
-// src: GUESS 0x00dfe250 (confidence: low)
-void __cdecl Object_ProcessState_00dfe250(FUN_00dfe250_cls* pObject, int aiValue)
+// src: COMMUNITY 0x00dfe250
+void __cdecl finishLoadedObject_hkaRagdollInstance(FUN_00dfe250_cls* pObject, int aiValue)
 {
     if (pObject != 0)
     {
@@ -6130,8 +6133,8 @@ struct FUN_00cb0a70_obj
 };
 
 // @fnv 0x00dfe410
-// src: GUESS 0x00dfe410 (confidence: low)
-void __cdecl Object_ProcessState_00dfe410(FUN_00cb0a70_obj* pObject, int value)
+// src: COMMUNITY 0x00dfe410
+void __cdecl finishLoadedObject_hkaFootstepAnalysisInfo(FUN_00cb0a70_obj* pObject, int value)
 {
     if (pObject)
     {
@@ -6149,8 +6152,8 @@ void* Object_GetGlobalObjectAddress_00dfe460()
 }
 
 // @fnv 0x00dfe470
-// src: GUESS 0x00dfe470 (confidence: low)
-void __cdecl Runtime_ForwardCall_00dfe470(FUN_00dfe430_class* p)
+// src: COMMUNITY 0x00dfe470
+void __cdecl cleanupLoadedObject_hkaFootstepAnalysisInfoContainer(FUN_00dfe430_class* p)
 {
     p->ReturnSelf(0);
 }
@@ -6216,8 +6219,8 @@ struct FUN_00dfe6e0_Class
 };
 
 // @fnv 0x00dfe6e0
-// src: GUESS 0x00dfe6e0 (confidence: low)
-void __cdecl Object_InvokeVirtualMethod_00dfe6e0(FUN_00dfe6e0_Class* param_1)
+// src: COMMUNITY 0x00dfe6e0
+void __cdecl cleanupLoadedObject_hkaAnimationContainer(FUN_00dfe6e0_Class* param_1)
 {
     param_1->vf00(0);
 }
@@ -6246,8 +6249,8 @@ struct FUN_00dfe970_class
 };
 
 // @fnv 0x00dfe970
-// src: GUESS 0x00dfe970 (confidence: low)
-void __cdecl Runtime_ForwardCall_00dfe970(FUN_00dfe970_class* p)
+// src: COMMUNITY 0x00dfe970
+void __cdecl cleanupLoadedObject_hkaAnimationBinding(FUN_00dfe970_class* p)
 {
     p->m_iWordAt00(0);
 }
@@ -6277,7 +6280,8 @@ extern int DAT_010debf4;
 extern int DAT_010debe4;
 
 // @fnv 0x00dfeac0
-void __cdecl InitObjectVtables(int* pObject, int bFlag)
+// src: COMMUNITY 0x00dfeac0
+void __cdecl finishLoadedObject_hkpVehicleRayCastWheelCollide(int* pObject, int bFlag)
 {
     if (pObject == 0)
         return;
@@ -6331,14 +6335,14 @@ struct FnvCpu_FUN_00dfeb80_CpuObject
 {
     unsigned int unk00;
     unsigned short size;
-    void FUN_00e42740();
+    void hkpVehicleManager();
     FnvCpu_FUN_00dfeb80_CpuObject* FUN_00dfeb80(unsigned int flags);
 };
-// Calls FUN_00e42740, and if bit 0 of flags is set, frees this through the allocator using size, then returns this.
+// Calls hkpVehicleManager, and if bit 0 of flags is set, frees this through the allocator using size, then returns this.
 // @fnv 0x00dfeb80
 FnvCpu_FUN_00dfeb80_CpuObject* FnvCpu_FUN_00dfeb80_CpuObject::FUN_00dfeb80(unsigned int flags)
 {
-    FUN_00e42740();
+    hkpVehicleManager();
     if (flags & 1)
     {
         hkMemoryRouter* holder = hkMemoryRouter_getInstance();
@@ -6403,8 +6407,8 @@ class DFEC50Object
 };
 
 // @fnv 0x00dfec50
-// src: GUESS 0x00dfec50 (confidence: low)
-void __cdecl Runtime_DestroySubobject_00dfec50(DFEC50Object* pkObject)
+// src: COMMUNITY 0x00dfec50
+void __cdecl cleanupLoadedObject_hkpVehicleDefaultAnalogDriverInput(DFEC50Object* pkObject)
 {
     pkObject->~DFEC50Object();
 }
@@ -6573,8 +6577,8 @@ class DFEF80Object
 };
 
 // @fnv 0x00dfef80
-// src: GUESS 0x00dfef80 (confidence: low)
-void Object_InvokeVirtualMethod_00dfef80(DFEF80Object* pkObject)
+// src: COMMUNITY 0x00dfef80
+void cleanupLoadedObject_hkpSpringAction(DFEF80Object* pkObject)
 {
     pkObject->~DFEF80Object();
 }
@@ -6598,8 +6602,8 @@ struct FUN_00dfefd0_cls
 };
 
 // @fnv 0x00dfefd0
-// src: GUESS 0x00dfefd0 (confidence: low)
-int __cdecl Runtime_ForwardCall_00dfefd0(FUN_00dfefd0_cls* pObj)
+// src: COMMUNITY 0x00dfefd0
+int __cdecl cleanupLoadedObject_hkpSerializedDisplayMarkerList(FUN_00dfefd0_cls* pObj)
 {
     return pObj->v00(0);
 }
@@ -6628,8 +6632,8 @@ struct FUN_00dff0b0_class
 };
 
 // @fnv 0x00dff0b0
-// src: GUESS 0x00dff0b0 (confidence: low)
-void __cdecl Runtime_ForwardCall_00dff0b0(FUN_00dff0b0_class* p)
+// src: COMMUNITY 0x00dff0b0
+void __cdecl cleanupLoadedObject_hkpSerializedDisplayMarker(FUN_00dff0b0_class* p)
 {
     p->m0(0);
 }
@@ -6658,8 +6662,8 @@ struct FUN_00dff120_Class
 };
 
 // @fnv 0x00dff120
-// src: GUESS 0x00dff120 (confidence: low)
-void __cdecl Object_InvokeVirtualMethod_00dff120(FUN_00dff120_Class* param_1)
+// src: COMMUNITY 0x00dff120
+void __cdecl cleanupLoadedObject_hkpReorientAction(FUN_00dff120_Class* param_1)
 {
     param_1->vf00(0);
 }
@@ -6682,8 +6686,8 @@ struct FUN_00dff170_cls
 };
 
 // @fnv 0x00dff170
-// src: GUESS 0x00dff170 (confidence: low)
-void __cdecl Object_ProcessState_00dff170(FUN_00dff170_cls* pObject, int aiValue)
+// src: COMMUNITY 0x00dff170
+void __cdecl finishLoadedObject_hkpProjectileGun(FUN_00dff170_cls* pObject, int aiValue)
 {
     if (pObject != 0)
     {
@@ -6697,8 +6701,8 @@ struct FUN_00dff190_cls
 };
 
 // @fnv 0x00dff190
-// src: GUESS 0x00dff190 (confidence: low)
-void __cdecl Object_ForwardCall_00dff190(FUN_00dff190_cls* pObject)
+// src: COMMUNITY 0x00dff190
+void __cdecl cleanupLoadedObject_hkpProjectileGun(FUN_00dff190_cls* pObject)
 {
     pObject->m_v00(0);
 }
@@ -6727,8 +6731,8 @@ struct FUN_00dff250_class
 };
 
 // @fnv 0x00dff250
-// src: GUESS 0x00dff250 (confidence: low)
-void __cdecl Runtime_ForwardCall_00dff250(FUN_00dff250_class* p)
+// src: COMMUNITY 0x00dff250
+void __cdecl cleanupLoadedObject_hkpMouseSpringAction(FUN_00dff250_class* p)
 {
     p->m0(0);
 }
@@ -6759,8 +6763,8 @@ class DFF2E0Object
 };
 
 // @fnv 0x00dff2e0
-// src: GUESS 0x00dff2e0 (confidence: medium)
-void Object_ConstructInPlace(void* apMemory, int finishing)
+// src: COMMUNITY 0x00dff2e0
+void finishLoadedObject_hkpMountedBallGun(void* apMemory, int finishing)
 {
     if (apMemory)
     {
@@ -6902,14 +6906,14 @@ struct SpawnedBase4
     {}
 };
 
-struct FUN_00dff470_cls : SpawnedBase0, SpawnedBase1, SpawnedBase2, SpawnedBase3, SpawnedBase4
+struct hkpCollisionFilter : SpawnedBase0, SpawnedBase1, SpawnedBase2, SpawnedBase3, SpawnedBase4
 {
-    FUN_00dff470_cls* DestroySelf(unsigned char acFlags);
+    hkpCollisionFilter* DestroySelf(unsigned char acFlags);
 };
 
 // Runs the base-class destructors, then, if acFlags has bit 0 set, frees this object through the audio allocator using m_uSize.
 // @fnv 0x00dff470
-FUN_00dff470_cls* FUN_00dff470_cls::DestroySelf(unsigned char acFlags)
+hkpCollisionFilter* hkpCollisionFilter::DestroySelf(unsigned char acFlags)
 {
     this->SpawnedBase4::~SpawnedBase4();
     this->SpawnedBase3::~SpawnedBase3();
@@ -6932,8 +6936,8 @@ struct FUN_00e46300_class
 };
 
 // @fnv 0x00dff4c0
-// src: GUESS 0x00dff4c0 (confidence: low)
-void __cdecl Object_ProcessState_00dff4c0(FUN_00e46300_class* pObject, int aiValue)
+// src: COMMUNITY 0x00dff4c0
+void __cdecl finishLoadedObject_hkpGravityGun(FUN_00e46300_class* pObject, int aiValue)
 {
     if (pObject)
         pObject->FUN_00e46300(aiValue);
@@ -6945,8 +6949,8 @@ struct DFF4E0Object
 };
 
 // @fnv 0x00dff4e0
-// src: GUESS 0x00dff4e0 (confidence: medium)
-void Object_Destroy_Thunk(DFF4E0Object* pkObject)
+// src: COMMUNITY 0x00dff4e0
+void cleanupLoadedObject_hkpGravityGun(DFF4E0Object* pkObject)
 {
     pkObject->Destroy(false);
 }
@@ -6977,8 +6981,8 @@ class DFF520Object
 };
 
 // @fnv 0x00dff520
-// src: GUESS 0x00dff520 (confidence: medium)
-void Object_ConstructInPlace_00dff520(void* apMemory, int finishing)
+// src: COMMUNITY 0x00dff520
+void finishLoadedObject_hkpFirstPersonGun(void* apMemory, int finishing)
 {
     if (apMemory)
     {
@@ -7058,8 +7062,8 @@ class FUN_00dff870_cls
 
 // Calls the first virtual of the object passed in, with argument 0.
 // @fnv 0x00dff870
-// src: GUESS 0x00dff870 (confidence: low)
-int __cdecl Runtime_ForwardCall_00dff870(FUN_00dff870_cls* p)
+// src: COMMUNITY 0x00dff870
+int __cdecl cleanupLoadedObject_hkpDisableEntityCollisionFilter(FUN_00dff870_cls* p)
 {
     return p->v0(0);
 }
@@ -7081,8 +7085,8 @@ struct FUN_00dff890_cls
 };
 
 // @fnv 0x00dff890
-// src: GUESS 0x00dff890 (confidence: low)
-void __cdecl Object_ProcessState_00dff890(FUN_00dff890_cls* pObject, int aValue)
+// src: COMMUNITY 0x00dff890
+void __cdecl finishLoadedObject_hkpDisableEntityCollisionFilter(FUN_00dff890_cls* pObject, int aValue)
 {
     if (pObject != 0)
         pObject->InitializeRecordPointers(aValue);
@@ -7156,16 +7160,16 @@ void* __cdecl Object_GetGlobalObjectAddress_00dffa40()
 // when that object is present.
 struct FUN_00dffa50_cls
 {
-    void __thiscall FUN_00dffa90(int value);
+    void __thiscall hkpConstrainedSystemFilter(int value);
 };
 
 // @fnv 0x00dffa50
-// src: GUESS 0x00dffa50 (confidence: low)
-void __cdecl Object_ProcessState_00dffa50(FUN_00dffa50_cls* pObject, int value)
+// src: COMMUNITY 0x00dffa50
+void __cdecl finishLoadedObject_hkpConstrainedSystemFilter(FUN_00dffa50_cls* pObject, int value)
 {
     if (pObject != 0)
     {
-        pObject->FUN_00dffa90(value);
+        pObject->hkpConstrainedSystemFilter(value);
     }
 }
 
@@ -7232,7 +7236,7 @@ class DFFA90ListenerE
     virtual ~DFFA90ListenerE();
 };
 
-class FUN_00dffa90 : public DFFA90ReferencedObject,
+class hkpConstrainedSystemFilter : public DFFA90ReferencedObject,
                      public DFFA90ListenerA,
                      public DFFA90ListenerB,
                      public DFFA90ListenerC,
@@ -7240,13 +7244,14 @@ class FUN_00dffa90 : public DFFA90ReferencedObject,
                      public DFFA90ListenerE
 {
   public:
-    FUN_00dffa90(DFFA90FinishFlag flag);
-    virtual ~FUN_00dffa90();
+    hkpConstrainedSystemFilter(DFFA90FinishFlag flag);
+    virtual ~hkpConstrainedSystemFilter();
 };
 
 // Empty constructor that initializes the referenced object and all five listener base classes with the given flag.
 // @fnv 0x00dffa90
-FUN_00dffa90::FUN_00dffa90(DFFA90FinishFlag flag)
+// src: EXE 0x00dffa90
+hkpConstrainedSystemFilter::hkpConstrainedSystemFilter(DFFA90FinishFlag flag)
     : DFFA90ReferencedObject(flag), DFFA90ListenerA(flag), DFFA90ListenerB(flag), DFFA90ListenerC(flag),
       DFFA90ListenerD(flag), DFFA90ListenerE(flag)
 {}
@@ -7260,8 +7265,8 @@ struct Handler_cls
 };
 
 // @fnv 0x00dffb80
-// src: GUESS 0x00dffb80 (confidence: low)
-void __cdecl Object_ProcessState_00dffb80(Handler_cls* pHandler, int value)
+// src: COMMUNITY 0x00dffb80
+void __cdecl finishLoadedObject_hkpBallGun(Handler_cls* pHandler, int value)
 {
     if (pHandler != 0)
         pHandler->Handle(value);
@@ -7275,8 +7280,8 @@ class FUN_00dffba0_cls
 };
 
 // @fnv 0x00dffba0
-// src: GUESS 0x00dffba0 (confidence: low)
-void __cdecl Object_InvokeVirtualMethod_00dffba0(FUN_00dffba0_cls* p)
+// src: COMMUNITY 0x00dffba0
+void __cdecl cleanupLoadedObject_hkpBallGun(FUN_00dffba0_cls* p)
 {
     p->v0(0);
 }
@@ -7443,7 +7448,8 @@ inline void* operator new(unsigned int, void* where)
 
 // Placement-constructs a SpawnedDerived at p when p is non-null, forwarding flag to the constructor.
 // @fnv 0x00dffde0
-void ConstructSpawnedDerived(SpawnedObject* apObject, int flag)
+// src: COMMUNITY 0x00dffde0
+void finishLoadedObject_hkpThinBoxMotion(SpawnedObject* apObject, int flag)
 {
     if (apObject != 0)
     {
@@ -7492,8 +7498,8 @@ extern void* DAT_010c59f4;
 extern void* DAT_010c6d54;
 
 // @fnv 0x00dffe80
-// src: GUESS 0x00dffe80 (confidence: low)
-void __cdecl Object_UpdateFields_00dffe80(void* apObject, int b)
+// src: COMMUNITY 0x00dffe80
+void __cdecl finishLoadedObject_hkpSphereMotion(void* apObject, int b)
 {
     if (apObject != 0)
     {
@@ -7542,8 +7548,8 @@ class FUN_00dffec0_cls
 
 // Calls the first virtual of the object passed in, with argument 0.
 // @fnv 0x00dffec0
-// src: GUESS 0x00dffec0 (confidence: low)
-int __cdecl Object_InvokeVirtualMethod_00dffec0(FUN_00dffec0_cls* p)
+// src: COMMUNITY 0x00dffec0
+int __cdecl cleanupLoadedObject_hkpPositionConstraintMotor(FUN_00dffec0_cls* p)
 {
     return p->v0(0);
 }
@@ -7595,7 +7601,8 @@ struct SpawnedObject
 
 // Sets the object's vtable pointer and, when flag is non-zero, notifies the sub-object with its stored value.
 // @fnv 0x00dfff20
-void __cdecl InitSpawnedObject(SpawnedObject* pObject, int iNotifyFlag)
+// src: COMMUNITY 0x00dfff20
+void __cdecl finishLoadedObject_hkpPointToPathConstraintData(SpawnedObject* pObject, int iNotifyFlag)
 {
     if (pObject != 0)
     {
@@ -7626,15 +7633,16 @@ int* __cdecl Runtime_GetDAT0126d910Address()
 
 struct S_00dfff80_Foo
 {
-    void __thiscall FUN_00cdf760(int a);
+    void __thiscall hkpMalleableConstraintData(int a);
 };
 
 // @fnv 0x00dfff80
-void __cdecl CallFooMethodIfNotNull(S_00dfff80_Foo* pFoo, int aiValue)
+// src: COMMUNITY 0x00dfff80
+void __cdecl finishLoadedObject_hkpMalleableConstraintData(S_00dfff80_Foo* pFoo, int aiValue)
 {
     if (pFoo != 0)
     {
-        pFoo->FUN_00cdf760(aiValue);
+        pFoo->hkpMalleableConstraintData(aiValue);
     }
 }
 
@@ -7728,10 +7736,10 @@ class DE1FC0Transform : public DE1FC0ReferencedObject
     int unk5C;
 };
 
-class FUN_00de1fc0 : public DE1FC0Transform
+class hkDisplayBox : public DE1FC0Transform
 {
   public:
-    FUN_00de1fc0();
+    hkDisplayBox();
     virtual void vfunc01();
 
     hkVector4 m_extra;
@@ -7739,7 +7747,8 @@ class FUN_00de1fc0 : public DE1FC0Transform
 
 // Constructs the transform, zeroing the extra vector member.
 // @fnv 0x00de1fc0
-FUN_00de1fc0::FUN_00de1fc0()
+// src: EXE 0x00de1fc0
+hkDisplayBox::hkDisplayBox()
 {
     m_extra.setZero4();
 }
@@ -7831,10 +7840,10 @@ class DE5450Shape : public DE5450ReferencedObject
     int unk5C;
 };
 
-class FUN_00de5450 : public DE5450Shape
+class hkDisplayCone : public DE5450Shape
 {
   public:
-    FUN_00de5450();
+    hkDisplayCone();
     virtual void unk00();
 
     hkVector4 m_vecA;
@@ -7845,7 +7854,8 @@ class FUN_00de5450 : public DE5450Shape
 };
 
 // @fnv 0x00de5450
-FUN_00de5450::FUN_00de5450()
+// src: EXE 0x00de5450
+hkDisplayCone::hkDisplayCone()
 {
     m_valueA = 0.0f;
     m_uiItemCount = 0;
@@ -9142,8 +9152,8 @@ struct FnvCpu_FUN_00dfee80_CpuInterface
     virtual void Invoke(int value);
 };
 // @fnv 0x00dfee80
-// src: GUESS 0x00dfee80 (confidence: low)
-void __cdecl Object_InvokeVirtualMethod_00dfee80(FnvCpu_FUN_00dfee80_CpuInterface* object)
+// src: COMMUNITY 0x00dfee80
+void __cdecl cleanupLoadedObject_hkpVehicleDefaultEngine(FnvCpu_FUN_00dfee80_CpuInterface* object)
 {
     object->Invoke(0);
 }
@@ -9153,8 +9163,8 @@ struct DestructibleDFF
     virtual ~DestructibleDFF();
 };
 // @fnv 0x00dff5a0
-// src: GUESS 0x00dff5a0 (confidence: medium)
-void __cdecl Object_DestructibleDFF_Thunk(DestructibleDFF* pkObject)
+// src: COMMUNITY 0x00dff5a0
+void __cdecl cleanupLoadedObject_hkpDisplayBindingDataPhysicsSystem(DestructibleDFF* pkObject)
 {
     pkObject->~DestructibleDFF();
 }
@@ -9556,7 +9566,7 @@ void dummy_caller(void)
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 
-struct FUN_00dfb5a0_cls
+struct hkaAnnotationTrack
 {
     int unk00;
     char* m_pData;
@@ -9586,7 +9596,7 @@ struct ElemDFB5A0
 // Destructs the array elements, frees m_pData unless the top capacity bit is set, resets it to empty, then calls FUN_00cb0c00 on this.
 // @fnv 0x00dfb5a0
 // src: GUESS 0x00dfb5a0 (confidence: low)
-void FUN_00dfb5a0_cls::UpdateFields_00dfb5a0()
+void hkaAnnotationTrack::UpdateFields_00dfb5a0()
 {
     hkMemoryAllocator* pAlloc = reinterpret_cast<hkMemoryAllocator*>(hkMemoryRouter_getInstance()->m_heap);
     DestructElementsDFB5A0((ElemDFB5A0*)m_pData, m_iArrayLength);
@@ -12447,7 +12457,7 @@ struct PulleyObjectBase
     }
 };
 
-struct FUN_00deefd0 : PulleyObjectBase
+struct hkpPulleyConstraintData : PulleyObjectBase
 {
     unsigned int unk0c;
     unsigned short translationType;
@@ -12459,12 +12469,13 @@ struct FUN_00deefd0 : PulleyObjectBase
     volatile float ropeLength;
     volatile float leverage;
 
-    FUN_00deefd0();
+    hkpPulleyConstraintData();
 };
 
 // Default-constructs a pulley: sets translationType to 3, pulleyType to 0x14, ropeLength to 0.0, leverage to 1.0, and zeroes the translation and pivot vectors.
 // @fnv 0x00deefd0
-FUN_00deefd0::FUN_00deefd0()
+// src: EXE 0x00deefd0
+hkpPulleyConstraintData::hkpPulleyConstraintData()
 {
     vtable = &DAT_010da04c;
     translationType = 3;
@@ -12521,24 +12532,25 @@ class SuspensionObject
     short m_sReferenceCount;
 };
 
-class FUN_00dfbf70 : public SuspensionObject
+class hkpVehicleDefaultSuspension : public SuspensionObject
 {
   public:
-    ~FUN_00dfbf70() throw();
+    ~hkpVehicleDefaultSuspension() throw();
     hkArray<SuspensionWheel, SuspensionArrayPolicy> m_wheels;
     hkArray<SuspensionSpring, SuspensionArrayPolicy> m_springs;
 };
 
 // Destructor for the suspension object that owns m_wheels and m_springs arrays.
 // @fnv 0x00dfbf70
-FUN_00dfbf70::~FUN_00dfbf70() throw()
+// src: GUESS 0x00dfbf70 (confidence: high)
+hkpVehicleDefaultSuspension::~hkpVehicleDefaultSuspension() throw()
 {}
 
 extern "C" void _mm_store_ps(float*, __m128);
 
 extern "C" int DAT_010d8274;
 
-struct FUN_00de4a80
+struct hkDisplaySemiCircle
 {
     unsigned int unk00;
     unsigned short unk04;
@@ -12582,12 +12594,13 @@ struct FUN_00de4a80
     volatile float m_98;
     volatile int m_9c;
 
-    FUN_00de4a80();
+    hkDisplaySemiCircle();
 };
 
 // Stores &DAT_010d8274 at offset 0, sets m_06=1, m_50=5, m_10/m_24/m_38=1.0f, and zeroes m_08, m_90-m_9c and several 16-byte blocks.
 // @fnv 0x00de4a80
-FUN_00de4a80::FUN_00de4a80()
+// src: EXE 0x00de4a80
+hkDisplaySemiCircle::hkDisplaySemiCircle()
 {
     int zero = 0;
     m_06 = 1;

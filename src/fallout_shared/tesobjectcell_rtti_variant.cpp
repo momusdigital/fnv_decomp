@@ -29,10 +29,10 @@ unsigned int TESTerrainLODManager_GetGrassNode();
 NiAVObject* TESMain_GetWeatherRoot();
 
 
-struct FUN_0040f410 : BSExtraData
+struct ExtraProcessMiddleLow : BSExtraData
 {
     unsigned int references;
-    FUN_0040f410();
+    ExtraProcessMiddleLow();
 };
 // BaseExtraList.h lacks the pointer-and-destroy removal overload at 0x00410020.
 // Keep only that declaration here; the data layout comes from the shared base.
@@ -410,10 +410,10 @@ extern GlobalObject_0096d020 g_011e0e80;
 // src: XBOX_PDB 0x00551480
 void Cell3DReferenceAccess::TESObjectCELL_SetLowestProcessToMiddleLow(bool RetainReference)
 {
-    FUN_0040f410* extra = static_cast<FUN_0040f410*>((*reinterpret_cast<ExtraDataList*>(formData + 0x04)).GetExtraData(9));
+    ExtraProcessMiddleLow* extra = static_cast<ExtraProcessMiddleLow*>((*reinterpret_cast<ExtraDataList*>(formData + 0x04)).GetExtraData(9));
     if (!extra && RetainReference)
     {
-        extra = new FUN_0040f410;
+        extra = new ExtraProcessMiddleLow;
         (*reinterpret_cast<ExtraDataList*>(formData + 0x04)).AddExtra(extra);
         CellRefLockEnter();
         RefList548* position = reinterpret_cast<RefList548*>(GetRefList_009604f0());
@@ -867,7 +867,7 @@ class CellUpdateAccess : public TESObjectCELL
     bool TESObjectCELL_ShouldDisplayHighDetail();
     void TESObjectCELL_FadeToHighDetail();
     CellWaterOwner* FUN_0054ddd0();
-    int GetByteAtOffset38();
+    int TESObjectCELL_GetState();
     void TESObjectCELL_UpdateManagedNodes(float fTimeSinceScaleStart, bool bSkipLoaded);
 };
 // @fnv 0x00551890
@@ -900,7 +900,7 @@ void CellUpdateAccess::TESObjectCELL_UpdateManagedNodes(float fTimeSinceScaleSta
     }
     if ((*reinterpret_cast<short*>(formData + 0x86)) > 0 && TESObjectCELL_All3DWithVisibleDistantLoaded() && TESObjectCELL_ShouldDisplayHighDetail())
         TESObjectCELL_FadeToHighDetail();
-    if ((*reinterpret_cast<bool*>(formData + 0xAE)) && FUN_0054ddd0() && GetByteAtOffset38() == 6)
+    if ((*reinterpret_cast<bool*>(formData + 0xAE)) && FUN_0054ddd0() && TESObjectCELL_GetState() == 6)
     {
         (*reinterpret_cast<bool*>(formData + 0xAC)) = true;
         (*reinterpret_cast<bool*>(formData + 0xAA)) = false;

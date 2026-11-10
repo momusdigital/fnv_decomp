@@ -4,7 +4,7 @@
 
 #include "teslevcharacter_unit.h"
 
-// Adjustor thunk for FUN_0050ade0: sub ecx,0x4c; jmp FUN_0050a820.
+// Adjustor thunk for FUN_0050ade0: sub ecx,0x4c; jmp ScalarDeletingDestructor.
 // The derived class overrides a virtual that both of its bases declare, so the
 // secondary base's vtable slot holds a thunk that moves `this` back by the size
 // of the primary base.

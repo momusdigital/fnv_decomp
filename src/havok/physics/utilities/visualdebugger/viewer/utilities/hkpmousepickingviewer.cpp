@@ -270,11 +270,12 @@ struct FnvCpu_FUN_00d66f00_CpuObject
     unsigned int unk00;
     unsigned short size;
     void FUN_00d66cd0();
-    FnvCpu_FUN_00d66f00_CpuObject* FUN_00d66f00(unsigned int flags);
+    FnvCpu_FUN_00d66f00_CpuObject* ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_00d66cd0, then if flags bit 0 is set, invokes the allocator from FUN_00c85750 on this with size, and returns this.
 // @fnv 0x00d66f00
-FnvCpu_FUN_00d66f00_CpuObject* FnvCpu_FUN_00d66f00_CpuObject::FUN_00d66f00(unsigned int flags)
+// src: EXE 0x00d66f00
+FnvCpu_FUN_00d66f00_CpuObject* FnvCpu_FUN_00d66f00_CpuObject::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00d66cd0();
     if (flags & 1)

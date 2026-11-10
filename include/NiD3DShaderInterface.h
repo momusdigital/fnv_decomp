@@ -15,7 +15,7 @@ class NiD3DShaderInterface : public NiShader
     virtual bool Initialize();
 
     virtual NiD3DShaderDeclaration* SelectVertexDeclaration();
-    virtual void UseShaderDeclaration(NiD3DShaderDeclaration* pkShaderDecl);
+    virtual void NiD3DShader_SetShaderDecl(NiD3DShaderDeclaration* pkShaderDecl);
     virtual void HandleResetDevice(void* pkShaderDecl);
     virtual void HandleLostDevice();
     virtual void UnloadShader();

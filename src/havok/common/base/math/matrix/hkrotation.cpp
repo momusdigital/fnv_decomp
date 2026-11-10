@@ -67,16 +67,17 @@ class FUN_00cb2ff0_base
     int unk04;
 };
 
-class FUN_00cb2ff0 : public FUN_00cb2ff0_base
+class bhkRigidBodyT : public FUN_00cb2ff0_base
 {
   public:
-    virtual ~FUN_00cb2ff0();
+    virtual ~bhkRigidBodyT();
     void unk08();
 };
 
 // Calls unk08 on this object, then decrements the global counter DAT_012683c0.
 // @fnv 0x00cb2ff0
-FUN_00cb2ff0::~FUN_00cb2ff0()
+// src: EXE 0x00cb2ff0
+bhkRigidBodyT::~bhkRigidBodyT()
 {
     this->unk08();
     DAT_012683c0--;

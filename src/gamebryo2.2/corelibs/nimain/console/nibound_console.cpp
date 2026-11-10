@@ -94,7 +94,8 @@ void __fastcall ReleasePackedAGDBuffer(BSPackedAdditionalGeometryData::NiBSPacke
 }
 
 // @fnv 0x00a7f620
-bool __fastcall IsPackedAdditionalGeometryDataEqual(BSPackedAdditionalGeometryData* pData,
+// src: EXE 0x00a7f620
+bool __fastcall BSPackedAdditionalGeometryData_IsEqual(BSPackedAdditionalGeometryData* pData,
                                                    void*, const NiAdditionalGeometryData* pkObject)
 {
     if (pData->NiAdditionalGeometryData_IsEqual(pkObject) && pData->m_uiShaderDeclarationIndex == pkObject->m_uiShaderDeclarationIndex &&
@@ -104,7 +105,8 @@ bool __fastcall IsPackedAdditionalGeometryDataEqual(BSPackedAdditionalGeometryDa
 }
 
 // @fnv 0x00a7f560
-void* __fastcall AllocatePackedAGDBuffer(BSPackedAdditionalGeometryData::NiBSPackedAGDDataBlock*,
+// src: EXE 0x00a7f560
+void* __fastcall NiBSPackedAGDDataBlock_Allocate(BSPackedAdditionalGeometryData::NiBSPackedAGDDataBlock*,
                                        void*, unsigned int uiBufferSize)
 {
     void* p = NiRenderer::ms_pRenderer;

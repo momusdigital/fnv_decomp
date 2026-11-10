@@ -59,7 +59,7 @@ void CellMopp::Remove()
     ((GlobalObject_004aff00*)((char*)this + 8))->RemoveAll();
 }
 
-struct FUN_00622290_cls
+struct CFilter
 {
     int __thiscall CFilter_CFilter(int a, int b, int c);
     void __thiscall SetPackedValue(int a, int b, int c);
@@ -68,7 +68,7 @@ struct FUN_00622290_cls
 // Calls SetPackedValue with the three arguments, then returns this.
 // @fnv 0x00622290
 // src: XBOX_PDB 0x00622290
-int __thiscall FUN_00622290_cls::CFilter_CFilter(int a, int b, int c)
+int __thiscall CFilter::CFilter_CFilter(int a, int b, int c)
 {
     SetPackedValue(a, b, c);
     return (int)this;
@@ -163,7 +163,7 @@ FUN_00622490::FUN_00622490()
     ((HeightFieldResetCall*)((char*)this + 0x10))->Reset();
 }
 
-struct FUN_00622570_Class
+struct hkBool
 {
     unsigned char m_kPointB;
     unsigned char* UpdateState_00622570(unsigned char b);
@@ -171,7 +171,7 @@ struct FUN_00622570_Class
 
 // @fnv 0x00622570
 // src: GUESS 0x00622570 (confidence: low)
-unsigned char* FUN_00622570_Class::UpdateState_00622570(unsigned char aucValue)
+unsigned char* hkBool::UpdateState_00622570(unsigned char aucValue)
 {
     m_kPointB = aucValue;
     return &m_kPointB;
@@ -207,12 +207,13 @@ void* __thiscall FUN_00622390_Class::bhkBvTreeShape_bhkBvTreeShape()
 struct FUN_00622440_Class
 {
     void __thiscall FUN_00caff80();
-    void* __thiscall FUN_00622440(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
     static void operator delete(void* p, unsigned int size);
 };
 
 // @fnv 0x00622440
-void* __thiscall FUN_00622440_Class::FUN_00622440(unsigned int flags)
+// src: EXE 0x00622440
+void* __thiscall FUN_00622440_Class::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00caff80();
     if (flags & 1)
@@ -304,18 +305,19 @@ class B622310Base
     virtual ~B622310Base();
 };
 
-class FUN_00622310 : public B622310Base
+class bhkTriSampledHeightFieldBvTreeShape : public B622310Base
 {
   public:
     void bhkTriSampledHeightFieldBvTreeShape_Init(void* pvArg);
 
-    FUN_00622310(void* pvArg);
-    virtual ~FUN_00622310();
+    bhkTriSampledHeightFieldBvTreeShape(void* pvArg);
+    virtual ~bhkTriSampledHeightFieldBvTreeShape();
 };
 
 // Calls FUN_00cb0820 with pvArg, then increments g_i622310Count.
 // @fnv 0x00622310
-FUN_00622310::FUN_00622310(void* pvArg)
+// src: EXE 0x00622310
+bhkTriSampledHeightFieldBvTreeShape::bhkTriSampledHeightFieldBvTreeShape(void* pvArg)
 {
     bhkTriSampledHeightFieldBvTreeShape_Init(pvArg);
     g_i622310Count++;

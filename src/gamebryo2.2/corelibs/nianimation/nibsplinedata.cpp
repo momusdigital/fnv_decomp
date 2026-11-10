@@ -97,7 +97,8 @@ void* __fastcall FUN_00a52510(void** pThis, int, unsigned int flags)
 }
 
 // @fnv 0x00a51e50
-bool __fastcall IsSplineDataEqual(NiBSplineData* self, int, NiObject* pkObject)
+// src: EXE 0x00a51e50
+bool __fastcall NiBSplineData_IsEqual(NiBSplineData* self, int, NiObject* pkObject)
 {
     if (self->NiObject::IsSameAs(pkObject))
     {

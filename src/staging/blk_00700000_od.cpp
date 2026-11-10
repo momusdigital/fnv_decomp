@@ -1629,7 +1629,7 @@ struct FUN_0071f570
     ~FUN_0071f570();
 };
 
-struct FUN_0071f9f0
+struct StatsMenu_StatusEffect
 {
     int unk00;
     FUN_00406de0 unk04;
@@ -1637,12 +1637,13 @@ struct FUN_0071f9f0
     int unk0c;
     FUN_0071f570 unk10;
 
-    ~FUN_0071f9f0();
+    ~StatsMenu_StatusEffect();
 };
 
 // Destructor for the object; it destroys its member objects and returns.
 // @fnv 0x0071f9f0
-FUN_0071f9f0::~FUN_0071f9f0()
+// src: COMMUNITY 0x0071f9f0
+StatsMenu_StatusEffect::~StatsMenu_StatusEffect()
 {}
 
 void __cdecl ourMemset(void* p, int value, unsigned int size);
@@ -1688,7 +1689,7 @@ class FUN_0071fa80_base
     unsigned int m_24;
 };
 
-class FUN_0071fa80 : public FUN_0071fa80_base
+class TextEditMenu : public FUN_0071fa80_base
 {
   public:
     virtual void unk00();
@@ -1697,12 +1698,13 @@ class FUN_0071fa80 : public FUN_0071fa80_base
     unsigned int m_30;
     TaskSubObject m_34;
     unsigned int m_58;
-    FUN_0071fa80();
+    TextEditMenu();
 };
 
 // Zeroes the 12-byte block at m_28, submits a task to g_taskQueue, and sets m_58 to 0.
 // @fnv 0x0071fa80
-FUN_0071fa80::FUN_0071fa80()
+// src: EXE 0x0071fa80
+TextEditMenu::TextEditMenu()
 {
     ourMemset(&m_28, 0, 0xc);
     g_taskQueue.Submit(0, 0);
@@ -2059,7 +2061,7 @@ struct T722f60
     int l;
 };
 
-class FUN_0071f340 : public Menu
+class StatsMenu : public Menu
 {
   public:
     ListElem unk28[4];
@@ -2078,12 +2080,13 @@ class FUN_0071f340 : public Menu
     T722f60 unk270;
     char unk2A0;
     char unk2A1;
-    FUN_0071f340();
-    virtual ~FUN_0071f340();
+    StatsMenu();
+    virtual ~StatsMenu();
 };
 // Zeroes the unk90 block, initializes unk74, unk78, unk80, unk7C, unk2A1 and unk2A0 to zero.
 // @fnv 0x0071f340
-FUN_0071f340::FUN_0071f340()
+// src: EXE 0x0071f340
+StatsMenu::StatsMenu()
 {
     ourMemset(&unk90, 0, sizeof(unk90));
     unk74 = 0;
@@ -2168,10 +2171,10 @@ struct MenuPoint3
     MenuPoint3();
     float x, y, z;
 };
-class FUN_0071fbf0 : public Menu
+class SurgeryMenu : public Menu
 {
   public:
-    virtual ~FUN_0071fbf0();
+    virtual ~SurgeryMenu();
     unsigned int m28;
     void* tile2c;
     void* tile30;
@@ -2209,10 +2212,11 @@ class FUN_0071fbf0 : public Menu
     float m14c;
     MenuPoint3 point150;
     bool m15c, m15d;
-    FUN_0071fbf0();
+    SurgeryMenu();
 };
 // @fnv 0x0071fbf0
-FUN_0071fbf0::FUN_0071fbf0() : nodef0(0), nodef4(0)
+// src: EXE 0x0071fbf0
+SurgeryMenu::SurgeryMenu() : nodef0(0), nodef4(0)
 {
     ourMemset(&tile2c, 0, 0x48);
     g_011dadb4 = 0;
@@ -2279,7 +2283,7 @@ struct MenuComponent
 {
     virtual ~MenuComponent();
     bool FUN_00712380();
-    bool IsTraitNonZero(int);
+    bool Tile_IsTrue(int);
     void FUN_00700320(int trait, int enable);
     MenuComponent* GetModel_0056c7f0();
     void FUN_00450f90(int);
@@ -2350,7 +2354,7 @@ void MenuState::UpdateMenuSelection()
                 if (actor && leftSlot)
                 {
                     actor->FUN_007037c0(4);
-                    if (actor->FUN_00726070()->IsTraitNonZero(0x1772))
+                    if (actor->FUN_00726070()->Tile_IsTrue(0x1772))
                     {
                         if (actor->FUN_00726070())
                         {
@@ -2634,14 +2638,14 @@ void __cdecl GetControlLabel(int control, char* output, bool prefix)
 #include <string.h>
 extern int DAT_010a2488;
 
-struct FUN_0071dd90_shell
+struct MenuConsole
 {
     void WriteLine(const char* apText);
 };
 
 // If the path at offset 0x810 is non-empty and apText is not, opens it as a BSFile, seeks, and writes apText followed by CRLF.
 // @fnv 0x0071dd90
-void FUN_0071dd90_shell::WriteLine(const char* apText)
+void MenuConsole::WriteLine(const char* apText)
 {
     if (!*((char*)this + 0x810))
         return;
@@ -2676,11 +2680,11 @@ extern int DAT_011dea3c;
 extern void* DAT_011c3b3c;
 
 void* __cdecl FUN_004bf220(int arg);
-void* __cdecl GetBipedModelTextureSwap(unsigned int a, int b);
+void* __cdecl TESBipedModelForm_GetBipedTESModel(unsigned int a, int b);
 
 struct GameObjStub
 {
-    void* FindEntryWithExtraListType(int index);
+    void* InventoryChanges_GetHotkeyItem(int index);
     unsigned int FUN_0044ddc0();
 };
 
@@ -2696,7 +2700,7 @@ struct GameObjStub2
 };
 
 
-class FUN_00701520_cls
+class HotKeysWheel
 {
   public:
     void ProcessModelPaths();
@@ -2705,17 +2709,17 @@ class FUN_00701520_cls
 // For each of 8 slots, resolves an object via FUN_00481090 or a TESModelTextureSwap cast and passes its model path to DAT_011c3b3c->FUN_0045a5e0.
 // @fnv 0x00701520
 // src: GUESS 0x00701520 (confidence: medium)
-void FUN_00701520_cls::ProcessModelPaths()
+void HotKeysWheel::ProcessModelPaths()
 {
     void* a = FUN_004bf220(DAT_011dea3c);
 
     for (int i = 0; i < 8; i++)
     {
-        void* b = ((GameObjStub*)a)->FindEntryWithExtraListType(i);
+        void* b = ((GameObjStub*)a)->InventoryChanges_GetHotkeyItem(i);
 
         if (b != 0 && ((GameObjStub*)b)->FUN_0044ddc0() != 0)
         {
-            void* c = GetBipedModelTextureSwap(((TESObjectREFR_GetFlags_Helper*)b)->CallGetFlags(), DAT_011dea3c);
+            void* c = TESBipedModelForm_GetBipedTESModel(((TESObjectREFR_GetFlags_Helper*)b)->CallGetFlags(), DAT_011dea3c);
 
             if (c == 0)
             {

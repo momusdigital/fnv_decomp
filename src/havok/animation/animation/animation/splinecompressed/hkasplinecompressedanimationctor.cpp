@@ -459,20 +459,21 @@ struct BaseL
     int unk04, unk08, unk0c, unk10, unk14, unk18, unk1c, unk20;
     int unk24, unk28, unk2c, unk30, unk34, unk38, unk3c, unk40;
 };
-struct FUN_00e32af0 : BaseL
+struct hkaSplineCompressedAnimation : BaseL
 {
     ArrLLocalForm<int> m_arr44;
     ArrLLocalForm<int> m_arr50;
     ArrLLocalForm<int> m_arr5c;
     ArrLLocalForm<int> m_arr68;
     ArrLLocalForm<int> m_arr74;
-    FUN_00e32af0(SrcL* src, const Elem28L* elem, void* arg3) throw();
+    hkaSplineCompressedAnimation(SrcL* src, const Elem28L* elem, void* arg3) throw();
     void InitL(SrcL* src, LocalArraysL* arrays, void* arg3) throw();
 };
 
 // Builds temporary arrays from src counts and elem, zero-fills them, then calls InitL to initialize the object.
 // @fnv 0x00e32af0
-FUN_00e32af0::FUN_00e32af0(SrcL* pSource, const Elem28L* elem, void* arg3) throw() : BaseL(pSource)
+// src: COMMUNITY 0x00e32af0
+hkaSplineCompressedAnimation::hkaSplineCompressedAnimation(SrcL* pSource, const Elem28L* elem, void* arg3) throw() : BaseL(pSource)
 {
     LocalArraysL arrays;
     arrays.m_pElements.pushBack(*elem);

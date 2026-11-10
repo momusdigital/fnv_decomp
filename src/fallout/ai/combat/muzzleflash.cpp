@@ -16,7 +16,8 @@
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
 // @fnv 0x009baf30
-bool __fastcall HasProjectileFlag8(const BGSProjectile* projectile)
+// src: COMMUNITY 0x009baf30
+bool __fastcall BGSProjectile_GetHasMuzzleFlash(const BGSProjectile* projectile)
 {
     return projectile->GetFlag(8);
 }
@@ -47,7 +48,7 @@ struct FUN_009baee0_owner
 // src: COMMUNITY 0x009baee0
 void* FUN_009baee0_owner::MuzzleFlash_GetMuzzleFlashModel()
 {
-    return (pItem && HasProjectileFlag8(pItem)) ? reinterpret_cast<BSMultiBoundRoom*>(pItem)->TESCombatStyle_GetAdvancedData() : 0;
+    return (pItem && BGSProjectile_GetHasMuzzleFlash(pItem)) ? reinterpret_cast<BSMultiBoundRoom*>(pItem)->TESCombatStyle_GetAdvancedData() : 0;
 }
 
 extern double _gModifierZero;
@@ -149,7 +150,7 @@ struct S_009baf50_Self : FUN_009bacb0
 {
     void* MuzzleFlash_GetMuzzleFlashModel();
     void UpdateMuzzleFlash(void*);
-    void UpdateLightFromChallenge();
+    void MuzzleFlash_AttachLight();
 };
 
 // @fnv 0x009baf50
@@ -171,7 +172,7 @@ void FUN_009bacb0::UpdateNodePosition(void* arg)
         return;
     TESHavokUtilities_RemoveHavokFromSceneGraph(((S_009baf50_Ptr*)&first)->Modelloader_GetReferencedThis());
     static_cast<S_009baf50_Self*>(this)->UpdateMuzzleFlash(arg);
-    static_cast<S_009baf50_Self*>(this)->UpdateLightFromChallenge();
+    static_cast<S_009baf50_Self*>(this)->MuzzleFlash_AttachLight();
     NiTimeController_StartAnimations(((S_009baf50_Ptr*)&first)->Modelloader_GetReferencedThis());
     ((S_009baf50_Ptr*)&first)->Modelloader_GetReferencedThis()->UpdateProperties();
     S_009baf50_Vec pos((float)(DAT_011c3c08 - DAT_01090008), 1, 0);
@@ -326,7 +327,7 @@ struct S_009bb080
     int unk10;
     PathingRequest* unk14;
     void UpdateMuzzleFlash(S_009bb080_Base0*);
-    void UpdateLightVisibility();
+    void MuzzleFlash_UpdateLight();
     void MuzzleFlash_Update(float dt, S_009bb080_Base0* proj);
 };
 // @fnv 0x009bb080
@@ -349,7 +350,7 @@ void S_009bb080::MuzzleFlash_Update(float afDeltaTime, S_009bb080_Base0* proj)
         unk1 = 0;
     }
     if (unk2)
-        UpdateLightVisibility();
+        MuzzleFlash_UpdateLight();
     if (DAT_011f2250.FUN_0044ddc0() == 4 && FUN_00716440() > DAT_01012060)
     {
         afDeltaTime = afDeltaTime / FUN_00716440();

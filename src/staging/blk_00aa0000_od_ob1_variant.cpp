@@ -93,8 +93,8 @@ public:
     float DotProduct(const LocalVec3* other) const;
     float Length() const;
     float LengthSquared() const;
-    float GetSquaredXYLength();
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength();
+    float NiPoint3_SqrXYLength() const;
     Elem16& expand(Allocator& allocator);
 
     void SetComponents(float x, float y, float z);
@@ -174,7 +174,7 @@ struct FUN_00aa4c40_class
     void __thiscall BSCoreMessage_DisableContextMessages(int a);
 };
 extern "C" void* DAT_010a2708;
-struct FUN_00aa4c60_class
+struct BSCoreMessage
 {
     void* m_p;
     void* BSCoreMessage_BSCoreMessage();
@@ -251,7 +251,7 @@ struct FUN_00aa4710_Class
 {
     char __thiscall MemoryManager_GetHeapStats(int a, unsigned char b, int c);
 };
-struct FUN_00aa4b20_Class
+struct BSListBase
 {
     void __thiscall ClearAndDeallocate(void* p);
 };
@@ -314,18 +314,18 @@ struct FUN_00aba370_s
     unsigned int m_14;
     void __thiscall EraseRange(unsigned int a, unsigned int b);
     void __thiscall AppendChars(unsigned int a, unsigned char b);
-    void __thiscall ResizeStringRange(unsigned int pos, unsigned char b);
+    void __thiscall basic_string_resize(unsigned int pos, unsigned char b);
 };
 extern unsigned int DAT_010173f0;
 void __cdecl FUN_00ec7c56();
-struct FUN_00abbeb0_Class
+struct _Vector_iterator
 {
     int m0;
     int m4;
     int m8;
     unsigned int mC;
     unsigned int m10;
-    FUN_00abbeb0_Class* SetCheckedRangeSize(unsigned int size, FUN_00abbeb0_Class* p);
+    _Vector_iterator* SetCheckedRangeSize(unsigned int size, _Vector_iterator* p);
 };
 void FUN_00ec7c56();
 struct FUN_00abbf00_Class
@@ -497,7 +497,7 @@ extern MemoryManager DAT_011f6238;
 struct FUN_00aa4bb0_Class
 {
     void FUN_00aa4a60();
-    int __thiscall FUN_00aa4bb0(int arg);
+    int __thiscall ScalarDeletingDestructor(int arg);
 };
 struct FUN_00aa4bb0_Local
 {
@@ -521,7 +521,7 @@ struct ScrapHeapManager
     unsigned int m_totalSize;
     void RemoveEntry(unsigned int index);
 };
-struct FUN_00aa5ff0_Class
+struct BSReadWriteLock
 {
     unsigned int m_uiItemCount;
     unsigned int m_uiThreadId;
@@ -831,7 +831,7 @@ struct FUN_00abc180_cls
     unsigned int m8;
     unsigned int mC;
     unsigned int m10;
-    FUN_00abc180_Pair ProcessAndReturnValue_00abc180(unsigned int x, unsigned int a, unsigned int y, unsigned int b);
+    FUN_00abc180_Pair vector_erase(unsigned int x, unsigned int a, unsigned int y, unsigned int b);
 };
 extern "C" void __cdecl Object_Length_error_Thunk(void);
 extern "C" unsigned int* __cdecl Object_AllocateCheckedWords(unsigned int count, unsigned int zero);
@@ -880,7 +880,7 @@ struct FUN_00abc260_cls
     unsigned int* m_0c;
     unsigned int* m_10;
     unsigned int* m_14;
-    bool AllocateZeroedElementStorage(unsigned int count);
+    bool vector__Buy(unsigned int count);
 };
 struct FUN_00aa6650_Class
 {
@@ -1720,12 +1720,12 @@ struct Mixer
     int unk63c;
     int unk640;
     Row168 rows[5];
-    float ProcessEntries_00aacdb0(int a, int b, Out40* out);
-    void ProcessEntries_00aacf40(int a, int b, float t, Out40* out);
+    float FanGenCtlsGrpC_getRace(int a, int b, Out40* out);
+    void FanGenCtlsGrpC_setRace(int a, int b, float t, Out40* out);
 };
 // @fnv 0x00aacf40
-// src: GUESS 0x00aacf40 (confidence: low)
-void Mixer::ProcessEntries_00aacf40(int a, int b, float t, Out40* out)
+// src: COMMUNITY 0x00aacf40
+void Mixer::FanGenCtlsGrpC_setRace(int a, int b, float t, Out40* out)
 {
     a < 5 ? (void)0
           : ReportAssertionViolation("D:\\_Fallout3\\Platforms\\Common\\Code\\SDK\\FaceGen\\FanControls.cpp", 0x1d4);
@@ -1736,7 +1736,7 @@ void Mixer::ProcessEntries_00aacf40(int a, int b, float t, Out40* out)
     if (!m_enabled)
         return;
     {
-        float f = (t - ProcessEntries_00aacdb0(a, b, out)) * rows[a].entries[b].scale;
+        float f = (t - FanGenCtlsGrpC_getRace(a, b, out)) * rows[a].entries[b].scale;
         for (unsigned int i = 0; i < 2; i++)
             out[i] = rows[a].entries[b].curves[i].Transpose() * f;
     }
@@ -2856,7 +2856,7 @@ struct Obj00aaa730
     Str b;
     int unk3c;
     Obj00aaa730(Str key);
-    bool ProcessAndReturnValue_00ac3fe0(const char* name);
+    bool isCorrectFileId(const char* name);
 };
 
 inline Obj00aaa730::~Obj00aaa730()
@@ -2867,7 +2867,7 @@ inline Obj00aaa730::~Obj00aaa730()
 bool Runtime_EvaluateValue_00aaa730(const char* name)
 {
     Obj00aaa730 obj(Str("FRCTL001"));
-    return obj.ProcessAndReturnValue_00ac3fe0(name);
+    return obj.isCorrectFileId(name);
 }
 
 struct S00aaaa80_Str
@@ -3385,11 +3385,11 @@ struct SubBF
     int unkfc4, unkfc8;
     PairBF m_fcc[5][2][2];
     float FanGenCtlsGrpC_getAttribute(int, int, int, DestBF*);
-    void UpdateState_00aabf30(int, int, int, float, DestBF*);
+    void FanGenCtlsGrpC_setAttribute(int, int, int, float, DestBF*);
 };
 // @fnv 0x00aabf30
-// src: GUESS 0x00aabf30 (confidence: low)
-void SubBF::UpdateState_00aabf30(int ia, int ib, int ic, float value, DestBF* dest)
+// src: COMMUNITY 0x00aabf30
+void SubBF::FanGenCtlsGrpC_setAttribute(int ia, int ib, int ic, float value, DestBF* dest)
 {
     if (ia < 5)
     {
@@ -4636,16 +4636,16 @@ struct BlendValue : BlendRelease
 };
 struct BlendOwner
 {
-    float ProcessEntries_00aac3f0(int, int, int, BlendValue (*)[2]);
-    void ProcessEntries_00aac820(int, int, int, float, BlendValue (*)[2]);
-    void UpdateFields_00aadac0(int, int, float, BlendValue (*)[2], BlendValue (*)[2], BlendValue (*)[2]);
+    float FanGenCtlsGrpC_getCaricature(int, int, int, BlendValue (*)[2]);
+    void FanGenCtlsGrpC_setCaricature(int, int, int, float, BlendValue (*)[2]);
+    void FanGenCtlsGrpC_tween(int, int, float, BlendValue (*)[2], BlendValue (*)[2], BlendValue (*)[2]);
 };
 // @fnv 0x00aadac0
-// src: GUESS 0x00aadac0 (confidence: low)
-void BlendOwner::UpdateFields_00aadac0(int row, int col, float t, BlendValue (*a)[2], BlendValue (*b)[2], BlendValue (*out)[2])
+// src: COMMUNITY 0x00aadac0
+void BlendOwner::FanGenCtlsGrpC_tween(int row, int col, float t, BlendValue (*a)[2], BlendValue (*b)[2], BlendValue (*out)[2])
 {
-    float second = ProcessEntries_00aac3f0(0, row, col, a);
-    float first = ProcessEntries_00aac3f0(0, row, col, b);
+    float second = FanGenCtlsGrpC_getCaricature(0, row, col, a);
+    float first = FanGenCtlsGrpC_getCaricature(0, row, col, b);
     float result;
     if (t < 0.0)
         result = first;
@@ -4654,7 +4654,7 @@ void BlendOwner::UpdateFields_00aadac0(int row, int col, float t, BlendValue (*a
     else
         result = second * t + (1.0f - t) * first;
     out[row][col].FUN_006581e0(a[row][col].BuildScaledValues(t).AddMatrixElements(b[row][col].BuildScaledValues(1.0f - t)));
-    ProcessEntries_00aac820(0, row, col, result, out);
+    FanGenCtlsGrpC_setCaricature(0, row, col, result, out);
 }
 
 // FUN_00aadde0: thiscall member (1 stack arg).
@@ -5868,7 +5868,7 @@ typedef basic_string<char, char_traits<char>, allocator<char> > string;
 char __cdecl Object_ProcessAndReturnValue_00aafbe0(const std::string& name)
 {
     FutBinaryFileC obj(std::string("FREGM002"));
-    return obj.ProcessAndReturnValue_00ac3fe0(name);
+    return obj.isCorrectFileId(name);
 }
 }  // namespace fnv_00aafbe0
 
@@ -6056,11 +6056,11 @@ struct Arr28
     int u14;
     VecIterator CallWithSelf();
     VecIterator SetIteratorDataAndOwner();
-    VecIterator ProcessAndReturnValue_0065d740(VecIterator first, VecIterator last);
+    VecIterator vector_erase(VecIterator first, VecIterator last);
 // src: GUESS 0x0065cd70 (confidence: high)
     __declspec(noinline) void ClearAllElements()
     {
-        ProcessAndReturnValue_0065d740(SetIteratorDataAndOwner(), CallWithSelf());
+        vector_erase(SetIteratorDataAndOwner(), CallWithSelf());
     }
     void std_vector_FffModeGS_std_allocator_FffModeGS_resize(unsigned int n);
     unsigned int size() const
@@ -6433,13 +6433,13 @@ struct ReaderChars
         return first;
     }
 };
-struct FUN_00ac5490 : FUN_00aaaa80
+struct BSFaceGenBinaryFile : FUN_00aaaa80
 {
     int m40;
     int m44;
-    FUN_00ac5490(std::Str s) : FUN_00aaaa80(s), m40(0), m44(0)
+    BSFaceGenBinaryFile(std::Str s) : FUN_00aaaa80(s), m40(0), m44(0)
     {}
-    virtual ~FUN_00ac5490()
+    virtual ~BSFaceGenBinaryFile()
     {
         ClearHolders();
     }
@@ -6510,7 +6510,7 @@ unsigned char __cdecl fffReadEgmFile(const std::Str& pStr, int* pOut, Arr28* pA,
     long p2;
     unsigned short* _res;
     {
-        FUN_00ac5490 obj4((std::Str(signatureText)));
+        BSFaceGenBinaryFile obj4((std::Str(signatureText)));
         if (!obj4.BSFaceGenBinaryFile_openForRead(pStr, 0))
         {
             return 0;
@@ -7019,7 +7019,7 @@ struct VecQ_ab0b60
         return ItQ_ab0b60(_Mylast, this);
     }
     void ReleaseStorage_00ab0fd0(CItQ_ab0b60_ab0b60 _Where, unsigned int _Count, const ElQ_ab0b60& _Val);
-    ItQ_ab0b60 ProcessAndReturnValue_0065f5a0(CItQ_ab0b60_ab0b60 _First, CItQ_ab0b60_ab0b60 _Last);
+    ItQ_ab0b60 vector_erase(CItQ_ab0b60_ab0b60 _First, CItQ_ab0b60_ab0b60 _Last);
     void ProcessState_00ab0b60(unsigned int _Newsize, ElQ_ab0b60 _Val);
 };
 inline CItQ_ab0b60_ab0b60::CItQ_ab0b60_ab0b60(ElQ_ab0b60* _Ptr, const VecQ_ab0b60* _Pvector) : _Myaux(0)
@@ -7038,7 +7038,7 @@ void VecQ_ab0b60::ProcessState_00ab0b60(unsigned int _Newsize, ElQ_ab0b60 _Val)
         ReleaseStorage_00ab0fd0(end(), _Newsize - size(), _Val);
     else if (_Newsize < size())
     {
-        ProcessAndReturnValue_0065f5a0(begin() + _Newsize, end());
+        vector_erase(begin() + _Newsize, end());
         Dead31();
     }
 }
@@ -8492,7 +8492,7 @@ struct OutCont
     }
     MeshIterator ProcessEntries_00aba9a0(MeshIterator from, MeshIterator to);
 // src: GUESS 0x00ab9cd0 (confidence: medium)
-    void ProcessEntireVectorRange()
+    void vector_clear()
     {
         ProcessEntries_00aba9a0(Begin(), Begin() + Size());
     }
@@ -8626,7 +8626,7 @@ struct MeshSampler
 // src: GUESS 0x00ab5720 (confidence: low)
 void MeshSampler::ProcessEntries_00ab5720(OutCont* out)
 {
-    out->ProcessEntireVectorRange();
+    out->vector_clear();
     unsigned n = mIdx.Size();
     unsigned m = n + mQ.Size() * 2;
     for (unsigned i = 0; i < mKf.Size(); i++)
@@ -8698,7 +8698,7 @@ struct VecA_ab5ce0
             FUN_00ec7c56();
         return *(_Myfirst + _Pos);
     }
-    void ProcessEntireVectorRange();
+    void vector_clear();
     void UpdateFields_00ab9bc0(const ElA_ab5ce0& _Val);
 };
 struct VecB_ab5ce0
@@ -8732,7 +8732,7 @@ struct Cls_ab5ce0
 // src: GUESS 0x00ab5ce0 (confidence: low)
 void Cls_ab5ce0::ProcessEntries_00ab5ce0(VecA_ab5ce0& out)
 {
-    out.ProcessEntireVectorRange();
+    out.vector_clear();
     Dead12_ab5ce0();
     for (unsigned int i = 0; i < kIdx.size(); i++)
     {
@@ -9080,12 +9080,12 @@ struct Elem9DC0
 class FUN_00ab9dc0_Vector : public vectorS<Elem9DC0>
 {
   public:
-    void ProcessState_00ab9dc0();
+    void vector_clear();
 };
 
 // @fnv 0x00ab9dc0
 // src: GUESS 0x00ab9dc0 (confidence: low)
-void FUN_00ab9dc0_Vector::ProcessState_00ab9dc0()
+void FUN_00ab9dc0_Vector::vector_clear()
 {
     erase(begin(), end());
 }
@@ -9203,9 +9203,9 @@ struct TriString : StringValue
     }
     void resize(unsigned int count)
     {
-        ResizeStringRange(count, char());
+        basic_string_resize(count, char());
     }
-    void ResizeStringRange(unsigned int count, char value);
+    void basic_string_resize(unsigned int count, char value);
     unsigned int max_size() const
     {
         unsigned int count = allocator.max_size();
@@ -9643,13 +9643,13 @@ struct FUN_00aba0d0 : AbaVal<char, AbaAlloc<char> >
     char* first;
     char* last;
     char* limit;
-    void InitializeFilledElements(unsigned int count, const char& value);
+    void vector__Construct_n(unsigned int count, const char& value);
     explicit FUN_00aba0d0(unsigned int count);
 };
 // @fnv 0x00aba0d0
 FUN_00aba0d0::FUN_00aba0d0(unsigned int count) : AbaVal<char, AbaAlloc<char> >()
 {
-    InitializeFilledElements(count, char());
+    vector__Construct_n(count, char());
 }
 }  // namespace fnv_00aba0d0
 
@@ -10220,7 +10220,7 @@ struct VecQ_aba5d0
         return ItQ_aba5d0(_Mylast, this);
     }
     void InsertFilledElements_00abc320(CItQ_aba5d0_aba5d0 _Where, unsigned int _Count, const ElQ_aba5d0& _Val);
-    ItQ_aba5d0 ProcessAndReturnValue_00abc180(CItQ_aba5d0_aba5d0 _First, CItQ_aba5d0_aba5d0 _Last);
+    ItQ_aba5d0 vector_erase(CItQ_aba5d0_aba5d0 _First, CItQ_aba5d0_aba5d0 _Last);
     void ProcessState_00aba5d0(unsigned int _Newsize, ElQ_aba5d0 _Val);
 };
 inline CItQ_aba5d0_aba5d0::CItQ_aba5d0_aba5d0(ElQ_aba5d0* _Ptr, const VecQ_aba5d0* _Pvector) : _Myaux(0)
@@ -10239,7 +10239,7 @@ void VecQ_aba5d0::ProcessState_00aba5d0(unsigned int _Newsize, ElQ_aba5d0 _Val)
         InsertFilledElements_00abc320(end(), _Newsize - size(), _Val);
     else if (_Newsize < size())
     {
-        ProcessAndReturnValue_00abc180(begin() + _Newsize, end());
+        vector_erase(begin() + _Newsize, end());
         Dead31();
     }
 }
@@ -10621,7 +10621,7 @@ struct VecQ_abb280
     ElQ_abb280* _Myfirst;
     ElQ_abb280* _Mylast;
     ElQ_abb280* _Myend;
-    void ForwardCall_0065dc60(ElQ_abb280* _First, ElQ_abb280* _Last);
+    void vector__Destroy(ElQ_abb280* _First, ElQ_abb280* _Last);
     ItQ_abb280 ProcessAndReturnValue_00abb280(CItQ_abb280 _First_arg, CItQ_abb280 _Last_arg);
 };
 inline CItQ_abb280::CItQ_abb280(ElQ_abb280* _Ptr, const VecQ_abb280* _Pvector) : _Myaux(0)
@@ -10640,7 +10640,7 @@ ItQ_abb280 VecQ_abb280::ProcessAndReturnValue_00abb280(CItQ_abb280 _First_arg, C
     if (_First.ProcessAndReturnValue_00ac0460(_Last))
     {
         ElQ_abb280* _Ptr = UCopy_abb280(_Last._Myptr, _Mylast, _First._Myptr);
-        ForwardCall_0065dc60(_Ptr, _Mylast);
+        vector__Destroy(_Ptr, _Mylast);
         _Mylast = _Ptr;
         Dead10_abb280();
     }
@@ -10731,7 +10731,7 @@ struct VecQ_abb5f0
     ElQ_abb5f0* _Myfirst;
     ElQ_abb5f0* _Mylast;
     ElQ_abb5f0* _Myend;
-    void ForwardCall_0065dd90(ElQ_abb5f0* _First, ElQ_abb5f0* _Last);
+    void vector__Destroy(ElQ_abb5f0* _First, ElQ_abb5f0* _Last);
     ItQ_abb5f0 UpdateState_00abb5f0(CItQ_abb5f0 _First_arg, CItQ_abb5f0 _Last_arg);
 };
 inline CItQ_abb5f0::CItQ_abb5f0(ElQ_abb5f0* _Ptr, const VecQ_abb5f0* _Pvector) : _Myaux(0)
@@ -10750,7 +10750,7 @@ ItQ_abb5f0 VecQ_abb5f0::UpdateState_00abb5f0(CItQ_abb5f0 _First_arg, CItQ_abb5f0
     if (_First.ProcessAndReturnValue_00ac0460(_Last))
     {
         ElQ_abb5f0* _Ptr = UCopy_abb5f0(_Last._Myptr, _Mylast, _First._Myptr);
-        ForwardCall_0065dd90(_Ptr, _Mylast);
+        vector__Destroy(_Ptr, _Mylast);
         _Mylast = _Ptr;
         Dead10_abb5f0();
     }
@@ -12243,10 +12243,10 @@ struct MidQ : MBQ
 };
 struct MQ : MidQ
 {
-    void UpdateState_0065f430();
+    void vector__Tidy();
     ~MQ()
     {
-        UpdateState_0065f430();
+        vector__Tidy();
     }
 };
 struct ElQ
@@ -12303,7 +12303,7 @@ struct VecQ_ab0d50
         return ItQ_ab0d50(_Mylast, this);
     }
     void InsertFilledElements_00ab1800(CItQ_ab0d50_ab0d50 _Where, unsigned int _Count, const ElQ& _Val);
-    ItQ_ab0d50 ProcessAndReturnValue_0065d740(CItQ_ab0d50_ab0d50 _First, CItQ_ab0d50_ab0d50 _Last);
+    ItQ_ab0d50 vector_erase(CItQ_ab0d50_ab0d50 _First, CItQ_ab0d50_ab0d50 _Last);
     void UpdateState_00ab0d50(unsigned int _Newsize, ElQ _Val);
 };
 inline CItQ_ab0d50_ab0d50::CItQ_ab0d50_ab0d50(ElQ* _Ptr, const VecQ_ab0d50* _Pvector) : _Myaux(0)
@@ -12321,7 +12321,7 @@ void VecQ_ab0d50::UpdateState_00ab0d50(unsigned int _Newsize, ElQ _Val)
         InsertFilledElements_00ab1800(end(), _Newsize - size(), _Val);
     else if (_Newsize < size())
     {
-        ProcessAndReturnValue_0065d740(begin() + _Newsize, end());
+        vector_erase(begin() + _Newsize, end());
         DeadN();
     }
 }
@@ -14069,12 +14069,12 @@ struct Elem9CD0
 class FUN_00ab9cd0_Vector : public vectorS<Elem9CD0>
 {
   public:
-    void ProcessEntireVectorRange();
+    void vector_clear();
 };
 
 // @fnv 0x00ab9cd0
 // src: GUESS 0x00ab9cd0 (confidence: medium)
-void FUN_00ab9cd0_Vector::ProcessEntireVectorRange()
+void FUN_00ab9cd0_Vector::vector_clear()
 {
     erase(begin(), end());
 }
@@ -15318,12 +15318,12 @@ struct FanControls
     int unk_0d48;
     FgMatD m_matrices_d4c[5][2][2];
 
-    float ProcessEntries_00aac3f0(int arg1, int arg2, int arg3, FgMat (*arg4)[2]);
+    float FanGenCtlsGrpC_getCaricature(int arg1, int arg2, int arg3, FgMat (*arg4)[2]);
 };
 
 // @fnv 0x00aac3f0
-// src: GUESS 0x00aac3f0 (confidence: low)
-float FanControls::ProcessEntries_00aac3f0(int arg1, int arg2, int arg3, FgMat (*arg4)[2])
+// src: COMMUNITY 0x00aac3f0
+float FanControls::FanGenCtlsGrpC_getCaricature(int arg1, int arg2, int arg3, FgMat (*arg4)[2])
 {
 
     if (arg1 < 5)
@@ -16169,13 +16169,13 @@ struct FanControls
     int unkd48;
 
     FgMat bases[5][2][2];
-    float ProcessEntries_00aac3f0(int model, int category, int channel, FgParams* params);
-    void ProcessEntries_00aac820(int model, int category, int channel, float amount, FgParams* params);
+    float FanGenCtlsGrpC_getCaricature(int model, int category, int channel, FgParams* params);
+    void FanGenCtlsGrpC_setCaricature(int model, int category, int channel, float amount, FgParams* params);
 };
 
 // @fnv 0x00aac820
-// src: GUESS 0x00aac820 (confidence: low)
-void FanControls::ProcessEntries_00aac820(int model, int category, int channel, float amount, FgParams* params)
+// src: COMMUNITY 0x00aac820
+void FanControls::FanGenCtlsGrpC_setCaricature(int model, int category, int channel, float amount, FgParams* params)
 {
     if (model < 5)
     {
@@ -16227,7 +16227,7 @@ void FanControls::ProcessEntries_00aac820(int model, int category, int channel, 
             projection.AddMatrix(bases[model][category][axis].Transpose().BuildScaledValues(weight));
         }
         centered.ProcessEntries_00aaef90(projection);
-        float scale3 = ProcessEntries_00aac3f0(model, category, channel, params);
+        float scale3 = FanGenCtlsGrpC_getCaricature(model, category, channel, params);
         if (scale3 > 0.0)
         {
             centered.ScaleAll(amount / scale3);
@@ -16782,12 +16782,12 @@ struct FanControls
     int unk63C;
     int unk640;
     FgControlPair m_aakPairs[5][5];
-    float ProcessEntries_00aacdb0(int iFrom, int iTo, const FgCoordinates* pkCoords);
+    float FanGenCtlsGrpC_getRace(int iFrom, int iTo, const FgCoordinates* pkCoords);
 };
 
 // @fnv 0x00aacdb0
-// src: GUESS 0x00aacdb0 (confidence: low)
-float FanControls::ProcessEntries_00aacdb0(int iFrom, int iTo, const FgCoordinates* pkCoords)
+// src: COMMUNITY 0x00aacdb0
+float FanControls::FanGenCtlsGrpC_getRace(int iFrom, int iTo, const FgCoordinates* pkCoords)
 {
     if (iFrom < 5)
         ;
@@ -17146,7 +17146,7 @@ struct SubValue : ValueBase
         Object_DispatchIteratorRange_0065f9a0(_First, _Last, allocator);
     }
 // src: GUESS 0x0065f430 (confidence: low)
-    void UpdateState_0065f430()
+    void vector__Tidy()
     {
         if (first != 0)
         {
@@ -17160,7 +17160,7 @@ struct SubValue : ValueBase
     SubValue(const SubValue&);
     ~SubValue()
     {
-        UpdateState_0065f430();
+        vector__Tidy();
     }
 };
 struct SnapshotBase : EmptyContainerBase
@@ -17185,8 +17185,8 @@ struct SnapshotValue : SnapshotAllocator
     {
         Object_DispatchIteratorRange_0065f9a0(_First, _Last, allocator);
     }
-// src: GUESS 0x0065f430 (confidence: low)
-    void UpdateState_0065f430()
+// src: GUESS 0x0065f430 (confidence: medium)
+    void vector__Tidy()
     {
         if (first != 0)
         {
@@ -17200,7 +17200,7 @@ struct SnapshotValue : SnapshotAllocator
     SnapshotValue(const SubValue&);
     ~SnapshotValue()
     {
-        UpdateState_0065f430();
+        vector__Tidy();
     }
 };
 
@@ -17917,9 +17917,9 @@ struct TriString : StringValue
     }
     void resize(unsigned int count)
     {
-        ResizeStringRange(count, char());
+        basic_string_resize(count, char());
     }
-    void ResizeStringRange(unsigned int count, char value);
+    void basic_string_resize(unsigned int count, char value);
     unsigned int max_size() const
     {
         unsigned int count = allocator.max_size();
@@ -17995,11 +17995,11 @@ struct FUN_00aaaa80
     TriString signature;
     unsigned int unk3c;
 };
-struct FUN_00ac5490 : FUN_00aaaa80
+struct BSFaceGenBinaryFile : FUN_00aaaa80
 {
     unsigned int unk40, unk44;
-    FUN_00ac5490(TriString);
-    virtual ~FUN_00ac5490()
+    BSFaceGenBinaryFile(TriString);
+    virtual ~BSFaceGenBinaryFile()
     {
         ClearHolders();
     }
@@ -18079,7 +18079,7 @@ struct IndexBuffer : CheckedBuffer<TriIndex>
     }
     CheckedIterator<TriIndex> ProcessEntries_00aba9a0(ConstIterator<TriIndex>, ConstIterator<TriIndex>);
 // src: GUESS 0x00ab9cd0 (confidence: medium)
-    void ProcessEntireVectorRange()
+    void vector_clear()
     {
         ProcessEntries_00aba9a0(begin(), end());
     }
@@ -18092,8 +18092,8 @@ struct QuadBuffer : CheckedBuffer<QuadIndex>
         ProcessState_00abaaa0(count, QuadIndex());
     }
     CheckedIterator<QuadIndex> ProcessAndReturnValue_00abac80(ConstIterator<QuadIndex>, ConstIterator<QuadIndex>);
-// src: GUESS 0x00ab9dc0 (confidence: low)
-    void ProcessState_00ab9dc0()
+// src: GUESS 0x00ab9dc0 (confidence: medium)
+    void vector_clear()
     {
         ProcessAndReturnValue_00abac80(begin(), end());
     }
@@ -18247,7 +18247,7 @@ struct FUN_00aba0d0 : VectorVal<char>
     char* first;
     char* last;
     char* limit;
-    void InitializeFilledElements(unsigned int, const char&);
+    void vector__Construct_n(unsigned int, const char&);
     FUN_00aba0d0(unsigned int count)
     {
         void* space = std_allocator_SIdvLeafTexture_allocator_SIdvLeafTexture(1, 0);
@@ -18255,7 +18255,7 @@ struct FUN_00aba0d0 : VectorVal<char>
         if (node != 0)
             node->container = this;
         proxy = node;
-        InitializeFilledElements(count, char());
+        vector__Construct_n(count, char());
     }
     void Destroy(char* begin, char* finish)
     {
@@ -18289,7 +18289,7 @@ bool __cdecl fffReadTriFile(const TriString& filename, Geometry* geometry)
 {
     TriHeader triHeader;
     fnv_zlib_memset(&triHeader, 0, 56);
-    FUN_00ac5490 reader("FRTRI003");
+    BSFaceGenBinaryFile reader("FRTRI003");
     if (!reader.BSFaceGenBinaryFile_openForRead(filename, 0))
         return false;
     if (!reader.BSFaceGenBinaryFile_readHeader(&triHeader, 1, 56))
@@ -18368,8 +18368,8 @@ bool __cdecl fffReadTriFile(const TriString& filename, Geometry* geometry)
             geometry->texcoords.resize(triHeader.vertices);
             if (triHeader.vertices && !reader.BSFaceGenBinaryFile_read(&geometry->texcoords[0], 8, triHeader.vertices))
                 return false;
-            geometry->textureTriangles.ProcessEntireVectorRange();
-            geometry->textureQuads.ProcessState_00ab9dc0();
+            geometry->textureTriangles.vector_clear();
+            geometry->textureQuads.vector_clear();
         }
         else
         {
@@ -18810,7 +18810,7 @@ inline unsigned int wordMaximum()
     return 0 < count ? count : 1;
 }
 // src: GUESS 0x00abc260 (confidence: medium)
-inline bool FUN_00abc260_cls::AllocateZeroedElementStorage(unsigned int count)
+inline bool FUN_00abc260_cls::vector__Buy(unsigned int count)
 {
     m_0c = 0, m_10 = 0, m_14 = 0;
     if (count == 0)
@@ -18837,7 +18837,7 @@ struct FUN_00aba4f0 : VectorVal_aba4f0<unsigned int, ContainerAllocator<unsigned
 // @fnv 0x00aba4f0
 FUN_00aba4f0::FUN_00aba4f0() : VectorVal_aba4f0<unsigned int, ContainerAllocator<unsigned int> >()
 {
-    ((FUN_00abc260_cls*)this)->AllocateZeroedElementStorage(0);
+    ((FUN_00abc260_cls*)this)->vector__Buy(0);
 }
 
 namespace fnv_00abd2e0 {
@@ -19420,11 +19420,11 @@ struct ReworkPair
 ReworkMatrix __cdecl Runtime_CopyMemory_00aaf330(ReworkPair&, ReworkPair&);
 struct ReworkModel : FGModel
 {
-    void ProcessEntries_00aad140(int idx, ReworkPair* bases);
+    void FanGenCtlsGrpC_random(int idx, ReworkPair* bases);
 };
 // @fnv 0x00aad140
-// src: GUESS 0x00aad140 (confidence: low)
-void ReworkModel::ProcessEntries_00aad140(int idx, ReworkPair* bases)
+// src: COMMUNITY 0x00aad140
+void ReworkModel::FanGenCtlsGrpC_random(int idx, ReworkPair* bases)
 {
     if (idx < 5)
     {
@@ -20367,7 +20367,7 @@ template <class T, class A = Ab2e70Detail::Alloc<T> > class vector : public Ab2e
   public:
     __forceinline vector() : Ab2e70Detail::Value<T, A>()
     {
-        AllocateElementStorage(0);
+        vector__Buy(0);
     }
     unsigned int max_size() const
     {
@@ -20378,7 +20378,7 @@ template <class T, class A = Ab2e70Detail::Alloc<T> > class vector : public Ab2e
         throw Ab2e70Detail::LengthError(Ab2e70Detail::ErrorString("vector<T> too long"));
     }
 // src: GUESS 0x00657ee0 (confidence: medium)
-    bool AllocateElementStorage(unsigned int count)
+    bool vector__Buy(unsigned int count)
     {
         first = 0, last = 0, limit = 0;
         if (count == 0)
@@ -21748,9 +21748,9 @@ struct LoadedFile
 {
     void LoadedFile_DecRefCount();
 };
-struct FUN_00ac5490 : ImageReaderTypes::FUN_00aaaa80
+struct BSFaceGenBinaryFile : ImageReaderTypes::FUN_00aaaa80
 {
-    FUN_00ac5490(ReaderString);
+    BSFaceGenBinaryFile(ReaderString);
     VirtualFile* unk40;
     LoadedFile* unk44;
 
@@ -21771,7 +21771,7 @@ struct FUN_00ac5490 : ImageReaderTypes::FUN_00aaaa80
             unk40 = 0;
         }
     }
-    virtual inline ~FUN_00ac5490()
+    virtual inline ~BSFaceGenBinaryFile()
     {
         ClearHolders();
     }
@@ -21789,7 +21789,7 @@ struct TextureChannel
     {
         ProcessState_00ab2f50(n, 0);
     }
-    unsigned char* GetElementChecked_0065cc70(unsigned int);
+    unsigned char* vector_at(unsigned int);
     inline unsigned int count() const
     {
         return (unsigned int)(last - first);
@@ -21892,7 +21892,7 @@ struct ImageHeader
 // src: GUESS 0x00ab2640 (confidence: low)
 bool __cdecl Object_ProcessEntries_00ab2640(const ReaderString& filename, unsigned int* format, Images* first, Images* second)
 {
-    FUN_00ac5490 stream3((ReaderString(&DAT_010a2d3c)));
+    BSFaceGenBinaryFile stream3((ReaderString(&DAT_010a2d3c)));
     if (!stream3.BSFaceGenBinaryFile_openForRead(filename, 0))
         return false;
     ImageHeader kHeader;
@@ -21938,7 +21938,7 @@ bool __cdecl Object_ProcessEntries_00ab2640(const ReaderString& filename, unsign
         for (j2 = 0; j2 < 3; j2++)
         {
             ((TextureChannel&)(*second)[i3].m10[j2]).resize(size7);
-            unsigned char* row = ((TextureChannel&)(*second)[i3].m10[j2]).GetElementChecked_0065cc70(size7 - rowSize);
+            unsigned char* row = ((TextureChannel&)(*second)[i3].m10[j2]).vector_at(size7 - rowSize);
             for (k = 0; k < kHeader.height; k++)
             {
                 if (!stream3.BSFaceGenBinaryFile_read(row, stride6, kHeader.width))

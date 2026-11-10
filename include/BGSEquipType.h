@@ -54,8 +54,8 @@ public:
     void SetEquipType(int type);
     static BGSMenuIcon* GetEquipTypeIcon(EQUIP_TYPE type);
     static BGSMenuIcon* GetEquipTypeIcon(int type);
-    static const char* GetEquipTypeName(EQUIP_TYPE type);
-    static char* GetEquipTypeName(int type);
+    static const char* GetEquipTypeIconFilename(EQUIP_TYPE type);
+    static char* GetEquipTypeIconFilename(int type);
     static void GenerateDefaultMenuIcons();
 };
 

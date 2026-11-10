@@ -502,12 +502,12 @@ unsigned int __thiscall FUN_0071ae60_shell::ListBox_ItemChange_NumUnfiltered()
     return reinterpret_cast<VATSMenu*>(this)->GetSelectedTargetIndex() - (unsigned int)(*(Tile**)((char*)this + 12))->GetFloat(numFiltered);
 }
 
-void __cdecl ProcessEntries_00724930();
+void __cdecl ListBox_UpdateTileIndices();
 struct FUN_00721bc0_shell
 {
     int x;
     void __thiscall SortEntriesAndRefresh(int(__cdecl* param)(void*, void*));
-    void __thiscall ProcessEntries_00724930();
+    void __thiscall ListBox_UpdateTileIndices();
 };
 // Sorts the ListBoxSortList at offset 4 using the given comparison function, then calls FUN_00724930 on this object.
 // @fnv 0x00721bc0
@@ -515,7 +515,7 @@ struct FUN_00721bc0_shell
 void __thiscall FUN_00721bc0_shell::SortEntriesAndRefresh(int(__cdecl* param)(void*, void*))
 {
     reinterpret_cast<ListBoxSortList*>((char*)this + 4)->Sort(param);
-    this->ProcessEntries_00724930();
+    this->ListBox_UpdateTileIndices();
 }
 
 struct FUN_00723030_Holder
@@ -596,12 +596,13 @@ void __thiscall FUN_00723fd0_shell::UpdateState_00723fd0()
 struct FUN_00724090_shell
 {
     void __thiscall FUN_00721150();
-    void* __thiscall FUN_00724090(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_00721150, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x00724090
-void* FUN_00724090_shell::FUN_00724090(unsigned int flags)
+// src: EXE 0x00724090
+void* FUN_00724090_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00721150();
     if (flags & 1)
@@ -728,7 +729,7 @@ Member_007a8b10* __thiscall FUN_007643c0_p07::DestroySelf(unsigned int flags)
 struct ListBoxSortList;
 struct FUN_007a6480_shell
 {
-    void __thiscall ProcessEntries_007a6480();
+    void __thiscall ListBox_UpdateTileIndices();
 };
 struct FUN_007a22a0_shell
 {
@@ -740,7 +741,7 @@ struct FUN_007a22a0_shell
 void __thiscall FUN_007a22a0_shell::SortEntriesAndRefresh_007a22a0(int(__cdecl* cmp)(void*, void*))
 {
     ((ListBoxSortList*)((char*)this + 4))->Sort(cmp);
-    ((FUN_007a6480_shell*)this)->ProcessEntries_007a6480();
+    ((FUN_007a6480_shell*)this)->ListBox_UpdateTileIndices();
 }
 
 struct FUN_007a30a0_Holder
@@ -1539,7 +1540,7 @@ struct FUN_00721440_class
 // @fnv 0x00721440
 bool FUN_00721440_class::SelectObject(Tile* object)
 {
-    if (ListBox_enum_ActorValue_Index_IsEnabled() && (!object || (ContainsKey(object) && object->IsTraitNonZero(Tile_AddUserTrait(str_01070244, -1)))))
+    if (ListBox_enum_ActorValue_Index_IsEnabled() && (!object || (ContainsKey(object) && object->Tile_IsTrue(Tile_AddUserTrait(str_01070244, -1)))))
     {
         selected = object;
         ListBox_enum_ActorValue_Index_UpdateHighlightBoxPos();
@@ -1629,7 +1630,7 @@ struct TargetMenu
 bool TargetMenu::UpdateState_00721bf0(Tile* item)
 {
     if (IsScrollBarTraitEnabled() &&
-        (item == 0 || (ContainsKey(item) && item->IsTraitNonZero(reinterpret_cast<int>(Tile_AddUserTrait(str_01070244, -1))))))
+        (item == 0 || (ContainsKey(item) && item->Tile_IsTrue(reinterpret_cast<int>(Tile_AddUserTrait(str_01070244, -1))))))
     {
         selected = item;
         UpdateTraitDisplay();
@@ -1758,7 +1759,7 @@ struct ListBox_7223a0
 // src: XBOX_PDB 0x007223a0
 bool ListBox_7223a0::ListBox_enum_MiscStatManager_MiscStatID_Highlight(Tile* apTile)
 {
-    if (ListBox_enum_MiscStatManager_MiscStatID_IsEnabled() && (!apTile || (ContainsKey(apTile) && apTile->IsTraitNonZero(Tile_AddUserTrait(_DAT_01070244, -1)))))
+    if (ListBox_enum_MiscStatManager_MiscStatID_IsEnabled() && (!apTile || (ContainsKey(apTile) && apTile->Tile_IsTrue(Tile_AddUserTrait(_DAT_01070244, -1)))))
     {
         m_pSelected = apTile;
         ListBox_enum_MiscStatManager_MiscStatID_UpdateHighlightBoxPos();
@@ -1851,7 +1852,7 @@ extern "C" void* __cdecl Tile_AddUserTrait(const void*, int);
 // @fnv 0x00722b50
 bool Holder::SelectEntry(Tile* pEntry)
 {
-    if (HasEnabledTrait() && (!pEntry || (ContainsKey(pEntry) && pEntry->IsTraitNonZero(reinterpret_cast<int>(Tile_AddUserTrait(&DAT_01070244, -1))))))
+    if (HasEnabledTrait() && (!pEntry || (ContainsKey(pEntry) && pEntry->Tile_IsTrue(reinterpret_cast<int>(Tile_AddUserTrait(&DAT_01070244, -1))))))
     {
         selected = pEntry;
         UpdateSpeechChallengeTrait();
@@ -1898,7 +1899,7 @@ struct FUN_00723340_cls
 // src: GUESS 0x00723340 (confidence: low)
 bool FUN_00723340_cls::ProcessAndReturnValue_00723340(Tile* arg)
 {
-    if (IsEnabled() && (arg == 0 || (ContainsKey(arg) && arg->IsTraitNonZero(reinterpret_cast<int>(Tile_AddUserTrait("_enabled", -1))))))
+    if (IsEnabled() && (arg == 0 || (ContainsKey(arg) && arg->Tile_IsTrue(reinterpret_cast<int>(Tile_AddUserTrait("_enabled", -1))))))
     {
         m_pArg = arg;
         UpdateHighlightTiles();
@@ -1988,7 +1989,7 @@ class B23AF0ListBox
 // src: XBOX_PDB 0x00723af0
 bool B23AF0ListBox::ListBox_unsigned_int_Highlight(Tile* pkTile)
 {
-    if (IsEnabled() && (!pkTile || (Contains(pkTile) && pkTile->IsTraitNonZero(Tile_AddUserTrait(kListBoxEnabled, -1)))))
+    if (IsEnabled() && (!pkTile || (Contains(pkTile) && pkTile->Tile_IsTrue(Tile_AddUserTrait(kListBoxEnabled, -1)))))
     {
         m_pkSelected = pkTile;
         Refresh();
@@ -2092,7 +2093,7 @@ struct Owner_00724430
 bool Owner_00724430::ListBox_enum_ActorValue_Index_IsEnabled()
 {
     static int selectedValue = Tile_AddUserTrait(str_01070244, -1);
-    return item != 0 && item->IsTraitNonZero(selectedValue);
+    return item != 0 && item->Tile_IsTrue(selectedValue);
 }
 
 struct Item00724930
@@ -2124,12 +2125,12 @@ struct FUN_00724930_cls
     void __thiscall AccumulateTileHeight(Tile* p);
     void __thiscall UpdateState_00724dd0();
     void __thiscall UpdateTraitDisplay();
-    void ProcessEntries_00724930();
+    void ListBox_UpdateTileIndices();
 };
 
 // @fnv 0x00724930
-// src: GUESS 0x00724930 (confidence: low)
-void FUN_00724930_cls::ProcessEntries_00724930()
+// src: GUESS 0x00724930 (confidence: medium)
+void FUN_00724930_cls::ListBox_UpdateTileIndices()
 {
     m_1c = 0;
     m_20 = 0.0f;
@@ -2239,13 +2240,13 @@ struct FUN_007255a0_cls
 
 int __cdecl Tile_AddUserTrait(const char* name, int len);
 
-// Returns 1 if m_0c is non-null and its IsTraitNonZero returns true for the cached "_enabled" setting, otherwise 0.
+// Returns 1 if m_0c is non-null and its Tile_IsTrue returns true for the cached "_enabled" setting, otherwise 0.
 // @fnv 0x007255a0
 // src: GUESS 0x007255a0 (confidence: medium)
 unsigned char FUN_007255a0_cls::HasEnabledTrait()
 {
     static int enabledRef = Tile_AddUserTrait("_enabled", -1);
-    return (m_0c != 0 && m_0c->IsTraitNonZero(enabledRef)) ? 1 : 0;
+    return (m_0c != 0 && m_0c->Tile_IsTrue(enabledRef)) ? 1 : 0;
 }
 
 extern "C" char str_0106f90c[];
@@ -2306,7 +2307,7 @@ class B726160Menu
 bool B726160Menu::ListBox_unsigned_int_IsEnabled()
 {
     static int s_iEnabled = Tile_AddUserTrait(kListBoxEnabled, -1);
-    return m_pkTile && m_pkTile->IsTraitNonZero(s_iEnabled);
+    return m_pkTile && m_pkTile->Tile_IsTrue(s_iEnabled);
 }
 
 struct Parent
@@ -2365,7 +2366,7 @@ int __cdecl Tile_AddUserTrait(const char* s, int n);
 bool FUN_00730e20_cls::ListBox_ItemChange_IsEnabled()
 {
     static void* sKey = (void*)Tile_AddUserTrait("_enabled", -1);
-    return (m_0c != 0 && m_0c->IsTraitNonZero(reinterpret_cast<int>(sKey))) ? 1 : 0;
+    return (m_0c != 0 && m_0c->Tile_IsTrue(reinterpret_cast<int>(sKey))) ? 1 : 0;
 }
 
 extern "C" char _DAT_01070244[];
@@ -2380,13 +2381,13 @@ struct Cls_764e40
     bool ListBox_int_IsEnabled();
 };
 
-// Returns true if m_pTile0c is set and its IsTraitNonZero check passes for the cached s_trait value.
+// Returns true if m_pTile0c is set and its Tile_IsTrue check passes for the cached s_trait value.
 // @fnv 0x00764e40
 // src: XBOX_PDB 0x00764e40
 bool Cls_764e40::ListBox_int_IsEnabled()
 {
     static int s_trait = Tile_AddUserTrait(_DAT_01070244, -1);
-    return m_pTile0c && m_pTile0c->IsTraitNonZero(s_trait);
+    return m_pTile0c && m_pTile0c->Tile_IsTrue(s_trait);
 }
 
 struct Item
@@ -2438,7 +2439,7 @@ int __cdecl Tile_AddUserTrait(const char* name, int len);
 // src: COMMUNITY 0x007a23e0
 bool FUN_007a23e0_cls::ListBox_TESQuest_Destroy(Tile* arg)
 {
-    if (HasEnabledTrait() && (arg == 0 || (ContainsKey(arg) && arg->IsTraitNonZero(Tile_AddUserTrait(str_01070244, -1)))))
+    if (HasEnabledTrait() && (arg == 0 || (ContainsKey(arg) && arg->Tile_IsTrue(Tile_AddUserTrait(str_01070244, -1)))))
     {
         m_10 = arg;
         UpdateHighlightTraits_007a6600();
@@ -2598,12 +2599,12 @@ struct FUN_007a6480_cls
     void AccumulateTileHeight(Tile* p);
     void UpdateScrollTraits_007a6920();
     void UpdateHighlightTraits_007a6600();
-    void ProcessEntries_007a6480();
+    void ListBox_UpdateTileIndices();
 };
 
 // @fnv 0x007a6480
-// src: GUESS 0x007a6480 (confidence: low)
-void FUN_007a6480_cls::ProcessEntries_007a6480()
+// src: GUESS 0x007a6480 (confidence: medium)
+void FUN_007a6480_cls::ListBox_UpdateTileIndices()
 {
     unk1c = 0;
     unk20 = 0.0f;
@@ -2633,13 +2634,13 @@ struct FUN_007a6550_shell
     bool __thiscall HasEnabledTrait();
 };
 
-// Returns true when target is non-null and its IsTraitNonZero check passes for the cached value from FUN_00a00940(str_01070244, -1).
+// Returns true when target is non-null and its Tile_IsTrue check passes for the cached value from FUN_00a00940(str_01070244, -1).
 // @fnv 0x007a6550
 // src: GUESS 0x007a6550 (confidence: medium)
 bool FUN_007a6550_shell::HasEnabledTrait()
 {
     static int value = Tile_AddUserTrait(str_01070244, -1);
-    return target != 0 && target->IsTraitNonZero(value);
+    return target != 0 && target->Tile_IsTrue(value);
 }
 
 namespace fnv_007a6fa0 {
@@ -2690,13 +2691,13 @@ struct FUN_007a7330_cls
     unsigned char IsEnabled();
 };
 
-// Returns 1 if m_0c is non-null and its IsTraitNonZero returns true for the cached "_enabled" handle, otherwise 0.
+// Returns 1 if m_0c is non-null and its Tile_IsTrue returns true for the cached "_enabled" handle, otherwise 0.
 // @fnv 0x007a7330
 // src: GUESS 0x007a7330 (confidence: high)
 unsigned char FUN_007a7330_cls::IsEnabled()
 {
     static int s_handle = Tile_AddUserTrait("_enabled", -1);
-    return (m_0c != 0 && m_0c->IsTraitNonZero(s_handle)) ? 1 : 0;
+    return (m_0c != 0 && m_0c->Tile_IsTrue(s_handle)) ? 1 : 0;
 }
 
 struct FUN_007a81b0_cls
@@ -2715,7 +2716,7 @@ int __cdecl Tile_AddUserTrait(const char* s, int n);
 bool FUN_007a81b0_cls::IsEnabled()
 {
     static void* sKey = (void*)Tile_AddUserTrait("_enabled", -1);
-    return (m_0c != 0 && m_0c->IsTraitNonZero(reinterpret_cast<int>(sKey))) ? 1 : 0;
+    return (m_0c != 0 && m_0c->Tile_IsTrue(reinterpret_cast<int>(sKey))) ? 1 : 0;
 }
 
 extern int DAT_01077094;
@@ -2801,7 +2802,7 @@ void FUN_007d8da0_cls::ListBox_BGSSaveLoadFileEntry_DeselectAll(bool abSkipFlagg
 int __cdecl Tile_AddUserTrait(const char*, int);
 struct SelectionTile
 {
-    bool IsTraitNonZero(int);
+    bool Tile_IsTrue(int);
     void Set(int, int);
 };
 struct SelectionList
@@ -2817,7 +2818,7 @@ bool SelectionList::ApplySelectionAction(SelectionTile* item, int action)
     if (ListBox_StartMenu_Option_IsEnabled() && item && ContainsKey(item))
     {
         static int selected = Tile_AddUserTrait("_selected", -1);
-        bool value = item->IsTraitNonZero(selected);
+        bool value = item->Tile_IsTrue(selected);
         switch (action)
         {
         case 0:
@@ -2882,7 +2883,7 @@ namespace fnv_007d9660 {
 int Tile_AddUserTrait(const char*, int);
 struct SelectionTile
 {
-    bool IsTraitNonZero(int);
+    bool Tile_IsTrue(int);
     void FUN_00700320(int, int);
 };
 struct SelectionList
@@ -2899,7 +2900,7 @@ bool SelectionList::SetItemSelectionTrait(SelectionTile* item, int operation)
     if (ListBox_BGSSaveLoadFileEntry_IsEnabled() && item && ContainsKey(item))
     {
         static int selectedTrait = Tile_AddUserTrait("_selected", -1);
-        bool selected = item->IsTraitNonZero(selectedTrait);
+        bool selected = item->Tile_IsTrue(selectedTrait);
         switch (operation)
         {
         case 0:
@@ -3079,7 +3080,7 @@ void InventoryListBox::PopulateInventoryList(InventoryOwner* owner, bool(__cdecl
     owner->TESObjectREFR_StartInventoryIter(include, &h, &p);
     if (h && p)
     {
-        InventoryEntry* entry = p->GetNextInventoryEntry(h);
+        InventoryEntry* entry = p->InventoryChanges_GetNextFastInventoryItem(h);
         while (entry)
         {
             if (!filter || !filter(entry))
@@ -3117,7 +3118,7 @@ void InventoryListBox::PopulateInventoryList(InventoryOwner* owner, bool(__cdecl
                         callback(a, entry);
                 } while (split && p < h);
             }
-            entry = p->GetNextInventoryEntry(h);
+            entry = p->InventoryChanges_GetNextFastInventoryItem(h);
         }
         delete h;
     }
@@ -3597,13 +3598,13 @@ Tile* NavigationList::ListBox_enum_ActorValue_Index_GetHighlightTarget(unsigned 
                 if ((*node->FUN_006815c0())->tile->FUN_00a011b0(0xfac) == current)
                     result = (*node->FUN_006815c0())->tile;
             }
-            if (result && !result->IsTraitNonZero(Tile_AddUserTrait(str_01070244, -1)))
+            if (result && !result->Tile_IsTrue(Tile_AddUserTrait(str_01070244, -1)))
             {
                 result = 0;
                 if (delta > 0 && ++current > last)
                 {
                     current = last - 1;
-                    while ((!result || !result->IsTraitNonZero(Tile_AddUserTrait(str_01070244, -1))) && current >= 0)
+                    while ((!result || !result->Tile_IsTrue(Tile_AddUserTrait(str_01070244, -1))) && current >= 0)
                     {
                         result = GetAt(current--, false);
                     }
@@ -3612,7 +3613,7 @@ Tile* NavigationList::ListBox_enum_ActorValue_Index_GetHighlightTarget(unsigned 
                 else if (delta < 0 && --current < 0)
                 {
                     current = 1;
-                    while ((!result || !result->IsTraitNonZero(Tile_AddUserTrait(str_01070244, -1))) && current <= last)
+                    while ((!result || !result->Tile_IsTrue(Tile_AddUserTrait(str_01070244, -1))) && current <= last)
                     {
                         result = GetAt(current++, false);
                     }
@@ -3775,13 +3776,13 @@ Tile* Class_721c60::ListBox_PerkRankData_HandleKeyboardInput(int action)
                 }
             }
 
-            if (pTargetTile2 && !pTargetTile2->IsTraitNonZero(Tile_AddUserTrait(str_01070244, -1)))
+            if (pTargetTile2 && !pTargetTile2->Tile_IsTrue(Tile_AddUserTrait(str_01070244, -1)))
             {
                 pTargetTile2 = 0;
                 if (iDelta > 0 && ++iIndex > iMaxIndex2)
                 {
                     iIndex = iMaxIndex2 - 1;
-                    while ((!pTargetTile2 || !pTargetTile2->IsTraitNonZero(Tile_AddUserTrait(str_01070244, -1))) &&
+                    while ((!pTargetTile2 || !pTargetTile2->Tile_IsTrue(Tile_AddUserTrait(str_01070244, -1))) &&
                            iIndex >= 0)
                     {
                         pTargetTile2 = VFunc14(iIndex--, false);
@@ -3791,7 +3792,7 @@ Tile* Class_721c60::ListBox_PerkRankData_HandleKeyboardInput(int action)
                 else if (iDelta < 0 && --iIndex < 0)
                 {
                     iIndex = 1;
-                    while ((!pTargetTile2 || !pTargetTile2->IsTraitNonZero(Tile_AddUserTrait(str_01070244, -1))) &&
+                    while ((!pTargetTile2 || !pTargetTile2->Tile_IsTrue(Tile_AddUserTrait(str_01070244, -1))) &&
                            iIndex <= iMaxIndex2)
                     {
                         pTargetTile2 = VFunc14(iIndex++, false);
@@ -3910,7 +3911,7 @@ struct ListBoxClear
     float m_fFirstListValue;
 
     bool ListBox_unsigned_int_GetFlag(unsigned int flags);
-    void UpdateScrollTraits();
+    void ListBox_UpdateScrollBar();
     void UpdateHighlightTiles();
     void ProcessEntries_007230e0();
 };
@@ -3944,7 +3945,7 @@ void ListBoxClear::ProcessEntries_007230e0()
     m_fFirstListValue = 0.0f;
     if (m_pListTile)
         m_pListTile->Set(Tile_TextToTrait("_num_filtered"), 0.0f, true);
-    UpdateScrollTraits();
+    ListBox_UpdateScrollBar();
     m_pSelectedTile = 0;
     UpdateHighlightTiles();
 }
@@ -4042,20 +4043,20 @@ Tile* LBKListBox::GetTileByKey(int aiKey)
                 if ((*pIter->GetItem())->pTile->GetFloat(0xfac) == kINew)
                     pTile = (*pIter->GetItem())->pTile;
             }
-            if (pTile && !pTile->IsTraitNonZero(Tile_AddUserTrait("_enabled", -1)))
+            if (pTile && !pTile->Tile_IsTrue(Tile_AddUserTrait("_enabled", -1)))
             {
                 pTile = 0;
                 if (iDelta_ > 0 && ++kINew > iLast7)
                 {
                     kINew = iLast7 - 1;
-                    while ((!pTile || !pTile->IsTraitNonZero(Tile_AddUserTrait("_enabled", -1))) && kINew >= 0)
+                    while ((!pTile || !pTile->Tile_IsTrue(Tile_AddUserTrait("_enabled", -1))) && kINew >= 0)
                         pTile = GetTileByIndex(kINew--, 0);
                     break;
                 }
                 else if (iDelta_ < 0 && --kINew < 0)
                 {
                     kINew = 1;
-                    while ((!pTile || !pTile->IsTraitNonZero(Tile_AddUserTrait("_enabled", -1))) && kINew <= iLast7)
+                    while ((!pTile || !pTile->Tile_IsTrue(Tile_AddUserTrait("_enabled", -1))) && kINew <= iLast7)
                         pTile = GetTileByIndex(kINew++, 0);
                     break;
                 }
@@ -4156,14 +4157,14 @@ Tile* ListBoxHelper::ListBox_unsigned_int_GetHighlightTarget(int code)
                 }
             }
 
-            if (delta3 != 0 && !((Tile*)delta3)->IsTraitNonZero(Tile_AddUserTrait(str_01070244, -1)))
+            if (delta3 != 0 && !((Tile*)delta3)->Tile_IsTrue(Tile_AddUserTrait(str_01070244, -1)))
             {
                 delta3 = 0;
                 if (found > 0 && ++aIdx2 > count3)
                 {
                     aIdx2 = count3 - 1;
                     while (
-                        (delta3 == 0 || !((Tile*)delta3)->IsTraitNonZero(Tile_AddUserTrait(str_01070244, -1))) &&
+                        (delta3 == 0 || !((Tile*)delta3)->Tile_IsTrue(Tile_AddUserTrait(str_01070244, -1))) &&
                         aIdx2 >= 0)
                     {
                         delta3 = GetItemAt(aIdx2--, 0);
@@ -4174,7 +4175,7 @@ Tile* ListBoxHelper::ListBox_unsigned_int_GetHighlightTarget(int code)
                 {
                     aIdx2 = 1;
                     while (
-                        (delta3 == 0 || !((Tile*)delta3)->IsTraitNonZero(Tile_AddUserTrait(str_01070244, -1))) &&
+                        (delta3 == 0 || !((Tile*)delta3)->Tile_IsTrue(Tile_AddUserTrait(str_01070244, -1))) &&
                         aIdx2 <= count3)
                     {
                         delta3 = GetItemAt(aIdx2++, 0);
@@ -4471,7 +4472,7 @@ class C4FD0ListBox
 bool C4FD0ListBox::ListBox_enum_MiscStatManager_MiscStatID_IsEnabled()
 {
     static int s_iEnabledTrait = C4FD0TraitNameToID("_enabled", -1);
-    return m_pkTile && m_pkTile->IsTraitNonZero(s_iEnabledTrait);
+    return m_pkTile && m_pkTile->Tile_IsTrue(s_iEnabledTrait);
 }
 
 Tile* __cdecl Tile_GetTileByName(Tile*, const char*);
@@ -4641,13 +4642,13 @@ struct FUN_00725b70_cls
 
 int __cdecl Tile_AddUserTrait(const char* s, int n);
 
-// Returns true when m_0c is non-null and its IsTraitNonZero lookup of the static "_enabled" key succeeds.
+// Returns true when m_0c is non-null and its Tile_IsTrue lookup of the static "_enabled" key succeeds.
 // @fnv 0x00725b70
 // src: GUESS 0x00725b70 (confidence: high)
 bool FUN_00725b70_cls::IsEnabled()
 {
     static void* sKey = (void*)Tile_AddUserTrait("_enabled", -1);
-    return (m_0c != 0 && m_0c->IsTraitNonZero(reinterpret_cast<int>(sKey))) ? 1 : 0;
+    return (m_0c != 0 && m_0c->Tile_IsTrue(reinterpret_cast<int>(sKey))) ? 1 : 0;
 }
 
 namespace fnv_00726210 {
@@ -5397,13 +5398,13 @@ Tile* NavigationList::GetNavigationTileForEvent(unsigned int event)
                 if ((*link->FUN_006815c0())->tile->FUN_00a011b0(0xfac) == index)
                     foundVal = (*link->FUN_006815c0())->tile;
             }
-            if (foundVal && !foundVal->IsTraitNonZero(Tile_AddUserTrait("_enabled", -1)))
+            if (foundVal && !foundVal->Tile_IsTrue(Tile_AddUserTrait("_enabled", -1)))
             {
                 foundVal = 0;
                 if (delta8 > 0 && ++index > maximumTmp)
                 {
                     index = maximumTmp - 1;
-                    while ((!foundVal || !foundVal->IsTraitNonZero(Tile_AddUserTrait("_enabled", -1))) && index >= 0)
+                    while ((!foundVal || !foundVal->Tile_IsTrue(Tile_AddUserTrait("_enabled", -1))) && index >= 0)
                     {
                         foundVal = GetTile(index--, false);
                     }
@@ -5412,7 +5413,7 @@ Tile* NavigationList::GetNavigationTileForEvent(unsigned int event)
                 else if (delta8 < 0 && --index < 0)
                 {
                     index = 1;
-                    while ((!foundVal || !foundVal->IsTraitNonZero(Tile_AddUserTrait("_enabled", -1))) &&
+                    while ((!foundVal || !foundVal->Tile_IsTrue(Tile_AddUserTrait("_enabled", -1))) &&
                            index <= maximumTmp)
                     {
                         foundVal = GetTile(index++, false);
@@ -5444,14 +5445,14 @@ class FUN_007a3ac0_ListBox
     float m_fFirstListValue;
 
     bool ListBox_unsigned_int_GetFlag(unsigned int flags);
-    void UpdateScrollTraits_007a7700();
+    void ListBox_UpdateScrollDelta();
     void UpdateHighlightTraits_007a73e0();
-    void ProcessEntries_007a3ac0();
+    void ListBox_RemoveAll();
 };
 
 // @fnv 0x007a3ac0
-// src: GUESS 0x007a3ac0 (confidence: low)
-void FUN_007a3ac0_ListBox::ProcessEntries_007a3ac0()
+// src: GUESS 0x007a3ac0 (confidence: high)
+void FUN_007a3ac0_ListBox::ListBox_RemoveAll()
 {
     while (pNext && *pNext->GetItem())
     {
@@ -5480,7 +5481,7 @@ void FUN_007a3ac0_ListBox::ProcessEntries_007a3ac0()
     m_fFirstListValue = 0.0f;
     if (m_pListTile)
         m_pListTile->Set(Tile_TextToTrait("_num_filtered"), 0.0f, true);
-    UpdateScrollTraits_007a7700();
+    ListBox_UpdateScrollDelta();
     unk10 = 0;
     UpdateHighlightTraits_007a73e0();
 }
@@ -5564,13 +5565,13 @@ Tile* Navigation::ProcessEntries_007a4000(int key)
                 if ((*node->GetItem())->tile->GetFloat(0xfac) == index)
                     result = (*node->GetItem())->tile;
             }
-            if (result && !result->IsTraitNonZero(UserTrait("_enabled", -1)))
+            if (result && !result->Tile_IsTrue(UserTrait("_enabled", -1)))
             {
                 result = 0;
                 if (delta > 0 && ++index > maximum)
                 {
                     index = maximum - 1;
-                    while ((!result || !result->IsTraitNonZero(UserTrait("_enabled", -1))) && index >= 0)
+                    while ((!result || !result->Tile_IsTrue(UserTrait("_enabled", -1))) && index >= 0)
                     {
                         result = At(index--, false);
                     }
@@ -5579,7 +5580,7 @@ Tile* Navigation::ProcessEntries_007a4000(int key)
                 else if (delta < 0 && --index < 0)
                 {
                     index = 1;
-                    while ((!result || !result->IsTraitNonZero(UserTrait("_enabled", -1))) && index <= maximum)
+                    while ((!result || !result->Tile_IsTrue(UserTrait("_enabled", -1))) && index <= maximum)
                     {
                         result = At(index++, false);
                     }
@@ -5745,13 +5746,13 @@ Tile* NavList::GetNavigationTarget(int action)
                 if ((*node->GetItem())->tile->GetFloat(0xfac) == index)
                     result = (*node->GetItem())->tile;
             }
-            if (result && !result->IsTraitNonZero(Tile_AddUserTrait("_enabled", -1)))
+            if (result && !result->Tile_IsTrue(Tile_AddUserTrait("_enabled", -1)))
             {
                 result = 0;
                 if (delta > 0 && ++index > maxIndex)
                 {
                     index = maxIndex - 1;
-                    while ((!result || !result->IsTraitNonZero(Tile_AddUserTrait("_enabled", -1))) && index >= 0)
+                    while ((!result || !result->Tile_IsTrue(Tile_AddUserTrait("_enabled", -1))) && index >= 0)
                     {
                         result = GetAt(index--, false);
                     }
@@ -5760,7 +5761,7 @@ Tile* NavList::GetNavigationTarget(int action)
                 else if (delta < 0 && --index < 0)
                 {
                     index = 1;
-                    while ((!result || !result->IsTraitNonZero(Tile_AddUserTrait("_enabled", -1))) && index <= maxIndex)
+                    while ((!result || !result->Tile_IsTrue(Tile_AddUserTrait("_enabled", -1))) && index <= maxIndex)
                     {
                         result = GetAt(index++, false);
                     }
@@ -6087,7 +6088,7 @@ class D7580ListBox
 bool D7580ListBox::ListBox_StartMenu_Option_IsEnabled()
 {
     static int s_iEnabledTrait = D7580TraitNameToID("_enabled", -1);
-    return m_pkTile && m_pkTile->IsTraitNonZero(s_iEnabledTrait);
+    return m_pkTile && m_pkTile->Tile_IsTrue(s_iEnabledTrait);
 }
 
 namespace fnv_007d7da0 {
@@ -6355,7 +6356,7 @@ class C7D8950ListBox
 // src: GUESS 0x007d8950 (confidence: high)
 bool C7D8950ListBox::SetSelectedTileIfEnabled(Tile* pkTile)
 {
-    if (IsActive() && (!pkTile || (Contains(pkTile) && pkTile->IsTraitNonZero(C7D8950TraitNameToID("_enabled", -1)))))
+    if (IsActive() && (!pkTile || (Contains(pkTile) && pkTile->Tile_IsTrue(C7D8950TraitNameToID("_enabled", -1)))))
     {
         m_pkSelected = pkTile;
         UpdateSelection();
@@ -6452,20 +6453,20 @@ Tile* NavigationList::ListBox_BGSSaveLoadFileEntry_HandleKeyboardInput(int direc
                 if ((*node->FUN_006815c0())->tile->FUN_00a011b0(0xfac) == last)
                     tile = (*node->FUN_006815c0())->tile;
             }
-            if (tile && !tile->IsTraitNonZero(Tile_AddUserTrait(str_01070244, -1)))
+            if (tile && !tile->Tile_IsTrue(Tile_AddUserTrait(str_01070244, -1)))
             {
                 tile = 0;
                 if (step > 0 && ++last > index)
                 {
                     last = index - 1;
-                    while ((!tile || !tile->IsTraitNonZero(Tile_AddUserTrait(str_01070244, -1))) && last >= 0)
+                    while ((!tile || !tile->Tile_IsTrue(Tile_AddUserTrait(str_01070244, -1))) && last >= 0)
                         tile = GetTile(last--, false);
                     break;
                 }
                 else if (step < 0 && --last < 0)
                 {
                     last = 1;
-                    while ((!tile || !tile->IsTraitNonZero(Tile_AddUserTrait(str_01070244, -1))) && last <= index)
+                    while ((!tile || !tile->Tile_IsTrue(Tile_AddUserTrait(str_01070244, -1))) && last <= index)
                         tile = GetTile(last++, false);
                     break;
                 }
@@ -6969,20 +6970,20 @@ Tile* Box118::ListBox_enum_MiscStatManager_MiscStatID_GetHighlightTarget(unsigne
                 if (node->FUN_006815c0()->tile->FUN_00a011b0(0xfac) == iCurrent)
                     pFound = node->FUN_006815c0()->tile;
             }
-            if (pFound && !pFound->IsTraitNonZero(Tile_AddUserTrait(kListBoxEnabled, -1)))
+            if (pFound && !pFound->Tile_IsTrue(Tile_AddUserTrait(kListBoxEnabled, -1)))
             {
                 pFound = 0;
                 if (delta8 > 0 && ++iCurrent > maximum)
                 {
                     iCurrent = maximum - 1;
-                    while ((!pFound || !pFound->IsTraitNonZero(Tile_AddUserTrait(kListBoxEnabled, -1))) && iCurrent >= 0)
+                    while ((!pFound || !pFound->Tile_IsTrue(Tile_AddUserTrait(kListBoxEnabled, -1))) && iCurrent >= 0)
                         pFound = GetTile(iCurrent--, 0);
                     break;
                 }
                 else if (delta8 < 0 && --iCurrent < 0)
                 {
                     iCurrent = 1;
-                    while ((!pFound || !pFound->IsTraitNonZero(Tile_AddUserTrait(kListBoxEnabled, -1))) &&
+                    while ((!pFound || !pFound->Tile_IsTrue(Tile_AddUserTrait(kListBoxEnabled, -1))) &&
                            iCurrent <= maximum)
                         pFound = GetTile(iCurrent++, 0);
                     break;
@@ -7130,7 +7131,7 @@ int __cdecl Tile_AddUserTrait(const char* name, int fallback);
 bool Class_721c60::IsScrollBarTraitEnabled()
 {
     static int enabledTrait = Tile_AddUserTrait(str_01070244, -1);
-    return m_pScrollBar && m_pScrollBar->IsTraitNonZero(enabledTrait);
+    return m_pScrollBar && m_pScrollBar->Tile_IsTrue(enabledTrait);
 }
 
 struct FUN_007d7670_cls
@@ -7151,7 +7152,7 @@ struct FUN_007d7670_cls
 // src: XBOX_PDB 0x007d7670
 bool FUN_007d7670_cls::ListBox_StartMenu_Option_Highlight(Tile* pkTile)
 {
-    if (ListBox_StartMenu_Option_IsEnabled() && (!pkTile || (ContainsKey(pkTile) && pkTile->IsTraitNonZero(Tile_AddUserTrait(str_01070244, -1)))))
+    if (ListBox_StartMenu_Option_IsEnabled() && (!pkTile || (ContainsKey(pkTile) && pkTile->Tile_IsTrue(Tile_AddUserTrait(str_01070244, -1)))))
     {
         m_pkSelected = pkTile;
         UpdateHighlightBox();
@@ -7371,13 +7372,13 @@ Tile* S722Menu::ListBox_StatsMenu_StatusEffect_HandleKeyboardInput(int code)
                     pFound5 = (*pNode4->FUN_006815c0())->pTile;
                 }
             }
-            if (pFound5 && !pFound5->IsTraitNonZero(Tile_AddUserTrait("_enabled", -1)))
+            if (pFound5 && !pFound5->Tile_IsTrue(Tile_AddUserTrait("_enabled", -1)))
             {
                 pFound5 = 0;
                 if (iDelta > 0 && ++iIndex > iLastB)
                 {
                     iIndex = iLastB - 1;
-                    while ((!pFound5 || !pFound5->IsTraitNonZero(Tile_AddUserTrait("_enabled", -1))) && iIndex >= 0)
+                    while ((!pFound5 || !pFound5->Tile_IsTrue(Tile_AddUserTrait("_enabled", -1))) && iIndex >= 0)
                     {
                         pFound5 = GetItemTile(iIndex--, 0);
                     }
@@ -7386,7 +7387,7 @@ Tile* S722Menu::ListBox_StatsMenu_StatusEffect_HandleKeyboardInput(int code)
                 else if (iDelta < 0 && --iIndex < 0)
                 {
                     iIndex = 1;
-                    while ((!pFound5 || !pFound5->IsTraitNonZero(Tile_AddUserTrait("_enabled", -1))) && iIndex <= iLastB)
+                    while ((!pFound5 || !pFound5->Tile_IsTrue(Tile_AddUserTrait("_enabled", -1))) && iIndex <= iLastB)
                     {
                         pFound5 = GetItemTile(iIndex++, 0);
                     }
@@ -7535,13 +7536,13 @@ Tile* S764Menu::ListBox_int_GetHighlightTarget(int aiScrollCode)
                     pFound5 = (*pNode4->FUN_006815c0())->pTile;
                 }
             }
-            if (pFound5 && !pFound5->IsTraitNonZero(Tile_AddUserTrait("_enabled", -1)))
+            if (pFound5 && !pFound5->Tile_IsTrue(Tile_AddUserTrait("_enabled", -1)))
             {
                 pFound5 = 0;
                 if (iDelta > 0 && ++iIndex > iLastB)
                 {
                     iIndex = iLastB - 1;
-                    while ((!pFound5 || !pFound5->IsTraitNonZero(Tile_AddUserTrait("_enabled", -1))) && iIndex >= 0)
+                    while ((!pFound5 || !pFound5->Tile_IsTrue(Tile_AddUserTrait("_enabled", -1))) && iIndex >= 0)
                     {
                         pFound5 = GetItemTile(iIndex--, 0);
                     }
@@ -7550,7 +7551,7 @@ Tile* S764Menu::ListBox_int_GetHighlightTarget(int aiScrollCode)
                 else if (iDelta < 0 && --iIndex < 0)
                 {
                     iIndex = 1;
-                    while ((!pFound5 || !pFound5->IsTraitNonZero(Tile_AddUserTrait("_enabled", -1))) && iIndex <= iLastB)
+                    while ((!pFound5 || !pFound5->Tile_IsTrue(Tile_AddUserTrait("_enabled", -1))) && iIndex <= iLastB)
                     {
                         pFound5 = GetItemTile(iIndex++, 0);
                     }
@@ -7585,7 +7586,7 @@ struct MenuChk_a3f90
 // src: COMMUNITY 0x007a3f90
 bool MenuChk_a3f90::ListBox_TESObjectREFR_Destroy(Tile* tile)
 {
-    if (IsEnabled() && (!tile || (ContainsKey(tile) && tile->IsTraitNonZero(Tile_AddUserTrait(str_01070244, -1)))))
+    if (IsEnabled() && (!tile || (ContainsKey(tile) && tile->Tile_IsTrue(Tile_AddUserTrait(str_01070244, -1)))))
     {
         unk10 = tile;
         UpdateHighlightTraits_007a73e0();
@@ -7659,7 +7660,7 @@ struct Owner_007a5a60
 bool Owner_007a5a60::SetEnabledHighlightTarget(Tile* pkTarget)
 {
     if (IsEnabled() &&
-        (!pkTarget || (ContainsKey(pkTarget) && pkTarget->IsTraitNonZero(Tile_AddUserTrait("_enabled", -1)))))
+        (!pkTarget || (ContainsKey(pkTarget) && pkTarget->Tile_IsTrue(Tile_AddUserTrait("_enabled", -1)))))
     {
         m_pkTarget = pkTarget;
         UpdateHighlight();
@@ -7769,13 +7770,13 @@ Tile* Class_7d76e0::ListBox_StartMenu_Option_GetHighlightTarget(int action)
                     result = (*node->FUN_006815c0())->tile;
                 }
             }
-            if (result && !result->IsTraitNonZero(Tile_AddUserTrait(str_01070244, -1)))
+            if (result && !result->Tile_IsTrue(Tile_AddUserTrait(str_01070244, -1)))
             {
                 result = 0;
                 if (delta > 0 && ++newIdx > maxIdx)
                 {
                     newIdx = maxIdx - 1;
-                    while ((!result || !result->IsTraitNonZero(Tile_AddUserTrait(str_01070244, -1))) && newIdx >= 0)
+                    while ((!result || !result->Tile_IsTrue(Tile_AddUserTrait(str_01070244, -1))) && newIdx >= 0)
                     {
                         result = VFunc14(newIdx--, false);
                     }
@@ -7784,7 +7785,7 @@ Tile* Class_7d76e0::ListBox_StartMenu_Option_GetHighlightTarget(int action)
                 else if (delta < 0 && (newIdx -= 1) < 0)
                 {
                     newIdx = 1;
-                    while ((!result || !result->IsTraitNonZero(Tile_AddUserTrait(str_01070244, -1))) && newIdx <= maxIdx)
+                    while ((!result || !result->Tile_IsTrue(Tile_AddUserTrait(str_01070244, -1))) && newIdx <= maxIdx)
                     {
                         result = VFunc14(newIdx++, false);
                     }

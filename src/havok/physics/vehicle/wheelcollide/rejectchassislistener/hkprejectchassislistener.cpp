@@ -98,7 +98,7 @@ extern "C" hkMemoryRouterXdfbd40& __cdecl hkMemoryRouter_getInstance() throw();
 class hkObjdfbd40 : public hkpRejectChassisListener
 {
   public:
-    hkObjdfbd40* FUN_00dfbd40(unsigned int uiFlags) throw();
+    hkObjdfbd40* ScalarDeletingDestructor(unsigned int uiFlags) throw();
 
     static void operator delete(void* p) throw()
     {
@@ -113,7 +113,8 @@ class hkObjdfbd40 : public hkpRejectChassisListener
 
 // Calls FUN_00e360f0, then calls operator delete on this if bit 0 of uiFlags is set, and returns this.
 // @fnv 0x00dfbd40
-hkObjdfbd40* hkObjdfbd40::FUN_00dfbd40(unsigned int uiFlags) throw()
+// src: EXE 0x00dfbd40
+hkObjdfbd40* hkObjdfbd40::ScalarDeletingDestructor(unsigned int uiFlags) throw()
 {
     this->FUN_00e360f0();
     if (uiFlags & 1)

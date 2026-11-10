@@ -575,7 +575,7 @@ void UpdateRadioSignals(bool abUpdateSignals)
 
     if (abUpdateSignals)
     {
-        BGSTalkingActivator::FindRadioStations((TESObjectREFR*)g_thePlayer, &stationlist, &stationDistances);
+        BGSTalkingActivator::GetRadioStationsInRangeOfRef((TESObjectREFR*)g_thePlayer, &stationlist, &stationDistances);
         for (BSSimpleList<RadioStationRef*>* pstationObj = &stationlist; pstationObj && pstationObj->GetItem();
              pstationObj = pstationObj->GetNext())
         {
@@ -696,7 +696,7 @@ void __cdecl FalloutRadio_RadioSynchPaused()
         FalloutRadio_UpdateStation((FalloutRadio::RadioStationState*)DAT_011dd42c);
 }
 
-struct FUN_00833040_shell
+struct FalloutRadio_StationState
 {
     int m_00;
     int m_04;
@@ -708,7 +708,7 @@ struct FUN_00833040_shell
 };
 
 // @fnv 0x00833040
-bool __thiscall FUN_00833040_shell::IsFlag20Set()
+bool __thiscall FalloutRadio_StationState::IsFlag20Set()
 {
     return ((m_14 & 0x20) != 0);
 }
@@ -942,14 +942,14 @@ void* Holder00832160::FUN_00832160(unsigned int flags)
 void _Deallocate(void*);
 struct FUN_00832190_shell
 {
-    void FUN_008321e0();
+    void FalloutRadio_FORadioReceiver();
     void* FUN_00832190(unsigned int);
 };
-// Calls FUN_008321e0, then deallocates this if flags has bit 0 set, and returns this.
+// Calls FalloutRadio_FORadioReceiver, then deallocates this if flags has bit 0 set, and returns this.
 // @fnv 0x00832190
 void* FUN_00832190_shell::FUN_00832190(unsigned int flags)
 {
-    FUN_008321e0();
+    FalloutRadio_FORadioReceiver();
     if (flags & 1)
         _Deallocate(this);
     return this;
@@ -1019,7 +1019,7 @@ struct FNVHelper00835b90
 {
     BGSTalkingActivator* _FNV_GetObjectReference();
 };
-struct FUN_00833040_shell
+struct FalloutRadio_StationState
 {
     bool IsFlag20Set();
 };
@@ -1035,7 +1035,7 @@ bool FalloutRadio_GetBroadcastState(TESObjectREFR* apTargetStation)
     bretValue = false;
     pstation = FalloutRadio::GetRadioConversation(((FNVHelper00835b90*)apTargetStation)->_FNV_GetObjectReference());
     if (pstation)
-        bretValue = ((FUN_00833040_shell*)((char*)pstation + 4))->IsFlag20Set();
+        bretValue = ((FalloutRadio_StationState*)((char*)pstation + 4))->IsFlag20Set();
     return bretValue;
 }
 }  // namespace fnv_00835b90
@@ -1573,7 +1573,7 @@ bool FalloutRadio_TunePipboyToStation(RefView* form, bool flag)
     if (!form)
     {
         BSSimpleList<RadioStationRef*> item;
-        BGSTalkingActivator::FindRadioStations((TESObjectREFR*)g_thePlayer, &item, 0);
+        BGSTalkingActivator::GetRadioStationsInRangeOfRef((TESObjectREFR*)g_thePlayer, &item, 0);
         BSSimpleList<RadioStationRef*>* list = &item;
         if (list && list->GetItem() && ((RefView*)list->GetItem())->BGSSaveFormBuffer_GetForm())
             form = (RefView*)list->GetItem();
@@ -2091,7 +2091,7 @@ struct RadioStation
 };
 struct RadioRef
 {
-    void SetRefFlag40000000(bool);
+    void TESObjectACTI_SetContinuousBroadcast(bool);
 };
 struct RadioSource
 {
@@ -2115,7 +2115,7 @@ void FalloutRadio_SetBroadcastState(RadioSource* source, bool enabled)
         return;
     RadioStation* station = FalloutRadio_GetActiveStation(source->BGSSaveFormBuffer_GetForm());
     g_011dd5e8.BSCriticalSection_Enter("FalloutRadio::SetBroadcastState");
-    source->BGSSaveFormBuffer_GetForm()->SetRefFlag40000000(enabled);
+    source->BGSSaveFormBuffer_GetForm()->TESObjectACTI_SetContinuousBroadcast(enabled);
     if (station)
     {
         if (station->data.IsFlag20Set() && !enabled)
@@ -2407,7 +2407,7 @@ class FUN_00833100_shell
     void FalloutRadio_StationState_SetContBroadcast(bool);
 };
 
-class FUN_00833040_shell
+class FalloutRadio_StationState
 {
   public:
     bool IsFlag20Set();
@@ -2542,7 +2542,7 @@ FalloutRadio::RadioStationState* CreateRadioStationState(TESObjectREFR* a1, TESO
 
     ((FUN_00833100_shell*)((char*)state3 + 4))
         ->FalloutRadio_StationState_SetContBroadcast(((P01ObjA*)((StationData*)state3)->form)->GetNext()->Unk_2D());
-    ((FUN_008330b0_shell*)((char*)state3 + 4))->SetFlag(((FUN_00833040_shell*)((char*)state3 + 4))->IsFlag20Set());
+    ((FUN_008330b0_shell*)((char*)state3 + 4))->SetFlag(((FalloutRadio_StationState*)((char*)state3 + 4))->IsFlag20Set());
     ((FUN_00833060_shell*)((char*)state3 + 4))->FalloutRadio_StationState_SetJustTurnedOn(true);
 
     ((StationData*)state3)->unk14 = 0x64;
@@ -2730,7 +2730,7 @@ struct RadioUpdateVec3
 class RadioUpdateSnd
 {
   public:
-    unsigned char GetField45();
+    unsigned char GetMaxDistance();
 };
 
 
@@ -2795,7 +2795,7 @@ class RadioUpdateRefObj
     virtual void vf9();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -2821,7 +2821,7 @@ class RadioUpdateRefObj
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();
@@ -3395,7 +3395,7 @@ void __cdecl FalloutRadio_UpdateStation(FalloutRadio::RadioStationState* apState
                         bNpcVal = true;
                 }
                 if (aData && !bNpcVal)
-                    aBound = aData->GetField45() * 110.0;
+                    aBound = aData->GetMaxDistance() * 110.0;
                 else if (bNpcVal)
                     aBound = *DAT_011dd62c.Setting_Float_00403e20() * 1.100000023841858;
 
@@ -3419,7 +3419,7 @@ void __cdecl FalloutRadio_UpdateStation(FalloutRadio::RadioStationState* apState
                         (*aNext->FUN_006815c0())->snd4 =
                             ((RadioUpdateAudio*)::BSAudio_QInstance())->BSAudio_GetSoundHandleByFilename(buf, flags | 0x500102, 0);
                         (*aNext->FUN_006815c0())
-                            ->snd4.SetMinMax(*DAT_011dd5b0.Setting_Float_00403e20(), *DAT_011dd62c.Setting_Float_00403e20());
+                            ->snd4.SetMinMaxDistance(*DAT_011dd5b0.Setting_Float_00403e20(), *DAT_011dd62c.Setting_Float_00403e20());
                     }
                     else
                     {

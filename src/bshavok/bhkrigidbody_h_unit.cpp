@@ -393,16 +393,16 @@ struct WorldObject
     virtual void v57();
     virtual void v58();
     virtual void v59(void* out);
-    void* AddDebugNodeToWorld(void* a1);
+    void* bhkWorldObject_CreateDisplayGeometry(void* a1);
     void* bhkRigidBody_CreateDisplayGeometry(void* a1);
 };
 
-// Gets a node from AddDebugNodeToWorld, creates a shape with 6.0f, sets its position, attaches it, and returns the node.
+// Gets a node from bhkWorldObject_CreateDisplayGeometry, creates a shape with 6.0f, sets its position, attaches it, and returns the node.
 // @fnv 0x00c8d2f0
 // src: XBOX_PDB 0x00c8d2f0
 void* WorldObject::bhkRigidBody_CreateDisplayGeometry(void* a1)
 {
-    WorldObject* pDebugNode = (WorldObject*)AddDebugNodeToWorld(a1);
+    WorldObject* pDebugNode = (WorldObject*)bhkWorldObject_CreateDisplayGeometry(a1);
     if (pDebugNode != 0)
     {
         __m128 src;

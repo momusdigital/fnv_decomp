@@ -3,7 +3,7 @@
 
 struct PoolLock_b1698
 {
-    void Lock(int wait);
+    void Lock(int hkSemaphore_release);
 };
 
 struct PoolNode_b1698

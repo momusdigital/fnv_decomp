@@ -59,7 +59,7 @@ struct BufferOwnerBase
     {}
 };
 
-struct FUN_00dffca0_cls : BufferOwnerBase
+struct hkpConvexPieceStreamData : BufferOwnerBase
 {
     unsigned int unk04;
     OwnedBuffer m_buf0;
@@ -86,7 +86,7 @@ static void ReleaseOwnedBuffer(OwnedBuffer& buf)
 // Releases the three owned buffers and then calls the base class destructor.
 // @fnv 0x00dffca0
 // src: GUESS 0x00dffca0 (confidence: medium)
-void FUN_00dffca0_cls::DestroyFields_00dffca0()
+void hkpConvexPieceStreamData::DestroyFields_00dffca0()
 {
     ReleaseOwnedBuffer(m_buf2);
     ReleaseOwnedBuffer(m_buf1);

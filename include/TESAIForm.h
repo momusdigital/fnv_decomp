@@ -36,7 +36,7 @@ public:
     bool IsEqualToBase(BaseFormComponent* component);
     void Save();
     void InitItem(TESForm* form);
-    void CopyAISettings(TESAIForm* source);
+    void CopyAIData(TESAIForm* source);
     void CopyAIPackageList(TESAIForm* source);
     void CopyAIPackageList(const TESAIForm* source);
     void CopyAIDataFromAIDATA(PackedRecordData* data);
@@ -84,13 +84,13 @@ public:
     void InsertPackageAt(TESPackage* package, TESPackage* position, bool before);
     void DeletePackage(TESPackage* package);
     static TESPackage* GetCurrentPackage(Actor* actor);
-    static void FindAvailablePackages(Actor* actor, BSSimpleList<TESPackage*>* packages, float start, float hour);
-    static void FindAvailablePackages(Actor* actor, void* packages, float start, float hour);
+    static void GetMissedPackages(Actor* actor, BSSimpleList<TESPackage*>* packages, float start, float hour);
+    static void GetMissedPackages(Actor* actor, void* packages, float start, float hour);
     PackageList* GetPackageList();
     const PackageList* GetPackageList() const;
 
     void AddFormChange(int flags);
-    void DispatchToOuter(int flags);
+    void TESAIForm_AddFormChange(int flags);
     void SaveGame(BGSSaveFormBuffer* buffer);
     void LoadGame(BGSLoadFormBuffer* buffer);
     void TESAIForm_LoadGame_0047f980(BGSLoadFormBuffer* buffer);

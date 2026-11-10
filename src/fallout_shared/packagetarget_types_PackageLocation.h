@@ -32,7 +32,7 @@ class LocationDescriptor
     void PackageLocation_SetLocCell(TESObjectCELL* cell);
     TESBoundObject* FUN_0067f430();
     void SetValue(TESForm* form);
-    PACKAGE_OBJECT_TYPE GetObjectType();
+    PACKAGE_OBJECT_TYPE PackageLocation_GetLocObjectType();
     void PackageLocation_SetLocObjectType(PACKAGE_OBJECT_TYPE type);
     void Copy(LocationDescriptor* source, bool copy);
     // LocationDescriptor

@@ -25,7 +25,7 @@ class TESModelListCopyTarget
 };
 
 
-// Deletes every filename string in the list at offset 4, then calls ClearAndDeleteArray on the object at offset 12.
+// Deletes every filename string in the list at offset 4, then calls TESTextureListArray_ClearData on the object at offset 12.
 // @fnv 0x00489b40
 void TESModelList::ClearComponent()
 {
@@ -38,7 +38,7 @@ void TESModelList::ClearComponent()
         filename = filenameToDelete;
         ::operator delete((void*)filename);
     }
-    reinterpret_cast<FileEntryListCollection*>(m_kModelData)->ClearAndDeleteArray();
+    reinterpret_cast<FileEntryListCollection*>(m_kModelData)->TESTextureListArray_ClearData();
 }
 
 // @fnv 0x00489ae0
@@ -70,7 +70,7 @@ unsigned int TESModelList::BaseFormRecord(unsigned int type)
     return result;
 }
 
-struct FUN_00478690_shell
+struct BGSDestructibleObjectForm
 {
     void BGSDestructibleObjectForm_RemoveData();
 };
@@ -79,7 +79,7 @@ struct FUN_00478690_shell
 // Releases the object stored at offset 4 by calling its virtual method with 1, then sets that pointer to null.
 // @fnv 0x00478690
 // src: XBOX_PDB 0x00478690
-void FUN_00478690_shell::BGSDestructibleObjectForm_RemoveData()
+void BGSDestructibleObjectForm::BGSDestructibleObjectForm_RemoveData()
 {
     delete *(FileEntryListCollection**)((char*)this + 4);
     *(void**)((char*)this + 4) = 0;
@@ -148,7 +148,8 @@ TESModelList::TESModelList()
 
 unsigned int __cdecl BSStringLength(const char*);
 // @fnv 0x00489ce0
-void TESModelList::LoadStringChunk(TESModelList* p1, TESFile* apFile)
+// src: COMMUNITY 0x00489ce0
+void TESModelList::LoadModelListChunk(TESModelList* p1, TESFile* apFile)
 {
     if (!apFile || !p1)
         return;
@@ -170,14 +171,15 @@ void TESModelList::LoadStringChunk(TESModelList* p1, TESFile* apFile)
         break;
     }
     case 0x5446494e:
-        reinterpret_cast<FileEntryListCollection*>(m_kModelData)->LoadFromTESFile(p1, apFile);
+        reinterpret_cast<FileEntryListCollection*>(m_kModelData)->TESTextureListArray_Load(p1, apFile);
         break;
     }
 }
 
 // Deletes each element of the array at this+4, frees the array, nulls the pointer, and resets the count at this+0 to zero.
 // @fnv 0x0048a010
-void FileEntryListCollection::ClearAndDeleteArray()
+// src: COMMUNITY 0x0048a010
+void FileEntryListCollection::TESTextureListArray_ClearData()
 {
     unsigned int i;
     if (m_ppElementArray)
@@ -226,7 +228,8 @@ struct SoundListView
 // src: COMMUNITY 0x00489fa0
 void TESModelList::AddModel_00489fa0(const char* apString)
 {
-    if (!ContainsFile(apString))
+    // src: COMMUNITY 0x00489f20
+    if (!IsModelInList(apString))
     {
         int size = BSStringLength(apString) + 1;
         char* copy = static_cast<char*>(operator new(size));
@@ -290,7 +293,7 @@ int __cdecl BSstricmp(const char* lhs, const char* rhs);
 
 // Returns true if filename is non-null and matches an entry in the model list, otherwise false.
 // @fnv 0x00489f20
-bool TESModelList::ContainsFile(const char* filename)
+bool TESModelList::IsModelInList(const char* filename)
 {
     if (m_kModelPaths.IsEmpty() || filename == 0)
         return false;

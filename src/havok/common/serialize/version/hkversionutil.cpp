@@ -12,7 +12,7 @@
 
 extern "C" void __cdecl VisitObjectList(int, int);
 
-struct FUN_00db7a80_Class
+struct hkStaticClassNameRegistry
 {
     int __pad0;
     int __pad1;
@@ -24,7 +24,7 @@ struct FUN_00db7a80_Class
 };
 
 // @fnv 0x00db7a80
-void FUN_00db7a80_Class::EnsureInitialized()
+void hkStaticClassNameRegistry::EnsureInitialized()
 {
     if (!m_iFourthElementInteger)
     {
@@ -45,11 +45,12 @@ struct FUN_00e049d0_Class : Object
     unsigned int m_auiShapeKeys;
     unsigned short m_type;
 
-    FUN_00e049d0_Class* FUN_00e049d0(int flags);
+    FUN_00e049d0_Class* ScalarDeletingDestructor(int flags);
 };
 
 // @fnv 0x00e049d0
-FUN_00e049d0_Class* FUN_00e049d0_Class::FUN_00e049d0(int flags)
+// src: EXE 0x00e049d0
+FUN_00e049d0_Class* FUN_00e049d0_Class::ScalarDeletingDestructor(int flags)
 {
     Object::SetVirtualTable_00e03160();
 
@@ -175,7 +176,7 @@ class hkVisitorDC12
         hkStructureLayout_hkStructureLayout();
     }
     void hkStructureLayout_hkStructureLayout() throw();
-    void UpdateState_00dc1bb0(void* pvObject, hkPointerMapDC12& kDone, int iFlags) throw();
+    void hkStructureLayout_computeMemberOffsetsInplace(void* pvObject, hkPointerMapDC12& kDone, int iFlags) throw();
 };
 
 // @fnv 0x00dc1230
@@ -187,7 +188,7 @@ extern "C" void __cdecl VisitObjectList(int apvList, int iFlags)
     hkPointerMapDC12 kDone;
     kDone.EnsureCapacity(reinterpret_cast<hkMemoryAllocatorDC12&>(hkMemoryRouter_getInstance().heap()), 0);
     for (int i = 0; ppvList[i]; i++)
-        kVisitor.UpdateState_00dc1bb0(ppvList[i], kDone, 1);
+        kVisitor.hkStructureLayout_computeMemberOffsetsInplace(ppvList[i], kDone, 1);
     kDone.ProcessArgument(reinterpret_cast<hkMemoryAllocatorDC12&>(hkMemoryRouter_getInstance().heap()));
 }
 

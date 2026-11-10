@@ -52,8 +52,8 @@ TESPackage* PackageList::GetPackageForActor(Actor* actor)
         while (selection.list && (selection.package = selection.list->GetItem()))
         {
             if ((selection.package->IsPackageValidForActor(actor) && !selection.package->IsFlag10000Set() &&
-                 !selection.package->IsMustReachLocation()) ||
-                (selection.package->IsMustReachLocation() &&
+                 !selection.package->GetOncePerDay()) ||
+                (selection.package->GetOncePerDay() &&
                  !actor->GetExtraData()->CanReachPackageLocation(selection.package)))
             {
                 selection.schedule = selection.package->TESPackage_GetPackageSchedule();
@@ -67,7 +67,7 @@ TESPackage* PackageList::GetPackageForActor(Actor* actor)
                     bCalendarMonth = false;
                     if (selection.schedule->FUN_0086a460() + selection.schedule->FUN_00726070() > 24)
                     {
-                        bDayOfWeek = selection.package->IsScheduledForDay(true);
+                        bDayOfWeek = selection.package->IsitDayofTheWeek(true);
                         int yesterday = g_calendar.GetGameHour() - 1;
                         if (yesterday < 0)
                             yesterday = 30;
@@ -83,7 +83,7 @@ TESPackage* PackageList::GetPackageForActor(Actor* actor)
                          selection.schedule->PackageLocation_GetLocType() == g_calendar.GetCurrentMonth() || bCalendarMonth) &&
                         (selection.schedule->Main_GameReset() == 0 ||
                          selection.schedule->Main_GameReset() == g_calendar.GetGameHour() || bDayOfMonth) &&
-                        (selection.schedule->GetSecondByte() == -1 || selection.package->IsScheduledForDay(false) ||
+                        (selection.schedule->PackageSchedule_GetStartDayOfWeek() == -1 || selection.package->IsitDayofTheWeek(false) ||
                          bDayOfWeek) &&
                         (selection.schedule->FUN_0086a460() == -1 ||
                          IsHourInRange(selection.schedule->FUN_0086a460(), selection.schedule->FUN_00726070(),
@@ -178,8 +178,8 @@ void PackageList::CollectEligiblePackages(Actor* actor, BSSimpleList<TESPackage*
                     pSchedule = pPackage->TESPackage_GetPackageSchedule();
                     if (pSchedule && (pSchedule->PackageLocation_GetLocType() == -1 || pSchedule->PackageLocation_GetLocType() <= scan.month) &&
                         (pSchedule->Main_GameReset() == 0 || pSchedule->Main_GameReset() <= scan.day) &&
-                        (pSchedule->GetSecondByte() == -1 ||
-                         pSchedule->GetSecondByte() <= g_calendar.GetGameDayOfWeek()) &&
+                        (pSchedule->PackageSchedule_GetStartDayOfWeek() == -1 ||
+                         pSchedule->PackageSchedule_GetStartDayOfWeek() <= g_calendar.GetGameDayOfWeek()) &&
                         (pSchedule->FUN_0086a460() == -1 || pSchedule->FUN_0086a460() < scan.hour) &&
                         pPackage != sortCtx.current && !pMissedList->IsInList(pPackage))
                     {

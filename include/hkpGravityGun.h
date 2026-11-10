@@ -30,8 +30,8 @@ public:
     hkpGravityGun* DestroyAndFree(unsigned int) throw();
 
     hkpRigidBody* hkpGravityGun_dropObject(int);
-    hkpRigidBody* FindVisibleRigidBodyToGrab(int, int, int);
-    GGRigidBody* FindVisibleRigidBodyToGrab(const GGTransform&, const GGRigidBody*, const GGWorld*);
+    hkpRigidBody* pickBody(int, int, int);
+    GGRigidBody* pickBody(const GGTransform&, const GGRigidBody*, const GGWorld*);
     bool isGrabbed(const GGRigidBody*) const;
     void gravityGunPush(int dirSlot, int viewSlot, int p3Slot);
     void gravityGunPush(GunTransform*, GunArg3*, hkpWorld*);

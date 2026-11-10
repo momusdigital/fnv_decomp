@@ -134,11 +134,12 @@ struct FUN_00d65220_Class
     void* vtable;
     unsigned short unk04;
     void FUN_00d64ae0();
-    FUN_00d65220_Class* FUN_00d65220(char flags);
+    FUN_00d65220_Class* ScalarDeletingDestructor(char flags);
 };
 // Calls FUN_00d64ae0, then if bit 0 of flags is set, notifies the service interface with this and unk04, and returns this.
 // @fnv 0x00d65220
-FUN_00d65220_Class* FUN_00d65220_Class::FUN_00d65220(char flags)
+// src: EXE 0x00d65220
+FUN_00d65220_Class* FUN_00d65220_Class::ScalarDeletingDestructor(char flags)
 {
     FUN_00d64ae0();
     if (flags & 1)
@@ -372,19 +373,20 @@ struct FlagD64A
     FlagD64A() : value(true)
     {}
 };
-class FUN_00d64a50 : public FUN_00ddccb0, public hkListenerD64A
+class hkpSimulationIslandViewer : public FUN_00ddccb0, public hkListenerD64A
 {
   public:
     FlagD64A m_flagA;
     FlagD64A m_flagB;
     hkArray<void*> m_arrayA;
     hkArray<void*> m_arrayB;
-    FUN_00d64a50(void* pkInfo) throw();
-    virtual ~FUN_00d64a50() throw();
+    hkpSimulationIslandViewer(void* pkInfo) throw();
+    virtual ~hkpSimulationIslandViewer() throw();
 };
 // After the base constructor, calls FUN_00c93920 with this on each actor entry of the owning world, if the world is set.
 // @fnv 0x00d64a50
-FUN_00d64a50::FUN_00d64a50(void* pkInfo) throw() : FUN_00ddccb0(pkInfo)
+// src: EXE 0x00d64a50
+hkpSimulationIslandViewer::hkpSimulationIslandViewer(void* pkInfo) throw() : FUN_00ddccb0(pkInfo)
 {
     if (m_pOwningWorld)
     {

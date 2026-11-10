@@ -79,7 +79,8 @@ void __fastcall _Call_a5d3a0(void* object);
 extern const char vftable_NiFloatData[];
 
 // @fnv 0x00a3cd00
-NiFloatData* CreateNiFloatData()
+// src: EXE 0x00a3cd00
+NiFloatData* NiFloatData_CreateObject()
 {
     NiFloatData* object = static_cast<NiFloatData*>(NiObject::operator new(0x18));
 
@@ -111,7 +112,8 @@ char* __cdecl _FUN_00a7d330(GlobalObjectO2_00a7b610* object);
 char* __cdecl NiGetViewerString_00a7d510(char const* name, unsigned int value);
 
 // @fnv 0x00a3d050
-void __fastcall GetFloatDataViewerStrings(NiFloatData* self, void*, StrArr* strings)
+// src: EXE 0x00a3d050
+void __fastcall NiFloatData_GetViewerStrings(NiFloatData* self, void*, StrArr* strings)
 {
     AppendCameraPathEntries(strings);
 
@@ -189,7 +191,7 @@ extern void __cdecl NiAnimationKey_CopySequence(int, int, TimedAnimationKey*, un
 void __fastcall CloneFloatDataRange(NiFloatData* self, void*, float m_fStartTime, float m_fMaximumDistance, NiFloatData** ppResult)
 {
     NiFloatData* pData = 0;
-    self->ResolveObjectPointer(*reinterpret_cast<NiPointer<NiObject>*>(&pData));
+    self->CreateDeepCopy(*reinterpret_cast<NiPointer<NiObject>*>(&pData));
     NiFloatData* pCur = pData;
     if (pCur != 0)
         pCur->AcquireReference();
@@ -221,7 +223,8 @@ extern FUN_00a3cd40_KeyCmp DAT_011f3ae0[];
 
 // Compares this NiFloatData with another by checking key count, request type, key data size, and each key via a type-specific comparator.
 // @fnv 0x00a3cd40
-bool __fastcall IsFloatDataEqual(NiFloatData* self, void*, NiFloatData* other)
+// src: EXE 0x00a3cd40
+bool __fastcall NiFloatData_IsEqual(NiFloatData* self, void*, NiFloatData* other)
 {
     if (!self->NiObject::IsSameAs(other))
     {

@@ -124,11 +124,11 @@ class BDDCCB0WorldAddedListener
   public:
     virtual ~BDDCCB0WorldAddedListener();
 };
-class FUN_00ddccb0_cls : public BDDCCB0ReferencedObject, public BDDCCB0Process, public BDDCCB0WorldAddedListener
+class hkpWorldViewerBase : public BDDCCB0ReferencedObject, public BDDCCB0Process, public BDDCCB0WorldAddedListener
 {
   public:
-    FUN_00ddccb0_cls(const BDDCCB0Array<BDDCCB0ProcessContext*>& kContexts) throw();
-    virtual ~FUN_00ddccb0_cls();
+    hkpWorldViewerBase(const BDDCCB0Array<BDDCCB0ProcessContext*>& kContexts) throw();
+    virtual ~hkpWorldViewerBase();
 
     BDDCCB0PhysicsContext* m_pkContext;
 };
@@ -174,9 +174,9 @@ inline bool DDCE80IsNearlyEqual(float d)
 DDCE80Bool __cdecl AreZDiffering(const DDCE80Point& a, const DDCE80Point& b);
 #include <xmmintrin.h>
 #include <math.h>
-struct FUN_00ddcc40
+struct hkpPhysicsContextWorldListener
 {
-    virtual ~FUN_00ddcc40();
+    virtual ~hkpPhysicsContextWorldListener();
 };
 struct Base1
 {

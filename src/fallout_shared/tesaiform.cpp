@@ -67,7 +67,7 @@ void TESAIForm::BaseFormRecord(BaseFormComponent* component)
     TESAIForm* source = dynamic_cast<TESAIForm*>(component);
     if (!source)
         return;
-    CopyAISettings(source);
+    CopyAIData(source);
     CopyAIPackageList(source);
 }
 
@@ -89,7 +89,8 @@ TESPackage* TESAIForm::GetCurrentPackage(Actor* actor)
 }
 
 // @fnv 0x0047f590
-void TESAIForm::FindAvailablePackages(Actor* actor, BSSimpleList<TESPackage*>* missed, float start, float hour)
+// src: COMMUNITY 0x0047f590
+void TESAIForm::GetMissedPackages(Actor* actor, BSSimpleList<TESPackage*>* missed, float start, float hour)
 {
     TESAIForm* ai;
     if (actor)
@@ -130,7 +131,8 @@ void TESAIForm::InitializeComponent()
 
 // Copies aggression, assistance, confidence, energy, responsibility, service flags, aggro radius and training data from source into this form.
 // @fnv 0x0047f1e0
-void TESAIForm::CopyAISettings(TESAIForm* source)
+// src: COMMUNITY 0x0047f1e0
+void TESAIForm::CopyAIData(TESAIForm* source)
 {
     SetAggression(reinterpret_cast<PatrolActorPackageData*>(source)->IsPatrolling(), true);
     SetAssistance(source->GetAssistance());
@@ -151,7 +153,7 @@ void TESAIForm::SetAggression(unsigned char value, bool flag)
     aggression = value;
     if (flag)
     {
-        DispatchToOuter(8);
+        TESAIForm_AddFormChange(8);
     }
 }
 
@@ -161,28 +163,28 @@ unsigned char TESAIForm::GetAssistance()
     return assistance;
 }
 
-// Stores value into assistance and calls DispatchToOuter with 8.
+// Stores value into assistance and calls TESAIForm_AddFormChange with 8.
 // @fnv 0x0047ee50
 void TESAIForm::SetAssistance(unsigned char aucAssistance)
 {
     assistance = aucAssistance;
-    DispatchToOuter(8);
+    TESAIForm_AddFormChange(8);
 }
 
-// Stores value into radius and calls DispatchToOuter with 8.
+// Stores value into radius and calls TESAIForm_AddFormChange with 8.
 // @fnv 0x0047ee70
 void TESAIForm::SetHasAggroRadius(bool value)
 {
     radius = value;
-    DispatchToOuter(8);
+    TESAIForm_AddFormChange(8);
 }
 
-// Stores value into distance and calls DispatchToOuter with 8.
+// Stores value into distance and calls TESAIForm_AddFormChange with 8.
 // @fnv 0x0047ee90
 void TESAIForm::SetAggroRadius(unsigned int auiRadius)
 {
     distance = auiRadius;
-    DispatchToOuter(8);
+    TESAIForm_AddFormChange(8);
 }
 
 // @fnv 0x0047eed0
@@ -191,7 +193,7 @@ void TESAIForm::SetConfidence(unsigned char value, bool flag)
     confidence = value;
     if (flag)
     {
-        DispatchToOuter(8);
+        TESAIForm_AddFormChange(8);
     }
 }
 
@@ -201,7 +203,7 @@ void TESAIForm::SetEnergy(unsigned char value, bool flag)
     energy = value;
     if (flag)
     {
-        DispatchToOuter(8);
+        TESAIForm_AddFormChange(8);
     }
 }
 
@@ -217,7 +219,7 @@ void TESAIForm::SetResponsibility(unsigned char value, bool flag)
     responsibility = value;
     if (flag)
     {
-        DispatchToOuter(8);
+        TESAIForm_AddFormChange(8);
     }
 }
 
@@ -227,7 +229,7 @@ void TESAIForm::SetAIMood(unsigned char value)
     if (value < 8)
     {
         mood = value;
-        DispatchToOuter(8);
+        TESAIForm_AddFormChange(8);
     }
 }
 
@@ -237,7 +239,7 @@ void TESAIForm::SetServiceFlags(unsigned int value, bool flag)
     services = value;
     if (flag)
     {
-        DispatchToOuter(8);
+        TESAIForm_AddFormChange(8);
     }
 }
 
@@ -256,15 +258,15 @@ void TESAIForm::SetTrainingSkill(int value)
     {
         skill = static_cast<unsigned char>(value - 0x20);
     }
-    DispatchToOuter(8);
+    TESAIForm_AddFormChange(8);
 }
 
-// Stores the given value into level and calls DispatchToOuter with 8.
+// Stores the given value into level and calls TESAIForm_AddFormChange with 8.
 // @fnv 0x0047f090
 void TESAIForm::SetTrainingSkillLevel(unsigned char aucLevel)
 {
     level = aucLevel;
-    DispatchToOuter(8);
+    TESAIForm_AddFormChange(8);
 }
 
 // @fnv 0x0047f0b0
@@ -292,18 +294,18 @@ void TESAIForm::CopyAIDataFromAIDATA(PackedRecordData* source)
 
 struct FUN_0047ee00_class
 {
-    void DispatchToOuter(int);
+    void TESAIForm_AddFormChange(int);
     void TESAIForm_SetAggression(unsigned char value, bool flag);
 };
 
-// Stores value at offset 4 of this object and, when flag is set, calls DispatchToOuter with 8.
+// Stores value at offset 4 of this object and, when flag is set, calls TESAIForm_AddFormChange with 8.
 // @fnv 0x0047ee00
 // src: COMMUNITY 0x0047ee00
 void FUN_0047ee00_class::TESAIForm_SetAggression(unsigned char value, bool flag)
 {
     *(unsigned char*)((char*)this + 4) = value;
     if (flag)
-        DispatchToOuter(8);
+        TESAIForm_AddFormChange(8);
 }
 
 struct FUN_0047eed0_shell : public TESAIForm
@@ -311,14 +313,14 @@ struct FUN_0047eed0_shell : public TESAIForm
     void TESAIForm_SetConfidence(unsigned char, bool);
 };
 
-// Sets confidence to acConfidence and, when abAddChange is true, calls DispatchToOuter with 8.
+// Sets confidence to acConfidence and, when abAddChange is true, calls TESAIForm_AddFormChange with 8.
 // @fnv 0x0047eed0
 // src: COMMUNITY 0x0047eed0
 void FUN_0047eed0_shell::TESAIForm_SetConfidence(unsigned char acConfidence, bool abAddChange)
 {
     confidence = acConfidence;
     if (abAddChange)
-        DispatchToOuter(8);
+        TESAIForm_AddFormChange(8);
 }
 
 struct FUN_0047ef00_shell : public TESAIForm
@@ -326,14 +328,14 @@ struct FUN_0047ef00_shell : public TESAIForm
     void TESAIForm_SetEnergy(unsigned char, bool);
 };
 
-// Sets the energy field to acEnergy and, when abAddChange is set, calls DispatchToOuter with 8.
+// Sets the energy field to acEnergy and, when abAddChange is set, calls TESAIForm_AddFormChange with 8.
 // @fnv 0x0047ef00
 // src: COMMUNITY 0x0047ef00
 void FUN_0047ef00_shell::TESAIForm_SetEnergy(unsigned char acEnergy, bool abAddChange)
 {
     energy = acEnergy;
     if (abAddChange)
-        DispatchToOuter(8);
+        TESAIForm_AddFormChange(8);
 }
 
 struct FUN_0047ef50_shell : public TESAIForm
@@ -341,14 +343,14 @@ struct FUN_0047ef50_shell : public TESAIForm
     void TESAIForm_SetResponsibility(unsigned char, bool);
 };
 
-// Sets the responsibility field to acResponsibility and, when abAddChange is true, calls DispatchToOuter with 8.
+// Sets the responsibility field to acResponsibility and, when abAddChange is true, calls TESAIForm_AddFormChange with 8.
 // @fnv 0x0047ef50
 // src: COMMUNITY 0x0047ef50
 void FUN_0047ef50_shell::TESAIForm_SetResponsibility(unsigned char acResponsibility, bool abAddChange)
 {
     responsibility = acResponsibility;
     if (abAddChange)
-        DispatchToOuter(8);
+        TESAIForm_AddFormChange(8);
 }
 
 struct FUN_0047ef80_shell : public TESAIForm
@@ -356,7 +358,7 @@ struct FUN_0047ef80_shell : public TESAIForm
     void TESAIForm_SetMood(unsigned char);
 };
 
-// If acMood is below 8, stores it in mood and calls DispatchToOuter with 8.
+// If acMood is below 8, stores it in mood and calls TESAIForm_AddFormChange with 8.
 // @fnv 0x0047ef80
 // src: XBOX_PDB 0x0047ef80
 void FUN_0047ef80_shell::TESAIForm_SetMood(unsigned char acMood)
@@ -364,22 +366,23 @@ void FUN_0047ef80_shell::TESAIForm_SetMood(unsigned char acMood)
     if (acMood < 8)
     {
         mood = acMood;
-        DispatchToOuter(8);
+        TESAIForm_AddFormChange(8);
     }
 }
 
 struct FUN_0047efb0_shell : public TESAIForm
 {
-    void SetServices(unsigned int, bool);
+    void TESAIForm_SetServiceFlags(unsigned int, bool);
 };
 
-// Stores aiServeFlags into services and, when abAddChange is set, calls DispatchToOuter(8).
+// Stores aiServeFlags into services and, when abAddChange is set, calls TESAIForm_AddFormChange(8).
 // @fnv 0x0047efb0
-void FUN_0047efb0_shell::SetServices(unsigned int aiServeFlags, bool abAddChange)
+// src: COMMUNITY 0x0047efb0
+void FUN_0047efb0_shell::TESAIForm_SetServiceFlags(unsigned int aiServeFlags, bool abAddChange)
 {
     services = aiServeFlags;
     if (abAddChange)
-        DispatchToOuter(8);
+        TESAIForm_AddFormChange(8);
 }
 
 struct FUN_0047f020_shell : public TESAIForm
@@ -387,7 +390,7 @@ struct FUN_0047f020_shell : public TESAIForm
     void SetSkill(int);
 };
 
-// If aeSkill is a skill actor value, stores it minus 0x20 in skill, then calls DispatchToOuter(8).
+// If aeSkill is a skill actor value, stores it minus 0x20 in skill, then calls TESAIForm_AddFormChange(8).
 // @fnv 0x0047f020
 void FUN_0047f020_shell::SetSkill(int aeSkill)
 {
@@ -395,7 +398,7 @@ void FUN_0047f020_shell::SetSkill(int aeSkill)
     {
         skill = aeSkill - 0x20;
     }
-    DispatchToOuter(8);
+    TESAIForm_AddFormChange(8);
 }
 
 // Returns true when index is between 0x20 and 0x2d inclusive.
@@ -605,11 +608,12 @@ struct FakeOuter
 };
 struct MyInner
 {
-    void DispatchToOuter(int);
+    void TESAIForm_AddFormChange(int);
 };
 // Computes the enclosing FakeOuter from this (offset 0x90) and, if non-null, calls its v18 with arg.
 // @fnv 0x0047f790
-void MyInner::DispatchToOuter(int arg)
+// src: COMMUNITY 0x0047f790
+void MyInner::TESAIForm_AddFormChange(int arg)
 {
     FakeOuter* b = this ? (FakeOuter*)((char*)this - 0x90) : (FakeOuter*)0;
     FakeOuter* a = b;

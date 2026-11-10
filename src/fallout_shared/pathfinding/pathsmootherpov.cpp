@@ -361,7 +361,7 @@ bool PathSmootherPOVSearch::SearchForPath(PathingRequest* request,
     if (!startUnderWater)
     {
         float z = m_kPathStartPosition.z;
-        triangles.GetFirstElement().m_pLocationNavMesh->GetTriangleHeightAtPoint(
+        triangles.GetFirstElement().m_pLocationNavMesh->ComputeTriangleZForLocation(
             triangles.GetFirstElement().m_usTriangleIdentifier, m_kPathStartPosition, 180.0f, 64.0f, z);
         m_kPathStartPosition.z = z;
     }
@@ -375,7 +375,7 @@ bool PathSmootherPOVSearch::SearchForPath(PathingRequest* request,
     if (!bGoalUnderWater)
     {
         float z = m_kGoalPosition.z;
-        triangles.GetLastElement().m_pLocationNavMesh->GetTriangleHeightAtPoint(
+        triangles.GetLastElement().m_pLocationNavMesh->ComputeTriangleZForLocation(
             triangles.GetLastElement().m_usTriangleIdentifier, m_kGoalPosition, 180.0f, 64.0f, z);
         m_kGoalPosition.z = z;
     }
@@ -565,7 +565,7 @@ void PathSmootherPOVSearch::AddNavMeshEdgeRecord(NavMesh* mesh, unsigned short t
     while (iterations < 1000)
     {
         ++iterations;
-        int index = currentEdge.m_pLocationNavMesh->FindCrossedEdge(currentEdge.m_usTriangleID,
+        int index = currentEdge.m_pLocationNavMesh->FindIntersectingEdgeFast(currentEdge.m_usTriangleID,
                                                                     currentEdge.m_iEdgeIndex, CurrentLoc, end);
         if (index == -1)
         {
@@ -633,7 +633,7 @@ bool PathSmootherPOVSearch::CalculatePathCost(PathSmootherPOVPoint* from, PathSm
                                               const NiPoint3& start, const NiPoint3& end, float* pfCost)
 {
     *pfCost = (end - start).FUN_00457990();
-    if ((end - start).GetSquaredXYLength() < 0.001f)
+    if ((end - start).NiPoint3_SqrXYLength() < 0.001f)
         return true;
     for (unsigned int i = 0; i < m_kRequestPathPoints.GetSize(); ++i)
     {
@@ -770,7 +770,7 @@ bool PathSmootherPOVSearch::FindPathToPoint(const POVNode* node, PathSmootherPOV
         if (node->GetField54() && pov == node->GetField54()->FUN_00413f40().m_pAvoidNode)
             return true;
         NiPoint3 centerDelta = pov->Center - currentNode.m_pAvoidNode->Center;
-        float xyDistanceSquared = centerDelta.GetSquaredXYLength();
+        float xyDistanceSquared = centerDelta.NiPoint3_SqrXYLength();
         float heightSquared = centerDelta.z * centerDelta.z;
         if (!m_bUnderwaterPath && xyDistanceSquared * 1.2000000476837158 * 1.2000000476837158 < heightSquared)
             return true;
@@ -909,7 +909,7 @@ bool PathSmootherPOVSearch::FindPathToPoint(const POVNode* node, PathSmootherPOV
                                 }
                             }
                             NiPoint3 projectedPoint = reinterpret_cast<NiPoint3&>(entryLocation.fc);
-                            reinterpret_cast<NavMesh*&>(entryLocation.f0)->GetTriangleHeightAtPoint(
+                            reinterpret_cast<NavMesh*&>(entryLocation.f0)->ComputeTriangleZForLocation(
                                 reinterpret_cast<unsigned short&>(entryLocation.f4), reinterpret_cast<NiPoint3&>(entryLocation.fc), 3.402823466e38f, 3.402823466e38f,
                                 projectedPoint.z);
                             float heightDelta = projectedPoint.z - endSphere.Center.z;
@@ -3868,7 +3868,7 @@ void PathSmootherPOVSearch::AddAvoidanceNodes()
     CreateStartPoint();
     BuildPOVLinks();
     CreateGoalPoint();
-    CollectAvoidSpheres();
+    AddPOVsFromAvoidNodes();
     CollectUniqueNavMeshes();
     BuildSmoothedPath();
     if (((AvoidNodes::Request*)pRequest)->GetTryToUseCurvedPath())
@@ -3935,7 +3935,8 @@ class AvoidNodeArrayHolder
 extern const NiPoint3 DAT_011f426c;
 
 // @fnv 0x006aefc0
-void PathSmootherPOVSearch::CollectAvoidSpheres()
+// src: COMMUNITY 0x006aefc0
+void PathSmootherPOVSearch::AddPOVsFromAvoidNodes()
 {
     AvoidNodeArrayHolder holder(this->pRequest->GetString());
     if (holder.Get() != 0)
@@ -4267,12 +4268,12 @@ bool PathSmootherPOVSearch::FindPath(const NavMeshEdgePoint& start, const NiPoin
                 current.m_pLocationNavMesh->FUN_005582f0(current.m_usTriangleID))
                 ->HasFlag40())
             ++count;
-        int NextEdge = current.m_pLocationNavMesh->FindCrossedEdge(current.m_usTriangleID, current.m_iEdgeIndex,
+        int NextEdge = current.m_pLocationNavMesh->FindIntersectingEdgeFast(current.m_usTriangleID, current.m_iEdgeIndex,
                                                                    position, position8);
         if (NextEdge == -1)
         {
             float Height = position8.z;
-            current.m_pLocationNavMesh->GetTriangleHeightAtPoint(current.m_usTriangleID, position8, 3.402823466e38F,
+            current.m_pLocationNavMesh->ComputeTriangleZForLocation(current.m_usTriangleID, position8, 3.402823466e38F,
                                                                  3.402823466e38F, Height);
             position8.z = Height;
             *output = EdgeLocation(current, position8);
@@ -4605,7 +4606,7 @@ bool PathSmootherPOVSearch::TripleCheckSegmentAgainstNavMesh(const NavMeshEdgePo
     if (!flipB)
     {
         float savedHeight = hit->f14;
-        reinterpret_cast<NavMesh*&>(hit->f0)->GetTriangleHeightAtPoint(reinterpret_cast<unsigned short&>(hit->f4), reinterpret_cast<NiPoint3&>(hit->fc), DAT_01016970,
+        reinterpret_cast<NavMesh*&>(hit->f0)->ComputeTriangleZForLocation(reinterpret_cast<unsigned short&>(hit->f4), reinterpret_cast<NiPoint3&>(hit->fc), DAT_01016970,
                                                           DAT_01016970, savedHeight);
         hit->f14 = savedHeight;
     }

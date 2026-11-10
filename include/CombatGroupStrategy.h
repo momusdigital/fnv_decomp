@@ -10,7 +10,7 @@ public:
     virtual void __thiscall vf01(ActorCombatGroup* apGroup, MarkerStruct* apGroupData);
     virtual bool __thiscall vf02(ActorCombatGroup* apGroup);
 
-    bool CheckGroup(ActorCombatGroup* apGroup);
+    bool CombatGroupStrategyFlank_Update(ActorCombatGroup* apGroup);
 
     int unk04;
 };

@@ -77,11 +77,12 @@ struct FUN_00c93860_stub
 
 struct FUN_00d662c0_stub
 {
-    void AttachToIsland(void* arg);
+    void hkpPhantomDisplayViewer_addWorld(void* arg);
 };
 
 // @fnv 0x00d662c0
-void FUN_00d662c0_stub::AttachToIsland(void* pIsland)
+// src: COMMUNITY 0x00d662c0
+void FUN_00d662c0_stub::hkpPhantomDisplayViewer_addWorld(void* pIsland)
 {
     char* pSelf = (char*)this;
     void* p1;
@@ -182,10 +183,10 @@ void FnvCpu_FUN_00d66370_CpuOwner::ProcessState_00d66370()
     reinterpret_cast<FnvCpu_FUN_00d66370_CpuTarget*>(reinterpret_cast<char*>(this) + (-32))->removeWorld();
 }
 
-// add ecx,-0x20; jmp AttachToIsland : override in Derived forwards to the primary base's virtual.
+// add ecx,-0x20; jmp hkpPhantomDisplayViewer_addWorld : override in Derived forwards to the primary base's virtual.
 struct PrimaryBase
 {
-    virtual void AttachToIsland();
+    virtual void hkpPhantomDisplayViewer_addWorld();
     int unk04;
     int unk08;
     int unk0C;
@@ -209,12 +210,12 @@ struct Derived : PrimaryBase, SecondaryBase
 Derived::Derived()
 {}
 
-// Calls the base constructor AttachToIsland on this object.
+// Calls the base constructor hkpPhantomDisplayViewer_addWorld on this object.
 // @fnv 0x00d66380
 // src: GUESS 0x00d66380 (confidence: medium)
 void Derived::AttachToIsland_Thunk()
 {
-    this->PrimaryBase::AttachToIsland();
+    this->PrimaryBase::hkpPhantomDisplayViewer_addWorld();
 }
 
 extern int DAT_01268ff0;
@@ -236,18 +237,18 @@ struct FUN_00d66330_StandIn
     void* unk14;
     void* unk18;
     hkpPhysicsContext* m_pShapeCollection;
-    void ProcessEntries_00d66330();
+    void hkpPhantomDisplayViewer_init();
 };
 // @fnv 0x00d66330
-// src: GUESS 0x00d66330 (confidence: low)
-void FUN_00d66330_StandIn::ProcessEntries_00d66330()
+// src: GUESS 0x00d66330 (confidence: medium)
+void FUN_00d66330_StandIn::hkpPhantomDisplayViewer_init()
 {
     if (m_pShapeCollection)
     {
         for (int i = 0; i < m_pShapeCollection->m_numWorlds; ++i)
         {
             reinterpret_cast<FUN_00d662c0_stub*>(reinterpret_cast<char*>(this) - 8)
-                ->AttachToIsland(m_pShapeCollection->m_ppWorlds[i]);
+                ->hkpPhantomDisplayViewer_addWorld(m_pShapeCollection->m_ppWorlds[i]);
         }
     }
 }

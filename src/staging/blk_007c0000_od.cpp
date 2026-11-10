@@ -129,11 +129,11 @@ void FUN_007cc680_Class::SetFlag80(bool set)
         *(unsigned int*)((char*)this + 0x244) &= ~0x80;
 }
 
-struct FUN_00570f40_Class
+struct BGSSaveLoadGame
 {
     bool BGSSaveLoadGame_GetGlobalAllowChanges() const;
 };
-struct FUN_007d6bd0_Class : FUN_00570f40_Class
+struct FUN_007d6bd0_Class : BGSSaveLoadGame
 {
     unsigned int m_uiInitializationFlags;
     bool BGSSaveLoadGame_SetGlobalAllowChanges(bool abValue);
@@ -563,8 +563,8 @@ void __cdecl SPECIALBookMenu_Close();
 
 // If DAT_011daa38 is set and FUN_00794d80 returns its element 22, calls FUN_007c6120; otherwise plays the "UIActivateNothing" sound via BSAudio.
 // @fnv 0x007cac30
-// src: GUESS 0x007cac30 (confidence: high)
-void __cdecl BSAudio_CloseBookMenuOrPlayInactiveSound()
+// src: COMMUNITY 0x007cac30
+void __cdecl SPECIALBookMenu_CloseCallback()
 {
     if (DAT_011daa38 && SPECIALBookMenu_GetTotalPointsUsed(DAT_011daa38) == DAT_011daa38[22])
     {
@@ -626,8 +626,8 @@ struct FUN_00559450_Owner
 bool __cdecl InterfaceManager_Has360Controller();
 
 // @fnv 0x007ca700
-// src: GUESS 0x007ca700 (confidence: low)
-void __cdecl Object_UpdateFields_007ca700(void* pObject)
+// src: COMMUNITY 0x007ca700
+void __cdecl SPECIALBookMenu_RefreshLeftAVButton(void* pObject)
 {
     int iValue = *(int*)((char*)pObject + 0x24);
     if (((FUN_007ca700_Virt*)(DAT_011dea3c + 0xa4))->v07(iValue) > 1)
@@ -1446,8 +1446,8 @@ struct CsParam
 extern char* DAT_011dea3c;
 
 // @fnv 0x007ca7a0
-// src: GUESS 0x007ca7a0 (confidence: low)
-void __cdecl Object_UpdateFields_007ca7a0(CsParam* param_1)
+// src: COMMUNITY 0x007ca7a0
+void __cdecl SPECIALBookMenu_RefreshRightAVButton(CsParam* param_1)
 {
     int iValue = param_1->unk24;
     if (((CsVObj*)(DAT_011dea3c + 0xa4))->vf07(iValue) < 10 &&
@@ -2009,8 +2009,8 @@ struct FUN_007ca960_Owner
 };
 
 // @fnv 0x007ca960
-// src: GUESS 0x007ca960 (confidence: low)
-void __cdecl Object_ProcessAndReturnValue_007ca960(void* apSelf)
+// src: COMMUNITY 0x007ca960
+void __cdecl SPECIALBookMenu_DecreaseActorValue(void* apSelf)
 {
     if (!DAT_011daa38)
         return;

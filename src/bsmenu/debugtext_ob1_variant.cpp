@@ -1764,11 +1764,11 @@ struct TextList {
         return *value;
     }
     inline DebugItem* ProcessAndReturnValue_00a11c40(DebugItem*& entry);
-    void ClearLinkedNodes();
+    void NiTListBase_RemoveAll();
     ~TextList() {
         TextList* self = this;
         ListGuard guard;
-        self->ClearLinkedNodes();
+        self->NiTListBase_RemoveAll();
     }
 };
 

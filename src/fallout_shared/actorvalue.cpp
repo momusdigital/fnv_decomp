@@ -187,7 +187,8 @@ bool ActorValueInfo::Load(TESFile* file)
 
 // Clamps value to [0,100] when flag 0x10 is set, or to [0 or 1,10] when flag 8 is set, otherwise returns it unchanged.
 // @fnv 0x0066f190
-float ActorValue::ClampValue(Index index, float value)
+// src: COMMUNITY 0x0066f190
+float ActorValue::ClampActorValue(Index index, float value)
 {
     float result = value;
     if (GetFlag(index, 0x10))
@@ -204,7 +205,8 @@ float ActorValue::ClampValue(Index index, float value)
 
 // Maps a section and index to an ActorValue::Index by adding a per-section offset, returning 0 for unknown sections.
 // @fnv 0x0066ec10
-ActorValue::Index ActorValue::GetActorValueForSectionIndex(Section section, char index)
+// src: COMMUNITY 0x0066ec10
+ActorValue::Index ActorValue::ToActorValue(Section section, char index)
 {
     switch (section)
     {
@@ -268,7 +270,8 @@ const char* ActorValue::GetActorValueName(Index index)
 
 // Zeroes value, looks up the ActorValueInfo for index, and if it has a getter, stores the getter's result in value and returns true.
 // @fnv 0x0066ed60
-bool ActorValue::TryGetActorValue(ActorValueOwner* owner, Index index, float& value)
+// src: COMMUNITY 0x0066ed60
+bool ActorValue::ActorValueOwner_GetDerivedActorValue(ActorValueOwner* owner, Index index, float& value)
 {
     ActorValueInfo* info;
     bool result = false;
@@ -284,7 +287,8 @@ bool ActorValue::TryGetActorValue(ActorValueOwner* owner, Index index, float& va
 
 // Looks up the ActorValueInfo for index and, if it has a change handler, invokes it with owner, index, oldValue, newValue and source.
 // @fnv 0x0066ee50
-void ActorValue::NotifyActorValueChanged(ActorValueOwner* owner, Index index, float oldValue, float newValue,
+// src: COMMUNITY 0x0066ee50
+void ActorValue::CheckCallModifiedCallback(ActorValueOwner* owner, Index index, float oldValue, float newValue,
                                          ActorValueOwner* source)
 {
     ActorValueInfo* info = GetActorValueInfo(index);
@@ -332,7 +336,7 @@ ActorValue::Index* ActorValue::GetDependentActorValueIndices(Index index, int& c
 float ActorValueOwner::GetActorValueFloatByIndex(ActorValue::Index index)
 {
     float result = GetCurrentActorValue(index);
-    result = ActorValue::ClampValue(index, result);
+    result = ActorValue::ClampActorValue(index, result);
     return result;
 }
 
@@ -344,7 +348,8 @@ bool ActorValue::HasActorValueChangedCallback(Index index)
 }
 
 // @fnv 0x0066ef20
-int ActorValueOwner::GetActorValueAsInteger(ActorValue::Index index)
+// src: COMMUNITY 0x0066ef20
+int ActorValueOwner::GetClampedActorValueI(ActorValue::Index index)
 {
     return (int)floorf(GetActorValueFloatByIndex(index));
 }
@@ -611,13 +616,13 @@ void __cdecl TESForm_AddChunkArray(unsigned int, void*, unsigned int);
 // @fnv 0x006703b0
 void ActorValueInfo::Save()
 {
-    TESForm::BeginFormRecord();
+    TESForm::TESForm_StartForm();
     TESFullName::Save_00487010();
     TESDescription::Save_00482cb0();
     TESTexture::Save(0x4e4f4349);
     if (m_cAbbreviation.Length())
         TESForm_AddChunkArray(0x4d414e41, (void*)m_cAbbreviation.operator const char*(), m_cAbbreviation.Length() + 1);
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_CloseForm();
 }
 
 // Looks up the ActorValueInfo for aiIndex and returns its description via GetDesc, or null if the info is missing.

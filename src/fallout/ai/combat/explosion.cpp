@@ -310,7 +310,7 @@ struct RetObj
     virtual void vf9();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -348,13 +348,13 @@ bool Actor::TESObjectREFR_BaseIsQuestItem()
 // Only the flag accessor is missing from the shared explosion declarations.
 struct ExplosionFlagAccessor
 {
-    bool __thiscall HasAnyFlags(int);
+    bool __thiscall BGSExplosion_IsFlagSet(int);
 };
 extern Setting originalRuntimeFloatSetting818;
 // @fnv 0x009ad5a0
 float __thiscall BGSExplosion::GetScaledValue()
 {
-    return (float)(reinterpret_cast<ExplosionFlagAccessor*>(this)->HasAnyFlags(1) ? (double)Data.m_fImpactThirdValue
+    return (float)(reinterpret_cast<ExplosionFlagAccessor*>(this)->BGSExplosion_IsFlagSet(1) ? (double)Data.m_fImpactThirdValue
                                   : (double)(Data.m_fImpactThirdValue * *originalRuntimeFloatSetting818.Float()));
 }
 
@@ -483,7 +483,7 @@ struct FUN_005762b0_cls
     {}
     virtual void vf11()
     {}
-    virtual void vf12()
+    virtual void SetMapName()
     {}
     virtual void vf13()
     {}
@@ -535,7 +535,7 @@ struct FUN_005762b0_cls
     {}
     virtual void vf37()
     {}
-    virtual void vf38()
+    virtual void PrintInfo()
     {}
     virtual void vf39()
     {}
@@ -735,19 +735,20 @@ int FUN_005762b0_cls::TESObjectREFR_GetLookingAtLocation(int a1)
 
 extern Setting originalRuntimeFloatSetting818;
 
-// Retained: Explosion.h does not declare GetEffectiveValue (0x009ac550).
+// Retained: Explosion.h does not declare BGSExplosion_GetImageSpaceRadiusBSUnits (0x009ac550).
 struct FUN_009ac550_cls : ExplosionFlagAccessor
 {
     char _pad[0x8b];
     float m_8C;
-    float GetEffectiveValue();
+    float BGSExplosion_GetImageSpaceRadiusBSUnits();
 };
 
-// Returns m_8C, or m_8C multiplied by the float setting when HasAnyFlags(1) is zero.
+// Returns m_8C, or m_8C multiplied by the float setting when BGSExplosion_IsFlagSet(1) is zero.
 // @fnv 0x009ac550
-float FUN_009ac550_cls::GetEffectiveValue()
+// src: COMMUNITY 0x009ac550
+float FUN_009ac550_cls::BGSExplosion_GetImageSpaceRadiusBSUnits()
 {
-    return (float)((HasAnyFlags(1) != 0) ? (double)m_8C : (double)(m_8C * *originalRuntimeFloatSetting818.Float()));
+    return (float)((BGSExplosion_IsFlagSet(1) != 0) ? (double)m_8C : (double)(m_8C * *originalRuntimeFloatSetting818.Float()));
 }
 
 extern int g_ae140Count;
@@ -823,18 +824,19 @@ struct BaseObject
         hkpCdPointCollector_hkpCdPointCollector();
     }
 };
-struct FUN_009afaf0 : BaseObject
+struct hkpFixedBufferCdPointCollector : BaseObject
 {
     VectorHolder first;
     VectorHolder second;
     VectorHolder third;
     VectorHolder fourth;
-    FUN_009afaf0(unsigned int firstValue, unsigned int secondValue);
-    virtual ~FUN_009afaf0();
+    hkpFixedBufferCdPointCollector(unsigned int firstValue, unsigned int secondValue);
+    virtual ~hkpFixedBufferCdPointCollector();
 };
 // Constructs the object and initialises its four VectorHolder members with firstValue, firstValue, secondValue and 0.
 // @fnv 0x009afaf0
-FUN_009afaf0::FUN_009afaf0(unsigned int firstValue, unsigned int secondValue)
+// src: EXE 0x009afaf0
+hkpFixedBufferCdPointCollector::hkpFixedBufferCdPointCollector(unsigned int firstValue, unsigned int secondValue)
 {
     first.FUN_00537e90(firstValue);
     second.FUN_00537e90(firstValue);
@@ -1783,7 +1785,7 @@ struct ExtraX
 };
 struct HandlerX
 {
-    void PlaceObjectReference(void*, const ExplosionPosition&, const ExplosionPosition&, CellX*, void*, int, int, int);
+    void TESDataHandler_CreateReferenceAtLocation(void*, const ExplosionPosition&, const ExplosionPosition&, CellX*, void*, int, int, int);
 };
 extern HandlerX* DAT_011c3f2c;
 extern ProcessLists DAT_011e0e80;
@@ -1825,7 +1827,7 @@ void RefX::UpdateExplosion()
     else
     {
         if (!loading4 && FUN_004181e0()->EffectSetting_GetLight())
-            DAT_011c3f2c->PlaceObjectReference(FUN_004181e0()->EffectSetting_GetLight(), GetPosition(), FUN_00430830(),
+            DAT_011c3f2c->TESDataHandler_CreateReferenceAtLocation(FUN_004181e0()->EffectSetting_GetLight(), GetPosition(), FUN_00430830(),
                                                FUN_008d6f30(), TESObjectREFR_GetWorldSpace(), 0, 0, 0);
         if (!loading4 && FUN_004181e0()->GetScaledValue() > 0.0 && FUN_004181e0()->NiAVObject_GetWorldScale() > 0.0)
         {

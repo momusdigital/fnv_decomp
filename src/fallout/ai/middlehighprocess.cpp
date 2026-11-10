@@ -327,7 +327,7 @@ bool MiddleHighProcess::BSCriticalSection_TryLock()
 {
     if (apBipedAnim == 0)
         return m_pActorNode;
-    return apBipedAnim->GetBoneNode(BIPED_BONE_BIPED_BONE_WEAPON);
+    return apBipedAnim->GetParentBone(BIPED_BONE_BIPED_BONE_WEAPON);
 }
 
 // Sets the active flag and ORs the weapon, body and loading flags into their respective members.
@@ -353,7 +353,7 @@ struct TESForm;
 struct TESObjectREFR;
 
 typedef char _sizecheck_PackageTarget[sizeof(PackageTargetRecord) == 16 ? 1 : -1];
-struct FUN_006801a0_shell : public PackageTargetRecord
+struct PackageTarget : public PackageTargetRecord
 {
     void PackageTarget_Copy(PackageTargetRecord*);
 };
@@ -361,7 +361,7 @@ struct FUN_006801a0_shell : public PackageTargetRecord
 // Copies the target object, type, value and acquire radius from apCopy into this instance when apCopy is non-null.
 // @fnv 0x006801a0
 // src: XBOX_PDB 0x006801a0
-void FUN_006801a0_shell::PackageTarget_Copy(PackageTargetRecord* apCopy)
+void PackageTarget::PackageTarget_Copy(PackageTargetRecord* apCopy)
 {
     if (apCopy != 0)
     {
@@ -1826,8 +1826,8 @@ struct Animation
     void SetEquipModifier(float);
     float GetReloadModifier();
     float GetEquipModifier();
-    BSAnimGroupSequence* GetAnimationSequence(BSAnimGroupSequence*, unsigned short, int);
-    BSAnimGroupSequence* GetAnimationSequence(unsigned short, int);
+    BSAnimGroupSequence* StartGroup(BSAnimGroupSequence*, unsigned short, int);
+    BSAnimGroupSequence* StartGroup(unsigned short, int);
     void AssignControllerManager(void*);
     static void FindHighestPriorityCallback(::NiAVObject*, FindData*);
     BSAnimGroupSequence* GetHighestPriority(::NiAVObject*);
@@ -2015,11 +2015,11 @@ bool FUN_00920fd0_shell::MiddleHighProcess_ShouldDisableCharController(TESObject
 {
     bool bdisableCharController = false;
     bool bsit = apFurnitureRef
-                    ? ((shared_types::TESFurniture*)((shared_types::TESObject*)apFurnitureRef)->GetNext())->IsFurnitureSitMarker(aiFurnitureNUm)
+                    ? ((shared_types::TESFurniture*)((shared_types::TESObject*)apFurnitureRef)->GetNext())->IsSitMarker(aiFurnitureNUm)
                     : false;
     bool bSleepMarker =
         apFurnitureRef
-            ? ((shared_types::TESFurniture*)((shared_types::TESObject*)apFurnitureRef)->GetNext())->IsFurnitureSleepMarker(aiFurnitureNUm)
+            ? ((shared_types::TESFurniture*)((shared_types::TESObject*)apFurnitureRef)->GetNext())->IsSleepMarker(aiFurnitureNUm)
             : false;
     if (bsit || bSleepMarker)
     {
@@ -3521,11 +3521,12 @@ void _Deallocate(void*);
 struct S9145e0
 {
     void FUN_00914610();
-    void* FUN_009145e0(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_00914610, then if bit 0 of flags is set calls _Deallocate on this, and returns this.
 // @fnv 0x009145e0
-void* S9145e0::FUN_009145e0(unsigned int flags)
+// src: EXE 0x009145e0
+void* S9145e0::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00914610();
     if (flags & 1)
@@ -4165,13 +4166,13 @@ bool FUN_00921120_shell::MiddleHighProcess_LoadDynamicIdle(Actor* apActor)
         panim = ((ActorV_00921120*)apActor)->GetAnimation();
     if (!pidle || !panim)
         return false;
-    panim->Animation_SpecialIdleReplace(pidle, apActor, pidle->GetFlagsMasked());
+    panim->Animation_SpecialIdleReplace(pidle, apActor, pidle->TESIdleForm_GetIdleAnimGroupSection());
     if ((void*)apActor == (void*)g_thePlayer && g_thePlayer->PlayerCharacter_Is3rdPerson())
     {
         g_thePlayer->PlayerCharacter_Force3rdPerson((unsigned char)0);
         pidle = DAT_011cb6a0->FindIdleFormForObject((TESObjectREFR*)apActor, *(TESObjectREFR**)((char*)this + 0x140));
         if (pidle && (panim = (Animation*)g_thePlayer->GetAnimation(true)) != 0)
-            panim->Animation_SpecialIdleReplace(pidle, apActor, pidle->GetFlagsMasked());
+            panim->Animation_SpecialIdleReplace(pidle, apActor, pidle->TESIdleForm_GetIdleAnimGroupSection());
         g_thePlayer->PlayerCharacter_Force3rdPerson((unsigned char)1);
     }
     return true;
@@ -4229,9 +4230,9 @@ bool EvaluateReferenceforSitSleep(TESObjectREFR* apRef, long aiFilterData)
     if (((FUN_00575ca0_s*)apRef)->TESObjectREFR_GetSpace() != ((FUN_00575ca0_s*)pActor)->TESObjectREFR_GetSpace())
         return false;
     pFurniture = (shared_types::TESFurniture*)((shared_types::TESObject*)apRef)->GetNext();
-    if (DAT_011e040c && pFurniture->GetCanSitOn())
+    if (DAT_011e040c && pFurniture->CanSitOn())
         ((G2*)&g_011e0424)->AddHead((int*)&apRef);
-    else if (!DAT_011e040c && pFurniture->GetCanSleepOn())
+    else if (!DAT_011e040c && pFurniture->CanSleepOn())
         ((G2*)&g_011e0424)->AddHead((int*)&apRef);
     return false;
 }
@@ -5807,8 +5808,8 @@ struct Animation
     void SetEquipModifier(float);
     float GetReloadModifier();
     float GetEquipModifier();
-    BSAnimGroupSequence* GetAnimationSequence(BSAnimGroupSequence*, unsigned short, int);
-    BSAnimGroupSequence* GetAnimationSequence(unsigned short, int);
+    BSAnimGroupSequence* StartGroup(BSAnimGroupSequence*, unsigned short, int);
+    BSAnimGroupSequence* StartGroup(unsigned short, int);
     void AssignControllerManager(void*);
     static void FindHighestPriorityCallback(::NiAVObject*, FindData*);
     BSAnimGroupSequence* GetHighestPriority(::NiAVObject*);
@@ -7603,7 +7604,7 @@ struct PackageCalls
 {
     int FUN_0041ca90();
     bool FUN_00678610();
-    bool HasFlag400000();
+    bool GetDefensive();
     unsigned int FUN_00676280(Actor*);
 };
 struct ControllerCalls
@@ -7711,7 +7712,7 @@ bool FUN_00916880_shell::TryStartCombatAction(Actor* actor, Actor* target, bool 
             runningPackage = reinterpret_cast<shared_types::TESPackage*>(
                 reinterpret_cast<ProcessToken*>(reinterpret_cast<ActorCalls*>(actor)->BSFile_GetDevice())->ExtraDataList_GetPackageExtra());
 
-        if (target && runningPackage && reinterpret_cast<PackageCalls*>(runningPackage)->HasFlag400000() &&
+        if (target && runningPackage && reinterpret_cast<PackageCalls*>(runningPackage)->GetDefensive() &&
             !stopReason && !skipDistanceCheck)
         {
             NiPoint3 destination = GetActorTargetPosition(actor, false);
@@ -8530,7 +8531,7 @@ struct SSActor
     virtual void VB7();
     virtual void SetLookingTarget(float);
     float GetLooking() const;
-    void ClampLookAngle(float);
+    void MobileObject_SetLooking(float);
     char* FUN_009306d0();
     void MobileObject_SetChaseBip(bool);
     void SetCurrentSitSleepState(int state);
@@ -8571,7 +8572,7 @@ void SSProcess::UpdateSitSleepState(SSActor* actor, int state, TESObjectREFR* fu
     }
     if (actor)
     {
-        actor->ClampLookAngle(actor->GetLooking());
+        actor->MobileObject_SetLooking(actor->GetLooking());
         char* data2 = actor->FUN_009306d0();
         if (data2)
         {
@@ -9024,7 +9025,7 @@ bool FUN_00921250_cls::ProcessNode(void* arg)
             FUN_00921250_Item* pItem = (FUN_00921250_Item*)g_pMgr->GetAnimation(true);
             if (pItem != 0)
             {
-                pItem->Animation_SpecialIdleReplace(pNode, arg, pNode->GetFlagsMasked());
+                pItem->Animation_SpecialIdleReplace(pNode, arg, pNode->TESIdleForm_GetIdleAnimGroupSection());
             }
         }
         if (r)
@@ -12257,7 +12258,7 @@ struct PackageX
 };
 struct ActorY
 {
-    void PathToLocation(PathingRequest*, int, int, void*, float, int);
+    void Actor_BuildRequest(PathingRequest*, int, int, void*, float, int);
     void SetPathingRequestAvoidNodes(PathingRequest*);
     bool FUN_008b3bb0();
 };
@@ -12837,7 +12838,7 @@ void ProcX::MiddleHighProcess_ProcessPatrolStartTravelToNextRef(ActorY* apActor,
         fRadius3 = 10.0f;
     }
     PathingRequest kRequest4;
-    apActor->PathToLocation(&kRequest4, pRef8->V1F4(), pRef8->GetCull(), TESObjectREFR_GetWorldSpace(pRef8), fRadius3, 0);
+    apActor->Actor_BuildRequest(&kRequest4, pRef8->V1F4(), pRef8->GetCull(), TESObjectREFR_GetWorldSpace(pRef8), fRadius3, 0);
     kRequest4.SetUseSoft(false);
     if (bIsType5 || pBase2 == DAT_011ca248)
     {
@@ -18719,7 +18720,7 @@ struct PackageAccess : TESForm
     virtual void PackageSlot78();
     virtual bool IsEffectValid(Actor*, int, float, int);
     bool TESPackage_GetWaiting();
-    void SetFlag10000(bool);
+    void TESPackage_SetWaiting(bool);
     float GetPackageResult(Actor*, bool);
     int FUN_0041ca90();
     PackageTargetAccess* FUN_0055b980();
@@ -18727,7 +18728,7 @@ struct PackageAccess : TESForm
 };
 struct PlayerPackageAccess
 {
-    bool HasExtraFollowerForm(Actor*);
+    bool PlayerCharacter_IsPlayerFollower(Actor*);
     int PlayerCharacter_GetNumberOfFollowers();
 };
 struct ReferenceAccess
@@ -18768,10 +18769,10 @@ bool FollowProcess::MiddleHighProcess_ProcessFollowOneHour(Actor* actor, float e
     pPackage = (PackageAccess*)static_cast<const BaseProcess*>(this)->GetOneTimePackage();
     if (pPackage && pPackage->TESPackage_GetWaiting())
     {
-        if (!((PlayerPackageAccess*)DAT_011dea3c)->HasExtraFollowerForm(actor))
+        if (!((PlayerPackageAccess*)DAT_011dea3c)->PlayerCharacter_IsPlayerFollower(actor))
         {
             if (((PlayerPackageAccess*)DAT_011dea3c)->PlayerCharacter_GetNumberOfFollowers() < *DAT_011cdad0.Setting_Int())
-                pPackage->SetFlag10000(false);
+                pPackage->TESPackage_SetWaiting(false);
             else
                 return false;
         }
@@ -20082,7 +20083,7 @@ struct RefView
     bool FUN_00440da0();
     TESBoundObject* BGSSaveFormBuffer_GetForm();
     int FUN_00931850();
-    int GetCellLoadState();
+    int MobileObject_GetDesiredProcessLevel();
 };
 struct AcquireView
 {
@@ -20761,7 +20762,7 @@ void ProcessView::MiddleHighProcess_ProcessAcquire(RefView* actor)
                 return;
             }
         }
-        if (actor->FUN_00931850() != 1 || actor->GetCellLoadState() != 1)
+        if (actor->FUN_00931850() != 1 || actor->MobileObject_GetDesiredProcessLevel() != 1)
             return;
         if (Evaluate(actor, count))
         {
@@ -21588,7 +21589,7 @@ struct Process
     List unk124, unk128;
     void Animation_ClearGroup(int, float);
     void Animation_ZeroGlobalTransform();
-    void GetMovement(NiPoint3*, ActorStand*, int, int);
+    void Animation_GetDelta(NiPoint3*, ActorStand*, int, int);
     Node* GetHavokWorldObjectCountInSceneGraph_0084e3a0();
     void Animation_SpecialIdleQueue(void*, int);
     bool Animation_SpecialIdleLoaded();
@@ -22705,7 +22706,7 @@ void Target::UpdateKnockedDownState(ActorStand* actor)
                 AddTimedEntry(actor, 0);
             unk13c = 4;
             NiPoint3 velocity;
-            idx->GetMovement(&velocity, actor, 1, 0);
+            idx->Animation_GetDelta(&velocity, actor, 1, 0);
             reinterpret_cast<NiPoint3&>(velocity) = reinterpret_cast<const NiPoint3&>(velocity.Neg().ProcessAndReturnValue_0053d280(DAT_011f6394.FUN_0084d030() * 50.0));
             if (actor->unkac)
             {
@@ -23133,7 +23134,7 @@ struct P130Anim : Animation
 };
 struct P130Node
 {
-    int GetFlagsMasked();
+    int TESIdleForm_GetIdleAnimGroupSection();
 };
 struct P130Service
 {
@@ -23438,7 +23439,7 @@ struct P130Actor
 struct P130Marker
 {
     int FUN_005094b0();
-    float GetFurnitureHeading(int);
+    float TESFurniture_GetMarkerHeadingOffset(int);
     NiPoint3* FUN_006815c0();
     float FUN_00568650();
     void FurnitureMark_SetHeading(float);
@@ -23566,7 +23567,7 @@ bool P130Process::MiddleHighProcess_SitOrSleep(P130Actor* actor)
             m_ucFurnitureInteractionState = 0;
             return false;
         }
-        package->Animation_SpecialIdleQueue(entry, entry->GetFlagsMasked());
+        package->Animation_SpecialIdleQueue(entry, entry->TESIdleForm_GetIdleAnimGroupSection());
         actor->SetMarker(((P130Marker*)&FurnitureMarker)->FUN_006815c0());
         package->CopyGlobalPosition();
         ((P130Ref*)m_pFurnitureReference)->TESObjectREFR_SetMarkerUsed(m_ucFurnitureMarkerIndex, true);
@@ -23633,7 +23634,7 @@ bool P130Process::MiddleHighProcess_SitOrSleep(P130Actor* actor)
                 ((P130Ref*)m_pFurnitureReference)->TESObjectREFR_SetMarkerReserved(m_ucFurnitureMarkerIndex, false);
                 actor->FUN_00931d30(((P130Ref*)m_pFurnitureReference)
                                         ->BGSSaveFormBuffer_GetForm()
-                                        ->GetFurnitureHeading(((P130Marker*)&FurnitureMarker)->FUN_005094b0()));
+                                        ->TESFurniture_GetMarkerHeadingOffset(((P130Marker*)&FurnitureMarker)->FUN_005094b0()));
                 package->Animation_SkipNextBlend();
                 if (((P130IdlePtr*)&package->LocalInput)->Modelloader_GetReferencedThis())
                     package->Animation_BlendOut(((P130IdlePtr*)&package->LocalInput)->Modelloader_GetReferencedThis()->FUN_00825c00(), false);
@@ -23707,7 +23708,7 @@ struct ManagerAccess
 };
 extern ManagerAccess* DAT_011cb6a0;
 bool __fastcall PlayerBusy(Actor*);
-bool IsFurnitureSleepMarker(unsigned int);
+bool IsSleepMarker(unsigned int);
 void __cdecl ShowHUD(int);
 void __cdecl FurnitureWarning(const char*, ...);
 struct FaceAccess
@@ -24518,7 +24519,7 @@ bool FurnitureProcess::MiddleHighProcess_ProcessGetUp(RefAccess* actor)
     }
     currentFurniture->base();
     {
-        bool sleeping = IsFurnitureSleepMarker(marker.id());
+        bool sleeping = IsSleepMarker(marker.id());
         if (sitState == 4 && sleeping)
             return false;
         if (sitState == 9 && !sleeping)
@@ -26717,7 +26718,7 @@ struct FormNode58
 struct SavedPart58
 {
     void SavePackage(SaveBuffer58*);
-    void SaveAnimData(SaveBuffer58*);
+    void Animation_Save(SaveBuffer58*);
     unsigned int FUN_0040a1e0();
     unsigned int RefreshItem();
     unsigned int FUN_00726070();
@@ -26977,7 +26978,7 @@ void ProcessSave58::MiddleHighProcess_SaveGame(SaveBuffer58* buffer)
     {
         unsigned int sizeMarker6 = buffer->StartVariableSizedValue();
         unsigned int start5 = buffer->GetHavokWorldObjectCountInSceneGraph_0084e3a0();
-        field1c0->SaveAnimData(buffer);
+        field1c0->Animation_Save(buffer);
         unsigned int end14 = buffer->GetHavokWorldObjectCountInSceneGraph_0084e3a0();
         buffer->SaveVariableSizedValue_00865ff0(end14 - start5, sizeMarker6);
     }
@@ -27024,7 +27025,7 @@ struct P124Marker
 struct P124Base
 {
     P124Point FUN_00509920(unsigned int, float);
-    float GetFurnitureHeading(unsigned int);
+    float TESFurniture_GetMarkerHeadingOffset(unsigned int);
 };
 struct P124Furniture
 {
@@ -27440,7 +27441,7 @@ void P124Process::UpdateFurnitureAnimation(P124Input* input)
             if (actor != (P124Actor*)g_thePlayer)
             {
                 actor->SetAngle(((P124Marker*)&FurnitureMarker)->FUN_00568650());
-                actor->FUN_00931d30(base->GetFurnitureHeading(((P124Marker*)&FurnitureMarker)->FUN_005094b0()));
+                actor->FUN_00931d30(base->TESFurniture_GetMarkerHeadingOffset(((P124Marker*)&FurnitureMarker)->FUN_005094b0()));
             }
             m_ucFurnitureInteractionState = offset;
             if (actor->FUN_009306d0())
@@ -28238,7 +28239,7 @@ struct ObjA9
 struct Actor9 : Actor
 {
     bool IsPathing();
-    void PathToLocation(PathingRequest*, NiPoint3 const&, void*, void*, float, int);
+    void Actor_BuildRequest(PathingRequest*, NiPoint3 const&, void*, void*, float, int);
     void SetPathingRequestAvoidNodes(PathingRequest*);
     void ClearLookAtTarget();
 };
@@ -28366,11 +28367,11 @@ void Proc9::UpdatePackageState(Actor9* apActor)
             PathingRequest req;
             if (cur != 0)
             {
-                apActor->PathToLocation(&req, *static_cast<const ::TESObjectREFR*>(cur)->GetPos(), cur->FUN_008d6f30(), cur->TESObjectREFR_GetWorldSpace(), f54, 0);
+                apActor->Actor_BuildRequest(&req, *static_cast<const ::TESObjectREFR*>(cur)->GetPos(), cur->FUN_008d6f30(), cur->TESObjectREFR_GetWorldSpace(), f54, 0);
             }
             else
             {
-                apActor->PathToLocation(&req, w->TESPackage_GetLocationCoord(apActor), w->TESPackage_GetLocationCell(apActor),
+                apActor->Actor_BuildRequest(&req, w->TESPackage_GetLocationCoord(apActor), w->TESPackage_GetLocationCell(apActor),
                                         w->FUN_00675a50(apActor), f54, 0);
             }
             req.SetUseSoft(false);
@@ -28442,7 +28443,7 @@ void Proc9::UpdatePackageState(Actor9* apActor)
                     float f118 = (float)((ObjPkg9*)static_cast<const BaseProcess*>(this)->GetOneTimePackage())->FUN_00676280(apActor);
                     f118 = BSMAX_00404010(f118, FUN_006e25d0());
                     PathingRequest req2;
-                    apActor->PathToLocation(&req2, *static_cast<const ::TESObjectREFR*>(obj114)->GetPos(), obj114->FUN_008d6f30(), obj114->TESObjectREFR_GetWorldSpace(),
+                    apActor->Actor_BuildRequest(&req2, *static_cast<const ::TESObjectREFR*>(obj114)->GetPos(), obj114->FUN_008d6f30(), obj114->TESObjectREFR_GetWorldSpace(),
                                             f118, 0);
                     req2.SetUseSoft(false);
                     apActor->SetPathingRequestAvoidNodes(&req2);
@@ -28898,7 +28899,7 @@ struct B570PackageCalls
 };
 struct B570PointCalls : NiPoint3
 {
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength() const;
 };
 struct B570TimeCalls
 {
@@ -28958,7 +28959,7 @@ void B570ProcessCalls::UpdateTargetTracking(B570ActorCalls* actor, B570TargetDat
     if (actor->FUN_008b3bb0())
     {
         NiPoint3 delta = *static_cast<const ::TESObjectREFR*>(actor)->GetPos() - *static_cast<const ::TESObjectREFR*>(target)->GetPos();
-        float distance = ((B570PointCalls*)&delta)->GetSquaredXYLength();
+        float distance = ((B570PointCalls*)&delta)->NiPoint3_SqrXYLength();
         float radius = 32.0f;
         if (((B570FormCalls*)target->GetObjectReference())->FUN_00401170() == 48)
         {
@@ -29085,13 +29086,13 @@ void ArmorProcess::UpdatePowerArmorState(ArmorActor* actor)
                 m_bSeventhWeaponFlag = true;
             if (armor->TESBipedModelForm::IsPowerArmor())
             {
-                if (armor->TESBipedModelForm::HasBipedModel(1, false, false) || armor->TESBipedModelForm::HasBipedModel(0, false, false))
+                if (armor->TESBipedModelForm::FillsBipedSlot(1, false, false) || armor->TESBipedModelForm::FillsBipedSlot(0, false, false))
                     m_bSixthWeaponFlag = true;
                 else
                     m_bFifthWeaponFlag = true;
             }
-            if (armor->TESBipedModelForm::GetIsHeavyArmor() && !armor->TESBipedModelForm::HasBipedModel(1, false, false) &&
-                !armor->TESBipedModelForm::HasBipedModel(0, false, false))
+            if (armor->TESBipedModelForm::GetIsHeavyArmor() && !armor->TESBipedModelForm::FillsBipedSlot(1, false, false) &&
+                !armor->TESBipedModelForm::FillsBipedSlot(0, false, false))
                 m_bFourthWeaponFlag = true;
         }
         node = node->GetNext();
@@ -30712,7 +30713,7 @@ struct ActActor
     virtual void FUN_vt418();
     bool FUN_008b3bb0();
     int FUN_00931850();
-    int GetCellLoadState();
+    int MobileObject_GetDesiredProcessLevel();
 };
 
 struct ActRef
@@ -31612,7 +31613,7 @@ bool ActProcess::MiddleHighProcess_ProcessActivate(ActActor* apActor, bool abAct
                     fNowCur = fNowCur + 24.0;
                 float fElapsedVal = fNowCur - FUN_007df1f0();
                 fElapsedVal = 3600.0 / pHourGlobal->BSMultiBoundCapsule_QMultiBoundRadius() * fElapsedVal;
-                if (apActor->FUN_00931850() != 1 || apActor->GetCellLoadState() != 1)
+                if (apActor->FUN_00931850() != 1 || apActor->MobileObject_GetDesiredProcessLevel() != 1)
                 {
                     return false;
                 }
@@ -31763,7 +31764,7 @@ struct RefShell
 };
 struct PlShell
 {
-    bool HasExtraFollowerForm(Actor* a);
+    bool PlayerCharacter_IsPlayerFollower(Actor* a);
     int PlayerCharacter_GetNumberOfFollowers();
 };
 struct IdleShell
@@ -31867,7 +31868,7 @@ struct Pkg
     virtual void d078();
     virtual bool v13c(Actor* a, int b, float c, int d);
     bool TESPackage_GetWaiting();
-    void SetFlag10000(bool b);
+    void TESPackage_SetWaiting(bool b);
     int FUN_0041ca90();
     void* FUN_0055b980();
     float GetPackageResult(Actor* a, bool b);
@@ -32554,10 +32555,10 @@ void MidProc::MiddleHighProcess_ProcessFollow(Actor* apActor, bool abArg2, int a
     pPkg = this->v159();
     if (pPkg && pPkg->TESPackage_GetWaiting())
     {
-        if (!((PlShell*)g_thePlayer)->HasExtraFollowerForm(apActor))
+        if (!((PlShell*)g_thePlayer)->PlayerCharacter_IsPlayerFollower(apActor))
         {
             if (((PlShell*)g_thePlayer)->PlayerCharacter_GetNumberOfFollowers() < DAT_011cdad0.Setting_Int()->i)
-                pPkg->SetFlag10000(false);
+                pPkg->TESPackage_SetWaiting(false);
             else
                 return;
         }
@@ -35696,7 +35697,7 @@ struct PackageProcedureAccess
 
     bool FUN_00670f90();
 
-    void SetFlag10000(int);
+    void TESPackage_SetWaiting(int);
 };
 
 struct ProcedureTarget
@@ -35855,7 +35856,7 @@ struct ProcedureProcess : MiddleHighProcess
 struct PlayerProcedureAccess
 {
 
-    bool HasExtraFollowerForm(Actor*);
+    bool PlayerCharacter_IsPlayerFollower(Actor*);
 
     int PlayerCharacter_GetNumberOfFollowers();
 };
@@ -36159,11 +36160,11 @@ void ProcedureProcess::MiddleHighProcess_Update(ProcedureActor* apActor)
                 else
                 {
 
-                    if (!((PlayerProcedureAccess*)DAT_011dea3c)->HasExtraFollowerForm(h) &&
+                    if (!((PlayerProcedureAccess*)DAT_011dea3c)->PlayerCharacter_IsPlayerFollower(h) &&
 
                         ((PlayerProcedureAccess*)DAT_011dea3c)->PlayerCharacter_GetNumberOfFollowers() < *DAT_011cdad0.Setting_Int())
 
-                        ((PackageProcedureAccess*)p)->SetFlag10000(0);
+                        ((PackageProcedureAccess*)p)->TESPackage_SetWaiting(0);
                 }
 
                 break;
@@ -36455,7 +36456,7 @@ class WeaponBaseAccess
     SoundAccess* TESObjectWEAP_GetAttackSound(bool);
     SoundAccess* GetValueByFlag(bool);
     SoundAccess* GetPointerByFlag(bool);
-    SoundAccess* GetField22C();
+    SoundAccess* TESObjectWEAP_GetAttackFailSound();
     void FUN_00525510(int, QueuedFileAccess*, bool);
 };
 class ItemChangeAccess
@@ -36556,8 +36557,8 @@ bool WeaponProcess::MiddleHighProcess_SetCurrentWeapon(InventoryStackRecord* wea
                                                                 ((ItemChangeAccess*)pWeapon)->HasEffect(16))
                                                  ->TESSound_GetFilename(),
                                              0x101, base->GetPointerByFlag(false));
-            if (base->GetField22C())
-                BSAudio_QInstance()->Precache_00ad8100(base->GetField22C()->TESSound_GetFilename(), 0x102, base->GetField22C());
+            if (base->TESObjectWEAP_GetAttackFailSound())
+                BSAudio_QInstance()->Precache_00ad8100(base->TESObjectWEAP_GetAttackFailSound()->TESSound_GetFilename(), 0x102, base->TESObjectWEAP_GetAttackFailSound());
             ((WeaponPreloadAccess*)&m_pQueuedWeaponFile)->AssignTaskReference(new QueuedFileAccess(5));
             bool player = false;
             if (DAT_011dea3c && ((PlayerAccess*)DAT_011dea3c)->FUN_008d8520() == this)
@@ -36951,14 +36952,14 @@ __if_not_exists(g_modelLoader)
 }
 
 
-// 0x004FE080 is BGSProjectile::GetProjectileCloneCount; only this missing method is declared locally.
+// 0x004FE080 is BGSProjectile::BGSProjectile_GetPreCloneCount; only this missing method is declared locally.
 struct ProjectileCloneSource : shared_types::BGSProjectile
 {
-    int GetProjectileCloneCount(void* weapon);
+    int BGSProjectile_GetPreCloneCount(void* weapon);
 };
 struct WeaponView
 {
-    ProjectileCloneSource* GetOrFallback(Actor*);
+    ProjectileCloneSource* TESObjectWEAP_GetProjectile(Actor*);
 };
 class ActorSupportClass
 {
@@ -36988,14 +36989,14 @@ void FUN_0092bd00_shell::MiddleHighProcess_TryReserveProjectileClones(Actor* act
         WeaponView* pAmmoView =
             ammo ? reinterpret_cast<WeaponView*>(reinterpret_cast<InventoryStackRecord*>(((BaseProcess*)this)->GetActiveWeapon())->FUN_0044ddc0()) : 0;
         void* weapon = weaponItem ? reinterpret_cast<InventoryStackRecord*>(((BaseProcess*)this)->GetCurrentAmmo())->FUN_0044ddc0() : 0;
-        if (pAmmoView && weapon && pAmmoView->GetOrFallback(actor))
+        if (pAmmoView && weapon && pAmmoView->TESObjectWEAP_GetProjectile(actor))
         {
-            int cloneCount = pAmmoView->GetOrFallback(actor)->GetProjectileCloneCount(pAmmoView);
+            int cloneCount = pAmmoView->TESObjectWEAP_GetProjectile(actor)->BGSProjectile_GetPreCloneCount(pAmmoView);
             if (cloneCount > 0)
             {
                 NiPointer<Model> model(0);  // Gamebryo's NiPointer(T* = 0)
                 reinterpret_cast<ProjectileCloneLoader*>(g_modelLoader)
-                    ->ModelLoader_FindModel(reinterpret_cast<::TESModel*>(reinterpret_cast<char*>(pAmmoView->GetOrFallback(actor)) +
+                    ->ModelLoader_FindModel(reinterpret_cast<::TESModel*>(reinterpret_cast<char*>(pAmmoView->TESObjectWEAP_GetProjectile(actor)) +
                                                   sizeof(::TESBoundObject) + sizeof(::TESFullName))->GetModelFilePath(), &model);
                 if (model && model->GetObject3D())
                 {
@@ -37400,7 +37401,7 @@ void FinishInitLoadProcessView::MiddleHighProcess_FinishInitLoadGame(unsigned in
                     if (actor != (Actor*)_g_thePlayer)
                     {
                         actor->SetFurnitureHeading(((LocalMarker*)&this->FurnitureMarker)->FUN_00568650());
-                        actor->AdvanceMovement(ref->GetFurnitureHeading(((LocalMarker*)&this->FurnitureMarker)->FUN_005094b0()));
+                        actor->AdvanceMovement(ref->TESFurniture_GetMarkerHeadingOffset(((LocalMarker*)&this->FurnitureMarker)->FUN_005094b0()));
                     }
                     this->m_ucFurnitureInteractionState = i;
 
@@ -37693,7 +37694,7 @@ void MiddleHighProcessExt::MiddleHighProcess_LoadSitSleepIdle(Actor* apActor, An
                 TESIdleForm* idle = DAT_011cb6a0->FUN_00600950(apActor, m_pFurnitureReference);
                 if (idle)
                 {
-                    apAnimation->Animation_SpecialIdleReplace(idle, apActor, idle->GetFlagsMasked());
+                    apAnimation->Animation_SpecialIdleReplace(idle, apActor, idle->TESIdleForm_GetIdleAnimGroupSection());
                 }
                 if (apActor == g_thePlayer)
                 {
@@ -37819,7 +37820,7 @@ struct Object70
 struct Furniture70
 {
     void FUN_00509920(Vec70*, int, float);
-    float GetFurnitureHeading(int);
+    float TESFurniture_GetMarkerHeadingOffset(int);
 };
 
 struct Target70
@@ -39409,7 +39410,7 @@ void Actor70::MiddleHighProcess_ProcessTravel(Actor70* actor, bool checkReach, b
 
                     actor->SetRotation(furnitureRef7->Rotation().FUN_00439e90(offset33));
 
-                    actor->FUN_00931d30(base2->GetFurnitureHeading(furnitureRef7->FUN_005094b0()));
+                    actor->FUN_00931d30(base2->TESFurniture_GetMarkerHeadingOffset(furnitureRef7->FUN_005094b0()));
 
                     bool sleeping43 = false;
 
@@ -39588,13 +39589,13 @@ struct ItemLoadState913e80
     unsigned char unk0F;
     unsigned char unk10;
     unsigned char unk11;
-    void LoadInventoryEntryState(BufferView* buffer);
+    void QueuedItem_LoadGame(BufferView* buffer);
 };
 
 // Reads an object, index, and state bytes from buffer, resolving the inventory entry via the reference's extra data view when the index is valid.
 // @fnv 0x00913e80
-// src: GUESS 0x00913e80 (confidence: medium)
-void ItemLoadState913e80::LoadInventoryEntryState(BufferView* buffer)
+// src: COMMUNITY 0x00913e80
+void ItemLoadState913e80::QueuedItem_LoadGame(BufferView* buffer)
 {
     ReferenceView* ref = buffer->GetRef();
     object = dynamic_cast<TESBoundObject*>(reinterpret_cast<TESForm*>(::TESForm_GetFormByNumericID(buffer->FUN_008648a0())));

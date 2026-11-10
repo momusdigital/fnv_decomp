@@ -23,7 +23,7 @@ unsigned int BSFile::GetFilePosition()
 }
 
 // Reads +0x168, past the end of BSFile (0x158 bytes): the owner is another class.
-struct FUN_00afc0a0_Owner
+struct CompressedArchiveFile
 {
     unsigned char unk000[0x168];
     unsigned int unk168;
@@ -31,7 +31,7 @@ struct FUN_00afc0a0_Owner
 };
 
 // @fnv 0x00afc0a0
-unsigned int FUN_00afc0a0_Owner::GetValue168()
+unsigned int CompressedArchiveFile::GetValue168()
 {
     return unk168;
 }

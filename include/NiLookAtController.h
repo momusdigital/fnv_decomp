@@ -22,7 +22,7 @@ public:
     virtual void Update(NiUpdateData& update);
 
     void* Destroy(unsigned int flags);
-    void* FUN_00a4cd40(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     void LinkObject_00a4c840(NiStream& stream);
     NiLookAtController* CreateClone_00a4cd60(void* process);
     void LoadBinary_00a4ce20(NiStream& stream);

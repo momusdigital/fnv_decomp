@@ -12,7 +12,7 @@ TESCombatStyle* TESCombatStyle_GetDefaultCombatStyle();
 StatsChunkData& __fastcall GetCombatStyleData(TESCombatStyle* style);
 HungerStageData* __fastcall GetHungerStageData(BGSHungerStage* stage);
 UInt32ChunkData* __fastcall GetCombatStyleAdvancedData(TESCombatStyle* style);
-void __fastcall SwapUInt32ChunkData(UInt32ChunkData* data);
+void __fastcall AdvancedCombatStyleData_Endian(UInt32ChunkData* data);
 class TESFileFormVersion
 {
   public:

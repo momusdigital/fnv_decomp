@@ -107,7 +107,7 @@ void BSTempEffectParticle::PlaySequence(const char* name)
 
         if (controllerSequence)
         {
-            controllerManager->ActivateControllerSequence(controllerSequence, 0, false, 1.0f, 0.0f, (NiControllerSequence*)0);
+            controllerManager->ActivateSequence(controllerSequence, 0, false, 1.0f, 0.0f, (NiControllerSequence*)0);
 
             float duration = controllerSequence->GetEndKeyTime_00508100();
             if (duration > m_fParticleParameter5)
@@ -609,7 +609,7 @@ struct NodeX
 struct ArrP
 {
     unsigned int NiParticleSystem_GetModifierCount();
-    void* GetByIndex(int);
+    void* NiParticleSystem_GetModifierAt(int);
 };
 struct ObjQ
 {
@@ -632,7 +632,7 @@ void __thiscall BSTempEffectParticle::CollectUniqueChildValues(NiNode* apNode, A
             unsigned int i;
             for (i = 0; i < p->NiParticleSystem_GetModifierCount(); ++i)
             {
-                ObjQ* pObj = (ObjQ*)NiObject_DynamicCast(&DAT_01202548, p->GetByIndex(i));
+                ObjQ* pObj = (ObjQ*)NiObject_DynamicCast(&DAT_01202548, p->NiParticleSystem_GetModifierAt(i));
                 if (pObj)
                 {
                     bool bUnique = true;

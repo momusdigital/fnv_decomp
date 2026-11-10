@@ -99,13 +99,13 @@ struct BlkOffset08View
 {
     unsigned int GetFlags();
 };
-struct FUN_004d7d50_StandIn
+struct NiParticleSystem
 {
     unsigned int __thiscall NiParticleSystem_GetModifierCount();
 };
 // @fnv 0x004d7d50
 // src: XBOX_PDB 0x004d7d50
-unsigned int __thiscall FUN_004d7d50_StandIn::NiParticleSystem_GetModifierCount()
+unsigned int __thiscall NiParticleSystem::NiParticleSystem_GetModifierCount()
 {
     return ((BlkOffset08View*)((char*)this + 0xC8))->GetFlags();
 }
@@ -217,14 +217,14 @@ void __thiscall FUN_004d9190_Class::ForwardCall_004d9190()
     FUN_004d91b0();
 }
 
-struct FUN_004dc020_Class
+struct NiDX9Renderer
 {
     unsigned int m_p288;
     unsigned int NiXenonRenderer_GetD3DDevice();
 };
 // @fnv 0x004dc020
 // src: XBOX_PDB 0x004dc020
-unsigned int FUN_004dc020_Class::NiXenonRenderer_GetD3DDevice()
+unsigned int NiDX9Renderer::NiXenonRenderer_GetD3DDevice()
 {
     return *(unsigned int*)((char*)this + 0x288);
 }
@@ -387,7 +387,7 @@ void FUN_004def90_Class::NiNode_RemoveAllChildren()
 }
 
 
-struct FUN_004dfe80_Class
+struct BSShaderBloodSplatterProperty
 {
     GO m_p[12];
     void SetSlotValue(int index, void* value);
@@ -395,7 +395,7 @@ struct FUN_004dfe80_Class
 
 // Stores value into the slot at index within the array starting at offset 0x60 of this object.
 // @fnv 0x004dfe80
-void FUN_004dfe80_Class::SetSlotValue(int index, void* value)
+void BSShaderBloodSplatterProperty::SetSlotValue(int index, void* value)
 {
     *(GO*)((char*)this + index * 4 + 0x60) = value;
 }
@@ -528,11 +528,12 @@ FUN_004d4e40_Class::FUN_004d4e40_Class(unsigned int size)
 void __cdecl _Deallocate(void*);
 struct FUN_004d4f40_StandIn
 {
-    void* __thiscall FUN_004d4f40(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_004d4f10 on this, deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x004d4f40
-void* __thiscall FUN_004d4f40_StandIn::FUN_004d4f40(unsigned int flags)
+// src: EXE 0x004d4f40
+void* __thiscall FUN_004d4f40_StandIn::ScalarDeletingDestructor(unsigned int flags)
 {
     ((FUN_004d4f10_StandIn*)this)->ReleaseStorage_004d4f10();
     if (flags & 1)
@@ -1099,19 +1100,20 @@ bool __cdecl Runtime_EvaluateValue_004deed0(char const* a, unsigned char aucInde
     return true;
 }
 
-struct FUN_004d4f70
+struct LipSynchAnim
 {
     unsigned int m_uiCount;
     int m_iParam;
     float** m_ppfA;
     float** m_ppfB;
 
-    FUN_004d4f70(unsigned int ItemUpdateArray, int iParam);
+    LipSynchAnim(unsigned int ItemUpdateArray, int iParam);
 };
 
 // Stores the count and param, allocates two pointer arrays and a zeroed float block, then splits the block into per-index A and B slices.
 // @fnv 0x004d4f70
-FUN_004d4f70::FUN_004d4f70(unsigned int auiCount, int iParam)
+// src: COMMUNITY 0x004d4f70
+LipSynchAnim::LipSynchAnim(unsigned int auiCount, int iParam)
 {
     m_uiCount = auiCount;
     m_iParam = iParam;
@@ -1257,16 +1259,17 @@ struct FUN_0040c150
     FUN_0040c150(char* text, int index);
 };
 
-struct FUN_004d5b60
+struct MiscStat
 {
     FUN_0040c150* object;
     int value;
-    FUN_004d5b60(int index, int number, int extra);
+    MiscStat(int index, int number, int extra);
 };
 
 // Formats number into a 13-byte buffer, stores extra in value, and constructs a FUN_0040c150 from the text and index.
 // @fnv 0x004d5b60
-FUN_004d5b60::FUN_004d5b60(int index, int number, int extra)
+// src: COMMUNITY 0x004d5b60
+MiscStat::MiscStat(int index, int number, int extra)
 {
     value = extra;
     char* text = new char[13];
@@ -1275,12 +1278,12 @@ FUN_004d5b60::FUN_004d5b60(int index, int number, int extra)
 }
 
 namespace fnv_004d5c80 {
-struct FUN_004d5b60
+struct MiscStat
 {
     char* m_p0;
     unsigned short m_w4;
     unsigned short m_w6;
-    FUN_004d5b60(const char* name, unsigned int index, unsigned short flags);
+    MiscStat(const char* name, unsigned int index, unsigned short flags);
 };
 extern void* DAT_011c6d50[43];
 extern const char* DAT_01189280[43];
@@ -1292,7 +1295,7 @@ void* __fastcall InitNameTable(void* pThis)
     {
         for (unsigned int i = 0; i < 43; i++)
         {
-            DAT_011c6d50[i] = new FUN_004d5b60(DAT_01189280[i], i, 0);
+            DAT_011c6d50[i] = new MiscStat(DAT_01189280[i], i, 0);
         }
     }
     return pThis;
@@ -1343,7 +1346,7 @@ struct FUN_004d9070
     ~FUN_004d9070();
 };
 
-struct FUN_004d62a0_Class
+struct NiTreeCtrl
 {
     int m_00;
     int m_04;
@@ -1361,12 +1364,13 @@ struct FUN_004d62a0_Class
     void __thiscall NiTreeCtrl_DestroyTree();
     void __thiscall NiTreeCtrl_DestroyImageList();
     void __thiscall NiTreeCtrl_DestroyWindows();
-    ~FUN_004d62a0_Class();
+    ~NiTreeCtrl();
 };
 
 // Frees m_p2C, calls the three cleanup methods, then resets DAT_011f36f8 and DAT_011f36f4 to zero.
 // @fnv 0x004d62a0
-FUN_004d62a0_Class::~FUN_004d62a0_Class()
+// src: GUESS 0x004d62a0 (confidence: medium)
+NiTreeCtrl::~NiTreeCtrl()
 {
     void* p = m_p2C;
     _Deallocate(p);
@@ -1742,9 +1746,9 @@ struct MsgStruct
 
 void __cdecl BSstrncpy(char* dst, const char* src, unsigned int count);
 
-struct ObjClass : public FUN_004d7d50_StandIn
+struct ObjClass : public NiParticleSystem
 {
-    ItemClass* __thiscall GetByIndex(unsigned int);
+    ItemClass* __thiscall NiParticleSystem_GetModifierAt(unsigned int);
 };
 
 typedef int(__stdcall* DAT_00fdf28c_fn)(void*, int, int, void*);
@@ -1787,7 +1791,7 @@ void __thiscall HostClass::SendModifierMessages(int a1, NiObject* apObject)
 
         for (cnt2 = 0; cnt2 < res->NiParticleSystem_GetModifierCount(); ++cnt2)
         {
-            qB = res->GetByIndex(cnt2);
+            qB = res->NiParticleSystem_GetModifierAt(cnt2);
             if (qB)
             {
                 BSstrncpy(i4, qB->GetName().Modelloader_GetReferencedThis(), 0x3f);
@@ -3299,14 +3303,14 @@ C4DF040Node* __cdecl CreateDebrisNode(unsigned int uiPieceCount, float fWidthSca
 
 extern double DAT_010229b8;
 extern double DAT_01012070;
-struct FUN_004dfec0_Class
+struct BSRandom
 {
     unsigned int BSRandom_UnsignedInt();
     float BSRandom_FloatNeg1To1();
 };
 // @fnv 0x004dfec0
 // src: XBOX_PDB 0x004dfec0
-float FUN_004dfec0_Class::BSRandom_FloatNeg1To1()
+float BSRandom::BSRandom_FloatNeg1To1()
 {
     unsigned int randomValue = BSRandom_UnsignedInt();
     return static_cast<float>(static_cast<double>(randomValue) * DAT_010229b8 - DAT_01012070);
@@ -3416,11 +3420,12 @@ class Owner
     int unkc0;
     int unkc4;
     ListT kList;
-    void* GetByIndex(unsigned int idx);
+    void* NiParticleSystem_GetModifierAt(unsigned int idx);
 };
 // Returns the element at the given index from the list, or null if the index is out of range.
 // @fnv 0x004d7d70
-void* Owner::GetByIndex(unsigned int idx)
+// src: COMMUNITY 0x004d7d70
+void* Owner::NiParticleSystem_GetModifierAt(unsigned int idx)
 {
     if (idx >= kList.FUN_0044ddc0())
         return 0;

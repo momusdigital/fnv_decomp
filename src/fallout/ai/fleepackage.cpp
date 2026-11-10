@@ -94,7 +94,7 @@ FUN_009f9250::FUN_009f9250(TESObjectREFR* apRef, int aiUnk88, int aiUnk8c, int a
     iUnk84 = 0;
     iUnk88 = aiUnk88;
     iUnk8c = aiUnk8c;
-    SetPackageType(0x17);
+    SetPackType(0x17);
     SetMustReachLocation(true);
     SetMustComplete(true);
     PackageTargetRecord* pTarget;
@@ -859,7 +859,7 @@ void FleePackage::LoadGame_009f24d0(BGSLoadFormBuffer* apLoadGameBuffer)
     apLoadGameBuffer->ReadFormIdentifier(reinterpret_cast<void*>(reinterpret_cast<char*>(&pRefA0)));
     apLoadGameBuffer->ReadFormIdentifier(reinterpret_cast<void*>(reinterpret_cast<char*>(&pRefA4)));
 
-    unsigned int isaveGameCount = apLoadGameBuffer->ReadElementCount();
+    unsigned int isaveGameCount = apLoadGameBuffer->LoadVariableSizedValue();
     {
         unsigned int uiIndex;
         for (uiIndex = 0; uiIndex < isaveGameCount; uiIndex++)
@@ -871,7 +871,7 @@ void FleePackage::LoadGame_009f24d0(BGSLoadFormBuffer* apLoadGameBuffer)
     }
 }
 
-// FindNearestRef: flee-package helper: scan avoided-ref list, pick nearest candidate.
+// GetClosestAvoidedRef: flee-package helper: scan avoided-ref list, pick nearest candidate.
 struct FUN_009f1210_ref;
 struct FUN_009f1210_node
 {
@@ -1027,7 +1027,8 @@ struct FUN_009f1210_ref
 extern const float DAT_01016970;
 
 // @fnv 0x009f1210
-TESObjectREFR* FleePackage::FindNearestRef(TESObjectREFR* apRef)
+// src: COMMUNITY 0x009f1210
+TESObjectREFR* FleePackage::GetClosestAvoidedRef(TESObjectREFR* apRef)
 {
     if (flag80 == 0 || !reinterpret_cast<FUN_009f1210_ref*>(apRef)->TESObjectREFR_GetRefPersists_005653d0())
     {

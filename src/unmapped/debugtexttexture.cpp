@@ -63,14 +63,14 @@ struct PathStr
 int __cdecl FUN_00ec7ec0(const char* a, const char* b, unsigned int n);
 char* __cdecl FUN_00ec7690(const char* s, int c);
 
-struct FUN_0071dca0_cls
+struct MenuConsole
 {
     bool HasMenusPath(PathSource* src);
 };
 
 // Checks whether the path string returned by src->v9C()->FUN_0043b1b0() contains a "\menus" segment, scanning backslash-delimited parts.
 // @fnv 0x0071dca0
-bool FUN_0071dca0_cls::HasMenusPath(PathSource* src)
+bool MenuConsole::HasMenusPath(PathSource* src)
 {
     bool bFound = false;
     {

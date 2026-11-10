@@ -28,7 +28,7 @@ void __cdecl Object_ForwardCall_00d48660(int a, int b, int c)
 extern int DAT_0102e388;
 extern int DAT_010d7540;
 
-struct FUN_00dcc160_cls
+struct hkIstream
 {
     void* vtbl;
     int a;
@@ -38,7 +38,7 @@ struct FUN_00dcc160_cls
 
 // @fnv 0x00dcc160
 // src: GUESS 0x00dcc160 (confidence: low)
-void FUN_00dcc160_cls::SetVirtualTable_00dcc160()
+void hkIstream::SetVirtualTable_00dcc160()
 {
     hkReferencedObject* old = b;
     vtbl = &DAT_010d7540;
@@ -105,7 +105,7 @@ struct FUN_00dbc670_storage
 };
 struct FUN_00dbc670_shell
 {
-    void FUN_00dbc670();
+    void hkBinaryPackfileWriter();
     void hkPackfileWriter_setContents(int, int, int);
     int ProcessPoly(int, int);
     void SetVirtualTableAndProcessState_00dbc6e0();
@@ -128,7 +128,7 @@ int __cdecl hkSerializeUtil_savePackfile(int a1, int a2, int a3, int a4, int use
         {
             FUN_00dbc670_storage msgStorage;
             FUN_00dbc670_shell* shell = (FUN_00dbc670_shell*)&msgStorage;
-            shell->FUN_00dbc670();
+            shell->hkBinaryPackfileWriter();
             shell->hkPackfileWriter_setContents(a1, a2, a6);
             int result = shell->ProcessPoly(a3, a4);
             shell->SetVirtualTableAndProcessState_00dbc6e0();

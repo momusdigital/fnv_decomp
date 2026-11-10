@@ -254,7 +254,7 @@ struct PayloadOwner
 int* __stdcall Hkgpconvexhull_GetPayloadAddress(PayloadOwner* apOwner);
 struct TargetCallee
 {
-    void ProcessEntries_00d7a5a0(void* p1, void* p2, void* p3, void* p4, float p5);
+    void hkgpConvexHullImpl_clipLine(void* p1, void* p2, void* p3, void* p4, float p5);
 };
 struct FUN_00d74ee0_Class : FUN_00d74dd0_Class
 {
@@ -290,7 +290,7 @@ struct TextBuffer
     void FUN_00cb1600(char* buffer, int capacity);
     TextBuffer* ProcessAndReturnValue_00cc01c0(const char* first, const char* middle, const char* last);
     TextBuffer* ProcessAndReturnValue_00cc01c0();
-    TextBuffer* EvaluateValue_00cc02d0();
+    TextBuffer* hkOstream_printf();
     void FUN_00cc00e0();
 };
 struct ChildData
@@ -714,7 +714,7 @@ struct FUN_00d771c0_Owner
 };
 struct FUN_00d83430_class
 {
-    void AllocateStorage_00d83430(int, int, int, float);
+    void hkgpConvexHullImpl_splitByPlane_hkgpConvexHullImpl__PositionAsSource_(int, int, int, float);
 };
 struct FUN_00d790a0_class
 {
@@ -732,7 +732,7 @@ struct S_00d79f90_Opts
 struct S_00d79f90_Result
 {
     virtual ~S_00d79f90_Result();
-    void ProcessEntries_00d78720(float f, const S_00d79f90_Opts& opts);
+    void hkgpConvexHull_absoluteScale(float f, const S_00d79f90_Opts& opts);
 };
 struct S_00d79f90_World
 {
@@ -1107,7 +1107,7 @@ struct DiagStream
     unsigned int m_buf[128];
     void FUN_00cb1600(unsigned int* buf, unsigned int size);
     DiagStream* ProcessAndReturnValue_00cc01c0(const char* fmt, unsigned int count, const char* tail);
-    DiagStream* EvaluateValue_00cc02d0();
+    DiagStream* hkOstream_printf();
     void ProcessAndReturnValue_00cc01c0();
     void FUN_00cc00e0();
 };
@@ -1246,7 +1246,7 @@ struct FUN_00d75440_cls
 {
     float hkgpConvexHull_getVolume();
     double GetMass();
-    float ComputeScaledPowerRatio();
+    float hkgpConvexHull_getSphericity();
 };
 struct FUN_00d75820_Tmp8
 {
@@ -1267,7 +1267,7 @@ struct FUN_00d75820_cls
 };
 struct FUN_00d7b330_cls
 {
-    bool ProcessEntries_00d7b330(int a1, int a2, float a3);
+    bool hkgpConvexHullImpl_isPointInside(int a1, int a2, float a3);
 };
 struct FUN_00d76100_cls
 {
@@ -1731,7 +1731,7 @@ struct DiagnosticStream
     int unk00, unk04, unk08;
     void FUN_00cb1600(char*, int);
     DiagnosticStream& ProcessAndReturnValue_00cc01c0(const char*);
-    DiagnosticStream& EvaluateValue_00cc02d0(int);
+    DiagnosticStream& hkOstream_printf(int);
     void FUN_00cc00e0();
 };
 struct QuantizedHull
@@ -1841,7 +1841,7 @@ struct QuantizedHull
     int indexCount;
     unsigned char flags1b4;
     bool originalPlanesAvailable;
-    bool ProcessEntries_00d7b330(const QuantVector&, bool, float);
+    bool hkgpConvexHullImpl_isPointInside(const QuantVector&, bool, float);
 };
 struct QuantVertex
 {
@@ -1875,8 +1875,8 @@ __forceinline int roundQuant(float value)
     return (int)(value + (value < 0.0f ? -0.5f : 0.5f));
 }
 // @fnv 0x00d7b330
-// src: GUESS 0x00d7b330 (confidence: low)
-bool QuantizedHull::ProcessEntries_00d7b330(const QuantVector& point, bool original, float tolerance)
+// src: COMMUNITY 0x00d7b330
+bool QuantizedHull::hkgpConvexHullImpl_isPointInside(const QuantVector& point, bool original, float tolerance)
 {
     if (!original)
     {
@@ -1908,7 +1908,7 @@ bool QuantizedHull::ProcessEntries_00d7b330(const QuantVector& point, bool origi
         char buffer[512];
         DiagnosticStream stream;
         stream.FUN_00cb1600(buffer, 512);
-        stream.ProcessAndReturnValue_00cc01c0("No index available (").EvaluateValue_00cc02d0(indexCount).ProcessAndReturnValue_00cc01c0(")");
+        stream.ProcessAndReturnValue_00cc01c0("No index available (").hkOstream_printf(indexCount).ProcessAndReturnValue_00cc01c0(")");
         if (DAT_01268360->message(3, 0x79f9d886, buffer, ".\\GeometryProcessing\\ConvexHull\\hkgpConvexHull.cpp", 328))
             __debugbreak();
         stream.FUN_00cc00e0();

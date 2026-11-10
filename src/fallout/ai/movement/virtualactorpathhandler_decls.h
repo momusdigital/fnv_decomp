@@ -33,12 +33,12 @@ class AIThreadManager
 class UseDoorCalls
 {
   public:
-    void QueueActorLocationTask();
+    void TaskQueueInterface_QueueActorSetPosition();
     void QueueActorTask();
     void SetLocationOnReference(NiPoint3&);
     void* FUN_005c3420();
     void* SubtractIntoVector(void*, void*);
-    float GetSquaredXYLength();
+    float NiPoint3_SqrXYLength();
 };
 
 void* __stdcall FUN_004537b0(Actor*);

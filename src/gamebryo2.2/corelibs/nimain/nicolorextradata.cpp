@@ -69,7 +69,8 @@ void NiColorExtraData::SaveBinary_00a893d0(NiStream& kStream)
 }
 
 // @fnv 0x00a894f0
-void __fastcall LoadColorExtraData(NiColorExtraData* self, void*, NiStream& kStream)
+// src: EXE 0x00a894f0
+void __fastcall NiColorExtraData_LoadBinary(NiColorExtraData* self, void*, NiStream& kStream)
 {
     self->NiExtraData::LoadBinary(kStream);
     if (kStream.m_uiNifFileVersion < 0x0500000e)
@@ -94,7 +95,8 @@ void __fastcall LoadColorExtraData(NiColorExtraData* self, void*, NiStream& kStr
 }
 
 // @fnv 0x00a89400
-NiColorExtraData* __fastcall CloneColorExtraData(NiColorExtraData* self, void*, CloningProcess& kCloning)
+// src: EXE 0x00a89400
+NiColorExtraData* __fastcall NiColorExtraData_CreateClone(NiColorExtraData* self, void*, CloningProcess& kCloning)
 {
     NiColorExtraData* pkDest = static_cast<NiColorExtraData*>(NiExtraData::operator new(sizeof(NiColorExtraData)));
     pkDest = pkDest ? InitializeColorExtraData(pkDest) : NULL;
@@ -103,7 +105,8 @@ NiColorExtraData* __fastcall CloneColorExtraData(NiColorExtraData* self, void*, 
 }
 
 // @fnv 0x00a89590
-bool __fastcall EqualColorExtraData(NiColorExtraData* self, void*, NiColorExtraData* other)
+// src: EXE 0x00a89590
+bool __fastcall NiColorExtraData_IsEqual(NiColorExtraData* self, void*, NiColorExtraData* other)
 {
     if (!other)
         return false;

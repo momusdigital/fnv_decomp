@@ -57,12 +57,12 @@ bool MagicItemObject::Load(TESFile* file)
 // @fnv 0x0040c5f0
 void MagicItemObject::ClearData()
 {
-    TESForm::BeginFormRecord();
+    TESForm::TESForm_StartForm();
     TESFullName::Save_00487010();
     ClearMagicItemData();
     SaveMagicItemData();
     FUN_004056d0(reinterpret_cast<char*>(this) + kEffectListOffset);
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_CloseForm();
 }
 
 // The shared classes do not declare these comparison and copy entry points yet.
@@ -71,7 +71,7 @@ class EffectListOperations : public EffectItemList
 {
 public:
     bool CompareEffects(EffectItemList* other);
-    void CopyItemsFromList(EffectItemList* other);
+    void EffectItemList_Copy(EffectItemList* other);
 };
 
 class MagicItemObjectOperations : public MagicItemObject
@@ -112,5 +112,5 @@ void MagicItemObjectOperations::CopyObject(TESForm* pForm)
 
     CopyMagicItemData(result ? reinterpret_cast<MagicItem*>(reinterpret_cast<char*>(result) + kMagicItemOffset) : 0);
 
-    reinterpret_cast<EffectListOperations*>(reinterpret_cast<char*>(this) + kEffectListOffset)->CopyItemsFromList(result ? reinterpret_cast<EffectItemList*>(reinterpret_cast<char*>(result) + kEffectListOffset) : 0);
+    reinterpret_cast<EffectListOperations*>(reinterpret_cast<char*>(this) + kEffectListOffset)->EffectItemList_Copy(result ? reinterpret_cast<EffectItemList*>(reinterpret_cast<char*>(result) + kEffectListOffset) : 0);
 }

@@ -74,7 +74,7 @@ void __thiscall TESAttributes::LoadGame(unsigned int aFlags, unsigned int aDummy
 
 struct AVH
 {
-    static ActorValue::Index GetActorValueForSectionIndex(ActorValue::Section, unsigned char);
+    static ActorValue::Index ToActorValue(ActorValue::Section, unsigned char);
 };
 
 // Casts component to TESAttributes and copies its seven attribute values into cAttribute.
@@ -85,13 +85,13 @@ void TESAttributes::BaseFormRecord(BaseFormComponent* component)
     if (!attributes)
         return;
     for (int i = 0; i < 7; ++i)
-        cAttribute[i] = attributes->GetAttributeValue((int)AVH::GetActorValueForSectionIndex(ActorValue::ATTRIBUTE, i));
+        cAttribute[i] = attributes->GetAttributeValue((int)AVH::ToActorValue(ActorValue::ATTRIBUTE, i));
 }
 
 namespace fnv_00480070 {
 struct AVH
 {
-    static ActorValue::Index GetActorValueForSectionIndex(int, unsigned char);
+    static ActorValue::Index ToActorValue(int, unsigned char);
 };
 }  // namespace fnv_00480070
 // Casts component to TESAttributes and returns false only if all seven attribute values match this object's cAttribute entries; returns true otherwise.
@@ -104,7 +104,7 @@ bool TESAttributes::IsEqualToBase(BaseFormComponent* component)
     for (int i = 0; i < 7; ++i)
     {
         if (cAttribute[i] !=
-            attributes->GetAttributeValue(fnv_00480070::AVH::GetActorValueForSectionIndex(0, i)))
+            attributes->GetAttributeValue(fnv_00480070::AVH::ToActorValue(0, i)))
             return true;
     }
     return false;

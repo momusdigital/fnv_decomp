@@ -53,8 +53,8 @@ public:
 extern int DAT_010cc4f4;
 
 // @fnv 0x00d9f6d0
-// src: GUESS 0x00d9f6d0 (confidence: low)
-void __cdecl Runtime_UpdateState_00d9f6d0(int* p)
+// src: COMMUNITY 0x00d9f6d0
+void __cdecl finishLoadedObject_hkpSimulation(int* p)
 {
     if (p)
         *p = (int)&DAT_010cc4f4;
@@ -191,7 +191,7 @@ struct FUN_00d85360_cls {
     int m_i48;
     int m_i4c;
 
-    FUN_00d85360_cls* FUN_00d54290();
+    FUN_00d85360_cls* hkpBallAndSocketConstraintData();
 };
 
 // @fnv 0x00d85360
@@ -201,7 +201,7 @@ FUN_00d85360_cls* __cdecl hkpConstraintDataUtils_copyAtoms_hkpBallAndSocketConst
     hkMemoryRouter* holder = hkMemoryRouter_getInstance();
     FUN_00d85360_cls* obj = (FUN_00d85360_cls*)reinterpret_cast<AllocIface*>(holder->m_heap)->Alloc(0x50);
     obj->m_w04 = 0x50;
-    obj = obj->FUN_00d54290();
+    obj = obj->hkpBallAndSocketConstraintData();
     hkString_memCpy((char*)obj + 0x10, (char*)pSource + 0x10, 0x38);
     return obj;
 }
@@ -415,7 +415,7 @@ namespace fnv_00d854e0 {
 //   hkMemoryRouter* a = FUN_00c85750();              // cdecl, no args
 //   C* obj        = allocator->Create(0x140);       // virtual slot +4, __thiscall
 //   obj->unk04    = 0x140;                       // u16 field at +4
-//   D* result     = obj->FUN_00cdf2f0();         // __thiscall, no stack args
+//   D* result     = obj->hkpRagdollConstraintData();         // __thiscall, no stack args
 //   FUN_00cb1260(&result->unk10, &src->unk10, 0x130);  // cdecl, 3 args
 //   return result;
 
@@ -431,7 +431,7 @@ struct B_Stub {
 struct C_Stub {
     int unk00;
     unsigned short unk04;
-    D_Stub* FUN_00cdf2f0();   // game function at 0x00cdf2f0 (__thiscall member)
+    D_Stub* hkpRagdollConstraintData();   // game function at 0x00cdf2f0 (__thiscall member)
 };
 
 struct D_Stub {
@@ -461,7 +461,7 @@ D_Stub* __cdecl CloneStub(Src_Stub* src)
     hkMemoryRouter* a = hkMemoryRouter_getInstance();
     C_Stub* obj = reinterpret_cast<B_Stub*>(a->m_heap)->Create(0x140);
     obj->unk04 = 0x140;
-    D_Stub* result = obj->FUN_00cdf2f0();
+    D_Stub* result = obj->hkpRagdollConstraintData();
     hkString_memCpy(&result->unk10, &src->unk10, 0x130);
     return result;
 }
@@ -650,7 +650,7 @@ struct FUN_00d855c0_Data {
 };
 
 extern "C" hkMemoryRouter* hkMemoryRouter_getInstance();
-extern "C" void* __fastcall FUN_00d84bd0(void* object);
+extern "C" void* __fastcall hkpPointToPlaneConstraintData(void* object);
 extern "C" void* hkString_memCpy(void* destination, const void* source, unsigned int size);
 
 // @fnv 0x00d855c0
@@ -662,7 +662,7 @@ void* __cdecl CloneDataBlock(void* source)
 
     data->unk04 = 0xB0;
 
-    void* result = FUN_00d84bd0(data);
+    void* result = hkpPointToPlaneConstraintData(data);
     hkString_memCpy(
         static_cast<unsigned char*>(result) + 0x10,
         static_cast<unsigned char*>(source) + 0x10,
@@ -1949,8 +1949,8 @@ struct FnvCpu_FUN_00d9f6b0_CpuInterface {
     virtual void Invoke(int value);
 };
 // @fnv 0x00d9f6b0
-// src: GUESS 0x00d9f6b0 (confidence: low)
-void __cdecl Runtime_ForwardCall_00d9f6b0(FnvCpu_FUN_00d9f6b0_CpuInterface* object)
+// src: COMMUNITY 0x00d9f6b0
+void __cdecl cleanupLoadedObject_hkpSimulation(FnvCpu_FUN_00d9f6b0_CpuInterface* object)
 {
     object->Invoke(0);
 }
@@ -2110,7 +2110,7 @@ void __cdecl bhkLimitedForceConstraintMotor_SaveBinary(NiStream& kStream, Serial
 }
 
 extern int DAT_010d3838;
-struct FUN_00d86220_Class {
+struct hkpSpringDamperConstraintMotor {
     unsigned int m_vptr;
     unsigned short m_word04;
     unsigned short m_word06;
@@ -2119,11 +2119,12 @@ struct FUN_00d86220_Class {
     float m_float10;
     float m_float14;
     float m_float18;
-    FUN_00d86220_Class();
+    hkpSpringDamperConstraintMotor();
 };
 // Initializes the object's vtable pointer, sets m_word06 to 1, m_byte08 to 3, m_float0C to -1000000.0f, m_float10 to 1000000.0f, and m_float14/m_float18 to 0.0f.
 // @fnv 0x00d86220
-FUN_00d86220_Class::FUN_00d86220_Class()
+// src: EXE 0x00d86220
+hkpSpringDamperConstraintMotor::hkpSpringDamperConstraintMotor()
 {
     m_word06 = 1;
     m_byte08 = 0;
@@ -2210,7 +2211,7 @@ struct FUN_00dee750 {
     FUN_00dee750();
 };
 
-struct FUN_00d86470_cls {
+struct hkPointToPathConstraintCinfo {
     int unk00;
     FUN_00dee750* m_04;
 
@@ -2220,7 +2221,7 @@ struct FUN_00d86470_cls {
 // Inside an AutoMemContext scope, allocates a FUN_00dee750 into m_04 if it is null, and returns 0xb0.
 // @fnv 0x00d86470
 // src: XBOX_PDB 0x00d86470
-unsigned int FUN_00d86470_cls::hkPointToPathConstraintCinfo_CreateData()
+unsigned int hkPointToPathConstraintCinfo::hkPointToPathConstraintCinfo_CreateData()
 {
     AutoMemContext ctx;
     if (m_04 == 0) {
@@ -3030,13 +3031,13 @@ int __cdecl GetTypeCodeFromString(const char* name) throw()
     return 0;
 }
 
-struct FUN_00d87180_cls : S {
-    FUN_00d87180_cls* hkClassMemberAccessor_hkClassMemberAccessor(unsigned int a, B* b);
+struct hkClassMemberAccessor : S {
+    hkClassMemberAccessor* hkClassMemberAccessor_hkClassMemberAccessor(unsigned int a, B* b);
 };
 
 // @fnv 0x00d87180
 // src: HAVOK_LIB 0x00d87180
-FUN_00d87180_cls* FUN_00d87180_cls::hkClassMemberAccessor_hkClassMemberAccessor(unsigned int auiValue, B* apPtr)
+hkClassMemberAccessor* hkClassMemberAccessor::hkClassMemberAccessor_hkClassMemberAccessor(unsigned int auiValue, B* apPtr)
 {
     void (S::*call)(unsigned int, B*) = &S::SetValueAndPtr;
     (static_cast<S*>(this)->*call)(auiValue, apPtr);
@@ -5499,7 +5500,7 @@ extern "C" void _mm_store_ps(float* p, LocalM128 a);
 
 extern int DAT_010d37e4;
 
-struct FUN_00d84bd0
+struct hkpPointToPlaneConstraintData
 {
     unsigned int m_00;
     unsigned short unk04;
@@ -5546,12 +5547,13 @@ struct FUN_00d84bd0
     volatile unsigned short m_a0;
     volatile unsigned char m_a2;
 
-    FUN_00d84bd0();
+    hkpPointToPlaneConstraintData();
 };
 
 // Stores &DAT_010d37e4 at offset 0, sets m_06=1, m_10=2, m_a0=7, sets m_20/m_34/m_48 and m_60/m_74/m_88 to 1.0f, and zeroes the other 16-byte blocks.
 // @fnv 0x00d84bd0
-FUN_00d84bd0::FUN_00d84bd0()
+// src: EXE 0x00d84bd0
+hkpPointToPlaneConstraintData::hkpPointToPlaneConstraintData()
 {
     *(int**)this = &DAT_010d37e4;
     m_06 = 1;

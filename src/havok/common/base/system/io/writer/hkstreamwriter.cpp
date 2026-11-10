@@ -4,8 +4,8 @@
 #include "havok/hkStreamWriter.h"
 
 // @fnv 0x00cb15d0
-// src: GUESS 0x00cb15d0 (confidence: high)
-int __stdcall hkStreamWriter_ReturnOne(int arg0, int arg1)
+// src: EXE 0x00cb15d0
+int __stdcall hkStreamWriter_seek(int arg0, int arg1)
 {
     return 1;
 }

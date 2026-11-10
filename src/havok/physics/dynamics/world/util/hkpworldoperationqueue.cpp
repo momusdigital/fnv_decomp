@@ -137,7 +137,7 @@ struct Node
 extern void __fastcall FUN_00c90510(void* self);
 extern void __fastcall FUN_00c905b0(void* self);
 
-struct FUN_00c93580_Class
+struct hkpWorld
 {
     int unk00;
     int unk04;
@@ -218,7 +218,7 @@ struct FUN_00c93580_Class
 
 // @fnv 0x00c93580
 // src: HAVOK_LIB 0x00c93580
-void FUN_00c93580_Class::hkpWorld_removeAll()
+void hkpWorld::hkpWorld_removeAll()
 {
     while (this->m_114 > 0)
         this->hkpWorld_removePhantom(*(int*)this->m_110);
@@ -259,7 +259,7 @@ void FUN_00c93580_Class::hkpWorld_removeAll()
     if (this->m_c8 == 0)
     {
         void* e = this->m_28[this->m_2c - 1];
-        extern void __cdecl ClearSlotReference(FUN_00c93580_Class * self, void* e);
+        extern void __cdecl ClearSlotReference(hkpWorld * self, void* e);
         ClearSlotReference(this, e);
         void* e2 = this->m_28[this->m_2c - 1];
         if (e2)
@@ -267,7 +267,7 @@ void FUN_00c93580_Class::hkpWorld_removeAll()
         this->m_2c--;
     }
 
-    extern void __cdecl NotifyWorldDeleted(FUN_00c93580_Class * self);
+    extern void __cdecl NotifyWorldDeleted(hkpWorld * self);
     NotifyWorldDeleted(this);
 }
 
@@ -1657,7 +1657,7 @@ struct S_Item
     int unkc8;
     S_Shape* m_cc;
 };
-struct S_Mgr : FUN_00c93580_Class
+struct S_Mgr : hkpWorld
 {
     void hkpWorld_addEntityBatch(S_Item** items, unsigned int count, int flag);
     void hkpWorld_findInitialContactPoints(int a, int b);

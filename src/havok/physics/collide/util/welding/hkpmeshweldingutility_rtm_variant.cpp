@@ -707,7 +707,7 @@ struct S00dde4c0_Str
     int unk0c;
     void FUN_00cb1600(void* buf, int n);
     S00dde4c0_Str& ProcessAndReturnValue_00cc01c0(const char* s);
-    S00dde4c0_Str& EvaluateValue_00cc02d0(int v);
+    S00dde4c0_Str& hkOstream_printf(int v);
     void FUN_00cc00e0();
 };
 struct S00dde4c0_Err
@@ -766,9 +766,9 @@ int __cdecl hkpMeshWeldingUtility_calcBitcodeForTriangleEdge(S00dde4c0_Mesh* mes
                 S00dde4c0_Str sb;
                 sb.FUN_00cb1600(&buffer, 0x200);
                 sb.ProcessAndReturnValue_00cc01c0(str_010d7fc8)
-                    .EvaluateValue_00cc02d0(skip)
+                    .hkOstream_printf(skip)
                     .ProcessAndReturnValue_00cc01c0(str_010d8004)
-                    .EvaluateValue_00cc02d0(other)
+                    .hkOstream_printf(other)
                     .ProcessAndReturnValue_00cc01c0(str_010d8014);
                 ((S00dde4c0_Err*)::DAT_01268360)->report(1, 0xabba751e, (const char*)&buffer, str_010d7f50, 0x2c9);
                 sb.FUN_00cc00e0();

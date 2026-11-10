@@ -79,7 +79,7 @@ bool TESClimate::Load(TESFile* file)
         case 0x54534c57: {
             int warnings = Warning();
             SetWarningState(true);
-            TESWeatherList::LoadWeatherEntries(&weatherList, file, this);
+            TESWeatherList::LoadWeatherListChunk(&weatherList, file, this);
             SetWarningState(false);
             if (Warning() > warnings)
                 Warning("MASTERFILE: Warnings were encountered while loading weather list chunk from climate %s",
@@ -138,14 +138,14 @@ void __cdecl TESForm_AddChunkArray(unsigned int, void*, unsigned int);
 // @fnv 0x0052ae80
 void TESClimate::SaveForm()
 {
-    TESForm::BeginFormRecord();
-    weatherList.WriteWeatherList(0x54534c57);
+    TESForm::TESForm_StartForm();
+    weatherList.TESWeatherList_Save(0x54534c57);
     int i = 0;
     for (; i < 2; ++i)
         m_kSunTextures[i].Save(0x4d414e46 + i);
     m_kStarsModel.WriteToBuffer(0x4c444f4d, 0x54444f4d);
     TESForm_AddChunkArray(0x4d414e54, m_ucTimeSettings, 6);
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_CloseForm();
 }
 
 // @fnv 0x0052afe0

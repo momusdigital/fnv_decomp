@@ -99,7 +99,8 @@ NiPSysSpawnModifier* __fastcall DestroySpawnModifier(NiPSysSpawnModifier* modifi
 
 // Compares this object with pkObject: checks IsEqual and that eight stored values match, returning true only if all are equal.
 // @fnv 0x00c23b70
-bool __fastcall SpawnModifiersEqual(const NiPSysSpawnModifier* modifier, void*, NiObject* pkObject)
+// src: EXE 0x00c23b70
+bool __fastcall NiPSysSpawnModifier_IsEqual(const NiPSysSpawnModifier* modifier, void*, NiObject* pkObject)
 {
     NiPSysSpawnModifier* pkDest = static_cast<NiPSysSpawnModifier*>(pkObject);
     if (modifier->NiPSysModifier::IsEqual(pkObject) && pkDest->m_usSpawnGenerationCount == modifier->m_usSpawnGenerationCount &&
@@ -249,7 +250,8 @@ template <class T> __forceinline void StreamSaveBinary(NiStream& stream, const T
 
 // Saves the spawn modifier fields after calling the base class save routine.
 // @fnv 0x00c24920
-void __fastcall SaveSpawnModifier(NiPSysSpawnModifier* modifier, void*, NiStream& stream)
+// src: EXE 0x00c24920
+void __fastcall NiPSysSpawnModifier_SaveBinary(NiPSysSpawnModifier* modifier, void*, NiStream& stream)
 {
     modifier->NiPSysModifier::SaveBinary(stream);
     StreamSaveBinary(stream, modifier->m_usSpawnGenerationCount);

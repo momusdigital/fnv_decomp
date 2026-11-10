@@ -421,12 +421,12 @@ class FUN_00cb2000_cls
 
     int hkMapBase_unsigned_int64_unsigned_int64_struct_hkMapOperations_unsigned_int64_findKey(int iArg0, int iArg1);
     void hkMapBase_unsigned_int64_unsigned_int64_hkMapOperations_unsigned_int64_remove(int iCount);
-    int ProcessAndReturnValue_00cb2000(int iArg0, int iArg1);
+    int hkMapBase_remove(int iArg0, int iArg1);
 };
 
 // @fnv 0x00cb2000
-// src: GUESS 0x00cb2000 (confidence: low)
-int FUN_00cb2000_cls::ProcessAndReturnValue_00cb2000(int iArg0, int iArg1)
+// src: GUESS 0x00cb2000 (confidence: medium)
+int FUN_00cb2000_cls::hkMapBase_remove(int iArg0, int iArg1)
 {
     int iCount = hkMapBase_unsigned_int64_unsigned_int64_struct_hkMapOperations_unsigned_int64_findKey(iArg0, iArg1);
     if (iCount <= m_pFreeList)

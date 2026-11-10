@@ -247,7 +247,8 @@ void TESObjectDOOR::ResetFormData()
 
 // Returns true if the cFlags bit 8 is set, otherwise false.
 // @fnv 0x00518000
-bool TESObjectDOOR::IsTeleportDoor()
+// src: COMMUNITY 0x00518000
+bool TESObjectDOOR::IsMinimalUse()
 {
     if (cFlags & 8)
         return true;
@@ -458,7 +459,8 @@ struct ProcessVtbl0x128
 
 
 // @fnv 0x00518e60
-bool __cdecl CanActivateDoor(LockExtraData* apDoorLock, Actor* apActor, TESObjectREFR* apDoorRef, bool abactivate,
+// src: COMMUNITY 0x00518e60
+bool __cdecl TESObjectDOOR_CanActorIgnoreLock(LockExtraData* apDoorLock, Actor* apActor, TESObjectREFR* apDoorRef, bool abactivate,
                              bool abmovement)
 {
     bool bretval = false;
@@ -526,13 +528,13 @@ bool TESObjectDOOR::IsFlag4Set()
         return false;
 }
 
-struct FUN_00519270_shell
+struct NavMeshTriangle
 {
     void ClearFlags(unsigned int mask);
 };
 
 // @fnv 0x00519270
-void FUN_00519270_shell::ClearFlags(unsigned int mask)
+void NavMeshTriangle::ClearFlags(unsigned int mask)
 {
     *(unsigned int*)((char*)this + 0xc) &= ~mask;
 }
@@ -601,8 +603,8 @@ struct DoorSave_shell
     TESForm* form7c;
     TESForm* form80;
     unsigned char flags;
-    void BeginFormRecord();
-    void FinishFormRecord();
+    void TESForm_StartForm();
+    void TESForm_CloseForm();
     DoorFormNode* TESDataHandler_GetFactions();
     void WriteSaveData();
 };
@@ -612,7 +614,7 @@ void DoorSave_shell::WriteSaveData()
 {
     DoorFormNode* pCurrentElementNext;
     unsigned int itempint;
-    BeginFormRecord();
+    TESForm_StartForm();
     part30.Save_00487010();
     ((void(__thiscall*)(TESModel*, unsigned int, unsigned int, unsigned int)) & WriteDoorModelChunks)(
         &part3c, 0x4c444f4d, 0x54444f4d, 0x53444f4d);
@@ -641,7 +643,7 @@ void DoorSave_shell::WriteSaveData()
         TESForm_AddChunk_00485910(0x4d414e54, itempint);
         pCurrentElementNext = pCurrentElementNext->FUN_00726070();
     }
-    FinishFormRecord();
+    TESForm_CloseForm();
 }
 
 struct DoorTeleportNode
@@ -1292,9 +1294,9 @@ struct DoorActivation
     unsigned unk070;
     bool ActivateDoor(TESObjectREFR*, TESObjectREFR*, int, int, int);
     bool IsRandomDoor();
-    TESObjectREFR* FindRandomSelection(TESObjectREFR*, TESObjectREFR*);
+    TESObjectREFR* TESObjectDOOR_FindRandomTeleportTarget(TESObjectREFR*, TESObjectREFR*);
     TESObjectREFR* GetEffectShader_00407820();
-    void QueueDoorTeleport(TESObjectREFR*);
+    void HandlePlayerTeleport(TESObjectREFR*);
 };
 // Handles activation of a door reference by an activator: checks teleport/lock state, opens or unlocks the door, plays sounds, and performs teleportation.
 // @fnv 0x005180b0
@@ -1306,7 +1308,7 @@ bool DoorActivation::ActivateDoor(TESObjectREFR* reference, TESObjectREFR* activ
     ActivateLock* lockA = ((ActivateLock*(__thiscall*)(TESObjectREFR*)) &GetDoorLockData)(reference);
     if (!teleport && IsRandomDoor())
     {
-        TESObjectREFR* destination = FindRandomSelection(reference, activator);
+        TESObjectREFR* destination = TESObjectDOOR_FindRandomTeleportTarget(reference, activator);
         if (!destination)
         {
             DispatchMessageToSink(DAT_011c9384.FUN_00403df0(), 0,
@@ -1474,7 +1476,7 @@ bool DoorActivation::ActivateDoor(TESObjectREFR* reference, TESObjectREFR* activ
                 DAT_011dea3c->lastExteriorDoor = reference;
             DAT_011dea3c->movingThroughDoor = 1;
             DAT_011dea3c->ProcessAllActions();
-            QueueDoorTeleport(reference);
+            HandlePlayerTeleport(reference);
             DAT_011dea3c->movingThroughDoor = 0;
         }
         else
@@ -1538,7 +1540,8 @@ extern "C" void QueueDoorTeleportRequest();
 extern bool DAT_011c9354;
 
 // @fnv 0x00518b70
-void TESObjectDOOR::QueueDoorTeleport(TESObjectREFR* apRef)
+// src: COMMUNITY 0x00518b70
+void TESObjectDOOR::HandlePlayerTeleport(TESObjectREFR* apRef)
 {
     if (apRef && ((RefShell*)apRef)->GetBaseObject() == (TESForm*)this)
     {

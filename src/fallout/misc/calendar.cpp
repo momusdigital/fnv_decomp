@@ -148,7 +148,7 @@ struct FUN_008aced0_cv
     char pad[0x44];
     unsigned int flags;
 };
-struct FUN_008aced0_cls
+struct BaseProcess
 {
     char pad[0x2c];
     FUN_008aced0_cv* cached;
@@ -156,7 +156,7 @@ struct FUN_008aced0_cls
 };
 // Returns true when cached is non-null and its flags contain the bit(s) in aeWhich, otherwise false.
 // @fnv 0x008aced0
-bool FUN_008aced0_cls::HasCachedFlag(unsigned int aeWhich)
+bool BaseProcess::HasCachedFlag(unsigned int aeWhich)
 {
     return cached ? (cached->flags & aeWhich) != 0 : false;
 }

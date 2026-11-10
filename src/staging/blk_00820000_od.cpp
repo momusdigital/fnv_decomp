@@ -88,8 +88,8 @@ public:
     float DotProduct(const LocalVec3* other) const;
     float Length() const;
     float LengthSquared() const;
-    float GetSquaredXYLength();
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength();
+    float NiPoint3_SqrXYLength() const;
     Elem16& expand(Allocator& allocator);
 
     void SetComponents(float x, float y, float z);
@@ -356,12 +356,12 @@ extern "C" void __stdcall ReceiveConnection(int, int, int);
 
 struct FUN_00831f40_Class
 {
-    void ReceiveConnection_Thunk(int a, int b);
+    void CAsyncReader_ReceiveConnection(int a, int b);
 };
 
 // @fnv 0x00831f40
 // src: GUESS 0x00831f40 (confidence: medium)
-void FUN_00831f40_Class::ReceiveConnection_Thunk(int aiArg1, int aiArg2)
+void FUN_00831f40_Class::CAsyncReader_ReceiveConnection(int aiArg1, int aiArg2)
 {
     ReceiveConnection((int)this + 0x104, aiArg1, aiArg2);
 }
@@ -584,7 +584,7 @@ void* __thiscall FUN_00831f80_class::FUN_00831f80(unsigned int flags)
 extern int DAT_0107cd54;
 extern int DAT_0107cd6c;
 extern int DAT_0107cdac;
-extern "C" void __fastcall FUN_009fdc10(void*);
+extern "C" void __fastcall CAsyncReader(void*);
 struct FUN_00831fb0_class
 {
     void* vtbl;
@@ -594,7 +594,7 @@ struct FUN_00831fb0_class
     int d;
     void __thiscall SetVtableAndProcessState_00831fb0();
 };
-// Sets the object's vtbl and two fields to the given globals, then calls FUN_009fdc10 on this.
+// Sets the object's vtbl and two fields to the given globals, then calls CAsyncReader on this.
 // @fnv 0x00831fb0
 // src: GUESS 0x00831fb0 (confidence: low)
 void __thiscall FUN_00831fb0_class::SetVtableAndProcessState_00831fb0()
@@ -602,30 +602,30 @@ void __thiscall FUN_00831fb0_class::SetVtableAndProcessState_00831fb0()
     vtbl = &DAT_0107cdac;
     c = (int)&DAT_0107cd6c;
     d = (int)&DAT_0107cd54;
-    FUN_009fdc10(this);
+    CAsyncReader(this);
 }
 
-struct FUN_00836600_class
+struct FalloutRadio_FORadioStation
 {
     void __thiscall RadioEntry_Save(BGSLoadFormBuffer* buffer);
     void __thiscall RadioEntry_Data_Save(BGSLoadFormBuffer* buffer);
 };
 // @fnv 0x00836600
 // src: COMMUNITY 0x00836600
-void __thiscall FUN_00836600_class::RadioEntry_Save(BGSLoadFormBuffer* buffer)
+void __thiscall FalloutRadio_FORadioStation::RadioEntry_Save(BGSLoadFormBuffer* buffer)
 {
     reinterpret_cast<BGSSaveFormBuffer*>(buffer)->SerializeFormData(
         reinterpret_cast<void*>(reinterpret_cast<int*>(this)[0]), 0);
-    reinterpret_cast<FUN_00836600_class*>(reinterpret_cast<char*>(this) + 4)->RadioEntry_Data_Save(buffer);
+    reinterpret_cast<FalloutRadio_FORadioStation*>(reinterpret_cast<char*>(this) + 4)->RadioEntry_Data_Save(buffer);
 }
 
-struct FUN_00837280_Class
+struct QueuedFileEntry
 {
     char RadioConvTask_GetFileIndex();
 };
 // @fnv 0x00837280
 // src: COMMUNITY 0x00837280
-char FUN_00837280_Class::RadioConvTask_GetFileIndex()
+char QueuedFileEntry::RadioConvTask_GetFileIndex()
 {
     return 3;
 }
@@ -877,7 +877,7 @@ void DialogueItem_shell::LoadDialogueItem(BGSLoadFormBuffer* buffer)
 {
     short currentID;
     {
-        unsigned int count = ((BGSLoadGameBuffer*)buffer)->ReadElementCount();
+        unsigned int count = ((BGSLoadGameBuffer*)buffer)->LoadVariableSizedValue();
         for (unsigned int i = 0; i < count; ++i)
         {
             FUN_0083d1e0* response = new FUN_0083d1e0;
@@ -980,19 +980,20 @@ extern int DAT_0107be2c;
 extern int DAT_0107be80;
 extern int _data_011c16bc;
 
-struct FUN_00825a10 : BE
+struct NonActorMagicCaster : BE
 {
     BCaster_S m_caster;
     int m_18;
     int m_1c;
     int m_20;
 
-    FUN_00825a10();
+    NonActorMagicCaster();
 };
 
 // Initializes the object: sets both vtables, zeroes m_18, m_1c and m_20, and constructs the base with value 0x32.
 // @fnv 0x00825a10
-FUN_00825a10::FUN_00825a10() : BE((unsigned char)0x32), m_caster()
+// src: EXE 0x00825a10
+NonActorMagicCaster::NonActorMagicCaster() : BE((unsigned char)0x32), m_caster()
 {
     this->vtable = reinterpret_cast<void*>(&DAT_0107be80);
     this->m_caster.vtable = reinterpret_cast<void*>(&DAT_0107be2c);
@@ -1001,13 +1002,14 @@ FUN_00825a10::FUN_00825a10() : BE((unsigned char)0x32), m_caster()
     this->m_1c = 0;
 }
 
-struct FUN_008260b0 : ActiveEffect
+struct OpenEffect : ActiveEffect
 {
-    FUN_008260b0(MagicCaster* caster, MagicItem* item, EffectItem* effect);
+    OpenEffect(MagicCaster* caster, MagicItem* item, EffectItem* effect);
 };
 // Constructs the ActiveEffect base from caster, item and effect, then sets the vtable pointer to DAT_0107bf1c.
 // @fnv 0x008260b0
-FUN_008260b0::FUN_008260b0(MagicCaster* caster, MagicItem* item, EffectItem* effect)
+// src: EXE 0x008260b0
+OpenEffect::OpenEffect(MagicCaster* caster, MagicItem* item, EffectItem* effect)
     : ActiveEffect(caster, item, effect)
 {
 
@@ -1015,11 +1017,11 @@ FUN_008260b0::FUN_008260b0(MagicCaster* caster, MagicItem* item, EffectItem* eff
 
 namespace fnv_00826260 {
 
-// Allocates and constructs a FUN_008260b0 object from the three given arguments, returning the new instance.
+// Allocates and constructs a OpenEffect object from the three given arguments, returning the new instance.
 // @fnv 0x00826260
-FUN_008260b0* __cdecl CreateFUN008260b0(void* a, void* b, void* c)
+OpenEffect* __cdecl CreateFUN008260b0(void* a, void* b, void* c)
 {
-    return new FUN_008260b0(static_cast<MagicCaster*>(a), static_cast<MagicItem*>(b), static_cast<EffectItem*>(c));
+    return new OpenEffect(static_cast<MagicCaster*>(a), static_cast<MagicItem*>(b), static_cast<EffectItem*>(c));
 }
 }  // namespace fnv_00826260
 
@@ -1038,20 +1040,20 @@ FUN_0082b370* CreateFUN0082b370(int a, int b, int c)
 }
 
 namespace fnv_0082cf80 {
-class FUN_0082cf80 : public ActiveEffect
+class VampirismEffect : public ActiveEffect
 {
   public:
-    FUN_0082cf80(MagicCaster* pkCaster, MagicItem* pkItem, EffectItem* pkEffect);
-    virtual ~FUN_0082cf80();
+    VampirismEffect(MagicCaster* pkCaster, MagicItem* pkItem, EffectItem* pkEffect);
+    virtual ~VampirismEffect();
 };
 
 }
 
-// Allocates a FUN_0082cf80 object by calling its constructor with the three arguments and returns the pointer.
+// Allocates a VampirismEffect object by calling its constructor with the three arguments and returns the pointer.
 // @fnv 0x0082d090
 void* __cdecl CreateFUN0082cf80(int a, int b, int c)
 {
-    return new fnv_0082cf80::FUN_0082cf80(reinterpret_cast<MagicCaster*>(a), reinterpret_cast<MagicItem*>(b), reinterpret_cast<EffectItem*>(c));
+    return new fnv_0082cf80::VampirismEffect(reinterpret_cast<MagicCaster*>(a), reinterpret_cast<MagicItem*>(b), reinterpret_cast<EffectItem*>(c));
 }
 
 // @fnv 0x0082d6e0
@@ -1063,11 +1065,12 @@ unsigned char TESSound::GetHighByteOfField4E()
 struct GlobalObject_0082ee80
 {
     ~GlobalObject_0082ee80();
-    GlobalObject_0082ee80* __thiscall FUN_0082eeb0(unsigned int flags);
+    GlobalObject_0082ee80* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 // Runs the destructor, frees the object with Deallocate when flags has bit 0 set, and returns this.
 // @fnv 0x0082eeb0
-GlobalObject_0082ee80* __thiscall GlobalObject_0082ee80::FUN_0082eeb0(unsigned int flags)
+// src: EXE 0x0082eeb0
+GlobalObject_0082ee80* __thiscall GlobalObject_0082ee80::ScalarDeletingDestructor(unsigned int flags)
 {
     this->GlobalObject_0082ee80::~GlobalObject_0082ee80();
     if (flags & 1)
@@ -1282,14 +1285,14 @@ struct BGSLoadFormBufferHelper
 TESForm* __cdecl _ref_004839c0(unsigned int formID);
 extern void* _DAT_01183028;
 
-struct FUN_0083fbe0_Class
+struct MenuTopic
 {
     void __thiscall ExtraInfoGeneralTopic_Data_LoadGame(BGSLoadGameBuffer* buffer);
 };
 
 // @fnv 0x0083fbe0
 // src: COMMUNITY 0x0083fbe0
-void __thiscall FUN_0083fbe0_Class::ExtraInfoGeneralTopic_Data_LoadGame(BGSLoadGameBuffer* buffer)
+void __thiscall MenuTopic::ExtraInfoGeneralTopic_Data_LoadGame(BGSLoadGameBuffer* buffer)
 {
     char string[500];
 
@@ -1458,16 +1461,17 @@ struct S_00825ea0_P
     int unk04;
     S_00825ea0_P();
 };
-struct FUN_00825ea0 : S_00825ea0_A, S_00825ea0_B
+struct NonActorMagicTarget : S_00825ea0_A, S_00825ea0_B
 {
     int unk1c;
     S_00825ea0_P unk20;
-    FUN_00825ea0();
-    virtual ~FUN_00825ea0();
+    NonActorMagicTarget();
+    virtual ~NonActorMagicTarget();
 };
 // Initializes the base subobject with 0x33 and sets unk1c to 0.
 // @fnv 0x00825ea0
-FUN_00825ea0::FUN_00825ea0() : S_00825ea0_A(0x33)
+// src: EXE 0x00825ea0
+NonActorMagicTarget::NonActorMagicTarget() : S_00825ea0_A(0x33)
 {
     unk1c = 0;
 }
@@ -2328,7 +2332,7 @@ void __cdecl PlayWeaponSound(Weap* apWeapon, VObj1d0* apSource, ListObj* apListO
                             static_cast<BSSoundHandle (BSAudio::*)(const char*, unsigned int, unsigned int)>(&BSAudio::BSAudio_GetSoundHandleByFilename)))(
                                 sndA->TESSound_GetFilename(), (unsigned int)iflags, (unsigned int)sndA);
                     gb31 = (unsigned char)sndA->GetByteAtOffset44();
-                    cg59 = sndA->GetField45();
+                    cg59 = sndA->GetMaxDistance();
                 }
                 if (sndB != 0)
                 {
@@ -2339,7 +2343,7 @@ void __cdecl PlayWeaponSound(Weap* apWeapon, VObj1d0* apSource, ListObj* apListO
                             static_cast<BSSoundHandle (BSAudio::*)(const char*, unsigned int, unsigned int)>(&BSAudio::BSAudio_GetSoundHandleByFilename)))(
                                 sndB->TESSound_GetFilename(), (unsigned int)iflags, (unsigned int)sndB);
                     qb75 = (unsigned char)sndB->GetByteAtOffset44();
-                    sb0d = sndB->GetField45();
+                    sb0d = sndB->GetMaxDistance();
                 }
                 if (!a3 && apListObj != 0)
                 {
@@ -2370,8 +2374,8 @@ void __cdecl PlayWeaponSound(Weap* apWeapon, VObj1d0* apSource, ListObj* apListO
                 }
                 if (!ib15)
                 {
-                    aentry140->ch0.SetMinMax((float)gb31 * 5.0, (float)cg59 * yf50 * 100.0);
-                    aentry140->ch1.SetMinMax((float)gb31 * 5.0, (float)cg59 * yf50 * 100.0);
+                    aentry140->ch0.SetMinMaxDistance((float)gb31 * 5.0, (float)cg59 * yf50 * 100.0);
+                    aentry140->ch1.SetMinMaxDistance((float)gb31 * 5.0, (float)cg59 * yf50 * 100.0);
                     aentry140->ch0.SetPosition(jvec.x, jvec.y, jvec.z);
                     aentry140->ch1.SetPosition(jvec.x, jvec.y, jvec.z);
                 }
@@ -2565,7 +2569,8 @@ void CasterUpdate::UpdateCasters()
 namespace fnv_0082cf80 {
 // Constructs the object by forwarding the caster, item and effect pointers to the ActiveEffect base constructor.
 // @fnv 0x0082cf80
-FUN_0082cf80::FUN_0082cf80(MagicCaster* pkCaster, MagicItem* pkItem, EffectItem* pkEffect)
+// src: EXE 0x0082cf80
+VampirismEffect::VampirismEffect(MagicCaster* pkCaster, MagicItem* pkItem, EffectItem* pkEffect)
     : ActiveEffect(pkCaster, pkItem, pkEffect)
 {}
 }  // namespace fnv_0082cf80
@@ -2589,14 +2594,14 @@ unsigned int __cdecl ApplySoundFormToGameSound(BSSoundHandle* apSound, void* apF
     SoundAssetTmp = (TESSound*)apForm;
     apSound->SetStaticAttenuation(GetSoundStaticAttenuation(SoundAssetTmp));
     uiMin = (unsigned char)SoundAssetTmp->GetByteAtOffset44();
-    uiMax2 = SoundAssetTmp->GetField45();
+    uiMax2 = SoundAssetTmp->GetMaxDistance();
     if (!uiMin)
         uiMin = 0xe;
     if (!uiMax2)
         uiMax2 = 0x3c;
     if (SoundAssetTmp->GetHighByteOfField4E() || SoundAssetTmp->GetEndTime_0082d700())
         apSound->SetTimeConstraints(SoundAssetTmp->GetHighByteOfField4E(), SoundAssetTmp->GetEndTime_0082d700());
-    apSound->SetMinMax(uiMin * 5.0, uiMax2 * 100.0);
+    apSound->SetMinMaxDistance(uiMin * 5.0, uiMax2 * 100.0);
     apSound->SetAttenuationCurve(SoundAssetTmp->GetShortAt(0), SoundAssetTmp->GetShortAt(1), SoundAssetTmp->GetShortAt(2), SoundAssetTmp->GetShortAt(3),
                           SoundAssetTmp->GetShortAt(4));
     apSound->SetReverbAttenuation(SoundAssetTmp->GetShortAtOffset5A());
@@ -3580,13 +3585,14 @@ struct SpawnedBase
     ~SpawnedBase();
 };
 
-struct FUN_00831e20 : SpawnedBase
+struct CBSAReader : SpawnedBase
 {
-    FUN_00831e20(int a, int b, int c);
+    CBSAReader(int a, int b, int c);
 };
 
 // @fnv 0x00831e20
-FUN_00831e20::FUN_00831e20(int aiArg1, int aiArg2, int aiArg3) : SpawnedBase(0, 0, aiArg1, aiArg3)
+// src: EXE 0x00831e20
+CBSAReader::CBSAReader(int aiArg1, int aiArg2, int aiArg3) : SpawnedBase(0, 0, aiArg1, aiArg3)
 {
     unk00 = &DAT_0107cdac;
     unk0C = &DAT_0107cd6c;
@@ -3613,16 +3619,17 @@ class FUN_0081dd00 : public PrimaryBase8229, public SecondaryBase8229
     FUN_0081dd00(int iParam1, int iParam2, int iParam3, int iParam4, NiPoint3 kPoint1, NiPoint3 kPoint2);
 };
 
-class FUN_00822920 : public FUN_0081dd00
+class MagicSprayProjectile : public FUN_0081dd00
 {
   public:
-    FUN_00822920(int iParam1, int iParam2, int iParam3, int iParam4, NiPoint3 kPoint1, NiPoint3 kPoint2);
-    virtual ~FUN_00822920();
+    MagicSprayProjectile(int iParam1, int iParam2, int iParam3, int iParam4, NiPoint3 kPoint1, NiPoint3 kPoint2);
+    virtual ~MagicSprayProjectile();
     void MobileObject_InitHavok();
 };
 
 // @fnv 0x00822920
-FUN_00822920::FUN_00822920(int iParam1, int iParam2, int iParam3, int iParam4, NiPoint3 kPoint1,
+// src: EXE 0x00822920
+MagicSprayProjectile::MagicSprayProjectile(int iParam1, int iParam2, int iParam3, int iParam4, NiPoint3 kPoint1,
                            NiPoint3 kPoint2)
     : FUN_0081dd00(iParam1, iParam2, iParam3, iParam4, kPoint1, kPoint2)
 {
@@ -3637,18 +3644,19 @@ class List8321E0
     void* m_pkTail;
     unsigned int m_uiCount;
 };
-class FUN_008321e0
+class FalloutRadio_FORadioReceiver
 {
   public:
-    ~FUN_008321e0();
+    ~FalloutRadio_FORadioReceiver();
     int unk00;
     List8321E0 m_kFirst;
     List8321E0 m_kSecond;
 };
 
-// Destructor for the FUN_008321e0 class, which contains two List8321E0 members and an int field.
+// Destructor for the FalloutRadio_FORadioReceiver class, which contains two List8321E0 members and an int field.
 // @fnv 0x008321e0
-FUN_008321e0::~FUN_008321e0()
+// src: GUESS 0x008321e0 (confidence: high)
+FalloutRadio_FORadioReceiver::~FalloutRadio_FORadioReceiver()
 {}
 
 struct FUN_0082f260_tex

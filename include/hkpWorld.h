@@ -162,7 +162,7 @@ class hkpWorld : public hkReferencedObject
     void nullsub_5(hkpSimulationIsland* island);
     void __thiscall nullsub_6();
     void FUN_00c91120();
-    void UpdateFields_00c91140();
+    void hkpWorld_internalExecutePendingBodyOperations();
     void hkpWorld_queueOperation(void* operation);
     void* hkpWorld_addEntity(hkpRigidBody* entity, int activation);
     void hkpWorld_attachActionToEntity(hkpUnaryAction* action, hkpEntity* entity);

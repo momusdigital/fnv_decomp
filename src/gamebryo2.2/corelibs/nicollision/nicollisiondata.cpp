@@ -211,7 +211,8 @@ struct TargetObj
 void __cdecl LinkCollisionObject();
 
 // @fnv 0x00ead760
-void __fastcall LinkCollisionData(NiCollisionData* self, void*, void* stream)
+// src: EXE 0x00ead760
+void __fastcall NiCollisionData_LinkObject(NiCollisionData* self, void*, void* stream)
 {
     NiStream& kStream = *(NiStream*)stream;
     ((void (__thiscall*)(NiCollisionData*, void*))LinkCollisionObject)(self, stream);
@@ -955,7 +956,8 @@ void __cdecl SaveCollisionObject();
 
 // Saves the base fields, m_ePropagationMode and m_eCollisionMode, then a presence flag and the child's SaveBinary if m_pkModelABV is set.
 // @fnv 0x00ead7b0
-void __fastcall SaveCollisionData(NiCollisionData* self, void*, void* target)
+// src: EXE 0x00ead7b0
+void __fastcall NiCollisionData_SaveBinary(NiCollisionData* self, void*, void* target)
 {
     NiStream& kStream = *(NiStream*)target;
     ((void (__thiscall*)(NiCollisionData*, void*))SaveCollisionObject)(self, target);

@@ -81,7 +81,8 @@ void* __fastcall DeleteRangedProcedure(CombatProcedureAttackRanged* self, void*,
 }
 
 // @fnv 0x009d09a0
-void __fastcall RunRangedProcedure(CombatProcedureAttackRanged* self)
+// src: COMMUNITY 0x009d09a0
+void __fastcall CombatProcedureAttackRanged_Shutdown(CombatProcedureAttackRanged* self)
 {
     Actor* pattacker;
     pattacker = GetRangedActor(self);
@@ -2104,7 +2105,7 @@ void __fastcall PrintRangedDebugInfo(CombatProcedureAttackRanged* self, RangedDi
 
 struct Target2
 {
-    int GetOrFallback(Actor* apActor);
+    int TESObjectWEAP_GetProjectile(Actor* apActor);
 };
 struct Holder2
 {
@@ -2124,6 +2125,6 @@ FUN_009d1d30_Vec3 __fastcall GetRangedTrajectory(CombatProcedureAttackRanged* se
     if (!pActor2)
         return *(FUN_009d1d30_Vec3*)&DAT_011f426c;
     pTarget = ((Holder2*)self->m_pCombatController)->GetCurrentWeapon();
-    ComputeTrajectory(&kResult3, GetRangedActor(self), pActor2, auiArg.value, pTarget->GetOrFallback(GetRangedActor(self)), 0.0f, 0);
+    ComputeTrajectory(&kResult3, GetRangedActor(self), pActor2, auiArg.value, pTarget->TESObjectWEAP_GetProjectile(GetRangedActor(self)), 0.0f, 0);
     return kResult3;
 }

@@ -32,7 +32,7 @@ int __cdecl hkMemorySystem_GetCBBFD0Value()
 
 extern int DAT_010c8efc;
 
-struct FUN_00cbbfe0_This
+struct hkMemorySystem
 {
     int unk00;
     void __thiscall SetVirtualTable_00cbbfe0();
@@ -40,7 +40,7 @@ struct FUN_00cbbfe0_This
 
 // @fnv 0x00cbbfe0
 // src: GUESS 0x00cbbfe0 (confidence: low)
-void FUN_00cbbfe0_This::SetVirtualTable_00cbbfe0()
+void hkMemorySystem::SetVirtualTable_00cbbfe0()
 {
     this->unk00 = reinterpret_cast<int>(&DAT_010c8efc);
 }

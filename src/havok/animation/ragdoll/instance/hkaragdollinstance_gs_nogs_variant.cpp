@@ -427,7 +427,7 @@ struct hkpMotion
     virtual void vf2c();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3c();
     virtual void SetTranslationalVelocity(const hkVector4& vel);
     virtual void SetRotationalVelocity(const hkVector4& vel);

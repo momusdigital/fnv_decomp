@@ -94,7 +94,7 @@ inline hkpConvexShape::WeldResult hkpConvexShape::weldContactPoint(
     const hkpConvexShape* collidingShape, const hkTransform* collidingTransform,
     hkVector4_S& separatingNormalInOut) const
 {
-    return static_cast<WeldResult>(WeldContactPoint(
+    return static_cast<WeldResult>(hkpTriangleShape_weldContactPointImpl(
         featurePoints, numFeaturePoints, reinterpret_cast<hkVector4&>(contactPointWs),
         thisObjTransform, collidingShape, collidingTransform,
         reinterpret_cast<hkVector4&>(separatingNormalInOut)));

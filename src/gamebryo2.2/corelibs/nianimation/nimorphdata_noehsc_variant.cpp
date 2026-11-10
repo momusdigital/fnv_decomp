@@ -116,7 +116,8 @@ struct MorphKeyHelpers
 };
 
 // @fnv 0x00a41a40
-void __fastcall LoadMorphData(NiMorphData* self, int, NiStream& kStream)
+// src: EXE 0x00a41a40
+void __fastcall NiMorphData_LoadBinary(NiMorphData* self, int, NiStream& kStream)
 {
     self->NiObject::LoadBinary(kStream);
     ReadBinaryValue(kStream, self->m_uiNumTargets);

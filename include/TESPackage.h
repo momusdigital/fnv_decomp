@@ -84,7 +84,7 @@ public:
     virtual bool IsActorNearOwnerPackageLocation(Actor* actor, Actor* packageOwner,
                                                 bool ignoreDistance, float extraRadius,
                                                 bool inFurniture);
-    virtual bool IsActorInPackageRadius(Actor* actor, int extraRadius);
+    virtual bool TESPackage_IsActorAtRefTarget(Actor* actor, int extraRadius);
     virtual bool IsActorNearPackageTarget(Actor* actor, int extraRadius);
     virtual unsigned short GetSaveSize();
     virtual unsigned short SaveGameTESAlt();
@@ -129,10 +129,10 @@ public:
     int GetPackType();
     PACKAGE_TYPE GetPackType() const;
     int GetProcedureType();
-    bool IsMustReachLocation();
-    bool IsMustComplete();
+    bool GetOncePerDay();
+    bool GetIsCreated();
     bool UsesPackageAnimation();
-    bool IsPackageBlockingGreeting();
+    bool IsInterruptPackage();
     bool HasTargetForActor(MobileObject* actor);
     int GetPackageTargetType();
     PackageTargetRecord* GetTarget();
@@ -142,15 +142,15 @@ public:
     TESUseWeaponPackageData* GetWeaponUseData();      // 0x006758f0: packageData when GetPackType() == 0x10
     bool GetAlwaysSneak();                            // 0x0067a4f0: packageFlags (+0x1c) & 0x20000
     TESObjectREFR* GetTargetForActor(Actor* actor, bool arg);
-    TESWorldSpace* GetPackageWorldSpace(MobileObject* actor);
+    TESWorldSpace* GetLocationWorld(MobileObject* actor);
     TESObjectCELL* GetPackageLocationCell(MobileObject* actor);
     const NiPoint3 GetPackageLocationPosition(MobileObject* actor);
-    void SetFlag10000();
+    void TESPackage_SetWaiting();
     bool IsNotFlag8000000();
     bool IsFlag4Clear();
     NiNode* GetParent();
     virtual void LoadGame(BGSLoadFormBuffer* buffer);
-    void SetPackageType(int type);
+    void SetPackType(int type);
     void SetProcedureType(int type);
     void SetProcedureType(PACKAGE_PROCEDURE_TYPE type);
     void SetMustReachLocation(bool enabled);
@@ -162,15 +162,15 @@ public:
     void RemoveRef(TESObjectREFR* reference);
     bool GetForceUnequipWeapon() const;
     int GetPrevPath();
-    const TESPatrolPackageData* GetPackagePatrolData();
+    const TESPatrolPackageData* GetPatrolPackageData();
     PkgData* GetData();
     float GetPackageFloatValue();
     bool IsFlag10000Set();
-    void CopyScheduleFrom(DurationData* schedule);
+    void SetPackageSchedule(DurationData* schedule);
     void ResetFormData();
     void DestroyPackage();
     void SetTrespassEnabled(bool enabled);
-    bool IsScheduledForDay(bool arg);
+    bool IsitDayofTheWeek(bool arg);
     int CompareTo(DurationData* schedule);
     bool RunPackage();
     void SetPackageFlag(bool enabled);
@@ -178,7 +178,7 @@ public:
     void SetFlag20(bool enabled);
     void SetFlag100(bool enabled);
     void SetFlag4000(bool enabled);
-    bool HasFlag400000();
+    bool GetDefensive();
     void SetFlag400000(bool enabled);
 
     unsigned int FUN_00441110();

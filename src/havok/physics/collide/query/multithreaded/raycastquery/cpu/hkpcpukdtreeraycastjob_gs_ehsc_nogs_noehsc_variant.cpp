@@ -7,7 +7,7 @@
 #include "../../../../../../../../include/hkMemoryAllocator.h"
 #include "../../../../../../../../include/hkMemoryRouter.h"
 
-struct FUN_00e4dd90_shell
+struct hkKdTreeCpuBroadphaseBundleCastCollector
 {
     void __thiscall hkKdTreeCpuBroadphaseBundleCastCollector_getHitFractions(float* output);
 };

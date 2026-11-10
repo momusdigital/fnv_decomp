@@ -119,7 +119,8 @@ void TESContainer::CopyFromBase(BaseFormComponent* component)
 
 // Searches the container's object list for an entry whose object pointer equals object and returns whether one is found.
 // @fnv 0x00481eb0
-bool TESContainer::HasObjectOfType(TESObject* object)
+// src: COMMUNITY 0x00481eb0
+bool TESContainer::HasObject(TESObject* object)
 {
     BSSimpleList<InventoryStackRecord*>* list = GetObjectList();
     if (list->GetItem() == 0)
@@ -151,7 +152,8 @@ int TESContainer::GetObjectCount(TESObject* object)
 }
 
 // @fnv 0x00481f30
-bool TESContainer::IsValidContainerType(unsigned char type)
+// src: COMMUNITY 0x00481f30
+bool TESContainer::ContainerCanHoldType(unsigned char type)
 {
     switch (type)
     {
@@ -246,7 +248,8 @@ void* __fastcall _ref_00726070(void*);
 
 // Iterates the object list of apAddCont and adds each entry's object, count and extra to this container.
 // @fnv 0x00481fd0
-void TESContainer::MergeContainer(TESContainer* apAddCont)
+// src: COMMUNITY 0x00481fd0
+void TESContainer::AddContainerContents(TESContainer* apAddCont)
 {
     if (apAddCont)
     {
@@ -460,7 +463,7 @@ struct CompareHelper
     bool Compare(ContainerItemExtra* other);
 };
 
-struct FUN_00481470_shell
+struct ContainerObject
 {
     int count;
     void* object;
@@ -470,7 +473,7 @@ struct FUN_00481470_shell
 
 // Returns true when apCompare is null or its count, object or extra differ from this shell's, comparing extras via CompareHelper::Compare.
 // @fnv 0x00481470
-bool FUN_00481470_shell::IsNotEqual(InventoryItemEntry* apCompare)
+bool ContainerObject::IsNotEqual(InventoryItemEntry* apCompare)
 {
     if (!apCompare)
         return true;
@@ -686,7 +689,8 @@ extern BGSSaveLoadGame* g_BGSSaveLoadGame;
 }  // namespace fnv_00482770
 
 // @fnv 0x00482770
-void TESContainer::AddInventoryChangesToContainer(int aiLevItemIndex, InventoryChanges* apChanges)
+// src: COMMUNITY 0x00482770
+void TESContainer::AddLevItemContainerToChanges(int aiLevItemIndex, InventoryChanges* apChanges)
 {
     bool bhadChanges = false;
     if (apChanges)
@@ -699,7 +703,7 @@ void TESContainer::AddInventoryChangesToContainer(int aiLevItemIndex, InventoryC
             {
                 bhadChanges = true;
                 ExtraDataList* pextra = new ExtraDataList();
-                pextra->SetLeveledItemIndex(aiLevItemIndex);
+                pextra->ExtraDataList_SetLevelItemExtra(aiLevItemIndex);
                 pextra->ExtraDataList_SetCount((unsigned short)pcont->count);
                 if (pcont->extra)
                     ((fnv_00482770::Fn40ea20*)pcont->extra)
@@ -711,7 +715,7 @@ void TESContainer::AddInventoryChangesToContainer(int aiLevItemIndex, InventoryC
         if (bhadChanges && ((GridArray*)apChanges)->GetCenterX() && fnv_00482770::g_osGlobals->IsPatrolling())
         {
             if (!fnv_00482770::g_BGSSaveLoadGame->BGSSaveLoadGame_GetSaveGameLoading() || fnv_00482770::g_BGSSaveLoadGame->IsFlag20Set())
-                ((GridArray*)apChanges)->GetCenterX()->SetFormFlags(0x8000000);
+                ((GridArray*)apChanges)->GetCenterX()->ForceChange(0x8000000);
         }
     }
 }
@@ -970,7 +974,7 @@ bool TESContainer::CompareWithBase(BaseFormComponent* other)
                 InventoryItemEntry* compareItem = *_ref_006815c0(otherCurrent);
                 if (compareItem != 0)
                 {
-                    if (!reinterpret_cast<FUN_00481470_shell*>(compareItem)->IsNotEqual(itemBeingChecked))
+                    if (!reinterpret_cast<ContainerObject*>(compareItem)->IsNotEqual(itemBeingChecked))
                     {
                         differenceFound = true;
                         break;

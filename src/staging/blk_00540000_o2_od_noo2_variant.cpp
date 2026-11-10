@@ -236,11 +236,11 @@ struct FUN_00554590
     unsigned int field10;
     FUN_00554590();
 };
-struct FUN_0062d5c0 : CurveOwner, CurveBase
+struct TESTrapListener : CurveOwner, CurveBase
 {
-    FUN_0062d5c0();
+    TESTrapListener();
 };
-struct FUN_0061f460
+struct BGSAcousticSpaceListener
 {
     unsigned int field00;
     unsigned int field04;
@@ -252,7 +252,7 @@ struct FUN_0061f460
     unsigned int field1c;
     unsigned int field20;
     unsigned int field24;
-    FUN_0061f460();
+    BGSAcousticSpaceListener();
 };
 struct FUN_0062a460
 {
@@ -303,9 +303,9 @@ ParticleSystem* __cdecl TESObjectCELL_CreateWorld(const FUN_006815c0* origin)
     ParticleSystem* system = new FUN_00c99ff0(&source, &velocity, &acceleration);
     system->FUN_00541c80()->FUN_00483710();
     system->bhkWorld_AddEntityListener(new FUN_00554590());
-    system->bhkWorld_AddTrapListener(new FUN_0062d5c0());
+    system->bhkWorld_AddTrapListener(new TESTrapListener());
     system->SetField(TESWaterListener_GetExteriorListener());
-    system->bhkWorld_AppendAcousticSpaceListener(new FUN_0061f460());
+    system->bhkWorld_AppendAcousticSpaceListener(new BGSAcousticSpaceListener());
     system->bhkWorld_AddContactListener(FOCollisionListener_GetSingleton());
     system->bhkWorld_AddEntityListener(new FUN_0062a460());
     if (!DAT_011ca088)

@@ -211,7 +211,7 @@ struct Ref
     void TESObjectREFR_CleanUpTraps();
     void TESForm_SetDisabled(int a);
     Proc* FUN_008d8520();
-    void ApplyActorSpells();
+    void Actor_DispelPermanentMagic();
     Ref* FUN_008d6f30();
     bool TESObjectREFR_HasScript();
     bool GetTargeted();
@@ -635,7 +635,7 @@ void Ref::TESObjectREFR_Disable()
                             if (p->vt100())
                             {
                                 q = p;
-                                q->ApplyActorSpells();
+                                q->Actor_DispelPermanentMagic();
                                 ((MagicSub*)((char*)q + 0x94))->FUN_00824970();
                                 if (ArrowProjectile_GetArrowCount() > 0)
                                 {

@@ -54,7 +54,7 @@ struct Sub24Object
     void NiAVObject_AttachProperty_00439fd0(ScopedRef* apRef);
 };
 
-struct FUN_00439410_cls
+struct NiAVObject
 {
     int unk00;
     int unk04;
@@ -73,7 +73,7 @@ struct FUN_00439410_cls
 // If apArg's count is below 7, constructs a ScopedRef from apArg and passes it to m_k24.FUN_00439fd0.
 // @fnv 0x00439410
 // src: XBOX_PDB 0x00439410
-void FUN_00439410_cls::NiAVObject_AttachProperty(ArgObject* apArg)
+void NiAVObject::NiAVObject_AttachProperty(ArgObject* apArg)
 {
     if (apArg->GetCount() < 7)
     {

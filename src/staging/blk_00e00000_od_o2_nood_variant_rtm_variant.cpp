@@ -118,11 +118,11 @@ struct __declspec(align(16)) FilterStorage402
     unsigned unk18, unk1c;
     unsigned filterType;
 };
-unsigned Object_ProcessAndReturnValue_00e00a60();
+unsigned getVtable_hkpNullCollisionFilter();
 class __declspec(align(16)) S00e000e0_Object
 {
   public:
-    S00e000e0_Object(FinishingFlag flag);  // FUN_00d50c00
+    S00e000e0_Object(FinishingFlag flag);  // hkpGenericConstraintData
     void* m_ppVirtualMethodTable;
     int unk04;
     int unk08;
@@ -148,7 +148,7 @@ class __declspec(align(16)) S00e000e0_Object
     int unk58;
     int unk5C;
 };
-const void* __cdecl Object_GetConstructedVirtualTable_00e000e0();
+const void* __cdecl getVtable_hkpGenericConstraintData();
 struct Handle_e00290
 {
     int m_v;
@@ -192,7 +192,7 @@ int* __cdecl getVtablehkpConstraintChainInstance();
 class __declspec(align(16)) S00e003b0_Object
 {
   public:
-    S00e003b0_Object(FinishingFlag flag);  // FUN_00e003d0
+    S00e003b0_Object(FinishingFlag flag);  // hkpCachingShapePhantom
     void* m_ppVirtualMethodTable;
     int unk04;
     int unk08;
@@ -286,11 +286,11 @@ class __declspec(align(16)) S00e003b0_Object
     int unk168;
     int unk16C;
 };
-const void* __cdecl Runtime_GetVtableFromTemporary_00e003b0();
+const void* __cdecl getVtable_hkpCachingShapePhantom();
 class __declspec(align(16)) S00e004d0_Object
 {
   public:
-    S00e004d0_Object(FinishingFlag flag);  // FUN_00e004f0
+    S00e004d0_Object(FinishingFlag flag);  // hkpAabbPhantom
     void* m_ppVirtualMethodTable;
     int unk04;
     int unk08;
@@ -348,11 +348,11 @@ class __declspec(align(16)) S00e004d0_Object
     int unkD8;
     int unkDC;
 };
-const void* __cdecl Runtime_GetVtableFromTemporary_00e004d0();
+const void* __cdecl getVtable_hkpAabbPhantom();
 class __declspec(align(16)) S00e006b0_Object
 {
   public:
-    S00e006b0_Object(FinishingFlag flag);  // FUN_00e006d0
+    S00e006b0_Object(FinishingFlag flag);  // hkpTriSampledHeightFieldBvTreeShape
     void* m_ppVirtualMethodTable;
     int unk04;
     int unk08;
@@ -366,11 +366,11 @@ class __declspec(align(16)) S00e006b0_Object
     int unk28;
     int unk2C;
 };
-const void* __cdecl Runtime_GetVtableFromTemporary_00e006b0();
+const void* __cdecl getVtable_hkpTriSampledHeightFieldBvTreeShape();
 class __declspec(align(16)) S00e00b80_Object
 {
   public:
-    S00e00b80_Object(FinishingFlag flag);  // FUN_00e00ba0
+    S00e00b80_Object(FinishingFlag flag);  // hkpGroupFilter
     void* m_ppVirtualMethodTable;
     int unk04;
     int unk08;
@@ -440,7 +440,7 @@ const void* __cdecl getVtablehkpGroupFilter();
 class __declspec(align(16)) S00e00f90_Object
 {
   public:
-    S00e00f90_Object(FinishingFlag flag);  // FUN_00e00fb0
+    S00e00f90_Object(FinishingFlag flag);  // hkpConvexPieceMeshShape
     void* m_ppVirtualMethodTable;
     int unk04;
     int unk08;
@@ -454,11 +454,11 @@ class __declspec(align(16)) S00e00f90_Object
     int unk28;
     int unk2C;
 };
-const void* __cdecl Runtime_GetVtableFromTemporary_00e00f90();
+const void* __cdecl getVtable_hkpConvexPieceMeshShape();
 class __declspec(align(16)) S00e01230_Object
 {
   public:
-    S00e01230_Object(FinishingFlag flag);  // FUN_00e01250
+    S00e01230_Object(FinishingFlag flag);  // hkpCollisionFilterList
     virtual void vf00();
     int unk04;
     int unk08;
@@ -476,7 +476,7 @@ class __declspec(align(16)) S00e01230_Object
     int unk38;
     int unk3C;
 };
-const void* __cdecl Runtime_UpdateState_00e01230();
+const void* __cdecl getVtable_hkpCollisionFilterList();
 struct LoadedPointer
 {
     int m_uiFilterValue;
@@ -492,7 +492,7 @@ struct __declspec(align(16)) LoadedObject
     LoadedObject(FinishingFlag flag) : m_pHeadNode(flag), m_iSecondInteger(flag), m_third(flag)
     {}
 };
-const void* Runtime_UpdateState_00e01830();
+const void* getVtable_hkxTextureFile();
 class __declspec(align(16)) S00e01e50_Object
 {
   public:
@@ -506,7 +506,7 @@ class __declspec(align(16)) S00e01e50_Object
     int unk18;
     int unk1C;
 };
-const void* __cdecl Runtime_GetVtableFromTemporary_00e01e50();
+const void* __cdecl getVtable_hkxMesh();
 class __declspec(align(16)) S00e020f0_Object
 {
   public:
@@ -520,7 +520,7 @@ class __declspec(align(16)) S00e020f0_Object
     int unk18;
     int unk1C;
 };
-const void* __cdecl Runtime_GetVtableFromTemporary_00e020f0();
+const void* __cdecl getVtable_hkxMaterialShaderSet();
 struct Handle_e02180
 {
     int m_v;
@@ -546,11 +546,11 @@ struct __declspec(align(16)) FUN_00e02180_obj
     int unk28;
     int unk2C;
 };
-int* __cdecl Object_ProcessAndReturnValue_00e02180();
+int* __cdecl getVtable_hkxMaterialShader();
 class __declspec(align(16)) S00e02730_Object
 {
   public:
-    S00e02730_Object(FinishingFlag flag);  // FUN_00e4af80
+    S00e02730_Object(FinishingFlag flag);  // hkAlignSceneToNodeOptions
     void* m_ppVirtualMethodTable;
     int unk04;
     int unk08;
@@ -560,7 +560,7 @@ class __declspec(align(16)) S00e02730_Object
     int unk18;
     int unk1C;
 };
-const void* __cdecl Runtime_GetVtableFromTemporary_00e02730();
+const void* __cdecl getVtable_hkAlignSceneToNodeOptions();
 #include <xmmintrin.h>
 struct S_00e11530_Node
 {
@@ -639,7 +639,7 @@ struct __declspec(align(16)) S00e00d70_Object
     int unk5c;
     void hkpCylinderShape_hkpCylinderShape_00d57b20(FinishingFlag arg);
 };
-int __cdecl hkpCylinderShape_hkpCylinderShape_00d57b20_EvaluateValue_00e00d70();
+int __cdecl getVtable_hkpCylinderShape();
 namespace N {
 typedef ::__m128 LocalM128;
 extern "C"

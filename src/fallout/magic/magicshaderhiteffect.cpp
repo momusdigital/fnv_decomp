@@ -46,7 +46,7 @@ class ShaderSoundAudio : public BSAudio
 
 struct ShaderTreeCleanup : TESEffectShader
 {
-    void ClearItemRef(NiNode*, BSShaderPPLightingProperty::TextureEffectData*);
+    void TESEffectShader_StopTextureShader(NiNode*, BSShaderPPLightingProperty::TextureEffectData*);
 };
 
 class ActiveEffect;
@@ -204,11 +204,11 @@ bool MagicShaderHitEffect::Init()
             if (!m_kParticleShaderProperties.GetSize())
             {
                 NiPointer<NiSourceTexture> texture(0);
-                if (m_pEffectShader->GetFieldAt158()->GetTextureNameLength() > 0)
+                if (m_pEffectShader->GetParticleShaderTexture()->GetTextureNameLength() > 0)
                 {
                     char path[260];
                     sprintf_s(path, 260, "%s\\%s", "Textures",
-                              m_pEffectShader->GetFieldAt158()->GetTextureResourceName());
+                              m_pEffectShader->GetParticleShaderTexture()->GetTextureResourceName());
                     g_TES->CreateTextureImage(static_cast<const char*>(path), texture, false, false);
                     struct ParticleCounts
                     {
@@ -260,7 +260,7 @@ bool MagicShaderHitEffect::Init()
                 m_pEffectShader->StopParticleShader(m_pParticleShaderNode, m_kParticleShaderProperties.GetAt(i));
             m_kParticleShaderProperties.RemoveAll(true);
             if ((NiNode*)m_pParticleShaderNode)
-                m_pParticleShaderNode->AssignParent(0);
+                m_pParticleShaderNode->AttachParent(0);
             m_pParticleShaderNode = (NiNode*)0;
         }
         if (!m_pEffectShader->IsFlagSet_00507040(1))
@@ -269,19 +269,19 @@ bool MagicShaderHitEffect::Init()
                 (BSShaderPPLightingProperty::TextureEffectData*)0)
             {
                 NiPointer<NiSourceTexture> fillTexture(0);
-                if (m_pEffectShader->GetFieldAt14C()->GetTextureNameLength() > 0)
+                if (m_pEffectShader->GetTextureShaderTexture()->GetTextureNameLength() > 0)
                 {
                     char path[260];
                     sprintf_s(path, 260, "%s\\%s", "Textures",
-                              m_pEffectShader->GetFieldAt14C()->GetTextureResourceName());
+                              m_pEffectShader->GetTextureShaderTexture()->GetTextureResourceName());
                     g_TES->CreateTextureImage(static_cast<const char*>(path), fillTexture, false, false);
                 }
                 NiPointer<NiSourceTexture> holesTexture(0);
-                if (m_pEffectShader->GetFieldAt164()->GetTextureNameLength() > 0)
+                if (m_pEffectShader->GetBlockOutTexture()->GetTextureNameLength() > 0)
                 {
                     char path[260];
                     sprintf_s(path, 260, "%s\\%s", "Textures",
-                              m_pEffectShader->GetFieldAt164()->GetTextureResourceName());
+                              m_pEffectShader->GetBlockOutTexture()->GetTextureResourceName());
                     g_TES->CreateTextureImage(static_cast<const char*>(path), holesTexture, false, false);
                 }
                 spTexEffectData = m_pEffectShader->CreateEffectData(scenegraph.shaders, fillTexture, holesTexture);
@@ -293,7 +293,7 @@ bool MagicShaderHitEffect::Init()
                     ((Actor*)pTarget)->UpdateActorPresentation();
                 }
             }
-            m_pEffectShader->ApplyShaderToTree(scenegraph.shaders, spTexEffectData);
+            m_pEffectShader->StartTextureShader(scenegraph.shaders, spTexEffectData);
         }
         if (!bResetParticles && !m_kAddonModelObjects.GetSize() && m_pEffectShader &&
             m_pEffectShader->GetAddonModels() && m_kParticleShaderProperties.GetSize() > 0 &&
@@ -467,12 +467,13 @@ void __fastcall FUN_0081f770(void* pThis);
 
 struct FUN_0081f320_helper
 {
-    void* FUN_0081f320(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_0081f770 on this, then deletes this with NiMemObject::operator delete when flags has bit 0 set, and returns this.
 // @fnv 0x0081f320
-void* FUN_0081f320_helper::FUN_0081f320(unsigned int flags)
+// src: EXE 0x0081f320
+void* FUN_0081f320_helper::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0081f770(this);
     if (flags & 1)
@@ -1405,16 +1406,16 @@ FUN_0081f770::~FUN_0081f770()
         {
             NiNode* pkNode = g_thePlayer->GetNode(1);
             if (pkNode)
-                static_cast<ShaderTreeCleanup*>(m_pForm)->ClearItemRef(pkNode, reinterpret_cast<BSShaderPPLightingProperty::TextureEffectData*>((NiNode*)m_spRootNode));
+                static_cast<ShaderTreeCleanup*>(m_pForm)->TESEffectShader_StopTextureShader(pkNode, reinterpret_cast<BSShaderPPLightingProperty::TextureEffectData*>((NiNode*)m_spRootNode));
             pkNode = g_thePlayer->GetNode(0);
             if (pkNode)
-                static_cast<ShaderTreeCleanup*>(m_pForm)->ClearItemRef(pkNode, reinterpret_cast<BSShaderPPLightingProperty::TextureEffectData*>((NiNode*)m_spRootNode));
+                static_cast<ShaderTreeCleanup*>(m_pForm)->TESEffectShader_StopTextureShader(pkNode, reinterpret_cast<BSShaderPPLightingProperty::TextureEffectData*>((NiNode*)m_spRootNode));
         }
         else if (m_pReference)
         {
             NiNode* pk3D = m_pReference->GetNiNode();
             if (pk3D)
-                static_cast<ShaderTreeCleanup*>(m_pForm)->ClearItemRef(pk3D, reinterpret_cast<BSShaderPPLightingProperty::TextureEffectData*>((NiNode*)m_spRootNode));
+                static_cast<ShaderTreeCleanup*>(m_pForm)->TESEffectShader_StopTextureShader(pk3D, reinterpret_cast<BSShaderPPLightingProperty::TextureEffectData*>((NiNode*)m_spRootNode));
         }
     }
     if (m_spNode != 0)
@@ -1433,7 +1434,7 @@ FUN_0081f770::~FUN_0081f770()
     }
     m_kNodeArray.RemoveAll(true);
     if (m_spNode != 0)
-        ((NiNode*)m_spNode)->AssignParent(0);
+        ((NiNode*)m_spNode)->AttachParent(0);
     m_spNode = 0;
     m_spRootNode = 0;
     if (m_pForm)
@@ -1441,14 +1442,14 @@ FUN_0081f770::~FUN_0081f770()
         if (m_pReference && (m_pForm->GetFormID() == 0x852fe || m_pForm->GetFormID() == 0x84a51))
             xAudio::Get()->Play(m_pReference->GetNiNode(), 1.0f, 0);
         char acPath[260];
-        if (m_pForm->GetFieldAt158()->GetTextureResourceName())
+        if (m_pForm->GetParticleShaderTexture()->GetTextureResourceName())
         {
-            sprintf_s(acPath, 0x104, "%s\\%s", "Textures", m_pForm->GetFieldAt158()->GetTextureResourceName());
+            sprintf_s(acPath, 0x104, "%s\\%s", "Textures", m_pForm->GetParticleShaderTexture()->GetTextureResourceName());
             g_TES->LoadCanopyShadowTexture(static_cast<const char*>(acPath), 0);
         }
-        if (m_pForm->GetFieldAt14C()->GetTextureNameLength() > 0)
+        if (m_pForm->GetTextureShaderTexture()->GetTextureNameLength() > 0)
         {
-            sprintf_s(acPath, 0x104, "%s\\%s", "Textures", m_pForm->GetFieldAt14C()->GetTextureResourceName());
+            sprintf_s(acPath, 0x104, "%s\\%s", "Textures", m_pForm->GetTextureShaderTexture()->GetTextureResourceName());
             g_TES->LoadCanopyShadowTexture(static_cast<const char*>(acPath), 0);
         }
         if (m_pForm && m_pForm->GetAddonModels())
@@ -1506,7 +1507,7 @@ struct EffectShaderUpdateView : TESEffectShader
     float GetValue();
     float TESEffectShader_GetAddOnScaleStart();
     float TESObjectWEAP_GetFiringRumbleRightMotorStrength();
-    void UpdateShaderState(BSShaderPPLightingProperty::TextureEffectData*, float, float, float, bool);
+    void TESEffectShader_AnimateTextureEffect(BSShaderPPLightingProperty::TextureEffectData*, float, float, float, bool);
 };
 
 bool NiObject_IsKindOf(void*, Scene*);
@@ -1602,7 +1603,7 @@ bool MagicShaderHitEffect::Update(float afDeltaTime)
     }
     if (static_cast<BSShaderPPLightingProperty::TextureEffectData*>(spTexEffectData))
     {
-        static_cast<ParticleUpdate::EffectShaderUpdateView*>(m_pEffectShader)->UpdateShaderState(static_cast<BSShaderPPLightingProperty::TextureEffectData*>(spTexEffectData), afDeltaTime, m_fEffectShaderScale, m_fFirstFloatValue, bWasPlaying);
+        static_cast<ParticleUpdate::EffectShaderUpdateView*>(m_pEffectShader)->TESEffectShader_AnimateTextureEffect(static_cast<BSShaderPPLightingProperty::TextureEffectData*>(spTexEffectData), afDeltaTime, m_fEffectShaderScale, m_fFirstFloatValue, bWasPlaying);
         *reinterpret_cast<float*>(static_cast<BSShaderPPLightingProperty::TextureEffectData*>(spTexEffectData)->data + 0x18) *= multiplier;
         *reinterpret_cast<float*>(static_cast<BSShaderPPLightingProperty::TextureEffectData*>(spTexEffectData)->data + 0x28) *= multiplier;
         if (*reinterpret_cast<float*>(static_cast<BSShaderPPLightingProperty::TextureEffectData*>(spTexEffectData)->data + 0x48) > ParticleUpdate::DAT_01012060 || *reinterpret_cast<float*>(static_cast<BSShaderPPLightingProperty::TextureEffectData*>(spTexEffectData)->data + 0x38) > ParticleUpdate::DAT_01012060)
@@ -1646,16 +1647,16 @@ void MagicShaderHitEffect::ApplyAndCleanup()
         {
             NiNode* pNode = g_thePlayer->GetNode(true);
             if (pNode)
-                static_cast<ShaderTreeCleanup*>(m_pEffectShader)->ClearItemRef(pNode, spTexEffectData);
+                static_cast<ShaderTreeCleanup*>(m_pEffectShader)->TESEffectShader_StopTextureShader(pNode, spTexEffectData);
             pNode = g_thePlayer->GetNode(false);
             if (pNode)
-                static_cast<ShaderTreeCleanup*>(m_pEffectShader)->ClearItemRef(pNode, spTexEffectData);
+                static_cast<ShaderTreeCleanup*>(m_pEffectShader)->TESEffectShader_StopTextureShader(pNode, spTexEffectData);
         }
         else if (pTarget)
         {
             NiNode* pRoot = pTarget->GetNiNode();
             if (pRoot)
-                static_cast<ShaderTreeCleanup*>(m_pEffectShader)->ClearItemRef(pRoot, spTexEffectData);
+                static_cast<ShaderTreeCleanup*>(m_pEffectShader)->TESEffectShader_StopTextureShader(pRoot, spTexEffectData);
         }
     }
 
@@ -1666,7 +1667,7 @@ void MagicShaderHitEffect::ApplyAndCleanup()
     }
     m_kParticleShaderProperties.RemoveAll(true);
     if (reinterpret_cast<const ShaderPointerInequality<NiNode>&>(m_pParticleShaderNode) != 0)
-        ((NiAVObject*)m_pParticleShaderNode)->AssignParent(0);
+        ((NiAVObject*)m_pParticleShaderNode)->AttachParent(0);
     m_pParticleShaderNode = 0;
     spTexEffectData = 0;
     pTarget = 0;

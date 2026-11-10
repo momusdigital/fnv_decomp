@@ -59,7 +59,7 @@ struct PackageDataInit
     unsigned char unk04, flag05;
 };
 int __cdecl MessageHandler_QWarningCount();
-void __cdecl ResolveFormID(unsigned int*, void*);
+void __cdecl TESForm_AddCompileIndex(unsigned int*, void*);
 TESForm* __cdecl TESForm_GetFormByNumericID(unsigned int);
 void* __cdecl FUN_00ec43fb(void*, int, void*, void*, int);
 extern int DAT_0118627c, DAT_01183028;
@@ -192,7 +192,7 @@ void PackageInit::TESPackage_InitItem()
     unsigned int kCombatStyle = FUN_006733e0();
     if (kCombatStyle)
     {
-        ResolveFormID(&kCombatStyle, FUN_00484e60(-1));
+        TESForm_AddCompileIndex(&kCombatStyle, FUN_00484e60(-1));
         FUN_00673400(dynamic_cast<TESCombatStyle*>(TESForm_GetFormByNumericID(kCombatStyle)));
         if (!FUN_006733e0())
             FNV_Warning("FORMS: Could not find combat style (%08X) on package '%s' (%08X).", kCombatStyle,

@@ -211,7 +211,8 @@ void HungerStageData::Reinitialize()
 void __cdecl _Deallocate(void*);
 // Calls FUN_00401ac0, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x00401a90
-void* BGSHungerStage::FUN_00401a90(unsigned int flags)
+// src: EXE 0x00401a90
+void* BGSHungerStage::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00401ac0();
     if (flags & 1)
@@ -236,7 +237,7 @@ bool _FUN_00401500();
 // @fnv 0x00591e10
 void BGSDehydrationStage::InitDehydrationStage()
 {
-    TESForm::BeginFormRecord();
+    TESForm::TESForm_StartForm();
 
     SpellItem* pSavedSpell = reinterpret_cast<SpellItem*>(FUN_00441110());
 
@@ -257,7 +258,7 @@ void BGSDehydrationStage::InitDehydrationStage()
 
     FUN_0050f9a0(pSavedSpell);
 
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_CloseForm();
 }
 
 extern char DAT_0118307c;

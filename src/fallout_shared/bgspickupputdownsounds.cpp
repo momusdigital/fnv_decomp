@@ -127,7 +127,8 @@ struct BgspickupputdownsoundsOffset08View
 };
 // Copies pickup and putdown sound references when the component has the matching type.
 // @fnv 0x0047b5d0
-void __fastcall CopyPickupPutdownSounds(BGSPickupPutdownSounds* sounds, PickupPutdownComponentArgument argument)
+// src: EXE 0x0047b5d0
+void __fastcall BGSPickupPutdownSounds_CopyComponent(BGSPickupPutdownSounds* sounds, PickupPutdownComponentArgument argument)
 {
     BGSPickupPutdownSounds* source = dynamic_cast<BGSPickupPutdownSounds*>(argument.component);
     if (!source)
@@ -148,7 +149,8 @@ struct ItemList
 };
 extern "C" void __cdecl TESForm_AddChunk_00485910(int, int);
 // @fnv 0x0047b560
-void __fastcall LogFormIDs(BGSPickupPutdownSounds* sounds)
+// src: COMMUNITY 0x0047b560
+void __fastcall BGSPickupPutdownSounds_Save(BGSPickupPutdownSounds* sounds)
 {
     if (((ItemList*)sounds)->GetItem())
     {

@@ -550,11 +550,11 @@ struct Display : RefObject
         return transform;
     }
 };
-struct FUN_00e0af50 : Display
+struct hkDisplaySphere : Display
 {
     SphereRec sphere;
     int sides, rings;
-    FUN_00e0af50(const SphereRec&, int, int);
+    hkDisplaySphere(const SphereRec&, int, int);
 };
 struct FUN_00d22dc0 : Display
 {
@@ -563,26 +563,26 @@ struct FUN_00d22dc0 : Display
     int sides, segments;
     FUN_00d22dc0(const DisplayVectorCallLocal_00ddfd10&, const DisplayVectorCallLocal_00ddfd10&, float, int, int);
 };
-struct FUN_00d58510 : Display
+struct hkDisplayCylinder : Display
 {
     DisplayVectorCallLocal_00ddfd10 top, bottom;
     float radius;
     int sides, segments;
-    FUN_00d58510(const DisplayVectorCallLocal_00ddfd10&, const DisplayVectorCallLocal_00ddfd10&, float, int, int);
+    hkDisplayCylinder(const DisplayVectorCallLocal_00ddfd10&, const DisplayVectorCallLocal_00ddfd10&, float, int, int);
 };
-struct FUN_00de1f50 : Display
+struct hkDisplayBox : Display
 {
     DisplayVectorCallLocal_00ddfd10 half;
-    FUN_00de1f50(const DisplayVectorCallLocal_00ddfd10&);
+    hkDisplayBox(const DisplayVectorCallLocal_00ddfd10&);
 };
 struct FUN_00de4f20 : Display
 {
     DisplayVectorCallLocal_00ddfd10 normal, center, perp, extent;
     FUN_00de4f20(const DisplayVectorCallLocal_00ddfd10&, const DisplayVectorCallLocal_00ddfd10&, const DisplayVectorCallLocal_00ddfd10&, const DisplayVectorCallLocal_00ddfd10&);
 };
-struct FUN_00de1d20 : Display
+struct hkDisplayConvex : Display
 {
-    FUN_00de1d20(Mesh*);
+    hkDisplayConvex(Mesh*);
 };
 struct BaseShape;
 struct Container
@@ -849,7 +849,7 @@ void Node::hkpShapeDisplayBuilder_buildShapeDisplay(const BaseShape* shape, cons
         DisplayVectorCallLocal_00ddfd10 zero;
         zero.setZero4();
         SphereRec sphere(zero, s->getRadius());
-        FUN_00e0af50* g = new FUN_00e0af50(sphere, m_kEnvironment.m_iSecondValue, m_kEnvironment.m_iFirstValue);
+        hkDisplaySphere* g = new hkDisplaySphere(sphere, m_kEnvironment.m_iSecondValue, m_kEnvironment.m_iFirstValue);
         g->getTransform() = mat;
         out.AddBack(g);
         break;
@@ -860,7 +860,7 @@ void Node::hkpShapeDisplayBuilder_buildShapeDisplay(const BaseShape* shape, cons
         for (int i = 0; i < s->getNumSpheres(); ++i)
         {
             SphereRec sphere(DisplayVectorCallLocal_00ddfd10::getZero(), points[i](3));
-            FUN_00e0af50* g = new FUN_00e0af50(sphere, m_kEnvironment.m_iSecondValue, m_kEnvironment.m_iFirstValue);
+            hkDisplaySphere* g = new hkDisplaySphere(sphere, m_kEnvironment.m_iSecondValue, m_kEnvironment.m_iFirstValue);
             g->getTransform().setIdentity();
             g->getTransform().setTranslation(points[i]);
             out.AddBack(g);
@@ -898,7 +898,7 @@ void Node::hkpShapeDisplayBuilder_buildShapeDisplay(const BaseShape* shape, cons
         a.SetTransformedPoint(mat, s->getVertex(1));
         DisplayVectorCallLocal_00ddfd10 b;
         b.SetTransformedPoint(mat, s->getVertex(0));
-        FUN_00d58510* g = new FUN_00d58510(a, b, s->FUN_00d571a0(), 9, 1);
+        hkDisplayCylinder* g = new hkDisplayCylinder(a, b, s->FUN_00d571a0(), 9, 1);
         g->getTransform() = mat;
         out.AddBack(g);
         break;
@@ -930,7 +930,7 @@ void Node::hkpShapeDisplayBuilder_buildShapeDisplay(const BaseShape* shape, cons
     }
     case 4: {
         const CenteredPointBounds* s = static_cast<const CenteredPointBounds*>(shape);
-        FUN_00de1f50* g = new FUN_00de1f50(s->getHalfExtents());
+        hkDisplayBox* g = new hkDisplayBox(s->getHalfExtents());
         g->getTransform() = mat;
         out.AddBack(g);
         break;
@@ -1041,7 +1041,7 @@ void Node::hkpShapeDisplayBuilder_buildShapeDisplay(const BaseShape* shape, cons
             transformed.data[i].SetTransformedPoint(mat, p[i].getPosition());
         Mesh* mesh = new Mesh;
         MeshUtility::ConvertStridedToMesh(transformed, *mesh);
-        FUN_00de1d20* g = new FUN_00de1d20(mesh);
+        hkDisplayConvex* g = new hkDisplayConvex(mesh);
         out.AddBack(g);
         break;
     }
@@ -1062,7 +1062,7 @@ void Node::hkpShapeDisplayBuilder_buildShapeDisplay(const BaseShape* shape, cons
                 v->SetTransformedPoint(mat, child->getVertex(j));
             }
         }
-        FUN_00de1d20* g = new FUN_00de1d20(mesh);
+        hkDisplayConvex* g = new hkDisplayConvex(mesh);
         out.AddBack(g);
         break;
     }

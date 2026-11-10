@@ -114,7 +114,7 @@ void __cdecl BGSEntryPointFunction_AddLeveledListToTargetFunction(void* apPerkOw
     DataLeveledList5e5f50* pfunctionData = (DataLeveledList5e5f50*)apData;
     Actor* ptarget = (Actor*)*apFunctionArgument;
     TESContainer tempcont;
-    pfunctionData->FUN_00726070()->list.PopulateContainerFromReference(apPerkOwner, &tempcont);
+    pfunctionData->FUN_00726070()->list.CalculateCurrentFormListForRef(apPerkOwner, &tempcont);
     InventoryChanges* pinventory = InventoryChanges::CreateForReference(ptarget);
     ListShell* pCurrentElementNext = tempcont.FUN_00717e50();
     if (pinventory)

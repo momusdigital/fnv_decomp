@@ -23,7 +23,7 @@ struct FUN_009b7040_shell
 {
     float GetField168();
 };
-struct FUN_009b73b0_shell
+struct CombatState
 {
     char GetByteAtOffset() const;
 };

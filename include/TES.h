@@ -114,7 +114,7 @@ public:
     unsigned char layoutPaddingB6[2];
     unsigned int m_uiNavMeshStateValue;
     NavMeshInfoMap* m_pNavMeshInfoMap;
-    NiPointer<LoadedAreaBound> m_spLoadedAreaBound;  // +0xC0; FindCellAtPosition 0x00452580 reads it through operator T* (0x00559450)
+    NiPointer<LoadedAreaBound> m_spLoadedAreaBound;  // +0xC0; UpdateCurrentGridCell 0x00452580 reads it through operator T* (0x00559450)
 
     void InitVars();
     NiNode* GetRoot();
@@ -124,7 +124,7 @@ public:
     GridCell* GetGridCell(int, int);
     NiDirectionalLight* GetLight();
     NiFogProperty* GetFog();
-    TESObjectCELL* GetDetailedActorPathHandler();
+    TESObjectCELL* GetCurrentCell();
     GridCellArray* GetGridCellA();
     void UpdateWater(NiAVObject*, float);
     void InitializeWater();
@@ -132,7 +132,7 @@ public:
     bool LoadAndBufferExterior(int, int, TESWorldSpace*, unsigned int);
     bool LoadAndBufferInterior(TESObjectCELL*);
     void InitGridCells(void*, bool);
-    int FindCellAtPosition(void*, bool);
+    int UpdateCurrentGridCell(void*, bool);
     void ResizeGrid(unsigned int);
     void SetTESActive(bool);
     void SetLODFadeDistance(float);
@@ -145,7 +145,7 @@ public:
     bool HasCellToFree();
     void ClearCellsForWorld(TESWorldSpace*);
     bool IsCoordInLoadedArea(void*);
-    bool IsCellBuffered(TESObjectCELL*, bool);
+    bool IsCellLoaded(TESObjectCELL*, bool);
     void GetLoadedAreaBounds(tagRECT*, float);
     TESObjectCELL* LineIntersectsLoadedCells(void*, void*, NiPoint3*, float);
     void GetCellStrings(NiNode*);
@@ -195,7 +195,7 @@ public:
     void ClearBedChairList();
     void* GetDeadCountList();
     void ClearDeadCountList();
-    short GetDeadCount(TESActorBase*);
+    short Cmd_GetDeadCount_Execute(TESActorBase*);
     void TES_ADD_DEAD_COUNT(TESActorBase*, short);
     void SetShowCollisionBounds(bool);
     bool GetShowCollisionBounds();
@@ -314,7 +314,7 @@ public:
     bool IsInteriorBuffered(TESObjectCELL*);
     void AddToBuffer(TESObjectCELL*);
     void AddCellToInteriorBuffer(TESObjectCELL*);
-    unsigned int GetInteriorBufferCount(bool);
+    unsigned int FreeInteriorBuffer(bool);
     bool IsExteriorBuffered(TESObjectCELL*);
     void AddCellToExteriorBuffer(TESObjectCELL*);
     unsigned int GetExteriorBufferCount(bool, TESWorldSpace*);
@@ -324,11 +324,11 @@ public:
     void SetHideLandBlendPassForGridCell(int, int, bool);
     void SetHideLandNormalMapForGridCell(int, int, bool);
     bool LoadCanopyShadowTexture(const char*, unsigned int);
-    int FindCellAtPosition(const NiPoint3*, bool);
+    int UpdateCurrentGridCell(const NiPoint3*, bool);
     void InitFromMatrix();
     void InitSoundGrid();
     void RefreshWorldState(int, int, int);
-    void RefreshGrid();
+    void TES_GridArrayLoad();
     static void RefreshWorldSpace();
     void ClearField88();
     void SetDawnSound(TESSound*);
@@ -355,7 +355,7 @@ public:
     float UpdateTESState(const NiPoint3&, unsigned int);
     void CreateTextureImage(const char*, GO&, bool, bool);
     Pathing* GetActiveCell(unsigned int);
-    float GetCellHeightAtPosition(NiPoint3*, int);
+    float TES_GetWaterHeight(NiPoint3*, int);
     void ClearList();
     void* GetActiveCell(void*, void*);
     void Pick(PickData&);

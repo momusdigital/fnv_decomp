@@ -27,7 +27,7 @@ public:
     bool IsKFFileInList(const char* path);
     void AddKFFile(char* path);
     void AddKFFile(const char* path);
-    bool HasSpecialAnimations();
+    bool HasKFFiles();
     void* GetKFFileList();
     void Save(int chunkID);
     void Save(CHUNK_ID chunkID);

@@ -57,7 +57,7 @@ void __cdecl RepairServicesMenu_Close()
 {
     StartDialogueForTopic(TESTopic::GetAudioBackendData(5, 5));
     reinterpret_cast<Tile*>(DAT_011da7f0->pMenu)->Set(0x1772, 1);
-    ((Menu*)DAT_011da7f0)->LoadMenuData();
+    ((Menu*)DAT_011da7f0)->StartFadeOut();
 }
 
 namespace fnv_007b82c0 {
@@ -262,7 +262,7 @@ void RepairServicesMenu::HandleRepairAction(int iActionId, RepairTile* tile)
     switch (iActionId)
     {
     case 17:
-        if (reinterpret_cast<Tile*>(tile)->IsTraitNonZero(DAT_011da7dc))
+        if (reinterpret_cast<Tile*>(tile)->Tile_IsTrue(DAT_011da7dc))
         {
             ApplyRepair(kRepairList.FUN_007a1910());
             DAT_011dea3c->FUN_008924e0(DAT_011da7f4, (int)reinterpret_cast<Tile*>(tile)->FUN_00a011b0(DAT_011da7e4));
@@ -517,7 +517,7 @@ struct StatSetting
     StatValue* Setting_Float_00403e20();
 };
 extern StatSetting DAT_011d2c7c, DAT_011d396c, DAT_011d20c4, DAT_011d0ff0, DAT_011d4ee8, DAT_011d3cf4;
-float __cdecl GetWeaponDamage(StatForm*, float, StatItem*, int);
+float __cdecl CombatFormulas_CalcWeaponDamageForDisplay(StatForm*, float, StatItem*, int);
 double __cdecl FUN_004bd510(float, float);
 double __cdecl FUN_00646360(int, float);
 float __cdecl BSMIN(float, float);
@@ -535,7 +535,7 @@ void RepairServicesMenu::UpdateItemComparison(int event, StatTile* tile)
         StatItem* selectedItemTmp = static_cast<StatItem*>(kRepairList.FUN_007a1910());
         float health2 = 0.0f;
         float projected6 = 0.0f;
-        field5c->Set(0xfaf, (int)reinterpret_cast<Tile*>(tile)->IsTraitNonZero(DAT_011da7dc));
+        field5c->Set(0xfaf, (int)reinterpret_cast<Tile*>(tile)->Tile_IsTrue(DAT_011da7dc));
         field38->Set(0xfa3, 1);
         field34->Set(0xfcc, selectedItemTmp->GetIconFilename(0), true);
         field34->Set(0xfa3, 1);
@@ -546,7 +546,7 @@ void RepairServicesMenu::UpdateItemComparison(int event, StatTile* tile)
             field40->Set(DAT_011da7e0, DAT_011d2c7c.FUN_00403df0(), true);
             field40->Set(
                 DAT_011da7e8,
-                (int)FUN_004bd510(GetWeaponDamage(selectedItemTmp->FUN_0044ddc0(), health2, selectedItemTmp, 0), 1.0f));
+                (int)FUN_004bd510(CombatFormulas_CalcWeaponDamageForDisplay(selectedItemTmp->FUN_0044ddc0(), health2, selectedItemTmp, 0), 1.0f));
         }
         else if (selectedItemTmp->FUN_0044ddc0()->FUN_00401170() == 24)
         {
@@ -587,7 +587,7 @@ void RepairServicesMenu::UpdateItemComparison(int event, StatTile* tile)
             if (selectedItemTmp->FUN_0044ddc0()->FUN_00401170() == 40)
             {
                 field54->Set(DAT_011da7e0, DAT_011d2c7c.FUN_00403df0(), true);
-                field54->Set(DAT_011da7e8, (int)FUN_004bd510(GetWeaponDamage(selectedItemTmp->FUN_0044ddc0(),
+                field54->Set(DAT_011da7e8, (int)FUN_004bd510(CombatFormulas_CalcWeaponDamageForDisplay(selectedItemTmp->FUN_0044ddc0(),
                                                                              projected6, selectedItemTmp, 0),
                                                              1.0f));
             }
@@ -624,7 +624,7 @@ void RepairServicesMenu::UpdateItemComparison(int event, StatTile* tile)
             field48->Set(0xfc4, text, true);
             RepairFormatString(text, 64, DAT_011d3cf4.FUN_00403df0(), (int)reinterpret_cast<Tile*>(tile)->FUN_00a011b0(DAT_011da7e4));
             field58->Set(0xfc4, text, true);
-            field58->Set(0xfa9, reinterpret_cast<Tile*>(tile)->IsTraitNonZero(DAT_011da7dc) ? 255.0f : 128.0f, true);
+            field58->Set(0xfa9, reinterpret_cast<Tile*>(tile)->Tile_IsTrue(DAT_011da7dc) ? 255.0f : 128.0f, true);
         }
     }
 }

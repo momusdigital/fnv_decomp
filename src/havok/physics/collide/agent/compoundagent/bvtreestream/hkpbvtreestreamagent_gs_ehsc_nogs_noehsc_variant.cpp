@@ -214,7 +214,7 @@ struct SearchObject
 struct FUN_00d43cd0_class
 {
     void __thiscall ProcessCollisionEntries(void* a, void* b, void* c, void* d);
-    void __thiscall UpdateState_00d2ed90(void* a1, void* a2, void* a3, void* a4);
+    void __thiscall hkpSymmetricAgent_getPenetrations(void* a1, void* a2, void* a3, void* a4);
 };
 
 #include <xmmintrin.h>

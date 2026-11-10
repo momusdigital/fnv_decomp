@@ -53,14 +53,14 @@ public:
     InventoryItemEntry* GetFirstContainerObject();
     void RemoveContainerObject(InventoryItemEntry* object);
     void ReplaceObject(TESObject* object, TESObject* replacement);
-    bool HasObjectOfType(TESObject* object);
+    bool HasObject(TESObject* object);
     float GetContainerWeight(bool value);
     int GetObjectCount(TESObject* object);
     char Compare(InventoryItemEntry* first, InventoryItemEntry* second);
     float GetClothingModifier();
-    static bool IsValidContainerType(unsigned char type);
+    static bool ContainerCanHoldType(unsigned char type);
     static bool IsValidContainerObject(TESObject* object);
-    void MergeContainer(TESContainer* container);
+    void AddContainerContents(TESContainer* container);
     void MultiplyContainerCounts(int multiplier);
     void ScaleEntryCounts(int multiplier);
     void SetClothingModifier(float modifier);
@@ -69,7 +69,7 @@ public:
     void AddContainerToReference(TESObjectREFR* reference, bool value);
     void AddContainerToReference(TickPlayer* reference, int value);
     void AddContainerToReference(void* reference, bool value);
-    void AddInventoryChangesToContainer(int value, InventoryChanges* changes);
+    void AddLevItemContainerToChanges(int value, InventoryChanges* changes);
     TESAmmo* GetBestAmmoForActor(TESActorBase* actor);
     TESObjectWEAP* GetBestWeapon(TESActorBase* actor);
     TESObjectARMO* FindBestArmor(TESActorBase* actor, int slot);

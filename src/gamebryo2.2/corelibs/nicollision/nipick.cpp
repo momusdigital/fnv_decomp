@@ -113,7 +113,7 @@ void* __thiscall FUN_00e99300_shell::NiCollisionSDM_NiCollisionSDM()
 void* __cdecl _NiMalloc(unsigned int);
 typedef void(__cdecl* PFN)();
 extern const char g_0126fab4_arg0[];
-NiObject* __cdecl Runtime_CreateNode();
+NiObject* __cdecl NiCollisionData_CreateObject();
 void __cdecl NiRegisterBVStream();
 int* __cdecl NiCollisionConvert_ConvertToSphereBV_Fast(float, int*);
 struct Obj;
@@ -181,7 +181,7 @@ void __cdecl InitNiStreamCallbacks()
     if (DAT_0126fa5c)
         return;
     DAT_0126fa5c = true;
-    NiStream::RegisterObjectLoader(g_0126fab4_arg0, Runtime_CreateNode);
+    NiStream::RegisterObjectLoader(g_0126fab4_arg0, NiCollisionData_CreateObject);
     DAT_0126fa80 = NiRegisterBVStream;
     DAT_0126fa84 = CreateObjWithArg;
     DAT_0126fa90 = CreateBoundingVolumeAndCall;

@@ -299,14 +299,14 @@ void __cdecl BuildAssetPath(const char* pcSourcePath, char* pcDestPath, unsigned
 
 void __cdecl BuildAssetPath(int, char*, int);
 int __cdecl strcpy_s(char*, unsigned int, const char*);
-struct FUN_00c3d090_shell2 {
+struct QueuedFileEntry {
     char pad[0x28];
     char* p;
     void QueuedFileEntry_GetLookupFileName(int flag, char* dst);
 };
 // @fnv 0x00c3d090
 // src: XBOX_PDB 0x00c3d090
-void FUN_00c3d090_shell2::QueuedFileEntry_GetLookupFileName(int flag, char* dst)
+void QueuedFileEntry::QueuedFileEntry_GetLookupFileName(int flag, char* dst)
 {
     if (flag == 0) {
         BuildAssetPath((int)p, dst, 0x104);
@@ -499,12 +499,12 @@ struct FUN_00a1c2d0_shell {
     FUN_00a1c2d0_node* head;
     FUN_00a1c2d0_node* tail;
     int count;
-    void ClearLinkedNodes();
+    void NiTListBase_RemoveAll();
 };
 // Walks the linked list from head, zeroes each node's data, deallocates every node, then resets count, head and tail.
 // @fnv 0x00a1c2d0
 // src: GUESS 0x00a1c2d0 (confidence: medium)
-void FUN_00a1c2d0_shell::ClearLinkedNodes()
+void FUN_00a1c2d0_shell::NiTListBase_RemoveAll()
 {
     FUN_00a1c2d0_node* cur = head;
     while (cur) {
@@ -691,7 +691,7 @@ struct CloningProcess;
 struct TileShaderProperty_00a14a20;
 struct blob16 { char b[16]; };
 struct FUN_00a14a20_shell : public Font {
-    NiTriShape* CreateTextShape(int, void*, bool);
+    NiTriShape* Font_MakeTriShape(int, void*, bool);
 };
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile*);
@@ -749,7 +749,8 @@ struct FUN_00c5cf30 : NiAVObject {
 
 // Builds a NiTriShape with vertex, texture and index buffers, attaches a TileShaderProperty_00a14a20, copies the color, and optionally prepares the object.
 // @fnv 0x00a14a20
-NiTriShape* FUN_00a14a20_shell::CreateTextShape(int aiChars, void* axColor, bool abPrepareObject)
+// src: COMMUNITY 0x00a14a20
+NiTriShape* FUN_00a14a20_shell::Font_MakeTriShape(int aiChars, void* axColor, bool abPrepareObject)
 {
     unsigned short* pvert_order;
     TileShaderProperty_00a14a20* ptsp;
@@ -1052,12 +1053,12 @@ struct FUN_00a14170_shell {
     int unk24;
     int unk28;
     float fValue2C;
-    void GetGlyphMetricsByName(FUN_00a14170_out* apOut, const char* apName);
+    void GetButtonIconMetrics(FUN_00a14170_out* apOut, const char* apName);
 };
 
 // @fnv 0x00a14170
 // src: GUESS 0x00a14170 (confidence: medium)
-void FUN_00a14170_shell::GetGlyphMetricsByName(FUN_00a14170_out* apOut, const char* apName) {
+void FUN_00a14170_shell::GetButtonIconMetrics(FUN_00a14170_out* apOut, const char* apName) {
     apOut->fX = 60.0f;
     apOut->fZ = fValue2C;
     if (apName[0] == 'a' || apName[0] == 'b' || apName[0] == 'x' || apName[0] == 'y') {
@@ -2263,7 +2264,7 @@ struct IconArray {
     }
 };
 struct FUN_00a1aee0_shell : Font {
-    void GetGlyphMetricsByName(IconData*, const char*);
+    void GetButtonIconMetrics(IconData*, const char*);
     void LoadIconFromPath(const char* path);
 };
 // Parses the icon suffix from the path after the last underscore, builds an IconData via FUN_00a06dd0 and FUN_00a14170, then appends it to the icon array.
@@ -2279,7 +2280,7 @@ void FUN_00a1aee0_shell::LoadIconFromPath(const char* path) {
         suffix[count7] = path[offset + count7 + 1];
     }
     suffix[count7] = 0;
-    GetGlyphMetricsByName(&icon6, suffix);
+    GetButtonIconMetrics(&icon6, suffix);
     reinterpret_cast<IconArray*>(&ButtonIcons)->Append(icon6);
 }
 }  // namespace fnv_00a1aee0
@@ -2673,7 +2674,7 @@ RunNode* FontData::CreateTextRunNode(SStr* text, Info_* info) {
     if (info->GetStart() < 2) info->iStart = 0x7fffffff;
     if (info->GetEnd() < 2) info->iEnd = 0x7fffffff;
     RunNode* pNode = 0;
-    pNode = ParseLayout(text, info);
+    pNode = FontManager_PrepHypertext(text, info);
     if (pNode) return pNode;
     pNode = new RunNode(info->GetStart(), info->GetEnd(), info->GetLeading());
     Pad38();
@@ -2780,16 +2781,16 @@ struct CharacterPosition {
     }
     ~CharacterPosition() { RemoveAll(); }
 };
-struct FUN_00759330 {
+struct Font_TextData {
     LayoutText text; int width; int height;
     int startOffset; int layoutVersion; int geometryKey; int layoutFlags;
     CharacterPosition firstPosition;
-    FUN_00759330(int newWidth,int newHeight,int newCount,int newLimit,unsigned char separator) {
+    Font_TextData(int newWidth,int newHeight,int newCount,int newLimit,unsigned char separator) {
         text=DAT_01011584;
         width=newWidth; height=newHeight; startOffset=newCount; layoutVersion=newLimit;
         geometryKey=0; layoutFlags=separator;
     }
-    ~FUN_00759330() { firstPosition.RemoveAll(); }
+    ~Font_TextData() { firstPosition.RemoveAll(); }
     int GetCharacterOffset(int index) {
         CharacterPosition* node = &firstPosition;
         int current=0;
@@ -2878,8 +2879,8 @@ struct FontRenderer : Font {
     bool HasNoIcons() { return ((FinalizerView*)ButtonIcons)->count==0; }
     unsigned int GetIconCount() { return ((FinalizerView*)ButtonIcons)->count; }
     void Font_CreateText(int*,int*,int*,int,int,int,char,int,ShapeView**,ShapeView**);
-    void CheckForVariablesInText(int,FUN_00759330*);
-    ShapeView* CreateTextShape(int,int,int);
+    void CheckForVariablesInText(int,Font_TextData*);
+    ShapeView* Font_MakeTriShape(int,int,int);
     ShapeView* MakeButton();
     void UpdateIconGeometry(int,ShapeView*,FontPoint3&);
     void BuildGlyphQuad(GlyphData*,int,ShapeView*,FontPoint3&,int);
@@ -2911,7 +2912,7 @@ void FontRenderer::Font_CreateText(int* source,int* width,int* height,int count,
     GlyphData* glyph;
     int secondaryActive_2;
     float lineB=Manager()->LinePadding(iFontNum);
-    FUN_00759330 layoutX(*width,*height,count,limit,separator);
+    Font_TextData layoutX(*width,*height,count,limit,separator);
     CheckForVariablesInText(SourceValue(source),&layoutX);
     *width=layoutX.GetWidth();
     *height=layoutX.GetHeight();
@@ -2923,7 +2924,7 @@ void FontRenderer::Font_CreateText(int* source,int* width,int* height,int count,
     position6.x=(float)linePositionTmp;
     position6.z=(pFontData->fBaseLine-fFontHeight)*2.0f;
     position6.y=0.0f;
-    *primary=CreateTextShape(layoutX.GetGeometryKey(),flags,1);
+    *primary=Font_MakeTriShape(layoutX.GetGeometryKey(),flags,1);
     FontPoint3 kIter;
     kIter.x=0.0f; kIter.y=position6.y; kIter.z=position6.z;
     (*primary)->SetPosition(kIter);
@@ -3277,12 +3278,13 @@ struct FUN_00a17390_shell : FontManager {
     Font* GetFont(unsigned int number) { return pFont[number]; }
     const char* GetFontFile(unsigned int number) { return GetFont(number)->pFontFile; }
     LayoutString Font_CollectTo(const char* input, int* index, unsigned int stopMask, unsigned int allowedMask, unsigned int* outFlags, char* currentChar, bool parseEntities);
-    LayoutBlock* ParseLayout(LayoutString& source, LayoutResult* result);
+    LayoutBlock* FontManager_PrepHypertext(LayoutString& source, LayoutResult* result);
 };
 inline ButtonIcon& GetIcon(Font* font, unsigned int index) { return ((FontButtonIconArray*)font->ButtonIcons)->pBuffer[index]; }
 // Parses HTML-like markup from source into a LayoutBlock, tracking font, color, alignment, and image attributes, then updates result dimensions.
 // @fnv 0x00a17390
-LayoutBlock* FUN_00a17390_shell::ParseLayout(LayoutString& source, LayoutResult* result) {
+// src: COMMUNITY 0x00a17390
+LayoutBlock* FUN_00a17390_shell::FontManager_PrepHypertext(LayoutString& source, LayoutResult* result) {
     bool layout=false;
     char* input=AllocateText(source.Length()+1);
     strcpy(input,source.Get());
@@ -3912,10 +3914,10 @@ template<class T> struct Link {Link* next;Link* previous;T value;};
 
 template<class T> struct ListBase {Link<T>* head;Link<T>* tail;unsigned int count;~ListBase(){}Link<T>* Head(){return head;}T& Next(Link<T>*& p){T& value=p->value;p=p->next;return value;}unsigned int Count(){return count;}void NiTListBase_AddNodeHead_1(Link<T>*);
 // src: GUESS 0x00a1c2d0 (confidence: medium)
-void ClearLinkedNodes(){Link<T>* pNode=head;while(pNode){Link<T>* pDelete=pNode;pNode=pNode->next;pDelete->value=0;Link<T>* pFree=pDelete;DAT_011f6238.MemoryManager_Deallocate(pFree);}count=0;head=0;tail=0;}T PopFront(){Link<T>* pNode=head;head=head->next;if(head)head->previous=0;else tail=0;T element=pNode->value;pNode->value=0;Link<T>* pFree=pNode;DAT_011f6238.MemoryManager_Deallocate(pFree);--count;return element;}void FUN_00a11db0(Link<T>* item){item->next=0;item->previous=tail;if(tail)tail->next=item;else head=item;tail=item;++count;}
+void NiTListBase_RemoveAll(){Link<T>* pNode=head;while(pNode){Link<T>* pDelete=pNode;pNode=pNode->next;pDelete->value=0;Link<T>* pFree=pDelete;DAT_011f6238.MemoryManager_Deallocate(pFree);}count=0;head=0;tail=0;}T PopFront(){Link<T>* pNode=head;head=head->next;if(head)head->previous=0;else tail=0;T element=pNode->value;pNode->value=0;Link<T>* pFree=pNode;DAT_011f6238.MemoryManager_Deallocate(pFree);--count;return element;}void FUN_00a11db0(Link<T>* item){item->next=0;item->previous=tail;if(tail)tail->next=item;else head=item;tail=item;++count;}
 // src: COMMUNITY 0x00a11c00
 void NiTList_AddTail(const T& value){Link<T>* item=NewNode();item->value=value;FUN_00a11db0(item);}Link<T>* NewNode(){Link<T>* node=(Link<T>*)DAT_011f6238.Game_DoHeapAlloc(sizeof(Link<T>));return node;}void Add(T value){Link<T>* p=NewNode();p->value=value;NiTListBase_AddNodeHead_1(p);}};
-template<class T> struct PointerListBase : ListBase<T> {~PointerListBase(){this->ClearLinkedNodes();}};
+template<class T> struct PointerListBase : ListBase<T> {~PointerListBase(){this->NiTListBase_RemoveAll();}};
 template<class T> struct List : PointerListBase<T> {List(){this->count=0;this->head=0;this->tail=0;} ~List(){}};
 
 unsigned int TextLength(const char*);unsigned int TextCapacity(unsigned int,unsigned int);void* TextCopy(void*,const void*,unsigned int);
@@ -3948,7 +3950,7 @@ void Builder::BuildPage(Node* node,Layout* layout){
 
 Page* pageSlot35=0;int remainingSlot28=index;int iconIndexSlot11=0;Shape* shapesSlot32[8];int indices[8];Link<Page*>* cursorSlot10=pages.Head();while(cursorSlot10&&remainingSlot28--)pages.Next(cursorSlot10);if(cursorSlot10)pageSlot35=cursorSlot10->value;else return;
 
-for(unsigned int fontIndex=0;fontIndex<8;fontIndex++){indices[fontIndex]=0;shapesSlot32[fontIndex]=0;int count=pageSlot35->CountEmptyNameEntries(fontIndex);if(count>0){shapesSlot32[fontIndex]=GetDebrisManager()->GetFont(fontIndex)->CreateTextShape(count,&Color(117.0f/255.0f,59.0f/255.0f,33.0f/255.0f,1.0f),true);shapesSlot32[fontIndex]->SetPosition(DAT_011f426c);}}
+for(unsigned int fontIndex=0;fontIndex<8;fontIndex++){indices[fontIndex]=0;shapesSlot32[fontIndex]=0;int count=pageSlot35->CountEmptyNameEntries(fontIndex);if(count>0){shapesSlot32[fontIndex]=GetDebrisManager()->GetFont(fontIndex)->Font_MakeTriShape(count,&Color(117.0f/255.0f,59.0f/255.0f,33.0f/255.0f,1.0f),true);shapesSlot32[fontIndex]->SetPosition(DAT_011f426c);}}
 
 List<Shape*> imagesSlot52;Shape* iconsSlot17=0;if(!((Icons*)GetDebrisManager()->GetFont(0)->ButtonIcons)->Empty()){iconsSlot17=GetDebrisManager()->GetFont(0)->MakeButton();iconsSlot17->SetPositionThroughShape(DAT_011f426c);imagesSlot52.Add(iconsSlot17);}
 
@@ -4452,7 +4454,7 @@ struct StringShapeBuilder : public Font {
     NiTriShape* Font_MakeString(float fX, float fY, float fZ, SStr* text, int* piX,
                              int iFlags, void* pUnk, bool bShift, bool bSkip);
     void Font_GetLineOffsets(char* str, float* pSize, float* pOut, int iFlags, int iStart);
-    NiTriShape* CreateTextShape(int count, void* p, bool b);
+    NiTriShape* Font_MakeTriShape(int count, void* p, bool b);
 };
 
 // Builds a NiTriShape for a text string by mapping each character to glyph geometry, handling newlines and tabs, and updating the output x-offset.
@@ -4483,7 +4485,7 @@ NiTriShape* StringShapeBuilder::Font_MakeString(float fX, float fY, float fZ, SS
     if (kColor == 0)
         return 0;
 
-    NiTriShape* kPos = this->CreateTextShape((int)kColor, pUnk, bSkip);
+    NiTriShape* kPos = this->Font_MakeTriShape((int)kColor, pUnk, bSkip);
 
     FontPoint3 kOrigin2;
     kOrigin2.x = fX;

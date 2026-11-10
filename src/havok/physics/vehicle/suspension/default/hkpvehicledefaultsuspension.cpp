@@ -19,7 +19,7 @@ struct EntityE397
     {
         return &m_pMotionState;
     }
-    float GetMassValue() const
+    float getMass() const
     {
         return getMotion()->FUN_00c86430();
     }
@@ -80,7 +80,7 @@ class SuspensionE397
 void SuspensionE397::CalculateSuspensionForces(const void* pkStepInfo, const VehicleE397* pkVehicle,
                                                const CdWheelOutputE397* pkCdInfo, float* pfSuspensionForceOut)
 {
-    const float fChassisMass = pkVehicle->m_pEntity->GetMassValue();
+    const float fChassisMass = pkVehicle->m_pEntity->getMass();
     for (int w_it = 0; w_it < pkVehicle->m_data->m_iWheelCount; w_it++)
     {
         if (pkCdInfo[w_it].m_pUserData)

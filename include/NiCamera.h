@@ -43,7 +43,7 @@ class __declspec(novtable) NiCamera : public NiAVObject
     NiPoint3 FUN_0045bba0() const;
     NiPoint3 NiCamera_GetWorldRightVector();
     NiPoint3 NiCamera_GetWorldRightVector() const;
-    int ClassifyPoint(const NiPoint3* point);
+    int NiPlane_WhichSide(const NiPoint3* point);
     bool WindowPixelToRay(long x, long y, NiPoint3& origin, NiPoint3& direction,
                           const NiRenderTargetGroup* group);
     void ScreenPointToRay(float x, float y, NiPoint3& origin, NiPoint3& direction);

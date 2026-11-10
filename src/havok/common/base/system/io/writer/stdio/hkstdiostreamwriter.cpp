@@ -54,7 +54,7 @@ void __fastcall hkStdioStreamWriter_flush(void* self, int)
 }
 
 long __cdecl _ftell(void*);
-struct FUN_00d2bf20_class
+struct hkStdioStreamWriter
 {
     char m0[8];
     void* m8;
@@ -62,7 +62,7 @@ struct FUN_00d2bf20_class
 };
 // @fnv 0x00d2bf20
 // src: HAVOK_LIB 0x00d2bf20
-long FUN_00d2bf20_class::hkStdioStreamWriter_tell()
+long hkStdioStreamWriter::hkStdioStreamWriter_tell()
 {
     return _ftell(m8);
 }

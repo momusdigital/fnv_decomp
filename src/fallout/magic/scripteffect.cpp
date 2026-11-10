@@ -16,7 +16,7 @@ void ScriptEffect::Update(float elapsed)
 {
     if (pScript)
     {
-        pScript->AdvanceScript(FUN_0059bb30()->GetMagicTargetReference(), m_pScriptLocals, elapsed);
+        pScript->RunScriptEffectUpdate(FUN_0059bb30()->GetMagicTargetReference(), m_pScriptLocals, elapsed);
     }
 }
 // Loads the script effect's saved state: reads a has-locals flag, then loads script locals into the cached ScriptLocals or a temporary one.

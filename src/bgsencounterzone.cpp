@@ -48,7 +48,8 @@ int __cdecl Warning(const char*, ...);
 
 // Creates the NoZoneZone BGSEncounterZone once, sets its ref ID and editor ID, and adds it to the data handler.
 // @fnv 0x00526340
-void BGSEncounterZone::CreateDefaultEncounterZone()
+// src: COMMUNITY 0x00526340
+void BGSEncounterZone::CreateNoZone()
 {
     if (!ms_pDefaultEncounterZone)
     {
@@ -142,7 +143,8 @@ using ::SettingT;
 extern SettingT<GameSettingCollection> originalRuntimeFloatSetting36;
 
 // @fnv 0x00526190
-unsigned short BGSEncounterZone::GetCalculatedLevel()
+// src: COMMUNITY 0x00526190
+unsigned short BGSEncounterZone::GetCalcedZoneLevel()
 {
     unsigned short level = g_thePlayer->GetLevel();
     if (level < GetByteAt1D())
@@ -169,12 +171,12 @@ BGSEncounterZone::~BGSEncounterZone()
 {}
 
 bool __cdecl TESForm_QEndianSwapOnSave();
-void __cdecl AppendChunk(unsigned int, void*, unsigned int);
+void __cdecl TESForm___AddChunkData(unsigned int, void*, unsigned int);
 // @fnv 0x00525e70
 void BGSEncounterZone::Save()
 {
     TESForm* powner;
-    TESForm::BeginFormRecord();
+    TESForm::TESForm_StartForm();
     powner = Data.m_pOwnerForm;
     if (powner)
     {
@@ -182,11 +184,11 @@ void BGSEncounterZone::Save()
     }
     if (TESForm_QEndianSwapOnSave())
         Data.Endian();
-    AppendChunk(0x41544144, &Data, 8);
+    TESForm___AddChunkData(0x41544144, &Data, 8);
     if (TESForm_QEndianSwapOnSave())
         Data.Endian();
     Data.m_pOwnerForm = powner;
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_CloseForm();
 }
 
 // @fnv 0x00526070
@@ -253,7 +255,7 @@ void BGSEncounterZone::SetZoneLevel(unsigned short arg)
 void BGSEncounterZone::DetermineLevel()
 {
     if (GameData.m_usDetachRecordValue == 0)
-        SetZoneLevel(GetCalculatedLevel());
+        SetZoneLevel(GetCalcedZoneLevel());
 }
 
 struct Calendar

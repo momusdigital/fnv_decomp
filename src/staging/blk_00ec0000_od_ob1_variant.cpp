@@ -78,7 +78,7 @@ struct FUN_00ec15e0_shell
 };
 struct FUN_00ec19d0_class
 {
-    void* __thiscall FUN_00ec19d0(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 struct FUN_00ec0cd0_Class
 {
@@ -102,7 +102,7 @@ struct FUN_00ec2a10_class
     int m_0008;
     int m_000c;
     int m_0010;
-    void __thiscall PauseMovie();
+    void __thiscall MoviePlayer_Pause();
 };
 struct FUN_00ec2d40_class
 {
@@ -722,7 +722,7 @@ struct FUN_00ec2490_Class
     int unk10;
     Movie* cached;
     bool hasCached;
-    void PauseMovie();
+    void MoviePlayer_Pause();
     void MoviePlayer_Stop();
     unsigned char BGSMoviePlayer_PlayBackground(int, unsigned char);
 };
@@ -731,7 +731,7 @@ struct FUN_00ec2490_Class
 unsigned char FUN_00ec2490_Class::BGSMoviePlayer_PlayBackground(int value, unsigned char option)
 {
     Scope2490 scope;
-    PauseMovie();
+    MoviePlayer_Pause();
     if (hasCached && cached)
     {
         movie = cached;
@@ -1303,7 +1303,7 @@ class BSMovieThread
     bool m_bPending;
     int unk1c, unk20, unk24;
     float m_fScale;
-    void PauseMovie();
+    void MoviePlayer_Pause();
     void MoviePlayer_Stop();
     bool MoviePlayer_Play(void* pFile, bool a, bool b, bool c, bool d, bool e, bool bReuse, bool f, bool g);
 };
@@ -1315,7 +1315,7 @@ bool BSMovieThread::MoviePlayer_Play(void* pFile, bool a, bool b, bool c, bool d
     MemContextGuard kGuard(20);
     if (!bReuse)
     {
-        PauseMovie();
+        MoviePlayer_Pause();
         if (m_bPending && m_pkSaved)
         {
             m_pkCurrent = m_pkSaved;

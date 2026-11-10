@@ -61,7 +61,7 @@ public:
     unsigned short GetRuntimeFlags();
 
     const NiRTTI* GetRTTI_006838a0() const;
-    void* FUN_006838d0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     bool FUN_006828a0(float f);
     void FUN_00688770();
     bool Update_006888a0(float f);

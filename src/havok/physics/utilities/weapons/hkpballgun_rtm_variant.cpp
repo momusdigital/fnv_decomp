@@ -5,7 +5,7 @@
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 // Preserve the original intrinsic views: byte arrays change VC9 /GS instrumentation.
 #define _INCLUDED_MM2
-// Exe 0x00e470d0 fireBallGun: retain this LocalM128 view; the CRT type does not preserve this unit.
+// Exe 0x00e470d0 hkpBallGun_fireGun: retain this LocalM128 view; the CRT type does not preserve this unit.
 // VC9 requires the __m128 compatibility typedef for its native SIMD ABI (renamed tags fail C2719).
 typedef union __declspec(intrin_type) __declspec(align(16)) {
     float m128_f32[4];
@@ -196,7 +196,7 @@ template <typename T> struct CapacityGrowingArray
 };
 
 void hkpInertiaTensorComputer_setShapeVolumeMassProperties(const hkpShapeBase* shape, hkReal mass, FUN_00cf5ea0& out);
-int hkpWorldq_CastSphereAndStoreHit(hkpWorld* world, const hkVector4& start, hkReal radius, const hkVector4& end,
+int hkpFirstPersonGun_sweepSphere(hkpWorld* world, const hkVector4& start, hkReal radius, const hkVector4& end,
                  hkpBallGunSweepOutput& output);
 void hkpFirstPersonGun_calcVelocityToTarget(const hkVector4& position, const hkVector4& target, const hkVector4& gravity,
                   hkReal speed, hkVector4& velocityOut);
@@ -204,7 +204,8 @@ void hkpFirstPersonGun_calcVelocityToTarget(const hkVector4& position, const hkV
 // The shared hkpBallGun has no fireGun declaration yet; ECX carries the gun and
 // the unused EDX argument preserves the original thiscall stack arguments.
 // @fnv 0x00e470d0
-void __fastcall fireBallGun(hkpBallGun* gun, void*, hkpWorld* world, const hkQuadTransform& viewTransform)
+// src: EXE 0x00e470d0
+void __fastcall hkpBallGun_fireGun(hkpBallGun* gun, void*, hkpWorld* world, const hkQuadTransform& viewTransform)
 {
     hkVector4 forward = viewTransform.m_kColumn0;
     hkVector4 eye = viewTransform.m_vTranslation;
@@ -228,7 +229,7 @@ void __fastcall fireBallGun(hkpBallGun* gun, void*, hkpWorld* world, const hkQua
     ci.m_vContactPosition.setAdd4(start, gun->m_kBulletDirection);
 
     hkpBallGunSweepOutput output;
-    if (!hkpWorldq_CastSphereAndStoreHit(world, start, gun->m_fBulletRadius, end, output))
+    if (!hkpFirstPersonGun_sweepSphere(world, start, gun->m_fBulletRadius, end, output))
     {
         hkpFirstPersonGun_calcVelocityToTarget(ci.m_vContactPosition, output.m_vContactPosition, world->m_kGravity, gun->m_fBulletVelocity,
                      ci.m_kTranslationalVelocity);

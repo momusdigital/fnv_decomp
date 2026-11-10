@@ -52,7 +52,7 @@ class hkaMeshBinding : public hkReferencedObject
 {
   public:
     virtual ~hkaMeshBinding() throw();
-    void* FUN_00e34920(int flags);
+    void* ScalarDeletingDestructor(int flags);
 
     hkE348::ReferenceCountedPointer<hkReferencedObject> m_pMesh;
     hkStringPtr m_name;
@@ -67,7 +67,8 @@ hkaMeshBinding::~hkaMeshBinding() throw()
 
 // Calls the destructor, optionally frees the allocation, and returns this.
 // @fnv 0x00e34920
-void* hkaMeshBinding::FUN_00e34920(int flags)
+// src: EXE 0x00e34920
+void* hkaMeshBinding::ScalarDeletingDestructor(int flags)
 {
     hkaMeshBinding::~hkaMeshBinding();
 

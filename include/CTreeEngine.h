@@ -110,7 +110,7 @@ public:
     void CTreeEngine_GetSize(float* a, float* b);
     void SetSize_00b2bd20(float fSize, float fVariance);
     float GetNormalizedValue();
-    void UpdateFields_00b2bdc0(float a, float b);
+    void CTreeEngine_SetLodDistances(float a, float b);
     void InitSeed(unsigned int seed);
     void InitSeed(int seed);
     bool Parse_00b2b550(CTreeFileAccessImpl* file);

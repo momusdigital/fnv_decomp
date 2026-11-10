@@ -94,14 +94,14 @@ struct ShaderPropertyConversionData
     int m_iShaderDataFlags;
 };
 typedef char _sizecheck_BSShaderData[sizeof(ShaderPropertyConversionData) == 184 ? 1 : -1];
-struct FUN_00bb0180_shell : public ShaderPropertyConversionData
+struct BSShaderData : public ShaderPropertyConversionData
 {
     void AddProperties(NiAVObject*, unsigned int);
 };
 
 // Adds an alpha, material and/or shader property to apTarget according to the bits set in auiProperties.
 // @fnv 0x00bb0180
-void FUN_00bb0180_shell::AddProperties(NiAVObject* apTarget, unsigned int auiProperties)
+void BSShaderData::AddProperties(NiAVObject* apTarget, unsigned int auiProperties)
 {
     if (auiProperties & 1)
         AddAlphaProperty(apTarget);
@@ -174,7 +174,7 @@ void __fastcall CreatePrecipitationPixelShaders(BSShader* shader, void*)
     char acPath[260];
     for (int i = 0; i < 2; i++)
     {
-        BSShader::GetShaderPath(ShaderDefs[i].pFile, acPath);
+        BSShader::MakePath(ShaderDefs[i].pFile, acPath);
         _sprintf_s(acName, 260, "PRECIP%03i.pso", i);
         DAT_012005c8[i] = shader->CompilePixelShader(acPath, ShaderDefs[i].Macros,
                                              NiD3DGPUProgramCache::GetPixelShaderProfile(false), acName);
@@ -226,7 +226,7 @@ void __fastcall CreatePrecipitationVertexShaders(BSShader* shader, void*)
     {
         char shaderName[260];
         char shaderPath[260];
-        BSShader::GetShaderPath(shaderDefs[i].pFile, shaderPath);
+        BSShader::MakePath(shaderDefs[i].pFile, shaderPath);
         _sprintf_s(shaderName, 260, "PRECIP%03i.vso", i);
         DAT_012005d0[i] =
             shader->CompileVertexShader(shaderPath, shaderDefs[i].Macros, NiD3DGPUProgramCache::GetVertexShaderProfile(), shaderName);

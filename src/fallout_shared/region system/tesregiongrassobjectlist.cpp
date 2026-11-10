@@ -5,13 +5,13 @@
 #include "../../../include/Actor.h"
 
 extern "C" void __cdecl Deallocate(void*);
-struct FUN_004f5df0_shell
+struct TESRegionGrassObjectList
 {
     void __thiscall FUN_004f5e20();
     void* __thiscall Destroy(unsigned int flags);
 };
 // @fnv 0x004f5df0
-void* __thiscall FUN_004f5df0_shell::Destroy(unsigned int flags)
+void* __thiscall TESRegionGrassObjectList::Destroy(unsigned int flags)
 {
     FUN_004f5e20();
     if (flags & 1)

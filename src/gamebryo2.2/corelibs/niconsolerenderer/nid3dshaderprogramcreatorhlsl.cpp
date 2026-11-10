@@ -50,7 +50,7 @@ struct VTableObj
 
 extern "C" void* __cdecl hkMemoryRouter_getInstance();
 
-struct FUN_00c7b0f0_shell
+struct hkArray
 {
     int m_kPointA;
     int m_kPointB;
@@ -60,7 +60,7 @@ struct FUN_00c7b0f0_shell
 
 // @fnv 0x00c7b0f0
 // src: GUESS 0x00c7b0f0 (confidence: low)
-void FUN_00c7b0f0_shell::UpdateState_00c7b0f0()
+void hkArray::UpdateState_00c7b0f0()
 {
     void* p = hkMemoryRouter_getInstance();
     VTableObj* pTarget = *(VTableObj**)((char*)p + 0x10);
@@ -128,7 +128,8 @@ extern "C" void __cdecl operator delete(void*, unsigned int);
 
 // Calls FUN_00e96c90, frees this with operator delete when flags has bit 0 set, and returns this.
 // @fnv 0x00e95cd0
-void* __thiscall NiD3DHLSLPixelShader::FUN_00e95cd0(unsigned int flags)
+// src: EXE 0x00e95cd0
+void* __thiscall NiD3DHLSLPixelShader::ScalarDeletingDestructor(unsigned int flags)
 {
     UpdateState_00e96c90();
     if (flags & 1)
@@ -437,7 +438,8 @@ void NiD3DShaderProgram::SetName(char* pszName)
 
 
 // @fnv 0x00be0ba0
-void __thiscall NiD3DVertexShader::SetShaderUsage(unsigned int value)
+// src: EXE 0x00be0ba0
+void __thiscall NiD3DVertexShader::SetUsage(unsigned int value)
 {
     m_uiShaderUsage = value;
 }
@@ -1394,7 +1396,7 @@ struct S00e96610_VSBase
     virtual void v29();
     virtual void v30();
     virtual void v31();
-    virtual void SetShaderUsage(unsigned int uiUsage);
+    virtual void SetUsage(unsigned int uiUsage);
     virtual void v33();
     virtual void SetD3DPixelShader(void* hShader);
     virtual void v35();
@@ -1489,7 +1491,7 @@ S00e96610_VS* S00e96610_Creator::NiD3DShaderProgramCreatorHLSL_CreateVertexShade
     pkShader->SetProgramCode(uiCodeSize, pvCode);
     pkShader->SetCreator(this);
     pkShader->SetD3DPixelShader(hShader);
-    pkShader->SetShaderUsage(uiUsage);
+    pkShader->SetUsage(uiUsage);
     pkShader->SetSoftwareVP(bSoftwareVP);
     pkShader->SetEntryPoint(pcEntryPoint);
     pkShader->SetPixelShaderTarget(pcShaderTarget.value);

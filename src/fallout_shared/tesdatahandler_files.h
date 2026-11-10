@@ -45,7 +45,7 @@ class IdleAnimationManager
 };
 extern IdleAnimationManager* DAT_011cb6a0;
 void EffectSettingCollection_InitItems();
-void ValidateFactionReactions();
+void TESFaction_CheckFactionReactions();
 
 class Calendar
 {

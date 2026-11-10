@@ -87,7 +87,8 @@ void* __cdecl Object_DispatchCommandFour(unsigned int size);
 void __stdcall CreateVertexBufferSet(void* self, unsigned int arg);
 
 // @fnv 0x00a5f210
-void* __fastcall CloneVertexColorProperty(NiVertexColorProperty* self, void*, unsigned int a1)
+// src: EXE 0x00a5f210
+void* __fastcall NiVertexColorProperty_CreateClone(NiVertexColorProperty* self, void*, unsigned int a1)
 {
     if (self->m_spControllers != 0)
     {

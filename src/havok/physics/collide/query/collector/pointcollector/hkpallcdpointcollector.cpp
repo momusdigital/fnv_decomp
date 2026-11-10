@@ -14,7 +14,7 @@ struct FUN_006212c0_shell
 };
 void* __cdecl hkMemoryRouter_getInstance();
 void __cdecl ResizeAudioStream(void* manager, void* array, int itemSize);
-struct FUN_00caba90_Class
+struct hkpAllCdPointCollector
 {
     int unk00;
     int unk04;
@@ -24,7 +24,7 @@ struct FUN_00caba90_Class
     void* AppendItem(void* source);
 };
 // @fnv 0x00caba90
-void* FUN_00caba90_Class::AppendItem(void* source)
+void* hkpAllCdPointCollector::AppendItem(void* source)
 {
     FUN_00caba90_array* items = &array;
     void* manager = hkMemoryRouter_getInstance();

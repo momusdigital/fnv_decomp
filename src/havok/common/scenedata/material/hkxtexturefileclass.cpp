@@ -6,12 +6,12 @@ struct Part
     unsigned int unk00;
     void Object_UpdateFields_00cb0c00();
 };
-struct FUN_00e01870_Class;
+struct hkxTextureFile;
 struct RetPart
 {
     virtual void first();
     virtual void second();
-    virtual void Release(FUN_00e01870_Class* owner, unsigned int count);
+    virtual void Release(hkxTextureFile* owner, unsigned int count);
 };
 struct UnkRet
 {
@@ -21,7 +21,7 @@ struct UnkRet
     int unk0c;
     RetPart* part10;
 };
-struct FUN_00e01870_Class
+struct hkxTextureFile
 {
     void* vptr;
     unsigned short refCount;
@@ -29,13 +29,14 @@ struct FUN_00e01870_Class
     Part part08;
     Part part0c;
     Part part10;
-    FUN_00e01870_Class* FUN_00e01870(unsigned int);
+    hkxTextureFile* ScalarDeletingDestructor(unsigned int);
 };
 void* DAT_0102e388;
 UnkRet* hkMemoryRouter_getInstance();
 // Calls FUN_00cb0c00 on part10, part0c and part08, sets vptr to DAT_0102e388, and if flags bit 0 is set releases this with refCount via object->part10.
 // @fnv 0x00e01870
-FUN_00e01870_Class* FUN_00e01870_Class::FUN_00e01870(unsigned int flags)
+// src: EXE 0x00e01870
+hkxTextureFile* hkxTextureFile::ScalarDeletingDestructor(unsigned int flags)
 {
     part10.Object_UpdateFields_00cb0c00();
     part0c.Object_UpdateFields_00cb0c00();

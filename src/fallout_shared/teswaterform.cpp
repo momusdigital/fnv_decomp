@@ -114,12 +114,12 @@ void TESWaterForm::InitItem()
             while (node && (!radiation || !health))
             {
                 EffectItem* effect = node->GetItem();
-                if (effect->GetAffectedActorValue() == 54 && effect->GetEffectSetting()->IsFlagSet(4))
+                if (effect->GetActorValueIndex() == 54 && effect->GetEffectSetting()->IsFlagSet(4))
                 {
                     radiation = effect;
                     m_iRadiationMagnitude = radiation->GetMagnitude();
                 }
-                else if (effect->GetAffectedActorValue() == 16 && !effect->GetEffectSetting()->IsFlagSet(4))
+                else if (effect->GetActorValueIndex() == 16 && !effect->GetEffectSetting()->IsFlagSet(4))
                 {
                     health = effect;
                     m_iHealthMagnitude = health->GetMagnitude();
@@ -359,7 +359,7 @@ struct FUN_00485e00_shell
 void TESForm_AddChunkArray(unsigned int id, void* data, unsigned int size);
 void TESForm_AddChunk_3(unsigned int id, unsigned char value);
 void TESForm_AddChunk_00485910(unsigned int id, unsigned int value);
-void AppendChunk(unsigned int id, void* data, unsigned int size);
+void TESForm___AddChunkData(unsigned int id, void* data, unsigned int size);
 void TESForm_AddChunkArray_00485710(unsigned int id, unsigned int* data, unsigned int count);
 bool TESForm_QEndianSwapOnSave();
 
@@ -368,7 +368,7 @@ bool TESForm_QEndianSwapOnSave();
 void TESWaterForm::SaveWaterForm()
 {
     unsigned int auiFormIds[3];
-    TESForm::BeginFormRecord();
+    TESForm::TESForm_StartForm();
     TESFullName::Save_00487010();
     TESForm_AddChunkArray(0x4d414e4e, (void*)m_kNoiseMapTexture.GetTextureResourceName(),
                  m_kNoiseMapTexture.GetTextureNameLength() + 1);
@@ -388,7 +388,7 @@ void TESWaterForm::SaveWaterForm()
     ((FUN_00485e00_shell*)this)->TESForm_SaveData();
     if (TESForm_QEndianSwapOnSave())
         Data.Endian();
-    AppendChunk(0x4d414e44, &Data, 0xc4);
+    TESForm___AddChunkData(0x4d414e44, &Data, 0xc4);
     if (TESForm_QEndianSwapOnSave())
         Data.Endian();
     for (int i = 0; i < 3; i++)
@@ -399,7 +399,7 @@ void TESWaterForm::SaveWaterForm()
             auiFormIds[i] = 0;
     }
     TESForm_AddChunkArray_00485710(0x4d414e47, auiFormIds, 3);
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_CloseForm();
 }
 
 

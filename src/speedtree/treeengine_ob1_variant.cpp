@@ -1445,7 +1445,7 @@ struct FUN_00b09480 : S2bde0_ExBase
 struct S2bde0_Parser
 {
     float CTreeFileAccess_ParseFloat();
-    bool ProcessAndTransformResult_00b06180();
+    bool CTreeFileAccess_ParseBool();
     S2bde0_RStr CTreeFileAccess_ParseString();
 };
 struct S2bde0_Ctx
@@ -1563,7 +1563,7 @@ void CTreeEngine::ParseTreeInfo(ElementIterator* p)
             ((ElementIterator*)p)->GetNextElement();
             break;
         case 0x7d2:
-            ((S2bde0_Parser*)p)->ProcessAndTransformResult_00b06180();
+            ((S2bde0_Parser*)p)->CTreeFileAccess_ParseBool();
             break;
         case 0x7d6:
             (*(float*)&unk4c) = ((S2bde0_Parser*)p)->CTreeFileAccess_ParseFloat();

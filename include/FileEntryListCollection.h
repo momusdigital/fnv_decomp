@@ -13,6 +13,6 @@ public:
 
     ~FileEntryListCollection();
     FileEntryListCollection* ClearData(unsigned int flags);
-    void ClearAndDeleteArray();
-    void LoadFromTESFile(TESModelList* pOwner, TESFile* pFile);
+    void TESTextureListArray_ClearData();
+    void TESTextureListArray_Load(TESModelList* pOwner, TESFile* pFile);
 };

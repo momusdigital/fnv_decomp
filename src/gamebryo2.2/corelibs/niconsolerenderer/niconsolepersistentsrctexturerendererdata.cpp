@@ -305,14 +305,15 @@ int __thiscall FUN_00e90e40_Class::NiDX9RenderState_GetVertexShader()
 extern void __cdecl _delete(void* p, int size);
 extern void __cdecl FUN_00e8f840();
 
-struct FUN_00e8fc30_shell
+struct NiDX9IndexBufferManager
 {
-    void* FUN_00e8fc30(int arg);
+    void* ScalarDeletingDestructor(int arg);
 };
 
 // Calls FUN_00e8f840, deletes this with size 0x4c when arg has bit 0 set, and returns this.
 // @fnv 0x00e8fc30
-void* FUN_00e8fc30_shell::FUN_00e8fc30(int arg)
+// src: EXE 0x00e8fc30
+void* NiDX9IndexBufferManager::ScalarDeletingDestructor(int arg)
 {
     FUN_00e8f840();
     if (arg & 1)
@@ -982,14 +983,14 @@ void* NiPersistentSrcTextureRendererData_CreateObject_00e916d0()
 extern int DAT_010f099c;
 void __cdecl UpdateFields_00a98240();
 void __cdecl _delete(void*, int);
-struct FUN_00e91750_shell
+struct NiDX9PersistentSrcTextureRendererData
 {
     void* m_pvt;
     void* __thiscall FUN_00e91750(int flags);
 };
 // Sets m_pvt to DAT_010f099c, calls FUN_00a98240, and if flags has bit 1 set, deletes this with size 0x94; returns this.
 // @fnv 0x00e91750
-void* __thiscall FUN_00e91750_shell::FUN_00e91750(int flags)
+void* __thiscall NiDX9PersistentSrcTextureRendererData::FUN_00e91750(int flags)
 {
     m_pvt = &DAT_010f099c;
     UpdateFields_00a98240();
@@ -1883,19 +1884,19 @@ struct FUN_00e90ac0_Sub
     virtual void __stdcall Release();
 };
 
-struct FUN_00e90ac0_cls
+struct NiDX9TextureManager
 {
     int m_vptr;
     int unk04;
     FUN_00e90ac0_Sub* m_pSub;
     int unk0c;
 
-    FUN_00e90ac0_cls* FUN_00e90ac0(unsigned char acFlags);
+    NiDX9TextureManager* FUN_00e90ac0(unsigned char acFlags);
 };
 
 // Releases m_pSub, resets the vtable, decrements DAT_011f4400, and optionally frees this with FUN_00aa1460 when acFlags bit 0 is set.
 // @fnv 0x00e90ac0
-FUN_00e90ac0_cls* FUN_00e90ac0_cls::FUN_00e90ac0(unsigned char acFlags)
+NiDX9TextureManager* NiDX9TextureManager::FUN_00e90ac0(unsigned char acFlags)
 {
     FUN_00e90ac0_Sub* pSub = m_pSub;
     m_vptr = (int)&DAT_010f086c;

@@ -17,7 +17,7 @@ struct FUN_009ba5f0_shell
 {
     void SetChildObject(int);
 };
-struct FUN_00c89c80_obj
+struct bhkConstraint
 {
     void CopyFromSource(unsigned int uiMaxSize);
 };
@@ -152,14 +152,14 @@ struct SpawnedObject
     void Fill(void* item);
     void Attach(ItemList* list);
 };
-struct FUN_009a5a70_cls
+struct CombatThreatMap
 {
     void Dispatch(void* item, SpawnedObject* object);
     void CombatThreatMap_LoadGame(ItemList* list);
 };
 // @fnv 0x009a5a70
 // src: COMMUNITY 0x009a5a70
-void FUN_009a5a70_cls::CombatThreatMap_LoadGame(ItemList* list)
+void CombatThreatMap::CombatThreatMap_LoadGame(ItemList* list)
 {
     unsigned int count = list->GetCount();
     for (unsigned int index = 0; index < count; ++index)

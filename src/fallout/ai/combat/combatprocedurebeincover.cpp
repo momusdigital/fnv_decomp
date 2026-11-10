@@ -56,7 +56,8 @@ extern "C" float __cdecl RandomFloat(float, float);
 
 // Returns a random float between the two floats stored at offsets 0x20 and 0x24 of this object.
 // @fnv 0x009d32e0
-float __fastcall GetCoverWaitTime(TESCombatStyle* apStyle)
+// src: COMMUNITY 0x009d32e0
+float __fastcall TESCombatStyle_GetRandomCoverWaitTimer(TESCombatStyle* apStyle)
 {
     return RandomFloat(*(float*)&apStyle->m_kUnsignedIntArray16.data[2],
                        *(float*)&apStyle->m_kUnsignedIntArray16.data[3]);
@@ -114,7 +115,7 @@ void CombatProcedureBeInCover::UpdateCombatProcedure(Projectile* apProjectile)
     {
     case 1:
         ((FUN_008d7f40_shell*)&m_waitTimer)
-            ->FUN_008d7f40(GetCoverWaitTime((TESCombatStyle*)((FUN_00980070_shell*)(int)m_pCombatController)->GetCurrentCombatStyle()));
+            ->FUN_008d7f40(TESCombatStyle_GetRandomCoverWaitTimer((TESCombatStyle*)((FUN_00980070_shell*)(int)m_pCombatController)->GetCurrentCombatStyle()));
         break;
     case 2:
         ((CombatProcedureEngageTarget*)this)->CombatProcedure_GetAttacker()->StopMoving();
@@ -519,7 +520,7 @@ struct CoverActor
 
     void StopMoving();
     float Actor_GetSneakHeight(bool);
-    float GetActorHeight() const;
+    float Actor_GetHeight() const;
     void* GetWorld();
     void* GetContainingCell();
     void SetupPath(CoverRequest&, const CoverPoint&, void*, void*, float, int);
@@ -654,7 +655,7 @@ void CombatProcedureBeInCover::UpdateCoverState()
         ((CombatCoverPoint*)m_pCurrentCoverPoint)->occupied = false;
         ComputePositions((((CoverManager*)m_pCombatController)), ((CombatCoverPoint*)m_pCurrentCoverPoint), (*(CoverPoint*)m_afFirstVector), (*(CoverPoint*)m_afSecondVector));
         (*(CoverPoint*)_pad1) = (*(CoverPoint*)m_afSecondVector);
-        float height = (((CoverManager*)m_pCombatController))->CombatController_GetAttackerCanSneak() ? actor_->Actor_GetSneakHeight(false) : actor_->GetActorHeight();
+        float height = (((CoverManager*)m_pCombatController))->CombatController_GetAttackerCanSneak() ? actor_->Actor_GetSneakHeight(false) : actor_->Actor_GetHeight();
         (*(CoverPoint*)_pad1).z = height * 0.75 + (*(CoverPoint*)_pad1).z;
         CoverRequest request;
         actor_->SetupPath(request, (*(CoverPoint*)m_afFirstVector), actor_->GetContainingCell(), actor_->GetWorld(), 0.0f, 0);
@@ -769,7 +770,7 @@ void CombatProcedureBeInCover::UpdateCoverState()
             eState = COVER_STATE_WAITING_BEHIND_COVER;
             ((CoverProcedureCalls*)this)->ClearLook();
             ((CombatProcedureEngageTarget*)this)->SetMoveMode_00996e20(2);
-            (*(CoverClock*)&m_waitTimer).FUN_008d7f40(GetCoverWaitTime((((CoverManager*)m_pCombatController))->GetCurrentCombatStyle()));
+            (*(CoverClock*)&m_waitTimer).FUN_008d7f40(TESCombatStyle_GetRandomCoverWaitTimer((((CoverManager*)m_pCombatController))->GetCurrentCombatStyle()));
         }
         else
         {
@@ -795,7 +796,7 @@ void CombatProcedureBeInCover::UpdateCoverState()
         {
             eState = COVER_STATE_WAITING_BEHIND_COVER;
             ((CombatProcedureEngageTarget*)this)->SetMoveMode_00996e20(2);
-            (*(CoverClock*)&m_waitTimer).FUN_008d7f40(GetCoverWaitTime((((CoverManager*)m_pCombatController))->GetCurrentCombatStyle()));
+            (*(CoverClock*)&m_waitTimer).FUN_008d7f40(TESCombatStyle_GetRandomCoverWaitTimer((((CoverManager*)m_pCombatController))->GetCurrentCombatStyle()));
         }
         break;
     }

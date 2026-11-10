@@ -21,7 +21,8 @@ const void* __cdecl NiUVData_GetRTTI()
 void __cdecl _delete(void*, unsigned int);
 // Calls Destructor, then frees this with _delete when flags has bit 1 set, and returns this.
 // @fnv 0x00a45200
-void* NiUVData::FUN_00a45200(unsigned int flags)
+// src: EXE 0x00a45200
+void* NiUVData::ScalarDeletingDestructor(unsigned int flags)
 {
     Destructor();
     if (flags & 1)

@@ -47,7 +47,7 @@ public:
     FaceGenMatrix* AddMatrix(FaceGenMatrix* other);
     MxIter begin();
     MxIter end();
-    MxConstIter EvaluateValue_0065fd10() const;
-    MxConstIter ProcessAndReturnValue_0065fd40() const;
+    MxConstIter vector_begin() const;
+    MxConstIter vector_end() const;
 };
 typedef FaceGenMatrix<float> FaceGenCoord;

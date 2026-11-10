@@ -7,7 +7,7 @@
 
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
-struct FUN_00d87430_class
+struct hkStringMap
 {
     int* m_p;
     int m_kPointB;
@@ -16,7 +16,7 @@ struct FUN_00d87430_class
 };
 
 // @fnv 0x00d87430
-int FUN_00d87430_class::GetEntry(int idx)
+int hkStringMap::GetEntry(int idx)
 {
     return m_p[m_iThirdValue + idx + 1];
 }
@@ -130,12 +130,12 @@ struct FUN_00d87820_Class
     char* SetBoolFromThreshold(char* p, int value);
     int FindStringKey(int);
     void ProcessEntries_00d876a0(int);
-    int ProcessAndReturnValue_00d87820(int a);
+    int hkStringMap_remove(int a);
 };
 
 // @fnv 0x00d87820
-// src: GUESS 0x00d87820 (confidence: low)
-int FUN_00d87820_Class::ProcessAndReturnValue_00d87820(int a)
+// src: GUESS 0x00d87820 (confidence: medium)
+int FUN_00d87820_Class::hkStringMap_remove(int a)
 {
     int v = FindStringKey(a);
     char r;
@@ -158,7 +158,7 @@ extern int _DAT_0102e388;
 
 hkMemoryRouter* _D1A0E0GetMemoryRouter();
 
-struct FUN_00dc8080_class
+struct hkDataWorldDict
 {
     void* m_vptr;
     int m_iWordAt04;
@@ -168,7 +168,7 @@ struct FUN_00dc8080_class
 };
 
 // src: GUESS 0x00dc8080 (confidence: medium)
-void FUN_00dc8080_class::ReleaseStorage_00dc8080()
+void hkDataWorldDict::ReleaseStorage_00dc8080()
 {
     FUN_00dc7750_class* object = m_8;
     m_vptr = &DAT_010d7510;

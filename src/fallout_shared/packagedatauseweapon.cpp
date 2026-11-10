@@ -84,7 +84,7 @@ TESUseWeaponPackageData::~TESUseWeaponPackageData()
 
 struct FUN_0067fc50_impl
 {
-    void __thiscall ResolveObject(BGSLoadFormBuffer*);
+    void __thiscall PackageLocation_InitLoadGame(BGSLoadFormBuffer*);
 };
 
 // Resolves the optional target and location using the load game buffer.
@@ -94,7 +94,7 @@ void TESUseWeaponPackageData::LoadForm(BGSLoadFormBuffer* apLoadGameBuffer)
     if (m_pUseTarget)
         m_pUseTarget->InitLoadGame(apLoadGameBuffer);
     if (m_pTargetLocation)
-        ((FUN_0067fc50_impl*)m_pTargetLocation)->ResolveObject(apLoadGameBuffer);
+        ((FUN_0067fc50_impl*)m_pTargetLocation)->PackageLocation_InitLoadGame(apLoadGameBuffer);
 }
 
 // @fnv 0x0067da20
@@ -187,7 +187,7 @@ bool TESUseWeaponPackageData::Compare_0067cfc0(TESPackageData* apCompare)
 
 void* memset(void*, int, unsigned int);
 bool __cdecl TESForm_QEndianSwapOnSave();
-void __cdecl AppendChunk(unsigned int, void*, unsigned int);
+void __cdecl TESForm___AddChunkData(unsigned int, void*, unsigned int);
 
 struct PackageLocationSave
 {
@@ -237,7 +237,7 @@ void TESUseWeaponPackageData::Save_0067d350()
     if (TESForm_QEndianSwapOnSave())
         saveData.PACK_USE_WEAPON_DATA_PKW2_Endian();
 
-    AppendChunk(0x33574b50, &saveData, 0x18);
+    TESForm___AddChunkData(0x33574b50, &saveData, 0x18);
 
     if (TESForm_QEndianSwapOnSave())
         saveData.PACK_USE_WEAPON_DATA_PKW2_Endian();

@@ -298,7 +298,8 @@ template <class T> inline void SaveBinaryValue(NiStream& stream, const T& value)
 
 // Saves the base interpolator, default transform and control-point handles.
 // @fnv 0x00a503e0
-void __fastcall SaveBSplineTransform(NiBSplineTransformInterpolator* self, int, NiStream& stream)
+// src: EXE 0x00a503e0
+void __fastcall NiBSplineTransformInterpolator_SaveBinary(NiBSplineTransformInterpolator* self, int, NiStream& stream)
 {
     reinterpret_cast<BSplineInterpolatorCalls*>(self)->SaveBSplineFields(stream);
     self->m_kDefaultTransform.SaveBinary(&stream);

@@ -8,7 +8,7 @@ public:
     EnchantmentItem();
     virtual ~EnchantmentItem();
 
-    bool IsValidObject(TESForm* form);
+    bool IsValidEnchantForObject(TESForm* form);
     unsigned int GetEnchantmentType();
     void ResetFormData();
     bool FUN_004094f0(TESForm* owner);

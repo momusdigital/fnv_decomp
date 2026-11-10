@@ -21,7 +21,7 @@ struct P01ObjA
 };
 struct FUN_00881d10
 {
-    void SetHoursPassed();
+    void Actor_SetLastSeenTime();
 };
 struct FUN_00452440_shell
 {
@@ -57,7 +57,8 @@ extern BGSLoadedReferenceCollection* DAT_011c95c8;
 extern TESObjectREFR* g_thePlayer;
 
 // @fnv 0x005508b0
-void TESObjectCELL::RemoveNonPersistentRefs()
+// src: COMMUNITY 0x005508b0
+void TESObjectCELL::UnLoadAllTempData()
 {
     TESObjectLAND* pLand;
     {
@@ -92,7 +93,7 @@ void TESObjectCELL::RemoveNonPersistentRefs()
                     {
                         MobileObject* pActor = (MobileObject*)pRef;
                         if (pActor->GetCurrentProcessLevel() == 0)
-                            ((FUN_00881d10*)pActor)->SetHoursPassed();
+                            ((FUN_00881d10*)pActor)->Actor_SetLastSeenTime();
                     }
                     g_TESSaveLoadGame->FUN_008d0370(pRef);
                     g_BGSSaveLoadGame->FUN_00849730(pRef, 0);

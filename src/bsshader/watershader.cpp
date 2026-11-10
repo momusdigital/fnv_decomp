@@ -112,7 +112,7 @@ BSShader* WaterShader::CreateShader()
     shader->InitializeShaderData();
     shader->InitWaterPasses();
     shader->InitShaderConstants();
-    shader->UseShaderDeclaration(declaration);
+    shader->NiD3DShader_SetShaderDecl(declaration);
     m_uiMemoryContext.Restore(threadState);
     return shader;
 }
@@ -961,17 +961,17 @@ void WaterShaderLoader::WaterShader_LoadShaders()
 
     WaterShaderScratch scratch;
     InitWaterVertexBase(scratch.kVertexDelta);
-    GetShaderPath(scratch.kVertexDelta.pcFile, scratch.acFile);
+    MakePath(scratch.kVertexDelta.pcFile, scratch.acFile);
     sprintf_s(scratch.acName, 0x104, "WATER000.vso");
     m_spVertexShader1 = CompileVertexShader(scratch.acFile, scratch.kVertexDelta.kMacros, "vs_1_1", scratch.acName);
 
     InitWaterVertexVariant(scratch.kVertexVc, "VERTEX_COLORS");
-    GetShaderPath(scratch.kVertexVc.pcFile, scratch.acFile);
+    MakePath(scratch.kVertexVc.pcFile, scratch.acFile);
     sprintf_s(scratch.acName, 0x104, "WATER001.vso");
     m_spVertexShader2 = CompileVertexShader(scratch.acFile, scratch.kVertexVc.kMacros, "vs_1_1", scratch.acName);
 
     InitWaterVertexVariant(scratch.kVertexLighting, "LIGHTING");
-    GetShaderPath(scratch.kVertexLighting.pcFile, scratch.acFile);
+    MakePath(scratch.kVertexLighting.pcFile, scratch.acFile);
     sprintf_s(scratch.acName, 0x104, "WATER002.vso");
     m_spVertexShader3 = CompileVertexShader(scratch.acFile, scratch.kVertexLighting.kMacros, "vs_1_1", scratch.acName);
 
@@ -1044,7 +1044,7 @@ void WaterShaderLoader::WaterShader_LoadShaders()
     {
         if (kPixel[i].pcFile)
         {
-            GetShaderPath(kPixel[i].pcFile, scratch.acFile);
+            MakePath(kPixel[i].pcFile, scratch.acFile);
             sprintf_s(scratch.acName, 0x104, "WATER%03i.pso", i);
             m_aspPixelShaders[i] = CompilePixelShader(scratch.acFile, kPixel[i].kMacros, pcProfile, scratch.acName);
         }

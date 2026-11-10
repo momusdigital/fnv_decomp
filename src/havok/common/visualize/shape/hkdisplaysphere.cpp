@@ -63,17 +63,18 @@ struct __declspec(align(16)) ShapeBase : hkReferencedObject
     }
 };
 
-struct __declspec(align(16)) FUN_00e0af50 : ShapeBase
+struct __declspec(align(16)) hkDisplaySphere : ShapeBase
 {
     hkVector4 m_vec;
     int m_kPointA;
     int m_kPointB;
 
-    FUN_00e0af50(const hkVector4& v, int a, int b);
+    hkDisplaySphere(const hkVector4& v, int a, int b);
 };
 
 // @fnv 0x00e0af50
-FUN_00e0af50::FUN_00e0af50(const hkVector4& aVec, int a, int b)
+// src: EXE 0x00e0af50
+hkDisplaySphere::hkDisplaySphere(const hkVector4& aVec, int a, int b)
 {
     m_vec.m_vComponents.m128_i32[0] = aVec.m_vComponents.m128_i32[0];
     m_vec.m_vComponents.m128_i32[1] = aVec.m_vComponents.m128_i32[1];

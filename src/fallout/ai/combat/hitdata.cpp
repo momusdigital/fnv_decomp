@@ -18,13 +18,13 @@ float FUN_009b7040_shell::GetField168()
     return *(float*)((char*)this + 0x168);
 }
 
-struct FUN_009b73b0_shell
+struct CombatState
 {
     char GetByteAtOffset() const;
 };
 
 // @fnv 0x009b73b0
-char FUN_009b73b0_shell::GetByteAtOffset() const
+char CombatState::GetByteAtOffset() const
 {
     return *(char*)((char*)this + 0x1c8);
 }
@@ -194,13 +194,13 @@ void WeightedResultList::BSWeightedRandom_BGSBodyPart_AddWeightedResult(BGSBodyP
 }
 
 extern "C" void __cdecl Deallocate(void*);
-struct FUN_009ca4c0_shell
+struct VATS_COMMAND
 {
     void FreeStoredPointer();
 };
 // If the pointer at offset 0x14 is set, deallocates it and clears that field.
 // @fnv 0x009ca4c0
-void FUN_009ca4c0_shell::FreeStoredPointer()
+void VATS_COMMAND::FreeStoredPointer()
 {
     if (*(void**)((char*)this + 0x14))
     {
@@ -378,11 +378,12 @@ struct FUN_009b7060_shell
     int iValue;
     bool EffectSetting_IsFlagSetAny(int aeFlag);
     void FUN_00407e00(int aeFlag, bool abSet);
-    void ApplyCriticalHit();
+    void HitData_CheckCriticalStrike();
 };
 
 // @fnv 0x009b7060
-void FUN_009b7060_shell::ApplyCriticalHit()
+// src: COMMUNITY 0x009b7060
+void FUN_009b7060_shell::HitData_CheckCriticalStrike()
 {
     if (pTarget && reinterpret_cast<MagicTarget*>((char*)pTarget + 0x94)->CanReceiveMagicEffects())
         return;

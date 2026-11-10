@@ -36,7 +36,7 @@ typedef union __declspec(intrin_type) __declspec(align(16)) {
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
 void CreateObjectFromFactory();
-void Object_CollectPenetratingBodyPair();
+void hkpCapsuleTriangleAgent_staticGetPenetrations();
 void staticGetClosestPoints();
 void Object_ProcessEntries_00daf8e0();
 
@@ -46,7 +46,7 @@ void Object_ProcessEntries_00daf8e0();
 void Object_InitializeAgentFunctionTable_00d3ab60(void* apObject)
 {
     *(void**)apObject = (void*)&CreateObjectFromFactory;
-    *(void**)((char*)apObject + 4) = (void*)&Object_CollectPenetratingBodyPair;
+    *(void**)((char*)apObject + 4) = (void*)&hkpCapsuleTriangleAgent_staticGetPenetrations;
     *(void**)((char*)apObject + 8) = (void*)&staticGetClosestPoints;
     *(void**)((char*)apObject + 12) = (void*)&Object_ProcessEntries_00daf8e0;
     *(char*)((char*)apObject + 16) = 0;
@@ -76,7 +76,7 @@ void __cdecl hkpMultiSphereTriangleAgent_UpdateState_00d38ed0();
 void __cdecl Object_UpdateFields_00d3ac80();
 void __cdecl CreateTriAgent();
 void __cdecl hkpMultiSphereTriangleAgent_staticGetPenetrations();
-void __cdecl Object_ProcessEntries_00d386c0();
+void __cdecl hkpMultiSphereTriangleAgent_staticGetClosestPoints();
 void __cdecl Object_ProcessEntries_00daf8e0();
 
 typedef void (__cdecl *S_00d389f0_Func)();
@@ -115,7 +115,7 @@ void __cdecl hkpMultiSphereTriangleAgent_staticGetPenetrations_UpdateState_00d38
         S_00d389f0_AgentFuncs agentFuncs;
         agentFuncs.m_pCreateFunc = CreateTriAgent;
         agentFuncs.m_pQueryPenetrationsFunc = hkpMultiSphereTriangleAgent_staticGetPenetrations;
-        agentFuncs.m_getClosestPointsFunc = Object_ProcessEntries_00d386c0;
+        agentFuncs.m_getClosestPointsFunc = hkpMultiSphereTriangleAgent_staticGetClosestPoints;
         agentFuncs.m_pLinearCastFunc = Object_ProcessEntries_00daf8e0;
         agentFuncs.m_bIsFlipped = false;
         agentFuncs.m_bIsPredictive = false;
@@ -822,7 +822,7 @@ void __cdecl Object_UpdateFields_00d3b1a0(int param1, int param2, int param3, in
     state.m_bZero = 0;
     state.m_pIntegerValue = &DAT_010ce81c;
 
-    Call_d3a8c0 call = (Call_d3a8c0)Object_CollectPenetratingBodyPair;
+    Call_d3a8c0 call = (Call_d3a8c0)hkpCapsuleTriangleAgent_staticGetPenetrations;
     call(param2, param1, param3, &state);
 }
 }  // namespace fnv_00d3b1a0
@@ -1018,8 +1018,8 @@ static __forceinline void mytransform2(Vec4::Aligned* out, const Shape* shape, i
 }
 // Transforms two body shapes, tests for penetration, and adds the pair to the collector if the result normals indicate overlap.
 // @fnv 0x00d3a8c0
-// src: GUESS 0x00d3a8c0 (confidence: medium)
-void __cdecl Object_CollectPenetratingBodyPair(Body* apBodyA, Body* apBodyB, Input* input, PenetrationCollector* collector)
+// src: COMMUNITY 0x00d3a8c0
+void __cdecl hkpCapsuleTriangleAgent_staticGetPenetrations(Body* apBodyA, Body* apBodyB, Input* input, PenetrationCollector* collector)
 {
     TimerPair* state = (TimerPair*)TlsGetValue(DAT_0126835c);
     Timer* timer = state->current;

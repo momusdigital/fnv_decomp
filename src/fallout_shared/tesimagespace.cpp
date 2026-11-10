@@ -70,17 +70,17 @@ TESImageSpace::~TESImageSpace()
 }
 
 bool __cdecl TESForm_QEndianSwapOnSave();
-void __cdecl AppendChunk(unsigned int, char*, unsigned int);
+void __cdecl TESForm___AddChunkData(unsigned int, char*, unsigned int);
 // @fnv 0x0052b630
 void TESImageSpace::Save()
 {
-    BeginFormRecord();
+    TESForm_StartForm();
     if (TESForm_QEndianSwapOnSave())
         Data.Endian();
-    AppendChunk(0x4d414e44, (char*)&Data, sizeof(Data));
+    TESForm___AddChunkData(0x4d414e44, (char*)&Data, sizeof(Data));
     if (TESForm_QEndianSwapOnSave())
         Data.Endian();
-    FinishFormRecord();
+    TESForm_CloseForm();
 }
 
 // @fnv 0x0052b700

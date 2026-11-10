@@ -18,7 +18,7 @@ struct S00b408b0_Reader
     int GetNextElement();
     S00b408b0_Vec* GetVector3(S00b408b0_Vec* out);
     float CTreeFileAccess_ParseFloat();
-    void ProcessAndTransformResult_00b06180();
+    void CTreeFileAccess_ParseBool();
 };
 
 struct S00b408b0_Str
@@ -171,7 +171,7 @@ void S00b408b0_Obj::SIdvWindInfo_Parse(S00b408b0_Reader* r)
             scale = r->CTreeFileAccess_ParseFloat();
             break;
         case 5006:
-            r->ProcessAndTransformResult_00b06180();
+            r->CTreeFileAccess_ParseBool();
             break;
         default: {
             S00b408b0_Str msg("malformed general wind information");

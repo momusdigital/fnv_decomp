@@ -90,7 +90,7 @@ struct SubObj
     void CallSub(Block64* p);
 };
 
-__declspec(align(16)) struct FUN_00cf5950_cls
+__declspec(align(16)) struct hkpTransformShape
 {
     unsigned int unk00;
     unsigned int unk04;
@@ -108,7 +108,7 @@ __declspec(align(16)) struct FUN_00cf5950_cls
 
 // Copies the four 128-bit vectors from src into m_block, then calls m_sub.CallSub on the copied block.
 // @fnv 0x00cf5950
-void FUN_00cf5950_cls::CopyBlock(Block64* src)
+void hkpTransformShape::CopyBlock(Block64* src)
 {
     Block64* dst = &m_block;
     dst->v0 = src->v0;

@@ -26,7 +26,8 @@ WeatherEntry::WeatherEntry()
 
 // Reads weather entries from the file chunk, resolves each weather and global form, adds them to the list, sorts it, and warns on failures.
 // @fnv 0x00582940
-void TESWeatherList::LoadWeatherEntries(TESWeatherList* list, TESFile* file, TESForm* form)
+// src: COMMUNITY 0x00582940
+void TESWeatherList::LoadWeatherListChunk(TESWeatherList* list, TESFile* file, TESForm* form)
 {
     if (!file || !list || !form)
         return;
@@ -287,18 +288,19 @@ class SrcRecord_b6402
     SrcListItem_b6402 m_08;
 };
 
-class FUN_004f5140 : public SrcListBase_b6402
+class TESRegionDataWeather : public SrcListBase_b6402
 {
   public:
-    virtual ~FUN_004f5140();
+    virtual ~TESRegionDataWeather();
     SrcListItem_b6402 m_08;
 
-    FUN_004f5140(SrcRecord_b6402* aSrc);
+    TESRegionDataWeather(SrcRecord_b6402* aSrc);
 };
 
 // Constructs a list copy from a source record, copying its item list without appending.
 // @fnv 0x004f5140
-FUN_004f5140::FUN_004f5140(SrcRecord_b6402* aSrc) : SrcListBase_b6402(aSrc)
+// src: EXE 0x004f5140
+TESRegionDataWeather::TESRegionDataWeather(SrcRecord_b6402* aSrc) : SrcListBase_b6402(aSrc)
 {
     m_08.CopyFrom(&aSrc->m_08, false);
 }
@@ -318,12 +320,13 @@ void __cdecl WriteWeatherData(void* apDest, void* apData, unsigned int auiSize);
 struct FUN_00582380_shell : public TESWeatherList
 {
     int GetSize();
-    void WriteWeatherList(void* apDest);
+    void TESWeatherList_Save(void* apDest);
 };
 
 // Builds a WeatherSaveEntry array from the list's weather entries, endian-swaps if needed, writes it to apDest, then swaps back and frees it.
 // @fnv 0x00582380
-void FUN_00582380_shell::WriteWeatherList(void* apDest)
+// src: COMMUNITY 0x00582380
+void FUN_00582380_shell::TESWeatherList_Save(void* apDest)
 {
     unsigned int ItemUpdateArray = GetSize();
     if (ItemUpdateArray > 0)

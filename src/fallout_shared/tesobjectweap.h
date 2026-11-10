@@ -15,7 +15,7 @@ float TESObjectWEAP::GetWeightForForm(bool modded)
     if (modded)
     {
         return TESWeightForm::GetWeightForForm() -
-               GetModdedWeaponValue(WEAPON_MOD_EFFECT_WEAPON_MOD_DECREASE_WEIGHT, 0);
+               GetModEffectValue(WEAPON_MOD_EFFECT_WEAPON_MOD_DECREASE_WEIGHT, 0);
     }
     else
     {

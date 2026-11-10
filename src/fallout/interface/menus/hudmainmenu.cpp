@@ -109,7 +109,7 @@ void FUN_007700d0_cls::set(bool abValue)
 
 struct FUN_00771540_shell : public HUDMainMenu
 {
-    void UpdateActorValueMeter(int);
+    void HUDMainMenu_UpdateActorValue(int);
 };
 
 extern PlayerCharacter* pPlayer;
@@ -120,7 +120,8 @@ float __cdecl BSMIN(float, float);
 void __cdecl UpdateMeterTile(Tile*, float, int, int, int);
 
 // @fnv 0x00771540
-void FUN_00771540_shell::UpdateActorValueMeter(int aeActorValue)
+// src: COMMUNITY 0x00771540
+void FUN_00771540_shell::HUDMainMenu_UpdateActorValue(int aeActorValue)
 {
     switch (aeActorValue)
     {
@@ -549,7 +550,7 @@ float __cdecl ComputeObjectAngleDelta(NiPoint3 apObjectLoc, NiPoint3 apPlayerLoc
     NiPoint3 movedir = ((NiPoint3&)apObjectLoc).operator-(apPlayerLoc);
     float ftargetangle = GetAngleFromVector(movedir);
     fangledelta = 0.0f;
-    fangledelta = ftargetangle - ((MobileObject*)pPlayer)->GetCurrentTargetDistance(false);
+    fangledelta = ftargetangle - ((MobileObject*)pPlayer)->GetHeading(false);
     if (fangledelta <= DAT_0101ff58)
     {
         fangledelta += 6.2831854820251465;
@@ -602,7 +603,7 @@ void __cdecl HUDMainMenu_ShowQuestObjective(const char* apObjectiveName, bool ab
         pObjective->m_bDisplayed = abReminder;
         ((BSSimpleList<const char*>*)&HUDMainMenu_pme_access::g_pHudMainMenuInstance->m_kQuestObjectives)
             ->AddHead((const char*&)pObjective);
-        g_011d9730.WaitForTasksDuringRendering();
+        g_011d9730.BSCriticalSection_Leave();
     }
 }
 
@@ -879,7 +880,7 @@ struct HUDAudio : public BSAudio
 };
 
 // The shared HUDMainMenu lacks this operation; floating arguments stay on the stack.
-void __fastcall UpdateHUDRadiation(HUDMainMenu* menu, float afDrinkinRads, float afStandinRads);
+void __fastcall HUDMainMenu_UpdateRadiationMeterConditions(HUDMainMenu* menu, float afDrinkinRads, float afStandinRads);
 extern HUDMainMenu* g_pHudMainMenuInstance;
 extern double _gModifierZero;
 
@@ -897,7 +898,7 @@ void __cdecl UpdateRadiationHUD(float afDrinkinRads, float afStandinRads)
                     ((HUDAudio*)BSAudio::GetSingleton())->GetSoundHandleByEditorID("UIPipBoyRadiationTestLP", 0x11);
                 g_pHudMainMenuInstance->m_kTargetDisplayData.Play(false);
             }
-            UpdateHUDRadiation(g_pHudMainMenuInstance, afDrinkinRads, afStandinRads);
+            HUDMainMenu_UpdateRadiationMeterConditions(g_pHudMainMenuInstance, afDrinkinRads, afStandinRads);
         }
         else if (g_pHudMainMenuInstance->m_kTargetDisplayData.IsValid())
         {
@@ -1161,14 +1162,14 @@ struct FUN_00aa4ee0_shell : public GameTimerRecord
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds);
 extern double _gModifierZero;
 extern float DAT_011ac3a0;
-struct FUN_00aa4ee0_t : public GameTimerRecord
+struct BSTimer : public GameTimerRecord
 {
     void BSTimer_Update(unsigned int aiTime);
 };
 
 // @fnv 0x00aa4ee0
 // src: XBOX_PDB 0x00aa4ee0
-void FUN_00aa4ee0_t::BSTimer_Update(unsigned int aiTime)
+void BSTimer::BSTimer_Update(unsigned int aiTime)
 {
     unsigned int iscaleTime = aiTime - m_uiSecondTimerValue;
     if ((bool)(m_ucFirstTimerByte ? 0 : 1))
@@ -1416,7 +1417,7 @@ float TESObjectWEAP::GetAmmoRegenRate(bool bModValue)
 {
     if (bModValue)
     {
-        return GetModdedWeaponValue((WEAPON_MOD_EFFECT)6, 0) + data.FlaggedFloatData;
+        return GetModEffectValue((WEAPON_MOD_EFFECT)6, 0) + data.FlaggedFloatData;
     }
     else
     {
@@ -2238,7 +2239,7 @@ bool UpdateActivatePrompt(RefX* apRef, int aiUnused, bool abForce)
     {
         xpHUD->m_pTiles[34]->Set(0xfa9, 0);
     }
-    qYvToq = xpPlayer->GetCurrentTargetDistance(false) * 57.2957763671875;
+    qYvToq = xpPlayer->GetHeading(false) * 57.2957763671875;
     qZWI = 0.0f;
     if (xpHUD->m_pTargetActor)
         qZWI = xGetDistance(*(NiPoint3*)((const TESObjectREFR*)xpPlayer)->GetPos(), *(NiPoint3*)((const TESObjectREFR*)xpHUD->m_pTargetActor)->GetPos());
@@ -3288,7 +3289,7 @@ struct HUDActor : RefX
 struct HUDTile : Tile
 {
     bool Tile_GetFadeFinished(int);
-    bool IsTraitNonZero(int);
+    bool Tile_IsTrue(int);
     void StartFade(int, float, float, float, int);
     void FUN_00715c60(int, unsigned);
 };
@@ -3595,10 +3596,10 @@ struct HUDUpdate : HUDMainMenu
     void UpdateAmmoHUD();
     void UpdateCompassMarkers();
     void FUN_0077f700();
-    void UpdateActorValueMeter(int);
+    void HUDMainMenu_UpdateActorValue(int);
     void HUDMainMenu_UpdateBreathMeter();
     void HUDMainMenu_UpdateSneak();
-    void UpdateQuestNotification();
+    void HUDMainMenu_UpdateQuestText();
     void HUDMainMenu_UpdateXPMeter();
     void UpdateRadMeter();
     void UpdateCrippleMeters(bool);
@@ -3650,8 +3651,8 @@ void HUDUpdate::HUDMainMenu_DoIdle()
         ->Set(4002, f - 2 * p - ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[59])->GetFloat(4016), true);
     ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[60])->Tile_SetChangeFlag(1);
     ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[59])->Tile_SetChangeFlag(1);
-    UpdateActorValueMeter(16);
-    UpdateActorValueMeter(12);
+    HUDMainMenu_UpdateActorValue(16);
+    HUDMainMenu_UpdateActorValue(12);
     HUDMainMenu_UpdateBreathMeter();
     ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[86])->Set(4009, DAT_011d979c, true);
     ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[78])->Set(4009, DAT_011d979c, true);
@@ -3670,7 +3671,7 @@ void HUDUpdate::HUDMainMenu_DoIdle()
         DAT_011f6394.GetTimeStamp() - ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[16])->GetFloat(4100) > DAT_01073480)
         ((HUDTile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[16])
             ->StartFade(4009, *DAT_011d9774.Setting_Float_00403e20() * DAT_0101e568, 0.0f, DAT_010162c0, 0);
-    if (((HUDTile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[15])->IsTraitNonZero(xTraitID(DAT_01073474)) &&
+    if (((HUDTile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[15])->Tile_IsTrue(xTraitID(DAT_01073474)) &&
         ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[64])->GetFloat(4003) != 0.0 &&
         ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[16])->GetFloat(4009) == 0.0 &&
         ((HUDTile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[16])->Tile_GetFadeFinished(4009))
@@ -3687,7 +3688,7 @@ void HUDUpdate::HUDMainMenu_DoIdle()
         ((HUDTile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[24])
             ->StartFade(4009, ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[24])->GetFloat(4009), 0.0f, DAT_01016248, 0);
     if (HUDMainMenu::g_pHudMainMenuInstance->m_eHudMenuMode != 18 && HUDMainMenu::g_pHudMainMenuInstance->m_eHudMenuMode != 19)
-        UpdateQuestNotification();
+        HUDMainMenu_UpdateQuestText();
     HUDMainMenu_UpdateXPMeter();
     UpdateRadMeter();
     UpdateCrippleMeters(((HUDActor*)DAT_011dea3c)->PlayerCharacter_IsHardcore());
@@ -3707,7 +3708,7 @@ void HUDUpdate::HUDMainMenu_DoIdle()
         }
     }
     bool a = false;
-    float eb = ((HUDActor*)DAT_011dea3c)->GetCurrentTargetDistance(false) * DAT_0102f248;
+    float eb = ((HUDActor*)DAT_011dea3c)->GetHeading(false) * DAT_0102f248;
     float s = 0.0f;
     if (m_pTargetActor)
         s = GetAngleBetweenPoints(*(NiPoint3*)((const TESObjectREFR*)((HUDActor*)DAT_011dea3c))->GetPos(),
@@ -3727,8 +3728,8 @@ void HUDUpdate::HUDMainMenu_DoIdle()
     }
     else if (m_pTargetActor && !((HUDActor*)m_pTargetActor)->HasHealth(false) &&
              !((HUDActor*)m_pTargetActor)->FUN_00477ba0() && DAT_011d96c5 &&
-             !((HUDTile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[29])->IsTraitNonZero(4003) &&
-             !((HUDTile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[32])->IsTraitNonZero(4003) &&
+             !((HUDTile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[29])->Tile_IsTrue(4003) &&
+             !((HUDTile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[32])->Tile_IsTrue(4003) &&
              ((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[62])->GetFloat(4084) == 2.0 && i)
     {
         a = true;
@@ -3812,7 +3813,7 @@ void HUDUpdate::HUDMainMenu_DoIdle()
             }
         }
         if (((HUDMessageList*)&m_kMessageList)->FUN_005ae380() &&
-            ((HUDTile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[67])->IsTraitNonZero(4003))
+            ((HUDTile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[67])->Tile_IsTrue(4003))
         {
             if (((Tile*)HUDMainMenu::g_pHudMainMenuInstance->m_pTiles[27])->GetFloat(4009) == 0.0)
             {
@@ -3945,7 +3946,7 @@ struct HealthActor : RefX
 };
 struct FUN_00a01230_shell : Tile
 {
-    bool IsTraitNonZero(int trait);
+    bool Tile_IsTrue(int trait);
 };
 struct FUN_00a07530_shell : Tile
 {
@@ -3985,7 +3986,7 @@ void __cdecl UpdateTargetHealthHUD(HealthActor* target, unsigned char enabled)
                 }
                 bool show = actor && !isDead && !actor->HasHealth(false) &&
                             ((ActorValueOwner*)((char*)actor + 0xa4))->GetActorValue((ActorValue::Index)16) < ((ActorValueOwner*)((char*)actor + 0xa4))->GetBaseActorValue((ActorValue::Index)16) &&
-                            !((FUN_00a01230_shell*)HUDMainMenu_pme->m_pTiles[32])->IsTraitNonZero(4003);
+                            !((FUN_00a01230_shell*)HUDMainMenu_pme->m_pTiles[32])->Tile_IsTrue(4003);
                 if (show)
                 {
                     HUDMainMenu_SetEnemyActor(actor);
@@ -4282,7 +4283,8 @@ struct RandomGenerator
 extern RandomGenerator g_011f6394;
 extern const double DAT_01073490;
 // @fnv 0x007737c0
-void __fastcall UpdateHUDRadiation(HUDMainMenu* menu, float afDrinkinRads, float afStandinRads)
+// src: COMMUNITY 0x007737c0
+void __fastcall HUDMainMenu_UpdateRadiationMeterConditions(HUDMainMenu* menu, float afDrinkinRads, float afStandinRads)
 {
     float totalRads = afDrinkinRads + afStandinRads;
     if (afDrinkinRads > _gModifierZero)
@@ -4395,7 +4397,7 @@ struct RadTile
 {
     float FUN_00a011b0(int);
     bool Tile_GetFadeFinished(int);
-    bool IsTraitNonZero(int);
+    bool Tile_IsTrue(int);
     void StartFade(int, float, float, float, int);
     void Tile_Set(int, float, bool);
     void Set(int, int);
@@ -4456,7 +4458,7 @@ void RadHUD::UpdateRadMeter()
     {
         float change = 0.0f;
         currentAngle = 0.0f;
-        showing = ((RadTile*)HUDMainMenu_pme->m_pTiles[19])->IsTraitNonZero(0x100b) || recent;
+        showing = ((RadTile*)HUDMainMenu_pme->m_pTiles[19])->Tile_IsTrue(0x100b) || recent;
         if (low || recent || previousAngle)
         {
             float value = (float)((ActorValueOwner*)((char*)DAT_011dea3c + 0xa4))->GetActorValue((ActorValue::Index)54);
@@ -5102,7 +5104,7 @@ struct QObjectives
 };
 struct QHud : HUDMainMenu
 {
-    void UpdateQuestNotification();
+    void HUDMainMenu_UpdateQuestText();
     bool HUDMainMenu_IsQuestNameShowing();
     bool HUDMainMenu_AreObjectivesShowing();
     void UpdateTileAnimations(Tile*);
@@ -5111,7 +5113,8 @@ struct QHud : HUDMainMenu
 };
 // Shows the pending quest-notification entry: picks its sound, sets title/text tiles, lays out characters, then clears the entry and refreshes the HUD tiles.
 // @fnv 0x0077a650
-void QHud::UpdateQuestNotification()
+// src: COMMUNITY 0x0077a650
+void QHud::HUDMainMenu_UpdateQuestText()
 {
     int aProcess;
     char aPoint4[260];
@@ -6366,7 +6369,7 @@ struct xTile
     void Tile_Set(int, float, bool);
     void Tile_Set_00a01350(int, const char*, bool);
     void FUN_00700320(int, int);
-    bool IsTraitNonZero(int);
+    bool Tile_IsTrue(int);
     void FUN_00707e10(const char*);
     const char* Tile_GetString(int);
     void StartFade(int, float, float, float, int);
@@ -6472,7 +6475,7 @@ void xQuestMenu::UpdateQuestMenu(xHolder* HOLDER)
             bool qHVMR = !HUDMainMenu_AreObjectivesShowing();
             bool qxWmVch =
                 qHVMR ? false
-                      : xg_pme_11d96c0->m_5c->m_iWordAt04.NiTPointerListBase_NiTPointerAllocator_unsigned_int_Tile_GetHead()->IsTraitNonZero(xFa01860(s_szIsReminder));
+                      : xg_pme_11d96c0->m_5c->m_iWordAt04.NiTPointerListBase_NiTPointerAllocator_unsigned_int_Tile_GetHead()->Tile_IsTrue(xFa01860(s_szIsReminder));
             bool qJDuOZ = (*qArxcFu->FUN_006815c0())->m_105;
             if (!qHVMR && qxWmVch && !qJDuOZ)
             {
@@ -6533,7 +6536,7 @@ void xQuestMenu::UpdateQuestMenu(xHolder* HOLDER)
             qpia++;
             xTile* qXMUYT = HOLDER->m_iWordAt04.NiTPointerListBase_NiTPointerAllocator_unsigned_int_Tile_GetNext(qQGWBE);
             xTile* qIpA = HOLDER->m_iWordAt04.NiTPointerListBase_NiTPointerAllocator_unsigned_int_Tile_GetNext(qZWI);
-            if (qXMUYT && qXMUYT->IsTraitNonZero(0xfa3))
+            if (qXMUYT && qXMUYT->Tile_IsTrue(0xfa3))
             {
                 qXMUYT->FUN_00700320(0xfa2, qkJsUdT);
                 qIpA->FUN_00700320(0xfa2, qkJsUdT + 3);
@@ -6565,7 +6568,7 @@ void xQuestMenu::UpdateQuestMenu(xHolder* HOLDER)
         qvyWyw++;
         xTile* qbfQdhM = HOLDER->m_iWordAt04.NiTPointerListBase_NiTPointerAllocator_unsigned_int_Tile_GetNext(qSVM);
         xTile* qidnYUK = HOLDER->m_iWordAt04.NiTPointerListBase_NiTPointerAllocator_unsigned_int_Tile_GetNext(qdqWL);
-        if (qbfQdhM->IsTraitNonZero(0xfa3))
+        if (qbfQdhM->Tile_IsTrue(0xfa3))
         {
             if (qpTd > 0 && qpqRa[qpTd] == qsSDDgz[qpTd - 1])
                 break;
@@ -6698,7 +6701,7 @@ struct AmmoWeapon
     unsigned unka0;
     AmmoFlags flags;
     int FUN_00446390();
-    unsigned char GetByteAt102();
+    unsigned char TESObjectWEAP_GetAmmoPerShot();
     float GetAmmoRegenRate(bool);
     int GetFlaggedValue(bool);
     TESBoundObject* TESObjectWEAP_GetCurrentAmmo(AmmoPlayer*);
@@ -6869,7 +6872,7 @@ void AmmoHUD::UpdateAmmoHUD()
             case 11:
             case 12:
             case 13:
-                current4 = weapon5->GetByteAt102();
+                current4 = weapon5->TESObjectWEAP_GetAmmoPerShot();
                 total2 =
                     AmmoGetInventory(ammoPlayer)->FUN_004c8f30(reinterpret_cast<TESBoundObject*>(weapon5)) - current4;
                 break;
@@ -8175,7 +8178,7 @@ struct HotkeyItem
 
 struct HotkeyList
 {
-    HotkeyItem* FindEntryWithExtraListType(int aiIndex);
+    HotkeyItem* InventoryChanges_GetHotkeyItem(int aiIndex);
 };
 
 struct HUDPlayer
@@ -8410,7 +8413,7 @@ void HUDHotkeys::ClearHUDOrphanedTiles()
                     if (((HotkeyWheel*)&m_kMenuData)->FUN_00701740() && iSelected != DAT_011a0124)
                     {
                         HotkeyList* pListOld = FUN_004bf220(DAT_011dea3c);
-                        HotkeyItem* pFinalItem = pListOld ? pListOld->FindEntryWithExtraListType(iSelected) : 0;
+                        HotkeyItem* pFinalItem = pListOld ? pListOld->InventoryChanges_GetHotkeyItem(iSelected) : 0;
                         bool bHasIcon = false;
                         const char* pIcon = 0;
                         char acNameVal[260];
@@ -8471,7 +8474,7 @@ void HUDHotkeys::ClearHUDOrphanedTiles()
                     bool bIconTmp = false;
                     DAT_011d9e8c = DAT_011f6394.FUN_00825c00();
                     ((HotkeyWheel*)&m_kMenuData)->HotKeysWheel_MoveHighlight(i);
-                    pEntry = pHotkeys ? pHotkeys->FindEntryWithExtraListType(i) : 0;
+                    pEntry = pHotkeys ? pHotkeys->InventoryChanges_GetHotkeyItem(i) : 0;
                     const char* pIconPathOld = 0;
                     char acLabel[260];
                     if (pEntry)
@@ -8549,7 +8552,7 @@ class Tile_traitSetter
 };
 
 // The shared HUDMainMenu lacks this operation; its receiver is the only register argument.
-void __fastcall ClearHUDMessages(HUDMainMenu* menu);
+void __fastcall HUDMainMenu_ClearAllSubtitlesAndMessages(HUDMainMenu* menu);
 
 extern HUDMainMenu* HUDMainMenu_pSingleton;
 
@@ -8560,7 +8563,7 @@ void __cdecl HUDMainMenu_ResetHUDOpacity(float afScale)
 {
     if (HUDMainMenu_pSingleton)
     {
-        ClearHUDMessages(HUDMainMenu_pSingleton);
+        HUDMainMenu_ClearAllSubtitlesAndMessages(HUDMainMenu_pSingleton);
         for (int i = 1; i < 59; i++)
         {
             switch (i)
@@ -9215,7 +9218,7 @@ struct VATSCreateEffectFormX
 };
 struct VATSCreateDataHandlerX
 {
-    VATSCreateRefX* PlaceObjectReference(VATSCreateEffectFormX* apForm, VATSCreatePointX& arPos, const VATSCreatePointX& arRot,
+    VATSCreateRefX* TESDataHandler_CreateReferenceAtLocation(VATSCreateEffectFormX* apForm, VATSCreatePointX& arPos, const VATSCreatePointX& arRot,
                                  int a4, void* a5, int a6, int a7, int a8);
 };
 struct VATSCreateTESX
@@ -9820,7 +9823,7 @@ bool VATSMenu_Create()
                 qmgeiw.z = qBLsiu.GetEntry(2, 1);
                 qmgeiw *= VATSCreateDAT_0104fca0;
                 qCTa += qmgeiw;
-                VATSCreateDAT_011f21e8 = VATSCreateDAT_011c3f2c->PlaceObjectReference(
+                VATSCreateDAT_011f21e8 = VATSCreateDAT_011c3f2c->TESDataHandler_CreateReferenceAtLocation(
                     VATSCreateDAT_011db0ac, qCTa, VATSCreateDAT_011f426c, VATSCreateDAT_011dea10->FUN_005f36f0(),
                     VATSCreateDAT_011dea10->FUN_004fd3e0(), 0, 0, 0);
                 VATSCreateDAT_011f21e8->Actor_SetWantWeaponDrawn(1);
@@ -9849,7 +9852,7 @@ bool VATSMenu_Create()
                 qISe.z = qpydTG.GetEntry(2, 1);
                 qISe *= VATSCreateDAT_0104fca0;
                 qXUDve += qISe;
-                VATSCreateDAT_011f21ec = VATSCreateDAT_011c3f2c->PlaceObjectReference(
+                VATSCreateDAT_011f21ec = VATSCreateDAT_011c3f2c->TESDataHandler_CreateReferenceAtLocation(
                     VATSCreateDAT_011db0b4, qXUDve, VATSCreateDAT_011f426c, VATSCreateDAT_011dea10->FUN_005f36f0(),
                     VATSCreateDAT_011dea10->FUN_004fd3e0(), 0, 0, 0);
                 VATSCreateDAT_011f21ec->Actor_SetWantWeaponDrawn(1);
@@ -10331,7 +10334,7 @@ struct InteractionTile
 {
     void FUN_00700320(int, int);
     void Tile_Set_00a01350(int, const char*, bool);
-    bool IsTraitNonZero(int);
+    bool Tile_IsTrue(int);
     void StartFade(int, float, float, float, int);
     int FindValueByKey(int);
     bool Tile_GetFadeFinished(int);
@@ -10387,7 +10390,7 @@ void HUDInteraction::HUDMainMenu_UpdateSneak()
                     ->Tile_Set_00a01350(0xfc4, ((SneakStringSetting*)&g_011d27b4)->FUN_00403df0(), true);
             }
         }
-        if (active && !((InteractionTile*)HUDMainMenu_pme->m_pTiles[24])->IsTraitNonZero(0x1004))
+        if (active && !((InteractionTile*)HUDMainMenu_pme->m_pTiles[24])->Tile_IsTrue(0x1004))
         {
             ((InteractionTile*)HUDMainMenu_pme->m_pTiles[24])
                 ->StartFade(0xfa9, 0.0f, *((SneakFloatSetting*)&g_011d9774)->Setting_Float_00403e20() * 255.0, 0.5f, 2);
@@ -10422,7 +10425,8 @@ void __cdecl FormHeapFreeAndLog_00401030(void*);
 extern HUDMainMenu* HUDMainMenu_pme;
 
 // @fnv 0x00775920
-void __fastcall ClearHUDMessages(HUDMainMenu* menu)
+// src: COMMUNITY 0x00775920
+void __fastcall HUDMainMenu_ClearAllSubtitlesAndMessages(HUDMainMenu* menu)
 {
     ClearMessagesList* list = (ClearMessagesList*)&menu->m_kMessageList;
     while (list && !list->FUN_008256d0())

@@ -67,12 +67,12 @@ const char* FUN_00e04ea0_class::hkObjectResource_getContentsTypeName()
 
 struct FUN_00e05090_class
 {
-    virtual FUN_00e05090_class* FUN_00e05090(int flags);
+    virtual FUN_00e05090_class* ScalarDeletingDestructor(int flags);
     unsigned short m_resourceId;
     void ReleaseResource();
 };
 
-FUN_00e05090_class* FUN_00e05090_class::FUN_00e05090(int flags)
+FUN_00e05090_class* FUN_00e05090_class::ScalarDeletingDestructor(int flags)
 {
     ReleaseResource();
 
@@ -160,7 +160,7 @@ struct FUN_00e04f10_Values
 {
     int first, second;
 };
-class FUN_00e04f10_Class
+class hkObjectResource
 {
   public:
     void** vtable;
@@ -168,10 +168,10 @@ class FUN_00e04f10_Class
     FUN_00e04f10_Values values;
     hkReferencedObject* first;
     hkReferencedObject* second;
-    FUN_00e04f10_Class* Initialize(const FUN_00e04f10_Values* init);
+    hkObjectResource* Initialize(const FUN_00e04f10_Values* init);
 };
 // @fnv 0x00e04f10
-FUN_00e04f10_Class* FUN_00e04f10_Class::Initialize(const FUN_00e04f10_Values* pInitValues)
+hkObjectResource* hkObjectResource::Initialize(const FUN_00e04f10_Values* pInitValues)
 {
     refCount = 1;
     vtable = DAT_010ea4dc;

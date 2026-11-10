@@ -22,14 +22,14 @@ void FUN_00dd9110_class::SetReferencedObject(hkReferencedObject* apObject)
 
 int DAT_010d7c80;
 
-struct FUN_00dd9130_class
+struct hkIArchive
 {
-    FUN_00dd9130_class* Init(hkReferencedObject* p, bool b);
+    hkIArchive* Init(hkReferencedObject* p, bool b);
 };
 
 // Stores the vtable pointer, reference object and bool flag into this, then calls the object's method and returns this.
 // @fnv 0x00dd9130
-FUN_00dd9130_class* FUN_00dd9130_class::Init(hkReferencedObject* apObject, bool abFlag)
+hkIArchive* hkIArchive::Init(hkReferencedObject* apObject, bool abFlag)
 {
     *(unsigned short*)((char*)this + 6) = 1;
     *(int**)this = &DAT_010d7c80;

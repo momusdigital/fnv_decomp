@@ -38,13 +38,13 @@ inline bool NiPoint3::operator==(const NiPoint3& other) const
 #include "../../../include/QueuedFile.h"
 #include "../../../include/QueuedFileEntry.h"
 
-struct FUN_006fa840_shell
+struct BGSTerrainNode
 {
     unsigned char GetByteAt5D();
 };
 
 // @fnv 0x006fa840
-unsigned char FUN_006fa840_shell::GetByteAt5D()
+unsigned char BGSTerrainNode::GetByteAt5D()
 {
     return *reinterpret_cast<unsigned char*>(reinterpret_cast<char*>(this) + 0x5d);
 }
@@ -65,14 +65,15 @@ struct Flt
     operator unsigned int() const;
 };
 
-struct FUN_006fb6e0_shell
+struct BGSTerrainChunk
 {
-    void SetAllAppCulled();
+    void BGSTerrainChunk_Hide();
 };
 
 // For each of the three pointers at offsets 4, 8 and 12, if non-null, calls SetAppCulled(true) on it.
 // @fnv 0x006fb6e0
-void FUN_006fb6e0_shell::SetAllAppCulled()
+// src: COMMUNITY 0x006fb6e0
+void BGSTerrainChunk::BGSTerrainChunk_Hide()
 {
     if (reinterpret_cast<Flt*>(reinterpret_cast<char*>(this) + 4)->operator unsigned int())
         reinterpret_cast<NiAVObject*>(
@@ -476,7 +477,7 @@ struct SoundListView
 
 extern SoundListView g_011d8624;
 
-// Walks the sound list view, and for each entry calls SetAllAppCulled if its checks pass, otherwise FUN_006fb760.
+// Walks the sound list view, and for each entry calls BGSTerrainChunk_Hide if its checks pass, otherwise FUN_006fb760.
 // @fnv 0x006fb640
 void UpdateSoundListItems()
 {
@@ -487,9 +488,9 @@ void UpdateSoundListItems()
         {
             go = current->_ref_006815c0()[0];
             if (((FUN_006fb150_shell*)static_cast<const GO*>(go)->operator unsigned int())->GetByteAtOffset5C() &&
-                ((FUN_006fa840_shell*)static_cast<const GO*>(go)->operator unsigned int())->GetByteAt5D() && static_cast<FUN_006fea10_Class*>(go->m_pObject)->BGSTerrainNode_CheckMeshSolidUnderMe(false))
+                ((BGSTerrainNode*)static_cast<const GO*>(go)->operator unsigned int())->GetByteAt5D() && static_cast<FUN_006fea10_Class*>(go->m_pObject)->BGSTerrainNode_CheckMeshSolidUnderMe(false))
             {
-                ((FUN_006fb6e0_shell*)go)->SetAllAppCulled();
+                ((BGSTerrainChunk*)go)->BGSTerrainChunk_Hide();
             }
             else
             {
@@ -718,7 +719,7 @@ struct Target006fac
     void UpdateWaterReferences(int);
     void BGSTerrainChunk_InitializeShaderProperty();
     void AddSelfToList();
-    void SetAllAppCulled();
+    void BGSTerrainChunk_Hide();
 };
 // @fnv 0x006facb0
 // src: COMMUNITY 0x006facb0
@@ -768,7 +769,7 @@ void Target006fac::BGSTerrainChunk_Attach()
         AddSelfToList();
         done = 1;
         if (root->GetByteAtOffset5C() && root->GetByteAt5D())
-            SetAllAppCulled();
+            BGSTerrainChunk_Hide();
     }
 }
 
@@ -780,7 +781,7 @@ struct B5D0Item
 {
     B5D0Status* Modelloader_GetReferencedThis();
     void BGSTerrainChunk_Show();
-    void SetAllAppCulled();
+    void BGSTerrainChunk_Hide();
 };
 struct B5D0List
 {
@@ -788,7 +789,7 @@ struct B5D0List
     B5D0Item** FUN_006815c0();
     B5D0List* FUN_00726070();
 };
-// Walks the list from g_011d8624, and for each item calls FUN_006fb760 if its status check passes, otherwise SetAllAppCulled.
+// Walks the list from g_011d8624, and for each item calls FUN_006fb760 if its status check passes, otherwise BGSTerrainChunk_Hide.
 // @fnv 0x006fb5d0
 void __cdecl UpdateListItems()
 {
@@ -802,7 +803,7 @@ void __cdecl UpdateListItems()
         }
         else
         {
-            item->SetAllAppCulled();
+            item->BGSTerrainChunk_Hide();
         }
         node = node->FUN_00726070();
     }
@@ -924,7 +925,7 @@ void TerrainChunk::BGSTerrainChunk_InitializeShaderProperty()
             reinterpret_cast<TerrainChunkProperty*>(prop)->BSShaderPPLightingProperty_SetLODTexParams(0.0f, 0.0f, 1.0f);
             FUN_00b57e30(m_spGeom, 0, 0);
             m_spProperty = (NiNode*)prop;
-            ((NiGeometry*)m_spGeom)->GetModelData()->SetByteAtOffset38(0);
+            ((NiGeometry*)m_spGeom)->GetModelData()->SetKeepFlags(0);
             ((NiGeometry*)m_spGeom)->GetModelData()->FUN_00a67050(0x4000);
             ((NiGeometry*)m_spGeom)->GetModelData()->FUN_004410f0(1);
             NiXenonRenderer_GetRenderer()->PrecacheGeometry(m_spGeom, 0, 0, static_cast<NiD3DShaderDeclaration*>(reinterpret_cast<PropState*>(((NiGeometry*)m_spGeom)->GetGeometryShaderObject())->v70(m_spGeom, prop)));
@@ -1010,7 +1011,7 @@ struct E1d0
 };
 struct R4e
 {
-    E1d0* CreateWaterReference();
+    E1d0* TESWaterSystem_AddLODWater();
 };
 struct TaskX
 {
@@ -1080,7 +1081,7 @@ void SelfX::UpdateWaterReferences(bool bForce)
             m20 = g_pkMgr
                       ->DetailedActorPathHandler_GetCurrentNodeIndex(mc.Modelloader_GetReferencedThis(), m0.Modelloader_GetReferencedThis()->Modelloader_GetReferencedThis()->Modelloader_GetReferencedThis(),
                                      m0.Modelloader_GetReferencedThis()->Modelloader_GetReferencedThis()->NiObjectNET_GetControllers(), m18.Modelloader_GetReferencedThis(), 1)
-                      ->CreateWaterReference();
+                      ->TESWaterSystem_AddLODWater();
             m18.FUN_0066b0d0(0);
             if (m20)
                 m18.FUN_0066b0d0(m20->F1d0()->Fc(0)->FUN_0043b4a0()->F14());
@@ -1092,7 +1093,7 @@ void SelfX::UpdateWaterReferences(bool bForce)
             m1c = g_pkMgr
                       ->DetailedActorPathHandler_GetCurrentNodeIndex(m8.Modelloader_GetReferencedThis(), m0.Modelloader_GetReferencedThis()->Modelloader_GetReferencedThis()->Modelloader_GetReferencedThis(),
                                      m0.Modelloader_GetReferencedThis()->Modelloader_GetReferencedThis()->NiObjectNET_GetControllers(), m14.Modelloader_GetReferencedThis(), 0)
-                      ->CreateWaterReference();
+                      ->TESWaterSystem_AddLODWater();
             m14.FUN_0066b0d0(0);
             if (m1c)
                 m14.FUN_0066b0d0(m1c->F1d0()->Fc(0)->FUN_0043b4a0()->F14());
@@ -1250,7 +1251,7 @@ struct D6ChildPtr
 };
 struct D6Queue
 {
-    void DetachRef(D6Object* object, D6Root* root, D6Node* node);
+    void TESWaterSystem_RemoveLODWater(D6Object* object, D6Root* root, D6Node* node);
 };
 struct D6Manager
 {
@@ -1286,7 +1287,7 @@ void D6Detacher::BGSTerrainChunk_RemoveWaterFromSystem(bool force)
         {
             if (DAT_011dea10->DetailedActorPathHandler_GetCurrentNodeIndex())
             {
-                DAT_011dea10->DetailedActorPathHandler_GetCurrentNodeIndex()->DetachRef(pObjectA, pOwner->Modelloader_GetReferencedThis()->Modelloader_GetReferencedThis(),
+                DAT_011dea10->DetailedActorPathHandler_GetCurrentNodeIndex()->TESWaterSystem_RemoveLODWater(pObjectA, pOwner->Modelloader_GetReferencedThis()->Modelloader_GetReferencedThis(),
                                                         pOwner->Modelloader_GetReferencedThis()->NiObjectNET_GetControllers());
             }
             if (kAttachA.Modelloader_GetReferencedThis())
@@ -1300,7 +1301,7 @@ void D6Detacher::BGSTerrainChunk_RemoveWaterFromSystem(bool force)
         {
             if (DAT_011dea10->DetailedActorPathHandler_GetCurrentNodeIndex())
             {
-                DAT_011dea10->DetailedActorPathHandler_GetCurrentNodeIndex()->DetachRef(pObjectB, pOwner->Modelloader_GetReferencedThis()->Modelloader_GetReferencedThis(),
+                DAT_011dea10->DetailedActorPathHandler_GetCurrentNodeIndex()->TESWaterSystem_RemoveLODWater(pObjectB, pOwner->Modelloader_GetReferencedThis()->Modelloader_GetReferencedThis(),
                                                         pOwner->Modelloader_GetReferencedThis()->NiObjectNET_GetControllers());
             }
             if (kAttachB.Modelloader_GetReferencedThis())

@@ -7,8 +7,8 @@
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
 // @fnv 0x00a53070
-// src: GUESS 0x00a53070 (confidence: high)
-int __stdcall NiBoolInterpolator_ReturnConstant_5(unsigned short usChannel)
+// src: EXE 0x00a53070
+int __stdcall NiBoolInterpolator_GetKeyContent(unsigned short usChannel)
 {
     return 5;
 }
@@ -113,7 +113,8 @@ extern unsigned char DAT_0109a914;
 
 // The shared class inherits IsPoseValue without declaring this override.
 // @fnv 0x00a530a0
-unsigned char __fastcall IsBoolPoseValue(const NiBoolInterpolator* self, int, int unused)
+// src: EXE 0x00a530a0
+unsigned char __fastcall NiBoolInterpolator_GetChannelPosed(const NiBoolInterpolator* self, int, int unused)
 {
     if (self->m_spBoolData.m_pObject != 0)
         return 0;
@@ -136,7 +137,7 @@ struct S_00a53680_Obj
     virtual void vf09();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12(int v);
+    virtual void SetMapName(int v);
 };
 struct S_00a53680_Stream : S_00a53680_Obj
 {
@@ -303,7 +304,7 @@ void NiBoolInterpolator::SaveBinary(NiStream& stream)
     reinterpret_cast<void (__thiscall*)(NiKeyBasedInterpolator*, NiStream*)>(&NiKeyBasedInterpolator_LinkObject)(this, &stream);
     S_00a53680_Stream* kStream = reinterpret_cast<S_00a53680_Stream*>(&stream);
     S_00a53680_Save(kStream->unk250, &m_bBoolValue, 1, 1);
-    kStream->vf12(reinterpret_cast<int>(m_spBoolData.m_pObject));
+    kStream->SetMapName(reinterpret_cast<int>(m_spBoolData.m_pObject));
 }
 
 struct FUN_00a536d0_arr

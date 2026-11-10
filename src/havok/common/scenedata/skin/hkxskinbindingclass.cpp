@@ -20,14 +20,14 @@ struct CpuObject
 {
     unsigned int unk00;
     unsigned short size;
-    void FUN_00e01b30();
+    void hkxSkinBinding();
     CpuObject* FUN_00e01be0(unsigned int flags);
 };
-// Calls FUN_00e01b30, then if bit 0 of flags is set, invokes the allocator's virtual method on this with size, and returns this.
+// Calls hkxSkinBinding, then if bit 0 of flags is set, invokes the allocator's virtual method on this with size, and returns this.
 // @fnv 0x00e01be0
 CpuObject* CpuObject::FUN_00e01be0(unsigned int flags)
 {
-    FUN_00e01b30();
+    hkxSkinBinding();
     if (flags & 1)
     {
         CpuAllocatorHolder* holder = hkMemoryRouter_getInstance();

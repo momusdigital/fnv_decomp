@@ -76,7 +76,7 @@ void FUN_00df6550::AddObjectReference(hkReferencedObject* apObject)
     *(hkReferencedObject**)((char*)this + 0x60) = apObject;
 }
 
-struct FUN_00df6690_StandIn
+struct hkSimpleLocalFrame
 {
     char pad[0x50];
     int** m_table;
@@ -86,7 +86,7 @@ struct FUN_00df6690_StandIn
 
 // @fnv 0x00df6690
 // src: HAVOK_LIB 0x00df6690
-int* FUN_00df6690_StandIn::hkSimpleLocalFrame_getChildFrame(int index)
+int* hkSimpleLocalFrame::hkSimpleLocalFrame_getChildFrame(int index)
 {
     return m_table[index];
 }
@@ -124,7 +124,7 @@ int FnvCpu_FUN_00df6680_CpuObject::GetValue_00df6680()
     return value;
 }
 
-class FUN_00df66a0_Node
+class hkLocalFrame
 {
   public:
     virtual void v0();
@@ -135,12 +135,12 @@ class FUN_00df66a0_Node
     virtual void v5();
     virtual void v6();
     virtual void v7();
-    virtual FUN_00df66a0_Node* v8();
+    virtual hkLocalFrame* v8();
     void GetWorldTransform(hkTransform* dest);
 };
 // Computes the node's world transform: if it has a parent, combines the parent's transform with the local transform, otherwise writes the local transform to dest.
 // @fnv 0x00df66a0
-void FUN_00df66a0_Node::GetWorldTransform(hkTransform* dest)
+void hkLocalFrame::GetWorldTransform(hkTransform* dest)
 {
     if (v8())
     {

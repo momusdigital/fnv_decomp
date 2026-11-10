@@ -15,7 +15,8 @@ void __cdecl _Deallocate(void*);
 
 // Calls FUN_00828590, then deallocates this if bit 0 of flags is set, and returns this.
 // @fnv 0x00828560
-void* SummonCreatureEffect::FUN_00828560(unsigned int flags)
+// src: EXE 0x00828560
+void* SummonCreatureEffect::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00828590();
     if (flags & 1)
@@ -467,7 +468,7 @@ struct S_008294e0_Str
 
 struct S_008294e0_Named
 {
-    S_008294e0_Str AssignFromSub();
+    S_008294e0_Str EffectSetting_GetEffectName();
 };
 
 struct S_008294e0_Proc
@@ -898,7 +899,7 @@ struct S_008294e0_Proc
 
 struct S_008294e0_Handler
 {
-    Actor* PlaceObjectReference(TESBoundObject* obj, NiPoint3* pos, NiPoint3* rot, int cell,
+    Actor* TESDataHandler_CreateReferenceAtLocation(TESBoundObject* obj, NiPoint3* pos, NiPoint3* rot, int cell,
                                          int a, int b, int c);
 };
 extern S_008294e0_Handler* DAT_011c3f2c;
@@ -920,11 +921,11 @@ void SummonCreatureEffect::SpawnSummonedActor(int unused)
     if (!pCreatureForm)
     {
         Warning_005b5e40("GAME EFFECTS: %s effect has no associated creature.",
-                     ((S_008294e0_Named*)FUN_007df1d0())->AssignFromSub().Modelloader_GetReferencedThis());
+                     ((S_008294e0_Named*)FUN_007df1d0())->EffectSetting_GetEffectName().Modelloader_GetReferencedThis());
     }
     else
     {
-        ref = DAT_011c3f2c->PlaceObjectReference(pCreatureForm, &unk58, &unk64,
+        ref = DAT_011c3f2c->TESDataHandler_CreateReferenceAtLocation(pCreatureForm, &unk58, &unk64,
                                                  (actor->*reinterpret_cast<CellLookupWithContext>(static_cast<CellLookup>(&Actor::FUN_008d6f30)))(actor->TESObjectREFR_GetWorldSpace()), 0, 0, 0);
         if (ref)
         {
@@ -946,7 +947,7 @@ void SummonCreatureEffect::SpawnSummonedActor(int unused)
         else if (!pCreatureForm)
         {
             Warning_005b5e40("DEFAULT: %s effect unable to create reference.",
-                         ((S_008294e0_Named*)FUN_007df1d0())->AssignFromSub().Modelloader_GetReferencedThis());
+                         ((S_008294e0_Named*)FUN_007df1d0())->EffectSetting_GetEffectName().Modelloader_GetReferencedThis());
         }
     }
 }

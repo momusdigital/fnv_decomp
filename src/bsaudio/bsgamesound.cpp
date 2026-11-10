@@ -527,9 +527,9 @@ bool BSWin32AudioInitialization::CheckResult(int aiResult, const char* unused)
     return false;
 }
 
-struct FUN_00aeac20
+struct BSWin32GameSound
 {
-    FUN_00aeac20(unsigned int a);
+    BSWin32GameSound(unsigned int a);
     static void* operator new(unsigned int)
     {
         return g_memoryManager.Allocate(0x230);
@@ -537,13 +537,13 @@ struct FUN_00aeac20
 };
 struct FUN_00aea5c0
 {
-    FUN_00aeac20* Create(unsigned int a);
+    BSWin32GameSound* Create(unsigned int a);
 };
-// Allocates a new FUN_00aeac20 object via the memory manager, constructing it with the given value, and returns it.
+// Allocates a new BSWin32GameSound object via the memory manager, constructing it with the given value, and returns it.
 // @fnv 0x00aea5c0
-FUN_00aeac20* FUN_00aea5c0::Create(unsigned int auiValue)
+BSWin32GameSound* FUN_00aea5c0::Create(unsigned int auiValue)
 {
-    return new FUN_00aeac20(auiValue);
+    return new BSWin32GameSound(auiValue);
 }
 
 namespace fnv_00aea700 {
@@ -670,10 +670,10 @@ struct Sound
     virtual void s11();
     virtual void s12(float);
 };
-struct FUN_00aea730_Class : Sound
+struct BSWin32AudioListener : Sound
 {
     char data[96];
-    FUN_00aea730_Class(int);
+    BSWin32AudioListener(int);
     static void* operator new(unsigned n)
     {
         return ((MemoryManager*)&DAT_011f6238)->Game_DoHeapAlloc(n);
@@ -738,7 +738,7 @@ void BSWin32AudioInitialization::SetWindow(int aiWindow)
         iResult = ((Com*)this->pPrimaryBuffer)->q(&DAT_01100fa4, &iInterface);
         if (!CheckResult(iResult, &DAT_010a39f8))
             return;
-        this->pListener = (BSAudioListener*)new FUN_00aea730_Class(iInterface);
+        this->pListener = (BSAudioListener*)new BSWin32AudioListener(iInterface);
     }
     if (this->pListener)
     {

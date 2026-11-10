@@ -84,7 +84,7 @@ struct Value
     int InvokeVirtualMethod_00dbac40();
     int CallVirtualWithArg();
     float ApplyValue();
-    void* ForwardCall_00dbac70();
+    void* hkDataArray_Value_asString();
     __declspec(nothrow) ObjectHandle GetMemberArrayValue();
     __declspec(nothrow) StringHandle CreateValueInto();
 };
@@ -184,10 +184,10 @@ struct FUN_00dc05b0_writer
     int unk50;
     int unk54;
     Dc0380Layout audio;
-    void __thiscall FUN_00dc0500(int, int);
+    void __thiscall Writer(int, int);
     void __thiscall WriteInt(unsigned int);
     void __thiscall WriteVarint(unsigned int, unsigned int);
-    void __thiscall WriteReferencedObjectRecursively(int, int);
+    void __thiscall Writer_scanObject(int, int);
     void __thiscall ProcessEntries_00dc00b0(int);
     void __thiscall ProcessState_00dc0460();
 };
@@ -367,7 +367,7 @@ struct S_00dc0500_Arr
     S_00dc0500_Arr() : a(0), b(0), c(0x80000000)
     {}
 };
-struct FUN_00dc0500 : FUN_00d60830
+struct Writer : FUN_00d60830
 {
     FUN_00d87790 m_10;
     FUN_00d87790 m_20;
@@ -376,7 +376,7 @@ struct FUN_00dc0500 : FUN_00d60830
     S_00dc0500_Arr m_40;
     S_00dc0500_Arr m_4c;
     FUN_00dc0380 m_58;
-    FUN_00dc0500(BSAudio* a1, BSAudio* a2);
+    Writer(BSAudio* a1, BSAudio* a2);
 };
 inline void* operator new(size_t, void* p) throw()
 {
@@ -566,7 +566,7 @@ struct Node50
 struct ObjC
 {
     void* m_00;
-    __declspec(nothrow) int ForwardCall_00dba730();
+    __declspec(nothrow) int hkDataClass_getNumMembers();
     __declspec(nothrow) void DispatchItems(hkArrayBase<Rec>& a);
     __declspec(nothrow) void Object_DoNothing_00dba660();
     ~ObjC()
@@ -646,7 +646,7 @@ struct S_00dbfef0_Node
     float InvokeVirtualMethod_00dbaa00();
     int DispatchToInterface(int n);
     int hkDataObject_Value_asString();
-    int GetWrappedDataObject(S_00dbfef0_B* out);
+    int asObject(S_00dbfef0_B* out);
     void GetResult(S_00dbfef0_A* out);
 };
 struct S_00dbfef0_B

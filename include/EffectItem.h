@@ -91,7 +91,7 @@ public:
 
     void DestroyContents();                          // 0x00403d50
     void InitItem(TESForm* form);                    // 0x00403db0
-    int GetAffectedActorValue();                     // 0x00403ea0
+    int GetActorValueIndex();                     // 0x00403ea0
     bool IsActorValueUsed();                             // 0x00403ee0
     float GetRawCost();                              // 0x00403f00 computes and caches m_fCost
     float GetCost(Actor* actor);                     // 0x00403f80
@@ -103,7 +103,7 @@ public:
     int GetEffectID();                               // 0x00404650
     BSStringT<char> GetEffectName();                 // 0x00404670
     bool IsHostile();                                // 0x00404710
-    bool IsScriptBasedEffect();                      // 0x00404730
+    bool IsUsageMonitorEffect();                      // 0x00404730
     bool IsDetrimental();                            // 0x00405e40
     PerkEntryConditionSet* GetConditions();          // 0x00409140
     void Process(TESObjectREFR* target, int arg);    // 0x0062e500

@@ -33,7 +33,7 @@ FUN_00600ad0_cls* __thiscall FUN_00600ad0_cls::BSTCaseInsensitiveStringMap_IDLE_
     return this;
 }
 
-struct FUN_00600d70_shell
+struct NiTStringMap
 {
     void ForwardCall_00600d70();
 };
@@ -317,13 +317,13 @@ bool Object_ComputeValue_0061f420(unsigned int auiValue, unsigned int auiOther)
 }
 
 
-struct FUN_0061f440 : TESResponseList
+struct ResponseListWrapper : TESResponseList
 {
     void ClearResponses();
 };
 
 // @fnv 0x0061f440
-void FUN_0061f440::ClearResponses()
+void ResponseListWrapper::ClearResponses()
 {
     TESResponseList::ClearResponses();
 }
@@ -405,12 +405,13 @@ void __cdecl Deallocate(void*);
 
 struct FUN_00600ee0_cls
 {
-    void* FUN_00600ee0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_00600eb0 on this, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x00600ee0
-void* FUN_00600ee0_cls::FUN_00600ee0(unsigned int flags)
+// src: EXE 0x00600ee0
+void* FUN_00600ee0_cls::ScalarDeletingDestructor(unsigned int flags)
 {
     ((FUN_00600eb0_cls*)this)->SetVtableAndProcessState_00600eb0();
     if (flags & 1)
@@ -695,14 +696,14 @@ void __cdecl Runtime_FillFloatRange(float* afDest, unsigned int auiCount, float*
 }
 
 void Deallocate(void*);
-struct FUN_0060f410_class
+struct TESQuestStageItem
 {
     void* __thiscall FUN_0060f410(unsigned int flags);
     void __thiscall FUN_0060f5f0();
 };
 // Calls FUN_0060f5f0, then frees this via Deallocate when flags has bit 1 set, and returns this.
 // @fnv 0x0060f410
-void* __thiscall FUN_0060f410_class::FUN_0060f410(unsigned int flags)
+void* __thiscall TESQuestStageItem::FUN_0060f410(unsigned int flags)
 {
     FUN_0060f5f0();
     if (flags & 1)
@@ -732,14 +733,14 @@ void __thiscall S_00616a60::TESReputation_GetReputationPct(int a)
 
 struct FUN_00618890_cls
 {
-    void __thiscall FUN_006188c0();
+    void __thiscall QUEST_INFO();
     FUN_00618890_cls* __thiscall FUN_00618890(unsigned int flags);
 };
-// Calls FUN_006188c0, then deletes this if bit 0 of flags is set, and returns this.
+// Calls QUEST_INFO, then deletes this if bit 0 of flags is set, and returns this.
 // @fnv 0x00618890
 FUN_00618890_cls* __thiscall FUN_00618890_cls::FUN_00618890(unsigned int flags)
 {
-    FUN_006188c0();
+    QUEST_INFO();
     if (flags & 1)
         operator delete(this);
     return this;
@@ -802,14 +803,14 @@ void __thiscall TESTopicInfo::MarkAsRefusal()
     }
 }
 
-struct FUN_005545d0_Class
+struct bhkEntityListener
 {
     void FUN_005545f0();
     void* FUN_0061f550(unsigned int flags);
 };
 // Calls FUN_005545f0, deletes this when flags has bit 0 set, and returns this.
 // @fnv 0x0061f550
-void* __thiscall FUN_005545d0_Class::FUN_0061f550(unsigned int flags)
+void* __thiscall bhkEntityListener::FUN_0061f550(unsigned int flags)
 {
     FUN_005545f0();
     if (flags & 1)
@@ -949,7 +950,7 @@ void __thiscall FUN_00616c20_shell::TESReputation_CommitCrime(bool abUseFirstSet
 
 struct FUN_00619a90_shell
 {
-    void ProcessTopicInfoList(int a);
+    void TESTopic_ClearSaidOnceInfosForQuest(int a);
 };
 struct BSSimpleListShell
 {
@@ -962,7 +963,7 @@ struct DH
     BSSimpleListShell* FUN_004612e0();
 };
 extern DH* g_dataHandler;
-// If a is non-zero, walks the list from g_dataHandler and calls ProcessTopicInfoList(a) on each item until _ref_008256d0 is true.
+// If a is non-zero, walks the list from g_dataHandler and calls TESTopic_ClearSaidOnceInfosForQuest(a) on each item until _ref_008256d0 is true.
 // @fnv 0x00619b60
 // src: COMMUNITY 0x00619b60
 void TESTopic_ClearAllSaidOnceInfosForQuest(int a)
@@ -972,7 +973,7 @@ void TESTopic_ClearAllSaidOnceInfosForQuest(int a)
         BSSimpleListShell* list = g_dataHandler->FUN_004612e0();
         while (list && !list->_ref_008256d0())
         {
-            (*list->GetItem())->ProcessTopicInfoList(a);
+            (*list->GetItem())->TESTopic_ClearSaidOnceInfosForQuest(a);
             list = list->GetNext();
         }
     }
@@ -1024,7 +1025,7 @@ void* __cdecl Object_ProcessAndReturnValue_0060c3c0(void* pBegin, void* pEnd, vo
 
 struct GlobalObject_0040c150 : public StartMenu
 {
-    bool __thiscall GetReputationRank(int value);
+    bool __thiscall TESReputation_GetReputationLevel(int value);
     char const* TESReputation_GetThresholdIcon();
 };
 
@@ -1056,8 +1057,8 @@ char const* GlobalObject_0040c150::TESReputation_GetThresholdIcon()
 
     char row = 0;
     char column = 0;
-    row = this->GetReputationRank(1);
-    column = this->GetReputationRank(0);
+    row = this->TESReputation_GetReputationLevel(1);
+    column = this->TESReputation_GetReputationLevel(0);
     return menuTable[column][row]->GetMenuTitle();
 }
 
@@ -1066,12 +1067,13 @@ struct FUN_0061fea0_shell
 {
     void ClearList();
 };
-struct FUN_0061fc50 : FUN_0061fea0_shell
+struct ZoneEntry : FUN_0061fea0_shell
 {
-    virtual ~FUN_0061fc50();
+    virtual ~ZoneEntry();
 };
 // @fnv 0x0061fc50
-FUN_0061fc50::~FUN_0061fc50()
+// src: EXE 0x0061fc50
+ZoneEntry::~ZoneEntry()
 {
     reinterpret_cast<FUN_0061fea0_shell*>(this)->ClearList();
 }
@@ -1285,7 +1287,7 @@ float B616A20Meter::TESReputation_GetPositiveRatio()
 }
 
 // variant A: direct member expression
-struct FUN_00616a40_cls
+struct TESReputation
 {
     unsigned int m_i00;
     unsigned int m_i04;
@@ -1311,14 +1313,14 @@ struct FUN_00616a40_cls
 
 // @fnv 0x00616a40
 // src: XBOX_PDB 0x00616a40
-float __thiscall FUN_00616a40_cls::TESReputation_GetNegativeRatio()
+float __thiscall TESReputation::TESReputation_GetNegativeRatio()
 {
     return m_f48 / m_f40;
 }
 
 struct Comparison
 {
-    char __thiscall GetReputationRank(int);
+    char __thiscall TESReputation_GetReputationLevel(int);
     char __thiscall TESReputation_GetReputationThreshold(char mode);
 };
 // Reads two comparison results and maps their combination, depending on mode, to a result code (0-6).
@@ -1326,8 +1328,8 @@ struct Comparison
 // src: COMMUNITY 0x00616a90
 char Comparison::TESReputation_GetReputationThreshold(char mode)
 {
-    char second = GetReputationRank(1);
-    char first = GetReputationRank(0);
+    char second = TESReputation_GetReputationLevel(1);
+    char first = TESReputation_GetReputationLevel(0);
     if (second == 0 && first == 0)
         return 1;
     if (mode == 0)
@@ -1397,7 +1399,7 @@ struct FUN_00616c70_flag
     bool m_bValue;
 };
 
-struct FUN_00616c70_cls
+struct RESPONSE_DATA
 {
     int unk00;
     int unk04;
@@ -1409,7 +1411,7 @@ struct FUN_00616c70_cls
 
 // Initializes the four fields at offsets 0, 4, 8 and 0x10 by calling FUN_00401080 on each with a default flag value.
 // @fnv 0x00616c70
-void FUN_00616c70_cls::InitializeFields()
+void RESPONSE_DATA::InitializeFields()
 {
     FUN_00616c70_flag a = {};
     BSEndian_00401080(this, a.m_bValue);
@@ -1570,19 +1572,20 @@ class ThisMember_b5727
     ~ThisMember_b5727();
 };
 
-class FUN_0061f460 : public ThisBase_b5727
+class BGSAcousticSpaceListener : public ThisBase_b5727
 {
   public:
-    virtual ~FUN_0061f460();
+    virtual ~BGSAcousticSpaceListener();
     unsigned char m_14;
     ThisMember_b5727 m_18;
 
-    FUN_0061f460();
+    BGSAcousticSpaceListener();
 };
 
 // Initializes the base with 0, sets m_14 to 1 and constructs m_18 with 0x25.
 // @fnv 0x0061f460
-FUN_0061f460::FUN_0061f460() : ThisBase_b5727(0), m_18(0x25)
+// src: EXE 0x0061f460
+BGSAcousticSpaceListener::BGSAcousticSpaceListener() : ThisBase_b5727(0), m_18(0x25)
 {
     m_14 = 1;
 }
@@ -1687,12 +1690,13 @@ class F1A0Owner
 {
   public:
     F1A0Node* GetList();
-    unsigned char GetKeyForForm(F1A0Form* pkForm);
+    unsigned char TESQuest_GetStageIndexForStageItem(F1A0Form* pkForm);
 };
 
 // Walks the owner's list and returns the key of the entry whose form matches pkForm, or 0 if none matches.
 // @fnv 0x0060f1a0
-unsigned char F1A0Owner::GetKeyForForm(F1A0Form* pkForm)
+// src: COMMUNITY 0x0060f1a0
+unsigned char F1A0Owner::TESQuest_GetStageIndexForStageItem(F1A0Form* pkForm)
 {
     F1A0Node* pkNode = GetList();
     while (pkNode && !pkNode->IsEmpty())
@@ -1732,12 +1736,13 @@ class B616890Menu
 {
   public:
     char GetIndex(bool bFirst);
-    const char* GetSelectedSettingString();
+    const char* TESReputation_GetReputationDesc();
 };
 
 // Reads the selected row and column via GetIndex, then returns the String() of the matching entry in the 4x4 settings table.
 // @fnv 0x00616890
-const char* B616890Menu::GetSelectedSettingString()
+// src: COMMUNITY 0x00616890
+const char* B616890Menu::TESReputation_GetReputationDesc()
 {
     B616890Setting* aapkSettings3[4][4] = {{&g_k616890A0, &g_k616890A1, &g_k616890A2, &g_k616890A3},
                                            {&g_k616890B0, &g_k616890B1, &g_k616890B2, &g_k616890B3},
@@ -1774,7 +1779,7 @@ struct CleanupList
     CleanupTopic** FUN_006815c0();
     void FUN_0063f7b0();
 };
-CleanupItem* GetTopicInfoByIndex(CleanupTopic*, unsigned int);
+CleanupItem* TESTopic_GetInfoByIndex(CleanupTopic*, unsigned int);
 struct CleanupBase
 {
     virtual ~CleanupBase();
@@ -1815,7 +1820,7 @@ FUN_006186d0::~FUN_006186d0()
         unsigned int count = topic->FUN_00717e50()->GetHavokWorldObjectCountInSceneGraph_0084e3a0();
         for (unsigned int i = 0; i < count; ++i)
         {
-            CleanupItem* item = GetTopicInfoByIndex(topic, i);
+            CleanupItem* item = TESTopic_GetInfoByIndex(topic, i);
             if (item)
             {
                 CleanupItem* pNullItem = 0;
@@ -2211,17 +2216,18 @@ struct Queue618
     ~Queue618();
 };
 
-struct FUN_006188c0
+struct QUEST_INFO
 {
     int m_iId;
     Path618 m_kPath;
     Queue618 m_kQueue;
-    ~FUN_006188c0();
+    ~QUEST_INFO();
 };
 
 // Destructor with an empty body; members m_kPath and m_kQueue are destroyed implicitly.
 // @fnv 0x006188c0
-FUN_006188c0::~FUN_006188c0()
+// src: COMMUNITY 0x006188c0
+QUEST_INFO::~QUEST_INFO()
 {}
 
 

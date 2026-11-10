@@ -94,7 +94,7 @@ public:
     ItemListRec* m_08;
     ListWalker* InitWalker(ItemListRec* list, CtxRec* ctx);
 };
-struct FUN_00d9e010_cls {
+struct hkpCollidableMediator {
     unsigned int unk00;
     unsigned int unk04;
     Child* child;

@@ -62,11 +62,11 @@ void __cdecl Script_SetActionFlag(TESObjectREFR* pRef, void* p, int iFlags);
 class SceneB54
 {
   public:
-    ControllerB54* GetOrCreateWidget();
+    ControllerB54* TESObjectCELL_Load3D();
     void RunScripts_0054c740(int a, int b);
     bool TESObjectCELL_HandleExpiredReferences();
-    void RecalcLeveledActorBases(bool b);
-    void ProcessCellReferences();
+    void CalcLeveledCreatures(bool b);
+    void TESObjectCELL_UpdateReferences3DandProcess();
     void FUN_00541ac0();
     void TESObjectCELL_CellRefLockLeave();
     NodeB54* GetRefList_009604f0();
@@ -80,10 +80,10 @@ class SceneB54
 // src: XBOX_PDB 0x0054bcf0
 void SceneB54::TESObjectCELL_AttachModels(bool bArg)
 {
-    ControllerB54* pController2 = GetOrCreateWidget();
+    ControllerB54* pController2 = TESObjectCELL_Load3D();
     RunScripts_0054c740(0, 0);
     bool bState5 = TESObjectCELL_HandleExpiredReferences();
-    RecalcLeveledActorBases(bState5);
+    CalcLeveledCreatures(bState5);
     if (((ManagerB54*)DAT_011dea10)->TES_IsBuffered(this))
     {
         if (pController2)
@@ -92,7 +92,7 @@ void SceneB54::TESObjectCELL_AttachModels(bool bArg)
             NiUpdateData kPoint_(0.0f, 0, 0);
             pController2->NiAVObject_Update(&kPoint_);
         }
-        ProcessCellReferences();
+        TESObjectCELL_UpdateReferences3DandProcess();
     }
     else
     {

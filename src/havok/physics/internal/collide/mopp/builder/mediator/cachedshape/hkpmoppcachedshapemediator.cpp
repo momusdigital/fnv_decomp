@@ -274,10 +274,10 @@ struct DD5D50Source
     virtual int getCount();
 };
 
-class FUN_00dd5d50 : public DD5D50ReferencedObject
+class hkpMoppCachedShapeMediator : public DD5D50ReferencedObject
 {
   public:
-    FUN_00dd5d50(DD5D50Source* source);
+    hkpMoppCachedShapeMediator(DD5D50Source* source);
     virtual void unk00();
 
     DD5D50Array m_items;
@@ -286,7 +286,8 @@ class FUN_00dd5d50 : public DD5D50ReferencedObject
 };
 
 // @fnv 0x00dd5d50
-FUN_00dd5d50::FUN_00dd5d50(DD5D50Source* source) : m_pObservedSource(source)
+// src: EXE 0x00dd5d50
+hkpMoppCachedShapeMediator::hkpMoppCachedShapeMediator(DD5D50Source* source) : m_pObservedSource(source)
 {
     m_uiItemCount = source->getCount();
 }
@@ -300,12 +301,12 @@ struct FUN_00dd5660_cls
     int unk10;
     int unk14;
     int unk18;
-    int GetUnk18_00dd5660();
+    int hkpMoppCachedShapeMediator_getNumPrimitives();
 };
 
 // @fnv 0x00dd5660
-// src: GUESS 0x00dd5660 (confidence: low)
-int FUN_00dd5660_cls::GetUnk18_00dd5660()
+// src: GUESS 0x00dd5660 (confidence: high)
+int FUN_00dd5660_cls::hkpMoppCachedShapeMediator_getNumPrimitives()
 {
     return unk18;
 }

@@ -60,7 +60,7 @@ public:
     void RemoveInvalidAvoidedReferences(FleeUpdate::Process* process);
     FleeUpdate::Target* FUN_00671d10();
     float GetField90Float();
-    Actor* FindNearestRef(Actor* actor);
+    Actor* GetClosestAvoidedRef(Actor* actor);
     void bhkCharacterControllerCinfo_SetAvoidBox(int state);
     void FleePackage_ModFleeTimer(float elapsed);
     Actor* FUN_005e3fc0();
@@ -72,7 +72,7 @@ public:
     using TESPackage::LoadGame;
     void RemoveRef(TESObjectREFR* reference);
     void RemoveInvalidAvoidedReferences(AvoidanceContext* context);
-    TESObjectREFR* FindNearestRef(TESObjectREFR* reference);
+    TESObjectREFR* GetClosestAvoidedRef(TESObjectREFR* reference);
     bool FindTeleportDoor(TESObjectREFR* reference, TESObjectREFR* context);
     bool ShouldShutDown();
     void SaveExtraData(BGSSaveFormBuffer* buffer);

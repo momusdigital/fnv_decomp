@@ -6,7 +6,7 @@
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 
-struct FUN_00d48370_cls
+struct hkpPhysicsData
 {
     int unk00;
     unsigned short m_uSize;
@@ -14,13 +14,14 @@ struct FUN_00d48370_cls
 
     void FinishObject();
 
-    FUN_00d48370_cls* FUN_00d48370(unsigned char acFlags);
+    hkpPhysicsData* ScalarDeletingDestructor(unsigned char acFlags);
     static void operator delete(void* apMemory) throw();
 };
 
 // Calls FinishObject, then if acFlags bit 0 is set frees this object through the allocator from FUN_00c85750 using m_uSize, and returns this.
 // @fnv 0x00d48370
-FUN_00d48370_cls* FUN_00d48370_cls::FUN_00d48370(unsigned char acFlags)
+// src: EXE 0x00d48370
+hkpPhysicsData* hkpPhysicsData::ScalarDeletingDestructor(unsigned char acFlags)
 {
     FinishObject();
     if (acFlags & 1)

@@ -5,11 +5,12 @@
 struct Helper
 {
     void FUN_007308e0();
-    void* FUN_00731580(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };
 void __cdecl _Deallocate(void*);
 // @fnv 0x00731580
-void* Helper::FUN_00731580(unsigned int flags)
+// src: EXE 0x00731580
+void* Helper::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_007308e0();
     if (flags & 1)

@@ -26,7 +26,8 @@ void TESTexture::InitializeComponent()
 }
 
 // @fnv 0x0048e6c0
-void TESTexture::ConvertTexturePath(const char* path, char* output)
+// src: COMMUNITY 0x0048e6c0
+void TESTexture::GetAsSkinFile(const char* path, char* output)
 {
     TaskQueueInterface::CopyStringToBuffer(output, 0x104, path);
     char* extension = strrchr_0040ab30(output, '.');
@@ -69,7 +70,8 @@ void TESTexture::ReadTextureData(TESTexture* texture, TESFile* file)
 
 // Builds the normal-map path by replacing the extension of path with "_n.dds", stores it in result and returns the string.
 // @fnv 0x0048e5b0
-const char* TESTexture::NormalizeTextureFilePath(BSStringT<char>& result, const char* path)
+// src: COMMUNITY 0x0048e5b0
+const char* TESTexture::GetAsNormalFile(BSStringT<char>& result, const char* path)
 {
     char* extension = 0;
     {
@@ -114,7 +116,8 @@ bool __cdecl IsChunkTypeIcon(int aChunk)
 }
 
 // @fnv 0x0048e660
-void __cdecl AppendNormalMapSuffix(const char* source, char* dest)
+// src: COMMUNITY 0x0048e660
+void __cdecl TESTexture_GetAsNormalFile(const char* source, char* dest)
 {
     TaskQueueInterface::CopyStringToBuffer(dest, 0x104, source);
     char* dot = strrchr_0040ab30(dest, '.');
@@ -151,7 +154,7 @@ struct FUN_0048e580_shell : FNStub
 // src: COMMUNITY 0x0048e580
 const char* __thiscall FUN_0048e580_shell::TESTexture_GetNormalMap(BSStringT<char>& result)
 {
-    return TESTexture::NormalizeTextureFilePath(result, this->GetFullName());
+    return TESTexture::GetAsNormalFile(result, this->GetFullName());
 }
 
 struct TESTexture_shell
@@ -172,14 +175,14 @@ void TESEyes::InitializeData_005fc1b0()
     cFlags = 0;
 }
 
-struct FUN_005fdc30_shell
+struct TESHair
 {
     void TESHair_InitializeData();
 };
 
 // @fnv 0x005fdc30
 // src: XBOX_PDB 0x005fdc30
-void FUN_005fdc30_shell::TESHair_InitializeData()
+void TESHair::TESHair_InitializeData()
 {
     ((char*)this)[0x48] = 0;
 }
@@ -191,7 +194,7 @@ void TESSkill::InitializeData_00617e80()
     ResetData();
 }
 
-struct FUN_005eac70_shell
+struct BGSPerk
 {
     void BGSPerk_SetDefault();
 };
@@ -199,7 +202,7 @@ struct FUN_005eac70_shell
 // Clears the bytes at offsets 0x38, 0x39 and 0x3C of this and sets the bytes at 0x3A and 0x3B to 1.
 // @fnv 0x005eac70
 // src: COMMUNITY 0x005eac70
-void FUN_005eac70_shell::BGSPerk_SetDefault()
+void BGSPerk::BGSPerk_SetDefault()
 {
     *(unsigned char*)((char*)this + 0x38) = 0;
     *(unsigned char*)((char*)this + 0x39) = 0;
@@ -208,24 +211,24 @@ void FUN_005eac70_shell::BGSPerk_SetDefault()
     *(unsigned char*)((char*)this + 0x3C) = 0;
 }
 
-struct FUN_00402c40_shell : public TESTexture
+struct TESIcon : public TESTexture
 {
     void DestroyTexture();
 };
 
 // @fnv 0x00402c40
-void FUN_00402c40_shell::DestroyTexture()
+void TESIcon::DestroyTexture()
 {
     TESTexture::~TESTexture();
 }
 
-struct FUN_00487410_shell
+struct TESIconTree
 {
     const char* GetLeafTexturePath();
 };
 
 // @fnv 0x00487410
-const char* FUN_00487410_shell::GetLeafTexturePath()
+const char* TESIconTree::GetLeafTexturePath()
 {
     return "Data\\Textures\\Trees\\Leaves\\";
 }

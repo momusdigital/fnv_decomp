@@ -131,11 +131,12 @@ struct NiPSysSphericalCollider : NiRefObject
     char _pad[0x20];
     NiRefObject* m_ptr;
     char _pad2[0xB0 - 0x2C];
-    void* FUN_00c28200(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 // Releases m_ptr, runs the base destructor, and frees this with _delete when flags has bit 0 set; returns this.
 // @fnv 0x00c28200
-void* NiPSysSphericalCollider::FUN_00c28200(unsigned int flags)
+// src: EXE 0x00c28200
+void* NiPSysSphericalCollider::ScalarDeletingDestructor(unsigned int flags)
 {
     if (m_ptr)
         m_ptr->DecRefCount();
@@ -151,7 +152,8 @@ struct Collider : BSFadeNode
     Collider* __thiscall NiPSysSphericalCollider_NiPSysSphericalCollider(float, int, int, int, int, float);
 };
 // @fnv 0x00c282a0
-Collider* CreateCollider()
+// src: EXE 0x00c282a0
+Collider* NiPSysSphericalCollider_CreateObject()
 {
     Collider* p = (Collider*)BSFadeNode::operator new(0xb0);
     if (p)

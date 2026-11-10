@@ -290,7 +290,7 @@ struct FUN_00e89970_Object {
     virtual void FUN_00e89970_Object_1();
     virtual void __stdcall FUN_00e89970_Object_2();
 };
-struct FUN_00e96c90_Class {
+struct NiD3DHLSLPixelShader {
     void* m_ppVirtualMethodTable;
     unsigned char m_auiShapeKeys[0x2c];
     void* m_30;
@@ -303,9 +303,9 @@ struct FUN_00e96c90_Class {
 extern "C" void __cdecl operator delete(void* p, unsigned int size);
 void __cdecl FUN_00e989c0();
 extern int DAT_010f1550;
-struct FUN_00e97870_Class {
+struct NiDX9ShaderConstantManager {
     void* m_ppVirtualMethodTable;
-    FUN_00e97870_Class(unsigned char flag);
+    NiDX9ShaderConstantManager(unsigned char flag);
 };
 extern unsigned int DAT_011c1118;
 extern int DAT_0126fa58;
@@ -666,7 +666,7 @@ struct ReleaseInterface {
     virtual void __stdcall GetFlags();
     virtual void __stdcall Release();
 };
-struct FUN_00e89840_Class {
+struct NiD3DShaderProgram {
     void* m_ppVirtualMethodTable;
     int m_04;
     int m_08;
@@ -2040,7 +2040,7 @@ struct FUN_00e8a9e0_child {
 struct FUN_00e8a9e0_owner {
     int unk00;
 };
-struct FUN_00e8a9e0_cls {
+struct NiDX9TextureData {
     int m_vptr;
     int unk04;
     int unk08;
@@ -2069,7 +2069,7 @@ struct FUN_00e8a9e0_cls {
     FUN_00e8a9e0_child* m_pChildObject;
 
     void BaseCleanup();
-    FUN_00e8a9e0_cls* FUN_00e8a9e0(unsigned char acFlags);
+    NiDX9TextureData* ScalarDeletingDestructor(unsigned char acFlags);
 };
 struct CubeMapSource {
     virtual void v00();
@@ -2954,7 +2954,7 @@ struct FUN_00e8bf80_Object {
     int m_uiItemCount;
     void __thiscall NiDX9VertexBufferManager_EndFrame();
 };
-struct FUN_00e8d350_Class {
+struct NiDX9FragmentShader {
     int unk00;
     int unk04;
     int unk08;
@@ -4965,7 +4965,7 @@ struct FUN_00e8b0c0_Class {
     char m_6e[0x84 - 0x6e];
     int m_84;
 
-    void __thiscall UpdateChangedEntries();
+    void __thiscall NiDX9SourceCubeMapData_UpdateTexture();
     void __thiscall NiDX9SourceCubeMapData_CopyDataToSurface(FUN_00e8b0c0_Ret* p, int idx);
 };
 extern "C" bool __stdcall SetProgram(void* a);
@@ -4975,7 +4975,7 @@ struct FUN_00e98910_Target {
 };
 extern int DAT_0101dce4;
 extern int DAT_010f16cc;
-struct FUN_00e98910_Class {
+struct NiD3DShaderConstantManager {
     int* unk00;
     int unk04;
     int unk08;
@@ -5011,7 +5011,7 @@ struct FUN_00e98910_Class {
     FUN_00e98910_Target* unk80;
     void* unk84;
 
-    FUN_00e98910_Class* __thiscall NiD3DShaderConstantManager_NiD3DShaderConstantManager(int* context);
+    NiD3DShaderConstantManager* __thiscall NiD3DShaderConstantManager_NiD3DShaderConstantManager(int* context);
 };
 extern "C" void __cdecl NiFree(void*);
 extern "C" void __cdecl NiMemObject_ReleaseStorage_00aa1490(void*, unsigned int);

@@ -267,8 +267,8 @@ class TESCreature : public TESActorBase, public TESAttackDamageForm, public TESM
     BGSBodyPartData* GetBodyPartData();
     void ResetFormData();
     void LoadGame(BGSLoadFormBuffer* buffer);
-    CreatureSounds* GetMutableCreatureSounds();
-    void SetCreatureSoundsFrom(TESCreature* soundCreature);
+    CreatureSounds* CreateCreatureSounds();
+    void SetSoundCreature(TESCreature* soundCreature);
     void SetBodyPartData(BGSBodyPartData* bodyPartData);
     void Revert(BGSLoadFormBuffer* buffer);
 };

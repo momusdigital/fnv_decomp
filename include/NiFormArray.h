@@ -10,7 +10,7 @@ public:
     NiFormArray();
     virtual ~NiFormArray();
 
-    unsigned int GetIndexOfForm(TESForm* form);
+    unsigned int GetIndexForForm(TESForm* form);
     unsigned int GetSize();
     TESForm*& FUN_00877a30(unsigned int index);
     void SetSize(unsigned int size, unsigned int* oldSize);

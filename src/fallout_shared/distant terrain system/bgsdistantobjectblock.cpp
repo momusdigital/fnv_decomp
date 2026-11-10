@@ -29,11 +29,12 @@ void __cdecl FormatStingerBlockPath(char* apOutput, TESWorldSpace* apWorld, int 
 
 struct FUN_006f6070_shell
 {
-    unsigned char GetByteAtOffset35();
+    unsigned char BGSDistantObjectBlock_GetHighPriority();
 };
 
 // @fnv 0x006f6070
-unsigned char FUN_006f6070_shell::GetByteAtOffset35()
+// src: COMMUNITY 0x006f6070
+unsigned char FUN_006f6070_shell::BGSDistantObjectBlock_GetHighPriority()
 {
     return ((unsigned char*)this)[0x23];
 }
@@ -53,7 +54,8 @@ extern void __cdecl _Deallocate(void*);
 
 // Destroys the task, deallocates it if flags has bit 0 set, and returns this.
 // @fnv 0x006f6fb0
-void* BGSDistantObjectBlockLoadTask::FUN_006f6fb0(unsigned int flags)
+// src: EXE 0x006f6fb0
+void* BGSDistantObjectBlockLoadTask::ScalarDeletingDestructor(unsigned int flags)
 {
     this->BGSDistantObjectBlockLoadTask::~BGSDistantObjectBlockLoadTask();
     if (flags & 1)
@@ -611,7 +613,7 @@ struct Node
 int __cdecl FUN_00456a20(const char*, int, int, int);
 struct BlockTask
 {
-    unsigned char GetByteAtOffset35();
+    unsigned char BGSDistantObjectBlock_GetHighPriority();
     void SetFlag();
 };
 }  // namespace fnv_006f71e0
@@ -634,20 +636,20 @@ void BGSDistantObjectBlockLoadTask::LoadDistantObjectBlock()
     if (canLoad && stream.BSStream_Load(
             (this->*reinterpret_cast<char* (QueuedFileEntry::*)(int)>(&QueuedFileEntry::GetFileName))(memory)))
     {
-        fnv_006f71e0::Node* node = (fnv_006f71e0::Node*)stream.GetStringAt(0);
+        fnv_006f71e0::Node* node = (fnv_006f71e0::Node*)stream.NiStream_GetObjectAt(0);
         if (node->AsNode())
         {
-            m_spLand = (NiAVObject*)stream.GetStringAt(0);
+            m_spLand = (NiAVObject*)stream.NiStream_GetObjectAt(0);
             m_spNode = (NiAVObject*)((fnv_006f71e0::Node*)(NiAVObject*)m_spLand)->NiNode_GetAtChecked(0);
         }
         else
         {
-            m_spNode = (NiAVObject*)stream.GetStringAt(0);
+            m_spNode = (NiAVObject*)stream.NiStream_GetObjectAt(0);
         }
     }
     else
     {
-        if (((fnv_006f71e0::BlockTask*)m_pParent)->GetByteAtOffset35())
+        if (((fnv_006f71e0::BlockTask*)m_pParent)->BGSDistantObjectBlock_GetHighPriority())
             ((fnv_006f71e0::BlockTask*)m_pParent)->SetFlag();
     }
 }
@@ -878,7 +880,7 @@ void FUN_006f5ca0_cls::BGSDistantObjectBlock_Attach()
                 ->BGSTerrainManager_GetLODObjectRoot()
                 ->V55(((C_00559450*)&m_10)->Modelloader_GetReferencedThis(), 1);
         }
-        if (((FUN_006f6070_shell*)this)->GetByteAtOffset35())
+        if (((FUN_006f6070_shell*)this)->BGSDistantObjectBlock_GetHighPriority())
         {
             if (((C_00559450*)&m_0c)->Modelloader_GetReferencedThis() != 0 || ((C_00559450*)&m_14)->Modelloader_GetReferencedThis() != 0)
                 DAT_011d8510 = DAT_011d8510 - 1;
@@ -911,14 +913,14 @@ struct FUN_006e5cc0_shell
 };
 
 // The shared task header does not yet declare this one-argument member.
-struct FUN_006f6250_shell
+struct BGSTerrainChunkLoadTask
 {
     void BGSDistantObjectBlockLoadTask_GetWaterGeometry(FUN_006e5cc0_shell* apObject);
 };
 
 // @fnv 0x006f6250
 // src: COMMUNITY 0x006f6250
-void FUN_006f6250_shell::BGSDistantObjectBlockLoadTask_GetWaterGeometry(FUN_006e5cc0_shell* apObject)
+void BGSTerrainChunkLoadTask::BGSDistantObjectBlockLoadTask_GetWaterGeometry(FUN_006e5cc0_shell* apObject)
 {
     apObject->FUN_006e5cc0((void*)((char*)this + 0x4c));
 }
@@ -1273,7 +1275,7 @@ struct MmAlpha
 
 struct MmWorldBound
 {
-    void SetByteAtOffset38(int i);
+    void SetKeepFlags(int i);
     void FUN_00a67050(int i);
     void FUN_004410f0(int i);
 };
@@ -1499,7 +1501,7 @@ void MenuModelImpl::UpdateMenuNodes()
         m_spNodeA.Modelloader_GetReferencedThis()->UpdateProperties();
         m_spNodeA.Modelloader_GetReferencedThis()->NiAVObject_Update(&kTransformTmp);
         m_pkOwnerManager->BGSTerrainNode_UpdateBlockVisibility(0);
-        m_spNodeA.Modelloader_GetReferencedThis()->NiGeometry_GetModelData()->SetByteAtOffset38(0);
+        m_spNodeA.Modelloader_GetReferencedThis()->NiGeometry_GetModelData()->SetKeepFlags(0);
         m_spNodeA.Modelloader_GetReferencedThis()->NiGeometry_GetModelData()->FUN_00a67050(0x4000);
         m_spNodeA.Modelloader_GetReferencedThis()->NiGeometry_GetModelData()->FUN_004410f0(1);
         NiXenonRenderer_GetRenderer()->Add(m_spNodeA.Modelloader_GetReferencedThis(), 0, 0,
@@ -1540,7 +1542,7 @@ struct GtNode : GtAVObject
 };
 struct GtFlags
 {
-    void SetByteAtOffset38(int i);
+    void SetKeepFlags(int i);
     void FUN_00a67050(int i);
     void FUN_004410f0(int i);
 };
@@ -1806,7 +1808,7 @@ void FUN_006f6a90_Owner::ApplyShaderSetup(GtAVObject* pkObject)
         pkGeomA->UpdateProperties();
         pkGeomA->NiAVObject_Update(&kZeroWork);
         m_pkOwnerManager->BGSTerrainNode_UpdateBlockVisibility(0);
-        pkGeomA->NiGeometry_GetModelData()->SetByteAtOffset38(0);
+        pkGeomA->NiGeometry_GetModelData()->SetKeepFlags(0);
         pkGeomA->NiGeometry_GetModelData()->FUN_00a67050(0x4000);
         pkGeomA->NiGeometry_GetModelData()->FUN_004410f0(1);
         NiXenonRenderer_GetRenderer()->FUN_vec(pkGeomA, 0, 0, pkGeomA->CombatController_GetTarget()->FUN_v118(pkGeomA, pkShaderZ));

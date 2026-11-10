@@ -10,7 +10,7 @@ struct FUN_00b3ede0_shell
     void* prev;
     unsigned int used;
     unsigned int size;
-    void* AdvanceBlockAllocationCursor();
+    void* ReadInt();
 };
 
 unsigned int __cdecl FUN_00ec7c56(void);
@@ -18,7 +18,7 @@ unsigned int __cdecl FUN_00ec7c56(void);
 // Checks the block has room for alloc bytes, calls FUN_00ec7c56 if not, advances p twice and returns the pointer at used+alloc.
 // @fnv 0x00b3ede0
 // src: GUESS 0x00b3ede0 (confidence: medium)
-void* FUN_00b3ede0_shell::AdvanceBlockAllocationCursor()
+void* FUN_00b3ede0_shell::ReadInt()
 {
     unsigned int alloc = *(unsigned int*)this;
     FUN_00b3ede0_shell* block = (FUN_00b3ede0_shell*)((char*)this + 4);
@@ -124,7 +124,7 @@ struct FUN_00b40150_base
     FUN_00b40150_base();
 };
 
-struct FUN_00b40150_cls : public FUN_00b40150_base
+struct CBillboardLeaf : public FUN_00b40150_base
 {
     int m_unk04;
     int m_unk08;
@@ -140,11 +140,12 @@ struct FUN_00b40150_cls : public FUN_00b40150_base
     float m_f44;
     int m_i48;
 
-    FUN_00b40150_cls();
+    CBillboardLeaf();
 };
 
 // @fnv 0x00b40150
-FUN_00b40150_cls::FUN_00b40150_cls()
+// src: EXE 0x00b40150
+CBillboardLeaf::CBillboardLeaf()
 {
     m_unk10 = 0;
     m_i14 = -1;

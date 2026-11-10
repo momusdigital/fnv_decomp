@@ -17,7 +17,7 @@ public:
     void ResetFormData();
     bool Load(TESFile* file);
     virtual void InitItem();
-    unsigned short GetCalculatedLevel();
+    unsigned short GetCalcedZoneLevel();
     bool QMatchPCBelowMin();
     unsigned char GetByteAt1D();
 
@@ -34,7 +34,7 @@ public:
     bool Compare_00526000(TESForm* other);
     void Copy_00525fa0(TESForm* source);
 
-    static void CreateDefaultEncounterZone();
+    static void CreateNoZone();
     static BGSEncounterZone* ms_pDefaultEncounterZone;
 
     EncounterZoneData Data;

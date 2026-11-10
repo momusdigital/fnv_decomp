@@ -65,11 +65,11 @@ public:
 
     void AddEffect(int state, int value);
     void AddFirstSoundEntry(int state, int value);
-    void AddSecondSoundEntry(int state, int value);
+    void AddPossibleEffect(int state, int value);
     void AddActionWorldState(int state, int value);
-    void RemoveActionWorldStateByOwner(int state);
+    void RemovePrecondition(int state);
     void RemoveEffectByOwner(int state);
-    void RemoveFirstSoundEntryByOwner(int state);
+    void RemoveExecutionCondition(int state);
     void SaveGame(CombatWriter* writer, SavedCombatState* state);
 
     CombatWorldStateListNode m_kFirstSoundEntryNode;

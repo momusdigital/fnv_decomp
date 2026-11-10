@@ -109,7 +109,7 @@ BSShader* BoltShader::CreateShader()
     shader->vfn_13c();
     shader->vfn_140();
     shader->InitShaderConstants();
-    shader->UseShaderDeclaration(declaration);
+    shader->NiD3DShader_SetShaderDecl(declaration);
     return shader;
 }
 

@@ -164,7 +164,8 @@ void __cdecl operator delete(void* p, unsigned int size);
 
 // Calls FUN_00c309d0, then deletes this with size 0x98 when bit 0 of flags is set, and returns this.
 // @fnv 0x00c30bd0
-void* __thiscall NiMeshPSysData::FUN_00c30bd0(unsigned int flags)
+// src: EXE 0x00c30bd0
+void* __thiscall NiMeshPSysData::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00c309d0();
     if (flags & 1)
@@ -252,7 +253,8 @@ void NiMeshPSysData::ProcessClone_00c30920(CloningProcess& kCloning)
 }
 
 // @fnv 0x00c30ca0
-NiMeshPSysData* __cdecl CreateNiMeshPSysData()
+// src: EXE 0x00c30ca0
+NiMeshPSysData* __cdecl NiMeshPSysData_CreateObject()
 {
     void* object = BSFadeNode::operator new(0x98);
     if (object)

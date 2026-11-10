@@ -23,14 +23,14 @@ struct FUN_0062d740_shell
 struct FUN_0062dee0_shell
 {
     CombatWorldStateListNode* m_kNode;
-    bool ProcessEntries_0062dee0(int arg);
+    bool TESTrapListener_HasEntryForRef(int arg);
 };
 extern int DAT_0104e3f4;
 struct FUN_0062e040_shell
 {
     void SetVirtualTable_0062e040();
 };
-struct FUN_0062c700_shell
+struct BSList
 {
     void ForwardCall_0062c700();
 };

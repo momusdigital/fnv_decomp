@@ -187,17 +187,17 @@ struct FUN_00a25da0_Class
 void* _memmove(void* dst, const void* src, unsigned int count);
 struct FUN_00a25e20_Class
 {
-    void UpdateFields_00a25e20(int* a, int* b, void* src);
+    void WriteDWord(int* a, int* b, void* src);
 };
 void* __cdecl _memmove(void* dst, const void* src, unsigned int count);
 struct FUN_00a25e70_Class
 {
-    void UpdateState_00a25e70(int* a, int* b, int src);
+    void WriteByte(int* a, int* b, int src);
 };
 void* _memmove(void* dst, const void* src, unsigned int count);
 struct FUN_00a25ec0_Class
 {
-    void UpdateFields_00a25ec0(int* a, int* b, void* src);
+    void WriteDWord(int* a, int* b, void* src);
 };
 void* _memmove(void* dst, const void* src, unsigned int n);
 struct FUN_00a25f10_Class

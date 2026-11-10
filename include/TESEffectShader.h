@@ -39,14 +39,14 @@ public:
     float Explosion_GetRadius();
     float TESEffectShader_GetAddOnScaleStart();
 
-    TESTexture* GetFieldAt14C();
-    TESTexture* GetFieldAt158();
-    TESTexture* GetFieldAt164();
+    TESTexture* GetTextureShaderTexture();
+    TESTexture* GetParticleShaderTexture();
+    TESTexture* GetBlockOutTexture();
     void CopySettingsTo(ParticleShaderProperty*, NiSourceTexture*);
     ParticleShaderProperty* CreateParticleShaderProperty(
         NiAVObject*, NiAVObject*, NiSourceTexture*, float);
     void StopParticleShader(NiAVObject*, ParticleShaderProperty*);
     BSShaderPPLightingProperty::TextureEffectData* CreateEffectData(
         NiAVObject*, NiSourceTexture*, NiSourceTexture*);
-    void ApplyShaderToTree(NiAVObject*, BSShaderPPLightingProperty::TextureEffectData*);
+    void StartTextureShader(NiAVObject*, BSShaderPPLightingProperty::TextureEffectData*);
 };

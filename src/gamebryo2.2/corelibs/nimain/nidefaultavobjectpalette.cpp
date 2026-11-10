@@ -54,7 +54,8 @@ void AddObjectToPalette(NiAVObject* object, NiDefaultAVObjectPalette* palette)
 }
 
 // @fnv 0x00a6e960
-void NiDefaultAVObjectPalette::BuildPalette()
+// src: COMMUNITY 0x00a6e960
+void NiDefaultAVObjectPalette::ResetAndFillFromScenegraph()
 {
     if (m_pkScene)
     {
@@ -363,11 +364,11 @@ class BC1F550Emitter
     int unk50;
 };
 
-class FUN_00c1f550_cls : public BC1F550Emitter
+class NiPSysMeshEmitter : public BC1F550Emitter
 {
   public:
-    FUN_00c1f550_cls() throw();
-    virtual ~FUN_00c1f550_cls();
+    NiPSysMeshEmitter() throw();
+    virtual ~NiPSysMeshEmitter();
 
     BC1F550ObjectArray<BC1F550GeometryPointer<BC1F550Geometry> > m_kGeometryEmitters;
     BC1F550PrimitiveArray<unsigned int> m_kEmitterTypes;
@@ -377,7 +378,8 @@ class FUN_00c1f550_cls : public BC1F550Emitter
 };
 
 // @fnv 0x00c1f550
-FUN_00c1f550_cls::FUN_00c1f550_cls() throw()
+// src: EXE 0x00c1f550
+NiPSysMeshEmitter::NiPSysMeshEmitter() throw()
     : m_kGeometryEmitters(1, 2), m_kEmitterTypes(0, 1), m_eInitVelocityType(0), m_eEmissionType(0),
       m_kEmitterPoint(g_kC1F550Zero)
 {}

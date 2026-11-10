@@ -45,7 +45,7 @@ struct FaceGenImageView
 
 struct FaceGenImage
 {
-    bool ForwardCall_0064db00();
+    bool vector_empty();
     FaceGenImageView* SetIteratorDataAndOwner(FaceGenImageView* out);
     int m_00;
     int m_04;
@@ -64,7 +64,7 @@ struct FaceGenImage
 // src: COMMUNITY 0x0064ceb0
 NiTexture* NiTexture::BSFaceGenImage_GetCompressedImage(float lo, float hi, float scale, void* srcv)
 {
-    if (((NiPtrTex*)&m_kName)->Modelloader_GetReferencedThis() == 0 && ((FaceGenImage*)&m_spControllers)->ForwardCall_0064db00() == 0 && (*(int*)&m_pkRendererData) != 0 && (*(int*)&m_pkPrev) != 0 && lo < hi)
+    if (((NiPtrTex*)&m_kName)->Modelloader_GetReferencedThis() == 0 && ((FaceGenImage*)&m_spControllers)->vector_empty() == 0 && (*(int*)&m_pkRendererData) != 0 && (*(int*)&m_pkPrev) != 0 && lo < hi)
     {
         __declspec(align(128)) NiDevImageConverter creator;
         NiPtrTex result(0);

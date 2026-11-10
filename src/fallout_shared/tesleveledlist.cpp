@@ -104,7 +104,8 @@ void TESLeveledList::Revert(BGSLoadFormBuffer* buffer)
 }
 
 // @fnv 0x00487f70
-void TESLeveledList::PopulateContainerWithLeveledItems(unsigned short level, unsigned short count,
+// src: COMMUNITY 0x00487f70
+void TESLeveledList::CalculateCurrentFormList(unsigned short level, unsigned short count,
                                                        TESContainer* container, int mode)
 {
     if (level < 1)
@@ -146,13 +147,13 @@ void TESLeveledList::PopulateContainerWithLeveledItems(unsigned short level, uns
                 result.form = 0;
                 result.quantity = 0;
                 result.extra = 0;
-                SelectLeveledObject((unsigned short)selectionLevel, result.form, result.quantity, result.extra, false,
+                CalculateCurrentForm((unsigned short)selectionLevel, result.form, result.quantity, result.extra, false,
                                     mode);
                 if (result.form && result.quantity)
                 {
                     TESLeveledList* nested = GetFormAsLeveledList(result.form);
                     if (nested)
-                        nested->PopulateContainerWithLeveledItems(level, result.quantity, &selected, mode);
+                        nested->CalculateCurrentFormList(level, result.quantity, &selected, mode);
                     else if (result.form->IsActor_InEditor())
                     {
                         TESForm* object = result.form;
@@ -198,7 +199,7 @@ void TESLeveledList::PopulateContainerWithLeveledItems(unsigned short level, uns
                                 {
                                     TESLeveledList* nested = GetFormAsLeveledList(result.form);
                                     if (nested)
-                                        nested->PopulateContainerWithLeveledItems(level, result.quantity, &selected,
+                                        nested->CalculateCurrentFormList(level, result.quantity, &selected,
                                                                                   mode);
                                     else if (result.form->IsActor_InEditor())
                                     {
@@ -213,13 +214,13 @@ void TESLeveledList::PopulateContainerWithLeveledItems(unsigned short level, uns
                 }
                 else
                 {
-                    SelectLeveledObject((unsigned short)selectionLevel, result.form, result.quantity, result.extra,
+                    CalculateCurrentForm((unsigned short)selectionLevel, result.form, result.quantity, result.extra,
                                         false, mode);
                     if (result.form && result.quantity)
                     {
                         TESLeveledList* nested = GetFormAsLeveledList(result.form);
                         if (nested)
-                            nested->PopulateContainerWithLeveledItems(level, result.quantity, &selected, mode);
+                            nested->CalculateCurrentFormList(level, result.quantity, &selected, mode);
                         else if (result.form->IsActor_InEditor())
                         {
                             TESForm* object = result.form;
@@ -231,13 +232,14 @@ void TESLeveledList::PopulateContainerWithLeveledItems(unsigned short level, uns
                 selected.ScaleEntryCounts(count);
             }
         }
-        container->MergeContainer(&selected);
+        container->AddContainerContents(&selected);
     }
 }
 
 // Rolls chance and level range over perk entries, picks one entry, optionally recurses into a nested leveled list, and writes form, count and extra.
 // @fnv 0x00487d00
-void TESLeveledList::SelectLeveledObject(unsigned short level, TESForm*& form, unsigned short& count,
+// src: COMMUNITY 0x00487d00
+void TESLeveledList::CalculateCurrentForm(unsigned short level, TESForm*& form, unsigned short& count,
                                          ContainerItemExtra*& extra, bool recurse, int mode)
 {
     struct LevelRange
@@ -331,7 +333,7 @@ void TESLeveledList::SelectLeveledObject(unsigned short level, TESForm*& form, u
                         recursive.form = 0;
                         recursive.count = 0;
                         recursive.extra = 0;
-                        nested->SelectLeveledObject(level, recursive.form, recursive.count, recursive.extra, recurse,
+                        nested->CalculateCurrentForm(level, recursive.form, recursive.count, recursive.extra, recurse,
                                                     mode);
                         result.form = recursive.form;
                         result.count *= recursive.count;
@@ -432,7 +434,7 @@ void TESLeveledList::LoadGame(BGSLoadFormBuffer* buffer)
     {
         if (!reinterpret_cast<BSSimpleList<BGSCameraShot*>*>(&m_kLeveledObjects)->IsEmpty())
             ClearScriptAddedLeveledObjects();
-        unsigned int uiEntryCount = buffer->ReadElementCount();
+        unsigned int uiEntryCount = buffer->LoadVariableSizedValue();
         for (unsigned int i = 0; i < uiEntryCount; ++i)
         {
             struct SavedForm
@@ -556,7 +558,8 @@ unsigned char TESLeveledList::GetChanceNone()
 typedef char _sizecheck_BaseFormComponent[sizeof(BaseFormComponent) == 4 ? 1 : -1];
 
 // @fnv 0x00487840
-bool TESLeveledList::UsesAllEntries()
+// src: COMMUNITY 0x00487840
+bool TESLeveledList::GetMultCalc()
 {
     if (m_ucChanceNone & 2)
         return true;
@@ -584,7 +587,8 @@ float __cdecl floor(float);
 
 // Reads the reference's level multiplier and all-below flag, computes a level from its level, and adds leveled list items to the container.
 // @fnv 0x00488350
-void TESLeveledList::PopulateContainerFromReference(TESObjectREFR* apRef, TESContainer* apOutCont)
+// src: COMMUNITY 0x00488350
+void TESLeveledList::CalculateCurrentFormListForRef(TESObjectREFR* apRef, TESContainer* apOutCont)
 {
     if (!apRef || !apOutCont)
         return;
@@ -600,7 +604,7 @@ void TESLeveledList::PopulateContainerFromReference(TESObjectREFR* apRef, TESCon
     if (ilevel < 1)
         ilevel = 1;
 
-    PopulateContainerWithLeveledItems((unsigned short)ilevel, 1, apOutCont, iallbelowforce);
+    CalculateCurrentFormList((unsigned short)ilevel, 1, apOutCont, iallbelowforce);
 }
 
 namespace fnv_0050ad90 {
@@ -1012,7 +1016,7 @@ void TESLeveledList::ClearScriptAddedLeveledObjects()
 
 extern void __cdecl TESForm_AddChunk_3(unsigned int, unsigned int);
 extern void __cdecl TESForm_AddChunk_00485910(unsigned int, unsigned int);
-extern void __cdecl AppendChunk(unsigned int, const void*, unsigned int);
+extern void __cdecl TESForm___AddChunkData(unsigned int, const void*, unsigned int);
 extern unsigned char __cdecl TESForm_QEndianSwapOnSave();
 
 struct LevelNode_00488400
@@ -1023,7 +1027,7 @@ struct LevelNode_00488400
 
 struct ExtraSaver_00488400 : ContainerItemExtra
 {
-    void WriteToChunk();
+    void ContainerItemExtra_Save();
 };
 
 // @fnv 0x00488400
@@ -1046,11 +1050,11 @@ void TESLeveledList::Save()
         levelEntryData.f2 = entry->m_sCount;
         if (TESForm_QEndianSwapOnSave())
             levelEntryData.SwapEndian();
-        AppendChunk(0x4f4c564c, &levelEntryData, 12);
+        TESForm___AddChunkData(0x4f4c564c, &levelEntryData, 12);
         if (TESForm_QEndianSwapOnSave())
             levelEntryData.SwapEndian();
         if (entry->m_pExtraData)
-            static_cast<ExtraSaver_00488400*>(entry->m_pExtraData)->WriteToChunk();
+            static_cast<ExtraSaver_00488400*>(entry->m_pExtraData)->ContainerItemExtra_Save();
         pEntryNode = pEntryNode->FUN_00726070();
     }
 }

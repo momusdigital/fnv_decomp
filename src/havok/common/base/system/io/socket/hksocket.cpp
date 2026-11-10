@@ -97,12 +97,12 @@ int __stdcall DllMain_12(int a, int b, int c)
 }
 
 namespace fnv_00d2b8c0 {
-struct FUN_00d2b8c0_Class;
+struct hkSocket;
 struct RetPart
 {
     virtual void first();
     virtual void second();
-    virtual void Release(FUN_00d2b8c0_Class* owner, unsigned int count);
+    virtual void Release(hkSocket* owner, unsigned int count);
 };
 struct UnkRet
 {
@@ -112,7 +112,7 @@ struct UnkRet
     int unk0c;
     RetPart* part10;
 };
-struct FUN_00d2b8c0_Class
+struct hkSocket
 {
     void* vptr00;
     unsigned short refCount;
@@ -121,12 +121,13 @@ struct FUN_00d2b8c0_Class
     int unk0c;
     int unk10;
     void* vptr14;
-    FUN_00d2b8c0_Class* FUN_00d2b8c0(unsigned int flags);
+    hkSocket* ScalarDeletingDestructor(unsigned int flags);
 };
 void* DAT_0102e388;
 UnkRet* hkMemoryRouter_getInstance();
 // @fnv 0x00d2b8c0
-FUN_00d2b8c0_Class* FUN_00d2b8c0_Class::FUN_00d2b8c0(unsigned int flags)
+// src: EXE 0x00d2b8c0
+hkSocket* hkSocket::ScalarDeletingDestructor(unsigned int flags)
 {
     vptr14 = &DAT_0102e388;
     vptr08 = &DAT_0102e388;

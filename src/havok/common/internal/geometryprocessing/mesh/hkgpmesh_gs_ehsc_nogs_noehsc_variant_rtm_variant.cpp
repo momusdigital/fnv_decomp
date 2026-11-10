@@ -131,10 +131,10 @@ struct FUN_00e12140_cls
 };
 extern "C" void __cdecl Deallocate(void*);
 extern int DAT_010eadfc;
-struct FUN_00e22450
+struct hkGskShape
 {
     void* m_p;
-    FUN_00e22450(char f);
+    hkGskShape(char f);
 };
 struct FUN_00e234e0_
 {
@@ -146,7 +146,7 @@ struct FUN_00e238e0_
 };
 void __cdecl ProcessEntries();
 void __cdecl hkgpAbstractMeshDefinitions_List_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Triangle_struct_hkgpAbstractMeshDefinitions_List_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Vertex_struct_hkgpTriangulatorBase_VertexBase_struct_hkGeometryProcessing_PoolAllocator_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Vertex_32_struct_hkContainerHeapAllocator_Item_struct_hkGeometryProcessing_PoolAllocator_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Triangle_32_struct_hkContainerHeapAllocator_reset();
-struct FUN_00e24a80_Class
+struct hkgpAbstractMesh
 {
     void __thiscall hkgpAbstractMesh_hkgpTriangulatorType_hkgpTriangulatorBase_VertexBase_hkgpTriangulatorBase_TriangleBase_hkgpTriangulatorBase_DefaultEdgeData_hkContainerHeapAllocator_hkContainerHeapAllocator_1_Edge_hkgpTriangulatorType_hkgpTriangulatorBase_VertexBase_hkgpTriangulatorBase_TriangleBase_hkgpTriangulatorBase_DefaultEdgeData_hkContainerHeapAllocator_hkContainerHeapAllocator_1_Vertex_hkgpTriangulatorType_hkgpTriangulatorBase_VertexBase_hkgpTriangulatorBase_TriangleBase_hkgpTriangulatorBase_();
 };
@@ -1024,7 +1024,7 @@ struct Triple
     Components first, second, third;
 };
 int __cdecl hkGeometryProcessing_checkTrianglesIntersection(void*, const Triple*);
-struct FUN_00e22270_Class
+struct TriangleOverlap
 {
     int unk00;
     unsigned int flags;
@@ -1037,7 +1037,7 @@ struct Target
     virtual void v01();
     virtual void Forward(int a);
 };
-struct FUN_00e22470_cls
+struct ShapeBridge
 {
     int unk00;
     Target* m_04;
@@ -2147,7 +2147,7 @@ struct FUN_00e227f0_cls
 {
     unsigned int unk00;
     SceneSet* m_04;
-    void* ComputeValues_00e227f0(BufferAddress138 bufferAddress);
+    void* PrismShape_getAabb(BufferAddress138 bufferAddress);
 };
 struct __declspec(align(16)) S_Vec
 {
@@ -2398,7 +2398,7 @@ struct FUN_00e221e0_Input
 };
 float __cdecl hkGeometryProcessing_squaredDistanceFromPointToTriangle(const Vec4* point, const Vec4* a, const Vec4* b, const Vec4* c, Float4* closest,
                            Float4* weights);
-struct FUN_00e221e0_Collector
+struct NearestFeaturePolicy
 {
     int unk00;
     int unk04;
@@ -2939,7 +2939,7 @@ static __forceinline PacketCallLocal_00e19d60 S00e19d60_planeEquation(const Pack
 struct S00e19d60_Mesh
 {
     S00e19d60_Edge ProcessAndReturnValue_00e191a0(S00e19d60_Edge e, const PacketCallLocal_00e19d60& p, bool b);
-    void SplitTriangleWithNewVertex(S00e19d60_Triangle* t, const PacketCallLocal_00e19d60& p, bool b);
+    void splitTriangle(S00e19d60_Triangle* t, const PacketCallLocal_00e19d60& p, bool b);
     static bool __cdecl hkgpMesh_clipTriangles(S00e19d60_Mesh* meshA, S00e19d60_Triangle* triA, S00e19d60_Mesh* meshB,
                                      S00e19d60_Triangle* triB, float minDistance);
 };
@@ -3054,7 +3054,7 @@ bool __cdecl S00e19d60_Mesh::hkgpMesh_clipTriangles(S00e19d60_Mesh* meshA, S00e1
                                        (const ::Vec4f&)vertices[2], -1.1920929e-07f))
                     {
                         meshes[j]->ProcessAndReturnValue_00e191a0(e, x, false);
-                        meshes[i]->SplitTriangleWithNewVertex(triangles[i], x, false);
+                        meshes[i]->splitTriangle(triangles[i], x, false);
                         do
                         {
                             char reportBuf[512];

@@ -179,7 +179,7 @@ void PlayerMover::SetMoverMode(unsigned int auMode)
         m_uiMode = auMode & 0x30;
     }
     ByteAndFlagState = auMode;
-    if (changed && TESAnimGroup::IsAimAnimation(g_thePlayer->GetAnimation(false)->Animation_GetGroup(4)))
+    if (changed && TESAnimGroup::IsAimAction(g_thePlayer->GetAnimation(false)->Animation_GetGroup(4)))
     {
         struct AimAnimationState
         {

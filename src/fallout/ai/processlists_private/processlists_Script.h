@@ -26,7 +26,7 @@ class Script : public TESForm
     const char* GetVariableName(unsigned int index);
     static bool GetValue(double& value, const char* data, unsigned int& offset, TESObjectREFR* reference,
                          TESObjectREFR* container, Script* script, ScriptLocals* locals, bool skip);
-    void CopyScriptContents(Script* script);
+    void CopyResultScript(Script* script);
     void SetScriptData(unsigned int size, char* data);
     BSSimpleList<ScriptReferencedObject*>* GetReferencedObjectList();
     BSSimpleList<ScriptVariableInfo*>* GetVariableList();

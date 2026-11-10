@@ -165,7 +165,7 @@ public:
     void HandleAction(int action, void* tile);
     void UpdateButtonState(int button);
     void UpdateTileText();
-    void DealInitialCards();
+    void BlackJackMenu_DealHand();
     int DrawCard(void* hand, bool useSkill, bool split);
     int DrawCard(CardHand* hand, bool useSkill, bool split);
     int DrawCard(int hand, int useSkill, int split);

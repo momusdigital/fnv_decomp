@@ -65,7 +65,7 @@ public:
 
     void FUN_00d6a8a0();
     void FUN_00d6a750();
-    void* FUN_00d6a8b0(int flags);
+    void* ScalarDeletingDestructor(int flags);
 
     ElementArray m_elements;
 };

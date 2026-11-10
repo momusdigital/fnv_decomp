@@ -516,7 +516,7 @@ struct __declspec(align(16)) Particle
     }
     const ParticleVectorLocal_00c6f500* bhkCharacterProxy_GethkPosition() const;
     void UpdateMaxVelocity(NiPoint3* direction, float timeStep);
-    void UpdateLargestAbsoluteThreshold(float angle, float impactStrength);
+    void bhkCharacterController_SetImpulseIfStronger(float angle, float impactStrength);
 };
 struct Source
 {
@@ -1071,6 +1071,6 @@ __declspec(noinline) void __fastcall bhkCharacterListener_characterInteractionCa
         if (side.At(2) > 0.0f)
             scale *= DAT_0101a6b0;
         scale *= 2.0f;
-        particle->UpdateLargestAbsoluteThreshold(scale, DAT_0101df44);
+        particle->bhkCharacterController_SetImpulseIfStronger(scale, DAT_0101df44);
     }
 }

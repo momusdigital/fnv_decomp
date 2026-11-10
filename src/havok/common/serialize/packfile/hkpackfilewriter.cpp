@@ -70,12 +70,12 @@ struct FUN_00dbdae0
 {
     char m[0x2c];
     DepthLimit m_dl;
-    void UpdateFields_00dbdae0(void* a, int b);
+    void hkPackfileWriter_addExport(void* a, int b);
 };
 // Gets the memory router's stream allocator and forwards it with a and b to m_dl.FUN_00cb1870.
 // @fnv 0x00dbdae0
-// src: GUESS 0x00dbdae0 (confidence: low)
-void FUN_00dbdae0::UpdateFields_00dbdae0(void* a, int b)
+// src: GUESS 0x00dbdae0 (confidence: high)
+void FUN_00dbdae0::hkPackfileWriter_addExport(void* a, int b)
 {
     void* r = (&hkMemoryRouter::getInstance())->m_heap;
     m_dl.hkMapBase_unsigned_long_unsigned_long_hkMapOperations_unsigned_long_insert(r, a, b);
@@ -115,11 +115,12 @@ struct FUN_00dbe760_s : public FUN_00dbc6e0_s
 {
     unsigned short m_uiFilterValue;
 
-    FUN_00dbe760_s* __thiscall FUN_00dbe760(int a);
+    FUN_00dbe760_s* __thiscall ScalarDeletingDestructor(int a);
 };
 
 // @fnv 0x00dbe760
-FUN_00dbe760_s* __thiscall FUN_00dbe760_s::FUN_00dbe760(int aiFlags)
+// src: EXE 0x00dbe760
+FUN_00dbe760_s* __thiscall FUN_00dbe760_s::ScalarDeletingDestructor(int aiFlags)
 {
     FUN_00dbc6e0_s::FUN_00dbdf60();
 

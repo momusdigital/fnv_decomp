@@ -232,11 +232,12 @@ void __cdecl FUN_00aa1460(void* object, unsigned int size);
 struct TextureEffectMatch
 {
     void** m_ppVirtualMethodTable;
-    TextureEffectMatch* FUN_00a92bd0(unsigned int flags);
+    TextureEffectMatch* ScalarDeletingDestructor(unsigned int flags);
 };
 
 // @fnv 0x00a92bd0
-TextureEffectMatch* TextureEffectMatch::FUN_00a92bd0(unsigned int flags)
+// src: EXE 0x00a92bd0
+TextureEffectMatch* TextureEffectMatch::ScalarDeletingDestructor(unsigned int flags)
 {
     m_ppVirtualMethodTable = reinterpret_cast<void**>(&DAT_0109fd0c);
     if (DAT_011f4748)

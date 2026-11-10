@@ -338,7 +338,8 @@ bool __fastcall RegisterEmitterInterpolatorStreamables(NiPSysEmitterCtlr* self, 
 void SaveModifierCtlrBinary();
 
 // @fnv 0x00c1be40
-void __fastcall SaveEmitterBinary(NiPSysEmitterCtlr* self, int unused, NiStream& kStream)
+// src: EXE 0x00c1be40
+void __fastcall NiPSysEmitterCtlr_SaveBinary(NiPSysEmitterCtlr* self, int unused, NiStream& kStream)
 {
     reinterpret_cast<void(__thiscall*)(NiPSysModifierCtlr*, NiStream&)>(&SaveModifierCtlrBinary)(self, kStream);
     kStream.SaveLinkID(self->m_spVisibilityInterpolator.m_pObject);
@@ -508,7 +509,8 @@ bool Holder00c2b7d0::NiPSysEmitterCtlr_InterpTargetIsCorrectType(void* pkTarget)
 }  // namespace fnv_00c2b7d0
 
 // @fnv 0x00c1bbc0
-void __fastcall SetEmitterActiveTimeRange(NiPSysEmitterCtlr* self, int unused, float afValue1, float afValue2)
+// src: EXE 0x00c1bbc0
+void __fastcall NiPSysEmitterCtlr_GuaranteeTimeRange(NiPSysEmitterCtlr* self, int unused, float afValue1, float afValue2)
 {
     self->NiSingleInterpController::SetActiveTimeRange(afValue1, afValue2);
     NiInterpolator* pk = self->m_spVisibilityInterpolator.m_pObject;
@@ -556,7 +558,8 @@ char* __cdecl _FUN_00a7d330(char*);
 void __stdcall AppendModifierInfo(StrArr*);
 
 // @fnv 0x00c1ce70
-void __fastcall AppendEmitterViewerStrings(NiPSysEmitterCtlr* self, int unused, StrArr* pkStrings)
+// src: EXE 0x00c1ce70
+void __fastcall NiPSysEmitterCtlr_GetViewerStrings(NiPSysEmitterCtlr* self, int unused, StrArr* pkStrings)
 {
     AppendModifierInfo(pkStrings);
     char* pcString = _FUN_00a7d330((char*)g_01203340_arg1);
@@ -1047,7 +1050,8 @@ NiObject* NiPSysEmitterCtlr::MakeClone(CloningProcess& process)
 }
 
 // @fnv 0x00c1c5e0
-NiPSysEmitterCtlr* __cdecl CreateNiPSysEmitterCtlr()
+// src: EXE 0x00c1c5e0
+NiPSysEmitterCtlr* __cdecl NiPSysEmitterCtlr_CreateObject()
 {
     NiPSysEmitterCtlr* controller = static_cast<NiPSysEmitterCtlr*>(NiPSysEmitterCtlr::operator new(sizeof(NiPSysEmitterCtlr)));
     if (controller)

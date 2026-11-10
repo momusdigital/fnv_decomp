@@ -24,7 +24,7 @@ class LockExtraData
 
     void SetLocked(bool aLocked);
     int GetLevel(TESObjectREFR*);
-    static int ConvertLockLevel(int);
+    static int REFR_LOCK_NumericValueToEnum(int);
     static int EnumToNumericValue(LOCK_LEVEL);
     int GetLockLevel(TESObjectREFR*);
     bool MeetsMinimumLockLevel();

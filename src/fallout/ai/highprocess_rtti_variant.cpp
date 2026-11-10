@@ -41,7 +41,7 @@ struct List
 };
 struct Process
 {
-    bool GetPathCoordinate(NiPoint3*);
+    bool GetCurrentGoal(NiPoint3*);
 };
 struct Race
 {
@@ -258,7 +258,7 @@ void Actor::HighProcess_ProcessObserveCombat(Actor* actor)
                 actor->Actor_SetBlock(0);
             actor->Actor_SetMoveMode(512);
             NiPoint3 targetSlot6Slot10;
-            if (reinterpret_cast<PackagePathing::Process*>(actor->m_pActorMover)->GetPathCoordinate(&targetSlot6Slot10))
+            if (reinterpret_cast<PackagePathing::Process*>(actor->m_pActorMover)->GetCurrentGoal(&targetSlot6Slot10))
             {
                 float targetDistanceSlot1 = actor->GetLightLevelAtPoint(targetSlot6Slot10);
                 if (targetDistanceSlot1 <= DAT_010240c0)

@@ -60,7 +60,8 @@ NiExtraData* NiIntegersExtraData_CreateObject()
 }
 
 // @fnv 0x00a99a50
-NiIntegersExtraData* NiIntegersExtraData::FUN_00a99a50(int flag)
+// src: EXE 0x00a99a50
+NiIntegersExtraData* NiIntegersExtraData::ScalarDeletingDestructor(int flag)
 {
     *(int*)this = (int)&DAT_010a0c7c;
     NiFreeAlias(m_piValue);

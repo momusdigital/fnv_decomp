@@ -30,9 +30,9 @@ struct FUN_00dbc640_class
 
     void __thiscall FUN_00dbb3f0();
 
-    FUN_00dbc640_class* __thiscall FUN_00dbc640(int flags);
+    FUN_00dbc640_class* __thiscall ScalarDeletingDestructor(int flags);
 };
-FUN_00dbc640_class* FUN_00dbc640_class::FUN_00dbc640(int flags)
+FUN_00dbc640_class* FUN_00dbc640_class::ScalarDeletingDestructor(int flags)
 {
     this->FUN_00dbb3f0();
 

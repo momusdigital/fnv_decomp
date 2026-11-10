@@ -8,7 +8,7 @@
 
 // src/havok/physics/collide/query/multithreaded/raycastquery/cpu/hkpcpukdtreeraycastjob.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/projects/fallout/code/havok/source/physics/collide/query/multithreaded/raycastquery/cpu/hkpcpukdtreeraycastjob.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
-struct FUN_00e4dd90_shell
+struct hkKdTreeCpuBroadphaseBundleCastCollector
 {
     void __thiscall hkKdTreeCpuBroadphaseBundleCastCollector_getHitFractions(float* output);
 };
@@ -271,5 +271,5 @@ void hkKdTreeUtils_castRayBundleIterative_ProcessEntries_00e2acf0(void* a1, Inpu
         a2->saved[k] = local.saved[k];
     }
 
-    ((FUN_00e4dd90_shell*)&obj)->hkKdTreeCpuBroadphaseBundleCastCollector_getHitFractions(a4);
+    ((hkKdTreeCpuBroadphaseBundleCastCollector*)&obj)->hkKdTreeCpuBroadphaseBundleCastCollector_getHitFractions(a4);
 }

@@ -28,12 +28,12 @@ void CTreeEngine::SetSize_00b2bd20(float afValue, float fVariance)
 
 struct FUN_00b2bdc0_shell
 {
-    void UpdateFields_00b2bdc0(float a, float b);
+    void CTreeEngine_SetLodDistances(float a, float b);
 };
 
 // @fnv 0x00b2bdc0
-// src: GUESS 0x00b2bdc0 (confidence: low)
-void FUN_00b2bdc0_shell::UpdateFields_00b2bdc0(float afValue44, float afValue40)
+// src: GUESS 0x00b2bdc0 (confidence: medium)
+void FUN_00b2bdc0_shell::CTreeEngine_SetLodDistances(float afValue44, float afValue40)
 {
     *(float*)(this + 0x44) = afValue44;
     *(float*)(this + 0x40) = afValue40;

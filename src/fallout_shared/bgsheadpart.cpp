@@ -131,7 +131,7 @@ void TESForm_AddChunk_00485910(unsigned int, unsigned int);
 void BGSHeadPart::InitializeHeadPart()
 {
     BSSimpleList<BGSHeadPart*>* pCurrentElementNext;
-    BeginFormRecord();
+    TESForm_StartForm();
     TESFullName::Save_00487010();
     ((void(__thiscall*)(TESModelTextureSwap*, unsigned int, unsigned int, unsigned int))ref_0048a520)(
         reinterpret_cast<TESModelTextureSwap*>(reinterpret_cast<char*>(this) + 0x24),
@@ -147,7 +147,7 @@ void BGSHeadPart::InitializeHeadPart()
         itempint = ppart->GetHavokWorldObjectCountInSceneGraph_0084e3a0();
         TESForm_AddChunk_00485910(0x4d414e48, itempint);
     }
-    FinishFormRecord();
+    TESForm_CloseForm();
 }
 
 struct List_009e03e0

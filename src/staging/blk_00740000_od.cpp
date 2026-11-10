@@ -29,14 +29,14 @@ unsigned int FUN_00740960_Class::TESDataHandler_GetBarterContainer()
     return *(unsigned int*)((char*)this + 0x628);
 }
 
-struct FUN_00752df0_class
+struct CaravanMenu
 {
     int CompareToTwentyOneToTwentySix(int value);
 };
 
 // Returns -1 if value is below 0x15, 1 if above 0x1a, and 0 when value is in that range.
 // @fnv 0x00752df0
-int FUN_00752df0_class::CompareToTwentyOneToTwentySix(int value)
+int CaravanMenu::CompareToTwentyOneToTwentySix(int value)
 {
     if (value < 0x15)
         return -1;
@@ -214,11 +214,12 @@ extern "C" void Deallocate(void*);
 struct FUN_00753180_Class
 {
     void __thiscall ResetVirtualTableAndClear_007530a0();
-    void* __thiscall FUN_00753180(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 
 // @fnv 0x00753180
-void* __thiscall FUN_00753180_Class::FUN_00753180(unsigned int flags)
+// src: EXE 0x00753180
+void* __thiscall FUN_00753180_Class::ScalarDeletingDestructor(unsigned int flags)
 {
     ResetVirtualTableAndClear_007530a0();
     if (flags & 1)
@@ -273,12 +274,13 @@ struct TileProcessor
 {
     void ProcessAllTiles();
 };
-struct FUN_00759470_Class
+struct ComputersMenu
 {
-    void UpdateNoteDisplay(BGSNote* a1);
+    void ComputersMenu_DisplayNoteImage(BGSNote* a1);
 };
 // @fnv 0x00759470
-void FUN_00759470_Class::UpdateNoteDisplay(BGSNote* pNote)
+// src: COMMUNITY 0x00759470
+void ComputersMenu::ComputersMenu_DisplayNoteImage(BGSNote* pNote)
 {
     ((TileProcessor*)*((int*)this + 0x3a))->ProcessAllTiles();
     ((Tile*)*((int*)this + 0xb))->Set(0xfa3, 0);
@@ -290,13 +292,13 @@ void FUN_00759470_Class::UpdateNoteDisplay(BGSNote* pNote)
         ((Tile*)*((int*)this + 0x11))->Set(0xfa3, 0);
         ((Tile*)*((int*)this + 0x19))->Set(0xfa3, 0);
     }
-    ((Tile*)*((int*)this + 0xc))->Set(0xfcc, reinterpret_cast<TESFullName*>(pNote->GetNoteTexture())->GetFullName(), true);
+    ((Tile*)*((int*)this + 0xc))->Set(0xfcc, reinterpret_cast<TESFullName*>(pNote->GetNoteImage())->GetFullName(), true);
 }
 
 
 extern const char $SG3295[];
 
-struct FUN_00759330 : public BSStringT<char>
+struct Font_TextData : public BSStringT<char>
 {
     int m_w;
     int m_h;
@@ -307,11 +309,12 @@ struct FUN_00759330 : public BSStringT<char>
     char m_ucUnknownByte[3];
     SL m_sl;
 
-    FUN_00759330(int w, int h, int s, int e, char c);
+    Font_TextData(int w, int h, int s, int e, char c);
 };
 
 // @fnv 0x00759330
-FUN_00759330::FUN_00759330(int aiWidth, int aiHeight, int s, int aiExtra, char c)
+// src: COMMUNITY 0x00759330
+Font_TextData::Font_TextData(int aiWidth, int aiHeight, int s, int aiExtra, char c)
 {
     this->BSStringT<char>::operator=($SG3295);
     m_w = aiWidth;
@@ -379,11 +382,11 @@ struct GlobalObject_0041a250
 
 extern int DAT_011d93fc;
 
-class FUN_0075b0d0 : public Menu
+class ContainerMenu : public Menu
 {
   public:
-    FUN_0075b0d0();
-    virtual ~FUN_0075b0d0();
+    ContainerMenu();
+    virtual ~ContainerMenu();
     unsigned char layoutPadding28[0x50];
     BSSimpleList<int*> list78;
     int unk80;
@@ -401,7 +404,8 @@ class FUN_0075b0d0 : public Menu
 };
 
 // @fnv 0x0075b0d0
-FUN_0075b0d0::FUN_0075b0d0()
+// src: EXE 0x0075b0d0
+ContainerMenu::ContainerMenu()
 {
     DAT_011d93fc = 0;
     unkF8 = 0;
@@ -438,11 +442,11 @@ struct MenuListStub
 extern NiColorA g_defaultImageSpaceParam;
 extern int g_menuGlobalState;
 
-class FUN_0075f070 : public Menu
+class CreditsMenu : public Menu
 {
   public:
-    FUN_0075f070();
-    virtual ~FUN_0075f070();
+    CreditsMenu();
+    virtual ~CreditsMenu();
     int unk28;
     int unk2C;
     NiPointer<MenuRefObj> unk30;
@@ -463,7 +467,8 @@ class FUN_0075f070 : public Menu
 
 // Initializes the menu's fields to zero/default values, assigns g_defaultImageSpaceParam to unk50, and resets g_menuGlobalState to 0.
 // @fnv 0x0075f070
-FUN_0075f070::FUN_0075f070() : unk30(0), unk50(0.0f, 0.0f, 0.0f, 0.0f)
+// src: EXE 0x0075f070
+CreditsMenu::CreditsMenu() : unk30(0), unk50(0.0f, 0.0f, 0.0f, 0.0f)
 {
     unk28 = 0;
     unk34 = 0;

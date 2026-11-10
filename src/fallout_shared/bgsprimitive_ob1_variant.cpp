@@ -108,8 +108,8 @@ public:
     float Length2() const;
     float Length() const;
     float Len() const;
-    float GetSquaredXYLength();
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength();
+    float NiPoint3_SqrXYLength() const;
 
     void Unitize_004a0c10();
     LocalPt3* SubtractIntoVector(LocalPt3* out, LocalPt3* other);
@@ -201,8 +201,8 @@ public:
     float DotProduct(const LocalVec3* other) const;
     float Length() const;
     float LengthSquared() const;
-    float GetSquaredXYLength();
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength();
+    float NiPoint3_SqrXYLength() const;
     Elem16& expand(Allocator& allocator);
 
     void SetComponents(float x, float y, float z);
@@ -833,7 +833,7 @@ int BSMultiBoundShape::BSMultiBoundOBB_CheckBound_00c369b0(BSMultiBound* p)
 struct C37050_Plane
 {
     float a, b, c, d;
-    int ClassifyPoint(const PodPoint3& point) const;
+    int NiPlane_WhichSide(const PodPoint3& point) const;
 };
 inline bool NiFrustumPlanes::IsPlaneActive(unsigned int i)
 {
@@ -860,7 +860,7 @@ bool C37050_Bound::BSMultiBoundOBB_CompletelyWithinFrustum(const NiFrustumPlanes
         {
             for (int j = 0; j < 8; j++)
             {
-                if (reinterpret_cast<const C37050_Plane&>(frustum.m_akPlanes[i]).ClassifyPoint(corners[j]) == 2)
+                if (reinterpret_cast<const C37050_Plane&>(frustum.m_akPlanes[i]).NiPlane_WhichSide(corners[j]) == 2)
                     return false;
             }
         }
@@ -1161,7 +1161,7 @@ bool OccShape::BSMultiBoundAABB_WithinFrustum(NiFrustumPlanes* pkPlanes)
 
 class CloningProcess;
 void* __cdecl Object_DispatchCommandFour(unsigned int size);
-struct FUN_00c4f8e0
+struct BSPortal
 {
     int unk000;
     int unk004;
@@ -1235,18 +1235,18 @@ struct FUN_00c4f8e0
         (void)unused;
         return Object_DispatchCommandFour(size);
     }
-    FUN_00c4f8e0();
+    BSPortal();
 };
 struct C4F390_Owner
 {
-    void CopyFields(FUN_00c4f8e0* clone, CloningProcess& cloning);
-    FUN_00c4f8e0* BSPortal_CreateClone(CloningProcess& cloning);
+    void CopyFields(BSPortal* clone, CloningProcess& cloning);
+    BSPortal* BSPortal_CreateClone(CloningProcess& cloning);
 };
 // @fnv 0x00c4f390
 // src: XBOX_PDB 0x00c4f390
-FUN_00c4f8e0* C4F390_Owner::BSPortal_CreateClone(CloningProcess& cloning)
+BSPortal* C4F390_Owner::BSPortal_CreateClone(CloningProcess& cloning)
 {
-    FUN_00c4f8e0* clone = new FUN_00c4f8e0;
+    BSPortal* clone = new BSPortal;
     CopyFields(clone, cloning);
     return clone;
 }
@@ -1644,7 +1644,7 @@ struct FUN_00c47770
 struct FUN_00c3a620
 {  // member at +0xb0; destructor at 0x00c3a620
     unsigned int unk00, unk04, unk08, unk0C;
-    void UpdateFields_00b5af80(int iMode);
+    void BSSimpleArray_RemoveAll(int iMode);
     ~FUN_00c3a620();
 };
 
@@ -1672,7 +1672,7 @@ class Owner_c4f550 : public FUN_00a5e930
 Owner_c4f550::~Owner_c4f550()
 {
     delete m_pkOwned;
-    m_kList.UpdateFields_00b5af80(1);
+    m_kList.BSSimpleArray_RemoveAll(1);
     m_uiCount = 0;
 }
 }  // namespace fnv_00c4f550
@@ -1784,16 +1784,17 @@ struct NodePointer
     }
     NodePointer& FUN_0066b0d0(RefObject*);
 };
-class FUN_00c4f8e0 : public FUN_00c335d0
+class BSPortal : public FUN_00c335d0
 {
   public:
     NodePointer node;
-    FUN_00c4f8e0();
+    BSPortal();
     virtual void vf0();
 };
 extern void* DAT_0101e82c;
 // @fnv 0x00c4f8e0
-FUN_00c4f8e0::FUN_00c4f8e0()
+// src: EXE 0x00c4f8e0
+BSPortal::BSPortal()
 {
     Dead2();
     node.FUN_0066b0d0(0);
@@ -1871,7 +1872,7 @@ struct Plane
 {
     PodPoint3 normal;
     float distance;
-    int ClassifyPoint(const PodPoint3&) const;
+    int NiPlane_WhichSide(const PodPoint3&) const;
 };
 
 struct FloatMatrix3
@@ -1936,7 +1937,7 @@ bool OrientedBox::BSMultiBoundOBB_WithinFrustum(NiFrustumPlanes* frustum)
             {
                 if (!flat || vertex % 2)
                 {
-                    if (reinterpret_cast<const Plane&>(frustum->m_akPlanes[plane]).ClassifyPoint(vertices[vertex]) != 2)
+                    if (reinterpret_cast<const Plane&>(frustum->m_akPlanes[plane]).NiPlane_WhichSide(vertices[vertex]) != 2)
                         outside = false;
                 }
             }

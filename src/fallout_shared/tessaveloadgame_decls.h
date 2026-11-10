@@ -45,7 +45,7 @@ class BSTaskManagerThread
     void* table;
     char pad[0x2c];
     void* manager;
-    void FUN_00c42dd0(unsigned int, const char*);
+    void BSTaskThread(unsigned int, const char*);
     BSTaskManagerThread(void*, unsigned int);
 };
 extern void* DAT_010c1740[];

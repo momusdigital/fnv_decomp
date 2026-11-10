@@ -135,7 +135,7 @@ struct Scratch16 {
     unsigned char* ForwardValueToObject(unsigned int* out);
     void ReleaseReference_00d60590();
 };
-struct FUN_00e04920_cls {
+struct hkObjectCopier {
     unsigned int unk00;
     unsigned int unk04;
     unsigned int unk08;

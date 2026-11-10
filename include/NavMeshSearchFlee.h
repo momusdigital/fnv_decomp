@@ -27,7 +27,7 @@ public:
 
     void* DestroyIfFlagged(unsigned int flags);
     const SearchNode* GetFieldAt2050();
-    void SetNodeFleeCost(SearchNode* apNode, NavMesh* apNavMesh, unsigned short aiTriangle);
+    void SetNodeData(SearchNode* apNode, NavMesh* apNavMesh, unsigned short aiTriangle);
     unsigned int GetKeyForNode_006a94f0(NavMesh*, unsigned short);
     unsigned int GetKeyForNode_006a94f0();
     SearchNode* FUN_006a7c90(unsigned int, const FleeStartNode*, float);

@@ -46,7 +46,8 @@ NiAnimationKey* BSTreadTransfInterpolator::GetChannelKeys(unsigned short arg1) c
 extern "C" void __cdecl __Dummy_00b6fef0(void* ptr, unsigned int flags);
 
 // @fnv 0x00a43a50
-void* BSTreadTransfInterpolator::FUN_00a43a50(unsigned int flags)
+// src: EXE 0x00a43a50
+void* BSTreadTransfInterpolator::ScalarDeletingDestructor(unsigned int flags)
 {
     this->BSTreadTransfInterpolator::~BSTreadTransfInterpolator();
     if (flags & 1)

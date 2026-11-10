@@ -160,7 +160,7 @@ void NiNode::UpdatePropertiesDownwardPass(NiPropertyState* state)
 {
     NiAVObject::UpdatePropertiesDownwardPass(state);
     NiPropertyState* pLocalState = 0;
-    BuildPropertyState(state, true, pLocalState);
+    PushLocalProperties(state, true, pLocalState);
     for (unsigned int i = 0; i < m_kChildren.m_usSize; ++i)
     {
         NiAVObject* child = m_kChildren.m_pBase[i].m_pObject;
@@ -193,7 +193,7 @@ void NiNode::UpdateTransformAndBounds(NiUpdateData& data)
                     child->UpdateTransformAndBounds(data);
                     if (child->m_kWorldBound && ((NiBound*)child->m_kWorldBound)->m_fRadius != 0.0f)
                     {
-                        EnsureWorldBound();
+                        CreateBoundIfNone();
                         const NiBound& bound = ::GetBound(child);
                         ((NiBound*)m_kWorldBound)->SetCenterAndRadius(bound.m_kCenter, bound.m_fRadius);
                         ++i;
@@ -203,7 +203,7 @@ void NiNode::UpdateTransformAndBounds(NiUpdateData& data)
             }
         }
         else
-            EnsureWorldBound();
+            CreateBoundIfNone();
     }
     for (; i < count; ++i)
     {
@@ -226,7 +226,7 @@ void NiNode::UpdateTransformAndBounds(NiUpdateData& data)
 void NiNode::UpdateDownwardPass(NiUpdateData& aUpdateData, unsigned int flags)
 {
     if (UpdateControllersFlag(aUpdateData))
-        UpdateTimeControllers(aUpdateData, true);
+        UpdateObjectControllers(aUpdateData, true);
     UpdateWorldData(aUpdateData);
     if (*(unsigned char*)&m_uFlags & 1)
         flags |= 1;
@@ -246,7 +246,7 @@ void NiNode::UpdateDownwardPass(NiUpdateData& aUpdateData, unsigned int flags)
                     child->UpdateDownwardPass(aUpdateData, flags);
                     if (child->m_kWorldBound && ((NiBound*)child->m_kWorldBound)->m_fRadius != 0.0f)
                     {
-                        EnsureWorldBound();
+                        CreateBoundIfNone();
                         const NiBound& bound = ::GetBound(child);
                         ((NiBound*)m_kWorldBound)->SetCenterAndRadius(bound.m_kCenter, bound.m_fRadius);
                         ++i;
@@ -256,7 +256,7 @@ void NiNode::UpdateDownwardPass(NiUpdateData& aUpdateData, unsigned int flags)
             }
         }
         else
-            EnsureWorldBound();
+            CreateBoundIfNone();
     }
     for (; i < count; ++i)
     {
@@ -280,7 +280,7 @@ void NiNode::UpdateSelectedDownwardPass(NiUpdateData& aUpdateData, unsigned int 
 {
     bool bSavedControllers = UpdateControllersFlag(aUpdateData);
     UpdateControllersFlag(aUpdateData) = (m_uFlags >> 3) & 1;
-    UpdateTimeControllers(aUpdateData, true);
+    UpdateObjectControllers(aUpdateData, true);
     UpdateControllersFlag(aUpdateData) = bSavedControllers;
     bool updateBounds = !ForceUpdateFlag(aUpdateData);
     if (TransformFlag() && updateBounds)
@@ -309,7 +309,7 @@ void NiNode::UpdateSelectedDownwardPass(NiUpdateData& aUpdateData, unsigned int 
                     }
                     if (child->m_kWorldBound && ((NiBound*)child->m_kWorldBound)->m_fRadius != 0.0f && updateBounds)
                     {
-                        EnsureWorldBound();
+                        CreateBoundIfNone();
                         const NiBound& bound = ::GetBound(child);
                         ((NiBound*)m_kWorldBound)->SetCenterAndRadius(bound.m_kCenter, bound.m_fRadius);
                         ++i;
@@ -319,7 +319,7 @@ void NiNode::UpdateSelectedDownwardPass(NiUpdateData& aUpdateData, unsigned int 
             }
         }
         else
-            EnsureWorldBound();
+            CreateBoundIfNone();
     }
     for (; i < count; ++i)
     {
@@ -493,7 +493,7 @@ void __fastcall NiNode_UpdatePropertiesUpward(NiAVObject* pThis, int, NiProperty
             pkParentState = 0;
     }
 
-    pThis->BuildPropertyState(pkParentState, false, pkState);
+    pThis->PushLocalProperties(pkParentState, false, pkState);
 
     if (pkParentState != pkState)
     {
@@ -757,7 +757,7 @@ void __fastcall NiNode_UpdateRigidDownwardPass(NiNode* node, int, NiUpdateData& 
     unsigned int nodeFlags = *(unsigned int*)((char*)node + 0x30);
     bool bOldUpdateControllers = UpdateControllersFlag(kData);
     UpdateControllersFlag(kData) = ((nodeFlags >> 3) & 1) != 0;
-    node->UpdateTimeControllers(kData, true);
+    node->UpdateObjectControllers(kData, true);
     UpdateControllersFlag(kData) = bOldUpdateControllers;
     unsigned int uiFlags = *(unsigned int*)((char*)node + 0x30);
     bool bWorld = (bool)((uiFlags >> 2) & 1);
@@ -822,7 +822,7 @@ struct ChildStub
 // @fnv 0x00a5e280
 void __fastcall UpdateChildControllers(NiNode* node, int, NiUpdateData& kData)
 {
-    node->UpdateTimeControllers(kData, true);
+    node->UpdateObjectControllers(kData, true);
     unsigned int n = *(unsigned short*)((char*)node + 0xa6);
     for (unsigned int i = 0; i < n; i++)
     {
@@ -1435,7 +1435,7 @@ void FUN_00a5edc0_cls::NiNode_InsertChildAt(NiRefObject* apArg, NiRefObject* apR
         long(__stdcall * pfnDecRef)(volatile long*) = InterlockedDecrement;
         volatile long* rc = (volatile long*)&apRefObject->m_uiRefCount;
         pfnIncRef(rc);
-        ((NiAVObject*)apRefObject)->AssignParent((NiNode*)this);
+        ((NiAVObject*)apRefObject)->AttachParent((NiNode*)this);
         NiRefObject* pRefObject = apRefObject;
         pfnIncRef(rc);
         m_sub.FUN_00a5ebe0(apArg, &pRefObject);

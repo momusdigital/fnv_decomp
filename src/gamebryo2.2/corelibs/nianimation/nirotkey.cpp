@@ -104,7 +104,7 @@ struct FUN_00a3e9a0_src
     unsigned int m_08;
 };
 
-class FUN_00a3e9a0_cls
+class NiPathInterpolator
 {
   public:
     unsigned int unk00;
@@ -127,7 +127,7 @@ void* __cdecl _NiMalloc_00aa1070(unsigned int n);
 
 // If m_24 is negative, allocates a float array sized from m_18->m_08, fills running sums via FUN_00a3e680, stores the last value in m_24, and returns m_24.
 // @fnv 0x00a3e9a0
-float FUN_00a3e9a0_cls::GetAccumulatedValue()
+float NiPathInterpolator::GetAccumulatedValue()
 {
     if (m_24 < 0.0f)
     {

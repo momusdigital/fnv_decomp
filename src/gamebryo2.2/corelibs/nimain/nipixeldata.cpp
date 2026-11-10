@@ -156,7 +156,8 @@ static __forceinline void InitializePixelData(NiPixelData* data)
 
 // Allocates and initializes the default pixel data object.
 // @fnv 0x00a7c3f0
-void* __cdecl CreateSpawnedPixelData()
+// src: EXE 0x00a7c3f0
+void* __cdecl NiPixelData_CreateObject()
 {
     NiPixelData* data = static_cast<NiPixelData*>(Object_DispatchCommandFour(sizeof(NiPixelData)));
     if (data)

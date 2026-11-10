@@ -142,7 +142,7 @@ struct FUN_005a7c50 : FUN_00483370, FUN_00402d00
     void FUN_004f15a0(unsigned int);
 };
 // FUN_005bd580 : float member getter, returns *m_pIntegerData if present else 0.0f
-struct FUN_005bd580_cls
+struct Font
 {
     int m_i00;
     int m_i01;
@@ -173,7 +173,7 @@ struct FUN_005a78a0 : FUN_00483370, FUN_00402d00
 };
 struct FUN_004855a0_shell
 {
-    void BeginFormRecord();
+    void TESForm_StartForm();
 };
 struct FUN_00487010_shell
 {
@@ -189,7 +189,7 @@ struct FUN_00485e20_shell
 };
 struct FUN_00485680_shell
 {
-    void FinishFormRecord();
+    void TESForm_CloseForm();
 };
 unsigned char __cdecl TESForm_QEndianSwapOnSave();
 struct FUN_005a7a90_shell

@@ -440,7 +440,7 @@ bool SoundPlaybackManager::ResolveSoundFile(const char* name, char* path, unsign
     return true;
 }
 
-// Returns true if sound is non-null, the audio object exists, and position is within sound->GetField45()*100*scale of the listener position on all axes.
+// Returns true if sound is non-null, the audio object exists, and position is within sound->GetMaxDistance()*100*scale of the listener position on all axes.
 // @fnv 0x0082eca0
 bool SoundPlaybackManager::CanPlaySoundAt(TESSound* sound, NiPoint3 position, float scale)
 {
@@ -449,7 +449,7 @@ bool SoundPlaybackManager::CanPlaySoundAt(TESSound* sound, NiPoint3 position, fl
         return false;
     {
         NiPoint3 kListenerPosition = m_pAudioListener->GetPosition_00aeaad0();
-        float fDistance = sound->GetField45() * 100.0 * scale;
+        float fDistance = sound->GetMaxDistance() * 100.0 * scale;
         if (std::abs(position.x - kListenerPosition.x) > fDistance ||
             std::abs(position.y - kListenerPosition.y) > fDistance ||
             std::abs(position.z - kListenerPosition.z) > fDistance)

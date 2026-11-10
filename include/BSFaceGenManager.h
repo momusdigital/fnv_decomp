@@ -86,14 +86,14 @@ public:
     BSFaceGenManager();
     ~BSFaceGenManager();
 
-    static BSFaceGenManager* GetFaceGenManager();
-    static void* __stdcall GetFaceGenManager(float, int, int);
+    static BSFaceGenManager* GetInstance();
+    static void* __stdcall GetInstance(float, int, int);
     static FaceGenCoordinates* GetFaceGenCoordinates();
-    static BSFaceGenModelMap* GetModelMap();
+    static BSFaceGenModelMap* GetModelCache();
     static void __cdecl ApplyFaceGenValues(float*, unsigned int, bool);
     static void NormalizeFaceGenValues(float* quantities, unsigned int count);
-    static void InitializeFaceGenCoordinates(FaceGenCoordinates*);
-    static void InitializeFaceGenCoordinates(FaceGenMatrix<float> (*)[2]);
+    static void InitFaceGenCoord(FaceGenCoordinates*);
+    static void InitFaceGenCoord(FaceGenMatrix<float> (*)[2]);
     static char* BuildFaceGenPartPath(char*, int);
     static const char* BuildFaceGenModelPath(BSStringT<char>&, const char*);
     static void CopyFaceGenCoordinates(FaceGenMatrix<float> (*)[2], FaceGenMatrix<float> (*)[2], bool, bool);

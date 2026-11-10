@@ -32,7 +32,7 @@ class TESTopicInfo : public TESForm
     bool IsSayOnceADay();
     bool IsRandomEnd();
     bool IsRandom();
-    bool IsInfoValidForDialogue(bool& deferred, TESQuest* quest, TESObjectREFR* speaker, TESObjectREFR* listener);
+    bool CheckCondition(bool& deferred, TESQuest* quest, TESObjectREFR* speaker, TESObjectREFR* listener);
     TESTopicInfoData* GetConversationData();
     Script* GetResultScript(unsigned int onEnd);
     bool HasResultScript();

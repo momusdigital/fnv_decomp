@@ -73,10 +73,11 @@ void* FUN_00460fd0_class::TESDataHandler_GetDebrisList()
 
 struct FUN_004610f0_Class
 {
-    void* GetOffset70Ptr();
+    void* ProcessLists_GetProjectilePostProcessList();
 };
 // @fnv 0x004610f0
-void* FUN_004610f0_Class::GetOffset70Ptr()
+// src: COMMUNITY 0x004610f0
+void* FUN_004610f0_Class::ProcessLists_GetProjectilePostProcessList()
 {
     return (char*)this + 0x70;
 }
@@ -407,13 +408,14 @@ struct FUN_008c6060_shell
 {
     void FUN_008c6060();
 };
-struct FUN_004748f0 : BaseFormComponent
+struct BGSAmmoForm : BaseFormComponent
 {
-    FUN_004748f0();
+    BGSAmmoForm();
 };
 // Sets the vtable pointer to DAT_0101a3b8 and then calls FUN_008c6060 on this object.
 // @fnv 0x004748f0
-FUN_004748f0::FUN_004748f0()
+// src: EXE 0x004748f0
+BGSAmmoForm::BGSAmmoForm()
 {
     ((FUN_008c6060_shell*)this)->FUN_008c6060();
 }
@@ -426,14 +428,15 @@ struct FUN_00475100_shell
     void SetClipRounds();
 };
 
-struct FUN_004750b0 : BaseFormComponent
+struct BGSClipRoundsForm : BaseFormComponent
 {
-    FUN_004750b0();
+    BGSClipRoundsForm();
 };
 
 // Sets the object's vtable pointer to DAT_0101a644, then calls SetClipRounds on this object.
 // @fnv 0x004750b0
-FUN_004750b0::FUN_004750b0()
+// src: EXE 0x004750b0
+BGSClipRoundsForm::BGSClipRoundsForm()
 {
     reinterpret_cast<FUN_00475100_shell*>(this)->SetClipRounds();
 }
@@ -502,26 +505,26 @@ struct MersenneTwister
     unsigned int GetRandomUInt(unsigned int);
 };
 
-struct FUN_00476be0_Class
+struct BSRandom
 {
     unsigned int BSRandom_UnsignedInt();
 };
 
 // @fnv 0x00476be0
 // src: XBOX_PDB 0x00476be0
-unsigned int FUN_00476be0_Class::BSRandom_UnsignedInt()
+unsigned int BSRandom::BSRandom_UnsignedInt()
 {
     return reinterpret_cast<MersenneTwister*>(this)->GetRandomUInt(0xffffffff);
 }
 
-struct FUN_00476c70_Class
+struct Explosion
 {
     void Explosion_SetSourceWeapon(int value);
 };
 
 // @fnv 0x00476c70
 // src: COMMUNITY 0x00476c70
-void FUN_00476c70_Class::Explosion_SetSourceWeapon(int value)
+void Explosion::Explosion_SetSourceWeapon(int value)
 {
     *(int*)((char*)this + 0xe0) = value;
 }
@@ -687,12 +690,13 @@ void __thiscall FUN_004792c0_Class::ReleaseStorage_004792c0()
 struct FUN_0045d930_class
 {
     void __thiscall SetVtableAndProcessState_0046ffd0();
-    void* __thiscall FUN_00470320(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_0046ffd0, then deletes this when flags has bit 0 set, and returns this.
 // @fnv 0x00470320
-void* __thiscall FUN_0045d930_class::FUN_00470320(unsigned int flags)
+// src: EXE 0x00470320
+void* __thiscall FUN_0045d930_class::ScalarDeletingDestructor(unsigned int flags)
 {
     SetVtableAndProcessState_0046ffd0();
     if (flags & 1)
@@ -906,14 +910,14 @@ struct TlsBlock462480
 };
 __declspec(thread) TlsBlock462480 g_tls462480;
 extern int __tls_index;
-struct FUN_00462480_Class
+struct BGSSaveLoadGame
 {
     unsigned char __thiscall BGSSaveLoadGame_GetThreadAllowChanges();
 };
 // Returns true when the TLS flag at g_tls462480 has bit 0 clear.
 // @fnv 0x00462480
 // src: XBOX_PDB 0x00462480
-unsigned char __thiscall FUN_00462480_Class::BGSSaveLoadGame_GetThreadAllowChanges()
+unsigned char __thiscall BGSSaveLoadGame::BGSSaveLoadGame_GetThreadAllowChanges()
 {
     return (g_tls462480.flag & 1) == 0;
 }
@@ -1030,11 +1034,12 @@ struct FUN_00471e60_shell
     char _pad258[0x41];
     bool bFlag;
     void SetFlag40(bool);
-    void LoadFormAndUpdateFlag();
+    void TESFile_InitEndian();
 };
 
 // @fnv 0x00471e60
-void FUN_00471e60_shell::LoadFormAndUpdateFlag()
+// src: COMMUNITY 0x00471e60
+void FUN_00471e60_shell::TESFile_InitEndian()
 {
     if (!pFile)
         return;
@@ -1148,12 +1153,12 @@ struct FUN_00474a40_shell
 {
     unsigned int vtbl;
     TESForm* form;
-    TESForm* GetFormIfType55();
+    TESForm* BGSAmmoForm_GetAmmoFormList();
 };
 // Returns form if it is non-null and its FNV_GetFormType() equals 0x55, otherwise returns null.
 // @fnv 0x00474a40
-// src: GUESS 0x00474a40 (confidence: medium)
-TESForm* FUN_00474a40_shell::GetFormIfType55()
+// src: COMMUNITY 0x00474a40
+TESForm* FUN_00474a40_shell::BGSAmmoForm_GetAmmoFormList()
 {
     return form && form->FNV_GetFormType() == 0x55 ? form : 0;
 }
@@ -1277,21 +1282,21 @@ void* __thiscall FUN_004791f0_holder2::InitArrayHolder(int aiCount)
     return this;
 }
 
-struct FUN_0047b470_This
+struct bhkCollisionObject
 {
     bool __thiscall bhkCollisionObject_GetUseVelocity();
 };
 // Returns true when bit 0x20 is set in the word at offset 0xc and the result of FUN_0047b4b0 is zero.
 // @fnv 0x0047b470
 // src: COMMUNITY 0x0047b470
-bool __thiscall FUN_0047b470_This::bhkCollisionObject_GetUseVelocity()
+bool __thiscall bhkCollisionObject::bhkCollisionObject_GetUseVelocity()
 {
     return (((*(unsigned short*)((char*)this + 0xc) & 0x20) != 0) &&
             ((unsigned char)((FUN_00573eb0_Class*)this)->bhkNiCollisionObject_IsReset() == 0));
 }
 
 // 0x00474a40 selects form type 0x55 (FLST); 0x00500940 returns its form list at +0x18.
-struct FUN_0047ba80_This
+struct BGSRepairItemList
 {
     int _0;
     BGSListForm* m4;
@@ -1299,7 +1304,7 @@ struct FUN_0047ba80_This
 };
 // Returns true if m4 is set and its form list contains actor; otherwise returns false.
 // @fnv 0x0047ba80
-bool __thiscall FUN_0047ba80_This::IsActorInList(Actor* actor)
+bool __thiscall BGSRepairItemList::IsActorInList(Actor* actor)
 {
     bool flag = false;
     if (m4 != 0)
@@ -1342,11 +1347,12 @@ struct FUN_00474a40
 };
 struct FUN_00474920_shell
 {
-    TESForm* GetFormOrScriptForm();
+    TESForm* BGSAmmoForm_GetAmmoHelper();
 };
 // Returns GetForm() if present, otherwise an indexed form from the ammo list, or its first item when the index is out of range.
 // @fnv 0x00474920
-TESForm* FUN_00474920_shell::GetFormOrScriptForm()
+// src: COMMUNITY 0x00474920
+TESForm* FUN_00474920_shell::BGSAmmoForm_GetAmmoHelper()
 {
     TESForm* result = 0;
     if (((FUN_00474a00*)this)->GetForm())
@@ -1395,14 +1401,14 @@ void __cdecl BGSDestructibleObjectForm_UpdateDamageStageNodes(NiAVObject* object
             BGSDestructibleObjectForm_UpdateDamageStageNodes(node->GetAt(i), flag);
 }
 
-struct FUN_00478130_class
+struct SAVE_DESTRUCTIBLE_OBJECT_STAGE
 {
     void __thiscall SAVE_DESTRUCTIBLE_OBJECT_STAGE_Endian();
 };
 // Applies BSEndian to the four fields at offsets 4, 8, 12 and 16 of this object.
 // @fnv 0x00478130
 // src: XBOX_PDB 0x00478130
-void __thiscall FUN_00478130_class::SAVE_DESTRUCTIBLE_OBJECT_STAGE_Endian()
+void __thiscall SAVE_DESTRUCTIBLE_OBJECT_STAGE::SAVE_DESTRUCTIBLE_OBJECT_STAGE_Endian()
 {
     BSEndian((unsigned char*)this + 4, EndianSizeTag<0>());
     BSEndian((unsigned char*)this + 8, EndianSizeTag<0>());
@@ -1532,7 +1538,8 @@ struct FUN_0047bac0_ARMO : TESForm
 };
 // Returns a pointer to the biped field of the given form if it is armor (type 0x28) or an NPC (type 0x18), otherwise null.
 // @fnv 0x0047bac0
-void* GetBipedPointer(TESForm* form)
+// src: COMMUNITY 0x0047bac0
+void* BGSRepairItemList_GetFormAsRepairItemList(TESForm* form)
 {
     void* result = 0;
     if (form)
@@ -1586,14 +1593,14 @@ unsigned int FUN_0046ebd0_Class::NiTexturingProperty_GetDecalMapCount()
     return (unsigned int)(unsigned short)reinterpret_cast<FUN_0046ebf0_Class*>(this)->GetMaskedShifted(0xff0, 4);
 }
 
-struct FUN_0046fdd0_Class
+struct TESObjectANIO
 {
     char m_iWordAt00[0x38];
     int m_38;
     char IsFieldEqual(int param_2);
 };
 // @fnv 0x0046fdd0
-char FUN_0046fdd0_Class::IsFieldEqual(int aiValue)
+char TESObjectANIO::IsFieldEqual(int aiValue)
 {
     return m_38 == aiValue;
 }
@@ -1631,11 +1638,12 @@ BSSimpleArray<NiNode*>::~BSSimpleArray()
 
 struct FUN_0047bcf0_class
 {
-    bool IsFlag80Clear();
+    bool TESObjectWEAP_GetIsPlayable();
 };
 
 // @fnv 0x0047bcf0
-bool FUN_0047bcf0_class::IsFlag80Clear()
+// src: COMMUNITY 0x0047bcf0
+bool FUN_0047bcf0_class::TESObjectWEAP_GetIsPlayable()
 {
     return (reinterpret_cast<unsigned char*>(this)[0x100] & 0x80) ? false : true;
 }
@@ -1643,11 +1651,11 @@ bool FUN_0047bcf0_class::IsFlag80Clear()
 struct FUN_0047eb90_Class
 {
     void FUN_005fc970(int, char);
-    void ForwardCall_0047eb90(int value);
+    void TESFaction_SetPCAnEnemy(int value);
 };
 // @fnv 0x0047eb90
-// src: GUESS 0x0047eb90 (confidence: low)
-void FUN_0047eb90_Class::ForwardCall_0047eb90(int value)
+// src: COMMUNITY 0x0047eb90
+void FUN_0047eb90_Class::TESFaction_SetPCAnEnemy(int value)
 {
     FUN_005fc970(0x10, (char)value);
 }
@@ -1823,11 +1831,12 @@ bool __cdecl NiObject_IsKindOf(const void*, CollectionItem*);
 void __cdecl CreateProjectileRef(int, OutputRenderer*, OutputRenderer*, unsigned int, InstanceData12, InstanceData36);
 struct ActorProcessor
 {
-    int ProcessCollectionTree(CollectionItem*, int, unsigned int, OutputRenderer*);
+    int BGSDestructibleObjectForm_SpawnExplosionsAtBlastNodes(CollectionItem*, int, unsigned int, OutputRenderer*);
 };
 // Recursively processes item and its children, calling CreateProjectileRef on matching items and returning the count processed.
 // @fnv 0x00476cb0
-int ActorProcessor::ProcessCollectionTree(CollectionItem* item, int arg, unsigned int options, OutputRenderer* output)
+// src: COMMUNITY 0x00476cb0
+int ActorProcessor::BGSDestructibleObjectForm_SpawnExplosionsAtBlastNodes(CollectionItem* item, int arg, unsigned int options, OutputRenderer* output)
 {
     if (item == 0)
         return 0;
@@ -1846,7 +1855,7 @@ int ActorProcessor::ProcessCollectionTree(CollectionItem* item, int arg, unsigne
     if (children != 0)
     {
         for (unsigned int index = 0; index < children->FUN_0043b480(); ++index)
-            processed += ProcessCollectionTree(children->FUN_0043b4a0(index), arg, options, output);
+            processed += BGSDestructibleObjectForm_SpawnExplosionsAtBlastNodes(children->FUN_0043b4a0(index), arg, options, output);
     }
     return processed;
 }
@@ -2412,7 +2421,7 @@ struct FUN_0047ead0_cls
     FUN_0047ead0_cls* FUN_00726070();
     void TESFaction_SetPCAttack(int v);
     void TESFaction_SetPCMurder(int v);
-    void ForwardCall_0047eb90(int v);
+    void TESFaction_SetPCAnEnemy(int v);
     void TESActorBaseData_SetPCFactionFlags(int mode);
 };
 
@@ -2441,7 +2450,7 @@ void FUN_0047ead0_cls::TESActorBaseData_SetPCFactionFlags(int mode)
                         vt->TESFaction_SetPCMurder(1);
                         break;
                     case 2:
-                        vt->ForwardCall_0047eb90(1);
+                        vt->TESFaction_SetPCAnEnemy(1);
                         break;
                     }
                 }
@@ -2807,7 +2816,7 @@ bool BGSOpenCloseForm_HandleAnimEndHavok(Ref_47ab40* ref, NamedObject_47ab40* ob
 
 
 
-FUN_0047b470_This* __cdecl bhkUtilFunctions_FindNextCollisionObject(NiNode*);
+bhkCollisionObject* __cdecl bhkUtilFunctions_FindNextCollisionObject(NiNode*);
 void __cdecl SetFlagRecursive(int, void*);
 
 struct RefWithGetNiNode
@@ -2938,7 +2947,7 @@ void __cdecl BGSOpenCloseForm_SnapHavokTo3D(RefWithGetNiNode* apRef)
     NiPointer<NiNode> spNode7(apRef->GetNiNode());
     if (spNode7)
     {
-        FUN_0047b470_This* pObj2 = bhkUtilFunctions_FindNextCollisionObject(spNode7);
+        bhkCollisionObject* pObj2 = bhkUtilFunctions_FindNextCollisionObject(spNode7);
         bool bFlag3 = pObj2 ? pObj2->bhkCollisionObject_GetUseVelocity() : false;
         if (bFlag3)
         {
@@ -3003,7 +3012,7 @@ struct ScriptOwnerStub
     bool IsActorInList(ActorStub* actor);
 };
 
-ScriptOwnerStub* GetBipedPointer(ItemForm* form);
+ScriptOwnerStub* BGSRepairItemList_GetFormAsRepairItemList(ItemForm* form);
 
 struct WeapStub : ItemForm
 {
@@ -3121,7 +3130,8 @@ void __cdecl ApplyPerkModifiers(int id, PlayerStub* actor, ...);
 extern double _gModifierZero;
 
 // @fnv 0x0047bb50
-bool __cdecl IsItemEquivalent(ItemForm* a, ItemForm* pItemB)
+// src: COMMUNITY 0x0047bb50
+bool __cdecl BGSRepairItemList_CanItemRepairForm(ItemForm* a, ItemForm* pItemB)
 {
     bool result5 = false;
     if (!a || !pItemB)
@@ -3130,7 +3140,7 @@ bool __cdecl IsItemEquivalent(ItemForm* a, ItemForm* pItemB)
     }
     else if (a != pItemB)
     {
-        ScriptOwnerStub* owner3 = GetBipedPointer(pItemB);
+        ScriptOwnerStub* owner3 = BGSRepairItemList_GetFormAsRepairItemList(pItemB);
         if (owner3)
         {
             if (owner3->IsActorInList((ActorStub*)a))

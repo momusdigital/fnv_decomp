@@ -58,8 +58,8 @@ public:
     void UpdateVisibility(NiNode* scene);
     void UpdateVisibility(NiNode* scene, int unused);
     void UpdateTileFromChunk();
-    void ClearSelectedParts(int flags);
-    void ClearSelectedParts(unsigned int flags);
+    void BGSTerrainNode_UnloadData(int flags);
+    void BGSTerrainNode_UnloadData(unsigned int flags);
     void BGSTerrainNode_UnloadDataRecurse(int flags);
     void BGSTerrainNode_DestroyRecurse();
     void BGSTerrainNode_UpdateTrees(int flags);

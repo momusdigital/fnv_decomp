@@ -65,7 +65,7 @@ public:
     bool ExtraDataList_CompareList(ExtraShell_tesobjectcell_iso_variant*);
     void ExtraDataList_SetCount(int);
     void ExtraDataList_CopyList(ExtraShell_tesobjectcell_iso_variant*);
-    signed char GetExtraByteValue();
+    signed char ExtraDataList_GetHotKey();
     void ExtraDataList_RemoveHotkey();
     OpacityFadeState* GetOffsetC();
     void FUN_0041aeb0();

@@ -63,7 +63,7 @@ void ImageSpaceModifierInstanceForm::Apply()
                 float afBlendWeight = (afTime - m_fStartTime) / m_fElapsedTime;
                 if (afBlendWeight < 1.0)
                 {
-                    TESImageSpaceModifier::BlendModifiers(afBlendWeight, m_pImageSpaceModifier,
+                    TESImageSpaceModifier::BlendApply(afBlendWeight, m_pImageSpaceModifier,
                                                           m_pPreviousImageSpaceModifier, m_fBlendWeight,
                                                           fWaterLevelItem, m_pTargetNode, m_spTargetObject);
                 }
@@ -72,7 +72,7 @@ void ImageSpaceModifierInstanceForm::Apply()
                     m_pImageSpaceModifier = NULL;
                     m_fBlendWeight = 0.0f;
                     if (m_bHasBeenApplied)
-                        m_pPreviousImageSpaceModifier->EvaluateInterpolators(m_fStartTime, fWaterLevelItem);
+                        m_pPreviousImageSpaceModifier->ApplyWeather(m_fStartTime, fWaterLevelItem);
                     else
                         m_pPreviousImageSpaceModifier->Apply(m_fStartTime, fWaterLevelItem, m_spTargetObject);
                 }
@@ -80,7 +80,7 @@ void ImageSpaceModifierInstanceForm::Apply()
             else
             {
                 if (m_bHasBeenApplied)
-                    m_pPreviousImageSpaceModifier->EvaluateInterpolators(m_fStartTime, fWaterLevelItem);
+                    m_pPreviousImageSpaceModifier->ApplyWeather(m_fStartTime, fWaterLevelItem);
                 else
                     m_pPreviousImageSpaceModifier->Apply(m_fStartTime, fWaterLevelItem, m_spTargetObject);
             }
@@ -436,7 +436,8 @@ void __fastcall WriteDepthRadialBlurLabel(ImageSpaceModifierInstanceDRB* self, D
 }
 
 // @fnv 0x00529ea0
-bool TESImageSpaceModifier::GetAnimatable()
+// src: COMMUNITY 0x00529ea0
+bool TESImageSpaceModifier::TESGlobal_GetType()
 {
     return Data.m_bOverride;
 }
@@ -444,7 +445,8 @@ bool TESImageSpaceModifier::GetAnimatable()
 int __cdecl _sprintf_s(char*, unsigned int, const char*, ...);
 extern const char str_0102d408[];
 // @fnv 0x0052a530
-void ImageSpaceModifierInstanceRB::vf38(char* apBuffer)
+// src: COMMUNITY 0x0052a530
+void ImageSpaceModifierInstanceRB::PrintInfo(char* apBuffer)
 {
     _sprintf_s(apBuffer, 0x800, str_0102d408, m_fRampUp, fStart, m_fRampDown, m_fRampDownStart, fWaterLevelItem);
 }
@@ -471,8 +473,8 @@ bool ImageSpaceModifierInstanceForm::Blend(TESImageSpaceModifier* pModifier, flo
                                       NiAVObject* pTarget)
 {
     if ((this->m_pPreviousImageSpaceModifier != 0 &&
-         this->m_pPreviousImageSpaceModifier->GetAnimatable()) ||
-        (pModifier != 0 && pModifier->GetAnimatable()))
+         this->m_pPreviousImageSpaceModifier->TESGlobal_GetType()) ||
+        (pModifier != 0 && pModifier->TESGlobal_GetType()))
     {
         return false;
     }

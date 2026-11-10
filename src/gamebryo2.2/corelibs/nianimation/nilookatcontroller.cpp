@@ -22,7 +22,8 @@ extern "C" __declspec(noinline) void __cdecl _delete(void* p, unsigned int flags
 
 // Calls FUN_00a6d290, then frees this with _delete when flags has bit 0 set, and returns this.
 // @fnv 0x00a4cd40
-void* __thiscall NiLookAtController::FUN_00a4cd40(unsigned int flags)
+// src: EXE 0x00a4cd40
+void* __thiscall NiLookAtController::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00a6d290();
     if (flags & 1)

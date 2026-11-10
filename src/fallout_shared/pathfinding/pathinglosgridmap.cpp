@@ -69,7 +69,8 @@ bool FUN_006e08f0_shell::PathingLOSGrid_GetNavMesh(NavMeshPtr& aArg)
 void __cdecl _delete(void*, unsigned int);
 // Calls FUN_006e02a0, then frees this with _delete when flags has bit 0 set, and returns this.
 // @fnv 0x006e0270
-void* __thiscall PathingLOSGridMap::FUN_006e0270(unsigned int flags)
+// src: EXE 0x006e0270
+void* __thiscall PathingLOSGridMap::ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_006e02a0();
     if (flags & 1)
@@ -196,7 +197,7 @@ struct FUN_006e0d20_t
 // src: COMMUNITY 0x006e0d20
 void FUN_006e0d20_t::Lst0044_Data00D4_Load(BGSLoadFormBuffer* apLoadGameBuffer)
 {
-    unsigned int isaveGameCount = apLoadGameBuffer->ReadElementCount();
+    unsigned int isaveGameCount = apLoadGameBuffer->LoadVariableSizedValue();
     for (unsigned int iloop = 0; iloop < isaveGameCount; iloop++)
     {
         bool bremove = false;
@@ -224,7 +225,7 @@ struct FUN_00aa6060_shell
 class PathingLOSGrid;
 // RTTI: the map at 8 is NiTMap<unsigned int,PathingLOSGrid *> (vftable 0x0106ceb8).
 typedef NiTMap<unsigned int, PathingLOSGrid*> PathingLOSGridTable;
-struct FUN_00aa62e0_shell
+struct BSReadWriteLock
 {
     void __thiscall BSReadWriteLock_UnlockWrite();
 };
@@ -242,7 +243,7 @@ void PathingLOSGridMap::ClearMap()
         delete value;
     }
     ((PathingLOSGridTable*)((char*)this + 8))->RemoveAll();
-    ((FUN_00aa62e0_shell*)((char*)this + 0x4c))->BSReadWriteLock_UnlockWrite();
+    ((BSReadWriteLock*)((char*)this + 0x4c))->BSReadWriteLock_UnlockWrite();
 }
 
 struct FUN_006df9c0_shell
@@ -252,13 +253,13 @@ struct FUN_006df9c0_shell
     BSSimpleArray<signed char> m_aiIndexedValues;
     unsigned char pad2[0x14];
 
-    void __thiscall SaveFields_006df9c0(BGSSaveGameBuffer*);
+    void __thiscall PathingLOSGridCell_SaveGame(BGSSaveGameBuffer*);
 };
 
 // Saves the byte, a 4-byte value at offset 0x18, and, when m_byte is zero, the count and each element returned by FUN_006e0ed0.
 // @fnv 0x006df9c0
-// src: GUESS 0x006df9c0 (confidence: medium)
-void __thiscall FUN_006df9c0_shell::SaveFields_006df9c0(BGSSaveGameBuffer* buffer)
+// src: COMMUNITY 0x006df9c0
+void __thiscall FUN_006df9c0_shell::PathingLOSGridCell_SaveGame(BGSSaveGameBuffer* buffer)
 {
     buffer->SaveData(this, 1, 0);
     buffer->SaveData((void*)((char*)this + 0x18), 4, 0);
@@ -299,7 +300,7 @@ void __thiscall FormLoadEntry::LoadForm(BGSLoadFormBuffer* apLoadGameBuffer)
 
     if (!m_bIsLoaded)
     {
-        unsigned int isaveGameCount = apLoadGameBuffer->ReadElementCount();
+        unsigned int isaveGameCount = apLoadGameBuffer->LoadVariableSizedValue();
 
         index.SetSize(isaveGameCount, true);
 
@@ -373,11 +374,12 @@ struct FUN_006dfba0_shell
 
 struct FUN_006e05f0_shell
 {
-    bool __thiscall AddNavMeshes(BSSimpleArray<NiPointer<NavMesh> >*);
+    bool __thiscall PathingLOSGridMap_Setup(BSSimpleArray<NiPointer<NavMesh> >*);
 };
 
 // @fnv 0x006e05f0
-bool FUN_006e05f0_shell::AddNavMeshes(BSSimpleArray<NiPointer<NavMesh> >* aArg)
+// src: COMMUNITY 0x006e05f0
+bool FUN_006e05f0_shell::PathingLOSGridMap_Setup(BSSimpleArray<NiPointer<NavMesh> >* aArg)
 {
     reinterpret_cast<Lock*>(reinterpret_cast<unsigned char*>(this) + 0x4c)->Enter();
 
@@ -432,7 +434,7 @@ struct NavMeshKey
 
 typedef BSSimpleArray<signed char> NavMeshResults;
 
-struct FUN_006df440_owner
+struct PathingLOSGridCell
 {
     union
     {
@@ -442,12 +444,13 @@ struct FUN_006df440_owner
     NavMeshResults results;
     NavMeshLookup* lookup;
     unsigned int identifier;
-    bool __thiscall InitFromLookup(NavMeshLookup* value);
+    bool __thiscall PathingLOSGridCell_SetSeenTrianglesFromLOSMap(NavMeshLookup* value);
 };
 
 // Copies bytes indexed by the lookup's index list into results, clears valid if any byte is <=0 or 0x7f, and returns false on missing data.
 // @fnv 0x006df440
-bool FUN_006df440_owner::InitFromLookup(NavMeshLookup* apLookup)
+// src: COMMUNITY 0x006df440
+bool PathingLOSGridCell::PathingLOSGridCell_SetSeenTrianglesFromLOSMap(NavMeshLookup* apLookup)
 {
     unsigned char* const bytes = apLookup->Modelloader_GetReferencedThis()->GetTriangleScore(lookup->Modelloader_GetReferencedThis());
     if (!bytes)
@@ -553,7 +556,7 @@ void PathingLOSGridMap::Initialize_006e0320(void* aArg, float aF)
     Loc14 locResult;
     if (Pathing_FindConnectedNavmeshesForLocation(&m_1C, aF, &locResult) != 0)
     {
-        reinterpret_cast<FUN_006e05f0_shell*>(this)->AddNavMeshes(
+        reinterpret_cast<FUN_006e05f0_shell*>(this)->PathingLOSGridMap_Setup(
             reinterpret_cast<BSSimpleArray<NiPointer<NavMesh> >*>(&locResult));
     }
     else
@@ -1065,7 +1068,7 @@ void FUN_006e0480::Lst0044_Data00D4_Arr0004_Load(BGSLoadFormBuffer* apLoadGameBu
     {
         unsigned int isaveGameCount;
 
-        isaveGameCount = apLoadGameBuffer->ReadElementCount();
+        isaveGameCount = apLoadGameBuffer->LoadVariableSizedValue();
         ((BSSimpleArray<FormLoadEntry*>*)this)->SetSize(isaveGameCount, true);
 
         {

@@ -41,7 +41,7 @@ public:
     void ProcessQueuedSaveLoad();
     void Autosave();
     void GetFullPath(char*, char*, bool);
-    void SetSaveFileName(char*, int);
+    void SetMostRecentSaveGame(char*, int);
     static void GetSaveDirectory(char* output);
     bool IsQuickSaveFileName(const char* name);
     bool IsAutoSaveFileName(const char* name);
@@ -60,10 +60,10 @@ public:
     bool SaveGame_008503b0(const char*, int, bool);
     void SystemSave();
     void QueueAutosave();
-    void EnsureFosExtension(char*, char*);
+    void GetFullFileName(char*, char*);
     void LoadQuickSave();
-    void BuildSaveFileName(char*, bool, bool);
-    void BuildSaveFileName(char*, int, int);
+    void GenerateSaveFileName(char*, bool, bool);
+    void GenerateSaveFileName(char*, int, int);
     void CopyPlayerName(char*);
     void FormatPlayTime(char*, bool);
     int GetConstant27();
@@ -81,6 +81,6 @@ public:
     void BGSSaveLoadManager_SetupSavesList();
     void BGSSaveLoadManager_FreeSavesList();
     SaveLoadFile* OpenSaveFile_00850030(const char*, int, int, int);
-    void BuildWeaponPath(const char*, char*, bool);
+    void BGSSaveLoadManager_GetFullPath(const char*, char*, bool);
     void AddFileToList(char*, int, int);
 };

@@ -12,19 +12,20 @@
 // src/fallout_shared/bgstextureusemap.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/_fallout3/platforms/common/code/fallout shared/bgstextureusemap.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
-struct FUN_004aa3d0_shell
+struct BGSTextureUseMap
 {
     void BGSTextureUseMap_CollectTexUseDataRecursive(int a, char b);
-    void SetValueAndCall(int a, int b, char c);
+    void BGSTextureUseMap_CollectTexUseData(int a, int b, char c);
 };
 
 // src: XBOX_PDB 0x004aa3d0
-void FUN_004aa3d0_shell::BGSTextureUseMap_CollectTexUseDataRecursive(int a, char b)
+void BGSTextureUseMap::BGSTextureUseMap_CollectTexUseDataRecursive(int a, char b)
 {}
 
 // Stores b into the object's first field and forwards a and c to FUN_004aa3d0.
 // @fnv 0x004aa3a0
-void FUN_004aa3d0_shell::SetValueAndCall(int aiArg, int aiValue, char c)
+// src: COMMUNITY 0x004aa3a0
+void BGSTextureUseMap::BGSTextureUseMap_CollectTexUseData(int aiArg, int aiValue, char c)
 {
     *(int*)this = aiValue;
     BGSTextureUseMap_CollectTexUseDataRecursive(aiArg, c);
@@ -231,7 +232,7 @@ struct GlobalObject_0045cfe0
 extern TES* g_TES;
 extern GlobalObject_0045cfe0 g_011c63cc;
 
-struct FUN_004aabb0_shell : public FUN_004aa3d0_shell
+struct FUN_004aabb0_shell : public BGSTextureUseMap
 {
     void BGSTextureUseMap_CollectTextureUseDataForLoadedArea(char a1);
 };
@@ -253,7 +254,7 @@ void FUN_004aabb0_shell::BGSTextureUseMap_CollectTextureUseDataForLoadedArea(cha
     if (g_TES->GetPrevPath())
     {
         inner5 = reinterpret_cast<LLD_Cell*>(g_TES->GetPrevPath());
-        this->SetValueAndCall(reinterpret_cast<int>(inner5->Get3D_00545cb0()), reinterpret_cast<int>(inner5), a1);
+        this->BGSTextureUseMap_CollectTexUseData(reinterpret_cast<int>(inner5->Get3D_00545cb0()), reinterpret_cast<int>(inner5), a1);
     }
     else
     {
@@ -269,7 +270,7 @@ void FUN_004aabb0_shell::BGSTextureUseMap_CollectTextureUseDataForLoadedArea(cha
                 if (outer->m0)
                 {
                     cell = outer->m0;
-                    this->SetValueAndCall(reinterpret_cast<int>(cell->Get3D_00545cb0()), reinterpret_cast<int>(cell), a1);
+                    this->BGSTextureUseMap_CollectTexUseData(reinterpret_cast<int>(cell->Get3D_00545cb0()), reinterpret_cast<int>(cell), a1);
                 }
             }
         }

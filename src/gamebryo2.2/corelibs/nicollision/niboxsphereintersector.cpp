@@ -67,7 +67,7 @@ struct Blk15
     float f0e;
 };
 
-struct FUN_00eb3ca0_cls
+struct NiBoxSphereIntersector
 {
     int unk00;
     int unk04;
@@ -97,7 +97,7 @@ extern const double DAT_01012070;
 
 // Scales a and b by s, adds them into the block and vector offsets, then evaluates GetSqrDistanceToOrientedBox and returns the result times m_40 minus DAT_01012070.
 // @fnv 0x00eb3ca0
-float FUN_00eb3ca0_cls::AccumulateAndEvaluate(const float* a, const float* b, float afScale)
+float NiBoxSphereIntersector::AccumulateAndEvaluate(const float* a, const float* b, float afScale)
 {
     float fScaledX = a[0] * afScale;
     Blk15 blkAccum = *(Blk15*)((char*)m_pBlk + 4);

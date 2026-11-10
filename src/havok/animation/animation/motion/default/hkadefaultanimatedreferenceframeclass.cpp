@@ -8,7 +8,7 @@
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 extern int DAT_0102e388;
 
-struct FUN_00dfe520_cls
+struct hkaDefaultAnimatedReferenceFrame
 {
     int m_vptr00;
     unsigned short m_uSize;
@@ -28,11 +28,11 @@ struct FUN_00dfe520_cls
     int m_iArrayLength;
     unsigned int m_uCapBits;
 
-    FUN_00dfe520_cls* Destroy(unsigned char acFlags);
+    hkaDefaultAnimatedReferenceFrame* Destroy(unsigned char acFlags);
 };
 
 // @fnv 0x00dfe520
-FUN_00dfe520_cls* FUN_00dfe520_cls::Destroy(unsigned char acFlags)
+hkaDefaultAnimatedReferenceFrame* hkaDefaultAnimatedReferenceFrame::Destroy(unsigned char acFlags)
 {
     hkMemoryRouter* pAudioHolder = hkMemoryRouter_getInstance();
     hkMemoryAllocator* pAllocator = reinterpret_cast<hkMemoryAllocator*>(pAudioHolder->m_heap);

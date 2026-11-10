@@ -84,7 +84,7 @@ class NiAVObject : public NiObjectNET
     bool AddExtraData(void* extra);
     bool AddExtraData(const NiFixedString& name, NiExtraData* extra);
     using NiObjectNET::AddExtraData;
-    bool DeleteExtraDataByKey(const NiFixedString& name);
+    bool NiObjectNET_RemoveExtraData(const NiFixedString& name);
     bool RemoveExtraDataByName(const NiFixedString& name);
     NiExtraData* GetExtraData(const NiFixedString& name);
     NiTimeController* GetController(const NiRTTI* rtti);
@@ -96,14 +96,14 @@ class NiAVObject : public NiObjectNET
     NiNode* GetParent();
     NiNode* GetParent() const;
     NiNode* GetParentNode();
-    void AssignParent(NiNode* parent);
+    void AttachParent(NiNode* parent);
     void SetEventualParent(NiNode* parent);
-    void AssignCollisionObject(NiCollisionObject* collision);
+    void SetCollisionObject(NiCollisionObject* collision);
     NiProperty* GetProperty(unsigned int type);
     void AttachProperty(NiObject* property);
     void AttachProperty(NiAlphaProperty* property);
     void RemoveProperty(unsigned int type);
-    void BuildPropertyState(NiPropertyState* parentState, bool copy, NiPropertyState*& state);
+    void PushLocalProperties(NiPropertyState* parentState, bool copy, NiPropertyState*& state);
     void CopyMemberData();
 
     void SetBit(bool value, unsigned int mask);
@@ -118,13 +118,13 @@ class NiAVObject : public NiObjectNET
     unsigned char BoundFlag19() const;
     bool GetHasPropertyController() const;
     void* SetTaskFlag(bool value);
-    void SetByteAtOffset38(unsigned int flags);
+    void SetKeepFlags(unsigned int flags);
     void RemoveGarbageMark();
 
     const NiBound& GetBound();
     NiBound& GetBoundingVolume();
     const NiBound& GetBoundingVolume() const;
-    void EnsureWorldBound();
+    void CreateBoundIfNone();
     const NiMatrix3& GetRotate() const;
     const NiMatrix3& GetLocalRotateStub();
     NiPoint3 GetWorldTranslation();
@@ -147,7 +147,7 @@ class NiAVObject : public NiObjectNET
     void Update(NiUpdateDataH& data);
     void UpdateSceneObject();
     void UpdateModelBound();
-    void UpdateTimeControllers(NiUpdateData& data, bool updateProperties);
+    void UpdateObjectControllers(NiUpdateData& data, bool updateProperties);
     void UpdateWorldLoc();
     void Cull(NiCullingProcess& culler);
 

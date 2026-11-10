@@ -98,7 +98,7 @@ void LocationDescriptor::Copy(LocationDescriptor* source, bool copy)
                 break;
             case 5:
                 SetRadius(source->PackageLocation_GetRadius());
-                PackageLocation_SetLocObjectType(source->GetObjectType());
+                PackageLocation_SetLocObjectType(source->PackageLocation_GetLocObjectType());
                 break;
             case 2:
             case 3:
@@ -242,7 +242,7 @@ struct FormValueEntry
 };
 extern "C" void* __cdecl memset(void* dest, int value, unsigned int count);
 extern "C" bool __cdecl TESForm_QEndianSwapOnSave();
-extern "C" void __cdecl AppendChunk(int id, FormValueEntry* data, unsigned int size);
+extern "C" void __cdecl TESForm___AddChunkData(int id, FormValueEntry* data, unsigned int size);
 
 // @fnv 0x006802f0
 // src: XBOX_PDB 0x006802f0
@@ -266,7 +266,7 @@ void PackageTargetRecord::PackageTarget_Save(int chunk)
     }
     if (TESForm_QEndianSwapOnSave())
         ((ChunkPayload16*)&record)->OBJ_WEAP_VATS_SPECIAL_Endian();
-    AppendChunk(chunk, &record, 16);
+    TESForm___AddChunkData(chunk, &record, 16);
     if (TESForm_QEndianSwapOnSave())
         ((ChunkPayload16*)&record)->OBJ_WEAP_VATS_SPECIAL_Endian();
 }

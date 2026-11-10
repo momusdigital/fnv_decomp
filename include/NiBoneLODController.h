@@ -42,7 +42,7 @@ public:
     NiBoneLODController* CreateClone_00a552c0(CloningProcess& process);
     void FUN_00a541f0(int lod);
     void PostLinkObject_00a54340(NiStream& stream);
-    void* FUN_00a553f0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     bool RegisterStreamables_00a53d00(NiStream& stream);
     void LinkObject_00a53d70(NiStream& stream);
     bool IsEqual_00a53ea0(NiObject* object);

@@ -44,7 +44,7 @@ template <class K, class V> class NiTPointerMap
 class TESFile
 {
   public:
-    TESFile* GetThreadSafeRootFile();
+    TESFile* GetThreadSafeParent();
 };
 class TESRegion : public TESForm
 {
@@ -86,11 +86,11 @@ class TESWorldSpace
     float fCC;
     unsigned int fieldD0;
     bool SetDateTimeText(const char*);
-    BGSTerrainManager* GetWorldTerrainManager();
+    BGSTerrainManager* GetTerrainManager();
     TESWorldSpace* GetParentWorld(PARENT_USE_FLAG);
     bool GetParentUseFlag(PARENT_USE_FLAG);
-    TESObjectCELL* GetCellByKey(unsigned int);
-    void AddPersistentReference(TESObjectREFR*);
+    TESObjectCELL* GetCellFromKey(unsigned int);
+    void AddPersistentRef(TESObjectREFR*);
     TESObjectCELL* CreatePersistentCell();
     void SetHasRegions(bool);
     static bool IsFormIDOwnedByFile(unsigned int, TESFile*);
@@ -101,7 +101,7 @@ class TESWorldSpace
     void SetDefaultLandHeight(float);
     void Projectile_SetPower(float);
     bool GetSmallWorld();
-    bool IsFlag4C20Set();
+    bool GetNoLODNoise();
     void SetParent(TESWorldSpace*);
     void SetFieldD0(unsigned int);
     TESObjectCELL* GetInteriorCell();

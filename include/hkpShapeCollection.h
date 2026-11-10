@@ -27,7 +27,7 @@ public:
     static const ClassMemberDescriptor Members[];
 
     virtual void vf11(int);
-    virtual void vf12(int, int);
+    virtual void SetMapName(int, int);
 
     hkBool m_bDisableWelding;
     unsigned char m_eCollectionType;

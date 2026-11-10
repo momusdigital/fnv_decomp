@@ -27,7 +27,7 @@ public:
     PathPoint_blk_006a0000_od operator+(const PathPoint_blk_006a0000_od& pt) const;
     PathPoint_blk_006a0000_od operator*(float fScalar) const;
     void ScaleByInverse(float);
-    float GetSquaredXYLength();
+    float NiPoint3_SqrXYLength();
     NiPoint3 FastNavMeshTriLocation_GetLocation();
 };
 #include "../../include/PathNodeArray.h"
@@ -70,16 +70,16 @@ void* S006949d0::GetFirst()
     return GetAt(0);
 }
 
-struct FUN_006a1490_class
+struct PathingAvoidNodeArray
 {
     int m_iWordAt00;
     int m_iWordAt04;
-    int EvaluateValue_006a1490(int index);
+    int GetNodeAt(int index);
 };
 
 // @fnv 0x006a1490
-// src: GUESS 0x006a1490 (confidence: low)
-int FUN_006a1490_class::EvaluateValue_006a1490(int index)
+// src: GUESS 0x006a1490 (confidence: medium)
+int PathingAvoidNodeArray::GetNodeAt(int index)
 {
     return index * 0x24 + m_iWordAt04;
 }
@@ -189,12 +189,12 @@ void* _Reallocate(void* base, unsigned int count);
 
 struct FUN_006a1900_Class
 {
-    void* __thiscall _Reallocate_Thunk(void* base, unsigned int count);
+    void* __thiscall BSSimpleArray_Reallocate(void* base, unsigned int count);
 };
 
 // @fnv 0x006a1900
 // src: GUESS 0x006a1900 (confidence: medium)
-void* __thiscall FUN_006a1900_Class::_Reallocate_Thunk(void* base, unsigned int count)
+void* __thiscall FUN_006a1900_Class::BSSimpleArray_Reallocate(void* base, unsigned int count)
 {
     return _Reallocate(base, count << 6);
 }
@@ -596,14 +596,14 @@ struct FUN_00aa5410_Helper
     int InitWithAlignedSize(unsigned int);
 };
 
-struct FUN_006b9400_Class
+struct ScrapHeap
 {
     int AStarNodeHeap_AStarNodeHeap_0();
 };
 
 // @fnv 0x006b9400
 // src: COMMUNITY 0x006b9400
-int FUN_006b9400_Class::AStarNodeHeap_AStarNodeHeap_0()
+int ScrapHeap::AStarNodeHeap_AStarNodeHeap_0()
 {
     ((FUN_00aa5410_Helper*)this)->InitWithAlignedSize(0x4800);
     return (int)this;
@@ -611,17 +611,18 @@ int FUN_006b9400_Class::AStarNodeHeap_AStarNodeHeap_0()
 
 
 
-struct FUN_006bb510_shell
+struct Segment
 {
     Point3Storage a;
     Point3Storage b;
     Point3Storage c;
-    void AddToPoints(Point3Storage* p);
+    void Segment_Offset(Point3Storage* p);
 };
 
 // Adds the given point to both stored points a and b.
 // @fnv 0x006bb510
-void FUN_006bb510_shell::AddToPoints(Point3Storage* apPoint)
+// src: COMMUNITY 0x006bb510
+void Segment::Segment_Offset(Point3Storage* apPoint)
 {
     a += *apPoint;
     b += *apPoint;
@@ -643,12 +644,12 @@ void* FUN_006bec20_Class::NavMeshObstacleCutter_UpdateCoverArray()
 
 struct FUN_006bf670_Class
 {
-    int* GetElementAddress_006bf670(int a);
+    int* BSSimpleArray_GetAt(int a);
 };
 
 // @fnv 0x006bf670
-// src: GUESS 0x006bf670 (confidence: low)
-int* FUN_006bf670_Class::GetElementAddress_006bf670(int aiIndex)
+// src: GUESS 0x006bf670 (confidence: medium)
+int* FUN_006bf670_Class::BSSimpleArray_GetAt(int aiIndex)
 {
     return (int*)((char*)*(int*)((char*)this + 4) + aiIndex * 0x1c);
 }
@@ -930,11 +931,12 @@ bool __thiscall T006a1b20::MatchesPair(int* aiPair)
 void __cdecl _Deallocate(void* p);
 struct C_006a1ba0
 {
-    void* __thiscall FUN_006a1ba0(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_006a14e0 on this, frees this when flags has bit 0 set, and returns this.
 // @fnv 0x006a1ba0
-void* __thiscall C_006a1ba0::FUN_006a1ba0(unsigned int flags)
+// src: EXE 0x006a1ba0
+void* __thiscall C_006a1ba0::ScalarDeletingDestructor(unsigned int flags)
 {
     ((GlobalObject_00869f00*)this)->ResetVirtualTableAndClear_006a14e0();
     if (flags & 1)
@@ -1251,15 +1253,15 @@ extern "C" void __cdecl Deallocate(void*);
 
 struct FUN_006a3580_class
 {
-    void __thiscall FUN_006a3580();
+    void __thiscall NavMeshRender();
     void* __thiscall FUN_006a29f0(unsigned int flags);
 };
 
-// Calls FUN_006a3580, then frees this with Deallocate if flags has bit 0 set, and returns this.
+// Calls NavMeshRender, then frees this with Deallocate if flags has bit 0 set, and returns this.
 // @fnv 0x006a29f0
 void* FUN_006a3580_class::FUN_006a29f0(unsigned int flags)
 {
-    FUN_006a3580();
+    NavMeshRender();
     if (flags & 1)
         Deallocate(this);
     return this;
@@ -2655,13 +2657,14 @@ struct FUN_006a7b10 : BaseS
     FUN_006a7b10();
 };
 extern int DAT_0106b78c;
-struct FUN_006a9200 : FUN_006a7b10
+struct NavMeshSearchFlee : FUN_006a7b10
 {
-    FUN_006a9200();
+    NavMeshSearchFlee();
 };
 // Sets the vtable pointer, constructs two BaseS subobjects at offsets 0x2070 and 0x2084, and zeroes the int at 0x2058 and byte at 0x2080.
 // @fnv 0x006a9200
-FUN_006a9200::FUN_006a9200()
+// src: EXE 0x006a9200
+NavMeshSearchFlee::NavMeshSearchFlee()
 {
     *(int*)this = (int)&DAT_0106b78c;
     ((BaseS*)((char*)this + 0x2070))->BaseS::BaseS();
@@ -2755,7 +2758,7 @@ struct EdgeArr
     unsigned short& Object_GetIndexedValue_006a1440(unsigned int index);
 };
 unsigned int __cdecl MaxUnsigned(unsigned int, unsigned short);
-struct FUN_006bc940_class
+struct NavMeshObstacleCutter
 {
     NavMesh* mesh;
     void* p1;
@@ -2764,7 +2767,7 @@ struct FUN_006bc940_class
 };
 // @fnv 0x006bc940
 // src: COMMUNITY 0x006bc940
-unsigned int FUN_006bc940_class::NavMeshObstacleCutter_GetTrianglesMaxObstacleCount()
+unsigned int NavMeshObstacleCutter::NavMeshObstacleCutter_GetTrianglesMaxObstacleCount()
 {
     unsigned int result = 0;
     for (unsigned int i = 0; i < ((BlkOffset08View*)((char*)flags + 0x20))->GetFlags(); ++i)
@@ -3084,12 +3087,12 @@ unsigned int S006bf170::FindIndexByValue(unsigned short ausValue)
 
 struct FUN_006bf340_Class
 {
-    bool ComputeValue_006bf340(unsigned char** a);
+    bool IsEdgeInvalid(unsigned char** a);
 };
 
 // @fnv 0x006bf340
-// src: GUESS 0x006bf340 (confidence: low)
-bool FUN_006bf340_Class::ComputeValue_006bf340(unsigned char** apBuffers)
+// src: GUESS 0x006bf340 (confidence: medium)
+bool FUN_006bf340_Class::IsEdgeInvalid(unsigned char** apBuffers)
 {
     if (!apBuffers[0][2] && apBuffers[0][6])
         return true;
@@ -3100,7 +3103,7 @@ bool FUN_006bf340_Class::ComputeValue_006bf340(unsigned char** apBuffers)
     return false;
 }
 
-struct FUN_006bf480_Class
+struct NavMeshObstacleVertex
 {
     unsigned short m_iWordAt00;
     unsigned char m_cByteAtOffset2;
@@ -3108,12 +3111,13 @@ struct FUN_006bf480_Class
     unsigned char m_iWordAt04;
     unsigned char m_5;
     unsigned char m_6;
-    FUN_006bf480_Class(unsigned short a, unsigned char b, unsigned char c, unsigned char d);
+    NavMeshObstacleVertex(unsigned short a, unsigned char b, unsigned char c, unsigned char d);
 };
 
 // Initializes the object's fields from the four constructor arguments and zeroes the two trailing bytes.
 // @fnv 0x006bf480
-FUN_006bf480_Class::FUN_006bf480_Class(unsigned short a, unsigned char b, unsigned char c, unsigned char d)
+// src: GUESS 0x006bf480 (confidence: medium)
+NavMeshObstacleVertex::NavMeshObstacleVertex(unsigned short a, unsigned char b, unsigned char c, unsigned char d)
 {
     m_iWordAt00 = a;
     m_cByteAtOffset2 = b;
@@ -3321,13 +3325,14 @@ void FUN_006a68d0_Class::ForwardCall_006a68d0()
 
 extern int DAT_0106b6fc;
 
-struct FUN_006a8a80 : public FUN_006a7b10
+struct NavMeshSearchClosePoint : public FUN_006a7b10
 {
-    FUN_006a8a80();
+    NavMeshSearchClosePoint();
 };
 
 // @fnv 0x006a8a80
-FUN_006a8a80::FUN_006a8a80() : FUN_006a7b10()
+// src: EXE 0x006a8a80
+NavMeshSearchClosePoint::NavMeshSearchClosePoint() : FUN_006a7b10()
 {
     *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&DAT_0106b6fc);
 
@@ -3364,14 +3369,14 @@ struct FUN_006bbc30_ScrapHeap
     void __thiscall ScrapHeapBuffer();
 };
 
-struct FUN_006bbc30_class
+struct AStarDefaultHeap
 {
-    FUN_006bbc30_class* __thiscall EvaluateValue_006bbc30();
+    AStarDefaultHeap* __thiscall EvaluateValue_006bbc30();
 };
 
 // @fnv 0x006bbc30
 // src: GUESS 0x006bbc30 (confidence: low)
-FUN_006bbc30_class* __thiscall FUN_006bbc30_class::EvaluateValue_006bbc30()
+AStarDefaultHeap* __thiscall AStarDefaultHeap::EvaluateValue_006bbc30()
 {
     reinterpret_cast<FUN_006bbc30_ScrapHeap*>(this)->ScrapHeapBuffer();
     return this;
@@ -4311,13 +4316,14 @@ struct FUN_006aa620_CallTarget
     void __thiscall FUN_00633c90(int value);
 };
 
-struct FUN_006aa620 : public FUN_006a7b10
+struct NavMeshSearchLOS : public FUN_006a7b10
 {
-    FUN_006aa620();
+    NavMeshSearchLOS();
 };
 
 // @fnv 0x006aa620
-FUN_006aa620::FUN_006aa620()
+// src: EXE 0x006aa620
+NavMeshSearchLOS::NavMeshSearchLOS()
 {
     *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&DAT_0106b830);
 
@@ -4345,11 +4351,12 @@ struct FUN_006ad2f0_cls
     unsigned int unk04;
     unsigned int unk08;
     unsigned int m_0c;
-    void SetPackedField(unsigned short a, unsigned short b, unsigned char c, unsigned char d);
+    void NavMeshTriangle_SetEdgeCover(unsigned short a, unsigned short b, unsigned char c, unsigned char d);
 };
 
 // @fnv 0x006ad2f0
-void FUN_006ad2f0_cls::SetPackedField(unsigned short uiFieldIndex, unsigned short uiValue, unsigned char uiExtra1,
+// src: COMMUNITY 0x006ad2f0
+void FUN_006ad2f0_cls::NavMeshTriangle_SetEdgeCover(unsigned short uiFieldIndex, unsigned short uiValue, unsigned char uiExtra1,
                                       unsigned char uiExtra2)
 {
     if (uiFieldIndex == 2)
@@ -4475,14 +4482,14 @@ struct FUN_006b3cb0_node
     FUN_006b3cb0_node* m_54;
 };
 
-class FUN_006b3cb0_cls
+class PathSmootherPOVSearch
 {
   public:
     bool CopyNodeListToArrays(FUN_006b3cb0_node* head, FUN_006b3cb0_arg2* a2, FUN_006b3cb0_arg3* a3);
 };
 
 // @fnv 0x006b3cb0
-bool FUN_006b3cb0_cls::CopyNodeListToArrays(FUN_006b3cb0_node* head, FUN_006b3cb0_arg2* pItemArray,
+bool PathSmootherPOVSearch::CopyNodeListToArrays(FUN_006b3cb0_node* head, FUN_006b3cb0_arg2* pItemArray,
                                             FUN_006b3cb0_arg3* pPointArray)
 {
     if (head == 0)
@@ -4582,12 +4589,12 @@ struct FUN_006b3fd0_cls
     bool BSSimpleArray_NavMeshInfo_1024_ShouldGrow();
     int BSSimpleArray_NavMeshInfo_1024_GetNewSizeForGrow();
     void AllocateStorage_006b4590(int a, int b);
-    unsigned int UpdateState_006b3fd0();
+    unsigned int BSSimpleArray_AddIndex();
 };
 
 // @fnv 0x006b3fd0
-// src: GUESS 0x006b3fd0 (confidence: low)
-unsigned int FUN_006b3fd0_cls::UpdateState_006b3fd0()
+// src: GUESS 0x006b3fd0 (confidence: medium)
+unsigned int FUN_006b3fd0_cls::BSSimpleArray_AddIndex()
 {
     if (BSSimpleArray_NavMeshInfo_1024_ShouldGrow())
     {
@@ -6999,7 +7006,7 @@ struct FUN_006b8ec0_Node
     int m_i08;
 };
 
-struct FUN_006b8ec0_cls
+struct NavMeshInfoSearch
 {
     int FUN_006b8fe0(int a1, float zero, FUN_006b8ec0_Node** out);
     int InsertNode(FUN_006b8ec0_Node* node);
@@ -7008,7 +7015,7 @@ struct FUN_006b8ec0_cls
 
 // @fnv 0x006b8ec0
 // src: XBOX_PDB 0x006b8ec0
-FUN_006b8ec0_Node* FUN_006b8ec0_cls::AStarSearch_NavMeshInfo_const_TESObjectREFR_AddStartNode(int a1, int* piValue, float afValue)
+FUN_006b8ec0_Node* NavMeshInfoSearch::AStarSearch_NavMeshInfo_const_TESObjectREFR_AddStartNode(int a1, int* piValue, float afValue)
 {
     FUN_006b8ec0_Node* node;
     switch (FUN_006b8fe0(a1, 0.0f, &node))
@@ -7016,7 +7023,7 @@ FUN_006b8ec0_Node* FUN_006b8ec0_cls::AStarSearch_NavMeshInfo_const_TESObjectREFR
     case 0:
         node->m_f04 = afValue;
         node->m_i08 = *piValue;
-        reinterpret_cast<FUN_006b8ec0_cls*>(reinterpret_cast<char*>(this) + 0x1ff4)->InsertNode(node);
+        reinterpret_cast<NavMeshInfoSearch*>(reinterpret_cast<char*>(this) + 0x1ff4)->InsertNode(node);
         *reinterpret_cast<FUN_006b8ec0_Node**>(reinterpret_cast<char*>(this) + 0x2050) = node;
         return node;
     case 1:
@@ -7546,7 +7553,7 @@ struct Tri120
     unsigned char extra;
     Tri120();
     void SetValues(unsigned short, unsigned short, unsigned short);
-    void SetPackedField(int, unsigned short, unsigned char, unsigned char);
+    void NavMeshTriangle_SetEdgeCover(int, unsigned short, unsigned char, unsigned char);
     void SetSlotValue(int, unsigned short);
 };
 struct Vertex120
@@ -7655,8 +7662,8 @@ bool Host120::BuildTrianglesFromEdgePairs()
                         if (l.z < 0.0f)
                         {
                             triangle.SetValues(shared->index, outer2->index, outer1->index);
-                            triangle.SetPackedField(0, second->property, second->flag1, second->flag2);
-                            triangle.SetPackedField(1, third->property, third->flag1, third->flag2);
+                            triangle.NavMeshTriangle_SetEdgeCover(0, second->property, second->flag1, second->flag2);
+                            triangle.NavMeshTriangle_SetEdgeCover(1, third->property, third->flag1, third->flag2);
                             if (first->type == 4)
                                 triangle.SetSlotValue(2, first->extra);
                             if (second->type == 4)
@@ -7667,8 +7674,8 @@ bool Host120::BuildTrianglesFromEdgePairs()
                         else
                         {
                             triangle.SetValues(shared->index, outer1->index, outer2->index);
-                            triangle.SetPackedField(0, first->property, first->flag1, first->flag2);
-                            triangle.SetPackedField(1, third->property, third->flag1, third->flag2);
+                            triangle.NavMeshTriangle_SetEdgeCover(0, first->property, first->flag1, first->flag2);
+                            triangle.NavMeshTriangle_SetEdgeCover(1, third->property, third->flag1, third->flag2);
                             if (first->type == 4)
                                 triangle.SetSlotValue(0, first->extra);
                             if (second->type == 4)
@@ -7783,14 +7790,14 @@ class FUN_006bf3c0_cls
     void* NavMeshObstacleCutter_CreateVertex(unsigned short a, unsigned char b, unsigned char c, unsigned char d);
 };
 
-// Allocates an 8-byte FUN_006bf480_Class with the four arguments, sets its m_5 from FUN_006bf1d0, and returns it.
+// Allocates an 8-byte NavMeshObstacleVertex with the four arguments, sets its m_5 from FUN_006bf1d0, and returns it.
 // @fnv 0x006bf3c0
 // src: COMMUNITY 0x006bf3c0
 void* FUN_006bf3c0_cls::NavMeshObstacleCutter_CreateVertex(unsigned short a, unsigned char b, unsigned char c, unsigned char d)
 {
     void* raw = m_0c.Allocate(8, DAT_010a2720);
-    new (raw) FUN_006bf480_Class(a, b, c, d);
-    ((FUN_006bf480_Class*)raw)->m_5 = NavMeshObstacleCutter_IsVertInOverlappedArea((P_006bf1d0*)raw);
+    new (raw) NavMeshObstacleVertex(a, b, c, d);
+    ((NavMeshObstacleVertex*)raw)->m_5 = NavMeshObstacleCutter_IsVertInOverlappedArea((P_006bf1d0*)raw);
     return raw;
 }
 }  // namespace fnv_006bf3c0
@@ -7964,14 +7971,14 @@ struct FUN_006bff60_Class
     int unk08;
     int unk0c;
 
-    void __thiscall ProcessEntries_006c0010(void* newItem, void* oldItem, int count);
+    void __thiscall BSSimpleArray_MoveElements(void* newItem, void* oldItem, int count);
     void __thiscall FUN_006a8500();
-    void __thiscall UpdateFields_006bff60(int value, int count);
+    void __thiscall BSSimpleArray_Resize(int value, int count);
 };
 
 // @fnv 0x006bff60
-// src: GUESS 0x006bff60 (confidence: low)
-void __thiscall FUN_006bff60_Class::UpdateFields_006bff60(int value, int count)
+// src: GUESS 0x006bff60 (confidence: medium)
+void __thiscall FUN_006bff60_Class::BSSimpleArray_Resize(int value, int count)
 {
     if (this->unk04 != 0)
     {
@@ -7982,7 +7989,7 @@ void __thiscall FUN_006bff60_Class::UpdateFields_006bff60(int value, int count)
         else
         {
             void* newItem = this->vf04(value);
-            this->ProcessEntries_006c0010(newItem, this->unk04, count);
+            this->BSSimpleArray_MoveElements(newItem, this->unk04, count);
             this->FUN_006a8500();
             this->unk04 = newItem;
         }
@@ -8619,7 +8626,7 @@ struct Line
 {
     PathPoint_blk_006a0000_od start, end;
     Line(const Line&);
-    void AddToPoints(const PathPoint_blk_006a0000_od&);
+    void Segment_Offset(const PathPoint_blk_006a0000_od&);
     void SubtractFromC(PathPoint_blk_006a0000_od&);
 };
 struct Circle
@@ -8653,7 +8660,7 @@ bool IntersectLineCircle(Circle* circle, const Line* pLine, Result* result)
     Hit* firstSlot0 = &result->first;
     Hit* secondSlot21 = &result->second;
     Line lineSlot1(*pLine);
-    lineSlot1.AddToPoints(circle->GetNegatedVector());
+    lineSlot1.Segment_Offset(circle->GetNegatedVector());
     float radiusSlot20 = 1.0f;
     lineSlot1.start.ScaleByInverse(circle->radius);
     lineSlot1.end.ScaleByInverse(circle->radius);
@@ -8831,7 +8838,7 @@ bool IntersectLineCircle(Circle* circle, const Line* pLine, Result* result)
         }
         else
         {
-            if (lineSlot1.start.GetSquaredXYLength() < radiusSquaredSlot0)
+            if (lineSlot1.start.NiPoint3_SqrXYLength() < radiusSquaredSlot0)
             {
                 result->type = 5;
                 return false;
@@ -8864,7 +8871,7 @@ bool __cdecl NavMeshMath_CheckArcAgainstCircle(const NiBound* pSphereA, Obstacle
         return true;
     NiPoint3 c = pSphereB->m_kCenter.SubtractIntoVector(pSphereA->m_kCenter);
     float p = c.FUN_004a7290();
-    float l = c.GetSquaredXYLength();
+    float l = c.NiPoint3_SqrXYLength();
     if (l == 0.0)
         return false;
     float h = pSphereA->m_fRadius + pSphereB->m_fRadius;
@@ -8915,7 +8922,7 @@ struct BuildCollection
     unsigned int capacity;
     unsigned int grow;
     unsigned int FUN_0044ddc0() const;
-    FUN_006bc8b0* GetElementAddress_006bf670(unsigned int index);
+    FUN_006bc8b0* BSSimpleArray_GetAt(unsigned int index);
     unsigned short* GetBufferEntry(unsigned int index);
     BuildItem* Object_GetIndexedValue_006a1440(unsigned int index);
     int FUN_004b9ba0();
@@ -9106,8 +9113,8 @@ bool BuildProcess::Build(BuildOutput* pOutput, BuildInput* pInput, BuildCatalog*
             int entry;
             {
                 BuildBounds bounds;
-                ((BuildName*)&bounds.mC)->CopyFromNavMeshEdge(input->annotationCollection.GetElementAddress_006bf670(i));
-                ((BuildName*)&bounds.m0)->CopyFromNavMeshEdge(&input->annotationCollection.GetElementAddress_006bf670(i)->mC);
+                ((BuildName*)&bounds.mC)->CopyFromNavMeshEdge(input->annotationCollection.BSSimpleArray_GetAt(i));
+                ((BuildName*)&bounds.m0)->CopyFromNavMeshEdge(&input->annotationCollection.BSSimpleArray_GetAt(i)->mC);
                 bounds.processed = false;
                 entry = catalog->primary.FindIndexIf((BuildName*)&bounds.m0, 0, CallWithInt);
                 if (entry != -1)
@@ -9337,7 +9344,7 @@ struct TriX
     bool IsEdgeFlagSet(int);
     unsigned short GetEdgeExtraInfo_0068f2c0(int);
     unsigned short GetVert_005582d0(int);
-    void GetPackedFlags(unsigned short, unsigned short*, bool*, bool*);
+    void NavMeshTriangle_GetEdgeCoverData(unsigned short, unsigned short*, bool*, bool*);
 };
 struct MeshX
 {
@@ -9477,7 +9484,7 @@ void HostB60::BuildNavMeshEdges()
                 }
                 edges.FUN_007cb2e0(&ed);
                 if ((unsigned int)j < 2)
-                    tri->GetPackedFlags((unsigned short)j, &ed->property, &ed->flag1, &ed->flag2);
+                    tri->NavMeshTriangle_GetEdgeCoverData((unsigned short)j, &ed->property, &ed->flag1, &ed->flag2);
             }
         }
     }
@@ -9627,7 +9634,7 @@ struct Vec74
     float x, y, z;
     Vec74();
     Vec74 SubtractIntoVector(const Vec74&);
-    float GetSquaredXYLength();
+    float NiPoint3_SqrXYLength();
 };
 struct VertexData74
 {
@@ -9730,25 +9737,25 @@ void Processor74::SplitCrossingEdges()
                 bool splitFirst21 = false;
                 bool splitSecond20 = false;
                 Vertex74* intersection6;
-                if (pc21->SubtractIntoVector(crossing2).GetSquaredXYLength() < tolerance8)
+                if (pc21->SubtractIntoVector(crossing2).NiPoint3_SqrXYLength() < tolerance8)
                 {
                     intersection6 = c5;
                     splitFirst21 = true;
                     splitSecond20 = false;
                 }
-                else if (pd20->SubtractIntoVector(crossing2).GetSquaredXYLength() < tolerance8)
+                else if (pd20->SubtractIntoVector(crossing2).NiPoint3_SqrXYLength() < tolerance8)
                 {
                     intersection6 = d5;
                     splitFirst21 = true;
                     splitSecond20 = false;
                 }
-                else if (pa51->SubtractIntoVector(crossing2).GetSquaredXYLength() < tolerance8)
+                else if (pa51->SubtractIntoVector(crossing2).NiPoint3_SqrXYLength() < tolerance8)
                 {
                     intersection6 = a2;
                     splitFirst21 = false;
                     splitSecond20 = true;
                 }
-                else if (pb32->SubtractIntoVector(crossing2).GetSquaredXYLength() < tolerance8)
+                else if (pb32->SubtractIntoVector(crossing2).NiPoint3_SqrXYLength() < tolerance8)
                 {
                     intersection6 = b10;
                     splitFirst21 = false;
@@ -10170,7 +10177,7 @@ bool FUN_006bde50::CanAddEdge(void* pVertexA, void* pVertexB)
     return true;
 }
 
-struct FUN_006bf570
+struct NavMeshObstacleEdge
 {
     int unk00;
     int unk04;
@@ -10185,10 +10192,11 @@ struct FUN_006bf570
     unsigned char unk19;
     NP ref;
     hkQuaternion data;
-    FUN_006bf570(int, int, int);
+    NavMeshObstacleEdge(int, int, int);
 };
 // @fnv 0x006bf570
-FUN_006bf570::FUN_006bf570(int aiFirst, int aiSecond, int aiThird) : ref(0)
+// src: GUESS 0x006bf570 (confidence: medium)
+NavMeshObstacleEdge::NavMeshObstacleEdge(int aiFirst, int aiSecond, int aiThird) : ref(0)
 {
     unk00 = aiFirst;
     unk04 = aiSecond;
@@ -10638,7 +10646,7 @@ struct FUN_00b00a00_Interface
     virtual void Unknown0();
     virtual void Unknown4();
     virtual void Unknown8();
-    virtual bool TestValue(int value);
+    virtual bool hkDataClass_isNull(int value);
 };
 
 FUN_00b00a00_Interface* FUN_00b00a00();
@@ -10655,7 +10663,7 @@ class FUN_006a1630_class : public FUN_006a1cf0_shell
 // @fnv 0x006a1630
 bool FUN_006a1630_class::ProcessSearchNode(FUN_006b3cb0_arg2* param_2, FUN_006b3cb0_arg3* param_3, bool useBestNode)
 {
-    bYield = FUN_00b00a00()->TestValue(FUN_0040fc90());
+    bYield = FUN_00b00a00()->hkDataClass_isNull(FUN_0040fc90());
 
     PathSearchNode* selectedNode;
     bool result2;
@@ -11915,7 +11923,7 @@ struct FUN_006a6550
     int unk00;
     ~FUN_006a6550();
 };
-struct FUN_006a3580
+struct NavMeshRender
 {
     FUN_0045cec0 unk00;
     FUN_0045cec0 unk04;
@@ -11995,11 +12003,12 @@ struct FUN_006a3580
     FUN_0045cec0 unk1ec;
     FUN_006a6450 unk1f0;
     FUN_006a6550 unk200;
-    ~FUN_006a3580();
+    ~NavMeshRender();
 };
 // Calls FUN_0066b0d0(0) on each of the 17 entries of slots50, slots94 and slots0c.
 // @fnv 0x006a3580
-FUN_006a3580::~FUN_006a3580()
+// src: COMMUNITY 0x006a3580
+NavMeshRender::~NavMeshRender()
 {
     for (unsigned int i = 0; i < 17; i++)
     {

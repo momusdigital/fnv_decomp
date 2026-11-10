@@ -57,7 +57,8 @@ void BSTreeManager::Create(bool create)
 }
 
 // @fnv 0x00665860
-void BSTreeManager::UpdateTreeInstances()
+// src: COMMUNITY 0x00665860
+void BSTreeManager::ClearCanopyShadow()
 {
     if (((NiPointer<NiAVObject>*)((char*)BSTreeManager_GetInstance(true) + 4))->operator NiAVObject*())
     {
@@ -568,12 +569,13 @@ class FUN_00665c50
 struct Mgr6649c0
 {
     FUN_00665c50* m_map;
-    NiPointer<NiTexture>* GetOrCreateTexturePointer(unsigned int key);
+    NiPointer<NiTexture>* BSTreeManager_GetModelArray(unsigned int key);
 };
 
 // Looks up key in m_map, creating the map if null and inserting a new NiPointer<NiTexture> array when absent, then returns the pointer.
 // @fnv 0x006649c0
-NiPointer<NiTexture>* Mgr6649c0::GetOrCreateTexturePointer(unsigned int key)
+// src: COMMUNITY 0x006649c0
+NiPointer<NiTexture>* Mgr6649c0::BSTreeManager_GetModelArray(unsigned int key)
 {
     AutoMemContext ctx(MEM_CONTEXT_MEM_CONTEXT_TREEART, true,
                        "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout Shared\\SpeedTree\\BSTreeManager.cpp", 216);
@@ -611,11 +613,12 @@ struct TreeModelManager
 };
 struct TreeManager : BSTreeManager
 {
-    NiAVObject* CreateTreeInstance(TreeReference*, TESObjectTREE*);
+    NiAVObject* BSTreeManager_CreateTreeForReference(TreeReference*, TESObjectTREE*);
 };
 // Validates the tree and reference, looks up or builds a BSTreeModel, creates a scaled NiAVObject instance, names it from the model path, and returns it.
 // @fnv 0x00664f50
-NiAVObject* TreeManager::CreateTreeInstance(TreeReference* reference, TESObjectTREE* tree)
+// src: COMMUNITY 0x00664f50
+NiAVObject* TreeManager::BSTreeManager_CreateTreeForReference(TreeReference* reference, TESObjectTREE* tree)
 {
     AutoMemContext cached(MEM_CONTEXT_MEM_CONTEXT_TREEART, true,
                           "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout Shared\\SpeedTree\\BSTreeManager.cpp", 462);
@@ -639,7 +642,7 @@ NiAVObject* TreeManager::CreateTreeInstance(TreeReference* reference, TESObjectT
     if (((BSTreeModel*)scale)->FUN_00726070() > 2)
     {
         model = new BSTreeModel;
-        if (!model->CloneFromModel(scale))
+        if (!model->BSTreeModel_InitAsInstance(scale))
         {
             delete model;
             return 0;

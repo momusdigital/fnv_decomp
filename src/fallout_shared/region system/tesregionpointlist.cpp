@@ -447,14 +447,14 @@ struct RegionNode : PointNode
     bool FUN_008256d0();
     RegionNode* FUN_00726070();
 };
-struct FUN_004f77c0_shell : RegionPointList
+struct TESRegionPointList : RegionPointList
 {
     void TESRegionPointList_Save();
 };
 // Calls FUN_00485910 with the distance value, then conditionally calls FUN_00485710 with the collected points.
 // @fnv 0x004f77c0
 // src: COMMUNITY 0x004f77c0
-void FUN_004f77c0_shell::TESRegionPointList_Save()
+void TESRegionPointList::TESRegionPointList_Save()
 {
     TESForm_AddChunk_00485910(0x494c5052, m_uiDistanceInsideAtMax);
     RegionNode* node = reinterpret_cast<RegionNode*>(this);

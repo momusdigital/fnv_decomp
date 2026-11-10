@@ -20,7 +20,7 @@ public:
     virtual void CopyFromBase(BaseFormComponent* component);
     virtual bool CompareWithBase(BaseFormComponent* component);
     virtual unsigned int GetTexturePathLength();
-    virtual char* NormalizeTextureFilePath(void* result);
+    virtual char* GetAsNormalFile(void* result);
     virtual char* GetTextureResourcePath();
 
     void InitializeComponent();
@@ -38,18 +38,18 @@ public:
     void AssignTextureName(const char* name);
     void SetTexture(const char* name);
 
-    static void NormalizeTextureFilePath(char* path, char* output);
-    static char* NormalizeTextureFilePath(void* result, char* path);
-    static const char* NormalizeTextureFilePath(BSStringT<char>& result, const char* path);
-    static const char* NormalizeTextureFilePath(BSS& result, const char* path);
+    static void GetAsNormalFile(char* path, char* output);
+    static char* GetAsNormalFile(void* result, char* path);
+    static const char* GetAsNormalFile(BSStringT<char>& result, const char* path);
+    static const char* GetAsNormalFile(BSS& result, const char* path);
     template <class StringType>
-    static const char* NormalizeTextureFilePath(StringType& result, const char* path);
+    static const char* GetAsNormalFile(StringType& result, const char* path);
     static char* NormalFileToRegularFile(void* result, char* path);
     char* GetRegularTextureFilePath(void* result);
     static void GetRegularTextureFilePath(char* path, char* output);
     static char* GetRegularTextureFilePath(void* result, char* path);
-    static void ConvertTexturePath(char* path, char* output);
-    static void ConvertTexturePath(const char* path, char* output);
+    static void GetAsSkinFile(char* path, char* output);
+    static void GetAsSkinFile(const char* path, char* output);
     static bool IsTextureChunk(int chunk);
     static void ReadTextureData(TESTexture* texture, TESFile* file);
     static char* GetMessageIconName(TESForm* form, TESObjectREFR* reference);

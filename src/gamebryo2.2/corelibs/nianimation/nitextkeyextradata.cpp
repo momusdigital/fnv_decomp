@@ -77,7 +77,8 @@ bool __fastcall LoadFromStream(NiTextKeyExtraData* _this, void* _edx, NiStream* 
 
 // Checks that pkObject is non-null, base-equal, has the same key count, and that every key's time and value match; returns true if so.
 // @fnv 0x00a46bb0
-bool __fastcall IsTextKeyExtraDataEqual(NiTextKeyExtraData* self, void*, NiObject* pkObject)
+// src: EXE 0x00a46bb0
+bool __fastcall NiTextKeyExtraData_IsEqual(NiTextKeyExtraData* self, void*, NiObject* pkObject)
 {
     if (!pkObject)
         return false;
@@ -226,7 +227,8 @@ __forceinline NiTextKeyExtraData* __fastcall InitializeTextKeyExtraData(NiTextKe
 }
 
 // @fnv 0x00a46da0
-NiExtraData* __fastcall CloneTextKeyExtraData(NiTextKeyExtraData* self, void*, void* pvProcess)
+// src: EXE 0x00a46da0
+NiExtraData* __fastcall NiTextKeyExtraData_CreateClone(NiTextKeyExtraData* self, void*, void* pvProcess)
 {
     // The shared class has no constructor for this original initialization path.
     void* memory = BSFadeNode::operator new(sizeof(NiTextKeyExtraData));
@@ -271,7 +273,8 @@ void __cdecl LoadExtraDataBinary();
 
 // Loads the base extra data, the key count, and each text key from the stream.
 // @fnv 0x00a46cf0
-void __fastcall LoadTextKeyBinary(NiTextKeyExtraData* self, void*, NiStream& kStream)
+// src: EXE 0x00a46cf0
+void __fastcall NiTextKeyExtraData_SaveBinary(NiTextKeyExtraData* self, void*, NiStream& kStream)
 {
     reinterpret_cast<void (__thiscall*)(NiExtraData*, NiStream&)>(&LoadExtraDataBinary)(self, kStream);
     ReadBinaryValue(kStream, self->m_uiNumKeys);

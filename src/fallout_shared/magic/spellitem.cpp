@@ -169,7 +169,7 @@ bool MagicItem::SpellItem_CompareMagicItemData(MagicItem* apItem)
 }
 
 bool TESForm_QEndianSwapOnSave();
-void __cdecl AppendChunk(int iValue, void* pData, int iSize);
+void __cdecl TESForm___AddChunkData(int iValue, void* pData, int iSize);
 struct SubE360
 {
     void TESRegionSound_Endian();
@@ -209,7 +209,7 @@ void ObjE360::EnchantmentItem_Endian()
 {
     if (TESForm_QEndianSwapOnSave())
         m_sub.TESRegionSound_Endian();
-    AppendChunk(GetValue(), &m_sub, 0x10);
+    TESForm___AddChunkData(GetValue(), &m_sub, 0x10);
     if (TESForm_QEndianSwapOnSave())
         m_sub.TESRegionSound_Endian();
 }

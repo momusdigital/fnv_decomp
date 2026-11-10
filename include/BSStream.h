@@ -34,8 +34,8 @@ public:
     using NiStream::BSStream_Load;
     virtual bool BSStream_Load(const char* name);
 
-    unsigned int GetRefAt21C();
-    NiNode* GetStringAt(unsigned int index);
+    unsigned int NiStream_GetObjectCount();
+    NiNode* NiStream_GetObjectAt(unsigned int index);
     void DestroyObject();
     void* FUN_0043d150(unsigned int flags);
 };

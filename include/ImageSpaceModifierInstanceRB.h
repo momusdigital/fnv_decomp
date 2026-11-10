@@ -9,7 +9,7 @@ class ImageSpaceModifierInstanceRB : public ImageSpaceModifierInstanceTemp
     ImageSpaceModifierInstanceRB(float, float, NiAVObject*, float, float, float, float, float, const NiPoint2&);
 
     void vf36();
-    virtual void vf38(char* apBuffer);
+    virtual void PrintInfo(char* apBuffer);
 
     float m_fRampUp;
     float fStart;

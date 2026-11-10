@@ -39,7 +39,8 @@ extern int DAT_01097c8c;
 inline void* operator new(unsigned int, void* storage) { return storage; }
 
 // @fnv 0x00a43fb0
-BSLookIKNote* __cdecl CreateLookIKNote()
+// src: EXE 0x00a43fb0
+BSLookIKNote* __cdecl BSLookIKNote_CreateObject()
 {
     BSLookIKNote* pNote = static_cast<BSLookIKNote*>(BSLookIKNote::operator new(0x18));
     if (pNote)

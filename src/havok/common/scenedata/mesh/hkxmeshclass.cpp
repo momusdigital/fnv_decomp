@@ -26,7 +26,7 @@ struct Owner
     int unk08, unk0C, unk10;
     FUN_00cb0c00_class unk14;
     FUN_00cb0c00_class unk18;
-    void FUN_00e3eaa0();
+    void hkxAttributeHolder();
     void* Destroy(unsigned int flags);
 };
 // @fnv 0x00e01ef0
@@ -34,7 +34,7 @@ void* Owner::Destroy(unsigned int flags)
 {
     unk18.Object_UpdateFields_00cb0c00();
     unk14.Object_UpdateFields_00cb0c00();
-    FUN_00e3eaa0();
+    hkxAttributeHolder();
     if (flags & 1)
     {
         Manager* manager = hkMemoryRouter_getInstance();

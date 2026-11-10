@@ -9,7 +9,7 @@ public:
     virtual void Finish() override;
     virtual bool GetDescription(char* description, unsigned int bufferSize) override;
     virtual void ProcessLoadedAnimIdle() override;
-    virtual void vf12();
+    virtual void SetMapName();
 
     void ApplyQueuedTexture();
     void QueueForPostProcess();

@@ -103,7 +103,8 @@ bool __cdecl LipSynchAnim_Decompress(NiBinaryStream*, char*, unsigned int, unsig
 
 // Reads a 12-byte header from the stream, decompresses or reads the payload into a buffer, parses it into an animation, and deletes the stream and buffer.
 // @fnv 0x004d5350
-LipSyncAnimation* __cdecl ReadAnimationFromStream(Stream* stream)
+// src: COMMUNITY 0x004d5350
+LipSyncAnimation* __cdecl LipSynchAnim_LoadFromFile(Stream* stream)
 {
     Header headerTmp;
     char* buffer_;

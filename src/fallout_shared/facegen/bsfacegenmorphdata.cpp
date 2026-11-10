@@ -62,7 +62,7 @@ class DifferentialArray
 class StatisticalArray
 {
   public:
-    unsigned int EvaluateValue_0065cc30();
+    unsigned int vector_size();
     StatisticalEntry* GetElementChecked_00662890(unsigned int);
     unsigned int data[6];
 };
@@ -237,7 +237,7 @@ BSFaceGenMorphDataHead::BSFaceGenMorphDataHead(FaceGenTriData* tri)
             continue;
     }
     // Statistical morphs replace differential morphs with the same name.
-    for (local.i = 0; local.i < tri->statistical.EvaluateValue_0065cc30(); local.i++)
+    for (local.i = 0; local.i < tri->statistical.vector_size(); local.i++)
     {
         local.found = false;
         for (local.expression = 0; local.expression < 15; local.expression++)
@@ -458,7 +458,8 @@ template <> unsigned int FaceGenMatrix<float>::std_vector_float_std_allocator_fl
 void __cdecl _delete(void*, unsigned int);
 // Destroys this head morph data, frees this with _delete when flags has bit 0 set, and returns this.
 // @fnv 0x00661db0
-void* BSFaceGenMorphDataHead::FUN_00661db0(unsigned int flags)
+// src: EXE 0x00661db0
+void* BSFaceGenMorphDataHead::ScalarDeletingDestructor(unsigned int flags)
 {
     BSFaceGenMorphDataHead::~BSFaceGenMorphDataHead();
     if (flags & 1)

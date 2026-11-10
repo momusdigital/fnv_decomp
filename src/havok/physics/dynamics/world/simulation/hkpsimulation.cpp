@@ -263,7 +263,7 @@ void hkpSimulationV::ResetSimulationState(hkpEntity** entities, int numEntities,
         }
         if (world->m_iPendingOperationQueueCount == 1 && world->m_iQueuedOperationCount)
         {
-            world->UpdateFields_00c91140();
+            world->hkpWorld_internalExecutePendingBodyOperations();
         }
     }
 }
@@ -280,10 +280,11 @@ struct FnvCpu_FUN_00cfa7a0_CpuObject {
     unsigned int unk00;
     unsigned short size;
     void SetVtableAndProcessState_00cf86d0();
-    FnvCpu_FUN_00cfa7a0_CpuObject* FUN_00cfa7a0(unsigned int flags);
+    FnvCpu_FUN_00cfa7a0_CpuObject* ScalarDeletingDestructor(unsigned int flags);
 };
 // @fnv 0x00cfa7a0
-FnvCpu_FUN_00cfa7a0_CpuObject* FnvCpu_FUN_00cfa7a0_CpuObject::FUN_00cfa7a0(unsigned int flags)
+// src: EXE 0x00cfa7a0
+FnvCpu_FUN_00cfa7a0_CpuObject* FnvCpu_FUN_00cfa7a0_CpuObject::ScalarDeletingDestructor(unsigned int flags)
 {
     SetVtableAndProcessState_00cf86d0();
     if (flags & 1) {
@@ -1244,7 +1245,7 @@ struct MemoryRequirements { int max, sum; Island* biggest; };
 static __forceinline void unlockWorldOperations(hkpWorld* world) {
     if (--world->m_iCriticalOperationsLockCount == 0 && !world->m_bBlockExecutingPendingOperations) {
         if (world->m_iPendingOperationCount) world->FUN_00c91120();
-        if (world->m_iPendingOperationQueueCount == 1 && world->m_iQueuedOperationCount) world->UpdateFields_00c91140();
+        if (world->m_iPendingOperationQueueCount == 1 && world->m_iQueuedOperationCount) world->hkpWorld_internalExecutePendingBodyOperations();
     }
 }
 
@@ -1582,7 +1583,7 @@ __forceinline void stampEnd() {
 __forceinline void done(hkpWorld* w) {
  if (--w->m_iCriticalOperationsLockCount == 0 && w->m_bBlockExecutingPendingOperations.m_cBooleanValue == 0) {
   if(w->m_iPendingOperationCount != 0) w->FUN_00c91120();
-  if(w->m_iPendingOperationQueueCount == 1 && w->m_iQueuedOperationCount != 0) w->UpdateFields_00c91140();
+  if(w->m_iPendingOperationQueueCount == 1 && w->m_iQueuedOperationCount != 0) w->hkpWorld_internalExecutePendingBodyOperations();
  }
 }
 // @fnv 0x00cfa080
@@ -2125,7 +2126,7 @@ void __thiscall FNVOwner_CFA5F0::hkpSimulation_collideEntitiesDiscrete(int arg1,
     hkpSimulation_collideEntitiesNarrowPhaseDiscrete(arg1,arg2,&state,arg5);
     if (--sim->m_iCriticalOperationsLockCount == 0 && !sim->m_bBlockExecutingPendingOperations.m_cBooleanValue) {
         if (sim->m_iPendingOperationCount) sim->FUN_00c91120();
-        if (sim->m_iPendingOperationQueueCount == 1 && sim->m_iQueuedOperationCount) sim->UpdateFields_00c91140();
+        if (sim->m_iPendingOperationQueueCount == 1 && sim->m_iQueuedOperationCount) sim->hkpWorld_internalExecutePendingBodyOperations();
     }
     if (state.result64) {
         FNVAudioHolder_CFA5F0* holder = hkMemoryRouter_getInstance();

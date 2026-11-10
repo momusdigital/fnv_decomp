@@ -114,7 +114,7 @@ bool __cdecl Moon::IsMoonVisible(const Sky* apSky)
     return false;
 }
 
-struct FUN_00636980_Helper
+struct TESClimate
 {
     char pad[0x55];
     unsigned char f55;
@@ -123,7 +123,7 @@ struct FUN_00636980_Helper
 
 // @fnv 0x00636980
 // src: COMMUNITY 0x00636980
-unsigned char FUN_00636980_Helper::TESClimate_GetMoonPhaseDays()
+unsigned char TESClimate::TESClimate_GetMoonPhaseDays()
 {
     return f55 & ~0xc0;
 }

@@ -213,7 +213,7 @@ struct Ref
     void TESObjectREFR_CleanUpTraps();
     void TESForm_SetDisabled(int a);
     Proc* FUN_008d8520();
-    void ApplyActorSpells();
+    void Actor_DispelPermanentMagic();
     Ref* FUN_008d6f30();
     bool TESObjectREFR_HasScript();
     bool GetTargeted();

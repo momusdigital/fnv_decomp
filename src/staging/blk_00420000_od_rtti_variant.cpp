@@ -119,7 +119,7 @@ struct FUN_00438bf0_shell : FUN_00591300_shell
 };
 struct FUN_00438f10_Class
 {
-    bool EvaluateValue_00438f10();
+    bool MapMarkerData_IsShowAllHidden();
 };
 struct FUN_00438f30_Class
 {
@@ -156,12 +156,12 @@ struct FUN_0043b9f0_shell
 {
     void NiControllerSequence_SetName(FUN_0043ba10_shell* p);
 };
-struct FUN_0043baa0_class
+struct BSAnimGroupSequence
 {
     void BSAnimGroupSequence_SetAnimGroup(void* p);
 };
 bool __cdecl MLGetFlag_1(unsigned char);
-struct FUN_0043fab0_class
+struct QueuedHelmet
 {
     bool __thiscall QueuedHelmet_GetFinishedQueuing();
 };
@@ -176,22 +176,22 @@ struct BE
 {
     BE(unsigned char);
 };
-struct FUN_00436ac0 : BE
+struct ExtraTalkingActor : BE
 {
-    FUN_00436ac0();
+    ExtraTalkingActor();
 };
 void __cdecl Deallocate(void*);
 struct FUN_0042ffd0_cls : public FUN_0042fee0_cls
 {
     void* __thiscall FUN_0042ffd0(unsigned int flags);
 };
-struct FUN_00435ec0 : public BE
+struct ExtraHeadingTarget : public BE
 {
     void* vtbl;
     int a;
     int b;
     void* p;
-    FUN_00435ec0(void* a);
+    ExtraHeadingTarget(void* a);
 };
 struct FUN_00435f20_class : public BE
 {
@@ -211,13 +211,13 @@ struct FUN_00435f50_class : FUN_00435f80_shell
     void* __thiscall FUN_00435f50(unsigned int flags);
 };
 extern "C" void* DAT_01015974;
-struct FUN_00436090 : public BE
+struct ExtraHasNoRumors : public BE
 {
     void* vtbl;
     int a;
     int b;
     unsigned char c;
-    FUN_00436090(unsigned char);
+    ExtraHasNoRumors(unsigned char);
 };
 void __cdecl Deallocate(void*);
 struct FUN_00436150_Class
@@ -312,14 +312,14 @@ struct Holder00420dd0
     unsigned int __thiscall ExtraDataList_GetPortal();
 };
 extern int DAT_01015998;
-struct FUN_0042cba0_class : public BE
+struct ExtraAmmo : public BE
 {
     void* vtbl;
     int a;
     int b;
     int c;
     int d;
-    FUN_0042cba0_class();
+    ExtraAmmo();
 };
 struct FHolder_42cbe0 : BE
 {
@@ -365,13 +365,13 @@ struct FUN_0042e210_Class : public BE
     FUN_0042e210_Class(int x, int y);
 };
 extern void* DAT_010159bc;
-struct FUN_0042e650_class : BE
+struct ExtraModdingItem : BE
 {
     void* vtbl;
     int a;
     int b;
     unsigned char c;
-    FUN_0042e650_class(unsigned char c);
+    ExtraModdingItem(unsigned char c);
 };
 struct G00559a40
 {
@@ -424,7 +424,7 @@ void __cdecl TESForm_AddChunk_00485910(unsigned int, unsigned int);
 void __cdecl TESForm_AddChunk_00485950(unsigned int, unsigned int);
 struct FUN_00438c10_Class : public FNStub
 {
-    void __thiscall ReleaseStorage_00438c10();
+    void __thiscall MapMarkerData_Save();
 };
 extern "C" void TESForm_AddChunkArray_00485710(unsigned int, unsigned int*, unsigned int);
 struct FUN_00438f90_Class
@@ -517,10 +517,10 @@ struct S_0043b320
     TaskQueueInterface** arr;
     void __thiscall NiMultiTargetTransformController_SetInterpolatorTarget(unsigned short a, TaskQueueInterface* b);
 };
-struct FUN_00435820 : public BSExtraData
+struct ExtraPortal : public BSExtraData
 {
-    FUN_00435820();
-    ~FUN_00435820();
+    ExtraPortal();
+    ~ExtraPortal();
     char m_data[0xc];
 };
 struct FUN_00420e00_cls : public BaseExtraList
@@ -586,7 +586,7 @@ struct FUN_00439ef0_class : public NiPoint3
 {
     NiPoint3* SubtractIntoVector(NiPoint3* a, const NiPoint3& b);
 };
-struct FUN_0043b3b0_class
+struct NiMultiTargetTransformController
 {
     unsigned short NiMultiTargetTransformController_HasTarget(unsigned int value);
 };
@@ -649,7 +649,7 @@ struct FUN_0042e6d0 : public BSExtraData
 struct NavMeshArr
 {
     ~NavMeshArr();
-    void* __thiscall FUN_0042f510(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 NavMeshArr::~NavMeshArr()
 {}
@@ -717,11 +717,11 @@ struct FUN_0042cb30 : public FUN_0040ecb0
 
     virtual ~FUN_0042cb30();
 };
-class FUN_0042ccc0 : public BSExtraData
+class ExtraSecuritronFace : public BSExtraData
 {
   public:
-    FUN_0042ccc0();
-    virtual ~FUN_0042ccc0();
+    ExtraSecuritronFace();
+    virtual ~ExtraSecuritronFace();
 
     BSString m_kFirst;
     BSString m_kSecond;
@@ -815,7 +815,7 @@ struct FloatGlobal
 };
 extern FloatGlobal DAT_011cd78c;
 float CombatTimer_GetTimer();
-class FUN_00435d40_cls
+class ExtraFriendHits
 {
   public:
     int unk00;
@@ -993,7 +993,7 @@ struct RootCtorCls
     RootCtorCls(unsigned int sizeInit);
     ~RootCtorCls();
 };
-struct FUN_00435fa0_cls : RootCtorCls
+struct ExtraEditorRefMoveData : RootCtorCls
 {
     virtual void v0();
     int unk04;
@@ -1001,7 +1001,7 @@ struct FUN_00435fa0_cls : RootCtorCls
     Vec3Sub m_kPointA;
     Vec3Sub m_kPointB;
     Vec3Sub m_iThirdValue;
-    FUN_00435fa0_cls(SlottedSource* pSrc);
+    ExtraEditorRefMoveData(SlottedSource* pSrc);
 };
 struct Arg12
 {
@@ -1031,12 +1031,12 @@ struct Member12
     ~Member12();
     void Assign(const Arg12& value);
 };
-struct FUN_004360c0_cls : public Base4f
+struct ExtraSound : public Base4f
 {
     virtual void Update();
     Member12 m_0c;
 
-    FUN_004360c0_cls(Arg12 value);
+    ExtraSound(Arg12 value);
 };
 struct Base_004361e0
 {
@@ -1066,11 +1066,11 @@ struct Member_004361e0
     ~Member_004361e0();
     void Add(Arg12_004361e0* pArg);
 };
-struct FUN_004361e0 : Base_004361e0
+struct ExtraCreatureAwakeSound : Base_004361e0
 {
     Member_004361e0 m_0C;
 
-    FUN_004361e0(Arg12_004361e0 aArg);
+    ExtraCreatureAwakeSound(Arg12_004361e0 aArg);
     virtual void v00();
 };
 struct ParamBlock
@@ -1097,10 +1097,10 @@ class NodeBase
     unsigned int unk04;
     unsigned int unk08;
 };
-class FUN_00436660 : public NodeBase
+class ExtraActivateLoopSound : public NodeBase
 {
   public:
-    FUN_00436660(ParamBlock p);
+    ExtraActivateLoopSound(ParamBlock p);
     virtual void v00();
     ChildMember m_pChildAtom;
 };
@@ -2055,17 +2055,17 @@ class ExtraBase437510
     void* m_pkNext;
     ExtraBase437510(unsigned char type);
 };
-class FUN_00437510 : public ExtraBase437510
+class ExtraSayTopicInfoOnceADay : public ExtraBase437510
 {
   public:
     BSSimpleList<BSSimpleList<MenuTopic*>*>* m_pTopics;
-    FUN_00437510(BSSimpleList<MenuTopic*>* topics);
-    ~FUN_00437510();
+    ExtraSayTopicInfoOnceADay(BSSimpleList<MenuTopic*>* topics);
+    ~ExtraSayTopicInfoOnceADay();
 };
 
 TESForm* __cdecl TESForm_GetFormByNumericID(unsigned int auiFormId);
 
-class FUN_0043a9f0_C
+class DoorTeleportData
 {
   public:
     TESObjectREFR* m_pkRef;
@@ -2075,7 +2075,7 @@ class FUN_0043a9f0_C
 
 // @fnv 0x0043a9f0
 // src: XBOX_PDB 0x0043a9f0
-void FUN_0043a9f0_C::DoorTeleportData_InitLoadGame()
+void DoorTeleportData::DoorTeleportData_InitLoadGame()
 {
     unsigned int auiFormId = (unsigned int)m_pkRef;
     if (auiFormId)

@@ -79,7 +79,7 @@ void WheelImpulseVehicle::ComputeValues_00e371d0(float deltaTime, int wheelNum, 
         float negMult = -this->m_data->m_kWheelParams.m_data[wheelNum].m_fMaxFrictionForce;
         *(LocalM128*)&impulse = _mm_mul_ps(splat(negMult), *(LocalM128*)&impulse);
 
-        float mass = contactBody->m_pMotionState.GetMassValue();
+        float mass = contactBody->m_pMotionState.getMass();
         float maxImpulse = (this->m_data->m_kWheelParams.m_data[wheelNum].m_fFrictionEqualizer * mass) * deltaTime;
 
         LocalM128 m2 = _mm_mul_ps(*(LocalM128*)&impulse, *(LocalM128*)&impulse);

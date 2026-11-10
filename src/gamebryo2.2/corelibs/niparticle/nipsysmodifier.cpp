@@ -162,7 +162,8 @@ extern const char g_011d4e34_arg1[];
 // Appends the modifier's name, order and active flag as formatted strings to the given string array.
 // The shared class inherits GetViewerStrings without declaring this override.
 // @fnv 0x00c319e0
-void __fastcall GetNiPSysModifierViewerStrings(NiPSysModifier* modifier, void*, StrArr* apViewerStrings)
+// src: EXE 0x00c319e0
+void __fastcall NiPSysModifier_GetViewerStrings(NiPSysModifier* modifier, void*, StrArr* apViewerStrings)
 {
     AppendCameraPathEntries(apViewerStrings);
     apViewerStrings->AppendInline(NiViewerStrings_NiGetViewerString_Title(g_01202528_arg1));

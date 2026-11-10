@@ -94,8 +94,8 @@ class BSTreeModel : public NiRefObject
     bool CombatProcedure_GetFinished();
     unsigned short __thiscall GetNumBranchLODLevels();
     unsigned short FUN_006699d0();
-    unsigned short GetUnsignedShort();
-    bool CloneFromModel(BSTreeModel*);
+    unsigned short BSTreeModel_GetNumLeafLODLevels();
+    bool BSTreeModel_InitAsInstance(BSTreeModel*);
     void SetByteAtOffset44(unsigned char);
     void BSTreeModel_CreateBranchGeometry();
     void BSTreeModel_CreateLeafGeometry(TESObjectTREE*);

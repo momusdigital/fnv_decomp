@@ -2497,7 +2497,7 @@ struct Se0e0c0_Allocator
     virtual void v0c();
     virtual void ReturnMemory(void* p, int numBytes);
 };
-void* __cdecl AllocateWithHeader(Se0e0c0_Allocator* alloc, int numBytes);
+void* __cdecl hkMemoryRouter_easyAlloc(Se0e0c0_Allocator* alloc, int numBytes);
 
 struct Se0e0c0_Heap
 {
@@ -2791,7 +2791,7 @@ void __cdecl hkMonitorStreamAnalyzer_writeStatisticsDetailsToTexture(const Se0e0
     int drawWidth = input.m_iValueAt14 - border;
     int numPixels = (input.m_iValueAt14 + 1) * totalHeight;
 
-    texture = (int*)AllocateWithHeader((Se0e0c0_Allocator*)&hkMemoryRouter_getInstance()->heap(), numPixels * sizeof(int));
+    texture = (int*)hkMemoryRouter_easyAlloc((Se0e0c0_Allocator*)&hkMemoryRouter_getInstance()->heap(), numPixels * sizeof(int));
     height = totalHeight;
     hkString_memSet(texture, 0, numPixels * 4);
     if (sampleInfo)

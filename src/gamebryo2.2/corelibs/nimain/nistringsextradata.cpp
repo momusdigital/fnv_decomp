@@ -49,7 +49,8 @@ void __thiscall NiStringsExtraData::FreeStrings()
 
 // Calls FreeStrings, frees this with operator delete when flags has bit 0 set, and returns this.
 // @fnv 0x00a94970
-void* __thiscall NiStringsExtraData::FUN_00a94970(unsigned int flags)
+// src: EXE 0x00a94970
+void* __thiscall NiStringsExtraData::ScalarDeletingDestructor(unsigned int flags)
 {
     FreeStrings();
     if (flags & 1)

@@ -110,7 +110,7 @@ class NiGeometry : public NiAVObject
     void SetFlag22(bool value);
     const NiTransform& GetWorldTransform() const;
     const char* GetName() const;
-    void DeleteExtraDataByKey(const NiFixedString& name);
+    void NiObjectNET_RemoveExtraData(const NiFixedString& name);
     NiProperty* GetProperty(unsigned int type);
     NiProperty* GetProperty(int type);
     void SetAppCulled(bool culled);

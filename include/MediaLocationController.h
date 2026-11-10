@@ -30,8 +30,8 @@ public:
     virtual void ClearData();
 
     bool Load(TESFile* apFile);
-    void ProcessMediaSetList(BSSimpleList<MediaSet*>* apList);
-    MediaSet* GetMediaSetFromList(BSSimpleList<MediaSet*>* apList);
+    void InitItemList(BSSimpleList<MediaSet*>* apList);
+    MediaSet* GetRandomListItem(BSSimpleList<MediaSet*>* apList);
     bool Update(bool abInCombat);
     bool IsMediaLocationActive();
     DEADREPFLAGS GetDeadRep();

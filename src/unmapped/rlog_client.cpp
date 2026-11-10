@@ -19,7 +19,7 @@ struct ByteSwapFlag
     unsigned char m_bDoSwap;
 };
 
-struct FUN_0060ce80_Obj
+struct QUEST_DATA
 {
     void* unk00;
     void* unk04;
@@ -29,7 +29,7 @@ struct FUN_0060ce80_Obj
 // Calls FUN_00401080_helper on the object's field at offset 4, passing the byte-swap flag from a ByteSwapFlag.
 // @fnv 0x0060ce80
 // src: XBOX_PDB 0x0060ce80
-void FUN_0060ce80_Obj::PACK_SCHED_DATA_Endian()
+void QUEST_DATA::PACK_SCHED_DATA_Endian()
 {
     FUN_00401080_helper((void*)((char*)this + 4), ByteSwapFlag().m_bDoSwap);
 }

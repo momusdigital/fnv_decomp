@@ -42,7 +42,7 @@ SlotEntry* FUN_00db7ae0_cls::FindSlotByKey(void* apKey)
     return 0;
 }
 
-struct FUN_00db7b40
+struct hkStaticClassNameRegistry
 {
     virtual void v0();
     unsigned short unk04;
@@ -51,11 +51,12 @@ struct FUN_00db7b40
     int unk0c;
     int unk10;
     int unk14;
-    FUN_00db7b40(int a, int b, int c);
+    hkStaticClassNameRegistry(int a, int b, int c);
 };
 // Initializes the object: sets unk06 to 1, stores a, b and c into unk0c, unk10 and unk08, and clears unk14.
 // @fnv 0x00db7b40
-FUN_00db7b40::FUN_00db7b40(int aiValue1, int aiValue2, int aiValue3)
+// src: EXE 0x00db7b40
+hkStaticClassNameRegistry::hkStaticClassNameRegistry(int aiValue1, int aiValue2, int aiValue3)
 {
     unk06 = 1;
     unk0c = aiValue1;

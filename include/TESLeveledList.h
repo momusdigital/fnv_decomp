@@ -26,7 +26,7 @@ public:
     virtual int vfn_18();
 
     unsigned char GetChanceNone();
-    bool UsesAllEntries();
+    bool GetMultCalc();
     int GetMaxLevelDifference();
 
     void ErrorCheckList();
@@ -50,11 +50,11 @@ public:
     void SortLeveledList();
     LeveledObject* CreateLeveledObject(unsigned short level, unsigned short count, TESForm* form, ContainerItemExtra* extra);
     void DeleteLeveledObject(LeveledObject* object);
-    void SelectLeveledObject(unsigned short level, TESForm** form, unsigned short* count, ContainerItemExtra** extra, bool recurse, int mode);
-    void SelectLeveledObject(unsigned short level, TESForm*& form, unsigned short& count, ContainerItemExtra*& extra, bool recurse, int mode);
-    void PopulateContainerWithLeveledItems(unsigned short level, unsigned short count, TESContainer* container, int mode);
-    void PopulateContainerFromReference(TESObjectREFR* reference, TESContainer* container);
-    void PopulateContainerFromReference(void* reference, TESContainer* container);
+    void CalculateCurrentForm(unsigned short level, TESForm** form, unsigned short* count, ContainerItemExtra** extra, bool recurse, int mode);
+    void CalculateCurrentForm(unsigned short level, TESForm*& form, unsigned short& count, ContainerItemExtra*& extra, bool recurse, int mode);
+    void CalculateCurrentFormList(unsigned short level, unsigned short count, TESContainer* container, int mode);
+    void CalculateCurrentFormListForRef(TESObjectREFR* reference, TESContainer* container);
+    void CalculateCurrentFormListForRef(void* reference, TESContainer* container);
     void ClearScriptAddedLeveledObjects();
     void AddScriptAddedLeveledObject(TESForm* form, unsigned short level, unsigned short count, TESForm* owner, ContainerItemExtra* extra);
     void SaveGame(BGSSaveFormBuffer* buffer);

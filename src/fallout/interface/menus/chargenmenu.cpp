@@ -51,7 +51,7 @@ void __cdecl CharGenMenu_TagSkillsFunc(Tile* tile, ActorValue::Index index)
         DAT_011d92a0 = 0;
     if (tile->ContainsTrait(DAT_011d9220))
     {
-        g_thePlayer->GetClass()->SetClassSkillAtIndex(DAT_011d92a0, index);
+        g_thePlayer->GetClass()->SetTagSkill(DAT_011d92a0, index);
         DAT_011d92a0++;
     }
 }
@@ -114,7 +114,7 @@ void __cdecl callback_Tile_T(Tile* tile)
                 (int)((double)tile->GetFloat(DAT_011d9210) + tile->GetFloat(DAT_011d9214) - 1.0);
         }
         tile->Set(DAT_011d9224, 0.0f, true);
-        DAT_011d920c->UpdateValueString(tile);
+        DAT_011d920c->SetDisplayString(tile);
     }
 }
 
@@ -138,7 +138,7 @@ void __cdecl UpdateTagSkillTile(Tile* apTile, ActorValue::Index aeIndex)
             DAT_011d920c->m_iPointsUsed++;
         }
     }
-    DAT_011d920c->UpdateValueString(apTile);
+    DAT_011d920c->SetDisplayString(apTile);
 }
 }  // namespace fnv_007543c0
 
@@ -152,7 +152,8 @@ int __cdecl _sprintf_s(char*, unsigned int, char const*, ...);
 int __cdecl FNV_strcat_s(char*, unsigned int, char const*);
 
 // @fnv 0x00753d20
-void CharGenMenu::UpdatePointsDisplay()
+// src: COMMUNITY 0x00753d20
+void CharGenMenu::UpdatePointCounter()
 {
     const char* strtitleStrings[2];
     const char* strcounterStrings[2];
@@ -238,7 +239,7 @@ void __cdecl CharGenMenu_Close()
             DAT_011d920c->list.Traverse(CharGenMenu_TagSkillsFunc, 0, 0x7fffffff);
         }
         DAT_011d920c->FUN_00726070()->Set(0x1772, 1);
-        DAT_011d920c->LoadMenuData();
+        DAT_011d920c->StartFadeOut();
     }
 }
 
@@ -675,7 +676,7 @@ void CharGenMenu::InitMenu()
         j->FUN_00700320(4010, 8);
         j->FUN_00700320(fnv_007539a0::DAT_011d9210, c);
         j->Tile_Set(fnv_007539a0::DAT_011d9224, 0.0f, true);
-        UpdateValueString(j);
+        SetDisplayString(j);
         if (!editing)
             m_iPointsUsed += c - 1;
     }
@@ -996,7 +997,7 @@ Tile* __cdecl CharGenMenu_Create(int kind, int points, bool onlyAdd, bool flag)
             menu753->BuildSkillList();
         menu753->FUN_00726070()->SetInt(DAT_011d9218, menu753->m_iPointsUsed);
         menu753->FUN_00726070()->SetInt(DAT_011d921c, menu753->m_iPointsRemaining);
-        menu753->UpdatePointsDisplay();
+        menu753->UpdatePointCounter();
         int iSelectedValue = ((List753*)&menu753->list)->Value(((List753*)&menu753->list)->Selected());
         menu753->m_pTiles[2]->Set(0xfcc, Name753(iSelectedValue), true);
         menu753->m_pTiles[3]->Set(0xfc4, Desc753(iSelectedValue), true);
@@ -1431,7 +1432,7 @@ void CharGenMenu::BuildSkillList()
                         ++m_iPointsUsed;
                 }
             }
-            UpdateValueString(tile);
+            SetDisplayString(tile);
         }
     }
     ((fnv_00753b10::SkillList*)&list)->Sort(fnv_00753b10::CompareActorValueNames);
@@ -1450,11 +1451,11 @@ class Handle754
     int unk08;
 };
 
-class FUN_00754b40 : public Menu
+class CompanionWheelMenu : public Menu
 {
   public:
-    FUN_00754b40();
-    virtual ~FUN_00754b40();
+    CompanionWheelMenu();
+    virtual ~CompanionWheelMenu();
 
     // Menu ctor is 0x00a1c4a0; this derived layout starts its own fields at 0x70.
     unsigned char layoutExtension[0x48];
@@ -1466,7 +1467,8 @@ class FUN_00754b40 : public Menu
 
 // Initializes the menu: clears m_bFlag, sets m_iIndex to -1, and assigns a zero-valued Handle754 to m_kHandle.
 // @fnv 0x00754b40
-FUN_00754b40::FUN_00754b40()
+// src: EXE 0x00754b40
+CompanionWheelMenu::CompanionWheelMenu()
 {
     m_bFlag = false;
     m_iIndex = -1;
@@ -1511,7 +1513,7 @@ bool Proxy_754a00::SetTraitSelected(void* pTarget, int action)
             {
                 static int selectedTrait = GetTileValueID("_selected", -1);
 
-                bool selected = static_cast<Tile*>(pTarget)->IsTraitNonZero(selectedTrait);
+                bool selected = static_cast<Tile*>(pTarget)->Tile_IsTrue(selectedTrait);
 
                 switch (action)
                 {
@@ -1545,7 +1547,8 @@ int __cdecl MaxI(int, int);
 int __cdecl GetTrait(char const*, int);
 // Sums three tile reads, clamps the result by the menu mode, and sets the tile's _ValueString trait.
 // @fnv 0x007545a0
-void CharGenMenu::UpdateValueString(Tile* apTile)
+// src: COMMUNITY 0x007545a0
+void CharGenMenu::SetDisplayString(Tile* apTile)
 {
     int iValue;
     char strtemp[16];
@@ -1594,8 +1597,8 @@ void CharGenMenu::HandleSkillMenuCommand(int aiID, Tile* apTile)
             Interface_PlayMenuSound(3);
             m_iPointsUsed += selected ? -1 : 1;
             FUN_00726070()->Set(DAT_011d9218, m_iPointsUsed);
-            UpdateValueString(apTile);
-            UpdatePointsDisplay();
+            SetDisplayString(apTile);
+            UpdatePointCounter();
         }
         break;
     }
@@ -1607,8 +1610,8 @@ void CharGenMenu::HandleSkillMenuCommand(int aiID, Tile* apTile)
         FUN_00726070()->Set(DAT_011d9218, m_iPointsUsed);
         apTile->FUN_0045cd60()->Tile_Set(DAT_011d9224, apTile->FUN_0045cd60()->FUN_00a011b0(DAT_011d9224) + delta,
                                                true);
-        UpdateValueString(apTile->FUN_0045cd60());
-        UpdatePointsDisplay();
+        SetDisplayString(apTile->FUN_0045cd60());
+        UpdatePointCounter();
         break;
     }
     case 6:
@@ -1622,7 +1625,7 @@ void CharGenMenu::HandleSkillMenuCommand(int aiID, Tile* apTile)
         if (eMode == 1)
             list.Traverse(fnv_007543c0::UpdateTagSkillTile, 0, 0x7fffffff);
         FUN_00726070()->Set(DAT_011d9218, m_iPointsUsed);
-        UpdatePointsDisplay();
+        UpdatePointCounter();
         if (m_iPointsUsed != iOldPointsUsed)
             Interface_PlayMenuSound(1);
         break;
@@ -1637,8 +1640,8 @@ struct SubList
 };
 
 // @fnv 0x00754150
-// src: GUESS 0x00754150 (confidence: low)
-bool CharGenMenu::UpdateState_00754150(int a1, float amount)
+// src: EXE 0x00754150
+bool CharGenMenu::HandleSpecialKeyInput(int a1, float amount)
 {
     bool result = false;
 
@@ -1650,7 +1653,7 @@ bool CharGenMenu::UpdateState_00754150(int a1, float amount)
         {
             int var_8 = (a1 != 4) + 10;
             Tile* var_c = ((SubList*)&this->list)->Selected()->Tile_GetChildByID(var_8);
-            if (var_c && var_c->IsTraitNonZero(0xfa3))
+            if (var_c && var_c->Tile_IsTrue(0xfa3))
             {
                 var_c->Tile_PlayTileSound(0xfcb);
                 this->HandleSelection(var_8, var_c);

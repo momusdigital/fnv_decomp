@@ -76,7 +76,8 @@ class CA34C0Derived : public CA34C0Base
 
 // Allocates and constructs a new CA34C0Derived object, returning it as a CA34C0Object pointer.
 // @fnv 0x00ca34c0
-CA34C0Object* __cdecl CreateCA34C0Derived()
+// src: EXE 0x00ca34c0
+CA34C0Object* __cdecl hkPackedNiTriStripsData_CreateObject()
 {
     return new CA34C0Derived;
 }
@@ -96,11 +97,12 @@ extern Allocator DAT_011f6238;
 struct Special
 {
     void FUN_00ca2140();
-    Special* FUN_00ca2aa0(unsigned int flags);
+    Special* ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_00ca2140, then if flags bit 0 is set and this is non-null, frees the block at this minus the byte stored before it, and returns this.
 // @fnv 0x00ca2aa0
-Special* Special::FUN_00ca2aa0(unsigned int flags)
+// src: EXE 0x00ca2aa0
+Special* Special::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00ca2140();
     if ((flags & 1) && this)
@@ -1332,18 +1334,18 @@ struct PayloadArgs
     Manager* owner;
     void* resource;
 };
-struct FUN_00d1fa50
+struct hkaDetectRagdollPenetration
 {
     unsigned unk00;
     unsigned short size;
     unsigned short flags;
     unsigned int unk08, unk0c, unk10, unk14, unk18, unk1c, unk20, unk24;
-    FUN_00d1fa50(PayloadArgs*);
+    hkaDetectRagdollPenetration(PayloadArgs*);
     void ResetEntries();
     static __forceinline void* operator new(unsigned int size)
     {
         hkMemoryRouter* alloc = (&hkMemoryRouter::getInstance());
-        FUN_00d1fa50* p = (FUN_00d1fa50*)((Provider*)alloc->m_heap)->vtbl->allocate(((Provider*)alloc->m_heap), size);
+        hkaDetectRagdollPenetration* p = (hkaDetectRagdollPenetration*)((Provider*)alloc->m_heap)->vtbl->allocate(((Provider*)alloc->m_heap), size);
         p->size = (unsigned short)size;
         return p;
     }
@@ -1631,8 +1633,8 @@ bool Manager::bhkRagdollPenetrationUtil_Initialize(void* source, unsigned int fl
                     }
                     PayloadArgs args = {((Collection*)entry->collection)->counter, this,
                                         ((FUN_0056e550*)entry->bounding)->resource};
-                    entry->payload = new FUN_00d1fa50(&args);
-                    ((FUN_00d1fa50*)entry->payload)->ResetEntries();
+                    entry->payload = new hkaDetectRagdollPenetration(&args);
+                    ((hkaDetectRagdollPenetration*)entry->payload)->ResetEntries();
                     timer.reset(DAT_012682b4 * 1000.0);
                 }
             }

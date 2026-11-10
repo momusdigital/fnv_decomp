@@ -194,7 +194,8 @@ void BGSBodyPartData::QueueResourceLoad(IO_TASK_PRIORITY priority, QueuedFile* f
 
 // Looks up BGSBodyPartData forms 0x1D and 0x1C, creating and registering them with editor IDs if missing.
 // @fnv 0x005e53a0
-void BGSBodyPartData::InitializeBodyPartData()
+// src: COMMUNITY 0x005e53a0
+void BGSBodyPartData::GenerateDefaultBodyPartData()
 {
     ms_pBodyPartData = dynamic_cast<BGSBodyPartData*>(TESForm::GetFormByID(0x1D));
     if (!ms_pBodyPartData)
@@ -217,7 +218,7 @@ void BGSBodyPartData::InitializeBodyPartData()
     }
 }
 
-// Searches the entries array for an element whose GetByte63 matches value and returns it, or null if none found.
+// Searches the entries array for an element whose BGSBodyPart_GetActorValue matches value and returns it, or null if none found.
 // @fnv 0x005e5130
 BGSBodyPart* BGSBodyPartData::GetValueByIndex(int value)
 {
@@ -227,7 +228,7 @@ BGSBodyPart* BGSBodyPartData::GetValueByIndex(int value)
         BGSBodyPart* pEntry = m_apBodyParts[index];
         if (!pEntry)
             continue;
-        if (pEntry->GetByte63() == value)
+        if (pEntry->BGSBodyPart_GetActorValue() == value)
         {
             pFound = pEntry;
             break;

@@ -139,7 +139,8 @@ bool TESAnimGroup::IsActionTypeValid(ANIM_GROUP_ACTION_TYPE aeActionType)
 
 // Returns true if group is not ANIM_GROUP_NONE and its type falls between ANIM_GROUP_AIM and ANIM_GROUP_AIM_IS_DOWN.
 // @fnv 0x005f2630
-bool TESAnimGroup::IsAimAnimation(unsigned short group)
+// src: COMMUNITY 0x005f2630
+bool TESAnimGroup::IsAimAction(unsigned short group)
 {
     if (group == ANIM_GROUP_ENUM_ANIM_GROUP_NONE)
         return false;
@@ -157,7 +158,8 @@ bool TESAnimGroup::IsValidAnimationGroup(ANIM_GROUP_ACTION_TYPE type)
 
 // Returns true if the animation group type is one of the jump-loop variants, false otherwise.
 // @fnv 0x005f4d60
-bool TESAnimGroup::IsJumpAnimation() const
+// src: COMMUNITY 0x005f4d60
+bool TESAnimGroup::IsJumpingLoopAnim() const
 {
     switch (GetType(sType))
     {
@@ -363,7 +365,8 @@ void __cdecl operator delete(void*);
 void* __cdecl memset(void*, int, unsigned int);
 
 // @fnv 0x005f2450
-void __fastcall SetAnimGroupType(TESAnimGroup* self, UShortArg type)
+// src: COMMUNITY 0x005f2450
+void __fastcall TESAnimGroup_SetType(TESAnimGroup* self, UShortArg type)
 {
     self->sType = type.v;
     int i;
@@ -436,7 +439,8 @@ bool __cdecl IsNine(int aiValue)
 }
 
 // @fnv 0x005f2700
-bool IsValidCharCode(int aiCharCode)
+// src: COMMUNITY 0x005f2700
+bool TESAnimGroup_IsReloadAction(int aiCharCode)
 {
     if (aiCharCode >= 0xb1 && aiCharCode <= 0xc7)
         return true;

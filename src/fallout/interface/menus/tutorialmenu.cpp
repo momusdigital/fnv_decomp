@@ -64,7 +64,7 @@ void TutorialMenu_Close()
         if (Interface_GetCurrentRenderedMenu())
             DAT_011db088->InstantFadeOut();
         else
-            DAT_011db088->LoadMenuData();
+            DAT_011db088->StartFadeOut();
         HandleBackAction();
     }
 }

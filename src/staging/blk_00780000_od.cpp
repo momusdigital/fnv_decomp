@@ -89,14 +89,15 @@ void* __thiscall GlobalObject_00788300::Destroy(unsigned int flags)
 struct FUN_0078d8d0_Class
 {
     void __thiscall LoadingMenu_UpdateState_0078d8b0();
-    void* __thiscall FUN_0078d8d0(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 
 void __cdecl Deallocate(void*);
 
 // Calls FUN_0078d8b0, then deallocates this if bit 0 of flags is set, and returns this.
 // @fnv 0x0078d8d0
-void* __thiscall FUN_0078d8d0_Class::FUN_0078d8d0(unsigned int flags)
+// src: EXE 0x0078d8d0
+void* __thiscall FUN_0078d8d0_Class::ScalarDeletingDestructor(unsigned int flags)
 {
     LoadingMenu_UpdateState_0078d8b0();
     if (flags & 1)
@@ -511,7 +512,7 @@ struct Renderer
 Renderer* GetRenderer();
 bool extern DAT_011a0294;
 void* memset(void*, int, unsigned int);
-struct FUN_00788440 : Menu
+struct LoadingMenu : Menu
 {
     int unk028;
     int unk02c;
@@ -798,14 +799,15 @@ struct FUN_00788440 : Menu
     int unk5b4;
     int unk5b8;
     int unk5bc;
-    FUN_00788440();
-    virtual ~FUN_00788440();
+    LoadingMenu();
+    virtual ~LoadingMenu();
     void SetFlag(int, bool);
     void Apply(void*);
 };
 // Initializes the view, clears the node and index arrays, queries the renderer view, sets flags, and applies the first item's data.
 // @fnv 0x00788440
-FUN_00788440::FUN_00788440() : view(0.0f, 0.0f, 0.0f, 0.0f)
+// src: EXE 0x00788440
+LoadingMenu::LoadingMenu() : view(0.0f, 0.0f, 0.0f, 0.0f)
 {
     memset(&unk028, 0, 0x98);
     unk1e4 = 0;

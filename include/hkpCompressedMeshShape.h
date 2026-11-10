@@ -35,7 +35,7 @@ public:
     virtual int CalcSizeForSpu(const PhysicsShape& input, int spuBufferSizeLeft) const;
     virtual void CalculateAabb(const hkTransform& localToWorld, hkReal tolerance, hkAabb& out) const;
     virtual void vf11(int);
-    virtual void vf12(int, int);
+    virtual void SetMapName(int, int);
 
     int m_iBitsPerIndex;
     int m_iBitsPerWIndex;

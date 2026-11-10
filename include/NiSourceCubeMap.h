@@ -30,7 +30,7 @@ class NiSourceCubeMap : public NiSourceTexture
     void LoadFromPixelData(NiRefObject*, NiRefObject*, NiRefObject*,
                       NiRefObject*, NiRefObject*, NiRefObject*);
     void LoadResources(char*, char*, char*, char*, char*, char*, CubeMapLoader*);
-    void* FUN_00a61250(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
     void LoadFromPixelData(Pixels*, Pixels*, Pixels*, Pixels*, Pixels*, Pixels*);
 
     unsigned int m_uiFace;

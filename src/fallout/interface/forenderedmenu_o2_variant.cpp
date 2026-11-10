@@ -34,7 +34,7 @@ struct SpawnedSub : SpawnedSubBase
     }
 };
 
-class FUN_00e98f20
+class NiPick
 {
   public:
     unsigned int unk00;
@@ -51,11 +51,12 @@ class FUN_00e98f20
     unsigned char unk32;
     unsigned char unk33;
 
-    FUN_00e98f20(unsigned int a, unsigned int b);
+    NiPick(unsigned int a, unsigned int b);
 };
 
 // @fnv 0x00e98f20
-FUN_00e98f20::FUN_00e98f20(unsigned int a, unsigned int b) : m_pReference(0), m_sub(a, b)
+// src: COMMUNITY 0x00e98f20
+NiPick::NiPick(unsigned int a, unsigned int b) : m_pReference(0), m_sub(a, b)
 {
     unk00 = 0;
     unk04 = 0;

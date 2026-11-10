@@ -201,11 +201,11 @@ struct FUN_00cb0a60
     const char* m_pcText;
 };
 
-class FUN_00e4a6a0 : public hkReferencedObject
+class hkxScene : public hkReferencedObject
 {
   public:
-    FUN_00e4a6a0() throw();
-    virtual ~FUN_00e4a6a0() throw();
+    hkxScene() throw();
+    virtual ~hkxScene() throw();
 
     FUN_00cb0a60 m_kSceneName;
     FUN_00cb0a60 m_kSceneFileName;
@@ -225,7 +225,8 @@ class FUN_00e4a6a0 : public hkReferencedObject
 
 // Initializes m_fNumFrames and m_pAabbRootNode, then copies the identity matrix returned by hkMatrix3::GetIdentityTransform into m_kAppliedTransform.
 // @fnv 0x00e4a6a0
-FUN_00e4a6a0::FUN_00e4a6a0() throw() : m_fNumFrames(0.0f), m_pAabbRootNode(0)
+// src: EXE 0x00e4a6a0
+hkxScene::hkxScene() throw() : m_fNumFrames(0.0f), m_pAabbRootNode(0)
 {
     m_kAppliedTransform = hkMatrix3::GetIdentityTransform();
 }

@@ -177,7 +177,7 @@ __forceinline void NiBinaryStream::ReadComp(void* data, unsigned int byteCount, 
     unsigned int elementSize = componentSize;
     BinaryRead(data, byteCount, &elementSize, 1);
 }
-class FUN_00a472b0_cls : public NiObject
+class NiStringPalette : public NiObject
 {
   public:
     void* m_pBuf08;
@@ -186,7 +186,7 @@ class FUN_00a472b0_cls : public NiObject
 };
 // Reads a count and extra value from the stream, allocates a buffer of that count and reads it in.
 // @fnv 0x00a472b0
-void FUN_00a472b0_cls::ReadFromStream(NiStream* stream)
+void NiStringPalette::ReadFromStream(NiStream* stream)
 {
     NiObject::LoadBinary(*stream);
     stream->Istr().ReadComp(&m_uiCount0C, 4, 4);

@@ -166,10 +166,11 @@ struct FUN_00ec15e0_shell
 };
 struct FUN_00ec19d0_class
 {
-    void* __thiscall FUN_00ec19d0(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 // @fnv 0x00ec19d0
-void* __thiscall FUN_00ec19d0_class::FUN_00ec19d0(unsigned int flags)
+// src: EXE 0x00ec19d0
+void* __thiscall FUN_00ec19d0_class::ScalarDeletingDestructor(unsigned int flags)
 {
     ((FUN_00ec15e0_shell*)this)->FUN_00ec15e0();
     if (flags & 1)
@@ -213,11 +214,12 @@ struct FUN_00ec2a10_class
     int m_0008;
     int m_000c;
     int m_0010;
-    void __thiscall PauseMovie();
+    void __thiscall MoviePlayer_Pause();
 };
 // If a movie is set, warns when another is already paused, calls DisableThreadPriorityBoost on it, stores it as the paused movie and clears the active movie pointer.
 // @fnv 0x00ec2a10
-void __thiscall FUN_00ec2a10_class::PauseMovie()
+// src: COMMUNITY 0x00ec2a10
+void __thiscall FUN_00ec2a10_class::MoviePlayer_Pause()
 {
     if (!m_000c)
         return;
@@ -2469,7 +2471,8 @@ extern "C" __declspec(dllimport) long __stdcall DispatchMessageA(const PlaybackM
 
 // Pumps pending Windows messages and returns false if the playback was interrupted, otherwise true.
 // @fnv 0x00ec1840
-bool __thiscall BGSMoviePlayer::CheckPlaybackContinue(bool allowInterruption)
+// src: COMMUNITY 0x00ec1840
+bool __thiscall BGSMoviePlayer::MoviePlayer_CheckContinuePlaying(bool allowInterruption)
 {
     PlaybackMessage msg;
     while (PeekMessageA(&msg, 0, 0, 0, 1))

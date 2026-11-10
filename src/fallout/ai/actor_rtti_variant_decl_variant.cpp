@@ -57,7 +57,7 @@ void Actor::PickpocketAlarm(TESObjectREFR* victimRef, int amount, int crimeValue
     bool status = false;
     if ((Actor*)this != DAT_011dea3c)
         return;
-    if (DAT_011dea3c->GetField230() < *g_011cd9f4.Setting_Int() && (Actor*)this == DAT_011dea3c)
+    if (DAT_011dea3c->TESObjectWEAP_GetMeleeBlockSound() < *g_011cd9f4.Setting_Int() && (Actor*)this == DAT_011dea3c)
         status = true;
     Actor* entry = dynamic_cast<Actor*>(victimRef);
     if (entry->IsDead() || entry->IsDisabled())
@@ -65,7 +65,7 @@ void Actor::PickpocketAlarm(TESObjectREFR* victimRef, int amount, int crimeValue
         entry->GetProcess()->SetIsWeaponReady(true);
         return;
     }
-    if ((Actor*)this != DAT_011dea3c && ActorValueOwner::GetActorValueAsInteger(static_cast<ActorValue::Index>(42)) == 100 && IsSneaking())
+    if ((Actor*)this != DAT_011dea3c && ActorValueOwner::GetClampedActorValueI(static_cast<ActorValue::Index>(42)) == 100 && IsSneaking())
         return;
     FUN_009eb500* isLowLevel = 0;
     isLowLevel = new FUN_009eb500(1, victimRef, (Actor*)this, amount, crimeValue, 0);
@@ -81,7 +81,7 @@ void Actor::PickpocketAlarm(TESObjectREFR* victimRef, int amount, int crimeValue
         base->level = victim;
     TESNPC* form = dynamic_cast<TESNPC*>(target->GetObjectReference());
     entry->GetProcess()->SetIsWeaponReady(true);
-    target->GetExtraData()->AddOrCreateExtraItem(isLowLevel, g_011de7b8.FUN_00867da0());
+    target->GetExtraData()->ExtraDataList_AddToPlayerCrimeList(isLowLevel, g_011de7b8.FUN_00867da0());
     isLowLevel->AddActor((Actor*)this);
     g_011e0e80.AddObjectToList(isLowLevel);
     target->Actor_IncrementMinorCrimes();

@@ -313,7 +313,7 @@ public:
     void SetMenuBGBlendEnabled(bool);
     void SetMenuBGBlendValue(float);
     void EnablePartialRender(bool, NiScreenElements*);
-    void SetMenuBackgroundBlend(float, float, void*);
+    void CreatePartialScreenGeometry(float, float, void*);
     NiTexture* GetDepthTexture();
     ImageSpaceTexture* GetDepthImageSpaceTexture();
     void SetDepthTexture(BSRenderedTexture*);

@@ -50,14 +50,14 @@ public:
     // TESForm vtable slot 8 (vftable 0x1049d0c slot 8 = 0x5fe810)
     bool LoadForm(TESFile* file);
     bool HasMissingPathArray();
-    void BuildIdleParentPath(NiFormArray* array);
-    bool IsIdleFile();
+    void FixNextIdles(NiFormArray* array);
+    bool CheckIdleFile();
     TESIdleForm* FindIdleFormForObject(
         TESObjectREFR* actionRef, TESObjectREFR* targetRef,
         BSSimpleList<IdleReplayDelayEntry*>* replayDelays);
-    bool IsValidForReferences(
+    bool CheckConditions(
         TESObjectREFR* actionRef, TESObjectREFR* targetRef, bool recurseUp);
-    int GetFlagsMasked();
+    int TESIdleForm_GetIdleAnimGroupSection();
     void* FUN_0067f390();
     unsigned int GetHavokWorldObjectCountInSceneGraph_0084e3a0();
     unsigned char GetRandomValue();

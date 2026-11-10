@@ -504,7 +504,7 @@ NiNode* TileImage::CalculateNode()
     extraBuffer_tjnslw[2] = NiPoint2(1.0f, 0.0f);
     extraBuffer_tjnslw[3] = NiPoint2(1.0f, 1.0f);
 
-    if (IsTraitNonZero(0xfae))
+    if (Tile_IsTrue(0xfae))
     {
         ((GO*)&ptr_k)->operator=(
             (NiNode*)new FUN_00c5cf30(4, vertices_nriq, previous_zphzqj, 0, extraBuffer_tjnslw, 1, 0, 2, indices_tyg, 0,
@@ -545,7 +545,7 @@ NiNode* TileImage::CalculateNode()
     m_pRenderedNodeEntry->SetExtraDataName(new FUN_00a1f610(this, (NiNode*)m_pRenderedNodeEntry));
 
     Tile_FinalPostParse(0xfad, FUN_00a011b0(0xfad, 0));
-    if (IsTraitNonZero(0xfae))
+    if (Tile_IsTrue(0xfae))
         Tile_SetChangeFlag(0x100);
     Tile_SetChangeFlag(0x3d);
     return (NiNode*)m_pRenderedNodeEntry;

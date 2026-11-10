@@ -1462,7 +1462,7 @@ struct TexDevice
     virtual void __stdcall vf9() = 0;
     virtual void __stdcall vf10() = 0;
     virtual void __stdcall vf11() = 0;
-    virtual void __stdcall vf12() = 0;
+    virtual void __stdcall SetMapName() = 0;
     virtual void __stdcall vf13() = 0;
     virtual void __stdcall vf14() = 0;
     virtual void __stdcall vf15() = 0;
@@ -1489,7 +1489,7 @@ struct TexRenderer
     virtual void vf9() = 0;
     virtual void vf10() = 0;
     virtual void vf11() = 0;
-    virtual void vf12() = 0;
+    virtual void SetMapName() = 0;
     virtual void vf13() = 0;
     virtual void vf14() = 0;
     virtual void vf15() = 0;
@@ -1515,7 +1515,7 @@ struct TexRenderer
     virtual void vf35() = 0;
     virtual void vf36() = 0;
     virtual void vf37() = 0;
-    virtual void vf38() = 0;
+    virtual void PrintInfo() = 0;
     virtual void vf39() = 0;
     virtual unsigned Flags() = 0;
     int unk004;
@@ -2043,7 +2043,7 @@ struct FUN_00e68ea0_cls
 
     void BaseCleanup();
 
-    FUN_00e68ea0_cls* FUN_00e68ea0(unsigned char acFlags);
+    FUN_00e68ea0_cls* ScalarDeletingDestructor(unsigned char acFlags);
 };
 void __cdecl NiFree(void* pvMem);
 class FUN_00e7b040_cls
@@ -3076,7 +3076,7 @@ struct E74Accumulator
 };
 struct FUN_00e74a40_shell : E74Accumulator
 {
-    void AddGeometryToBatch(E74Geometry* pkGeom);
+    void NiDX9Renderer_AddToBatch(E74Geometry* pkGeom);
 };
 struct FUN_00e74c00_cls
 {
@@ -3794,7 +3794,7 @@ struct FUN_00e74c00_cls
     void** m_ppCallbackData;
 
     bool RendererRecreateHook();
-    bool HandleDeviceLost();
+    bool NiDX9Renderer_LostDeviceRestore();
 };
 typedef int(__stdcall* FNVSlot3Fn)(void*);
 typedef int(__stdcall* FNVSlot80Fn)(void*, int);
@@ -4233,7 +4233,7 @@ struct FnvCpu_FUN_00e68800_CpuObject
     int value;
     int NiDX9TextureData_GetD3DTexture();
 };
-struct FUN_00e76620_cls
+struct NiDX9ShaderDeclaration
 {
     int unk00;
     int unk04;
@@ -4350,7 +4350,7 @@ struct FUN_00e69620_Target
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40();
     virtual void vf44();
@@ -5159,7 +5159,7 @@ class ItemE7CF
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40();
     virtual void vf44();
@@ -5862,7 +5862,7 @@ struct ClosestList
 int Runtime_GetIndexMask(unsigned int index);
 class GlobalObjectO2_00a7b610;
 extern GlobalObjectO2_00a7b610 g_0126f59c;
-GlobalObjectO2_00a7b610* Runtime_GetField0126f59cAddress();
+GlobalObjectO2_00a7b610* NiDX92DBufferData_GetRTTI();
 class FUN_00e7a5e0_Object
 {
   public:

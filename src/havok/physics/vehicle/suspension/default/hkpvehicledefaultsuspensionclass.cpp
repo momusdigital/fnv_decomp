@@ -22,7 +22,7 @@ struct VecList
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance();
 void __cdecl ResizeAudioStream(void* allocator, VecList* list, unsigned int elemSize);
 
-struct FUN_00e3afb0_cls
+struct hkArray
 {
     int unk00;
     int unk04;
@@ -37,7 +37,7 @@ struct FUN_00e3afb0_cls
 
 // Grows the VecList if full, then appends a VecElem built from two __m128 values and a float.
 // @fnv 0x00e3afb0
-void FUN_00e3afb0_cls::Push(const __m128* apFirst, const __m128* apSecond, float afValue)
+void hkArray::Push(const __m128* apFirst, const __m128* apSecond, float afValue)
 {
     VecList* list = &m_kNode;
     hkMemoryRouter* holder = hkMemoryRouter_getInstance();
@@ -68,23 +68,24 @@ inline DFBFF0Allocator& heap(hkMemoryRouter& holder)
     return *reinterpret_cast<DFBFF0Allocator*>(holder.m_heap);
 }
 
-struct FUN_00dfbff0
+struct hkpVehicleDefaultSuspension
 {
     unsigned short m_usMemSizeAndFlags;
     short m_sReferenceCount;
 
-    FUN_00dfbff0();
-    virtual ~FUN_00dfbff0();
+    hkpVehicleDefaultSuspension();
+    virtual ~hkpVehicleDefaultSuspension();
 
     static void operator delete(void* p, unsigned int nbytes)
     {
-        FUN_00dfbff0* b = static_cast<FUN_00dfbff0*>(p);
+        hkpVehicleDefaultSuspension* b = static_cast<hkpVehicleDefaultSuspension*>(p);
         heap(hkMemoryRouter_getInstance()).ReleaseBlock(p, b->m_usMemSizeAndFlags);
     }
 };
 
 // Empty default constructor; the class's operator delete releases the block through the heap allocator of FUN_00c85750.
 // @fnv 0x00dfbff0
-FUN_00dfbff0::FUN_00dfbff0()
+// src: EXE 0x00dfbff0
+hkpVehicleDefaultSuspension::hkpVehicleDefaultSuspension()
 {}
 }  // namespace fnv_00dfbff0

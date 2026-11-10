@@ -242,7 +242,7 @@ void PackageEventActionData_packageeventaction::CopyFrom(PackageEventActionData_
             m_pScript = new Script;
             ((Script*)m_pScript)->NotifySaveLoadGameOfFormChange();
         }
-        ((Script*)m_pScript)->CopyScriptContents((Script*)apCopy->m_pScript);
+        ((Script*)m_pScript)->CopyResultScript((Script*)apCopy->m_pScript);
     }
     else
     {

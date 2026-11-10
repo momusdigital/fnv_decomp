@@ -19,7 +19,7 @@ class TESAnimation : public BaseFormComponent
     BSSimpleList<const char*> m_kKFFileList;
     void ClearComponent();
     ~TESAnimation();
-    bool HasSpecialAnimations();
+    bool HasKFFiles();
     void LoadComponent(TESForm*, TESFile*);
     void AddPathToList(const char*);
 };

@@ -45,12 +45,12 @@ void* __cdecl NiBlendTransformInterpolator_CreateObject();
 float NiInterpScalar_Linear(float a, float b, float c);
 void __fastcall NiBlendInterpolator_NiBlendInterpolator(void*);
 extern int DAT_01097904;
-struct FUN_00a42f60
+struct BSBlendTreadTransfInterpolator
 {
     void* m_pVTable;
     char m_auiShapeKeys[0x2C];
     float m_f;
-    FUN_00a42f60();
+    BSBlendTreadTransfInterpolator();
 };
 struct FUN_00a44850_holder : NiObject
 {
@@ -68,7 +68,7 @@ struct Map_00a4da90
 };
 void __fastcall FUN_00a57f80(void*);
 void __cdecl _delete(void*, unsigned int);
-struct FUN_00a51af0_class
+struct NiBSplineCompPoint3Interpolator
 {
     void* __thiscall FUN_00a51af0(unsigned char flags);
 };
@@ -130,7 +130,7 @@ struct FUN_00a414c0_class
 {
     void* m_pVTable;
     void* m_p;
-    FUN_00a414c0_class* __thiscall FUN_00a414c0(unsigned char flags);
+    FUN_00a414c0_class* __thiscall ScalarDeletingDestructor(unsigned char flags);
 };
 extern int DAT_010976fc;
 struct A51BF0Base
@@ -147,9 +147,9 @@ struct A51BF0
     bool d;
     void FUN_00a5d3a0();
 };
-A51BF0* CreateA51BF0();
+A51BF0* NiMorphData_CreateObject();
 float Runtime_UpdateState_00a42070(float param_1, float param_2, float param_3, float param_4, float param_5);
-struct FUN_00a44f90_class
+struct NiUVData
 {
     void* vtbl;
     int m_04;
@@ -173,7 +173,7 @@ struct FUN_00a44f90_class
     char m_49;
     char m_4a;
     char m_4b;
-    FUN_00a44f90_class();
+    NiUVData();
 };
 extern int DAT_01097f84;
 void __cdecl _NiFree(void*);
@@ -229,7 +229,7 @@ struct HandlerArg
     int unk04;
     unsigned int m_key;
 };
-class FUN_00a41410_cls
+class BSAnimNoteListener
 {
   public:
     int unk00;
@@ -237,7 +237,7 @@ class FUN_00a41410_cls
     unsigned short unk08;
     unsigned short m_uiItemCount;
 
-    void DispatchByKey(HandlerArg* a1);
+    void BSAnimNoteListener_Update(HandlerArg* a1);
 };
 struct S_00a42290_Q : NiRefObject
 {
@@ -381,9 +381,9 @@ struct FUN_00a44830_base
 {
     virtual ~FUN_00a44830_base();
 };
-struct FUN_00a44830_cls : FUN_00a44830_base
+struct BSAnimNote : FUN_00a44830_base
 {
-    virtual ~FUN_00a44830_cls();
+    virtual ~BSAnimNote();
 };
 extern "C" void _NiFreeAlias(void*);
 extern "C" void __cdecl ReleaseObjectArray(void*);
@@ -807,7 +807,7 @@ struct ObjectState
 NiObjectBase* __cdecl NiNode_CreateObject();
 // Constructor of a derived object: base ctor call, then a 16-bit field and the vtable pointer.
 extern int DAT_0109b72c;
-struct FUN_00a5f1e0_cls
+struct NiVertexColorProperty
 {
     void* m_pVTable;       // +0x00
     int m_i04;             // +0x04
@@ -820,7 +820,7 @@ struct FUN_00a5f1e0_cls
 
     void Init();  // base constructor (external)
 
-    FUN_00a5f1e0_cls();
+    NiVertexColorProperty();
 };
 class A5F4D0Property
 {
@@ -834,13 +834,13 @@ class A5F4D0Property
     int unk10;
     int unk14;
 };
-class FUN_00a5f4d0 : public A5F4D0Property
+class NiZBufferProperty : public A5F4D0Property
 {
   public:
     unsigned short m_usFlags;
 
-    FUN_00a5f4d0();
-    virtual ~FUN_00a5f4d0();
+    NiZBufferProperty();
+    virtual ~NiZBufferProperty();
 };
 extern int DAT_0109b9ec;
 extern int DAT_0109b944;
@@ -1127,7 +1127,7 @@ struct Obj
     Obj* next;
     Obj* Cast(const NiRTTI*) throw();
     bool RemoveExtraDataAt(unsigned short) throw();
-    void ClearExtraData() throw();
+    void NiObjectNET_RemoveAllExtraData() throw();
     void Inc() throw()
     {
         InterlockedIncrement(&refs);
@@ -1475,7 +1475,8 @@ inline NiPointer<T>& NiPointer<T>::operator=(const NiPointer<T>& ptr)
 }
 
 // @fnv 0x00a5d510
-void NiObject::ResolveObjectPointer(NiPointer<NiObject>& spCopy)
+// src: COMMUNITY 0x00a5d510
+void NiObject::CreateDeepCopy(NiPointer<NiObject>& spCopy)
 {
     NiStream kStream;
     kStream.InsertObject(this);

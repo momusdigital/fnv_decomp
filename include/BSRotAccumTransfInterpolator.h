@@ -28,7 +28,7 @@ public:
     void j_j_j_nullsub_3(int);
     void UpdateRotValue(int);
     void BaseCleanup();
-    BSRotAccumTransfInterpolator* FUN_00a43df0(unsigned char);
+    BSRotAccumTransfInterpolator* ScalarDeletingDestructor(unsigned char);
     TimedRotationKey* GetRotData(unsigned int&, int&, unsigned char&) const;
 
     NiQuaternion m_kAccumulatedRotation;

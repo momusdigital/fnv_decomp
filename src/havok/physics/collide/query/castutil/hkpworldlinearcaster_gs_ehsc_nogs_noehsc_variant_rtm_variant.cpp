@@ -42,7 +42,7 @@ struct NodeMatcher
     virtual void v00();
     virtual unsigned char* Match(SlotRecord** ppRecord, int aKey, int aSlot);
 };
-struct FUN_00cfae50_cls
+struct hkpWorldLinearCaster
 {
     int unk00;
     int unk04;

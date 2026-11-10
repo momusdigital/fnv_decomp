@@ -60,9 +60,9 @@ struct FUN_00b3b1d0_shell
     char _pad[0x18];
     NodeB* f18;
     int f1c;
-    void UpdateState_00b3b1d0(NodeB*);
+    void _Tree__Lrotate(NodeB*);
 };
-struct FUN_00b3b280_owner : FUN_00b3b810_shell
+struct _Tree : FUN_00b3b810_shell
 {
     void UpdateFields_00b3b280(NodeB* pArg);
 };
@@ -1541,7 +1541,7 @@ struct HintTree
         return maximum > 0 ? maximum : 1;
     }
     TreeNode* AllocateStorage_00b3b330(TreeNode*, TreeNode*, TreeNode*, const TreeValue&, char);
-    void UpdateState_00b3b1d0(TreeNode*);
+    void _Tree__Lrotate(TreeNode*);
     void UpdateFields_00b3b280(TreeNode*);
     TreeIterator ProcessEntries_00b3ac00(bool, TreeNode*, const TreeValue&);
     TreeInsertResult ProcessEntries_00b3a9b0(const TreeValue&);
@@ -1657,7 +1657,7 @@ inline TreeIterator HintTree::ProcessEntries_00b3ac00(bool addLeft, TreeNode* pa
                 if (node == _Right(_Parent(node)))
                 {
                     node = _Parent(node);
-                    UpdateState_00b3b1d0(node);
+                    _Tree__Lrotate(node);
                 }
                 _Color(_Parent(node)) = 1;
                 _Color(_Parent(_Parent(node))) = 0;
@@ -1683,7 +1683,7 @@ inline TreeIterator HintTree::ProcessEntries_00b3ac00(bool addLeft, TreeNode* pa
                 }
                 _Color(_Parent(node)) = 1;
                 _Color(_Parent(_Parent(node))) = 0;
-                UpdateState_00b3b1d0(_Parent(_Parent(node)));
+                _Tree__Lrotate(_Parent(_Parent(node)));
             }
         }
     }
@@ -4314,7 +4314,7 @@ inline float LerpF(float a, float b, float t)
     return a + (b - a) * t;
 }
 
-struct FUN_00b37ad0_class
+struct CIdvBezierSpline
 {
     float m_kMinimumCorner;
     float m_kMaximumCorner;
@@ -4344,7 +4344,7 @@ struct FUN_00b37ad0_class
 
 // @fnv 0x00b37ad0
 // src: COMMUNITY 0x00b37ad0
-float FUN_00b37ad0_class::CIdvBezierSpline_Evaluate(float a2)
+float CIdvBezierSpline::CIdvBezierSpline_Evaluate(float a2)
 {
     float pItem;
     pItem = 0.0f;

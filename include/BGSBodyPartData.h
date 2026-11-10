@@ -33,7 +33,7 @@ public:
     BGSBodyPart* GetPart(unsigned int limbIndex);
     BGSBodyPart* GetValueByIndex(int limb);
 
-    static void InitializeBodyPartData();
+    static void GenerateDefaultBodyPartData();
     static BGSBodyPartData* ms_pBodyPartData;
     static BGSBodyPartData* ms_pBodyPartDataInstance;
 };

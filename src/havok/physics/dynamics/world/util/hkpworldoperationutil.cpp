@@ -82,7 +82,7 @@ int* __cdecl hkpWorldOperationUtil_addConstraintImmediately(hkpWorld* object, in
         }
         if (object->m_iPendingOperationQueueCount == 1 && object->m_iQueuedOperationCount != 0)
         {
-            object->UpdateFields_00c91140();
+            object->hkpWorld_internalExecutePendingBodyOperations();
         }
     }
     return value;
@@ -2929,7 +2929,7 @@ void __cdecl hkpWorldOperationUtil_internalMergeTwoIslands(hkpWorld* apWorld, hk
             o->FUN_00c91120();
         if (o->m_iPendingOperationQueueCount == 1 && o->m_iQueuedOperationCount != 0)
         {
-            o->UpdateFields_00c91140();
+            o->hkpWorld_internalExecutePendingBodyOperations();
             return;
         }
     }
@@ -3894,7 +3894,7 @@ void hkpWorldOperationUtil_setRigidBodyMotionType(MotionObj* apMotionObj, int ai
                 if (pForm->m_iPendingOperationCount != 0)
                     pForm->FUN_00c91120();
                 if (pForm->m_iPendingOperationQueueCount == 1 && pForm->m_iQueuedOperationCount != 0)
-                    pForm->UpdateFields_00c91140();
+                    pForm->hkpWorld_internalExecutePendingBodyOperations();
             }
             FreeVec((void**)&vec.data, &vec.size, &vec.cap, 8);
             FreeVec(&esi.data, &esi.size, &esi.cap, 4);

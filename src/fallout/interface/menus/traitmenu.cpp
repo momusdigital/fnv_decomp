@@ -210,7 +210,7 @@ void __cdecl TraitMenu_Close()
         _FUN_007df4e0();
         StatsMenu::UpdateStatusEffects();
         ((Menu*)DAT_011daf74)->FUN_00726070()->Set(0x1772, 1);
-        ((Menu*)DAT_011daf74)->LoadMenuData();
+        ((Menu*)DAT_011daf74)->StartFadeOut();
         DAT_011daf74 = 0;
     }
 }
@@ -341,7 +341,7 @@ void TraitMenu::UpdateValueDifferenceMessage()
 
 struct InputManager
 {
-    int GetAxisState();
+    int OSInputGlobals_GetControllerValue();
 };
 extern OSGlobals* DAT_011dea0c;
 extern unsigned int DAT_011db004;
@@ -365,11 +365,11 @@ bool TraitMenu::HandleKey(int key, int unused)
         }
         break;
     }
-    if (Interface_Has360Controller() && scroll->IsTraitNonZero(0xfa3))
+    if (Interface_Has360Controller() && scroll->Tile_IsTrue(0xfa3))
     {
         int delta = 0;
         int step = 0;
-        delta = DAT_011dea0c->Main_GetControls(0, 10)->GetAxisState();
+        delta = DAT_011dea0c->Main_GetControls(0, 10)->OSInputGlobals_GetControllerValue();
         if (NiAbs_00408820((float)delta) <= 8689.0)
             delta = 0;
         if (delta != 0)
@@ -480,7 +480,7 @@ void TraitMenu::UpdateEffectChanges(Tile* tile)
                 if ((*prevNodeTmp->GetItem())->FUN_00403ea0() == id9)
                     changeVal.magnitude -= (*prevNodeTmp->GetItem())->GetMagnitude();
             }
-            if (!tile->IsTraitNonZero(DAT_011daf5c))
+            if (!tile->Tile_IsTrue(DAT_011daf5c))
                 changeVal.magnitude *= -1;
             if ((*node3->GetItem())->GetEffectSetting()->IsDetrimentalToActorValue(id9))
                 changeVal.magnitude *= -1;

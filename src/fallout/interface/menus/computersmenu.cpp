@@ -338,12 +338,13 @@ void __cdecl operator delete(void*);
 struct FUN_0075aa20_shell
 {
     void __thiscall FUN_0075a060();
-    void* __thiscall FUN_0075aa20(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_0075a060, then deletes this if flags has bit 0 set, and returns this.
 // @fnv 0x0075aa20
-void* __thiscall FUN_0075aa20_shell::FUN_0075aa20(unsigned int flags)
+// src: EXE 0x0075aa20
+void* __thiscall FUN_0075aa20_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0075a060();
     if (flags & 1)
@@ -433,7 +434,7 @@ bool __thiscall FUN_0075ab20_shell::IsTileTraitEnabled()
 {
     static int trait = GetTileValueID("_enabled", -1);
 
-    return m_pTile && m_pTile->IsTraitNonZero(trait);
+    return m_pTile && m_pTile->Tile_IsTrue(trait);
 }
 
 void* __cdecl operator new(unsigned int);
@@ -448,7 +449,7 @@ struct AnimationPointerList
     void* __thiscall DereferenceIfNotNull(void*);
 };
 
-struct FUN_006ffe80_shell
+struct AnimatingText
 {
     void __thiscall AnimatingText_SetTraits(int, int);
 };
@@ -470,17 +471,17 @@ struct FUN_007b5330_shell
     void __thiscall NiTPointerListBase_InsertBefore_0(void*, void*);
 };
 
-struct FUN_00759da0_shell : FUN_007b5330_shell
+struct ComputersMenu_AnimatingTextManager : FUN_007b5330_shell
 {
     void __thiscall InsertAtPosition(char const*, int, int, int);
 };
 
 // @fnv 0x00759da0
-void FUN_00759da0_shell::InsertAtPosition(char const* aParam1, int aParam2, int aParam3, int aParam4)
+void ComputersMenu_AnimatingTextManager::InsertAtPosition(char const* aParam1, int aParam2, int aParam3, int aParam4)
 {
     FUN_00759eb0* pNewObject = new FUN_00759eb0(aParam1);
 
-    reinterpret_cast<FUN_006ffe80_shell*>(pNewObject)->AnimatingText_SetTraits(aParam2, aParam3);
+    reinterpret_cast<AnimatingText*>(pNewObject)->AnimatingText_SetTraits(aParam2, aParam3);
 
     if (aParam4 == -1)
     {
@@ -716,7 +717,7 @@ bool SetTileHelper::HasEnabledTrait(Tile* apTile)
 {
     if (((Shell*)this)->IsTileTraitEnabled() &&
         (apTile == 0 || (((Shell*)this)->ContainsKey(apTile) &&
-                         apTile->IsTraitNonZero((int)Tile_AddUserTrait("_enabled", -1)))))
+                         apTile->Tile_IsTrue((int)Tile_AddUserTrait("_enabled", -1)))))
     {
         m_pTile10 = apTile;
         ((Shell*)this)->UpdateHighlight();
@@ -1545,13 +1546,13 @@ Tile* MyListBox::GetScrollTargetTile(int aiScrollCode)
                 }
             }
 
-            if (pFound_ && !pFound_->IsTraitNonZero((int)Tile_AddUserTrait("_enabled", -1)))
+            if (pFound_ && !pFound_->Tile_IsTrue((int)Tile_AddUserTrait("_enabled", -1)))
             {
                 pFound_ = 0;
                 if (iTileIndex > 0 && ++curIdx > maxIdxTmp)
                 {
                     curIdx = maxIdxTmp - 1;
-                    while ((!pFound_ || !pFound_->IsTraitNonZero((int)Tile_AddUserTrait("_enabled", -1))) && curIdx >= 0)
+                    while ((!pFound_ || !pFound_->Tile_IsTrue((int)Tile_AddUserTrait("_enabled", -1))) && curIdx >= 0)
                     {
                         pFound_ = FUN_0075a955(curIdx--, 0);
                     }
@@ -1560,7 +1561,7 @@ Tile* MyListBox::GetScrollTargetTile(int aiScrollCode)
                 else if (iTileIndex < 0 && --curIdx < 0)
                 {
                     curIdx = 1;
-                    while ((!pFound_ || !pFound_->IsTraitNonZero((int)Tile_AddUserTrait("_enabled", -1))) &&
+                    while ((!pFound_ || !pFound_->Tile_IsTrue((int)Tile_AddUserTrait("_enabled", -1))) &&
                            curIdx <= maxIdxTmp)
                     {
                         pFound_ = FUN_0075a955(curIdx++, 0);
@@ -2168,7 +2169,7 @@ struct ConstructorAudio
 ConstructorAudio* BSAudioManager_QInstance_00ad9060();
 void PlayNoteSound();
 void SetTextSource();
-void UpdateNoteDisplay();
+void ComputersMenu_DisplayNoteImage();
 
 
 // Initializes the hacking menu by zeroing tiles, setting up audio handles for fan hum and character sounds, and assigning callback functions.
@@ -2179,7 +2180,7 @@ ComputersMenu::ComputersMenu()
     manager = reinterpret_cast<TextAnimator*>(GetStorageSingleton());
     callbackec = ::PlayNoteSound;
     callbackf0 = ::SetTextSource;
-    callbackf4 = UpdateNoteDisplay;
+    callbackf4 = ComputersMenu_DisplayNoteImage;
     unkf8 = 0;
     ConstructorAudio* audio = BSAudioManager_QInstance_00ad9060();
     reinterpret_cast<BSSoundHandle&>(sounds[0]) = audio->ResolveAudioHandle("UIHackingFanHumLP", 0x31);
@@ -2373,21 +2374,21 @@ void ComputersMenu::BuildAnimation()
         unsigned int introDelay = *reinterpret_cast<unsigned int*>(g_011d3de4.Setting_Int()) > 0 ? 1000 / *reinterpret_cast<unsigned int*>(g_011d3de4.Setting_Int()) : 1000;
         promptDelay = *reinterpret_cast<unsigned int*>(g_011d4e4c.Setting_Int()) > 0 ? 1000 / *reinterpret_cast<unsigned int*>(g_011d4e4c.Setting_Int()) : 1000;
         fnv_00758ad0::DAT_0119f278 = introDelay;
-        reinterpret_cast<FUN_00759da0_shell*>(manager)->InsertAtPosition(g_011d3a38.FUN_004c69f0(), (int)tile4c->Tile_GetValue(0xfc4),
+        reinterpret_cast<ComputersMenu_AnimatingTextManager*>(manager)->InsertAtPosition(g_011d3a38.FUN_004c69f0(), (int)tile4c->Tile_GetValue(0xfc4),
                                     (int)reinterpret_cast<TileCompatibility*>(tile4c)->FindTraitValue(0xfa3), -1);
         fnv_00758ad0::DAT_0119f278 = promptDelay;
         BSStringT_char_SPrintF(&text, "%s%s", "> ", g_011d2ee0.FUN_00403df0());
-        reinterpret_cast<FUN_00759da0_shell*>(manager)->InsertAtPosition(text.Modelloader_GetReferencedThis(), (int)tile50->Tile_GetValue(0xfc4),
+        reinterpret_cast<ComputersMenu_AnimatingTextManager*>(manager)->InsertAtPosition(text.Modelloader_GetReferencedThis(), (int)tile50->Tile_GetValue(0xfc4),
                                     (int)reinterpret_cast<TileCompatibility*>(tile50)->FindTraitValue(0xfa3), -1);
         fnv_00758ad0::DAT_0119f278 = introDelay;
-        reinterpret_cast<FUN_00759da0_shell*>(manager)->InsertAtPosition(g_011d430c.FUN_004c69f0(), (int)tile54->Tile_GetValue(0xfc4),
+        reinterpret_cast<ComputersMenu_AnimatingTextManager*>(manager)->InsertAtPosition(g_011d430c.FUN_004c69f0(), (int)tile54->Tile_GetValue(0xfc4),
                                     (int)reinterpret_cast<TileCompatibility*>(tile54)->FindTraitValue(0xfa3), -1);
         fnv_00758ad0::DAT_0119f278 = promptDelay;
         char password[16];
         ourMemset(password, 0, 16);
         ourMemset(password, '*', reinterpret_cast<TerminalReference*>(terminal)->BGSTerminal_GetHackMiniGameValue(reference));
         BSStringT_char_SPrintF(&text, "%s%s", "> ", password);
-        reinterpret_cast<FUN_00759da0_shell*>(manager)->InsertAtPosition(text.Modelloader_GetReferencedThis(), (int)tile58->Tile_GetValue(0xfc4),
+        reinterpret_cast<ComputersMenu_AnimatingTextManager*>(manager)->InsertAtPosition(text.Modelloader_GetReferencedThis(), (int)tile58->Tile_GetValue(0xfc4),
                                     (int)reinterpret_cast<TileCompatibility*>(tile58)->FindTraitValue(0xfa3), -1);
     }
 }

@@ -587,12 +587,13 @@ FUN_004ffa60_class* FUN_004ffa60_class::BSSimpleList_float_BSSimpleList_float(co
 extern "C" void __cdecl Deallocate(void*);
 struct FUN_004ed830_Class
 {
-    void* __thiscall FUN_004ed830(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
     void __thiscall FUN_004ed9d0();
 };
 // Calls FUN_004ed9d0, then frees this with Deallocate when flags has bit 0 set, and returns this.
 // @fnv 0x004ed830
-void* __thiscall FUN_004ed830_Class::FUN_004ed830(unsigned int flags)
+// src: EXE 0x004ed830
+void* __thiscall FUN_004ed830_Class::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_004ed9d0();
     if (flags & 1)
@@ -818,16 +819,17 @@ FUN_004f5590::FUN_004f5590(int aiFirst, int aiSecond)
 }
 
 namespace fnv_004f5db0 {
-struct FUN_004f5db0 : SL
+struct TESRegionGrassObjectList : SL
 {
-    virtual ~FUN_004f5db0();
+    virtual ~TESRegionGrassObjectList();
     unsigned char mC;
     int m10;
-    FUN_004f5db0(unsigned char a);
+    TESRegionGrassObjectList(unsigned char a);
 };
 // Initializes the object by storing the byte argument in mC and setting m10 to zero.
 // @fnv 0x004f5db0
-FUN_004f5db0::FUN_004f5db0(unsigned char aucValue)
+// src: EXE 0x004f5db0
+TESRegionGrassObjectList::TESRegionGrassObjectList(unsigned char aucValue)
 {
     mC = aucValue;
     m10 = 0;
@@ -928,11 +930,11 @@ float __cdecl ConvertDoubleResult(float);
 struct FUN_004f71f0_Class
 {
     float SquaredDistanceTo(int);
-    float EvaluateValue_004f71f0(int);
+    float RegionPoint_GetDistanceTo(int);
 };
 // @fnv 0x004f71f0
-// src: GUESS 0x004f71f0 (confidence: low)
-float FUN_004f71f0_Class::EvaluateValue_004f71f0(int a)
+// src: GUESS 0x004f71f0 (confidence: medium)
+float FUN_004f71f0_Class::RegionPoint_GetDistanceTo(int a)
 {
     if (a == 0)
         return -1.0f;
@@ -1004,7 +1006,8 @@ struct FUN_004fee20_shell
 };
 // Returns true if form is a talking activator (type 0x16) that is a radio station and passes the FUN_004fee20 check.
 // @fnv 0x004fee60
-bool IsRadioStationTalkingActivator(TESForm* form)
+// src: COMMUNITY 0x004fee60
+bool BGSTalkingActivator_IsNonPipboyRadioStation(TESForm* form)
 {
     bool result = false;
     if (form && form->GetFormType() == 0x16)
@@ -1019,7 +1022,7 @@ bool IsRadioStationTalkingActivator(TESForm* form)
 
 struct FUN_004e83e0_class
 {
-    bool __thiscall IsPlayerNearWaterActor(void* arg);
+    bool __thiscall TESWaterSystem_ActorWithinRangeOfWadingWater(void* arg);
 };
 struct ReferenceList4e
 {
@@ -1029,14 +1032,14 @@ struct FUN_006317a0_struct
 {
     int AddEight(int);
 };
-struct FUN_004e8950_class
+struct TESWaterSystem
 {
     bool __thiscall TESWaterSystem_CheckUpdateActorsInWater();
 };
-// Iterates the list at offset 0x3c and returns true if IsPlayerNearWaterActor accepts any referenced object, otherwise false.
+// Iterates the list at offset 0x3c and returns true if TESWaterSystem_ActorWithinRangeOfWadingWater accepts any referenced object, otherwise false.
 // @fnv 0x004e8950
 // src: COMMUNITY 0x004e8950
-bool __thiscall FUN_004e8950_class::TESWaterSystem_CheckUpdateActorsInWater()
+bool __thiscall TESWaterSystem::TESWaterSystem_CheckUpdateActorsInWater()
 {
     if (Water_bUseWaterDisplacements_Get())
     {
@@ -1051,7 +1054,7 @@ bool __thiscall FUN_004e8950_class::TESWaterSystem_CheckUpdateActorsInWater()
                 TESObjectREFR* item = *reinterpret_cast<TESObjectREFR**>(
                     reinterpret_cast<FUN_006317a0_struct*>(reinterpret_cast<unsigned char*>(this) + 0x3c)
                         ->AddEight(count));
-                if (reinterpret_cast<FUN_004e83e0_class*>(this)->IsPlayerNearWaterActor(item))
+                if (reinterpret_cast<FUN_004e83e0_class*>(this)->TESWaterSystem_ActorWithinRangeOfWadingWater(item))
                     return true;
             }
             count = reinterpret_cast<unsigned int>(next);
@@ -1402,13 +1405,13 @@ struct GlobalObject_00633c90 : BSStringT<char>
 {
 };
 extern GlobalObject_00633c90 g_011d86a8;
-struct FUN_004ea9a0_Class
+struct BGSTerrainManager
 {
     const char* BGSTerrainManager_GetLODLandRoot();
 };
 // @fnv 0x004ea9a0
 // src: COMMUNITY 0x004ea9a0
-const char* FUN_004ea9a0_Class::BGSTerrainManager_GetLODLandRoot()
+const char* BGSTerrainManager::BGSTerrainManager_GetLODLandRoot()
 {
     return g_011d86a8.String();
 }
@@ -1943,16 +1946,17 @@ class FUN_004f50e0_base
     ~FUN_004f50e0_base();
 };
 
-class FUN_004f50e0_cls : public FUN_004f50e0_base
+class TESRegionDataWeather : public FUN_004f50e0_base
 {
   public:
     FUN_004f50e0_sub m_08;
-    ~FUN_004f50e0_cls();
+    ~TESRegionDataWeather();
 };
 
-// Destructor for FUN_004f50e0_cls; empty body, base and member destructors run implicitly.
+// Destructor for TESRegionDataWeather; empty body, base and member destructors run implicitly.
 // @fnv 0x004f50e0
-FUN_004f50e0_cls::~FUN_004f50e0_cls()
+// src: EXE 0x004f50e0
+TESRegionDataWeather::~TESRegionDataWeather()
 {}
 
 struct SL_4f6320
@@ -2978,17 +2982,18 @@ struct FUN_004f5e20
     int m_10;
 };
 
-struct FUN_004f15f0 : TESRegionData
+struct TESRegionDataGrass : TESRegionData
 {
-    FUN_004f15f0();
-    ~FUN_004f15f0();
+    TESRegionDataGrass();
+    ~TESRegionDataGrass();
     virtual void v0();
     FUN_004f5e20* m_08;
 };
 
 // Constructs the object and allocates a new FUN_004f5e20 with flag 1, storing it in m_08.
 // @fnv 0x004f15f0
-FUN_004f15f0::FUN_004f15f0()
+// src: EXE 0x004f15f0
+TESRegionDataGrass::TESRegionDataGrass()
 {
     m_08 = new FUN_004f5e20(1);
 }
@@ -3024,11 +3029,11 @@ class List4F4
     void* m_pkNext;
 };
 
-class FUN_004f42a0 : public Base4F4
+class TESRegionDataSound : public Base4F4
 {
   public:
-    FUN_004f42a0();
-    virtual ~FUN_004f42a0();
+    TESRegionDataSound();
+    virtual ~TESRegionDataSound();
 
     RegionSoundCollectionState m_kData;
     List4F4 m_kList;
@@ -3036,7 +3041,8 @@ class FUN_004f42a0 : public Base4F4
 
 // Initializes the data range to zero and clears the list.
 // @fnv 0x004f42a0
-FUN_004f42a0::FUN_004f42a0()
+// src: EXE 0x004f42a0
+TESRegionDataSound::TESRegionDataSound()
 {
     m_kData.m_iFirst = 0;
     m_kData.m_iLast = 0;
@@ -3220,7 +3226,7 @@ bool Polygon::TESRegionPointList_IsInsideRegion(PolygonPoint* pPoint)
 struct RegionPointMatch
 {
     float SquaredDistanceTo(RegionPointMatch* other);
-    float EvaluateValue_004f71f0(RegionPointMatch* other);
+    float RegionPoint_GetDistanceTo(RegionPointMatch* other);
     void TESRegionPoint_Copy(void* destination);
 };
 struct RegionNodeMatch
@@ -3280,7 +3286,7 @@ float RegionMatch::ComputeRegionValue(RegionPointMatch* point, float range)
         }
         j = point->SquaredDistanceTo(*g->FUN_006815c0());
         a = point->SquaredDistanceTo(*l->FUN_006815c0());
-        c = (*g->FUN_006815c0())->EvaluateValue_004f71f0(*l->FUN_006815c0());
+        c = (*g->FUN_006815c0())->RegionPoint_GetDistanceTo(*l->FUN_006815c0());
         b = (*g->FUN_006815c0())->SquaredDistanceTo(*l->FUN_006815c0());
         e = b - a + j;
         e /= (2.0 * c);
@@ -3406,18 +3412,19 @@ class List_009e03e0
 };
 
 // The terminal description component follows the activator base at 0x90.
-class FUN_004ffba0 : public TESObjectACTI, public TESDescription
+class BGSTerminal : public TESObjectACTI, public TESDescription
 {
   public:
     List_009e03e0 m_kList;
 
     void FUN_004ffc90();
-    virtual ~FUN_004ffba0();
+    virtual ~BGSTerminal();
 };
 
 // Destructor that calls FUN_004ffc90.
 // @fnv 0x004ffba0
-FUN_004ffba0::~FUN_004ffba0()
+// src: GUESS 0x004ffba0 (confidence: high)
+BGSTerminal::~BGSTerminal()
 {
     FUN_004ffc90();
 }

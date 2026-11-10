@@ -309,7 +309,7 @@ struct EmptyList
     }
     ~EmptyList();
 };
-struct FUN_00b6dd80
+struct BSTextureManager
 {
     ResourceList active[5];
     ResourceList inactive[5];
@@ -321,10 +321,11 @@ struct FUN_00b6dd80
     NiPointer<Resource> other;
     void Query(Renderer*, int, unsigned int*, unsigned int*, unsigned int*, unsigned int*, unsigned int*,
                unsigned int*);
-    FUN_00b6dd80();
+    BSTextureManager();
 };
 // @fnv 0x00b6dd80
-FUN_00b6dd80::FUN_00b6dd80()
+// src: GUESS 0x00b6dd80 (confidence: medium)
+BSTextureManager::BSTextureManager()
 {
     Renderer* renderer = DAT_011f9508;
     unsigned int width, height, unused1, unused2, samples, mode;
@@ -467,7 +468,7 @@ struct Ptr208
     ~Ptr208();
 };
 
-struct FUN_00b97a80
+struct ImageSpaceManager
 {
     int unk000;
     PrimArray<void*> m_kArray;
@@ -659,12 +660,13 @@ struct FUN_00b97a80
     float m_f310;
     float m_f314;
 
-    FUN_00b97a80();
+    ImageSpaceManager();
     void Reset();
 };
 
 // @fnv 0x00b97a80
-FUN_00b97a80::FUN_00b97a80() : m_kArray(0x74, 1)
+// src: GUESS 0x00b97a80 (confidence: medium)
+ImageSpaceManager::ImageSpaceManager() : m_kArray(0x74, 1)
 {
     m_f214 = 0.0f;
     m_f218 = 0.0f;

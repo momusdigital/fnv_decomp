@@ -30,13 +30,13 @@ struct FUN_00c7fa70_Class
 };
 extern "C" void __cdecl FUN_0062d4b0();
 extern int DAT_01084e54;
-struct FUN_00cb9900_cls
+struct bhkFilteredCdBodyCollector
 {
     void __thiscall UpdateFields_00cb9900();
 };
 void __cdecl hkaPose_syncModelSpace();
 void __cdecl FUN_00cd9fe0();
-struct FUN_00cda4b0_cls
+struct hkaPose
 {
     void __thiscall hkaPose_accessSyncedPoseModelSpace();
 };
@@ -67,7 +67,7 @@ struct Outer
     int _0;
     unsigned short _4;
     void __thiscall FUN_00c7dc40();
-    Outer* __thiscall FUN_00c7e970(unsigned int);
+    Outer* __thiscall ScalarDeletingDestructor(unsigned int);
 };
 struct MyNode
 {
@@ -332,7 +332,7 @@ struct FUN_00c7d890_cls
     void* _0;
     int _4;
     unsigned int _8;
-    void ProcessEntries_00c7d890();
+    void hkArray_clearAndDeallocate();
 };
 void* __cdecl FUN_00ec7230(char*, char const*, unsigned int);
 void __stdcall BSSimpleArray_bhkUtilFunctions_AVLevel_1024_CopyItems(char* dst, char* src, unsigned int count);
@@ -488,7 +488,7 @@ struct FUN_00c7d5c0_cls
     int m_iArrayLength;
     unsigned int m_uCap;
 
-    void ProcessEntries_00c7d5c0();
+    void hkArray_clearAndDeallocate();
 };
 extern unsigned int g_01268188;
 extern unsigned int g_012685f4;
@@ -511,9 +511,9 @@ struct MiddleObject : BaseObject
     }
     ~MiddleObject();
 };
-struct FUN_00c7f9e0 : MiddleObject
+struct bhkStiffSpringConstraint : MiddleObject
 {
-    FUN_00c7f9e0(void* context);
+    bhkStiffSpringConstraint(void* context);
     void SpawnAndAttach(void* context);
 };
 extern __declspec(thread) int g_iCB9810AllocTag;
@@ -4773,7 +4773,7 @@ struct kDec
 
 struct kG1
 {
-    void UpdateRelationStates(int a);
+    void ModelLoader_UpdateQueuedReferencePriorities(int a);
 };
 extern kG1* DAT_011c3b3c;
 struct kG2
@@ -6103,7 +6103,7 @@ void kSelf::PlayerCharacter_SetParentCell(kActor* p)
         bool idle = !busy && !PlayerCharacter_IsSleeping();
         if (idle)
             v494();
-        DAT_011c3b3c->UpdateRelationStates(0);
+        DAT_011c3b3c->ModelLoader_UpdateQueuedReferencePriorities(0);
         FUN_0046dd00(p->TESObjectCELL_GetClimate(0))->FUN_0063c8f0();
         BSShaderManager_SetImageSpaceParameters(p->TESObjectCELL_GetUsableImageSpace()->FUN_00500940());
         kCell* cell = p->FUN_0054ddd0();

@@ -713,10 +713,11 @@ struct FUN_00e09640_class
     virtual void unknownVirtual();
     unsigned short unk04;
     void __thiscall DestroyAudioBuffer();
-    FUN_00e09640_class* __thiscall FUN_00e09640(int flags);
+    FUN_00e09640_class* __thiscall ScalarDeletingDestructor(int flags);
 };
 // @fnv 0x00e09640
-FUN_00e09640_class* __thiscall FUN_00e09640_class::FUN_00e09640(int flags)
+// src: EXE 0x00e09640
+FUN_00e09640_class* __thiscall FUN_00e09640_class::ScalarDeletingDestructor(int flags)
 {
     DestroyAudioBuffer();
     if (flags & 1)

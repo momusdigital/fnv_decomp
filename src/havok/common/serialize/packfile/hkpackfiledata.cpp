@@ -625,7 +625,7 @@ class FUN_00e057c0
 class hkObje05970 : public FUN_00e057c0
 {
   public:
-    hkObje05970* FUN_00e05970(unsigned int uiFlags) throw();
+    hkObje05970* ScalarDeletingDestructor(unsigned int uiFlags) throw();
 
     static void operator delete(void* p) throw()
     {
@@ -641,7 +641,8 @@ class hkObje05970 : public FUN_00e057c0
 
 // Calls the base destructor, then deletes this object via hkObje05970::operator delete when uiFlags has bit 0 set, and returns this.
 // @fnv 0x00e05970
-hkObje05970* hkObje05970::FUN_00e05970(unsigned int uiFlags) throw()
+// src: EXE 0x00e05970
+hkObje05970* hkObje05970::ScalarDeletingDestructor(unsigned int uiFlags) throw()
 {
     this->FUN_00e057c0::~FUN_00e057c0();
     if (uiFlags & 1)

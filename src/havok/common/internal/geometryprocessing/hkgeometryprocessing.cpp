@@ -35,15 +35,15 @@ void __cdecl hkGeometryProcessing_generateRandomDistribution(void* first, void* 
     hkVector4_ProcessEntries_00dedf10(first, second, third, fourth, 0, 0);
 }
 
-struct FUN_00dee6b0_Class
+struct ConstFunction
 {
     int unk00;
     float unk04;
-    float GetUnk04(int testFlag);
+    float getValue(int testFlag);
 };
 // @fnv 0x00dee6b0
-// src: GUESS 0x00dee6b0 (confidence: low)
-float FUN_00dee6b0_Class::GetUnk04(int testFlag)
+// src: GUESS 0x00dee6b0 (confidence: medium)
+float ConstFunction::getValue(int testFlag)
 {
     return unk04;
 }
@@ -56,12 +56,13 @@ struct FUN_00dee6c0_cls
 {
     int m_vptr;
 
-    FUN_00dee6c0_cls* FUN_00dee6c0(unsigned char acFlags);
+    FUN_00dee6c0_cls* ScalarDeletingDestructor(unsigned char acFlags);
 };
 
 // Sets the vtable pointer and, when acFlags has bit 0 set, frees this 0x40-byte object through the allocator from FUN_00c85750.
 // @fnv 0x00dee6c0
-FUN_00dee6c0_cls* FUN_00dee6c0_cls::FUN_00dee6c0(unsigned char acFlags)
+// src: EXE 0x00dee6c0
+FUN_00dee6c0_cls* FUN_00dee6c0_cls::ScalarDeletingDestructor(unsigned char acFlags)
 {
     m_vptr = (int)&DAT_010cd664;
     if (acFlags & 1)
@@ -362,7 +363,7 @@ void __cdecl hkVector4_FindSupportingVertex(const FourPointsArray& rotatedVertic
 
 extern GeometryQuad DAT_010c71d0;
 
-struct FUN_00dee640_cls
+struct NearestFeaturePolicy
 {
     int unk00;
     int unk04;
@@ -379,7 +380,7 @@ struct FUN_00dee640_cls
 
 // Computes the squared distance from m_vec10 to the midpoint of the pair and updates m_fDist20 and m_pTag30 when it is smaller.
 // @fnv 0x00dee640
-float FUN_00dee640_cls::UpdateNearestDistance(void* pair)
+float NearestFeaturePolicy::UpdateNearestDistance(void* pair)
 {
     const GeometryQuad* ab = (const GeometryQuad*)pair;
     GeometryQuad vMidpoint = _mm_mul_ps(_mm_add_ps(ab[0], ab[1]), DAT_010c71d0);
@@ -494,19 +495,19 @@ struct Sub20_cls
     Triangle* UpdateFields_00e241a0(Triangle* node);
 };
 
-struct FUN_00e19200_cls
+struct hkgpMesh
 {
     unsigned int unk00;
     unsigned int unk04;
     Sub08_cls m_08;
     Sub20_cls m_20;
-    void SplitTriangleWithNewVertex(Triangle* a, const __m128* b, int c);
+    void splitTriangle(Triangle* a, const __m128* b, int c);
 };
 
 // Creates a new vertex from b, assigns it to three triangles, and rewires their edge links to split t0.
 // @fnv 0x00e19200
 // src: GUESS 0x00e19200 (confidence: medium)
-void FUN_00e19200_cls::SplitTriangleWithNewVertex(Triangle* apTriangle, const __m128* b, int aiUnused)
+void hkgpMesh::splitTriangle(Triangle* apTriangle, const __m128* b, int aiUnused)
 {
     PendingBlock stBlock;
     stBlock.m_40 = -1;

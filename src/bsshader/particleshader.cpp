@@ -52,7 +52,7 @@ BSShader* ParticleShader::CreateShader()
     pParticleShader->vfn_13c();
     pParticleShader->vfn_140();
     pParticleShader->InitShaderConstants();
-    pParticleShader->UseShaderDeclaration(reinterpret_cast<NiD3DShaderDeclaration*>(d));
+    pParticleShader->NiD3DShader_SetShaderDecl(reinterpret_cast<NiD3DShaderDeclaration*>(d));
     return pParticleShader;
 }
 

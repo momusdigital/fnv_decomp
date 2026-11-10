@@ -30,12 +30,12 @@ int FUN_0097fc70_shell::CombatController_GetAttackSkill()
         if (GetCurrentWeapon((int)this))
         {
             iresult = ((ActorValueOwner*)(((TESAmmoInitCalls*)this)->FUN_0097ae90() + 0xa4))
-                          ->GetActorValueAsInteger(((MiddleHighProcess*)GetCurrentWeapon((int)this))->MiddleHighProcess::GetWeaponForm());
+                          ->GetClampedActorValueI(((MiddleHighProcess*)GetCurrentWeapon((int)this))->MiddleHighProcess::GetWeaponForm());
         }
         else
         {
             iresult =
-                ((ActorValueOwner*)(((TESAmmoInitCalls*)this)->FUN_0097ae90() + 0xa4))->GetActorValueAsInteger(0x2d);
+                ((ActorValueOwner*)(((TESAmmoInitCalls*)this)->FUN_0097ae90() + 0xa4))->GetClampedActorValueI(0x2d);
         }
     }
     else

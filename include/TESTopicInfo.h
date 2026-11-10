@@ -111,7 +111,7 @@ public:
     ActorValueInfo* GetActorValue();
     BGSPerk* GetPerk();
     TESForm* GetPerkSkillStat();
-    int GetDifficultyLevel();
+    int GetDifficulty();
     void SetDifficultyLevel(int difficulty);
     void SetDifficultyLevel(SPEECH_CHALLENGE_LEVEL difficulty);
     int GetNextSpeakerType();
@@ -124,12 +124,12 @@ public:
     bool HasResultScript();
     unsigned int GetTempDataOffset();
     void SetTempDataOffset(unsigned int offset);
-    bool IsInfoValidForDialogue(bool* deferred, TESQuest* quest, TESObjectREFR* speaker, TESObjectREFR* listener);
-    bool IsInfoValidForDialogue(bool& deferred, TESQuest* quest, TESObjectREFR* speaker, TESObjectREFR* listener);
-    bool IsInfoValidForDialogue(TESQuest* quest, TESObjectREFR* speaker, TESObjectREFR* listener);
+    bool CheckCondition(bool* deferred, TESQuest* quest, TESObjectREFR* speaker, TESObjectREFR* listener);
+    bool CheckCondition(bool& deferred, TESQuest* quest, TESObjectREFR* speaker, TESObjectREFR* listener);
+    bool CheckCondition(TESQuest* quest, TESObjectREFR* speaker, TESObjectREFR* listener);
     void HyperLinkCompile(char* text);
     void RemoveHyperLinks();
-    void AppendTopicInfo(int arg, TESObjectREFR* reference);
+    void DialogueItem_RunResult(int arg, TESObjectREFR* reference);
     void AddTopicList();
     bool SaidOnce();
     void SetSaidOnce();

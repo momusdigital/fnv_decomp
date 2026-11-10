@@ -227,11 +227,12 @@ void _Deallocate(void*);
 struct ScalarHelper
 {
     void FUN_004fad20();
-    void* FUN_004facf0(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_004fad20, then deallocates this if bit 0 of flags is set, and returns this.
 // @fnv 0x004facf0
-void* ScalarHelper::FUN_004facf0(unsigned int flags)
+// src: EXE 0x004facf0
+void* ScalarHelper::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_004fad20();
     if (flags & 1)
@@ -273,11 +274,12 @@ int FUN_004fb7d0_shell::BGSExplosion_GetImpactData(int a)
 
 struct FUN_00477950_shell : public BGSExplosion
 {
-    bool HasAnyFlags(unsigned int mask);
+    bool BGSExplosion_IsFlagSet(unsigned int mask);
 };
 
 // @fnv 0x00477950
-bool FUN_00477950_shell::HasAnyFlags(unsigned int mask)
+// src: COMMUNITY 0x00477950
+bool FUN_00477950_shell::BGSExplosion_IsFlagSet(unsigned int mask)
 {
     return (GetData_004fadc0()->iFlags & mask) ? true : false;
 }
@@ -642,15 +644,16 @@ struct MemberDtor_b4673
     ~MemberDtor_b4673();
 };
 
-struct FUN_004fc270 : BaseDtor_b4673, MemberDtor_b4673
+struct BGSPlaceableWater : BaseDtor_b4673, MemberDtor_b4673
 {
     virtual void unk30();
-    ~FUN_004fc270();
+    ~BGSPlaceableWater();
 };
 
-// Destructor of FUN_004fc270; the body is empty and the base and member destructors run implicitly.
+// Destructor of BGSPlaceableWater; the body is empty and the base and member destructors run implicitly.
 // @fnv 0x004fc270
-FUN_004fc270::~FUN_004fc270()
+// src: EXE 0x004fc270
+BGSPlaceableWater::~BGSPlaceableWater()
 {}
 
 #include <string.h>

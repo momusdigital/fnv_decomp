@@ -117,14 +117,14 @@ struct FUN_00a2ceb0_cls
 extern unsigned char DAT_01096968;
 typedef int(__stdcall* FnInterlockedDecrement)(void*);
 extern FnInterlockedDecrement DAT_00fdf1c4;
-struct FUN_00a31260_StandIn
+struct ControlledBlock
 {
     void* p0;
     void* p1;
     void* p2;
     unsigned char b3;
     unsigned char b4;
-    void ReleaseReferencedObjectsAndResetFlags();
+    void ClearValues();
 };
 struct FUN_00a30700_T
 {
@@ -177,7 +177,7 @@ struct FUN_00a2e790_StandIn : public NiTFixedStringMap_NiAVObject___
 struct FUN_00a39120_cls
 {
     float x, y, z, w;
-    Inner_00a6db50* ScaleFourComponents(Inner_00a6db50* out, float s);
+    Inner_00a6db50* NiQuaternion_Scale(Inner_00a6db50* out, float s);
 };
 struct FloatRecord_b5532
 {
@@ -2807,7 +2807,7 @@ inline void* __cdecl operator new(unsigned int, void* memory) throw()
 {
     return memory;
 }
-NiFloatInterpolator* __cdecl CreateNiFloatInterpolator();
+NiFloatInterpolator* __cdecl NiFloatInterpolator_CreateObject();
 int __cdecl AreFloatsEqual(const float* pfA, const float* pfB);
 // AccumulateAnimSink: dispatch a request to the animation sink found at +0x24c
 // of the object passed in, and accumulate the returned count.
@@ -3023,12 +3023,12 @@ struct FUN_00a3ca30
     int unk14;
 };
 extern "C" void __cdecl _NiFree_00aa10f0(void*) throw();
-struct FUN_00a3dd40 : FUN_00a3ca30
+struct NiPathInterpolator : FUN_00a3ca30
 {
     S_a3dd40_Ptr m_kPointA;
     S_a3dd40_Ptr m_kPointB;
     void* m_p;
-    virtual ~FUN_00a3dd40() throw();
+    virtual ~NiPathInterpolator() throw();
 };
 extern "C" float __cdecl func_0x00a42070(float input, float leftStart, float leftExtent, float rightStart,
                                          float rightEnd);

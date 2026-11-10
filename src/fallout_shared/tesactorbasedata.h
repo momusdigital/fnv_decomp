@@ -53,7 +53,7 @@ class TESActorBaseData : public BaseFormComponent
     // slot 5
     virtual bool GetNoVATSmelee() const;
     // slot 6
-    virtual bool GetNoVATSranged() const;
+    virtual bool GetAllowPCDialogue() const;
     // slot 7
     virtual bool GetAllowPickpocket() const;
     // slot 8

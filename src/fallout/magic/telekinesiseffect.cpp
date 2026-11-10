@@ -112,7 +112,7 @@ MagicCaster* __thiscall PlayerCharacter::GetFloatAsUInt()
 
 void* __cdecl bhkEntity_Getbhk(void const*);
 
-struct FUN_0082aeb0_shell
+struct bhkUnaryAction
 {
     void* __thiscall bhkUnaryAction_GethkRigidBody();
     void* __thiscall bhkUnaryAction_GetRigidBody();
@@ -121,7 +121,7 @@ struct FUN_0082aeb0_shell
 // Calls FUN_0082aee0 and passes its result to FUN_004b5a80, returning that value.
 // @fnv 0x0082aeb0
 // src: XBOX_PDB 0x0082aeb0
-void* __thiscall FUN_0082aeb0_shell::bhkUnaryAction_GetRigidBody()
+void* __thiscall bhkUnaryAction::bhkUnaryAction_GetRigidBody()
 {
     void* result = bhkUnaryAction_GethkRigidBody();
     return bhkEntity_Getbhk(result);

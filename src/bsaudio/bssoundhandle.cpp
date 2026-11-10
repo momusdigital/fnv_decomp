@@ -174,7 +174,8 @@ bool BSSoundHandle::SetPosition(float x, float y, float z)
 }
 
 // @fnv 0x00ad8be0
-void BSSoundHandle::SetMinMax(float afMin, float afMax)
+// src: COMMUNITY 0x00ad8be0
+void BSSoundHandle::SetMinMaxDistance(float afMin, float afMax)
 {
     if (iSoundID == 0xFFFFFFFF)
         return;

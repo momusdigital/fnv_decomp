@@ -93,7 +93,7 @@ static __forceinline void S_00a7f680_Save(S_00a7f680_Out* o, void* v)
     o->unk04 += o->unk0C(o, v, 4, &sz, 1);
 }
 
-struct FUN_00a7f680_cls : S_00a7f680_Base
+struct BSPackedAdditionalGeometryData : S_00a7f680_Base
 {
     int unk00;
     int unk04;
@@ -112,7 +112,7 @@ struct FUN_00a7f680_cls : S_00a7f680_Base
 };
 
 // @fnv 0x00a7f680
-void FUN_00a7f680_cls::SaveFields(void* p)
+void BSPackedAdditionalGeometryData::SaveFields(void* p)
 {
     NiAdditionalGeometryData_SaveBinary(p);
     S_00a7f680_Save(*(S_00a7f680_Out**)((char*)p + 0x250), &unk2c);

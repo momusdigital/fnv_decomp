@@ -104,8 +104,8 @@ struct FUN_00534570_shell { char* m_pkDeltas; unsigned int stride; void NiGeomet
 template<int> struct EndianSizeTag {};
 void BSEndian(int*, EndianSizeTag<2>);
 void BSEndian(unsigned short*, EndianSizeTag<2>);
-struct FUN_00535a60_Class {
-    void ProcessState_00535a60();
+struct FILE_TEX_DATA {
+    void FILE_TEX_DATA_Endian();
 };
 extern int DAT_011c9f04;
 int TESLandTexture_GetDefaultTexture();
@@ -126,7 +126,7 @@ struct FUN_00540800_Class {
     void ForwardCall_00537ce0();
 };
 extern "C" void* g_011f4aac;
-struct FUN_00537d00_Class {
+struct BSPackedAdditionalGeometryData {
     void* __thiscall BSPackedAdditionalGeometryData_GetRTTI();
 };
 struct FUN_00537d10_Class {
@@ -142,11 +142,11 @@ struct FUN_00537e90 {
     unsigned int quantity;
     void SetQuantity(unsigned int value);
 };
-struct FUN_00538e30_class {
+struct hkBaseObject {
     void __fastcall SetVtable();
 };
 extern int DAT_0102e378;
-struct FUN_00538e10_class {
+struct hkReferencedObject {
     int* m_vtbl;
     void __fastcall UpdateState_00538e10();
 };
@@ -189,7 +189,7 @@ struct FUN_005394c0_Class {
 };
 struct GlobalObjectO2_00a7b610;
 extern GlobalObjectO2_00a7b610 g_011f4ab8;
-struct FUN_00539fc0_Class
+struct NiBinaryExtraData
 {
     GlobalObjectO2_00a7b610* NiBinaryExtraData_GetRTTI();
 };
@@ -204,7 +204,7 @@ struct FUN_0053a070_Class {
     void __thiscall NiBinaryExtraData_SetValue(int a, int b);
 };
 struct B006815c0 { B006815c0(); };
-struct FUN_0053a510 {
+struct COORD_DATA {
     B006815c0 m0;
     char _p1[7];
     B006815c0 m1;
@@ -212,7 +212,7 @@ struct FUN_0053a510 {
     B006815c0 m2;
     char _p3[19];
     B006815c0 m3;
-    FUN_0053a510();
+    COORD_DATA();
 };
 struct FUN_0053a760_Class {
     int m_00;
@@ -249,7 +249,7 @@ struct Buf50
     int m00; int m04; int m08; int m0C; int m10; int m14; int m18; int m1C;
     int m20; int m24; int m28; int m2C; int m30; int m34; int m38; int m3C;
     int m40; int m44; int m48; int m4C;
-    void FUN_0053a510();
+    void COORD_DATA();
 };
 struct Owner
 {
@@ -281,7 +281,7 @@ struct Tmp53e210 {
     int m44;
     int m48;
     int m4C;
-    void FUN_0053a510();
+    void COORD_DATA();
 };
 struct Host53e210 {
     bool TESObjectLAND_GetCoordData(Tmp53e210* p, int a, int b);
@@ -496,17 +496,17 @@ public:
 };
 int TruncateFloatToInt(float value);
 bool TESForm_QEndianSwapOnSave();
-void __cdecl AppendChunk(unsigned int fourcc, void* buf, unsigned int size);
+void __cdecl TESForm___AddChunkData(unsigned int fourcc, void* buf, unsigned int size);
 void __cdecl TESForm_AddChunkArray(unsigned int fourcc, void* buf, unsigned int size);
 int __cdecl FUN_00ec7d40(int v);
 void __cdecl FNV_Warning(const char* fmt, ...);
-void __cdecl CompressSaveLoadRecord();
+void __cdecl TESForm_CompressSaveBuffer();
 int TESLandTexture_GetDefaultTexture();
 void __fastcall QuestPerkEntryData_Endian(void* p);
 struct FUN_0084e3a0_Class { int GetHavokWorldObjectCountInSceneGraph_0084e3a0(); };
-struct FUN_00535aa0_Class { void OBJ_WEAP_CRITICAL_Endian(); };
-struct FUN_004855a0_shell { void BeginFormRecord(); };
-struct FUN_00485680_shell { void FinishFormRecord(); };
+struct FILE_TEX_VERT_DATA { void OBJ_WEAP_CRITICAL_Endian(); };
+struct FUN_004855a0_shell { void TESForm_StartForm(); };
+struct FUN_00485680_shell { void TESForm_CloseForm(); };
 extern double DAT_0102dfe0;
 extern double DAT_0101e568;
 extern double DAT_01012060;
@@ -561,9 +561,9 @@ struct Base8ef0 { virtual void v0(); int a; int b; int c; Base8ef0(); ~Base8ef0(
 struct MA { int x[4]; MA(); void Go(); };
 struct MB { int x[3]; MB(); ~MB(); };
 struct MC { int x[4]; MC(); void Fin(int); };
-struct FUN_00538d70_cls : Base8ef0 {
+struct hkpMoppCode : Base8ef0 {
     MA a; MB b; MC c;
-    FUN_00538d70_cls();
+    hkpMoppCode();
     virtual void v0();
 };
 extern void* DAT_01187020;
@@ -702,7 +702,7 @@ struct LocalObj53a5e0 {
     int m4c;
     int m50;
     int m54;
-    void FUN_0053a510();
+    void COORD_DATA();
 };
 struct FUN_0053a5e0_cls {
     bool TESObjectLAND_GetCoordData(LocalObj53a5e0* p, int a, int b);
@@ -1337,7 +1337,7 @@ struct Format_5345c0 {
 };
 struct Geometry_5345c0 {
     unsigned int NiGeometry_GetNormals();
-    Color_5345c0* GetNextProc();
+    Color_5345c0* NiGeometry_GetColors();
     NiGeometryData* NiGeometry_GetModelData();
 };
 struct Node_5345c0 { Geometry_5345c0* FUN_0043b4a0(unsigned int); };
@@ -1447,7 +1447,7 @@ extern NiPoint3 DAT_011f426c;
 extern float DAT_01016970, DAT_01015f5c, DAT_010236e0;
 struct UpdateData {float time; bool a,b; int c; UpdateData(float,bool,bool);};
 struct Shape;
-struct GeomData {void FUN_00a67090(int); void FUN_00a67050(int); void FUN_004410f0(bool); void SetByteAtOffset38(int);};
+struct GeomData {void FUN_00a67090(int); void FUN_00a67050(int); void FUN_004410f0(bool); void SetKeepFlags(int);};
 struct Property {int FUN_008d8520(); void* GetStringAtOffset();};
 struct Model {struct Scene* NiObjectNET_GetControllers();};
 struct Scene {
@@ -1745,7 +1745,7 @@ struct Buffer538c00
 
     unsigned int m04;
 
-    void __thiscall UpdateState_00540750(unsigned int size);
+    void __thiscall setSize(unsigned int size);
 
     void* __thiscall Modelloader_GetReferencedThis();
 

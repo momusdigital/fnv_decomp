@@ -95,7 +95,7 @@ bool NiBSplineCompTransformInterpolator::Update(float time, NiObjectNET* target,
                                                           m_afOffsetAndHalfRange[2], m_afOffsetAndHalfRange[3]);
         NiQuaternion& rotation = *reinterpret_cast<NiQuaternion*>(&m_kDefaultTransform.qx);
         rotation = *reinterpret_cast<NiQuaternion*>(decodedValue);
-        rotation.EnsureCanonicalSign();
+        rotation.FastNormalize();
     }
     if (m_kScaleCPHandle != 0xffff)
     {
@@ -144,7 +144,8 @@ struct SplineTransformOperations
     NiBSplineTransformInterpolator* Construct(int, int, int, int, int);
 };
 // @fnv 0x00a50e00
-bool __fastcall IsEqualCompTransform(NiBSplineCompTransformInterpolator* self, int, NiObject* pkObject)
+// src: EXE 0x00a50e00
+bool __fastcall NiBSplineCompTransformInterpolator_IsEqual(NiBSplineCompTransformInterpolator* self, int, NiObject* pkObject)
 {
     NiBSplineCompTransformInterpolator* pkDest;
     unsigned int ui;
@@ -182,7 +183,8 @@ void Holder::AppendString(StrArr* pkStrings)
 }
 
 // @fnv 0x00a51180
-void __fastcall SaveCompTransform(NiBSplineCompTransformInterpolator* self, int, NiStream& stream)
+// src: EXE 0x00a51180
+void __fastcall NiBSplineCompTransformInterpolator_SaveBinary(NiBSplineCompTransformInterpolator* self, int, NiStream& stream)
 {
     reinterpret_cast<SplineTransformOperations*>(self)->SaveBinary(stream);
     NiBinaryStream* __restrict output = stream.m_pkOstr;
@@ -226,7 +228,8 @@ NiBSplineTransformInterpolator* SplineTransformOperations::Construct(int aiArg1,
 static const float NI_INFINITY = 3.402823466e+38f;
 extern int DAT_0109991c;
 
-__forceinline NiBSplineCompTransformInterpolator* NewCompTransform()
+// src: EXE 0x00a50f00
+__forceinline NiBSplineCompTransformInterpolator* NiBSplineCompTransformInterpolator_CreateObject()
 {
     NiBSplineCompTransformInterpolator* result =
         static_cast<NiBSplineCompTransformInterpolator*>(NiObject::operator new(sizeof(NiBSplineCompTransformInterpolator)));
@@ -250,14 +253,15 @@ __forceinline NiBSplineCompTransformInterpolator* NewCompTransform()
 // @fnv 0x00a50f00
 NiBSplineTransformInterpolator* __cdecl CreateEvaluator()
 {
-    return NewCompTransform();
+    return NiBSplineCompTransformInterpolator_CreateObject();
 }
 
 // @fnv 0x00a50e70
-NiBSplineCompTransformInterpolator* __fastcall CloneCompTransform(NiBSplineCompTransformInterpolator* self, int,
+// src: EXE 0x00a50e70
+NiBSplineCompTransformInterpolator* __fastcall NiBSplineCompTransformInterpolator_CreateClone(NiBSplineCompTransformInterpolator* self, int,
                                                                 CloningProcess& cloning)
 {
-    NiBSplineCompTransformInterpolator* destination = NewCompTransform();
+    NiBSplineCompTransformInterpolator* destination = NiBSplineCompTransformInterpolator_CreateObject();
     self->CopyMemberData(destination, cloning);
     destination->m_afOffsetAndHalfRange[0] = self->m_afOffsetAndHalfRange[0];
     destination->m_afOffsetAndHalfRange[1] = self->m_afOffsetAndHalfRange[1];

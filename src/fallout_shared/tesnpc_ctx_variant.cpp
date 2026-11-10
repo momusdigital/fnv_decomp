@@ -59,7 +59,7 @@ class FUN_009611e0_shell
 class FUN_006141f0_shell
 {
   public:
-    void BuildAppearance(TESActorBase* apBase, void* apData, SEX aeSex, bool abFlag);
+    void TESRace_GetFaceGenData(TESActorBase* apBase, void* apData, SEX aeSex, bool abFlag);
 };
 class FUN_004eaf60_shell
 {
@@ -222,13 +222,13 @@ void TESNPC::LoadFaceGen(Actor* apActor)
                     ((NiNode*)((FUN_009611e0_shell*)pFace)->NiAVObject_GetParent())->RemoveObject(pFace);
                 }
             }
-            ResetFaceGen();
+            ClearHead();
             if (Character_GetBiped((char*)apActor))
                 UpdateBodyModel(apActor, (BipedAnim*)Character_GetBiped((char*)apActor));
             if ((NiNode*)apActor->vfn_1ac(false) && (NiNode*)apActor->vfn_1b0(false))
             {
                 FUN_005dd590 kData;
-                ((FUN_006141f0_shell*)GetFormRace())->BuildAppearance(this, &kData, SEX_SEX_MALE, false);
+                ((FUN_006141f0_shell*)GetFormRace())->TESRace_GetFaceGenData(this, &kData, SEX_SEX_MALE, false);
                 ApplyFaceGenTextures((NiNode*)apActor->vfn_1ac(false), &kData);
                 ApplyFaceGenTextures((NiNode*)apActor->vfn_1b0(false), &kData);
             }
@@ -236,7 +236,7 @@ void TESNPC::LoadFaceGen(Actor* apActor)
         else
         {
             NiNode* pParent = 0;
-            ResetFaceGen();
+            ClearHead();
             bool bWasFirstPerson = ((FUN_004eaf60_shell*)g_thePlayer)->PlayerCharacter_Is3rdPerson();
             ((PlayerFace*)g_thePlayer)->PlayerCharacter_SetFirstPerson(false);
             if (pNode && bPrevHadRace != bNowHasRace)

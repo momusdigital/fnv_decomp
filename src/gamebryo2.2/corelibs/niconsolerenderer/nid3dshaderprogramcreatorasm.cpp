@@ -145,7 +145,7 @@ NiD3DVertexShader* VertexShaderCreatorAsm::NiD3DShaderProgramCreatorAsm_CreateVe
     pkVertexShader->SetProgramCode(uiCodeSize, pvCode);
     pkVertexShader->SetCreator(reinterpret_cast<NiD3DShaderProgramCreator*>(this));
     pkVertexShader->SetD3DPixelShader(hShader);
-    pkVertexShader->SetShaderUsage(uiUsage);
+    pkVertexShader->SetUsage(uiUsage);
     pkVertexShader->SetVertexDeclaration(hDecl);
     pkVertexShader->SetSoftwareVertexProcessing(bSoftwareVP);
     return pkVertexShader;
@@ -325,7 +325,7 @@ NiD3DVertexShader* VertexShaderCreatorHLSL::NiD3DShaderProgramCreatorAsm_CreateV
     pkVertexShader->SetProgramCode(uiCodeSize, pvCode);
     pkVertexShader->SetCreator(reinterpret_cast<NiD3DShaderProgramCreator*>(this));
     pkVertexShader->SetD3DPixelShader(hShader);
-    pkVertexShader->SetShaderUsage(uiUsage);
+    pkVertexShader->SetUsage(uiUsage);
     pkVertexShader->SetVertexDeclaration(hDecl);
     pkVertexShader->SetSoftwareVertexProcessing(bSoftwareVP);
     return pkVertexShader;

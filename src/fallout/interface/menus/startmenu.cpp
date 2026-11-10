@@ -96,7 +96,7 @@ struct TutorialIndexQuery : InterfaceManager::TutorialManager
 bool __fastcall IsLegacyAutosaveFileName(BGSSaveLoadFileEntry*);
 bool __fastcall BGSSaveLoadFileEntry_IsQuicksave(BGSSaveLoadFileEntry*);
 bool __fastcall FUN_00846b10(BGSSaveLoadFileEntry*);
-bool __fastcall LoadSaveEntry(BGSSaveLoadFileEntry*);
+bool __fastcall BGSSaveLoadFileEntry_LoadGame(BGSSaveLoadFileEntry*);
 bool __fastcall BGSSaveLoadFileEntry_DeleteSave(BGSSaveLoadFileEntry*);
 void __fastcall DispatchSaveEntryEvent(BGSSaveLoadFileEntry*);
 char* __fastcall ComputeValue_005a8080(BGSSaveLoadFileEntry*);
@@ -1061,7 +1061,7 @@ Tile* OptionListBox::GetTileForButton(int aiButton)
 
 struct FUN_007d6730_shell : public StartMenu
 {
-    void ProcessSaveLoadList();
+    void StartMenu__BackOutToMainListbox();
 };
 
 typedef ListBox<BGSSaveLoadFileEntry*> LB7d6;
@@ -1072,7 +1072,8 @@ struct SM7d6
 };
 void HandleBackAction();
 // @fnv 0x007d6730
-void FUN_007d6730_shell::ProcessSaveLoadList()
+// src: COMMUNITY 0x007d6730
+void FUN_007d6730_shell::StartMenu__BackOutToMainListbox()
 {
     if (((LB7d6*)((char*)this + 0x84))->IsEnabled() && !IsFlagSet((StartMenu::Flag)0x20000))
     {
@@ -1525,12 +1526,13 @@ void __cdecl _Deallocate(void* p);
 
 struct FUN_007cb580_Class
 {
-    void* FUN_007cb580(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_007cb560 on this, deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x007cb580
-void* FUN_007cb580_Class::FUN_007cb580(unsigned int flags)
+// src: EXE 0x007cb580
+void* FUN_007cb580_Class::ScalarDeletingDestructor(unsigned int flags)
 {
     Object_ForwardCall_007cb560(this);
     if (flags & 1)
@@ -2161,7 +2163,7 @@ void HandleSaveLoadMenuAction()
         else
         {
             nullsub_330();
-            LoadSaveEntry(*((SaveEntryNode*)*DAT_011de134)->FUN_006815c0());
+            BGSSaveLoadFileEntry_LoadGame(*((SaveEntryNode*)*DAT_011de134)->FUN_006815c0());
         }
     }
     else
@@ -3920,7 +3922,7 @@ extern MenuSetting* DAT_011d5730[];
 extern char DAT_01076e94[];
 void FUN_007dc0a0(int*);
 bool Controls_Remappable(int);
-void Tile_UpdateActionMappingTiles();
+void StartMenu_ChooseUserAction();
 void UpdateBindingText();
 bool InterfaceManager_Has360Controller();
 struct MenuItem
@@ -3955,7 +3957,7 @@ void KeyBindingListBuilder::BuildMenuList()
                            i == 16 || i == 27)) ||
             (unk1c8 != 3 && Controls_Remappable(i)))
         {
-            MenuItem* entry = new MenuItem(DAT_011d51d0[i]->FUN_00403df0(), Tile_UpdateActionMappingTiles, i);
+            MenuItem* entry = new MenuItem(DAT_011d51d0[i]->FUN_00403df0(), StartMenu_ChooseUserAction, i);
             MenuTile* item = reinterpret_cast<MenuTile*>(m_kDownloadOptions.AddItem(reinterpret_cast<StartMenu::Option*>(entry), entry->name, 0, DAT_01076e94));
             item->FUN_00707e10(DAT_011d51d0[i]->FUN_00403df0());
         }
@@ -5306,7 +5308,7 @@ void ClickMenuOperations::StartMenu_DoClick(int reason, Tile* tile)
 struct KeyTile
 {
     bool IsAllChildrenFlag0();
-    bool IsTraitNonZero(int);
+    bool Tile_IsTrue(int);
     float FUN_00a011b0(int);
     void Tile_PlayTileSound(int);
     KeyTile* Tile_GetChildByID(int);
@@ -5410,7 +5412,7 @@ bool Candidate151::HandleButtonInput(int button, int unused)
         {
         case 5:
         case 9:
-            if (!IsFlagSet((Flag)1) && ((KeyTile*)m_pTiles[9])->IsTraitNonZero(0xfa3) &&
+            if (!IsFlagSet((Flag)1) && ((KeyTile*)m_pTiles[9])->Tile_IsTrue(0xfa3) &&
                 ((KeyTile*)m_pTiles[9])->FUN_00a011b0(0xfa9) != 0.0)
             {
                 UpdatePanelState();
@@ -5419,7 +5421,7 @@ bool Candidate151::HandleButtonInput(int button, int unused)
             }
             break;
         case 12:
-            if (((KeyTile*)m_pTiles[4])->IsAllChildrenFlag0() && ((KeyTile*)m_pTiles[4])->IsTraitNonZero(0xfaf))
+            if (((KeyTile*)m_pTiles[4])->IsAllChildrenFlag0() && ((KeyTile*)m_pTiles[4])->Tile_IsTrue(0xfaf))
             {
                 ((KeyTile*)m_pTiles[4])->Tile_PlayTileSound(0xfcb);
                 ((MenuDispatch151*)this)->Click(4, (KeyTile*)m_pTiles[4]);
@@ -5427,7 +5429,7 @@ bool Candidate151::HandleButtonInput(int button, int unused)
             }
             break;
         case 11:
-            if (((KeyTile*)m_pTiles[15])->IsAllChildrenFlag0() && ((KeyTile*)m_pTiles[15])->IsTraitNonZero(0xfaf))
+            if (((KeyTile*)m_pTiles[15])->IsAllChildrenFlag0() && ((KeyTile*)m_pTiles[15])->Tile_IsTrue(0xfaf))
             {
                 ((KeyTile*)m_pTiles[15])->Tile_PlayTileSound(0xfcb);
                 ((MenuDispatch151*)this)->Click(15, (KeyTile*)m_pTiles[15]);
@@ -5440,7 +5442,7 @@ bool Candidate151::HandleButtonInput(int button, int unused)
             {
                 int id = button == 4 ? 100 : 101;
                 KeyTile* tile = ((KeyTile*)m_kDownloadOptions.GetHighlightedItem())->Tile_GetChildByID(id);
-                if (tile && tile->IsAllChildrenFlag0() && tile->IsTraitNonZero(0xfaf))
+                if (tile && tile->IsAllChildrenFlag0() && tile->Tile_IsTrue(0xfaf))
                 {
                     ((MenuDispatch151*)this)->Click(id, tile);
                     tile->Tile_PlayTileSound(0xfcb);
@@ -5553,7 +5555,7 @@ struct FUN_00789820_shell
 {
     void Update_00789820();
     bool FUN_00458110(int);
-    void UpdateLoadingScreens();
+    void MakeLoadScreenList();
 };
 extern FUN_00789820_shell* DAT_011da0c0;
 
@@ -5613,7 +5615,7 @@ void FUN_007cf9a0_shell::StartMenu_DoIdle()
         DAT_011da0c0->Update_00789820();
         if (IsFlagSet(FLAG_IIS_PREFADE) && DAT_011da0c0->FUN_00458110(0))
         {
-            DAT_011da0c0->UpdateLoadingScreens();
+            DAT_011da0c0->MakeLoadScreenList();
             StartMenu_SetFlag(FLAG_IIS_PREFADE, false);
             StartMenu_SetFlag(FLAG_FADE_IN, true);
         }
@@ -6563,7 +6565,7 @@ struct InputDevice_7d
 
     void Controls_SetActionMapping(unsigned int, int, unsigned char);
 
-    int GetAxisState(int, int);
+    int OSInputGlobals_GetControllerValue(int, int);
 };
 
 struct MenuTile_7d
@@ -6819,8 +6821,8 @@ bool StartMenuInput_7d::HandleBindingInput()
 
                 int b;
                 int a;
-                b = (reinterpret_cast<InputDevice_7d*>(g_osGlobals->Main_GetControls()))->GetAxisState(0, 9);
-                a = (reinterpret_cast<InputDevice_7d*>(g_osGlobals->Main_GetControls()))->GetAxisState(0, 10);
+                b = (reinterpret_cast<InputDevice_7d*>(g_osGlobals->Main_GetControls()))->OSInputGlobals_GetControllerValue(0, 9);
+                a = (reinterpret_cast<InputDevice_7d*>(g_osGlobals->Main_GetControls()))->OSInputGlobals_GetControllerValue(0, 10);
 
                 if (BSAbs(b) > 0x21f1 || BSAbs(a) > 0x21f1)
                 {
@@ -7025,7 +7027,7 @@ struct Context
     ItemListProxy list;
     bool FUN_004a4080(unsigned int);
     void StartMenu_SetFlag(unsigned int, bool);
-    void ProcessSaveLoadList();
+    void StartMenu__BackOutToMainListbox();
     void SetTileValues();
     void ApplyUserOptions();
     void FadeTile(int, int, unsigned int, float);
@@ -7039,7 +7041,7 @@ void Context::UpdatePanelState()
     {
         list.Refresh();
         if (!FUN_004a4080(0x80000))
-            ProcessSaveLoadList();
+            StartMenu__BackOutToMainListbox();
         if (!FUN_004a4080(1))
         {
             bool j = FUN_00af2640()->FUN_007d6720()->TESTextureList_GetTextureCount();
@@ -7372,7 +7374,7 @@ void OptionMenuOperations::UpdateTargetInfo()
 
 
 namespace fnv_007d5830 {
-// StartMenu per-frame update: pre-fade input wait, fade-in completion, DLC wait/corrupt messages.
+// StartMenu per-frame update: pre-fade input hkSemaphore_release, fade-in completion, DLC hkSemaphore_release/corrupt messages.
 struct SMInputManager
 {
     int Controls_GetMouseButton(int aiDevice, int aiKey);
@@ -7441,7 +7443,7 @@ struct SMStartMenu : StartMenu
 };
 extern SMStartMenu* g_pkSMStartMenu;
 
-// Updates start menu fade-in, HUD opacity, and DLC wait/corrupt message flags, returning false only when in-game.
+// Updates start menu fade-in, HUD opacity, and DLC hkSemaphore_release/corrupt message flags, returning false only when in-game.
 // @fnv 0x007d5830
 // src: COMMUNITY 0x007d5830
 bool SMStartMenu::StartMenu_MainMenuIdle()
@@ -7696,7 +7698,7 @@ void StartMenu_ConfirmLoadGame()
                              BGSSaveLoadFileEntry_GetPlayerName(psavegame)))
                 g_TES->RefreshWorldState(1, 0, 0);
         }
-        bresult = LoadSaveEntry(psavegame);
+        bresult = BGSSaveLoadFileEntry_LoadGame(psavegame);
         if (DAT_011daac0 && DAT_011daac0->IsFlagSet(StartMenu::FLAG_INGAME) && bresult)
             CloseStartMenu(true);
         else if (bresult || (DAT_011daac0 && DAT_011daac0->IsFlagSet(StartMenu::FLAG_MISSING_CONTENT)))
@@ -8175,8 +8177,8 @@ struct UserActionMenu : StartMenu
 
 // When action mapping is set, updates tile 16; if FUN_004b71d0() and inputDevice is 3, clears tile 5's 0xfaf value.
 // @fnv 0x007d0cb0
-// src: GUESS 0x007d0cb0 (confidence: medium)
-void Tile_UpdateActionMappingTiles()
+// src: COMMUNITY 0x007d0cb0
+void StartMenu_ChooseUserAction()
 {
     if (DAT_011daac0 && DAT_011daac0->IsFlagSet(StartMenu::FLAG_ACTION_MAPPING))
     {
@@ -8431,7 +8433,7 @@ struct StartMenuGamepadRelease : ::StartMenu
 {
     struct TileMethods
     {
-        bool IsTraitNonZero(int trait);
+        bool Tile_IsTrue(int trait);
     };
     struct InterfaceMethods
     {
@@ -8452,7 +8454,7 @@ bool StartMenuGamepadRelease::StartMenu_DoGamepadUpEvent(int aiButton, float afV
             StartMenu_SetFlag(FLAG_USER_IS_ACTION_MAPPING, false);
             return true;
         }
-        if (((TileMethods*)m_pTiles[5])->IsTraitNonZero(0xfaf) && gm_GetTickCount() - DAT_011daab4 > 500)
+        if (((TileMethods*)m_pTiles[5])->Tile_IsTrue(0xfaf) && gm_GetTickCount() - DAT_011daab4 > 500)
         {
             ((InterfaceMethods*)::InterfaceManager_GetSingleton())->FUN_00717de0(10);
             HandleBackAction();

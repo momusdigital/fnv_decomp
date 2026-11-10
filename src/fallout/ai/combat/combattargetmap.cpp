@@ -130,14 +130,15 @@ struct FUN_009a40c0 : BSSimpleArray_009a3fe0<void*, 1024>
 
 struct FUN_009a3fe0_struct : DummyPointerMap
 {
-    void AddAttackerToTarget(void* apTarget, void* apAttacker);
+    void CombatTargetMap_AddTargetAttacker(void* apTarget, void* apAttacker);
 };
 
 extern const char str_0108e208[];
 
 // Looks up or creates a per-target data array and adds the attacker pointer to it.
 // @fnv 0x009a3fe0
-void FUN_009a3fe0_struct::AddAttackerToTarget(void* apTarget, void* apAttacker)
+// src: COMMUNITY 0x009a3fe0
+void FUN_009a3fe0_struct::CombatTargetMap_AddTargetAttacker(void* apTarget, void* apAttacker)
 {
     FUN_009a40c0* ptargetData;
     AutoMemHelper tempMemContext(0x2b, true, str_0108e208, 0x7c);

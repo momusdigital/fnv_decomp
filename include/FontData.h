@@ -36,6 +36,6 @@ public:
     FontLetter pFontLetters[256];
 
     static void* operator new(unsigned int size);
-    RunNode* ParseLayout(SStr*, Info_*);
+    RunNode* FontManager_PrepHypertext(SStr*, Info_*);
     RunNode* CreateTextRunNode(SStr* text, Info_* info);
 };

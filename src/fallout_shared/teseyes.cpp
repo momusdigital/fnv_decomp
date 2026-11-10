@@ -35,7 +35,8 @@ void TESEyes::SetFlag(bool aFlag)
 }
 
 // @fnv 0x005fc530
-bool TESEyes::IsNotFlag2Set()
+// src: COMMUNITY 0x005fc530
+bool TESEyes::CanBeMale()
 {
     if (cFlags & 2)
         return false;
@@ -66,8 +67,8 @@ bool TESEyes::IsNotEqual(TESForm* apCompare)
     if (pcomp->IsFlagSet() !=
         this->IsFlagSet())
         return true;
-    if (pcomp->IsNotFlag2Set() !=
-        this->IsNotFlag2Set())
+    if (pcomp->CanBeMale() !=
+        this->CanBeMale())
         return true;
     if (pcomp->IsFlag4Clear() !=
         this->IsFlag4Clear())
@@ -90,11 +91,11 @@ void __cdecl TESForm_AddChunk_3(unsigned int, unsigned char);
 // @fnv 0x005fc1d0
 void TESEyes::SaveEyes()
 {
-    TESForm::BeginFormRecord();
+    TESForm::TESForm_StartForm();
     TESFullName::Save_00487010();
     TESTexture::Save(0x4E4F4349);
     TESForm_AddChunk_3(0x41544144, cFlags);
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_CloseForm();
 }
 
 struct FUN_005e78f0_t
@@ -109,7 +110,7 @@ void TESEyes::CopyFromEyes(TESForm* apCopy)
         return;
     ((FUN_005e78f0_t*)this)->TESForm_CopyAllComponents(apCopy);
     this->SetFlag(eyes->IsFlagSet());
-    this->SetMale(eyes->IsNotFlag2Set());
+    this->SetMale(eyes->CanBeMale());
     this->SetFemale(eyes->IsFlag4Clear());
 }
 
@@ -118,7 +119,8 @@ struct LH
     bool IsInList(TESNPC*&);
 };
 // @fnv 0x005fc5f0
-bool TESEyes::CanBeNPC(TESNPC* npc)
+// src: COMMUNITY 0x005fc5f0
+bool TESEyes::CanBeEyesForNPC(TESNPC* npc)
 {
     bool result = false;
     if (npc && npc->TESNPC_GetRace())
@@ -129,7 +131,7 @@ bool TESEyes::CanBeNPC(TESNPC* npc)
             switch (npc->TESActorBase::GetSex())
             {
             case 0:
-                if (this->IsNotFlag2Set())
+                if (this->CanBeMale())
                     result = true;
                 break;
             case 1:

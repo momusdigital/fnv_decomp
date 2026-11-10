@@ -14,7 +14,7 @@ class MersenneTwister
 {
   public:
     static MersenneTwister* GetRandomGenerator();
-    unsigned int IntInRange(int, int);
+    unsigned int BSRandom_Int(int, int);
 };
 
 class ActorCause;

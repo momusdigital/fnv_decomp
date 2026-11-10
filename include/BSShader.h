@@ -43,7 +43,7 @@ public:
     virtual void Func_77();
     virtual void Func_78(unsigned int* apeType, int a2);
 
-    static void __cdecl GetShaderPath(const char* source, char* output);
+    static void __cdecl MakePath(const char* source, char* output);
     NiD3DVertexShader* CompileVertexShader(const char* path, const _D3DXMACRO* macros,
                                          const char* profile, const char* output);
     NiD3DPixelShader* CompilePixelShader(const char* path, const _D3DXMACRO* macros,

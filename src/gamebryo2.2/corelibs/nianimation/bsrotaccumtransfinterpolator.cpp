@@ -31,7 +31,8 @@ extern int DAT_011a9eb0;
 
 // Allocates a 0x58-byte BSRotAccumTransfInterpolator, initializes its vtable and quaternion fields from NiQuaternion::IDENTITY and globals, and returns it.
 // @fnv 0x00a43e40
-BSRotAccumTransfInterpolator* CreateRotAccumTransfInterpolator()
+// src: EXE 0x00a43e40
+BSRotAccumTransfInterpolator* BSRotAccumTransfInterpolator_CreateObject()
 {
     BSRotAccumTransfInterpolator* pInterpolator = (BSRotAccumTransfInterpolator*)BSFadeNode::operator new(0x58);
     if (pInterpolator)
@@ -277,7 +278,8 @@ void __cdecl FUN_00aa1460(void* apMemory, unsigned int auiSize);
 
 // Decrements the referenced object's count and calls DeleteThis at zero, then calls BaseCleanup and FUN_00aa1460 when bit 0 is set.
 // @fnv 0x00a43df0
-BSRotAccumTransfInterpolator* BSRotAccumTransfInterpolator::FUN_00a43df0(unsigned char acFlags)
+// src: EXE 0x00a43df0
+BSRotAccumTransfInterpolator* BSRotAccumTransfInterpolator::ScalarDeletingDestructor(unsigned char acFlags)
 {
     *(volatile int*)this = (int)&DAT_01097af4;
     NiRefObject* pCounted = *(NiRefObject* volatile*)&m_spTransformData.m_pObject;

@@ -19,7 +19,7 @@ public:
     void FUN_00aa15a0();
     unsigned int ReadAtOffset(void* buffer, unsigned int size, int mode);
     unsigned int CompressedArchiveFile_ReadF(char* buffer, unsigned int size);
-    void* FUN_00afc6c0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     void* FUN_00afc6f0(unsigned int flags);
 
     void* m_pArchiveStream;

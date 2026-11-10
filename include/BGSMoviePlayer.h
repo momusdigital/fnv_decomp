@@ -34,7 +34,7 @@ public:
     bool MoviePlayer_GetPlayingSequence();
     void FUN_00ec29b0();
 
-    bool CheckPlaybackContinue(bool allowInterruption);
+    bool MoviePlayer_CheckContinuePlaying(bool allowInterruption);
     bool IsPlaying();
     void RequestInterruption();
     void StartPlayback(const char*, int, int, int, int, float);

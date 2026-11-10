@@ -423,17 +423,17 @@ struct FUN_00c99ff0_base
     char m_auiShapeKeys[0xa0];
 };
 
-struct FUN_00c99ff0_cls : FUN_00c99ff0_base
+struct bhkWorldM : FUN_00c99ff0_base
 {
     __m128 m_a0;
     __m128 m_b0;
     __m128 m_c0;
-    FUN_00c99ff0_cls* SetVtableAndProcessState_00c99ff0(void* a1, __m128* a2, __m128* a3);
+    bhkWorldM* SetVtableAndProcessState_00c99ff0(void* a1, __m128* a2, __m128* a3);
 };
 
 // @fnv 0x00c99ff0
 // src: GUESS 0x00c99ff0 (confidence: low)
-FUN_00c99ff0_cls* FUN_00c99ff0_cls::SetVtableAndProcessState_00c99ff0(void* a1, __m128* a2, __m128* a3)
+bhkWorldM* bhkWorldM::SetVtableAndProcessState_00c99ff0(void* a1, __m128* a2, __m128* a3)
 {
     ((FUN_00c99ff0_base*)this)->FUN_00c69010(a1);
     *(int*)this = (int)&DAT_010c69f4;

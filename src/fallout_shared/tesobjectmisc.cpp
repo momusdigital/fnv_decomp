@@ -220,7 +220,7 @@ struct FUN_0047a240_shell
 };
 struct FUN_0047b560_holder
 {
-    void LogFormIDs();
+    void BGSPickupPutdownSounds_Save();
 };
 struct FUN_0048e370_obj
 {
@@ -235,21 +235,21 @@ struct FUN_0051ae80_shell
 // src: XBOX_PDB 0x0051ae80
 void FUN_0051ae80_shell::TESObjectMISC_Save()
 {
-    ((TESForm*)this)->BeginFormRecord();
+    ((TESForm*)this)->TESForm_StartForm();
     ((S_00487010*)((char*)this + 0x30))->Save_00487010();
     ((S_0048a520*)((char*)this + 0x3c))->ProcessAndFreeData(0x4c444f4d, 0x54444f4d, 0x53444f4d);
     ((FUN_0048e370_obj*)((char*)this + 0x5c))->TESTexture_Save(0x4e4f4349);
     ((FUN_0047a240_shell*)((char*)this + 0x8c))->FUN_0047a240(0x4f43494d);
     ((S_0048cca0*)((char*)this + 0x68))->Save_0048cca0();
     ((S_00477f20*)((char*)this + 0x84))->FUN_00477f20();
-    ((FUN_0047b560_holder*)((char*)this + 0x9c))->LogFormIDs();
+    ((FUN_0047b560_holder*)((char*)this + 0x9c))->BGSPickupPutdownSounds_Save();
     ((LegacyFormRecordIO*)this)->FinishRecord();
     if (*(unsigned int*)((char*)this + 0xa8))
     {
         unsigned int formID = ((TESForm**)((char*)this + 0xa8))[0]->GetFormID();
         TESForm_AddChunk_00485910(0x4d414e52, formID);
     }
-    ((TESForm*)this)->FinishFormRecord();
+    ((TESForm*)this)->TESForm_CloseForm();
 }
 
 struct FUN_008cdd90_shell

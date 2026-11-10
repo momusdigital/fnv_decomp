@@ -79,7 +79,7 @@ struct PerkOperations
     bool Compare(TESForm* form);
     bool CompareFormComponents(TESForm* form);
     void UpdateEntries(void* actor, unsigned char oldRank, unsigned char newRank, bool alternate);
-    EB900Entry* FindEntryByLevel(unsigned char level);
+    EB900Entry* BGSPerk_GetPerkEntryByRank(unsigned char level);
 };
 
 BGSPerkEntry* CreatePerkEntry(unsigned char type);
@@ -240,7 +240,7 @@ bool BGSPerk::LoadForm(TESFile* file)
             prkeRecord.entry->LoadFromSaveData(&prkeRecord.data);
             if (!prkeRecord.entry->Load(file))
                 return false;
-            AppendPerkEntry(prkeRecord.entry);
+            AddPerkEntry(prkeRecord.entry);
             break;
         }
         case 'ATAD': {
@@ -520,7 +520,8 @@ int ComparePerkEntries(BGSPerkEntry* apEntryA, BGSPerkEntry* apEntryB)
 
 // Inserts entry into the perk entry list if it is non-null and not already present, using ComparePerkEntries for ordering.
 // @fnv 0x005eb410
-bool BGSPerk::AppendPerkEntry(BGSPerkEntry* entry)
+// src: COMMUNITY 0x005eb410
+bool BGSPerk::AddPerkEntry(BGSPerkEntry* entry)
 {
     if (!entry || m_kEntryList.IsInList(entry))
         return false;
@@ -623,7 +624,7 @@ struct PerkEntrySerialization
     void WriteEnd();
 };
 bool TESForm_QEndianSwapOnSave();
-void AppendChunk(unsigned int, void*, unsigned int);
+void TESForm___AddChunkData(unsigned int, void*, unsigned int);
 
 // @fnv 0x005e9a70
 void BGSQuestPerkEntry::Save()
@@ -635,7 +636,7 @@ void BGSQuestPerkEntry::Save()
         Data.pQuest = (TESQuest*)Data.pQuest->GetFormID();
     if (TESForm_QEndianSwapOnSave())
         reinterpret_cast<RegionDataEntry*>(&Data)->Endian();
-    AppendChunk(0x41544144, &Data, 8);
+    TESForm___AddChunkData(0x41544144, &Data, 8);
     if (TESForm_QEndianSwapOnSave())
         reinterpret_cast<RegionDataEntry*>(&Data)->Endian();
     Data.pQuest = ptempQuest;
@@ -855,7 +856,7 @@ struct FUN_00485680
 };
 
 bool TESForm_QEndianSwapOnSave();
-void AppendChunk(unsigned int, void*, int);
+void TESForm___AddChunkData(unsigned int, void*, int);
 // Calls M on several subobjects, clears and serializes the data at offset 0x38, then iterates the perk-entry list calling vfn_28 on each entry.
 // @fnv 0x005eb0e0
 void PerkOperations::Save()
@@ -867,7 +868,7 @@ void PerkOperations::Save()
     ((PerkEntryConditionSet*)((char*)this + 0x40))->ProcessItems();
     if (TESForm_QEndianSwapOnSave())
         FUN_00483710((char*)this + 0x38);
-    AppendChunk(0x41544144, (char*)this + 0x38, 5);
+    TESForm___AddChunkData(0x41544144, (char*)this + 0x38, 5);
     if (TESForm_QEndianSwapOnSave())
         FUN_00483710((char*)this + 0x38);
     BSSimpleList<BGSPerkEntry*>* pCurrentElementNext = (BSSimpleList<BGSPerkEntry*>*)((char*)this + 0x48);
@@ -893,7 +894,7 @@ BGSPerkEntry* BGSQuestPerkEntry::Duplicate()
 
 struct PerkConditionCopier
 {
-    void CopyConditions(PerkEntryConditionSet*, PerkEntryConditionSet*);
+    void TESCondition_Copy(PerkEntryConditionSet*, PerkEntryConditionSet*);
 };
 
 // @fnv 0x005ea3a0
@@ -916,7 +917,7 @@ BGSPerkEntry* BGSEntryPointPerkEntry::Duplicate()
         for (unsigned int i = 0; i < Data.m_ucConditionCount; i++)
         {
             reinterpret_cast<PerkConditionCopier*>(((BGSEntryPointPerkEntry*)pduplicate)->m_pConditions + i)
-                ->CopyConditions(m_pConditions + i, 0);
+                ->TESCondition_Copy(m_pConditions + i, 0);
         }
     }
 
@@ -1148,7 +1149,7 @@ void PerkOperations::CopyFrom(int a1)
     }
     FUN_00401460(&reinterpret_cast<BGSPerk*>(this)->Data, &_copy->Data, 5);
     CopyFormComponents(a1);
-    reinterpret_cast<PerkConditionCopier*>(&reinterpret_cast<BGSPerk*>(this)->m_kConditions)->CopyConditions(&_copy->m_kConditions, 0);
+    reinterpret_cast<PerkConditionCopier*>(&reinterpret_cast<BGSPerk*>(this)->m_kConditions)->TESCondition_Copy(&_copy->m_kConditions, 0);
     node2 = reinterpret_cast<FUN_005eb1b0_node*>(&_copy->m_kEntryList);
     while (node2 != 0)
     {
@@ -1226,7 +1227,8 @@ class EB900Node
 
 // Walks the m_kEntries list and returns the first entry whose GetLevel()+1 equals ucLevel, or null if none matches.
 // @fnv 0x005eb900
-EB900Entry* PerkOperations::FindEntryByLevel(unsigned char ucLevel)
+// src: COMMUNITY 0x005eb900
+EB900Entry* PerkOperations::BGSPerk_GetPerkEntryByRank(unsigned char ucLevel)
 {
     EB900Entry* pkFound = 0;
     for (EB900Node* pkIter = reinterpret_cast<EB900Node*>(&reinterpret_cast<BGSPerk*>(this)->m_kEntryList); !pkFound && pkIter && *pkIter->Item(); pkIter = pkIter->Next())
@@ -1309,7 +1311,7 @@ void BGSEntryPointPerkEntry::Save()
     {
         FUN_00483710(&Data);
     }
-    AppendChunk(0x41544144, &Data, 3u);
+    TESForm___AddChunkData(0x41544144, &Data, 3u);
     if (TESForm_QEndianSwapOnSave())
     {
         FUN_00483710(&Data);

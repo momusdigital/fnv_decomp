@@ -53,7 +53,7 @@ struct SubObj
 
     void CallSub(Block64* p);
 };
-__declspec(align(16)) struct FUN_00cf5950_cls
+__declspec(align(16)) struct hkpTransformShape
 {
     unsigned int unk00;
     unsigned int unk04;

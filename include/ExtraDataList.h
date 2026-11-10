@@ -72,9 +72,9 @@ public:
     InventoryChanges* GetContainerChangeData();
     void SetContainerChanges(InventoryChanges* changes);
     bool HasExtraDataType0x2F();
-    bool HasOnlyAllowedExtraData(int type);
+    bool ExtraDataList_IsExtraDefaultforContainer(int type);
     bool CheckExtraByType(int type);
-    void RemoveExtraDataType0x15();
+    void RemoveContainerChanges();
     LockExtraData* GetLock();
     TESForm* GetOwnerForm();
     bool IsEmpty();
@@ -87,12 +87,12 @@ public:
     RegionPoint* GetStartingPositionData();
     TESObjectREFR* GetReplacementReference();
     void AddGuardingActor(Actor* actor);
-    void AddOrCreateExtraItem(void* crime, float stamp);
+    void ExtraDataList_AddToPlayerCrimeList(void* crime, float stamp);
     void InitLoadGame(BGSLoadFormBuffer* buffer, TESForm* form);
     // 0x0041cd70 / 0x0041cda0 / 0x0041cc90: the package of the ExtraTresPassPackage extra (type 0x1a, +0xc)
     TrespassPackage* GetTrespassPackage();
     void ClearTrespassPackage();
-    void SetTrespassPackage(TrespassPackage* package);
+    void ExtraDataList_SetTrespassPackageExtra(TrespassPackage* package);
     ExtraRefractionProperty* GetAlphaExtra();
     TESPackage* GetPackageOverride();
     Actor* GetTalkingActor();
@@ -108,7 +108,7 @@ public:
     void SetSavedAnimation(char* animation);
     void SetSavedHavokData(char* data);
     unsigned char GetWeaponModIndex();
-    void SetLeveledItemIndex(int index);
+    void ExtraDataList_SetLevelItemExtra(int index);
     void GetLeveledItemData(float& multiplier, int& count);
     void CallExtraDataListMethod35(TESObjectCELL* cell);
     void CallExtraDataListMethod36(TESObjectREFR* reference);

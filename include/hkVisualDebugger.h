@@ -110,7 +110,7 @@ public:
     virtual void pollForNewClients();
 
     void FUN_00cd1970();
-    hkVisualDebugger* FUN_00cd1e40(unsigned int uFlags);
+    hkVisualDebugger* ScalarDeletingDestructor(unsigned int uFlags);
     void serve(int iListenPort);
     void capture(const char* sCaptureFilename) throw();
     void endCapture();

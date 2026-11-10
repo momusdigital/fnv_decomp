@@ -215,7 +215,7 @@ struct PackTarget
     virtual void v24();
 };
 
-struct FUN_00d33210_cls
+struct hkpMapPointsToSubShapeContactMgr
 {
     int unk00;
     int unk04;
@@ -226,7 +226,7 @@ struct FUN_00d33210_cls
 
 // @fnv 0x00d33210
 // src: HAVOK_LIB 0x00d33210
-void FUN_00d33210_cls::hkpMapPointsToSubShapeContactMgr_cleanup()
+void hkpMapPointsToSubShapeContactMgr::hkpMapPointsToSubShapeContactMgr_cleanup()
 {
     m_0c->v24();
 }
@@ -749,18 +749,19 @@ struct LargeOutput
     CollisionState state;
     void* data;
 };
-class FUN_00d33670
+class hkpProcessCollisionOutputBackup
 {
   public:
     int header;
     unsigned char data[0x1008];
     int unk100c;
     CollisionState state;
-    FUN_00d33670(const LargeOutput& src);
+    hkpProcessCollisionOutputBackup(const LargeOutput& src);
 };
 // Copies header, state vectors, distance, scalars, and data buffer from a LargeOutput into this collision object.
 // @fnv 0x00d33670
-FUN_00d33670::FUN_00d33670(const LargeOutput& src)
+// src: COMMUNITY 0x00d33670
+hkpProcessCollisionOutputBackup::hkpProcessCollisionOutputBackup(const LargeOutput& src)
 {
     float d = DAT_0104da48;
     header = src.header;
@@ -879,14 +880,14 @@ struct Agent
     unsigned char flags;
     StateRecord state;
 };
-struct FUN_00d33670
+struct hkpProcessCollisionOutputBackup
 {
     int count;
     int owner;
     int unk08, unk0c;
     hkContactPoint contacts[128];
     CacheState cache;
-    FUN_00d33670(Output*);
+    hkpProcessCollisionOutputBackup(Output*);
     void hkpProcessCollisionOutputBackup_rollbackOutput(hkpCdBody*, hkpCdBody*, Output*, Manager*);
 };
 
@@ -976,7 +977,7 @@ void* __cdecl hkConvexListAgent3_process(Context* context, int stream, Agent* ag
         }
     }
     scratch.shapeEnd.shape = static_cast<hkpConvexListShape*>(const_cast<hkpShape*>(context->bodyB->m_pCollisionShape));
-    FUN_00d33670 temporary(output);
+    hkpProcessCollisionOutputBackup temporary(output);
 
     hkVector4 separating;
     ProcessInput_hkpconvexlistagent3 phase;

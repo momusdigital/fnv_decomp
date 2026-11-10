@@ -27,7 +27,7 @@ public:
     HungerStageData* FUN_00500940();
     void CopyFromForm(TESForm* source);
     void FUN_00401ac0();
-    void* FUN_00401a90(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 
     static void ClearStageData(BGSHungerStage* stage);
 };

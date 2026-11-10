@@ -149,7 +149,7 @@ public:
     const NiPoint3& GetAngleOnReference() const;
     TESWorldSpace* GetParentWorldSpace() const;
     void RelocateTo(TESWorldSpace* worldSpace, TESObjectCELL* cell, const NiPoint3& location, float angle);
-    bool IsLimbMissing(int limb);
+    bool GetDismembered(int limb);
     TESObjectREFR* GetLinkedRef();
     float TESObjectREFR_GetDistanceFromReference(TESObjectREFR* ref, int a, int b);
     TESWorldSpace* GetParentWorldSpace();
@@ -159,7 +159,7 @@ public:
     void TESObjectREFR_SetTargeted(int flag);
     int GetFormEditorIDLength();
     const char* GetFullName();
-    PathingRequest* GetOrFallback(Actor* actor);
+    PathingRequest* TESObjectWEAP_GetProjectile(Actor* actor);
     TESObjectCELL* GetTarget(void* query);
     unsigned int GetHavokWorldObjectCountInSceneGraph_0084e3a0();
     void SetLocationOnReference(const NiPoint3&);

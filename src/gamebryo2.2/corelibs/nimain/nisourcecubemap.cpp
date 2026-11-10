@@ -89,7 +89,8 @@ GlobalObjectO2_00a7b610* __cdecl NiSourceCubeMap_GetRTTI()
 }
 
 // @fnv 0x00a60f30
-NiSourceCubeMap* __cdecl CreateNiSourceCubeMap()
+// src: EXE 0x00a60f30
+NiSourceCubeMap* __cdecl NiSourceCubeMap_CreateObject()
 {
     void* p = BSFadeNode::operator new(0x4c);
     if (p)
@@ -585,7 +586,8 @@ extern "C" void _ReadWriteBarrier();
 
 // Releases pixels, calls FUN_00a5fca0, and calls FUN_00aa1460 with this and sizeof(NiSourceCubeMap) when flags & 1.
 // @fnv 0x00a61250
-void* NiSourceCubeMap::FUN_00a61250(unsigned int flags)
+// src: EXE 0x00a61250
+void* NiSourceCubeMap::ScalarDeletingDestructor(unsigned int flags)
 {
     *(void**)this = &DAT_0109babc;
     _ReadWriteBarrier();

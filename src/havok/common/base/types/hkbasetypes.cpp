@@ -6,18 +6,18 @@ extern unsigned char DAT_010c7b48;
 extern unsigned char DAT_010c7d48;
 extern unsigned char str_010c7d44;
 
-struct FUN_00ca9360_cls
+struct hkUFloat8
 {
     unsigned char m_00;
-    FUN_00ca9360_cls* FindFloatTableIndex(const float* key);
+    hkUFloat8* SetReal(const float* key);
 };
 
 // Binary-searches a sorted float table for the value at key and stores the resulting index in m_00, or 0 if below the first entry.
 // @fnv 0x00ca9360
 // src: GUESS 0x00ca9360 (confidence: medium)
-FUN_00ca9360_cls* FUN_00ca9360_cls::FindFloatTableIndex(const float* key)
+hkUFloat8* hkUFloat8::SetReal(const float* key)
 {
-    FUN_00ca9360_cls* pResult = this;
+    hkUFloat8* pResult = this;
     unsigned lo;
     lo = (unsigned)&DAT_010c7948;
     int iKey = *(const int*)key;

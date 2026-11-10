@@ -525,12 +525,13 @@ class FUN_00952f90_cls
     char unk0000[0x6f4];
     FUN_00952f90_helper* m_6f4;
     FUN_00952f90_member m_6f8;
-    void __thiscall ClearHelper();
+    void __thiscall PlayerCharacter_RemovePlayerMapMarker();
 };
 
 // Calls v10(1) on m_6f4 if non-null, then nulls m_6f4 and calls ClearTeleportPath on m_6f8.
 // @fnv 0x00952f90
-void FUN_00952f90_cls::ClearHelper()
+// src: COMMUNITY 0x00952f90
+void FUN_00952f90_cls::PlayerCharacter_RemovePlayerMapMarker()
 {
     unsigned int tmp = (unsigned int)m_6f4;
     FUN_00952f90_helper* p = (FUN_00952f90_helper*)tmp;
@@ -698,7 +699,7 @@ struct PlayerEnchantStub
 struct InvEntry
 {
     TESBoundObject* GetObj();
-    void SetPerkExtra(void* a);
+    void ItemChange_SetPoison(void* a);
 };
 
 struct ProcStub
@@ -1380,7 +1381,7 @@ void __cdecl PlayerCharacter_PoisonWeapon()
         {
             FUN_005f5950(5, 1, _g_thePlayer->unk758, 0, 0, 0, 0);
             FUN_005f5950(9, 1, _g_thePlayer->unk758, 0, 0, 0, 0);
-            entry3->SetPerkExtra(_g_thePlayer->unk758);
+            entry3->ItemChange_SetPoison(_g_thePlayer->unk758);
             _g_thePlayer->Equip(_g_thePlayer->unk758, 0, 1, 0, 0, 0, 0, 0, 1, 0);
             Interface_UpdateInventory();
         }

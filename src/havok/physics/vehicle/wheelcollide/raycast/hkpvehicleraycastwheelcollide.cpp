@@ -255,7 +255,8 @@ struct __declspec(align(16)) WheelRayInput
 
 // Builds an input from vectors at source offsets 0x50 and 0x60 (filter info = m_uiWheelCount) and passes it with output to m_pPhantom's FUN_00cf26b0.
 // @fnv 0x00e41eb0
-void __thiscall hkpVehicleRayCastWheelCollide::CastWheelRay(const hkpVehicleInstanceWheelInfo& wheel, hkpWorldRayCastOutput& output)
+// src: COMMUNITY 0x00e41eb0
+void __thiscall hkpVehicleRayCastWheelCollide::castSingleWheel(const hkpVehicleInstanceWheelInfo& wheel, hkpWorldRayCastOutput& output)
 {
     WheelRayInput input;
     *(LocalM128*)&input.m_vFrom = *(LocalM128*)((const char*)&wheel + 0x50);
@@ -276,7 +277,7 @@ void hkpVehicleRayCastWheelCollide::CollideWheels(float deltaTime, const hkpVehi
         const hkpVehicleInstanceWheelInfo& wheel_info = vehicle->m_kWheelInfoArray.m_data[w_it];
         ::hkpVehicleWheelCollide::WheelCollideResult& cd_wheelInfo = cdInfoOut[w_it];
         hkpWorldRayCastOutput raycastOutput;
-        CastWheelRay(wheel_info, raycastOutput);
+        castSingleWheel(wheel_info, raycastOutput);
         if (raycastOutput.DidHit())
         {
             ProcessWheelRayCastResult(vehicle, w_it, raycastOutput, cd_wheelInfo);
@@ -296,7 +297,8 @@ extern "C" void _mm_store_ps(float* p, LocalM128 a);
 
 // Computes wheel bounds from WheelInfo vectors at offsets 0x50 and 0x60.
 // @fnv 0x00e42010
-void __stdcall ComputeWheelAabb(const hkpVehicleInstance* self, hkAabbQ* aabb)
+// src: COMMUNITY 0x00e42010
+void __stdcall hkpVehicleRayCastWheelCollide_calcWheelsAABB(const hkpVehicleInstance* self, hkAabbQ* aabb)
 {
     _mm_store_ps(&aabb->m_data[0], _mm_min_ps(_mm_load_ps(&reinterpret_cast<const hkpVehicleInstance::WheelInfo*>(self->m_kWheelInfoArray.m_data)[0].m_vContactPointVelocity.x),
                                               _mm_load_ps(&reinterpret_cast<const hkpVehicleInstance::WheelInfo*>(self->m_kWheelInfoArray.m_data)[0].m_vContactNormal.x)));

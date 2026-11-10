@@ -213,7 +213,7 @@ void* FUN_00b078e0_Class::GetFieldAt0C()
 
 struct FUN_00b2bdc0_shell
 {
-    void UpdateFields_00b2bdc0(float, float);
+    void CTreeEngine_SetLodDistances(float, float);
 };
 
 struct FUN_00b08500_shell
@@ -226,7 +226,7 @@ struct FUN_00b08500_shell
 // src: COMMUNITY 0x00b08500
 void __thiscall FUN_00b08500_shell::CSpeedTreeRT_SetNearFarDists(float afValue, float afOther)
 {
-    ((FUN_00b2bdc0_shell*)*reinterpret_cast<int*>(this))->UpdateFields_00b2bdc0(afValue, afOther);
+    ((FUN_00b2bdc0_shell*)*reinterpret_cast<int*>(this))->CTreeEngine_SetLodDistances(afValue, afOther);
 }
 
 struct FUN_00b086f0_class
@@ -373,12 +373,12 @@ struct FUN_00657f60_class
     void* d;
     void* e;
     void* f;
-    void ReleaseStorage_00657f60();
+    void vector__Tidy();
 };
 // Frees the buffer at d via FUN_0065f2b0 and deallocate, then clears d, e and f.
 // @fnv 0x00657f60
 // src: GUESS 0x00657f60 (confidence: medium)
-void FUN_00657f60_class::ReleaseStorage_00657f60()
+void FUN_00657f60_class::vector__Tidy()
 {
     if (d)
     {
@@ -390,7 +390,7 @@ void FUN_00657f60_class::ReleaseStorage_00657f60()
     f = 0;
 }
 
-struct FUN_00b02e20
+struct CSpeedTreeRT_STextures
 {
     void* p0;
     void* p4;
@@ -399,11 +399,12 @@ struct FUN_00b02e20
     void* p10;
     void* p14;
     void* p18;
-    FUN_00b02e20();
+    CSpeedTreeRT_STextures();
 };
 // Initializes all seven pointer fields of the object to null.
 // @fnv 0x00b02e20
-FUN_00b02e20::FUN_00b02e20()
+// src: COMMUNITY 0x00b02e20
+CSpeedTreeRT_STextures::CSpeedTreeRT_STextures()
 {
     p0 = 0;
     p4 = 0;
@@ -1138,12 +1139,13 @@ struct FUN_00b0b920_self
     unsigned short GetNumLeafLodLevels();
     short CSpeedTreeRT_GetDiscreteFrondLodLevel(float f);
     float CSpeedTreeRT_GetLodLevel();
-    void FillFrondGeometry(FUN_00b0b920_arg* arg, short type);
+    void CSpeedTreeRT_GetFrondGeometry(FUN_00b0b920_arg* arg, short type);
 };
 
 // Copies frond geometry counts and indices from m_60 into arg->m_sub, resolves the type, and computes arg->m_74 from FUN_00b0c8d0 when DAT_011f8b78 is set.
 // @fnv 0x00b0b920
-void FUN_00b0b920_self::FillFrondGeometry(FUN_00b0b920_arg* arg, short type)
+// src: COMMUNITY 0x00b0b920
+void FUN_00b0b920_self::CSpeedTreeRT_GetFrondGeometry(FUN_00b0b920_arg* arg, short type)
 {
     if (m_60)
     {
@@ -1637,7 +1639,7 @@ struct DataPart : FUN_00b02dc0_class
 {
     ~DataPart();
 };
-struct FUN_00b029f0 : BasePart
+struct CSpeedTreeRT_SGeometry : BasePart
 {
     float m_38;
     BasePart m_3c;
@@ -1647,11 +1649,12 @@ struct FUN_00b029f0 : BasePart
     DataPart m_f0;
     DataPart m_104;
     DataPart m_118;
-    FUN_00b029f0();
+    CSpeedTreeRT_SGeometry();
 };
-// Default constructor for FUN_00b029f0 that initializes m_38 and m_74 to -1.0f.
+// Default constructor for CSpeedTreeRT_SGeometry that initializes m_38 and m_74 to -1.0f.
 // @fnv 0x00b029f0
-FUN_00b029f0::FUN_00b029f0() : m_38(-1.0f), m_74(-1.0f)
+// src: COMMUNITY 0x00b029f0
+CSpeedTreeRT_SGeometry::CSpeedTreeRT_SGeometry() : m_38(-1.0f), m_74(-1.0f)
 {}
 
 extern MemoryManager DAT_011f6238;
@@ -1941,15 +1944,16 @@ struct FUN_00b09730_Local
 
 extern MemoryManager DAT_011f6238;
 
-struct FUN_00b09730_Class : FUN_0044d6f0_This
+struct IdvFileError : FUN_0044d6f0_This
 {
     std::basic_string<char, std::char_traits<char>, std::allocator<char> > m_iThirdValue;
 
-    void* __thiscall FUN_00b09730(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 
 // @fnv 0x00b09730
-void* __thiscall FUN_00b09730_Class::FUN_00b09730(unsigned int flags)
+// src: EXE 0x00b09730
+void* __thiscall IdvFileError::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00b09730_Local local;
 

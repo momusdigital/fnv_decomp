@@ -45,11 +45,12 @@ struct Holder31750
 void __cdecl _delete(void*, unsigned int);
 struct Holder20020
 {
-    void* FUN_00c20020(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_00c31750 on this, then deletes this with size 0x5c when bit 0 of f is set, and returns this.
 // @fnv 0x00c20020
-void* Holder20020::FUN_00c20020(unsigned int auiFlags)
+// src: EXE 0x00c20020
+void* Holder20020::ScalarDeletingDestructor(unsigned int auiFlags)
 {
     ((Holder31750*)this)->FUN_00c31750();
     if (auiFlags & 1)

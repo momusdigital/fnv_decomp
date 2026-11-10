@@ -27,7 +27,8 @@ void NiPSysModifierCtlr::ProcessClone(CloningProcess& aCloneProcess)
 // These routines are absent from the shared class declarations. The unused EDX
 // parameter preserves their thiscall stack arguments without another class copy.
 // @fnv 0x00c31500
-void __fastcall SetModifierTarget(NiPSysModifierCtlr* controller, void*, NiObjectNET* pkTarget)
+// src: COMMUNITY 0x00c31500
+void __fastcall NiPSysModifierCtlr_SetTarget(NiPSysModifierCtlr* controller, void*, NiObjectNET* pkTarget)
 {
     controller->m_pkTargetModifier = 0;
     controller->NiTimeController::SetTarget(pkTarget);

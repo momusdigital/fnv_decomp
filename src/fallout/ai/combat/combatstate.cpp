@@ -339,14 +339,14 @@ struct CombatAvoidanceSphere
     unsigned int iFlags;
 };
 typedef char _sizecheck_CombatLocation[sizeof(CombatAvoidanceSphere) == 32 ? 1 : -1];
-struct FUN_00819a50_shell : public CombatAvoidanceSphere
+struct BSMultiBoundSphere : public CombatAvoidanceSphere
 {
     void CombatLocation_SetRadius(float);
 };
 
 // @fnv 0x00819a50
 // src: COMMUNITY 0x00819a50
-void FUN_00819a50_shell::CombatLocation_SetRadius(float afRadius)
+void BSMultiBoundSphere::CombatLocation_SetRadius(float afRadius)
 {
     fRadius = afRadius;
 }
@@ -392,7 +392,7 @@ struct CombatTargetMapLock
     void AcquireLock();
 };
 
-struct FUN_0099c210_shell
+struct CombatCoverMap
 {
     int m_kPointA;
     int m_kPointB;
@@ -400,11 +400,12 @@ struct FUN_0099c210_shell
     int m_iFourthElementInteger;
     int m_usTrailingValue;
     CombatTargetMapLock m_lock;
-    void LockCombatTargetMap();
+    void CombatCoverMap_LockForWrite();
 };
 
 // @fnv 0x0099c210
-void __thiscall FUN_0099c210_shell::LockCombatTargetMap()
+// src: COMMUNITY 0x0099c210
+void __thiscall CombatCoverMap::CombatCoverMap_LockForWrite()
 {
     m_lock.AcquireLock();
 }
@@ -433,7 +434,8 @@ struct FUN_009a0a40_shell
 
 // Deletes the pointer stored at field_c4 and sets it to null.
 // @fnv 0x009a0a40
-void __fastcall FreeAndClearFieldC4(FUN_009a0a40_shell* thisp)
+// src: COMMUNITY 0x009a0a40
+void __fastcall CombatState_ClearLocationTarget(FUN_009a0a40_shell* thisp)
 {
     void* p = thisp->field_c4;
     operator delete(p);
@@ -445,18 +447,18 @@ struct CoordinateTriple
     void BGSWorldLocation_SaveGame(void*);
 };
 
-struct FUN_009a2d80_shell
+struct UnreachableLocation
 {
-    void SaveFieldsAndTimeStamp(void* buffer);
+    void UnreachableLocation_SaveGame(void* buffer);
 };
 
-// Calls FUN_00527b70 on this and SaveTimeStamp on the object at offset 0x10, passing buffer to both.
+// Calls FUN_00527b70 on this and CombatTimeStamp_SaveGame on the object at offset 0x10, passing buffer to both.
 // @fnv 0x009a2d80
-// src: GUESS 0x009a2d80 (confidence: medium)
-void FUN_009a2d80_shell::SaveFieldsAndTimeStamp(void* buffer)
+// src: COMMUNITY 0x009a2d80
+void UnreachableLocation::UnreachableLocation_SaveGame(void* buffer)
 {
     reinterpret_cast<CoordinateTriple*>(this)->BGSWorldLocation_SaveGame(buffer);
-    reinterpret_cast<CombatTargetTimestamp*>(reinterpret_cast<char*>(this) + 0x10)->SaveTimeStamp(buffer);
+    reinterpret_cast<CombatTargetTimestamp*>(reinterpret_cast<char*>(this) + 0x10)->CombatTimeStamp_SaveGame(buffer);
 }
 
 struct GlobalObject_00869f00
@@ -592,11 +594,12 @@ void CombatController_FindCombatLocation(IMH* pIMH, int iUnused, int iValue)
 struct FUN_0097ee60_shell
 {
     V4 v;
-    void AssignV4(V4* o);
+    void CombatLocation_SetWorldLocation(V4* o);
 };
 // Copies the 16 bytes pointed to by o without invoking V4::operator=.
 // @fnv 0x0097ee60
-void FUN_0097ee60_shell::AssignV4(V4* apValue)
+// src: COMMUNITY 0x0097ee60
+void FUN_0097ee60_shell::CombatLocation_SetWorldLocation(V4* apValue)
 {
     memcpy(&v, apValue, sizeof(v));
 }
@@ -619,13 +622,13 @@ bool UnknownClass::IsElapsedTimeAtLeastSetting()
     return (ts.GetElapsedTime() >= *originalRuntimeFloatSetting413.Float() ? 1 : 0);
 }
 
-struct FUN_0097ef30_shell
+struct CombatGroup
 {
     bool CombatGroup_IsSearching();
 };
 // @fnv 0x0097ef30
 // src: XBOX_PDB 0x0097ef30
-bool FUN_0097ef30_shell::CombatGroup_IsSearching()
+bool CombatGroup::CombatGroup_IsSearching()
 {
     return 0 < *(unsigned int*)((char*)this + 0xd0);
 }
@@ -809,14 +812,14 @@ bool CombatState::GetHasBuffered360LineOfSight_00998980()
 }
 
 
-struct FUN_009989d0_shell
+struct TESCombatStyle
 {
     bool HasCombatFlag(int);
     bool TESCombatStyle_GetIgnoreThreats();
 };
 // @fnv 0x009989d0
 // src: XBOX_PDB 0x009989d0
-bool FUN_009989d0_shell::TESCombatStyle_GetIgnoreThreats()
+bool TESCombatStyle::TESCombatStyle_GetIgnoreThreats()
 {
     return HasCombatFlag(0x10);
 }
@@ -903,12 +906,13 @@ extern float DAT_0108df70;
 
 struct FUN_0099a5e0_shell
 {
-    void __thiscall UpdateCombatTimestamps(int);
+    void __thiscall CombatState_FiredProjectile(int);
 };
 
 // Stores a new combat timestamp at this+0x9c and, if the timestamp at this+0xa4 equals -DAT_0108df70, replaces it with a new one.
 // @fnv 0x0099a5e0
-void FUN_0099a5e0_shell::UpdateCombatTimestamps(int)
+// src: COMMUNITY 0x0099a5e0
+void FUN_0099a5e0_shell::CombatState_FiredProjectile(int)
 {
     CombatTimeStamp4 a;
     CombatTimeStamp4 b;
@@ -1183,7 +1187,7 @@ struct Inner097
     void BGSWorldLocation_BGSWorldLocation();
     NiPoint3* FUN_006815c0();
 };
-struct FUN_009a08d0_Cls
+struct CombatLocationTarget
 {
     unsigned char b0;
     unsigned char b1;
@@ -1191,11 +1195,11 @@ struct FUN_009a08d0_Cls
     Inner097 u8;
     float f18;
     float f1c;
-    FUN_009a08d0_Cls* CombatLocationTarget_CombatLocationTarget();
+    CombatLocationTarget* CombatLocationTarget_CombatLocationTarget();
 };
 // @fnv 0x009a08d0
 // src: XBOX_PDB 0x009a08d0
-FUN_009a08d0_Cls* FUN_009a08d0_Cls::CombatLocationTarget_CombatLocationTarget()
+CombatLocationTarget* CombatLocationTarget::CombatLocationTarget_CombatLocationTarget()
 {
     b0 = 0;
     b1 = 0;
@@ -1275,11 +1279,12 @@ struct Entry
 
 struct FUN_009a0d00_shell
 {
-    void __thiscall StoreEntry(const void* apCopy);
+    void __thiscall CombatState_AddUnreachableCoverLocation(const void* apCopy);
 };
 
 // @fnv 0x009a0d00
-void __thiscall FUN_009a0d00_shell::StoreEntry(const void* apCopy)
+// src: COMMUNITY 0x009a0d00
+void __thiscall FUN_009a0d00_shell::CombatState_AddUnreachableCoverLocation(const void* apCopy)
 {
     if (!apCopy)
         return;
@@ -1426,7 +1431,7 @@ struct FUN_009a2d20_s
 void FUN_009a2d20_s::SaveFields_009a2d20(BGSSaveFormBuffer* apBuffer)
 {
     apBuffer->SaveData(this, 4, 0);
-    ts.SaveTimeStamp(apBuffer);
+    ts.CombatTimeStamp_SaveGame(apBuffer);
 }
 }  // namespace fnv_009a2d20
 
@@ -1458,11 +1463,11 @@ struct FUN_00527ba0_t
 };
 struct FUN_009a2db0_shell : FUN_00527ba0_t
 {
-    void LoadWorldLocationAndTimestamp(BGSLoadGameBuffer* buf);
+    void UnreachableLocation_LoadGame(BGSLoadGameBuffer* buf);
 };
 // @fnv 0x009a2db0
-// src: GUESS 0x009a2db0 (confidence: high)
-void FUN_009a2db0_shell::LoadWorldLocationAndTimestamp(BGSLoadGameBuffer* buf)
+// src: COMMUNITY 0x009a2db0
+void FUN_009a2db0_shell::UnreachableLocation_LoadGame(BGSLoadGameBuffer* buf)
 {
     BGSLoadGameBuffer_LoadBGSWorldLocation(buf);
     ((CombatTargetTimestamp*)((char*)this + 0x10))->LoadGame((::BGSLoadGameBuffer*)buf);
@@ -1483,11 +1488,11 @@ struct CombatSaveData
     unsigned char unk08[16];
     int unk18;
     int unk1C;
-    void SaveState_009a3130(BGSSaveFormBuffer*);
+    void CombatLocationTarget_SaveGame(BGSSaveFormBuffer*);
 };
 // @fnv 0x009a3130
-// src: GUESS 0x009a3130 (confidence: medium)
-void CombatSaveData::SaveState_009a3130(BGSSaveFormBuffer* apSaveGameBuffer)
+// src: COMMUNITY 0x009a3130
+void CombatSaveData::CombatLocationTarget_SaveGame(BGSSaveFormBuffer* apSaveGameBuffer)
 {
     apSaveGameBuffer->SaveData((void*)&unk0, 1, 0);
     apSaveGameBuffer->SaveData((void*)&unk1, 1, 0);
@@ -1672,7 +1677,7 @@ void FUN_009a2f50_shell::CombatCoverSearch_SaveGameBGS(BGSSaveFormBuffer* buffer
     buffer->SaveData((char*)this + 56, 1, 0);
     buffer->SaveData((char*)this + 48, 4, 0);
     buffer->SaveData((char*)this + 52, 4, 0);
-    ((CombatTargetTimestamp*)((char*)this + 28))->SaveTimeStamp(buffer);
+    ((CombatTargetTimestamp*)((char*)this + 28))->CombatTimeStamp_SaveGame(buffer);
     unsigned int flags = ((char*)this + 32) ? ((CombatstateOffset08View*)((char*)this + 32))->GetFlags() : 0;
     buffer->SaveVariableSizedValue(flags);
     for (unsigned int i = 0; i < flags; ++i)
@@ -1709,7 +1714,7 @@ void CombatSaveGameData::CombatCoverSearch_LoadGameBGS(BGSLoadFormBuffer* buffer
     buffer->ReadTypedData((char*)this + 0x30, 4);
     buffer->ReadTypedData((char*)this + 0x34, 4);
     ((CombatTargetTimestamp*)((char*)this + 0x1c))->LoadGame(buffer);
-    unsigned int count = buffer->ReadElementCount();
+    unsigned int count = buffer->LoadVariableSizedValue();
     ((Helper*)((char*)this + 0x20))->FUN_009a32a0(count, 1);
     unsigned int i = 0;
     for (; i < count; ++i)
@@ -1720,7 +1725,7 @@ void CombatSaveGameData::CombatCoverSearch_LoadGameBGS(BGSLoadFormBuffer* buffer
 }
 }  // namespace fnv_009a3050
 
-struct FUN_0097ee20_shell
+struct CombatLocation
 {
     char _pad[0x10];
     int f10;
@@ -1728,13 +1733,13 @@ struct FUN_0097ee20_shell
     float f18;
     int f1c;
     void BGSWorldLocation_BGSWorldLocation();
-    FUN_0097ee20_shell* CombatLocation_CombatLocation();
+    CombatLocation* CombatLocation_CombatLocation();
 };
 
 // Calls FUN_0097ede0, then sets f10 to 0, f14 to -1, f18 to 0.0f and f1c to 0, returning this.
 // @fnv 0x0097ee20
 // src: XBOX_PDB 0x0097ee20
-FUN_0097ee20_shell* FUN_0097ee20_shell::CombatLocation_CombatLocation()
+CombatLocation* CombatLocation::CombatLocation_CombatLocation()
 {
     BGSWorldLocation_BGSWorldLocation();
     f10 = 0;
@@ -2128,7 +2133,7 @@ struct FUN_009a0a40_shell : FUN_0099a9a0_shell
 {
 };
 
-void __fastcall FreeAndClearFieldC4(FUN_009a0a40_shell*);
+void __fastcall CombatState_ClearLocationTarget(FUN_009a0a40_shell*);
 
 struct PrimaryBase : FUN_009a0a40_shell
 {
@@ -2148,11 +2153,11 @@ struct Base_009a3410
     }
 };
 
-struct FUN_006e4d00_shell
+struct CombatCoverSearchInfo
 {
     int pad;
     void CallMemberFunction();
-    ~FUN_006e4d00_shell()
+    ~CombatCoverSearchInfo()
     {
         CallMemberFunction();
     }
@@ -2187,9 +2192,9 @@ struct Ptr2_006e9e20
 struct FUN_00997aa0 : PrimaryBase, Base_009a3410
 {
     char pad_28[0xec - 0x28];
-    FUN_006e4d00_shell m_ec;
+    CombatCoverSearchInfo m_ec;
     char pad_f0[0x128 - 0xf0];
-    FUN_006e4d00_shell m_128;
+    CombatCoverSearchInfo m_128;
     char pad_12c[0x164 - 0x12c];
     FUN_009a3460_shell m_164;
     char pad_168[0x174 - 0x168];
@@ -2207,7 +2212,7 @@ FUN_00997aa0::~FUN_00997aa0()
     CombatState_ClearCoverLocation(0);
     ReleaseStageHolder(0);
     ClearAndDeletePointer();
-    FreeAndClearFieldC4(this);
+    CombatState_ClearLocationTarget(this);
     for (unsigned int i = 0; i < 5; ++i)
     {
         FreeSlot(i);
@@ -2238,11 +2243,12 @@ struct SubObj
 struct FUN_00997c30_shell : FUN_00997cb0_Class
 {
     void EvaluateWeaponScores();
-    void InitAmmoState();
+    void CombatState_DoInitialUpdate();
 };
 
 // @fnv 0x00997c30
-void FUN_00997c30_shell::InitAmmoState()
+// src: COMMUNITY 0x00997c30
+void FUN_00997c30_shell::CombatState_DoInitialUpdate()
 {
     void* local4 = (void*)((TESAmmoInitCalls*)*(void**)((char*)this + 0x1c4))->GetFieldBC();
     *(char*)((char*)this + 0x75) = CombatController_CheckHasEquip(local4, 0);
@@ -2683,11 +2689,12 @@ struct FUN_0099cb70_struct
     char pad0[0x1c4];
     EffectSetting* field_1C4;
 
-    void CollectCastSoundPositions(Arr_006cee30* array);
+    void CombatState_BuildTargetLOSLocationsArray(Arr_006cee30* array);
 };
 
 // @fnv 0x0099cb70
-void FUN_0099cb70_struct::CollectCastSoundPositions(Arr_006cee30* array)
+// src: COMMUNITY 0x0099cb70
+void FUN_0099cb70_struct::CombatState_BuildTargetLOSLocationsArray(Arr_006cee30* array)
 {
     ActorCombatGroup* group = (ActorCombatGroup*)field_1C4->GetCastSound();
     unsigned int count = group->GetVirtualNodeCount();
@@ -2785,7 +2792,7 @@ struct FUN_006d3370_s
 
 struct FUN_009a0470_shell : FUN_009d6c80_shell
 {
-    void StoreEntry(int);
+    void CombatState_AddUnreachableCoverLocation(int);
     void ReleaseStageHolder(bool);
 };
 
@@ -2796,7 +2803,7 @@ void FUN_009a0470_shell::ReleaseStageHolder(bool bParam)
     {
         if (bParam)
         {
-            StoreEntry(*(int*)(*(char**)((char*)this + 0xe8) + 0x68));
+            CombatState_AddUnreachableCoverLocation(*(int*)(*(char**)((char*)this + 0xe8) + 0x68));
         }
         if (((StageHolder*)*(void**)((char*)this + 0xe8))->GetDone())
         {
@@ -3084,7 +3091,7 @@ struct Member14
     virtual void SaveGame(BGSSaveFormBuffer*);
 };
 
-struct FUN_00982c20
+struct CoverReservationInfo
 {
     void Save(BGSSaveFormBuffer*);
 };
@@ -3101,7 +3108,7 @@ struct FUN_009a2de0_struct
     char pad18[0x68 - 0x14 - sizeof(Member14)];
     int dword68;
     int dword6c;
-    FUN_00982c20 member70;
+    CoverReservationInfo member70;
 
     void CombatCoverLocation_SaveGameBGS(BGSSaveFormBuffer* buffer);
 };
@@ -3274,7 +3281,7 @@ bool CombatUtilities_IsActorUsingMelee(void* apActor)
 
 namespace fnv_009a0910 {
 struct FUN_009a0a40_shell;
-struct FUN_009a08d0_Cls;
+struct CombatLocationTarget;
 
 struct FUN_009a0910_Vector
 {
@@ -3284,14 +3291,14 @@ struct FUN_009a0910_Vector
     float w;
 };
 
-void __fastcall FreeAndClearFieldC4(FUN_009a0a40_shell*);
+void __fastcall CombatState_ClearLocationTarget(FUN_009a0a40_shell*);
 float __cdecl _FUN_00404010(float, float);
 
 unsigned int _data_011c16bc;
 
 extern SettingT<GameSettingCollection> originalRuntimeFloatSetting423;
 
-struct FUN_009a08d0_Cls
+struct CombatLocationTarget
 {
     unsigned char flag;
     int field4;
@@ -3299,25 +3306,25 @@ struct FUN_009a08d0_Cls
     float value18;
     float value1c;
 
-    FUN_009a08d0_Cls();
+    CombatLocationTarget();
 };
 
 struct FUN_009a0910_shell
 {
     unsigned char padding[0xc4];
-    FUN_009a08d0_Cls* fieldC4;
+    CombatLocationTarget* fieldC4;
 
     void CombatState_SetLocationTargetLocation(FUN_009a0910_Vector* value, unsigned char flag, float value10, float value14);
 };
 
-// Calls FreeAndClearFieldC4, allocates a FUN_009a08d0_Cls into fieldC4 and stores the flag, vector, and two clamped float values.
+// Calls CombatState_ClearLocationTarget, allocates a CombatLocationTarget into fieldC4 and stores the flag, vector, and two clamped float values.
 // @fnv 0x009a0910
 // src: XBOX_PDB 0x009a0910
 void FUN_009a0910_shell::CombatState_SetLocationTargetLocation(FUN_009a0910_Vector* apVector, unsigned char flag, float value10, float value14)
 {
-    FreeAndClearFieldC4(reinterpret_cast<FUN_009a0a40_shell*>(this));
+    CombatState_ClearLocationTarget(reinterpret_cast<FUN_009a0a40_shell*>(this));
 
-    fieldC4 = new FUN_009a08d0_Cls;
+    fieldC4 = new CombatLocationTarget;
 
     fieldC4->flag = flag;
     fieldC4->field4 = 0;
@@ -3511,12 +3518,13 @@ struct FUN_00999260_shell
     int unk1e0;
     CombatController::CombatTimer timer1e4;
     CombatController::CombatTimer timer1ec;
-    void UpdateCombatFlags();
+    void CombatState_UpdateCombatPermissions();
 };
 
 // Refreshes the two combat timers when expired and sets iFlags bits from the runtime float setting and the controller's value source.
 // @fnv 0x00999260
-void FUN_00999260_shell::UpdateCombatFlags()
+// src: COMMUNITY 0x00999260
+void FUN_00999260_shell::CombatState_UpdateCombatPermissions()
 {
     int iActor = (int)pController->GetFieldBC();
     if (timer1e4.FUN_008d7f80())
@@ -4271,14 +4279,14 @@ struct TargetWork
     unsigned unkbc;
     unsigned unkc0;
     TargetParameters* parameters;
-    void FreeAndClearFieldC4();
+    void CombatState_ClearLocationTarget();
     void CombatState_SetLocationTargetRef(TargetRef*, unsigned char, float, float);
 };
 // @fnv 0x009a0790
 // src: XBOX_PDB 0x009a0790
 void TargetWork::CombatState_SetLocationTargetRef(TargetRef* reference, unsigned char flag, float nearRange, float farRange)
 {
-    FreeAndClearFieldC4();
+    CombatState_ClearLocationTarget();
     if (!reference)
         return;
     parameters = new TargetParameters;
@@ -4792,7 +4800,7 @@ struct CombatUpdate
     void CombatState_ClearCoverLocation(bool);
     void CombatState_SetLocationTargetRef(CombatActor*, int, float, float);
     void CombatState_SetLocationTargetLocation(CombatActor*, int, float, float);
-    void FreeAndClearFieldC4();
+    void CombatState_ClearLocationTarget();
     void UpdateModifierState(bool);
     bool CombatState_CheckUseLocationTargetMaxDistance();
     float GetInterpolatedValue();
@@ -4916,7 +4924,7 @@ void CombatUpdate::CombatState_UpdateImmediateData()
                     if (found)
                         CombatState_SetLocationTargetRef(found, 2, nearRange, farRange_5);
                     else
-                        FreeAndClearFieldC4();
+                        CombatState_ClearLocationTarget();
                 }
                 else
                 {
@@ -4924,12 +4932,12 @@ void CombatUpdate::CombatState_UpdateImmediateData()
                     if (aFoundOther)
                         CombatState_SetLocationTargetLocation(aFoundOther, 2, nearRange, farRange_5);
                     else
-                        FreeAndClearFieldC4();
+                        CombatState_ClearLocationTarget();
                 }
             }
         }
         else if (!DAT_011f1ae4 && mode && mode->type == 2)
-            FreeAndClearFieldC4();
+            CombatState_ClearLocationTarget();
         if (mode)
         {
             if (mode->type == 3 && mode->world.GetHavokWorldObjectCountInSceneGraph_0084e3a0() != space_41)
@@ -4972,7 +4980,7 @@ void CombatUpdate::CombatState_UpdateImmediateData()
             case 0:
                 if (mode->active && !fleeing_3)
                 {
-                    FreeAndClearFieldC4();
+                    CombatState_ClearLocationTarget();
                     controller->FinishedPackageTask();
                 }
                 break;
@@ -5709,10 +5717,10 @@ struct Process
 struct Weapon : Item
 {
     Ammo* TESObjectWEAP_GetCurrentAmmo(Actor*);
-    unsigned char GetByteAt102();
+    unsigned char TESObjectWEAP_GetAmmoPerShot();
     int TESObjectWEAP_GetCombatWeaponType();
     bool TESObjectWEAP_IsEmbeddedWeapon();
-    Projectile* GetOrFallback(Actor*);
+    Projectile* TESObjectWEAP_GetProjectile(Actor*);
 };
 struct InventoryIterator
 {
@@ -5727,7 +5735,7 @@ struct InventoryIterator
 };
 struct Inventory
 {
-    bool AdvanceInventoryIterator(InventoryIterator*, Entry**, int);
+    bool InventoryChanges_GetNextItem(InventoryIterator*, Entry**, int);
     Ammo* FindInventoryItem(Weapon*, bool*);
     int FUN_004c8f30(Ammo*);
 };
@@ -5938,7 +5946,7 @@ void Manager::EvaluateWeaponScores()
     Entry* entry = 0;
     InventoryIterator iteratorSlot1;
     Inventory* inventorySlot40 = FUN_004bf220(actor);
-    while (inventorySlot40->AdvanceInventoryIterator(&iteratorSlot1, &entry, 0))
+    while (inventorySlot40->InventoryChanges_GetNextItem(&iteratorSlot1, &entry, 0))
     {
         Item* item = entry->FUN_0044ddc0();
         switch (item->FUN_00401170())
@@ -6039,7 +6047,7 @@ void Manager::EvaluateWeaponScores()
                     Weapon* active = equippedSlot10->FUN_0044ddc0();
                     if (animation2Slot1 && active)
                     {
-                        bool emptySlot0 = state && state->FUN_00726070() <= 0 && active && active->GetByteAt102() > 0;
+                        bool emptySlot0 = state && state->FUN_00726070() <= 0 && active && active->TESObjectWEAP_GetAmmoPerShot() > 0;
                         bool busy2Slot10 =
                             actor->Actor_IsReloading() || (animation2Slot1 && animation2Slot1->Animation_ReloadAnimQueued());
                         if (emptySlot0 && !busy2Slot10)
@@ -6128,7 +6136,7 @@ void Manager::EvaluateWeaponScores()
     }
     if (target && bestWeapons[0])
     {
-        int projectile = bestWeapons[0]->GetOrFallback(actor)->BGSProjectile_GetExplosion();
+        int projectile = bestWeapons[0]->TESObjectWEAP_GetProjectile(actor)->BGSProjectile_GetExplosion();
         if (!DAT_011f1958->IsThreatWithinLimits(actor, projectile, *(const NiPoint3*)((const Actor*)target)->GetPos(), DAT_010162c0))
             FUN_00442a80(projectile);
     }
@@ -6272,7 +6280,7 @@ struct Combat99a420
     void CombatState_ClearReferencePointer(int aTarget, bool bKeep);
 };
 
-void __fastcall FreeAndClearFieldC4(Combat99a420* thisp);
+void __fastcall CombatState_ClearLocationTarget(Combat99a420* thisp);
 
 // @fnv 0x0099a420
 // src: XBOX_PDB 0x0099a420
@@ -6295,7 +6303,7 @@ void Combat99a420::CombatState_ClearReferencePointer(int aTarget, bool bKeep)
         }
     }
     if (track && track->target == aTarget)
-        FreeAndClearFieldC4(this);
+        CombatState_ClearLocationTarget(this);
     if (caster && caster->GetTarget() == aTarget)
         ClearCaster();
     if (target == aTarget)
@@ -6855,7 +6863,7 @@ bool FUN_0099ccd0_shell::CombatState_CheckCoverSafe(Seg99* pSeg, NiPoint3* pPos,
     {
         float fDesiredHeadingAngle = GetDirectionAngle(kDiff);
         float fUnused;
-        float fAngleDifference = GetAngleDelta(pActor->GetCurrentTargetDistance(0), fDesiredHeadingAngle, &fUnused);
+        float fAngleDifference = GetAngleDelta(pActor->GetHeading(0), fDesiredHeadingAngle, &fUnused);
         if (std::abs(fAngleDifference) > 0.78539818525314331)
             return true;
     }
@@ -6924,7 +6932,7 @@ void CombatState::BuildCoveredMoveRequest(PathingRequest* param)
         {
             ((PathingRequestCoveredMove*)param)->PathingRequestCoveredMove_SetTargetLocation(((int(__thiscall*)(void*))(*(unsigned int**)item)[0x1f4 / 4])(item));
         }
-        ((fnv_0099cb70::FUN_0099cb70_struct*)this)->CollectCastSoundPositions((fnv_0099cb70::Arr_006cee30*)((PathingRequestCoveredMove*)param)->GetOffsetF4());
+        ((fnv_0099cb70::FUN_0099cb70_struct*)this)->CombatState_BuildTargetLOSLocationsArray((fnv_0099cb70::Arr_006cee30*)((PathingRequestCoveredMove*)param)->GetOffsetF4());
     }
     ((fnv_009a0e10::FUN_009a0e10_shell*)this)->CollectAvoidanceItems((BSSimpleArray<void*, 1024>*)((PathingRequestCoveredMove*)param)->PathingRequestCoveredMove_GetUnreachableCoverLocations());
     if (*((void**)((char*)this + 0xe4)) != 0 && *((unsigned char*)*((void**)((char*)this + 0xe4)) + 1) != 0)
@@ -7213,7 +7221,7 @@ struct PickProc
 struct PickExtra
 {
     float ExtraDataList_GetHealth();
-    void* GetExtraAmmo();
+    void* ExtraDataList_GetAmmoExtra();
 };
 struct PickLock
 {
@@ -7417,7 +7425,7 @@ struct PickIter
 };
 struct PickCollection
 {
-    bool FindNextRef(PickIter*, PickRef**, PickEntry**, int);
+    bool BGSLoadedReferenceCollection_GetNextObject(PickIter*, PickRef**, PickEntry**, int);
 };
 extern PickCollection* DAT_011c95c8;
 struct PickGlobal
@@ -7647,7 +7655,7 @@ bool WeaponSearch::SelectBestWeaponTarget()
     PickIter ap8(40, aC1);
     PickRef* aFC = 0;
     PickEntry* aPb = 0;
-    while (DAT_011c95c8->FindNextRef(&ap8, &aFC, &aPb, 3))
+    while (DAT_011c95c8->BGSLoadedReferenceCollection_GetNextObject(&ap8, &aFC, &aPb, 3))
     {
         float cbX = aPb ? aPb->ItemChange_GetItemHealth(0) : aFC->BSFile_GetDevice()->ExtraDataList_GetHealth();
         if (aFC->FUN_00477ba0() || cbX == 0.0)
@@ -7699,7 +7707,7 @@ bool WeaponSearch::SelectBestWeaponTarget()
         if (ap7)
         {
             ap3 = false;
-            if (!aPb && aFC->BSFile_GetDevice()->GetExtraAmmo())
+            if (!aPb && aFC->BSFile_GetDevice()->ExtraDataList_GetAmmoExtra())
                 ap3 = true;
             if (!ap3 && aC1->FUN_00575610(ap7))
                 ap3 = true;
@@ -7715,7 +7723,7 @@ bool WeaponSearch::SelectBestWeaponTarget()
                 PickIter dy9(ap7, aC1);
                 PickRef* cbB = 0;
                 PickEntry* e2x = 0;
-                while (DAT_011c95c8->FindNextRef(&dy9, &cbB, &e2x, 3))
+                while (DAT_011c95c8->BGSLoadedReferenceCollection_GetNextObject(&dy9, &cbB, &e2x, 3))
                 {
                     PickLoc fA8 = cbB->TESObjectREFR_GetWorldLocation();
                     float fEA = fA8.BGSWorldLocation_GetDistanceSquared(&aI4) + fA8.BGSWorldLocation_GetDistanceSquared(&aPH);
@@ -8041,7 +8049,7 @@ struct Save435
 struct Stamp435
 {
     unsigned value;
-    void SaveTimeStamp(Save435*);
+    void CombatTimeStamp_SaveGame(Save435*);
 };
 
 struct Item435
@@ -8050,7 +8058,7 @@ struct Item435
 };
 struct ItemB435
 {
-    void SaveFieldsAndTimeStamp(Save435*);
+    void UnreachableLocation_SaveGame(Save435*);
 };
 struct List435
 {
@@ -8070,7 +8078,7 @@ struct OptionalB435
 };
 struct OptionalC435
 {
-    void SaveState_009a3130(Save435*);
+    void CombatLocationTarget_SaveGame(Save435*);
 };
 struct Float435
 {
@@ -8233,16 +8241,16 @@ void Owner435::SaveToStream(Save435* pSaveBuffer)
     pSaveBuffer->FUN_00865e50(&f08, 4, 0);
     pSaveBuffer->FUN_00865e50(&fd8, 1, 0);
     pSaveBuffer->FUN_00865db0(referencedc, 0);
-    s94.SaveTimeStamp(pSaveBuffer);
-    s98.SaveTimeStamp(pSaveBuffer);
-    s9c.SaveTimeStamp(pSaveBuffer);
-    sa0.SaveTimeStamp(pSaveBuffer);
-    sa4.SaveTimeStamp(pSaveBuffer);
+    s94.CombatTimeStamp_SaveGame(pSaveBuffer);
+    s98.CombatTimeStamp_SaveGame(pSaveBuffer);
+    s9c.CombatTimeStamp_SaveGame(pSaveBuffer);
+    sa0.CombatTimeStamp_SaveGame(pSaveBuffer);
+    sa4.CombatTimeStamp_SaveGame(pSaveBuffer);
     pa8.SaveGame((BGSSaveFormBuffer*)pSaveBuffer);
     pb0.SaveGame((BGSSaveFormBuffer*)pSaveBuffer);
-    sc0.SaveTimeStamp(pSaveBuffer);
+    sc0.CombatTimeStamp_SaveGame(pSaveBuffer);
     pb8.SaveGame((BGSSaveFormBuffer*)pSaveBuffer);
-    se0.SaveTimeStamp(pSaveBuffer);
+    se0.CombatTimeStamp_SaveGame(pSaveBuffer);
     unsigned char flags = 0;
     if (optionalE4)
         flags |= 1;
@@ -8264,7 +8272,7 @@ void Owner435::SaveToStream(Save435* pSaveBuffer)
     if (optional18c)
         optional18c->CombatLocation_SaveGameBGS(pSaveBuffer);
     if (optionalC)
-        optionalC->SaveState_009a3130(pSaveBuffer);
+        optionalC->CombatLocationTarget_SaveGame(pSaveBuffer);
     if (location1.range.AStarSearch_EvaluateValue_006a7f50() != -DAT_0108df70)
         location1.CombatCoverSearch_SaveGameBGS(pSaveBuffer);
     if (location2.range.AStarSearch_EvaluateValue_006a7f50() != -DAT_0108df70)
@@ -8284,10 +8292,10 @@ void Owner435::SaveToStream(Save435* pSaveBuffer)
         for (unsigned m = 0; m < uiList174Count; m++)
         {
             ItemB435* item3 = list174.BSSimpleArray_CombatMember_1024_GetAt(m);
-            item3->SaveFieldsAndTimeStamp(pSaveBuffer);
+            item3->UnreachableLocation_SaveGame(pSaveBuffer);
         }
     }
-    s184.SaveTimeStamp(pSaveBuffer);
+    s184.CombatTimeStamp_SaveGame(pSaveBuffer);
     pSaveBuffer->FUN_00865e50(&f188, 1, 0);
     unsigned char ucPairFlags = 0;
     for (unsigned n = 0; n < 5; n++)
@@ -8373,7 +8381,7 @@ struct Ammo99
 };
 struct Weap99
 {
-    void* GetOrFallback(void*);
+    void* TESObjectWEAP_GetProjectile(void*);
 };
 struct Spell99
 {
@@ -8419,13 +8427,13 @@ struct FUN_0099b5a0_holder
 // src: COMMUNITY 0x0099b5a0
 bool FUN_0099b5a0_holder::CombatState_FindGrenadeThrowLocation(A1_99* a1, char* acArg, Weap99* apWeapon)
 {
-    if (!apWeapon || !apWeapon->GetOrFallback(p1c4->GetFieldBC()))
+    if (!apWeapon || !apWeapon->TESObjectWEAP_GetProjectile(p1c4->GetFieldBC()))
         return false;
     Mob99* mobj3 = (Mob99*)p1c4->GetFieldBC();
     Spell99* spellB = (Spell99*)p1c4->CombatController_GetTarget();
     if (!spellB)
         return false;
-    Ammo99* ammoA = (Ammo99*)apWeapon->GetOrFallback(mobj3);
+    Ammo99* ammoA = (Ammo99*)apWeapon->TESObjectWEAP_GetProjectile(mobj3);
     float f6 = CombatUtilities_GetProjectileMaximumRange(ammoA, 0.0f);
     // This output buffer is populated without default construction in the game.
     float posVal[sizeof(NiPoint3) / sizeof(float)];
@@ -8452,7 +8460,7 @@ bool FUN_0099b5a0_holder::CombatState_FindGrenadeThrowLocation(A1_99* a1, char* 
         }
         v9.z += CombatUtilities_GetTargetFiringZOffset(spellB, 2, 0);
         NiPoint3 d_ = v9.SubtractIntoVector(*(const NiPoint3*)posVal);
-        float len = d_.GetSquaredXYLength();
+        float len = d_.NiPoint3_SqrXYLength();
         if (f6 * f6 < len)
             continue;
         if (len < 65536.0)
@@ -9254,7 +9262,7 @@ struct CombatSpot
     void CombatLocation_Copy(void* apSource);
     void CopyRefValue();
     void CombatLocation_SetTarget(CombatRef* apRef);
-    void AssignV4(CombatPos* apPos);
+    void CombatLocation_SetWorldLocation(CombatPos* apPos);
     void SetFlags(int aiMode, int aiFlag);
     CombatPos* FUN_006815c0();
     CombatCell* CombatLocation_GetPoint();
@@ -9399,7 +9407,7 @@ bool CombatState::FindCombatLocation_0099ac20(int aiType)
                     CombatFind::CombatPos kPoint;
                     if (pPathingTmp->GetDetectedTargetLocation(pTarget, &kPoint))
                     {
-                        pFinalSpot->AssignV4(&kPoint);
+                        pFinalSpot->CombatLocation_SetWorldLocation(&kPoint);
                         bFound = true;
                     }
                 }
@@ -9442,7 +9450,7 @@ bool CombatState::FindCombatLocation_0099ac20(int aiType)
                 }
                 else
                 {
-                    pFinalSpot->AssignV4(&(*(CombatFind::CombatTargetInfo**)((char*)this + 0xc4))->kPos);
+                    pFinalSpot->CombatLocation_SetWorldLocation(&(*(CombatFind::CombatTargetInfo**)((char*)this + 0xc4))->kPos);
                 }
                 pFinalSpot->CombatLocation_SetRadius((*(CombatFind::CombatTargetInfo**)((char*)this + 0xc4))->fRadius);
                 bFound = true;
@@ -9466,7 +9474,7 @@ bool CombatState::FindCombatLocation_0099ac20(int aiType)
             CombatFind::CombatPos* pCover = ((CombatFind::CombatPathing*)(*(CombatController**)((char*)this + 0x1c4))->FUN_004fb070())->FindBestItem(pActorOld, 0x32, pFinalSpot->FUN_006815c0());
             if (pCover)
             {
-                pFinalSpot->AssignV4(pCover);
+                pFinalSpot->CombatLocation_SetWorldLocation(pCover);
                 bFound = true;
             }
             else if (pFinalSpot->CombatLocation_GetPoint()->FUN_00439090(&CombatFind::DAT_011f426c))
@@ -9558,7 +9566,7 @@ extern SettingT<GameSettingCollection> originalRuntimeFloatSetting402;
 class CalendarDays
 {
   public:
-    bool TryUseCoverItem(void* unk68, void* unk14, ::CombatController* m, float f, void* unk70, int one, bool unk75);
+    bool CombatCoverMap_CanReserveCoverLocation(void* unk68, void* unk14, ::CombatController* m, float f, void* unk70, int one, bool unk75);
 };
 
 extern TESWorldSpace* BGSSaveLoadGlobalDataWorldspacePtr;
@@ -9630,7 +9638,7 @@ bool CombatState::FindBestAdvanceLocation(Arg0Class* a0, Arg1Class* a1, Arg2Clas
     if (a1->unk68 != 0 && a3 == a1->unk04)
     {
         if (((CalendarDays*)fnv_0099d030::BGSSaveLoadGlobalDataWorldspacePtr->NiAVObject_GetParent())
-                ->TryUseCoverItem(a1->unk68, &a1->unk14, (*(CombatController**)((char*)this + 0x1c4)), actor->FUN_008be1b0(), &a1->unk70, 1,
+                ->CombatCoverMap_CanReserveCoverLocation(a1->unk68, &a1->unk14, (*(CombatController**)((char*)this + 0x1c4)), actor->FUN_008be1b0(), &a1->unk70, 1,
                                   a1->unk75))
         {
             return true;

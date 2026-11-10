@@ -67,7 +67,7 @@ struct FUN_00cb3ca0_object
     int unkA0;
     int unkA4;
     void __thiscall FUN_00c91120();
-    void __thiscall UpdateFields_00c91140();
+    void __thiscall hkpWorld_internalExecutePendingBodyOperations();
 };
 void __cdecl hkpWorldConstraintUtil_addConstraint(FUN_00cb3ca0_object* object, int* value);
 void __cdecl hkpWorldCallbackUtil_fireConstraintAdded(FUN_00cb3ca0_object* object, int* value);
@@ -3770,7 +3770,7 @@ struct CallInner
 {
     void hkpWorld_updateCollisionFilterOnEntity(void* p, void* q, int a);
     void FUN_00c91120();
-    void UpdateFields_00c91140();
+    void hkpWorld_internalExecutePendingBodyOperations();
 };
 void hkpSimulation_collideEntitiesBroadPhaseDiscrete(void* p, int a, void* b);
 void hkpWorldOperationUtil_removeAttachedConstraints(MotionObj* a0, void* b);

@@ -34,8 +34,8 @@ public:
     float Length2() const;
     float Length() const;
     float Len() const;
-    float GetSquaredXYLength();
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength();
+    float NiPoint3_SqrXYLength() const;
 
     void Unitize_004a0c10();
     LocalPt3* SubtractIntoVector(LocalPt3* out, LocalPt3* other);

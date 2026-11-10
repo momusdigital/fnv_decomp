@@ -203,7 +203,7 @@ void PaddedBooleanState::NavMeshRender_UpdateRenderOnlyNavMeshes()
     TESObjectCELL* pgridCell4;
 
     NavMeshRender_SetDraw(false);
-    pcellVal = reinterpret_cast<TES*>(g_TES)->GetDetailedActorPathHandler();
+    pcellVal = reinterpret_cast<TES*>(g_TES)->GetCurrentCell();
     if (pcellVal)
     {
         if (!FUN_00425fd0(pcellVal))

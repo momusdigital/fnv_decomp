@@ -31,7 +31,7 @@ class BSTreeManager
     LockFreeMap_TESObjectREFR___BSTreeNode___* m_pTreeInstanceMap;              // +0x1C, 4 bytes
     BSTreeManager();
     static void Create(bool);
-    static void UpdateTreeInstances();
+    static void ClearCanopyShadow();
     // BSTreeManager
     // void __cdecl BSTreeManager::*()
     // void __cdecl BSTreeManager::*()

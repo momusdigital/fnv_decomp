@@ -128,7 +128,7 @@ void ActorValueModifierList::InitLoadGame(BGSLoadFormBuffer* apBuffer)
 
 extern int DAT_011e0750;
 
-struct FUN_00937f40_Class
+struct FastModifierCollection
 {
     void** m_Array;
     void FreeArrayItems();
@@ -136,7 +136,7 @@ struct FUN_00937f40_Class
 
 // If DAT_011e0750 is nonzero and m_Array is set, deletes each non-null element, deletes the array, and clears m_Array.
 // @fnv 0x00937f40
-void FUN_00937f40_Class::FreeArrayItems()
+void FastModifierCollection::FreeArrayItems()
 {
     void* pArray;
     void* pItem2;
@@ -342,7 +342,7 @@ struct Item_00937b50
     int b;
 };
 // Retained: the shared modifier list does not declare its save routine.
-struct FUN_00937b50_cls
+struct ModifierList
 {
     unsigned int unk00;
     unsigned int unk04;
@@ -352,7 +352,7 @@ struct FUN_00937b50_cls
 };
 // @fnv 0x00937b50
 // src: COMMUNITY 0x00937b50
-void FUN_00937b50_cls::ModifierList_SaveGameBGS(BGSSaveFormBuffer* buf)
+void ModifierList::ModifierList_SaveGameBGS(BGSSaveFormBuffer* buf)
 {
     unsigned int uiPos;
     int iCount = 0;
@@ -509,7 +509,7 @@ void MobileObject_SoundFileCallBack(int param_1)
 }
 }  // namespace fnv_00935cc0
 
-struct FUN_009369a0_shell
+struct ResponseListWrapper
 {
     TESResponse* m_next;
     int ResponseListWrapper_GetListCount();
@@ -517,7 +517,7 @@ struct FUN_009369a0_shell
 // Returns the result of GetResponseCount on m_next, or 0 when m_next is null.
 // @fnv 0x009369a0
 // src: COMMUNITY 0x009369a0
-int FUN_009369a0_shell::ResponseListWrapper_GetListCount()
+int ResponseListWrapper::ResponseListWrapper_GetListCount()
 {
     return m_next ? GetResponseCount(m_next) : 0;
 }
@@ -568,12 +568,12 @@ void Actor::PlayerCharacter_RemoveActorFromPlayercombatList(Actor* apActor)
     ((FUN_00986500_shell*)*(void**)((char*)this + 0xd64))->RemoveByTarget(reinterpret_cast<int>(apActor));
 }
 
-struct FUN_0093e840_shell : GameTimerRecord
+struct BSTimer : GameTimerRecord
 {
     void ApplyGlobalTimeMultiplier();
 };
 // @fnv 0x0093e840
-void FUN_0093e840_shell::ApplyGlobalTimeMultiplier()
+void BSTimer::ApplyGlobalTimeMultiplier()
 {
     SetGlobalTimeMultiplier(DAT_011ac3a8, false);
 }
@@ -2279,7 +2279,7 @@ class F5920Ref
     virtual void Unk3C();
     virtual void Unk40();
     virtual void Unk44();
-    virtual void MarkChanged(unsigned int uiFlags);
+    virtual void TESObjectLIGH_SaveGame(unsigned int uiFlags);
 
     bool HasProxy() const;
     F5920Ref* GetProxy();
@@ -2298,7 +2298,7 @@ void F5920Ref::LoadRecord(void* pvLoadBuffer)
     if (HasProxy())
         pkTarget = GetProxy();
     pkTarget->GetExtraData()->AddRecord(pkRecord);
-    pkTarget->MarkChanged(0x80000000);
+    pkTarget->TESObjectLIGH_SaveGame(0x80000000);
 }
 
 void* __cdecl operator new(unsigned int);
@@ -3651,7 +3651,7 @@ struct FUN_00938180 : PlayerConstructionBase
     Controller122* FUN_009306d0();
     void FUN_004534f0(int);
     float PlayerCharacter_SetFOV(float);
-    void SetField688(int);
+    void PlayerCharacter_SetForceActivateRef(int);
     void FUN_00851d10();
     void FUN_0093a5f0(int);
     void PlayerCharacter_SetAIControlledFromPos(int);
@@ -3663,7 +3663,7 @@ struct FUN_00938180 : PlayerConstructionBase
     void TESObjectREFR_SetEncounterZone(void*);
     void PlayerCharacter_SetMegatonDestroyed(int);
     void PlayerCharacter_ResetRockItAmmoWeight(int);
-    void SetSightingNode(int);
+    void PlayerCharacter_SetWeaponSightingNode(int);
 };
 struct Profile122
 {
@@ -3804,7 +3804,7 @@ FUN_00938180::FUN_00938180() : f634(0), f694(0), f69c(0), f764(1), f854(0x25), f
     f238 = new List122;
     f23c = 0;
     f67c = 0;
-    SetField688(0);
+    PlayerCharacter_SetForceActivateRef(0);
     f658 = 0;
     f758 = 0;
     f75e = 0;
@@ -3925,7 +3925,7 @@ FUN_00938180::FUN_00938180() : f634(0), f694(0), f69c(0), f764(1), f854(0x25), f
     fe2d = 0;
     fe2e = 0;
     fe30 = 0.f;
-    SetSightingNode(0);
+    PlayerCharacter_SetWeaponSightingNode(0);
     int count3 = 8;
     for (int m = 0; m < count3; m++)
         fe3c.FUN_007cb2e0(0);
@@ -4878,7 +4878,7 @@ struct TickInput
 {
     int Controls_GetUserAction(int, int);
     void Controls_ForceUserAction(int);
-    int GetAxisState(int, int);
+    int OSInputGlobals_GetControllerValue(int, int);
 };
 struct TickGlobals
 {
@@ -4921,7 +4921,7 @@ struct TickWeapon
     bool IsFlagSet() const;
     bool FUN_004ad030();
     void* TESObjectWEAP_GetCurrentAmmo(TickPlayer*);
-    unsigned char GetByteAt102();
+    unsigned char TESObjectWEAP_GetAmmoPerShot();
     bool TESObjectWEAP_IsMeleeWeapon();
     float GetAmmoRegenRate(bool);
     int GetFlaggedValue(bool);
@@ -5011,7 +5011,7 @@ struct TickSky
 struct TickCell
 {
     bool FUN_00425fd0();
-    void UpdateRefPlacement(TickPlayer*, int, int);
+    void TESObjectCELL_TestObjectAgainstMultibounds(TickPlayer*, int, int);
     int TESObjectCELL_GetMusicType(int);
     bool TESObjectCELL_GetCantWaitHere();
     TickRefList* GetRefList_009604f0();
@@ -5091,7 +5091,7 @@ struct TickSoundForm
 };
 struct TickContext
 {
-    void SetValueFromExtraData(BSSoundHandle*);
+    void ExtraDataList_GetActivateLoopSound(BSSoundHandle*);
     void ExtraDataList_GetCreatureAwakeSound(BSSoundHandle*);
     void ExtraDataList_SetCreatureAwakeSound(BSSoundHandle*);
     void* ExtraDataList_GetTrespassPackage();
@@ -5154,7 +5154,7 @@ struct TickAction
 struct TickLoader
 {
     bool ModelLoader_IsFileQueuedForCell(TickCell*);
-    void UpdateRelationStates(TickCell*);
+    void ModelLoader_UpdateQueuedReferencePriorities(TickCell*);
 };
 struct TickIO
 {
@@ -5167,7 +5167,7 @@ struct TickMenu
 };
 struct TickPending
 {
-    void ShowMessageBox();
+    void DisplayReputationTitleChange();
 };
 struct TickVisual
 {
@@ -5942,9 +5942,9 @@ struct TickPlayer : VSlot<AV17, 0>
     void TESObjectREFR_AttachWeapon(int);
     void ResetCachedGunSkill();
     void PlayerCharacter_UpdateConflictingObjects();
-    int GetReferenceFromPhysicsController();
+    int PlayerCharacter_GetBumpedRef();
     void SetEffectValue(int, float, int);
-    int GetActorFromPhysicsController();
+    int PlayerCharacter_GetBumpedActor();
     void Actor_SetActionSoundValue(int);
     bool Actor_GetIronSights();
     TickCell* FUN_008d6f30();
@@ -5961,7 +5961,7 @@ struct TickPlayer : VSlot<AV17, 0>
     void PlayerCharacter_CheckGetAwayFromGuards();
     void RestorePlayerLocation(bool);
     TickRef* GetField688();
-    void SetField688(int);
+    void PlayerCharacter_SetForceActivateRef(int);
     unsigned int GetVtbl20Result();
     bool FUN_004997b0();
     bool IsMoving_004938e0();
@@ -5969,7 +5969,7 @@ struct TickPlayer : VSlot<AV17, 0>
     bool PlayerCharacter_UpdateHeadingAndLooking(float, int, unsigned short*, bool);
     void PlayerCharacter_ForcePhysicsGrabDrop();
     void PlayerCharacter_ForceGrenadeHold();
-    void UpdateFaceAnimation(float);
+    void Character_Update(float);
     void Actor_UpdateAnimationMovement(TickAnimation*, float);
     void PlayerCharacter_UpdateCamera(bool, bool);
     int GetAnimAction_008a7570();
@@ -6271,9 +6271,9 @@ void TickPlayer::PlayerCharacter_Update(float elapsed)
         unk150 = 0;
     PlayerCharacter_UpdateConflictingObjects();
     unk68->vf464(this);
-    if (GetReferenceFromPhysicsController())
-        SetEffectValue(7, DAT_010162c0, GetReferenceFromPhysicsController());
-    if (GetActorFromPhysicsController() && unk154 <= 0.0)
+    if (PlayerCharacter_GetBumpedRef())
+        SetEffectValue(7, DAT_010162c0, PlayerCharacter_GetBumpedRef());
+    if (PlayerCharacter_GetBumpedActor() && unk154 <= 0.0)
         Actor_SetActionSoundValue(*DAT_011cdde0.Setting_Int());
     bool weaponDrawn = Actor_GetIronSights();
     if (weaponDrawn && unk68->vf454())
@@ -6419,7 +6419,7 @@ void TickPlayer::PlayerCharacter_Update(float elapsed)
     if (GetField688())
     {
         GetField688()->TESObjectREFR_Activate(this, false, 0, 1);
-        SetField688(0);
+        PlayerCharacter_SetForceActivateRef(0);
         return;
     }
 
@@ -6469,10 +6469,10 @@ void TickPlayer::PlayerCharacter_Update(float elapsed)
             PlayerCharacter_ForcePhysicsGrabDrop();
         PlayerCharacter_ForceGrenadeHold();
         unk64a = !unk64a;
-        UpdateFaceAnimation(elapsed);
+        Character_Update(elapsed);
         Actor_UpdateAnimationMovement(FUN_00950a60(!unk64a), elapsed);
         unk64a = !unk64a;
-        UpdateFaceAnimation(elapsed);
+        Character_Update(elapsed);
         Actor_UpdateAnimationMovement(FUN_00950a60(!unk64a), elapsed);
         PlayerCharacter_UpdateCamera(false, false);
         return;
@@ -6492,7 +6492,7 @@ void TickPlayer::PlayerCharacter_Update(float elapsed)
                     TickAmmoList* ammo = unk68->vf14c();
                     if (!ammo)
                         enoughAmmo = false;
-                    else if (ammo->FUN_00726070() < ammoWeapon->GetByteAt102())
+                    else if (ammo->FUN_00726070() < ammoWeapon->TESObjectWEAP_GetAmmoPerShot())
                         enoughAmmo = false;
                 }
             }
@@ -6591,13 +6591,13 @@ void TickPlayer::PlayerCharacter_Update(float elapsed)
         unk64a = !unk64a;
         if (unk64a)
             Actor_PickAnimations(DAT_011a3b3c, DAT_011a3b40);
-        UpdateFaceAnimation(elapsed);
+        Character_Update(elapsed);
         Actor_UpdateAnimationMovement(FUN_00950a60(!unk64a), elapsed);
         unk64a = !unk64a;
-        UpdateFaceAnimation(elapsed);
+        Character_Update(elapsed);
         Actor_UpdateAnimationMovement(FUN_00950a60(!unk64a), elapsed);
         PlayerCharacter_UpdateCamera(false, false);
-        FUN_008d6f30()->UpdateRefPlacement(this, 1, 0);
+        FUN_008d6f30()->TESObjectCELL_TestObjectAgainstMultibounds(this, 1, 0);
         FUN_00450b80(0)->FUN_00b5d9f0(vf1d0(), true);
         unk7b4 = FUN_008d6f30()->TESObjectCELL_GetMusicType(0);
         if (unk79a)
@@ -6619,7 +6619,7 @@ void TickPlayer::PlayerCharacter_Update(float elapsed)
                 else
                 {
                     BSSoundHandle repeatSound;
-                    DAT_011dea3c->BSFile_GetDevice()->SetValueFromExtraData(&repeatSound);
+                    DAT_011dea3c->BSFile_GetDevice()->ExtraDataList_GetActivateLoopSound(&repeatSound);
                     repeatSound.Stop();
                     vf1e4()->Animation_SetLoopCount(7, 0);
                     repeatDelay = *DAT_011cd5c8.Setting_Float_00403e20();
@@ -6872,9 +6872,9 @@ void TickPlayer::PlayerCharacter_Update(float elapsed)
     if (!InterfaceManager_Has360Controller())
         goto axesDone;
     {
-        axisX = input->GetAxisState(0, 7);
-        axisZ = input->GetAxisState(0, 9);
-        axisY = input->GetAxisState(0, 8);
+        axisX = input->OSInputGlobals_GetControllerValue(0, 7);
+        axisZ = input->OSInputGlobals_GetControllerValue(0, 9);
+        axisY = input->OSInputGlobals_GetControllerValue(0, 8);
         if (FUN_00ec7d40(axisX) < 0x1ea9)
             axisX = 0;
         if (FUN_00ec7d40(axisY) < 0x1ea9)
@@ -7486,15 +7486,15 @@ axesDone:
     if (!Interface_InDialog())
         UpdateScopeZoom(elapsed);
     unk64a = !unk64a;
-    UpdateFaceAnimation(elapsed);
+    Character_Update(elapsed);
     Actor_UpdateAnimationMovement(FUN_00950a60(!unk64a), elapsed);
     unk64a = !unk64a;
-    UpdateFaceAnimation(elapsed);
+    Character_Update(elapsed);
     Actor_UpdateAnimationMovement(FUN_00950a60(!unk64a), elapsed);
     ProcessEvents();
     if (!DAT_011f21d0)
         PlayerCharacter_UpdateCamera(false, false);
-    FUN_008d6f30()->UpdateRefPlacement(this, 1, 0);
+    FUN_008d6f30()->TESObjectCELL_TestObjectAgainstMultibounds(this, 1, 0);
     FUN_00450b80(0)->FUN_00b5d9f0(vf1d0(), true);
     if (unk68->vf6b8())
         unk68->vf6b8()->MuzzleFlash_Update(elapsed, this);
@@ -7508,7 +7508,7 @@ axesDone:
         if (DAT_011c3b3c->ModelLoader_IsFileQueuedForCell(DAT_011e0bb0))
         {
             DAT_011dea10->TES_ShowLoadingAreaMessage(DAT_0108b028);
-            DAT_011c3b3c->UpdateRelationStates(DAT_011e0bb0);
+            DAT_011c3b3c->ModelLoader_UpdateQueuedReferencePriorities(DAT_011e0bb0);
             DAT_01202d98->LoadQueuedPriority(0);
         }
     }
@@ -7518,7 +7518,7 @@ axesDone:
         GetCharacterProgressionInfo()->LevelUpPlayer();
     if (unke0c && !PlayerCharacter_IsPlayerCharacterInCombat(&menuBusy) && !DAT_011f2250.VATS_IsInVats() && !Interface_InDialog() && !IsStartMenuFlag1Set())
     {
-        unke0c->ShowMessageBox();
+        unke0c->DisplayReputationTitleChange();
         unke0c = 0;
     }
     if (unk68)
@@ -7623,7 +7623,7 @@ axesDone:
         TickAmmoList* ammo = unk68->vf14c();
         if (!ammo)
             enoughAmmo = false;
-        else if (ammo->FUN_00726070() < weapon->GetByteAt102())
+        else if (ammo->FUN_00726070() < weapon->TESObjectWEAP_GetAmmoPerShot())
             enoughAmmo = false;
         if (!enoughAmmo || input->Controls_GetUserAction(4, 2) || !input->Controls_GetUserAction(4, 0))
             unk1a0->ContinuousBeamProjectile_SetKill(this);

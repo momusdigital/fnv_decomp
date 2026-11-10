@@ -62,7 +62,7 @@ struct TextBuilder
     void FUN_00cb1600(char*, unsigned int);
     TextBuilder* ProcessAndReturnValue_00cc01c0(const char*, int);
     TextBuilder* ProcessAndReturnValue_00cc01c0(const char*, float);
-    void EvaluateValue_00cc02d0();
+    void hkOstream_printf();
     void WriteFloat();
     void FUN_00cc00e0();
 };

@@ -35,8 +35,8 @@ int __cdecl GetIndexedValueWithOffset(int offset, const int* values, int index, 
 }
 
 // @fnv 0x00e32ed0
-// src: GUESS 0x00e32ed0 (confidence: high)
-int __stdcall hkaSplineCompressedAnimation_ReturnConstant_3(int a1, int a2)
+// src: EXE 0x00e32ed0
+int __stdcall hkaSplineCompressedAnimation_getNumDataChunks(int a1, int a2)
 {
     return 3;
 }

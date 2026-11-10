@@ -19,7 +19,7 @@ public:
     void InitItem(TESForm* form);
     void SetBipedModelList(BGSListForm* list);
     BGSListForm* GetList();
-    static BGSBipedModelList* GetBipedModelList(TESForm* form);
+    static BGSBipedModelList* GetFormAsBipedModelList(TESForm* form);
 
     BGSListForm* pListForm;
 };

@@ -12,6 +12,6 @@ public:
     unsigned char layoutPadding9[3];
     SpellItem* pEffect;
 
-    void SwapEndianness();
+    void ACTOR_BASE_DATA_Endian();
     void OBJ_WEAP_CRITICAL_Endian();  // 0x00535aa0: the CRDT endian swap TESObjectWEAP::LoadForm calls
 };

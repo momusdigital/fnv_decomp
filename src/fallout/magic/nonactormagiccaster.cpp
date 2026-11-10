@@ -4,15 +4,16 @@
 void FUN_00825b60();
 void _Deallocate(void*);
 
-struct FUN_00825aa0_shell
+struct NonActorMagicCaster
 {
     void FUN_00825b60();
-    void* FUN_00825aa0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_00825b60, then deallocates this when bit 0 of flags is set, and returns this.
 // @fnv 0x00825aa0
-void* FUN_00825aa0_shell::FUN_00825aa0(unsigned int flags)
+// src: EXE 0x00825aa0
+void* NonActorMagicCaster::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00825b60();
     if (flags & 1)

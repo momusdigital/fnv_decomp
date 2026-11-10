@@ -649,15 +649,16 @@ struct FUN_00ca9240_Base
     virtual void unk00();
 };
 
-struct FUN_00ca9240 : FUN_00ca9240_Base
+struct hkpCharacterMotion : FUN_00ca9240_Base
 {
-    FUN_00ca9240(int a, int b);
+    hkpCharacterMotion(int a, int b);
     virtual void unk04();
 };
 
 // Constructs the base with a and b and a zero, then sets type to 7.
 // @fnv 0x00ca9240
-FUN_00ca9240::FUN_00ca9240(int aiValueA, int aiValueB) : FUN_00ca9240_Base(aiValueA, aiValueB, 0)
+// src: EXE 0x00ca9240
+hkpCharacterMotion::hkpCharacterMotion(int aiValueA, int aiValueB) : FUN_00ca9240_Base(aiValueA, aiValueB, 0)
 {
     type = 7;
 }
@@ -672,14 +673,15 @@ struct BaseRecord
     BaseRecord(void* apFirst, void* apSecond, int aiFlag);
 };
 
-struct FUN_00ca9270 : BaseRecord
+struct hkpSphereMotion : BaseRecord
 {
-    FUN_00ca9270(void* apFirst, void* apSecond);
+    hkpSphereMotion(void* apFirst, void* apSecond);
 };
 
 // Constructs the object by forwarding apFirst and apSecond to BaseRecord with flag 0, then sets m_c08 to 2.
 // @fnv 0x00ca9270
-FUN_00ca9270::FUN_00ca9270(void* apFirst, void* apSecond) : BaseRecord(apFirst, apSecond, 0)
+// src: EXE 0x00ca9270
+hkpSphereMotion::hkpSphereMotion(void* apFirst, void* apSecond) : BaseRecord(apFirst, apSecond, 0)
 {
     m_c08 = 2;
 }
@@ -1248,7 +1250,7 @@ struct S_00ca84b0_World
 {
     void hkpWorld_queueOperation(const S_00ca84b0_Op& op);
     void FUN_00c91120();
-    void UpdateFields_00c91140();
+    void hkpWorld_internalExecutePendingBodyOperations();
 
     __forceinline void lockCriticalOperations()
     {
@@ -1262,7 +1264,7 @@ struct S_00ca84b0_World
             if (unk8c)
                 FUN_00c91120();
             if (unka4 == 1 && unk90)
-                UpdateFields_00c91140();
+                hkpWorld_internalExecutePendingBodyOperations();
         }
     }
 
@@ -1696,7 +1698,7 @@ void S_00ca8f50_Src::WriteToInfo(S_00ca8f50_Info* info)
     info->m98 = mE0.m_kMotionState.m_fAngularDamping;
     info->m30.m_vComponents = mE0.m_kTranslationalVelocity.m_vComponents;
     info->m40.m_vComponents = mE0.m_kAngularVelocity.m_vComponents;
-    info->m90 = mE0.GetMassValue();
+    info->m90 = mE0.getMass();
     motionVirtual<void(__thiscall*)(hkpMotion*, hkRotation&)>(mE0, 5)(&mE0, info->m50);
     info->mB4 = *reinterpret_cast<unsigned char*>(&mE0.m_type);
     info->mB6 = mE0.m_kMotionState.m_uiDeactivationClass;
@@ -1822,7 +1824,7 @@ struct World
     unsigned char m_d6;
     void __thiscall hkpWorld_queueOperation(void* op);
     void __thiscall FUN_00c91120();
-    void __thiscall UpdateFields_00c91140();
+    void __thiscall hkpWorld_internalExecutePendingBodyOperations();
 };
 
 struct Entity
@@ -1946,7 +1948,7 @@ void __cdecl hkpRigidBody_updateBroadphaseAndResetCollisionInformationOfWarpedBo
         if (world->m_8c != 0)
             world->FUN_00c91120();
         if (world->m_a4 == 1 && world->m_90 != 0)
-            world->UpdateFields_00c91140();
+            world->hkpWorld_internalExecutePendingBodyOperations();
     }
 }
 

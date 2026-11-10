@@ -133,8 +133,8 @@ __declspec(align(16)) class FUN_00d6aec0_obj
 };
 
 // @fnv 0x00d6aec0
-// src: GUESS 0x00d6aec0 (confidence: low)
-int Object_ProcessAndReturnValue_00d6aec0() throw()
+// src: COMMUNITY 0x00d6aec0
+int getVtable_hkpWorldCinfo() throw()
 {
     FUN_00d6aec0_obj obj((FUN_00d6aec0_seed()));
     return obj.unk00;

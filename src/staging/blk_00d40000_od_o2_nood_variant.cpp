@@ -188,18 +188,18 @@ inline bool equals3(const hkVector4& a, const hkVector4& b, float fEpsilon)
 
 extern hkVector4 DAT_01267e30;
 
-struct FUN_00d56470_cls
+struct ShapesSubpart
 {
     unsigned int unk00, unk04, unk08, unk0C, unk10, unk14, unk18, unk1C;
     hkQuaternion m_rotation;
     hkVector4 m_vTranslation;
 
-    FUN_00d56470_cls* hkpExtendedMeshShape_ShapesSubpart_ShapesSubpart(int bCompute);
+    ShapesSubpart* hkpExtendedMeshShape_ShapesSubpart_ShapesSubpart(int bCompute);
 };
 
 // @fnv 0x00d56470
 // src: XBOX_PDB 0x00d56470
-FUN_00d56470_cls* FUN_00d56470_cls::hkpExtendedMeshShape_ShapesSubpart_ShapesSubpart(int bCompute)
+ShapesSubpart* ShapesSubpart::hkpExtendedMeshShape_ShapesSubpart_ShapesSubpart(int bCompute)
 {
     if (bCompute)
     {
@@ -566,8 +566,8 @@ struct __declspec(align(16)) HolderD4B
 };
 
 // @fnv 0x00d4b330
-// src: GUESS 0x00d4b330 (confidence: low)
-int Runtime_UpdateState_00d4b330()
+// src: COMMUNITY 0x00d4b330
+int getVtable_hkpExtendedMeshShape()
 {
     HolderD4B holder;
     ZeroD4B z = {0};
@@ -632,8 +632,8 @@ class __declspec(align(16)) S00d4bec0_Object
 
 // Havok getVtable helper: build the object with the finish-loading flag and read its vtable pointer.
 // @fnv 0x00d4bec0
-// src: GUESS 0x00d4bec0 (confidence: medium)
-const void* __cdecl Object_GetConstructedVirtualTable_00d4bec0()
+// src: COMMUNITY 0x00d4bec0
+const void* __cdecl getVtable_hkpStorageMeshShape()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;
@@ -675,8 +675,8 @@ class __declspec(align(16)) S00d4bf40_Object
 
 // Havok getVtable helper: build the object with the finish-loading flag and read its vtable pointer.
 // @fnv 0x00d4bf40
-// src: GUESS 0x00d4bf40 (confidence: medium)
-const void* __cdecl Object_GetConstructedVirtualTable_00d4bf40()
+// src: COMMUNITY 0x00d4bf40
+const void* __cdecl getVtable_hkpMeshShape()
 {
     FinishingFlag flag;
     flag.m_bFinishing = 0;

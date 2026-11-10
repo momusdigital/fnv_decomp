@@ -155,7 +155,7 @@ struct FUN_00c3a610_Class
 extern MemoryManager g_memoryManager;
 struct FUN_00c3a640_Class
 {
-    void* AllocateStorage_00c3a640(unsigned int size);
+    void* BSSimpleArray_Allocate(unsigned int size);
 };
 extern "C" void* g_012043dc;
 struct FUN_00c3b9e0_Class
@@ -219,7 +219,7 @@ extern "C" void __cdecl operator delete(void*, unsigned int);
 struct FUN_00c3a140_Class
 {
     void __thiscall FUN_00c39770();
-    void* __thiscall FUN_00c3a140(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 struct FUN_00c3a620_Class
 {
@@ -246,7 +246,7 @@ void __cdecl Object_ProcessEntries_00c3c0c0();
 struct FUN_00c3fca0_Class
 {
     void __thiscall BSTaskManager_int64_RemoveTask(void* a);
-    void __thiscall ProcessStateTransitionFourToFive_00c3fca0(void* p);
+    void __thiscall IOManager_FinishTask(void* p);
 };
 struct FUN_00c3fe00_Class
 {
@@ -278,9 +278,9 @@ NiObject* __cdecl BSNodeReferences_CreateObject();
 NiObject* __cdecl NiBSBoneLODController_CreateObject();
 NiObject* __cdecl BSBound_CreateObject();
 NiObject* __cdecl BSXFlags_CreateObject();
-NiObject* __cdecl CreateNamedNode();
+NiObject* __cdecl BSDecalPlacementVectorExtraData_CreateObject();
 FUN_00c465a0* __cdecl BSWindModifier_CreateObject();
-NiObject* __cdecl CreatePositionModifierObject();
+NiObject* __cdecl BSParentVelocityModifier_CreateObject();
 NiObject* __cdecl BSFurnitureMarker_CreateObject();
 FUN_00c61b10* __cdecl BSPSysArrayEmitter_CreateObject();
 NiObject* __cdecl BSWArray_CreateObject();
@@ -290,14 +290,14 @@ NiObject* __cdecl BSValueNode_CreateObject();
 NiObject* __cdecl BSPSysMultiTargetEmitterCtlr_CreateObject();
 NiObject* __cdecl BSMasterParticleSystem_CreateObject();
 NiObject* __cdecl BSMultiBound_CreateObject();
-NiObject* __cdecl CreateNewObject();
+NiObject* __cdecl BSMultiBoundNode_CreateObject();
 NiObject* __cdecl CreateNewBodyCls();
 NiObject* __cdecl CreateBC36500Object();
 NiObject* __cdecl BSMultiBoundCapsule_CreateObject();
 FUN_00c4fb10_shell* __cdecl BSMultiBoundSphere_CreateObject();
 NiObject* __cdecl BSPSysSimpleColorModifier_CreateObject();
 NiObject* __cdecl BSDebrisNode_CreateObject();
-NiObject* __cdecl CreatePositionModifierInstance();
+NiObject* __cdecl BSPSysStripUpdateModifier_CreateObject();
 extern char const g_012043dc_arg0[];
 extern char const g_012043e4_arg0[];
 extern char const g_012031b8_arg0[];
@@ -342,7 +342,7 @@ struct GlobalObject_00c3bcf0
     void* __thiscall DestroyAndFree(unsigned int flags);
 };
 extern MemoryManager g_memoryManager;
-struct FUN_00c42f00_Class
+struct BSTaskThread
 {
     void __thiscall DestroyResources();
     void* __thiscall FUN_00c3f130(unsigned int flags);
@@ -732,7 +732,7 @@ class FUN_00c3d870_cls
     unsigned int unk08;
     void* m_0c;
 };
-struct FUN_00c3f650_cls
+struct LockFreeMap
 {
     unsigned int unk00;
     unsigned int unk04;
@@ -981,7 +981,7 @@ struct FUN_00a699d0
 {
     float x, y, z, w;
     FUN_00a699d0(const LocalPoint&, const LocalPoint&, const LocalPoint&);
-    int ClassifyPoint(const LocalPoint*);
+    int NiPlane_WhichSide(const LocalPoint*);
 };
 struct FUN_00a699d0s
 {
@@ -1051,7 +1051,7 @@ void Builder::BSOcclusionPlane_UpdateFrustumPlanes(LocalPoint eye, FUN_00a699d0s
     BSOcclusionPlane_GetVertices(corners5);
     out->active = 63;
     FUN_00a699d0 test7(corners5[0], corners5[1], corners5[2]);
-    if (test7.ClassifyPoint(&eye) != 1)
+    if (test7.NiPlane_WhichSide(&eye) != 1)
     {
         out->SetWaterColorParameter(0, FUN_00a699d0(corners5[0], corners5[1], corners5[2]));
         out->DisablePlane(1);
@@ -1105,7 +1105,7 @@ struct MemberX
 {
     MemberX();
 };
-struct FUN_00c39640 : FUN_00c46970
+struct BSMultiBoundRoom : FUN_00c46970
 {
     char pad04[0x2c];
     unsigned int m_uiValue1;
@@ -1123,11 +1123,12 @@ struct FUN_00c39640 : FUN_00c46970
         else
             m_uiValue1 &= ~uiMask;
     }
-    FUN_00c39640();
-    virtual ~FUN_00c39640();
+    BSMultiBoundRoom();
+    virtual ~BSMultiBoundRoom();
 };
 // @fnv 0x00c39640
-FUN_00c39640::FUN_00c39640()
+// src: EXE 0x00c39640
+BSMultiBoundRoom::BSMultiBoundRoom()
 {
     SetBit(0x800, true);
     m_uiCC = 0;
@@ -2214,7 +2215,7 @@ inline float AbsF(float v)
     return ((void)v, (float)_fabs((double)v));
 }
 
-class FUN_00c39560_Class
+class BSMultiBoundAABB
 {
   public:
     int unk00;
@@ -2227,7 +2228,7 @@ class FUN_00c39560_Class
 
 // @fnv 0x00c39560
 // src: COMMUNITY 0x00c39560
-bool FUN_00c39560_Class::BSMultiBoundAABB_FastPointWithin(NiPoint3 point)
+bool BSMultiBoundAABB::BSMultiBoundAABB_FastPointWithin(NiPoint3 point)
 {
     NiPoint3 pointDelta = point.Sub(center);
     float uX;
@@ -2415,8 +2416,8 @@ struct Array_dc
     void* data;
     unsigned size;
     unsigned capacity;
-// src: GUESS 0x00b5af80 (confidence: low)
-    inline void UpdateFields_00b5af80(bool b)
+// src: GUESS 0x00b5af80 (confidence: medium)
+    inline void BSSimpleArray_RemoveAll(bool b)
     {
         void* allocation = data;
         if (allocation)
@@ -2448,7 +2449,7 @@ FUN_00c39770::~FUN_00c39770()
     m_b4.FUN_00b71300();
     m_c0.FUN_004ed900();
     m_d0.ProcessEntries_00c3a2e0();
-    m_dc.UpdateFields_00b5af80(true);
+    m_dc.BSSimpleArray_RemoveAll(true);
     if (m_c0.unk0C)
         FlushRef();
 }
@@ -3514,7 +3515,7 @@ struct OwnArr
         RefObj*& r = m_data[i];
         return r;
     }
-    void ReleaseEntries_00c3d5e0(unsigned, int);
+    void BSSimpleArray_RemoveRange(unsigned, int);
 };
 extern IOManager* DAT_01202d98;
 }  // namespace fnv_00c3cb70
@@ -3545,7 +3546,7 @@ void IOTask::QueuedFile_Cancel(int state, RefObj* obj)
             {
                 if (((fnv_00c3cb70::OwnArr*&)((QueuedFile*)this)->pAdditionalParents)->GetAt(i) == obj)
                 {
-                    ((fnv_00c3cb70::OwnArr*&)((QueuedFile*)this)->pAdditionalParents)->ReleaseEntries_00c3d5e0(i, 1);
+                    ((fnv_00c3cb70::OwnArr*&)((QueuedFile*)this)->pAdditionalParents)->BSSimpleArray_RemoveRange(i, 1);
                     break;
                 }
             }
@@ -3694,12 +3695,12 @@ struct FUN_00c3d5e0_Class
     void** m_pBase;
     unsigned int m_uiSize;
     void __thiscall FUN_0042fb60(void* dst, void* src, unsigned int count);
-    void __thiscall ReleaseEntries_00c3d5e0(unsigned int uiStart, unsigned int ItemUpdateArray);
+    void __thiscall BSSimpleArray_RemoveRange(unsigned int uiStart, unsigned int ItemUpdateArray);
 };
 
 // @fnv 0x00c3d5e0
-// src: GUESS 0x00c3d5e0 (confidence: low)
-void __thiscall FUN_00c3d5e0_Class::ReleaseEntries_00c3d5e0(unsigned int uiStart, unsigned int ItemUpdateArray)
+// src: GUESS 0x00c3d5e0 (confidence: medium)
+void __thiscall FUN_00c3d5e0_Class::BSSimpleArray_RemoveRange(unsigned int uiStart, unsigned int ItemUpdateArray)
 {
     unsigned int i;
     unsigned int base;
@@ -4649,7 +4650,7 @@ bool C3F4C0_Cls::LockFreeMap_int64_NiPointer_BSTask_int64_Func08(int a, int b, v
     return res;
 }
 
-struct FUN_00c3f7a0_Class
+struct LockFreeQueue
 {
     int unk00;
     int unk04;
@@ -4690,7 +4691,7 @@ struct Item_00c3f7a0
 
 // @fnv 0x00c3f7a0
 // src: COMMUNITY 0x00c3f7a0
-void* FUN_00c3f7a0_Class::LockFreeQueue_NiPointer_IOTask_AllocateInterface(int index)
+void* LockFreeQueue::LockFreeQueue_NiPointer_IOTask_AllocateInterface(int index)
 {
     AutoMemContext kContext(6);
     return new Item_00c3f7a0(this, m_pValues10 + index * 2, m_pValues10 + index * 2 + 1);
@@ -5499,7 +5500,7 @@ bool OccluderC358::BSOcclusionPlane_ViewerOnCorrectSide(LocalPoint point)
     ((Builder*)this)->BSOcclusionPlane_UpdateFrustumPlanes(point, (FUN_00a699d0s*)&frustum);
     BSOcclusionPlane_GetVertices(verts);
     FUN_00a699d0 plane(verts[0], verts[1], verts[2]);
-    if (plane.ClassifyPoint(&point) != 2)
+    if (plane.NiPlane_WhichSide(&point) != 2)
         return false;
     else
         return true;

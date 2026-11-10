@@ -161,7 +161,8 @@ void TESResponse::InitItem(TESForm* owner)
 
 // Builds a filename from quest, topic and info when the response ID is nonzero, otherwise sets it to "New Response".
 // @fnv 0x00617400
-void TESResponse::BuildResponseFileName(TESQuest* quest, TESTopic* topic, TESTopicInfo* info, BSStringT<char>& filename)
+// src: COMMUNITY 0x00617400
+void TESResponse::GetAudioFilename(TESQuest* quest, TESTopic* topic, TESTopicInfo* info, BSStringT<char>& filename)
 {
     if (!quest || !topic || !info)
         return;
@@ -169,7 +170,7 @@ void TESResponse::BuildResponseFileName(TESQuest* quest, TESTopic* topic, TESTop
     if (responseID > 0)
     {
         char combined[260];
-        BuildQuestTopicName(quest, topic, combined, sizeof(combined));
+        GetAudioQuestTopicCombined(quest, topic, combined, sizeof(combined));
         unsigned int formID = info->GetFormID() & 0x00FFFFFF;
         filename.PrintfString("%s_%08X_%u", combined, formID, responseID);
     }
@@ -187,7 +188,8 @@ TESResponse::TESResponse()
 }
 
 // @fnv 0x006172c0
-void TESResponse::BuildQuestTopicName(TESQuest* quest, TESTopic* topic, char* output, unsigned int capacity)
+// src: COMMUNITY 0x006172c0
+void TESResponse::GetAudioQuestTopicCombined(TESQuest* quest, TESTopic* topic, char* output, unsigned int capacity)
 {
     if (!output || !capacity)
         return;

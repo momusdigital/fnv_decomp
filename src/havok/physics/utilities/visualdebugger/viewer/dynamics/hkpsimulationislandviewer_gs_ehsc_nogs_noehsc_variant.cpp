@@ -289,15 +289,15 @@ struct FlagD64A
     FlagD64A() : value(true)
     {}
 };
-class FUN_00d64a50 : public FUN_00ddccb0, public hkListenerD64A
+class hkpSimulationIslandViewer : public FUN_00ddccb0, public hkListenerD64A
 {
   public:
     FlagD64A m_flagA;
     FlagD64A m_flagB;
     hkArray<void*> m_arrayA;
     hkArray<void*> m_arrayB;
-    FUN_00d64a50(void* pkInfo) throw();
-    virtual ~FUN_00d64a50() throw();
+    hkpSimulationIslandViewer(void* pkInfo) throw();
+    virtual ~hkpSimulationIslandViewer() throw();
 };
 struct Prim
 {

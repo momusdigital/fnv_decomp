@@ -116,7 +116,7 @@ class BSFaceGenTexture
 void BSFaceGenManager_LockFaceGenAccess();
 void BSFaceGenManager_UnlockFaceGenAccess();
 bool BSFaceGenManager_LoadEGMData(BSFaceGenModel*);
-BSFaceGenBaseMorphExtraData* GetExtraDataIfPresent(NiTriBasedGeom*);
+BSFaceGenBaseMorphExtraData* BSFaceGenManager_GetFaceGenBaseMorphExtraData(NiTriBasedGeom*);
 class CloningProcess
 {
   public:

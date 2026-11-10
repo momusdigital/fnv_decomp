@@ -120,8 +120,8 @@ public:
     float DotProduct(const LocalVec3* other) const;
     float Length() const;
     float LengthSquared() const;
-    float GetSquaredXYLength();
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength();
+    float NiPoint3_SqrXYLength() const;
     Elem16& expand(Allocator& allocator);
 
     void SetComponents(float x, float y, float z);
@@ -367,11 +367,12 @@ extern void* g_memoryManager;
 
 struct FUN_00a63b30_Class
 {
-    void* __thiscall FUN_00a63b30(bool);
+    void* __thiscall ScalarDeletingDestructor(bool);
 };
 
 // @fnv 0x00a63b30
-void* __thiscall FUN_00a63b30_Class::FUN_00a63b30(bool abFree)
+// src: EXE 0x00a63b30
+void* __thiscall FUN_00a63b30_Class::ScalarDeletingDestructor(bool abFree)
 {
     void* p = *(void**)((char*)this + 4);
     *(int**)((char*)this) = &DAT_0109bc3c;
@@ -474,12 +475,12 @@ unsigned int BSTexturePalette_GetContainerNumber(const char* str)
 }
 
 
-struct FUN_00a755f0_Class : NiCullingProperty
+struct NiMaterialProperty : NiCullingProperty
 {
     void __thiscall CopyCullingData(void* dst, CloningProcess& proc);
 };
 // @fnv 0x00a755f0
-void __thiscall FUN_00a755f0_Class::CopyCullingData(void* dst, CloningProcess& proc)
+void __thiscall NiMaterialProperty::CopyCullingData(void* dst, CloningProcess& proc)
 {
     NiProperty_CopyMembers(dst, proc);
     char* a = (char*)this;
@@ -600,18 +601,18 @@ template NiTPointerMap<const char*, unsigned short>::~NiTPointerMap();
 template NiTPointerMap<const NiObject*, unsigned int>::~NiTPointerMap();
 
 
-struct FUN_00a699d0_Class
+struct NiPlane
 {
     NiPoint3 normal;
     float distance;
 
-    FUN_00a699d0_Class* __thiscall SetPlaneFromThreePoints(NiPoint3 const* point0, NiPoint3 const* point1, NiPoint3 const* point2);
+    NiPlane* __thiscall SetPlaneFromThreePoints(NiPoint3 const* point0, NiPoint3 const* point1, NiPoint3 const* point2);
 };
 
 // Computes the normal as the cross product of the two edge vectors and sets distance to the dot product of the normal with point0.
 // @fnv 0x00a699d0
 // src: GUESS 0x00a699d0 (confidence: medium)
-FUN_00a699d0_Class* __thiscall FUN_00a699d0_Class::SetPlaneFromThreePoints(NiPoint3 const* point0, NiPoint3 const* point1,
+NiPlane* __thiscall NiPlane::SetPlaneFromThreePoints(NiPoint3 const* point0, NiPoint3 const* point1,
                                                                 NiPoint3 const* point2)
 {
     NiPoint3 edge1;
@@ -656,7 +657,8 @@ extern int DAT_0109cd44;
 
 // Allocates 0xc4 bytes, constructs a NiTriStrips in place, sets its vtable to DAT_0109cd44, and returns the pointer or 0 on failure.
 // @fnv 0x00a71ce0
-void* CreateNiTriStrips()
+// src: EXE 0x00a71ce0
+void* NiTriStrips_CreateObject()
 {
     NiTriStrips* p = (NiTriStrips*)NiMemObject::operator new(0xc4);
     if (p)
@@ -679,14 +681,15 @@ void FUN_00a72ca0_Class::SetSize_Thunk(unsigned int size)
     ((NiTPrimitiveArray<ImageSpaceTexture*>*)((char*)this + 0x1c))->SetSize(size);
 }
 
-struct FUN_00a7f810
+struct NiGeometryGroupManager
 {
     int m_p;
-    FUN_00a7f810();
+    NiGeometryGroupManager();
 };
 
 // @fnv 0x00a7f810
-FUN_00a7f810::FUN_00a7f810()
+// src: EXE 0x00a7f810
+NiGeometryGroupManager::NiGeometryGroupManager()
 {
     m_p = (int)&DAT_0109df2c;
     DAT_011f4ab4 = (int)this;
@@ -885,7 +888,7 @@ struct FUN_00a61920_Node
     short unk0e;
 };
 
-class FUN_00a61920_Class
+class BSTexturePalette
 {
   public:
     FUN_00a61920_Node* m_pBuckets[1];
@@ -894,7 +897,7 @@ class FUN_00a61920_Class
 };
 
 // @fnv 0x00a61920
-bool __thiscall FUN_00a61920_Class::FindShaderByHash(int iBucketIndex, int iHashKey, NiShader** ppOutShader)
+bool __thiscall BSTexturePalette::FindShaderByHash(int iBucketIndex, int iHashKey, NiShader** ppOutShader)
 {
     FUN_00a61920_Node* node = m_pBuckets[iBucketIndex];
     bool found = false;
@@ -1766,7 +1769,7 @@ void FUN_00a6dbd0_cls::Negate(float* __restrict out)
     out[3] = -m_f3;
 }
 
-class FUN_00a71b80_cls
+class NiFrustum
 {
   public:
     float m_00;
@@ -1777,14 +1780,14 @@ class FUN_00a71b80_cls
     float m_14;
     unsigned char m_18;
 
-    FUN_00a71b80_cls* Init(float a1, float a2, float a3, float a4, float a5, float a6, unsigned char flag);
+    NiFrustum* Init(float a1, float a2, float a3, float a4, float a5, float a6, unsigned char flag);
 };
 
 // Stores six float arguments and a flag byte into the object's fields and returns the object.
 // @fnv 0x00a71b80
-FUN_00a71b80_cls* FUN_00a71b80_cls::Init(float a1, float a2, float a3, float a4, float a5, float a6, unsigned char flag)
+NiFrustum* NiFrustum::Init(float a1, float a2, float a3, float a4, float a5, float a6, unsigned char flag)
 {
-    FUN_00a71b80_cls* p = this;
+    NiFrustum* p = this;
     p->m_00 = a1;
     p->m_18 = flag;
     p->m_04 = a2;
@@ -2141,7 +2144,8 @@ struct SceneFactoryObject
 
 // Allocates a 196-byte SceneFactoryObject, initializes it, sets its vtable to DAT_0109d55c, and returns it (or null on allocation failure).
 // @fnv 0x00a74750
-SceneFactoryObject* CreateSceneFactoryObject()
+// src: EXE 0x00a74750
+SceneFactoryObject* NiLines_CreateObject()
 {
     SceneFactoryObject* object = static_cast<SceneFactoryObject*>(BSFadeNode::operator new(196));
     if (object)
@@ -3001,7 +3005,8 @@ struct A5FC10Stub
 void* __cdecl Object_DispatchCommandFour(unsigned int size);
 
 // @fnv 0x00a60070
-A5FC10Stub* __cdecl CreateA5FC10Stub()
+// src: EXE 0x00a60070
+A5FC10Stub* __cdecl NiSourceTexture_CreateObject()
 {
     A5FC10Stub* object = (A5FC10Stub*)Object_DispatchCommandFour(0x48);
 
@@ -3511,7 +3516,7 @@ inline unsigned int NiStream::version()
 {
     return *reinterpret_cast<const unsigned int*>(reinterpret_cast<const char*>(this) + 0xd8);
 }
-static inline void ReleaseTextureObject(NiRefObject* object)
+static inline void CheckOcclusionQueryResults(NiRefObject* object)
 {
     if (InterlockedDecrement((volatile long*)&object->m_uiRefCount) == 0)
         object->DeleteThis();
@@ -3558,7 +3563,7 @@ void NiSourceTexture::LoadBinary(NiStream& stream)
             stream.ReadFixedString(m_kFilename);
             if (m_spSrcPixelData.m_pObject)
             {
-                ReleaseTextureObject(reinterpret_cast<NiRefObject*>(m_spSrcPixelData.m_pObject));
+                CheckOcclusionQueryResults(reinterpret_cast<NiRefObject*>(m_spSrcPixelData.m_pObject));
                 m_spSrcPixelData.m_pObject = 0;
             }
             bOldVersion = true;
@@ -3581,7 +3586,7 @@ void NiSourceTexture::LoadBinary(NiStream& stream)
         }
         if (m_spPersistentSrcRendererData.m_pObject)
         {
-            ReleaseTextureObject(reinterpret_cast<NiRefObject*>(m_spPersistentSrcRendererData.m_pObject));
+            CheckOcclusionQueryResults(reinterpret_cast<NiRefObject*>(m_spPersistentSrcRendererData.m_pObject));
             m_spPersistentSrcRendererData.m_pObject = 0;
         }
     }
@@ -3628,7 +3633,7 @@ void NiSourceTexture::LoadBinary(NiStream& stream)
             }
         }
         if (pkTexture)
-            ReleaseTextureObject(pkTexture);
+            CheckOcclusionQueryResults(pkTexture);
     }
     else if (m_kPlatformFilename.m_kHandle != NiGlobalStringTable::ms_pcEmptyString)
     {
@@ -3639,7 +3644,7 @@ void NiSourceTexture::LoadBinary(NiStream& stream)
         else
             stream.ChangeObject(pkTexture);
         if (pkTexture)
-            ReleaseTextureObject(pkTexture);
+            CheckOcclusionQueryResults(pkTexture);
     }
     {
         SourcePixelLayout value;
@@ -3677,7 +3682,7 @@ void NiSourceTexture::LoadBinary(NiStream& stream)
     {
         ReadTextureValue(stream, m_bSrcRendererDataIsPersistent);
     }
-    ReleaseTextureObject(this);
+    CheckOcclusionQueryResults(this);
 }
 
 class GlobalObjectO2_00a7b610;
@@ -3834,7 +3839,7 @@ void __cdecl AddScaledPoints(NiPoint3* dest, float scale, const NiPoint3* src, u
 
 extern int DAT_0109b944;
 extern int DAT_0109df8c;
-struct FUN_00a7fb80_Class
+struct NiRenderedTexture
 {
     void* m_ppVirtualMethodTable;
     int m_04;
@@ -3858,7 +3863,7 @@ struct Z2Setup
 };
 // @fnv 0x00a7fb80
 // src: GAMEBRYO_LIB 0x00a7fb80
-void* FUN_00a7fb80_Class::NiRenderedTexture_NiRenderedTexture()
+void* NiRenderedTexture::NiRenderedTexture_NiRenderedTexture()
 {
     FUN_00a5c200();
     m_ppVirtualMethodTable = &DAT_0109b944;

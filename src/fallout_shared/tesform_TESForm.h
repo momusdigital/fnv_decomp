@@ -109,11 +109,11 @@ class TESForm : public BaseFormComponent
     void SetIgnoreFriendlyHits(bool set);
     static bool IsReservedFormID(unsigned int formID);
     bool IsReservedFormID();
-    void SetFormFlags(int flags);
+    void ForceChange(int flags);
     TESFile* GetOwnerMaster();
     void UpdateFormChangeFlags();
     bool GetInitialized() const;
-    static TESForm* LookupFormByEditorID(const char* editorID);
+    static TESForm* GetFormByEditorID(const char* editorID);
     void SetFile(TESFile* file);
     static NiTPointerMap<unsigned int, TESForm*>* ms_pFormIDMap;
     static BSTCaseInsensitiveStringMap<TESForm*>* ms_pEditorIDMap;

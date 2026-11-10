@@ -33,11 +33,12 @@ void __cdecl FUN_00c31750();
 void __cdecl operator delete(void*, unsigned int);
 struct FUN_00c2a370_shell : NiPSysGrowFadeModifier
 {
-    FUN_00c2a370_shell* FUN_00c2a370(unsigned int flags);
+    FUN_00c2a370_shell* ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_00c31750, then deletes this with operator delete when flags has bit 0 set, and returns this.
 // @fnv 0x00c2a370
-FUN_00c2a370_shell* FUN_00c2a370_shell::FUN_00c2a370(unsigned int flags)
+// src: EXE 0x00c2a370
+FUN_00c2a370_shell* FUN_00c2a370_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00c31750();
     if (flags & 1)

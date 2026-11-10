@@ -349,11 +349,12 @@ void __cdecl Garbagecollector_ForwardCall_00868770(int* a, int b);
 // Keep just its member-call adapter; the refcount field comes from the shared class.
 struct GarbageMarkAdapter
 {
-    void MarkForCollection();
+    void NiAVObject_AddGarbageMark();
 };
 
 // @fnv 0x00868740
-void GarbageMarkAdapter::MarkForCollection()
+// src: COMMUNITY 0x00868740
+void GarbageMarkAdapter::NiAVObject_AddGarbageMark()
 {
     Garbagecollector_ForwardCall_00868770(reinterpret_cast<int*>(&reinterpret_cast<NiAVObject*>(this)->m_uiRefCount),
         reinterpret_cast<NiAVObject*>(this)->m_uiRefCount | 0x40000000);
@@ -503,7 +504,7 @@ void GarbageCollector_Add_00868660(NiAVObject* apObject)
 
     if (apObject)
     {
-        reinterpret_cast<GarbageMarkAdapter*>(apObject)->MarkForCollection();
+        reinterpret_cast<GarbageMarkAdapter*>(apObject)->NiAVObject_AddGarbageMark();
     }
 
     if (bCollecting)

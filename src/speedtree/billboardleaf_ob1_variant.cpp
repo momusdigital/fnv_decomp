@@ -18,7 +18,7 @@ inline const float& FUN_00b28440_Class::operator[](int i) const
     return m_v[i];
 }
 
-struct FUN_00b404c0_cls
+struct CBillboardLeaf
 {
     int unk00;
     int unk04;
@@ -33,7 +33,7 @@ struct FUN_00b404c0_cls
 
 // @fnv 0x00b404c0
 // src: COMMUNITY 0x00b404c0
-void FUN_00b404c0_cls::CBillboardLeaf_SetColor(const FUN_00b28440_Class* src, bool flag)
+void CBillboardLeaf::CBillboardLeaf_SetColor(const FUN_00b28440_Class* src, bool flag)
 {
     FUN_00b28440_Class v = *src;
     int i;
@@ -104,7 +104,7 @@ struct Parser
     ByteVec kData;
     int GetNextElement();
     float CTreeFileAccess_ParseFloat();
-    int AdvanceBlockAllocationCursor();
+    int ReadInt();
     unsigned char GetNextChar();
     V3 GetVector3();
 };
@@ -147,7 +147,7 @@ LeafQ* CBillboardLeaf_Parse(Parser* p)
         switch (iToken)
         {
         case 0x1b5e:
-            pLeaf->i14 = p->AdvanceBlockAllocationCursor();
+            pLeaf->i14 = p->ReadInt();
             break;
         case 0x1b5f:
             pLeaf->b10 = p->GetNextChar();

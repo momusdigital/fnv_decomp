@@ -169,7 +169,7 @@ struct Holder {
     Sub sub10;
 };
 
-struct FUN_00e60730_cls {
+struct hkpConvexPieceShape {
     int unk00;
     int unk04;
     int unk08;
@@ -185,7 +185,7 @@ struct FUN_00e60730_cls {
 
 // @fnv 0x00e60730
 // src: COMMUNITY 0x00e60730
-void FUN_00e60730_cls::hkpConvexPieceShape_GetRTTI(const unsigned short* apIndices, int aiCount, Vec4* apOut)
+void hkpConvexPieceShape::hkpConvexPieceShape_GetRTTI(const unsigned short* apIndices, int aiCount, Vec4* apOut)
 {
     Scratch scratch;
     for (int i = aiCount - 1; i >= 0; i--) {

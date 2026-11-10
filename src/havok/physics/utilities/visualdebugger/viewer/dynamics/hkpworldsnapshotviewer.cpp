@@ -11,14 +11,14 @@ extern int DAT_010d1700;
 extern int DAT_010d1720;
 extern void __cdecl FUN_00ddcc60();
 
-struct FUN_00d62fe0_cls
+struct hkpWorldSnapshotViewer
 {
     void __thiscall UpdateFields_00d62fe0();
 };
 
 // @fnv 0x00d62fe0
 // src: GUESS 0x00d62fe0 (confidence: low)
-void __thiscall FUN_00d62fe0_cls::UpdateFields_00d62fe0()
+void __thiscall hkpWorldSnapshotViewer::UpdateFields_00d62fe0()
 {
     *(int*)this = (int)&DAT_010d1720;
     *(int*)((char*)this + 8) = (int)&DAT_010d1700;
@@ -64,7 +64,7 @@ void __cdecl RegisterSnapshotCommands()
     DAT_01268fc0 = DAT_01269cd0->hkProcessFactory_registerProcess("* Grab World Snapshot PC", AllocateRecordWithData);
 }
 
-struct FUN_00c7be20_cls;
+struct bhkRagdollController;
 
 struct FUN_00c7be20_src
 {
@@ -84,7 +84,7 @@ struct FUN_00c7be20_arr
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 void __cdecl hkArrayUtil__reserve(void* allocator, FUN_00c7be20_arr* self, unsigned int newCap, int elemSize);
 
-struct FUN_00c7be20_cls
+struct bhkRagdollController
 {
     int unk00;
     int unk04;
@@ -111,7 +111,7 @@ struct FUN_00c7be20_cls
 
 // Grows the output array to hold m_48's element count, sets its size, then copies the elements from m_48->m_08 into it.
 // @fnv 0x00c7be20
-void FUN_00c7be20_cls::CopySourceArray(FUN_00c7be20_arr* out)
+void bhkRagdollController::CopySourceArray(FUN_00c7be20_arr* out)
 {
     FUN_00c7be20_src* pSource = m_48;
     if (pSource != 0)
@@ -216,7 +216,7 @@ struct SubObject
     void Init(int a, int b);
 };
 
-struct FUN_00d63280_cls
+struct hkpWorldMemoryViewer
 {
     void* m_vtbl0;
     int unk04;
@@ -231,12 +231,12 @@ struct FUN_00d63280_cls
     SubObject m_sub28;
 
     void Setup(int b);
-    FUN_00d63280_cls* hkpWorldMemoryViewer_hkpWorldMemoryViewer(int a, int b);
+    hkpWorldMemoryViewer* hkpWorldMemoryViewer_hkpWorldMemoryViewer(int a, int b);
 };
 
 // @fnv 0x00d63280
 // src: HAVOK_LIB 0x00d63280
-FUN_00d63280_cls* FUN_00d63280_cls::hkpWorldMemoryViewer_hkpWorldMemoryViewer(int a, int b)
+hkpWorldMemoryViewer* hkpWorldMemoryViewer::hkpWorldMemoryViewer_hkpWorldMemoryViewer(int a, int b)
 {
     Setup(b);
     m_vtbl0 = (void*)&DAT_010d1794;

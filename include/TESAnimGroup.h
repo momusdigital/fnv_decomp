@@ -84,12 +84,12 @@ class TESAnimGroup : public NiRefObject
     int GetMoveAnimGroup();
     static bool IsActionTypeValid(ANIM_GROUP_ACTION_TYPE);
     static bool IsActionTypeValid(unsigned short);
-    static bool IsAimAnimation(unsigned short);
+    static bool IsAimAction(unsigned short);
     static bool IsValidAnimationGroup(ANIM_GROUP_ACTION_TYPE);
     static bool IsValidAnimationGroup(unsigned short);
     static bool IsIronSightsAction(unsigned short);
     static bool IsIronSightsAction(ANIM_GROUP_ENUM);
-    bool IsJumpAnimation() const;
+    bool IsJumpingLoopAnim() const;
     float GetAnimationSpeed() const;
     static char* FindNextLine(char*);
     void SetSoundsFromSequence(NiControllerSequence*);

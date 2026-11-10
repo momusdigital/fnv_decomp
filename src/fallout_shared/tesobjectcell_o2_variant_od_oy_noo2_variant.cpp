@@ -46,15 +46,15 @@ FUN_004a3c90::FUN_004a3c90(const FUN_004a3c90& src)
     m_00 = src.m_00;
 }
 
-struct FUN_005532a0_cls
+struct hkVector4
 {
     __m128 m_v;
-    FUN_005532a0_cls* hkVector4_hkVector4(float a1, float a2, float a3, float a4);
+    hkVector4* hkVector4_hkVector4(float a1, float a2, float a3, float a4);
 };
 
 // @fnv 0x005532a0
 // src: XBOX_PDB 0x005532a0
-FUN_005532a0_cls* FUN_005532a0_cls::hkVector4_hkVector4(float a1, float a2, float a3, float a4)
+hkVector4* hkVector4::hkVector4_hkVector4(float a1, float a2, float a3, float a4)
 {
     m_v = _mm_setr_ps(a1, a2, a3, a4);
     return this;

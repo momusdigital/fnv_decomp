@@ -70,7 +70,7 @@ public:
     virtual void AllocateBlocks(int iCount);
     virtual void UpdateTotalSize();
     virtual void setMemorySoftLimit(int iValue);
-    virtual int GetUnkA94_00d5fba0();
+    virtual int getMemorySoftLimit();
     virtual void releaseUnusedPagesToSystemMemory();
     virtual bool* __thiscall isOk_00d5f890(bool* __restrict pItem);
     virtual int walkMemory(hkMemoryWalkCallback kCallback, void* pParam);

@@ -68,7 +68,7 @@ void ActorPackageContext::Clear()
     {
         if (pPackage == g_thePlayer->pCurrentPackage)
             g_thePlayer->pCurrentPackage = NULL;
-        if (!pPackage->Release() && pPackage->IsMustComplete())
+        if (!pPackage->Release() && pPackage->GetIsCreated())
         {
             TESPackage* pOldPackage = pPackage;
             pPackage = NULL;

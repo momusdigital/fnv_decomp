@@ -162,7 +162,7 @@ void __fastcall GetChildData(hkpConvexListShape* self, void*, const unsigned sho
 // VC9 treats the SDK intrinsic union's byte arrays as stack buffers.
 // Use float-only intrinsic temporaries to retain the original stack code.
 namespace float_simd {
-// Exe 0x00d5e300 GetConvexListSupportVertex: retain this LocalM128 view; the CRT type does not preserve this unit.
+// Exe 0x00d5e300 hkpConvexListShape_getSupportingVertexImpl: retain this LocalM128 view; the CRT type does not preserve this unit.
 // VC9 requires the __m128 compatibility typedef for its native SIMD ABI (renamed tags fail C2719).
 typedef union __declspec(intrin_type) __declspec(align(16)) {
     float m128_f32[4];
@@ -582,7 +582,8 @@ Derived::Derived()
 
 // Finds the child convex shape with the maximum dot product against direction, sets supportingVertex, and encodes the child index into the vertex's w component.
 // @fnv 0x00d5e300
-void __fastcall GetConvexListSupportVertex(const hkpConvexListShape* self, void*,
+// src: COMMUNITY 0x00d5e300
+void __fastcall hkpConvexListShape_getSupportingVertexImpl(const hkpConvexListShape* self, void*,
                                                  const hkVector4q& direction, hkVector4q& supportingVertex)
 {
     hkReal maxDot = DAT_0104e148;

@@ -766,7 +766,7 @@ NiNode* TileText::CalculateNode()
 
     Tile_SetChangeFlag(9);
 
-    if (IsTraitNonZero(0xfae))
+    if (Tile_IsTrue(0xfae))
         Tile_SetChangeFlag(0x100);
 
     if (!kFirst)
@@ -774,7 +774,7 @@ NiNode* TileText::CalculateNode()
 
     kFirst->AddObject(reinterpret_cast<NodePtr&>(m_pRenderedNodeEntry), true);
 
-    reinterpret_cast<NodePtr&>(m_pRenderedNodeEntry)->SetCulled(!IsTraitNonZero(0xfa3));
+    reinterpret_cast<NodePtr&>(m_pRenderedNodeEntry)->SetCulled(!Tile_IsTrue(0xfa3));
 
     reinterpret_cast<NodePtr&>(m_pRenderedNodeEntry)->UpdateProperties();
 

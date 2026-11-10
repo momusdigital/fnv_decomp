@@ -51,7 +51,7 @@ class NiShader : public NiRefObject
         virtual void vf09();
         virtual void vf10();
         virtual void vf11();
-        virtual void vf12();
+        virtual void SetMapName();
         virtual void vf13();
         virtual void vf14();
         virtual void vf15();
@@ -83,11 +83,11 @@ class NiShader : public NiRefObject
                                           NiGeometryBufferData* apRendererData, const NiPropertyState* apState,
                                           const NiDynamicEffectState* apEffects, const NiTransform& arWorld,
                                           const NiBound& arWorldBound);
-    virtual void SetupGeometryShader(NiGeometry* apGeometry, const NiSkinInstance* apSkin,
+    virtual void NiD3DShader_PreProcessPipeline(NiGeometry* apGeometry, const NiSkinInstance* apSkin,
                                      NiGeometryBufferData* apRendererData, const NiPropertyState* apState,
                                      const NiDynamicEffectState* apEffects, const NiTransform& arWorld,
                                      const NiBound& arWorldBound);
-    virtual void UpdateGeometryEffects(NiGeometry* apGeometry, const NiSkinInstance* apSkin,
+    virtual void NiD3DShader_PostProcessPipeline(NiGeometry* apGeometry, const NiSkinInstance* apSkin,
                                        NiGeometryBufferData* apRendererData, const NiPropertyState* apState,
                                        const NiDynamicEffectState* apEffects, const NiTransform& arWorld,
                                        const NiBound& arWorldBound);
@@ -138,9 +138,9 @@ class NiShader : public NiRefObject
     virtual NiShaderConstantMap* CreateShaderConstantMap(unsigned int auiPassId, unsigned int auiProgramId);
     virtual bool ResolveSamplerId(unsigned int auiPassId, unsigned int& auiSamplerId, const NiFixedString& arSemantic,
                                   const NiFixedString& arVariableName, unsigned int auiInstance = 0);
-    virtual void* GetShaderInstanceDesc();
+    virtual void* NiD3DShaderInterface_GetRTTI();
     NiShader& operator=(const NiShader& shader);
-    void UseShaderDeclaration(NiD3DShaderDeclaration* declaration);
+    void NiD3DShader_SetShaderDecl(NiD3DShaderDeclaration* declaration);
     static NiAVObject* __cdecl DynamicCast(NiAVObject* object);
     NiShader* DynamicCast(const NiRTTI* type);
     bool IsKindOfType(const NiRTTI* type) const;

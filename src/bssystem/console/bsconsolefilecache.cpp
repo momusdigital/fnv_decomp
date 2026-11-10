@@ -147,11 +147,12 @@ extern MemoryManager g_memoryManager;
 struct S00b02640
 {
     void DestroyAndFreeLibraries();
-    void* FUN_00b02640(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 // Calls DestroyAndFreeLibraries, then deallocates this via g_memoryManager if flags has bit 1 set, and returns this.
 // @fnv 0x00b02640
-void* S00b02640::FUN_00b02640(unsigned int flags)
+// src: EXE 0x00b02640
+void* S00b02640::ScalarDeletingDestructor(unsigned int flags)
 {
     DestroyAndFreeLibraries();
     if (flags & 1)
@@ -235,14 +236,14 @@ extern "C" __declspec(dllimport) unsigned long __stdcall WaitForMultipleObjects(
                                                                                 unsigned long dwMilliseconds);
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject);
 
-struct FUN_00b01f50_shell
+struct BSWin32TaskletManager
 {
     void BSWin32TaskletManager_ShutdownAllTasks();
 };
 
 // @fnv 0x00b01f50
 // src: COMMUNITY 0x00b01f50
-void FUN_00b01f50_shell::BSWin32TaskletManager_ShutdownAllTasks()
+void BSWin32TaskletManager::BSWin32TaskletManager_ShutdownAllTasks()
 {
     unsigned int i;
 

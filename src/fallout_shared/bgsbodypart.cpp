@@ -335,7 +335,8 @@ void* __fastcall NiGeometry_GetSkinInstance(void*);
 
 // Recursively walks a PartNode tree; for leaf nodes with a target, looks up a PartSink and adds two entries keyed by a1 and a1+0xc8.
 // @fnv 0x005e4730
-void AddNodeEntries(unsigned int a1, PartNode* pNode)
+// src: COMMUNITY 0x005e4730
+void BGSBodyPart_HideLimb(unsigned int a1, PartNode* pNode)
 {
     if (pNode == 0)
     {
@@ -347,7 +348,7 @@ void AddNodeEntries(unsigned int a1, PartNode* pNode)
         unsigned int i;
         for (i = 0; i < list3->CountItems(); i++)
         {
-            AddNodeEntries(a1, list3->GetItem(i));
+            BGSBodyPart_HideLimb(a1, list3->GetItem(i));
         }
     }
     else if (pNode->GetTarget())
@@ -389,12 +390,13 @@ struct SomeClass
     Entry_005e4810* unk38;
     unsigned char unk3c;
 
-    void SetEntryStateByKey(unsigned short param1, unsigned char param2);
+    void BSDismemberSkinInstance_SetBodyPartEnabled(unsigned short param1, unsigned char param2);
 };
 
 // Clears unk3c, then for each of unk34 entries matching param1 sets unk00 to param2 and ORs every entry's unk00 into unk3c.
 // @fnv 0x005e4810
-void SomeClass::SetEntryStateByKey(unsigned short ausKey, unsigned char aucState)
+// src: COMMUNITY 0x005e4810
+void SomeClass::BSDismemberSkinInstance_SetBodyPartEnabled(unsigned short ausKey, unsigned char aucState)
 {
     this->unk3c = 0;
     for (unsigned int i = 0; i < this->unk34; i++)
@@ -434,13 +436,14 @@ class TreeNode
 class FoundResult
 {
   public:
-    void SetEntryStateByKey(unsigned int value, int enabled);
+    void BSDismemberSkinInstance_SetBodyPartEnabled(unsigned int value, int enabled);
 };
 extern char DAT_011f49d8[];
 FoundResult* __cdecl NiObject_DynamicCast(const char*, const char*);
 // Recurses into a tree node's children; for each leaf with a key name, looks up a result by name and applies key and key+200 to it.
 // @fnv 0x005e4890
-void __cdecl ApplyKeyToLeafNodes(unsigned int key, TreeNode* node)
+// src: COMMUNITY 0x005e4890
+void __cdecl BGSBodyPart_UnhideLimb(unsigned int key, TreeNode* node)
 {
     if (node == 0)
         return;
@@ -449,7 +452,7 @@ void __cdecl ApplyKeyToLeafNodes(unsigned int key, TreeNode* node)
         NodeList* children = node->GetChildren();
         for (unsigned int i = 0; i < children->FUN_0043b480(); ++i)
         {
-            ApplyKeyToLeafNodes(key, children->FUN_0043b4a0(i));
+            BGSBodyPart_UnhideLimb(key, children->FUN_0043b4a0(i));
         }
     }
     else if (node->GetKeyName())
@@ -459,8 +462,8 @@ void __cdecl ApplyKeyToLeafNodes(unsigned int key, TreeNode* node)
         FoundResult* result = NiObject_DynamicCast(DAT_011f49d8, pcText);
         if (result != 0)
         {
-            result->SetEntryStateByKey(static_cast<unsigned short>(key), 1);
-            result->SetEntryStateByKey(key + 200, 0);
+            result->BSDismemberSkinInstance_SetBodyPartEnabled(static_cast<unsigned short>(key), 1);
+            result->BSDismemberSkinInstance_SetBodyPartEnabled(key + 200, 0);
         }
     }
 }

@@ -34,7 +34,7 @@ public:
     virtual void GetFirstVertex(hkVector4& v) const;
     virtual void GetSupportVertex(hkVector4Parameter direction, Vector4WithInt24W& supportingVertexOut) const;
     virtual void GetVerticesFromIds(const hkpVertexId* ids, int numIds, Vector4WithInt24W* verticesOut) const;
-    virtual int WeldContactPoint(hkpVertexId* featurePoints, hkUint8& numFeaturePoints,
+    virtual int hkpTriangleShape_weldContactPointImpl(hkpVertexId* featurePoints, hkUint8& numFeaturePoints,
                                  hkVector4& contactPointWs, const hkTransform* thisObjTransform,
                                  const hkpConvexShape* collidingShape, const hkTransform* collidingTransform,
                                  hkVector4& separatingNormalInOut) const;

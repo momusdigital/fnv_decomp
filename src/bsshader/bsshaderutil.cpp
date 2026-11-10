@@ -11,7 +11,7 @@ class NiNode;
 class BSShaderRenderUtility_bsshaderutil
 {
 public:
-    bool IsRenderTargetId(unsigned int value);
+    bool TESDataHandler_IsFormIDCreated(unsigned int value);
     static void InitializeMultiBounds();
     static void SetRenderCamera(NiCamera* camera, BSShaderAccumulator* accumulator, bool unused);
     static void SetRenderCamera(AnimIdle* camera, AnimIdle* accumulator, bool unused);
@@ -57,7 +57,8 @@ inline void NiFixedString::operator delete(void* pointer)
 
 #pragma optimize("", off)
 // @fnv 0x00469860
-bool BSShaderRenderUtility_bsshaderutil::IsRenderTargetId(unsigned int value)
+// src: COMMUNITY 0x00469860
+bool BSShaderRenderUtility_bsshaderutil::TESDataHandler_IsFormIDCreated(unsigned int value)
 {
     return value >= 0xff000000u;
 }

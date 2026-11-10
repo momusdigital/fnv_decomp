@@ -38,13 +38,13 @@ public:
     bool bFlag29;                                               // 0x29 ctor: 0
     bool bFlag2A;                                               // 0x2a
     bool bFlag2B;                                               // 0x2b
-    BSSimpleArray<TESObjectREFR*, 1024> kTerrainReferences;     // 0x2c AddTerrainReference / RemoveTerrainReference
+    BSSimpleArray<TESObjectREFR*, 1024> kTerrainReferences;     // 0x2c ShowTree / RemoveTerrainReference
 
     BGSTerrainManager(TESWorldSpace* world);                    // 0x006fc490
     ~BGSTerrainManager();                                       // 0x006fc980
 
     void AddMultiBoundDebugLines(NiCamera*);
-    void AddTerrainReference(TESObjectREFR*);
+    void ShowTree(TESObjectREFR*);
     static void ClearMultiBoundResults();
     static void DeallocateStaticNodes();
     static void DisableBlockVisibility();

@@ -13,7 +13,7 @@ class IdleAnimationDirectoryEntry
   public:
     BSSimpleList<const char*>* m_ppFileListsByWeapon[12];
     IdleAnimationDirectoryEntry(const char*);
-    void SetWeaponFiles(BSSimpleList<const char*>* files);
+    void IDLE_ANIM_ROOT_AddRootFilenameList(BSSimpleList<const char*>* files);
 };
 
 #include "../../include/ANIM_GROUP_MOVE_ENUM.h"
@@ -52,10 +52,10 @@ class IdleAnimationManager : public NiTMap<const char*, IdleAnimationDirectoryEn
     TESIdleForm* FindIdleFormForObject(TESObjectREFR*, TESObjectREFR*);
     IdleAnimationDirectoryEntry* ClearIdleData(const char*, BSSimpleList<const char*>*, bool);
     void InsertOrUpdate(const char*, IdleAnimationDirectoryEntry*);
-    void ReleaseStorage_00600030();
+    void TESIdleManager_DestroyRootIdleArrayForms();
     BSSimpleList<const char*>* FindIdleArrayEntry(const char* directory, ANIM_GROUP_WEAPON_ENUM weapon);
-    static void BuildIdlePath(const char* source, char* destination);
-    static TESObject* GetCurrentUsedItem();
+    static void TESIdleManager_GetIdleDirName(const char* source, char* destination);
+    static TESObject* TESIdleManager_GetUsedItem();
     static bool GetUsedItemActivate();
 };
 

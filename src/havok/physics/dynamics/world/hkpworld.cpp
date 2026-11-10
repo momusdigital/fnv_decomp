@@ -279,7 +279,7 @@ struct ConstraintStreamStorage {
     int m_c8;
 };
 
-struct FUN_00caa840_shell {
+struct hkLimitedHingeConstraintCinfo {
     void* m_iWordAt00;
     ConstraintStreamStorage* m_data;
     void hkConstraintCinfo_SaveBinary(NiStream* ctx);
@@ -288,7 +288,7 @@ struct FUN_00caa840_shell {
 };
 
 // @fnv 0x00caa840
-void FUN_00caa840_shell::WriteToStream(void* streamContext)
+void hkLimitedHingeConstraintCinfo::WriteToStream(void* streamContext)
 {
     NiStream* ctx = (NiStream*)streamContext;
     hkConstraintCinfo_SaveBinary(ctx);
@@ -397,11 +397,11 @@ struct FUN_00c91140_Class {
     unsigned int m_88;
     unsigned int m_8C;
     int m_90;
-    void UpdateFields_00c91140();
+    void hkpWorld_internalExecutePendingBodyOperations();
 };
 // @fnv 0x00c91140
-// src: GUESS 0x00c91140 (confidence: low)
-void FUN_00c91140_Class::UpdateFields_00c91140()
+// src: GUESS 0x00c91140 (confidence: medium)
+void FUN_00c91140_Class::hkpWorld_internalExecutePendingBodyOperations()
 {
     m_90 = 0;
     ((FUN_00cf7ae0_Class*)m_88)->hkpWorldOperationQueue_executeAllPendingBodyOperations();
@@ -438,11 +438,12 @@ void __thiscall FUN_00c91190_Class::hkpWorld_unlock()
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void*);
 
 struct FUN_00c911d0_Class {
-    void __thiscall EnterLock(void*);
+    void __thiscall hkpWorld_lockIslandForConstraintUpdate(void*);
 };
 
 // @fnv 0x00c911d0
-void __thiscall FUN_00c911d0_Class::EnterLock(void* unused)
+// src: COMMUNITY 0x00c911d0
+void __thiscall FUN_00c911d0_Class::hkpWorld_lockIslandForConstraintUpdate(void* unused)
 {
     void* cs = *(void**)(this + 0xb8);
     if (cs)
@@ -1121,7 +1122,7 @@ void FUN_00c91270_cls::ahkpWorld_updateKdTree(int a)
     m_5C->Forward(a);
 }
 
-struct FUN_00c98250_Class {
+struct hkpNullContactMgrFactory {
     void* m_iWordAt00;
     void* m_iWordAt04;
     void* m_8;
@@ -1130,7 +1131,7 @@ struct FUN_00c98250_Class {
 
 // @fnv 0x00c98250
 // src: XBOX_PDB 0x00c98250
-void* __thiscall FUN_00c98250_Class::hkpNullContactMgrFactory_createContactMgr(int, int, int)
+void* __thiscall hkpNullContactMgrFactory::hkpNullContactMgrFactory_createContactMgr(int, int, int)
 {
     return (void*)((char*)this + 8);
 }
@@ -1208,12 +1209,12 @@ struct C67Sink {
     void RemoveEntities(C67Entry** entries, unsigned int count);
 };
 
-class FUN_00c67aa0_Class {
+class bhkWorldM {
 public:
     virtual void vf00(); virtual void vf01(); virtual void vf02(); virtual void vf03();
     virtual void vf04(); virtual void vf05(); virtual void vf06(); virtual void vf07();
     virtual void vf08(); virtual void vf09(); virtual void vf10(); virtual void vf11();
-    virtual void vf12(); virtual void vf13(); virtual void vf14(); virtual void vf15();
+    virtual void SetMapName(); virtual void vf13(); virtual void vf14(); virtual void vf15();
     virtual void vf16(); virtual void vf17(); virtual void vf18(); virtual void vf19();
     virtual void vf20(); virtual void vf21(); virtual void vf22(); virtual void vf23();
     virtual void vf24(); virtual void vf25(); virtual void vf26(); virtual void vf27();
@@ -1230,7 +1231,7 @@ public:
 };
 
 // @fnv 0x00c67aa0
-void FUN_00c67aa0_Class::FlushEntries()
+void bhkWorldM::FlushEntries()
 {
     ScopedMemContext ctx(0x10);
     if (m_iNumberOfEntries > 0) {
@@ -1268,7 +1269,7 @@ struct WorldExt : public hkpWorld {
     void hkpWorld_stepDeltaTime(float f) throw();
     void hkpWorld_stepMultithreaded(int a, int b, float f) throw();
     void FUN_00c91120() throw();
-    void UpdateFields_00c91140() throw();
+    void hkpWorld_internalExecutePendingBodyOperations() throw();
 };
 
 struct Class_012677d0 {
@@ -1355,7 +1356,7 @@ bool bhkWorld::StepSimulation() {
                 world->FUN_00c91120();
             }
             if (world->m_iPendingOperationQueueCount == 1 && world->m_iQueuedOperationCount != 0) {
-                world->UpdateFields_00c91140();
+                world->hkpWorld_internalExecutePendingBodyOperations();
             }
         }
 
@@ -1820,12 +1821,12 @@ public:
             if (m_iPendingOperationCount)
                 FUN_00c91120();
             if (m_iPendingOperationQueueCount == 1 && m_iQueuedOperationCount)
-                UpdateFields_00c91140();
+                hkpWorld_internalExecutePendingBodyOperations();
         }
     }
 
     void FUN_00c91120() throw();
-    void UpdateFields_00c91140() throw();
+    void hkpWorld_internalExecutePendingBodyOperations() throw();
     void hkpWorld_queueOperation(const hkWorldOperationBaseC914& kOperation) throw();
 
     hkpEntity* hkpWorld_addEntity(hkpEntity* pkEntity, int iInitialActivationState) throw();
@@ -2405,7 +2406,7 @@ struct PendingOperation {
 struct FUN_00c936a0_World : hkpWorld {
     void hkpWorld_queueOperation(PendingOperation* op);
     void FUN_00c91120();
-    void UpdateFields_00c91140();
+    void hkpWorld_internalExecutePendingBodyOperations();
 
     hkpPhantom* hkpWorld_addPhantom(hkpPhantom* phantom);
 };
@@ -2451,7 +2452,7 @@ hkpPhantom* FUN_00c936a0_World::hkpWorld_addPhantom(hkpPhantom* phantom)
             FUN_00c91120();
         }
         if (m_iPendingOperationQueueCount == 1 && m_iQueuedOperationCount) {
-            UpdateFields_00c91140();
+            hkpWorld_internalExecutePendingBodyOperations();
         }
     }
 
@@ -3794,10 +3795,11 @@ struct FnvCpu_FUN_00c983b0_CpuObject {
     unsigned int unk00;
     unsigned short size;
     void FUN_00c93e50();
-    FnvCpu_FUN_00c983b0_CpuObject* FUN_00c983b0(unsigned int flags);
+    FnvCpu_FUN_00c983b0_CpuObject* ScalarDeletingDestructor(unsigned int flags);
 };
 // @fnv 0x00c983b0
-FnvCpu_FUN_00c983b0_CpuObject* FnvCpu_FUN_00c983b0_CpuObject::FUN_00c983b0(unsigned int flags)
+// src: EXE 0x00c983b0
+FnvCpu_FUN_00c983b0_CpuObject* FnvCpu_FUN_00c983b0_CpuObject::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00c93e50();
     if (flags & 1) {
@@ -5277,7 +5279,7 @@ struct FUN_00c91620_Class {
     int m_a4;
     void hkpWorld_queueOperation(FUN_00c91620_Args* args);
     void FUN_00c91120();
-    void UpdateFields_00c91140();
+    void hkpWorld_internalExecutePendingBodyOperations();
     unsigned char* ProcessTarget(unsigned char* result, FUN_00c91620_Target* target);
 };
 
@@ -5323,7 +5325,7 @@ unsigned char* FUN_00c91620_Class::ProcessTarget(
         if (m_8c != 0)
             FUN_00c91120();
         if (m_a4 == 1 && m_90 != 0)
-            UpdateFields_00c91140();
+            hkpWorld_internalExecutePendingBodyOperations();
     }
     *result = 1;
     return result;
@@ -6234,11 +6236,11 @@ public:
             if (m_iPendingOperationCount)
                 FUN_00c91120();
             if (m_iPendingOperationQueueCount == 1 && m_iQueuedOperationCount)
-                UpdateFields_00c91140();
+                hkpWorld_internalExecutePendingBodyOperations();
         }
     }
     void FUN_00c91120();
-    void UpdateFields_00c91140();
+    void hkpWorld_internalExecutePendingBodyOperations();
     void hkpWorld_queueOperation(const RemoveActionOpC92C& kOp);
     void hkpWorld_removePhantom(hkpPhantom* pkAction);
 };
@@ -7093,7 +7095,7 @@ struct C97E80ReleaseShell {
 };
 struct C97E80CleanupShell {
     void __thiscall FUN_00c91120();
-    void __thiscall UpdateFields_00c91140();
+    void __thiscall hkpWorld_internalExecutePendingBodyOperations();
 };
 void __cdecl hkpWorldOperationUtil_removeConstraintImmediately(hkpWorld* world, C97E80Action* action, int flags);
 struct C97E80Return { bool m_iResultCode; };
@@ -7128,7 +7130,7 @@ C97E80Return __thiscall C97E80World::hkpWorld_removeConstraint(C97E80Action* act
             ((C97E80CleanupShell*)this)->FUN_00c91120();
         }
         if (m_iPendingOperationQueueCount == 1 && m_iQueuedOperationCount) {
-            ((C97E80CleanupShell*)this)->UpdateFields_00c91140();
+            ((C97E80CleanupShell*)this)->hkpWorld_internalExecutePendingBodyOperations();
         }
     }
     C97E80Return r = {true};
@@ -8173,7 +8175,7 @@ struct CallRet : hkpWorld {
     void hkpWorld_updateCollisionFilterOnEntity(hkpEntity*, int, int);
     void hkpWorld_queueOperation(FilterCommand*);
     void FUN_00c91120();
-    void UpdateFields_00c91140();
+    void hkpWorld_internalExecutePendingBodyOperations();
 };
 __forceinline void releasePairs(PairArray& pairs) {
 hkMemoryRouter* router = (hkMemoryRouter*)hkMemoryRouter_getInstance();
@@ -8254,7 +8256,7 @@ CollisionObject* other; if(!((CollisionFilter*)m_pCollisionFilter)->filter.enabl
     }
     if (--m_iCriticalOperationsLockCount == 0 && !m_bBlockExecutingPendingOperations) {
         if (m_iPendingOperationCount) FUN_00c91120();
-        if (m_iPendingOperationQueueCount == 1 && m_iQueuedOperationCount) UpdateFields_00c91140();
+        if (m_iPendingOperationQueueCount == 1 && m_iQueuedOperationCount) hkpWorld_internalExecutePendingBodyOperations();
     }
     releasePairs(pairs);
     timer("lt");
@@ -9083,7 +9085,7 @@ static __declspec(noinline) void SyncOverlap(PhantomC944* phantom,CollidableC944
 }
 
 struct PhantomArgC944 { PhantomC944* p; PhantomArgC944(PhantomC944* q) : p(q) {} };
-struct WorldC944 : hkpWorld { void UpdatePhantom(PhantomC944*, int); void hkpWorld_queueOperation(PendingOp*); void FUN_00c91120(); void UpdateFields_00c91140(); };
+struct WorldC944 : hkpWorld { void UpdatePhantom(PhantomC944*, int); void hkpWorld_queueOperation(PendingOp*); void FUN_00c91120(); void hkpWorld_internalExecutePendingBodyOperations(); };
 
 // Queries broad phase for overlaps with a phantom, applies collision filters, and optionally processes contact points.
 // @fnv 0x00c944a0
@@ -9165,7 +9167,7 @@ void WorldC944::UpdatePhantom(PhantomC944* apPhantom, int abProcessContacts)
             if (m_iPendingOperationCount != 0)
                 FUN_00c91120();
             if (m_iPendingOperationQueueCount == 1 && m_iQueuedOperationCount != 0)
-                UpdateFields_00c91140();
+                hkpWorld_internalExecutePendingBodyOperations();
         }
     }
 
@@ -9214,7 +9216,7 @@ struct MyExecPending {
 };
 
 struct MyExecBodyPending {
-    void __thiscall UpdateFields_00c91140() throw();
+    void __thiscall hkpWorld_internalExecutePendingBodyOperations() throw();
 };
 
 class hkpSimulation_00c951b0 {
@@ -9476,7 +9478,7 @@ void HostWorld_00c951b0::RemoveEntities(void* const* entityBatch, int numEntitie
             }
             if (m_iPendingOperationQueueCount == 1 && m_iQueuedOperationCount != 0)
             {
-                ((MyExecBodyPending*)this)->UpdateFields_00c91140();
+                ((MyExecBodyPending*)this)->hkpWorld_internalExecutePendingBodyOperations();
             }
         }
     }
@@ -10024,11 +10026,11 @@ void __cdecl _hkAgentNnMachine_UpdateShapeCollectionFilter(S96_Constraint*,void*
 void __cdecl hkpWorldAgentUtil_removeAgentAndItsToiEvents(S96_Constraint*);
 struct S96_RemovalList {S96_Constraint** data; int size; int capacity; S96_Constraint* local[32]; void clear(){size=0;} int GetLogicalSize() const {return size;} S96_Constraint*& back(){return data[size-1];} void popBack(){--size;}};
 struct S96_WorldShell : hkpWorld {
- void hkpWorld_queueOperation(const S96_Operation&); void hkpWorld_updateCollisionFilterOnEntity(void*,int,int); void UpdatePhantom(void*,int); void FUN_00c91120(); void UpdateFields_00c91140();
+ void hkpWorld_queueOperation(const S96_Operation&); void hkpWorld_updateCollisionFilterOnEntity(void*,int,int); void UpdatePhantom(void*,int); void FUN_00c91120(); void hkpWorld_internalExecutePendingBodyOperations();
  __forceinline void S96_attempt() {
   if(!m_iCriticalOperationsLockCount && !(*(char*)&m_bBlockExecutingPendingOperations)) {
    if(m_iPendingOperationCount) FUN_00c91120();
-   if(m_iPendingOperationQueueCount==1 && m_iQueuedOperationCount) UpdateFields_00c91140();
+   if(m_iPendingOperationQueueCount==1 && m_iQueuedOperationCount) hkpWorld_internalExecutePendingBodyOperations();
   }
  }
  static __forceinline void S96_TimerBegin(const char* name) {
@@ -10638,7 +10640,7 @@ struct FnvBroadPhase {
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40();
     virtual void vf44(int flags, FnvBodyArray* bodies);
@@ -11129,7 +11131,7 @@ int vsRBS; FUN_00d07830*vlSI; } ;
 enum MtAccessChecking{ MT_ACCESS_CHECKING_ENABLED=0,MT_ACCESS_CHECKING_DISABLED} ; inline const EnumIntegerValue*getCollisionFilter()const throw();
 enum CachedAabbUpdate{ SHIFT_BROADPHASE_UPDATE_ENTITY_AABBS,SHIFT_BROADPHASE_IGNORE_ENTITY_AABBS} ; inline const TA2<FUN_00d07830*>&getActiveSimulationIslands()const throw();
 public:__forceinline void lockCriticalOperations()throw(); __forceinline void unlockCriticalOperations()throw(); __forceinline int areCriticalOperationsLocked()const throw(); __forceinline void unlockAndAttemptToExecutePendingOperations()throw();
-__forceinline void attemptToExecutePendingOperations(bool executeBodyOperations=true)throw(); void hkpWorld_queueOperation(const TWO1::TypeTag&operation)throw(); private:void FUN_00c91120()throw(); void UpdateFields_00c91140()throw();
+__forceinline void attemptToExecutePendingOperations(bool executeBodyOperations=true)throw(); void hkpWorld_queueOperation(const TWO1::TypeTag&operation)throw(); private:void FUN_00c91120()throw(); void hkpWorld_internalExecutePendingBodyOperations()throw();
 public:public:TS2*vs3; TV4 vg1; FUN_00d07830*vfI; TRB*vfRB;
 TA2<FUN_00d07830*>vaSI; TA2<FUN_00d07830*>viSI; TA2<FUN_00d07830*>vdSI; TWMM*vmM;
 TRP<TWMAWD>vmWD; TB vaOROOSM; TBP*vbP; class TTWM*vkTM;
@@ -11162,7 +11164,7 @@ vcOLC--; ; } int TW::areCriticalOperationsLocked()const throw(){
 ; ; return vcOLC; }
 void TW::attemptToExecutePendingOperations(bool executeBodyOperations)throw(){ ; if(!vcOLC&&!vbEPO){ if(vpOC){
 FUN_00c91120(); } if(vpOQC==1&&executeBodyOperations){ if(vpBOC){
-UpdateFields_00c91140(); } } }
+hkpWorld_internalExecutePendingBodyOperations(); } } }
 } void TW::unlockAndAttemptToExecutePendingOperations()throw(){ unlockCriticalOperations(); attemptToExecutePendingOperations();
 } extern struct TCDU*g_checkDeterminismUtil; class TI; class TO1;
 class TCS2; class TMT; struct TCDU; class TVA;
@@ -11443,7 +11445,7 @@ static __forceinline void Sbp_initArray(Sbp_Island**& data, int& size, int& cap,
 struct Sbp_World : hkpWorld {
     void hkpWorld_shiftBroadPhase(const LocalM128& rawShift, LocalM128& rawEffective, int update);
     void FUN_00c91120();
-    void UpdateFields_00c91140();
+    void hkpWorld_internalExecutePendingBodyOperations();
 };
 static __forceinline void doShift(Sbp_World* self,const LocalM128& rawShift, LocalM128& rawEffective, int update){
     const Sbp_Vec& shift = (const Sbp_Vec&)rawShift;
@@ -11513,7 +11515,7 @@ static __forceinline void doShift(Sbp_World* self,const LocalM128& rawShift, Loc
     }
     if (--self->m_iCriticalOperationsLockCount == 0 && !self->m_bBlockExecutingPendingOperations) {
         if (self->m_iPendingOperationCount) self->FUN_00c91120();
-        if (self->m_iPendingOperationQueueCount == 1 && self->m_iQueuedOperationCount) self->UpdateFields_00c91140();
+        if (self->m_iPendingOperationQueueCount == 1 && self->m_iQueuedOperationCount) self->hkpWorld_internalExecutePendingBodyOperations();
     }
     {
         Sbp_Timer* timer = (Sbp_Timer*)TlsGetValue(DAT_0126835c);
@@ -12763,7 +12765,7 @@ struct BroadPhaseDispatcher {
 struct World_RemovePhantomBatch : hkpWorld {
     void hkpWorld_queueOperation(RemovePhantomBatchOp* op) throw();
     void FUN_00c91120() throw();
-    void UpdateFields_00c91140() throw();
+    void hkpWorld_internalExecutePendingBodyOperations() throw();
     void hkpWorld_removePhantomBatch(hkpPhantom** phantomBatch, int numPhantoms);
 };
 
@@ -12816,7 +12818,7 @@ void World_RemovePhantomBatch::hkpWorld_removePhantomBatch(hkpPhantom** phantomB
                 FUN_00c91120();
             }
             if (m_iPendingOperationQueueCount == 1 && m_iQueuedOperationCount != 0) {
-                UpdateFields_00c91140();
+                hkpWorld_internalExecutePendingBodyOperations();
             }
         }
     }
@@ -13170,7 +13172,7 @@ struct PendingOp {
 struct WorldHelper : public hkpWorld {
     void __thiscall hkpWorld_queueOperation(void* op) throw();
     void __thiscall FUN_00c91120() throw();
-    void __thiscall UpdateFields_00c91140() throw();
+    void __thiscall hkpWorld_internalExecutePendingBodyOperations() throw();
 
     void hkpWorld_addPhantomBatch(hkpPhantom* const* phantomBatch, int numPhantoms) throw();
 };
@@ -13225,14 +13227,14 @@ void WorldHelper::hkpWorld_addPhantomBatch(hkpPhantom* const* phantomBatch, int 
             FUN_00c91120();
         }
         if (m_iPendingOperationQueueCount == 1 && m_iQueuedOperationCount != 0) {
-            UpdateFields_00c91140();
+            hkpWorld_internalExecutePendingBodyOperations();
         }
     }
 }
 
 }
 
-struct PendingCalls_00c97510 { void FUN_00c91120(); void UpdateFields_00c91140(); };
+struct PendingCalls_00c97510 { void FUN_00c91120(); void hkpWorld_internalExecutePendingBodyOperations(); };
 
 
 struct hkAllocQ70 {
@@ -13336,7 +13338,7 @@ void hkpWorldDecomp::RemoveActionFromWorld(hkpAction* action)
         }
         if (this->m_iPendingOperationQueueCount == 1 && this->m_iQueuedOperationCount != 0)
         {
-            ((PendingCalls_00c97510*)this)->UpdateFields_00c91140();
+            ((PendingCalls_00c97510*)this)->hkpWorld_internalExecutePendingBodyOperations();
         }
     }
 

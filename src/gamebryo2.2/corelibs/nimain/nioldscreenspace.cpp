@@ -220,7 +220,8 @@ __declspec(noinline) void NiTArray<T, Allocator>::RemoveAll() throw()
 
 // Calls NiObject::RegisterStreamables, then registers streamables on 7 objects reached through the pointer at this+8, returning false if the base call fails.
 // @fnv 0x00a900c0
-bool __fastcall RegisterScreenPolygonStreamables(NiScreenPolygon* self, void*, NiStream& stream)
+// src: EXE 0x00a900c0
+bool __fastcall NiScreenPolygon_RegisterStreamables(NiScreenPolygon* self, void*, NiStream& stream)
 {
     if (!self->NiObject::RegisterStreamables(stream))
         return false;
@@ -309,7 +310,8 @@ struct CameraViewerCalls
 char* __cdecl _FUN_00a7d330(const char*);
 // Calls the base implementation, then appends the string returned by _FUN_00a7d330 to pkStrings, growing it if needed.
 // @fnv 0x00a91890
-void __fastcall AppendScreenSpaceCameraStrings(NiScreenSpaceCamera* self, void*, StrArr* pkStrings)
+// src: EXE 0x00a91890
+void __fastcall NiScreenSpaceCamera_GetViewerStrings(NiScreenSpaceCamera* self, void*, StrArr* pkStrings)
 {
     reinterpret_cast<CameraViewerCalls*>(self)->NiCamera_GetViewerStrings(pkStrings);
     char* tmp = _FUN_00a7d330(*(const char**)&g_011f5e6c);
@@ -364,10 +366,11 @@ struct FUN_00a90560_host : NiRefObject
     void* m1;
     void* m2;
     void* m3;
-    void* __thiscall FUN_00a90560(unsigned int);
+    void* __thiscall ScalarDeletingDestructor(unsigned int);
 };
 // @fnv 0x00a90560
-void* __thiscall FUN_00a90560_host::FUN_00a90560(unsigned int auiFlags)
+// src: EXE 0x00a90560
+void* __thiscall FUN_00a90560_host::ScalarDeletingDestructor(unsigned int auiFlags)
 {
     *(void**)this = (void*)&DAT_0109f914;
     g_memoryManager.Deallocate(m1);
@@ -430,7 +433,8 @@ template <class T> inline void ReadBinaryValue(NiStream& kStream, T& val)
 
 // Loads vertex count, vertex colors, and optional texture and color arrays from the stream, then reads the stream link.
 // @fnv 0x00a90d70
-void __fastcall LoadScreenPolygon(NiScreenPolygon* self, void*, NiStream& kStream)
+// src: EXE 0x00a90d70
+void __fastcall NiScreenPolygon_LoadBinary(NiScreenPolygon* self, void*, NiStream& kStream)
 {
     self->NiObject::LoadBinary(kStream);
 
@@ -1100,7 +1104,8 @@ void __fastcall LinkScreenPolygon(NiScreenPolygon*, void*, NiStream&);
 
 // Links the object then writes vertex count, vertex colors, optional texture and color arrays, and property link IDs to the stream.
 // @fnv 0x00a90f70
-void __fastcall SaveScreenPolygon(NiScreenPolygon* self, void*, NiStream& kStream)
+// src: EXE 0x00a90f70
+void __fastcall NiScreenPolygon_SaveBinary(NiScreenPolygon* self, void*, NiStream& kStream)
 {
     reinterpret_cast<void (__thiscall*)(NiScreenPolygon*, NiStream&)>(LinkScreenPolygon)(self, kStream);
     NiStream& s = kStream;
@@ -1137,7 +1142,8 @@ struct ElemA90
 
 // Serializes the host's flag, element count and each element's polygon/vertex/color/texture data to the save stream.
 // @fnv 0x00a90b40
-void __fastcall SaveScreenGeometryData(NiScreenGeometryData* self, void*, NiStream& stream)
+// src: EXE 0x00a90b40
+void __fastcall NiScreenGeometryData_SaveBinary(NiScreenGeometryData* self, void*, NiStream& stream)
 {
     self->NiTriShapeData::SaveBinary(stream);
     char cByte = ScreenGeometryField<bool>(self, 0x58);
@@ -1264,7 +1270,8 @@ inline NiTPrimitiveArray<ScreenGeometryPtr>& ScreenCameraArrayB(NiScreenSpaceCam
 
 // Calls the base stream routine, re-adds the original elements of both arrays, then calls FUN_00a2e620 on each.
 // @fnv 0x00a91f00
-void __fastcall LoadScreenSpaceCamera(NiScreenSpaceCamera* self, void*, NiStream& kStream)
+// src: EXE 0x00a91f00
+void __fastcall NiScreenSpaceCamera_LinkObject(NiScreenSpaceCamera* self, void*, NiStream& kStream)
 {
     self->NiCamera::LoadBinary(kStream);
     unsigned int ItemUpdateArray = ScreenCameraArrayA(self).m_usSize;
@@ -1439,7 +1446,8 @@ inline bool ScreenColorDiffers(const NiColorA& color, const NiColorA& other)
 
 // Returns true when IsSameAs succeeds and the vertex counts, vertex values, optional texture and color values, and seven property pointers match.
 // @fnv 0x00a906e0
-bool __fastcall IsScreenPolygonEqual(NiScreenPolygon* self, void*, NiObject* pObject)
+// src: EXE 0x00a906e0
+bool __fastcall NiScreenPolygon_IsEqual(NiScreenPolygon* self, void*, NiObject* pObject)
 {
     if (!self->NiObject::IsSameAs(pObject))
         return false;
@@ -1598,7 +1606,8 @@ struct Pool91950
 void* __cdecl _NiMalloc_00aa1070(unsigned int);
 // Loads the geometry base data, screen flag, legacy fields, and vertex/color/texture elements.
 // @fnv 0x00a91950
-void __fastcall LoadScreenGeometryData(NiScreenGeometryData* self, void*, NiStream& stream)
+// src: EXE 0x00a91950
+void __fastcall NiScreenGeometryData_LoadBinary(NiScreenGeometryData* self, void*, NiStream& stream)
 {
     if (Version91950(stream) < 0x0a00010f)
         self->NiGeometryData::LoadBinary(stream);

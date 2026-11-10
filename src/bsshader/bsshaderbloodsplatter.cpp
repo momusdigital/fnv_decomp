@@ -109,7 +109,7 @@ BSShader* BloodSplatterShaderLocal_00b80d30::CreateShader()
     shader->ConfigureShaderPass();
     // The approved BSShader header does not declare slot 71 yet.
     reinterpret_cast<Method0>((*reinterpret_cast<void***>(shader))[71])(shader);
-    shader->UseShaderDeclaration(declaration);
+    shader->NiD3DShader_SetShaderDecl(declaration);
     return shader;
 }
 
@@ -287,16 +287,16 @@ void BloodSplatterShaderLocal_00b80d30::InitializeShaderData()
     fnv_zlib_memset(&flarePixelShader.macros[1].Definition, 0, 60);
     char shaderPath[260];
     char outputFile[260];
-    GetShaderPath(vertex.file, shaderPath);
+    MakePath(vertex.file, shaderPath);
     sprintf_s(outputFile, 260, "BS.vso");
     m_spTreeVertexShader[0] = CompileVertexShader(shaderPath, vertex.macros, "vs_1_1", outputFile);
-    GetShaderPath(flareVertexShader.file, shaderPath);
+    MakePath(flareVertexShader.file, shaderPath);
     sprintf_s(outputFile, 260, "BSF.vso");
     m_spTreeVertexShader[1] = CompileVertexShader(shaderPath, flareVertexShader.macros, "vs_1_1", outputFile);
-    GetShaderPath(pixel.file, shaderPath);
+    MakePath(pixel.file, shaderPath);
     sprintf_s(outputFile, 260, "BS.pso");
     m_spPixelShaderVariants[0] = CompilePixelShader(shaderPath, pixel.macros, "ps_2_a", outputFile);
-    GetShaderPath(flarePixelShader.file, shaderPath);
+    MakePath(flarePixelShader.file, shaderPath);
     sprintf_s(outputFile, 260, "BSF.pso");
     m_spPixelShaderVariants[1] = CompilePixelShader(shaderPath, flarePixelShader.macros, "ps_2_a", outputFile);
 }
@@ -425,7 +425,7 @@ struct Camera_00b803b0
     float m20;  // +0x80
     float m21, m22;
     NiPoint3 m_kWorldTranslate;  // +0x8c
-    bool ProjectPointToScreen(const NiPoint3& kPt, float& fX, float& fY, float& fZ, float fZeroTolerance);
+    bool NiCamera_WorldPtToScreenPt3(const NiPoint3& kPt, float& fX, float& fY, float& fZ, float fZeroTolerance);
 };
 
 // @fnv 0x00b803b0
@@ -443,7 +443,8 @@ void __cdecl BSShaderBloodSplatter_ComputeScreenSpaceLightLoc(Camera_00b803b0* p
         kDelta.ComputeMagnitude();
         DAT_011fed90 = kDelta * kWorldPosition;
         float fX, fY, fZ;
-        if (pkCamera->ProjectPointToScreen(kHit, fX, fY, fZ, 1e-05f))
+        // src: COMMUNITY 0x00a6fdb0
+        if (pkCamera->NiCamera_WorldPtToScreenPt3(kHit, fX, fY, fZ, 1e-05f))
         {
             if (fX < 0.0f)
                 fX = 0.0f;

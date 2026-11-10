@@ -242,7 +242,7 @@ typedef CombatProcedureSearch::Location Location;
 struct Radius
 {
     int value;
-    double GetClampedDifference();
+    double CombatTimeStamp_DisplayElapsedTime();
 };
 // The diagnostics use double-returning timer helpers absent from TimeoutTimer.h.
 struct Range : TimeoutTimer
@@ -350,7 +350,7 @@ void CombatProcedureSearch::PrintDebugInfo(Output* output, int x, int y)
     float confidence = context->GetAvoidRadius();
     if (confidence >= DAT_01012060)
         output->Print(x, y, DAT_01091f40, context->GetFieldD0(), context->GetMoveSpeed_009442a0(), confidence * DAT_01017a40,
-                      context->GetValue().GetClampedDifference());
+                      context->GetValue().CombatTimeStamp_DisplayElapsedTime());
 }
 
 float WrapAngle(float);

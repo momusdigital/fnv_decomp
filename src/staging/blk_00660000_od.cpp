@@ -55,12 +55,12 @@ extern "C" int __cdecl ConstructInPlace(int, int);
 
 struct FUN_00660300_Class
 {
-    int __thiscall ConstructInPlace_Thunk(int a, int b);
+    int __thiscall allocator_construct(int a, int b);
 };
 
 // @fnv 0x00660300
 // src: GUESS 0x00660300 (confidence: medium)
-int __thiscall FUN_00660300_Class::ConstructInPlace_Thunk(int aiArg1, int aiArg2)
+int __thiscall FUN_00660300_Class::allocator_construct(int aiArg1, int aiArg2)
 {
     return ConstructInPlace(aiArg1, aiArg2);
 }
@@ -69,12 +69,12 @@ extern "C" void __cdecl CopyConstructElement(int, int);
 
 struct FUN_00660320_Class
 {
-    void __thiscall CopyConstructElement_Thunk(int a, int b);
+    void __thiscall allocator_construct(int a, int b);
 };
 
 // @fnv 0x00660320
 // src: GUESS 0x00660320 (confidence: medium)
-void __thiscall FUN_00660320_Class::CopyConstructElement_Thunk(int aiFirst, int aiSecond)
+void __thiscall FUN_00660320_Class::allocator_construct(int aiFirst, int aiSecond)
 {
     CopyConstructElement(aiFirst, aiSecond);
 }
@@ -233,7 +233,7 @@ void __thiscall FUN_0067d970_Class::SetM()
     m = (int)&DAT_01068aa4;
 }
 
-struct FUN_0067f4b0_class
+struct PackageLocation
 {
     unsigned char b;
     int a;
@@ -243,7 +243,7 @@ struct FUN_0067f4b0_class
 
 // @fnv 0x0067f4b0
 // src: XBOX_PDB 0x0067f4b0
-void FUN_0067f4b0_class::PackageLocation_SetLocObjectType(int aiValue)
+void PackageLocation::PackageLocation_SetLocObjectType(int aiValue)
 {
     b = 5;
     c = aiValue;
@@ -281,14 +281,15 @@ S6* __cdecl CopyTripleShorts(S6* apBegin, S6* apEnd, S6* apDest)
     return apDest;
 }
 
-struct FUN_00661d40_shell
+struct BSFaceGenMorphData
 {
     void __thiscall SetVTableAndDestroy();
-    void* __thiscall FUN_00661d60(unsigned int);
+    void* __thiscall ScalarDeletingDestructor(unsigned int);
 };
 void __cdecl _delete(void*, unsigned int);
 // @fnv 0x00661d60
-void* __thiscall FUN_00661d40_shell::FUN_00661d60(unsigned int flags)
+// src: EXE 0x00661d60
+void* __thiscall BSFaceGenMorphData::ScalarDeletingDestructor(unsigned int flags)
 {
     this->SetVTableAndDestroy();
     if (flags & 1)
@@ -308,7 +309,7 @@ struct StatisticalArray
 {
     int _pad[3];
     int m_base;
-    unsigned int __thiscall EvaluateValue_0065cc30();
+    unsigned int __thiscall vector_size();
     int __thiscall GetElementChecked_00662890(unsigned int);
 };
 unsigned int __cdecl FUN_00ec7c56();
@@ -317,7 +318,7 @@ unsigned int __cdecl FUN_00ec7c56();
 // src: GUESS 0x00662890 (confidence: medium)
 int __thiscall StatisticalArray::GetElementChecked_00662890(unsigned int uiIndex)
 {
-    if (uiIndex >= EvaluateValue_0065cc30())
+    if (uiIndex >= vector_size())
         FUN_00ec7c56();
     do
     {
@@ -444,7 +445,7 @@ struct T_
 {
     void SetValue(void*);
 };
-struct FUN_0066c9c0_Class
+struct hkContactPoint
 {
     T_ a;
     T_ b;
@@ -452,7 +453,7 @@ struct FUN_0066c9c0_Class
 };
 // @fnv 0x0066c9c0
 // src: XBOX_PDB 0x0066c9c0
-void FUN_0066c9c0_Class::hkContactPoint_set(T_& x, T_& y, float afValue)
+void hkContactPoint::hkContactPoint_set(T_& x, T_& y, float afValue)
 {
     a.SetValue(&x);
     ((T_*)((char*)&a) + 16)->SetValue(&y);
@@ -482,7 +483,7 @@ struct H_6db70
 {
     void hkMemoryAllocator_bufFree_hkpRootCdBodyPair(void* a, void* b);
 };
-struct FUN_0066dae0_Class
+struct hkArray
 {
     void* p;
     unsigned int pad;
@@ -492,7 +493,7 @@ struct FUN_0066dae0_Class
 };
 // @fnv 0x0066dae0
 // src: XBOX_PDB 0x0066dae0
-void __thiscall FUN_0066dae0_Class::hkArrayBase_hkVector4_clearAndDeallocate(void* pTarget)
+void __thiscall hkArray::hkArrayBase_hkVector4_clearAndDeallocate(void* pTarget)
 {
     DestroyRange();
     if (!(state & 0x80000000))
@@ -516,7 +517,7 @@ void Runtime_AssignVectorValueToElements(void** apElements, int iCount, void* c)
 }
 }  // namespace fnv_0066db30
 
-struct FUN_0066db70_Class
+struct hkThreadMemory
 {
     virtual void v0()
     {}
@@ -533,7 +534,7 @@ struct FUN_0066db70_Class
 // Calls the virtual v4 with a and b shifted left by 4 bits; the local t is set to 0x10 and unused.
 // @fnv 0x0066db70
 // src: XBOX_PDB 0x0066db70
-void __thiscall FUN_0066db70_Class::hkMemoryAllocator_bufFree_hkpRootCdBodyPair(int a, int b)
+void __thiscall hkThreadMemory::hkMemoryAllocator_bufFree_hkpRootCdBodyPair(int a, int b)
 {
     int t = 0x10;
     this->v4(a, b << 4);
@@ -694,13 +695,13 @@ template <int N> struct EndianSizeTag
 };
 void __cdecl BSEndian(unsigned char* p, EndianSizeTag<1>);
 void __cdecl BSEndian(unsigned char* p, EndianSizeTag<2>);
-struct FUN_0067eff0_Class
+struct PACK_LOC_FILE
 {
     void __thiscall PACK_LOC_FILE_Endian();
 };
 // @fnv 0x0067eff0
 // src: XBOX_PDB 0x0067eff0
-void __thiscall FUN_0067eff0_Class::PACK_LOC_FILE_Endian()
+void __thiscall PACK_LOC_FILE::PACK_LOC_FILE_Endian()
 {
     BSEndian(reinterpret_cast<unsigned char*>(this) + 4, EndianSizeTag<1>());
     BSEndian(reinterpret_cast<unsigned char*>(this) + 8, EndianSizeTag<2>());
@@ -714,7 +715,7 @@ void __cdecl BSEndian(unsigned char* p, EndianSizeTag<0>);
 void __cdecl BSEndian(unsigned char* p, EndianSizeTag<1>);
 void __cdecl BSEndian(unsigned char* p, EndianSizeTag<2>);
 
-struct FUN_0067ff10_Class
+struct PACK_TARG_FILE
 {
     unsigned char d[4];
     void __thiscall OBJ_WEAP_VATS_SPECIAL_Endian();
@@ -722,7 +723,7 @@ struct FUN_0067ff10_Class
 
 // @fnv 0x0067ff10
 // src: XBOX_PDB 0x0067ff10
-void __thiscall FUN_0067ff10_Class::OBJ_WEAP_VATS_SPECIAL_Endian()
+void __thiscall PACK_TARG_FILE::OBJ_WEAP_VATS_SPECIAL_Endian()
 {
     BSEndian(&d[4], EndianSizeTag<1>());
     BSEndian(&d[8], EndianSizeTag<0>());
@@ -759,7 +760,7 @@ void TESPackage::SetPackageFlag(bool abFlag)
 
 void __cdecl BSEndian(unsigned char* p, EndianSizeTag<1>);
 
-struct FUN_0067b100_Class
+struct PACK_DIALOGUE_DATA
 {
     unsigned char b0;
     unsigned char b4;
@@ -770,7 +771,7 @@ struct FUN_0067b100_Class
 
 // @fnv 0x0067b100
 // src: XBOX_PDB 0x0067b100
-void __thiscall FUN_0067b100_Class::PACK_DIALOGUE_DATA_Endian()
+void __thiscall PACK_DIALOGUE_DATA::PACK_DIALOGUE_DATA_Endian()
 {
     BSEndian((unsigned char*)this, EndianSizeTag<1>());
     BSEndian((unsigned char*)this + 4, EndianSizeTag<1>());
@@ -779,12 +780,13 @@ void __thiscall FUN_0067b100_Class::PACK_DIALOGUE_DATA_Endian()
 }
 
 extern int DAT_01268324;
-struct FUN_0066d6a0 : bhkConvexShape
+struct bhkCapsuleShape : bhkConvexShape
 {
-    FUN_0066d6a0(int a);
+    bhkCapsuleShape(int a);
 };
 // @fnv 0x0066d6a0
-FUN_0066d6a0::FUN_0066d6a0(int a)
+// src: EXE 0x0066d6a0
+bhkCapsuleShape::bhkCapsuleShape(int a)
 {
     bhkCapsuleShape_Init_00cab820(a);
     ++DAT_01268324;
@@ -858,7 +860,7 @@ struct FUN_0044d000
     FUN_0044d000(int a, int b, int c, int d);
 };
 
-struct FUN_00665e30_Class
+struct LockFreeMap
 {
     int pad;
     int* data;
@@ -867,7 +869,7 @@ struct FUN_00665e30_Class
 
 // @fnv 0x00665e30
 // src: COMMUNITY 0x00665e30
-FUN_0044d000* __thiscall FUN_00665e30_Class::LockFreeMap_TESObjectREFR_BSTreeNode_AllocateInterface(int index)
+FUN_0044d000* __thiscall LockFreeMap::LockFreeMap_TESObjectREFR_BSTreeNode_AllocateInterface(int index)
 {
     AutoMemHelper helper(6, true, "..\\BSMain\\ThreadSafeStructures.h", 398);
     return new FUN_0044d000((int)this, (int)(data + index * 3), (int)(data + index * 3 + 1),
@@ -913,7 +915,7 @@ void DetectionViewData::ActorCause_LoadGameBGS(BGSLoadGameBuffer* buffer)
     buffer->ReadTypedData(&value, 4);
     buffer->ReadFormIdentifier(this);
 
-    unsigned int count = buffer->ReadElementCount();
+    unsigned int count = buffer->LoadVariableSizedValue();
     if (count)
     {
         if (list)
@@ -1161,7 +1163,7 @@ extern unsigned char g_counter;
 float* __fastcall Setting_Float_00403e20(void* obj);
 int* __fastcall Setting_Int(void* obj);
 
-struct FUN_0066ca50_cls
+struct BSTreeNode
 {
     int unk00;
     int unk01;
@@ -1231,7 +1233,7 @@ struct FUN_0066ca50_cls
 
 // @fnv 0x0066ca50
 // src: COMMUNITY 0x0066ca50
-bool FUN_0066ca50_cls::BSTreeNode_CheckForCollision(float dt)
+bool BSTreeNode::BSTreeNode_CheckForCollision(float dt)
 {
     if (dt == g_dblConst)
     {
@@ -1409,14 +1411,14 @@ struct SpawnedFlag
 {
     bool m_bValue;
 };
-struct FUN_0067ca10_cls
+struct PACK_USE_WEAPON_DATA_PKW3
 {
     void PACK_USE_WEAPON_DATA_PKW2_Endian();
 };
 // Calls FUN_00407a90 on this+6, +8 and +0xa, then FUN_00401080 on this+0xc and this+0x10, each with a zero-initialised bool.
 // @fnv 0x0067ca10
 // src: XBOX_PDB 0x0067ca10
-void FUN_0067ca10_cls::PACK_USE_WEAPON_DATA_PKW2_Endian()
+void PACK_USE_WEAPON_DATA_PKW3::PACK_USE_WEAPON_DATA_PKW2_Endian()
 {
     SpawnedFlag a = {};
     BSEndian_00407a90((char*)this + 6, a.m_bValue);
@@ -1525,7 +1527,7 @@ void SaveE6D0Items(BGSSaveFormBuffer* pkBuffer)
 struct ComparisonEntry
 {
     int PackageLocation_GetLocType();
-    int GetSecondByte();
+    int PackageSchedule_GetStartDayOfWeek();
     signed char Main_GameReset();
     signed char FUN_0086a460();
 };
@@ -1545,8 +1547,8 @@ int ComparisonOwner::CompareTo(ComparisonEntry* other)
         if ((entry->Main_GameReset() == 0 && other->Main_GameReset() == -1) ||
             entry->Main_GameReset() == other->Main_GameReset())
         {
-            if ((entry->GetSecondByte() == -1 && other->GetSecondByte() == -1) ||
-                entry->GetSecondByte() == other->GetSecondByte())
+            if ((entry->PackageSchedule_GetStartDayOfWeek() == -1 && other->PackageSchedule_GetStartDayOfWeek() == -1) ||
+                entry->PackageSchedule_GetStartDayOfWeek() == other->PackageSchedule_GetStartDayOfWeek())
             {
                 if ((entry->FUN_0086a460() == -1 && other->FUN_0086a460() == -1) ||
                     entry->FUN_0086a460() == other->FUN_0086a460())
@@ -1568,8 +1570,8 @@ int ComparisonOwner::CompareTo(ComparisonEntry* other)
             }
             else
             {
-                if (entry->GetSecondByte() != -1 &&
-                    (other->GetSecondByte() == -1 || entry->GetSecondByte() < other->GetSecondByte()))
+                if (entry->PackageSchedule_GetStartDayOfWeek() != -1 &&
+                    (other->PackageSchedule_GetStartDayOfWeek() == -1 || entry->PackageSchedule_GetStartDayOfWeek() < other->PackageSchedule_GetStartDayOfWeek()))
                 {
                     return -1;
                 }
@@ -1633,7 +1635,7 @@ void E640Cls::ActorCause_InitItem(BGSSaveFormBuffer* buffer)
 
 struct S_00660510_Context
 {
-    void __thiscall ConstructInPlace_Thunk(int dest, int src);
+    void __thiscall allocator_construct(int dest, int src);
     void __thiscall ForwardCall_0065ea40(int element);
 };
 
@@ -1647,7 +1649,7 @@ int __cdecl Runtime_ProcessEntries_00660510(int first, int last, int dest, S_006
     {
         for (; first != last; dest += 0x1c, first += 0x1c)
         {
-            context->ConstructInPlace_Thunk(dest, first);
+            context->allocator_construct(dest, first);
         }
     }
     catch (...)
@@ -1669,7 +1671,7 @@ struct Elem6605
 };
 struct Alloc6605
 {
-    void CopyConstructElement_Thunk(Elem6605* pDest, const Elem6605& kSrc);
+    void allocator_construct(Elem6605* pDest, const Elem6605& kSrc);
     void ForwardCall_0065ea60(Elem6605* pElem);
 };
 struct NonscalarTag6605
@@ -1688,7 +1690,7 @@ Elem6605* __cdecl CopyConstructRange(Elem6605* _First, Elem6605* _Last, Elem6605
     try
     {
         for (; _First != _Last; ++_Dest, ++_First)
-            _Al.CopyConstructElement_Thunk(_Dest, *_First);
+            _Al.allocator_construct(_Dest, *_First);
     }
     catch (...)
     {
@@ -1830,7 +1832,7 @@ struct FUN_004a4840_class
 void FUN_0066da50::hkArray_hkVector4_hkContainerHeapAllocator_clearAndDeallocate()
 {
     FUN_004a4840_class obj = {};
-    ((FUN_0066dae0_Class*)this)->hkArrayBase_hkVector4_clearAndDeallocate(obj.hkContainerHeapAllocator_get((int)this));
+    ((hkArray*)this)->hkArrayBase_hkVector4_clearAndDeallocate(obj.hkContainerHeapAllocator_get((int)this));
 }
 
 struct FUN_00660070_cls

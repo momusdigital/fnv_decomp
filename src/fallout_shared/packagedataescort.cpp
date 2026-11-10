@@ -36,7 +36,7 @@ struct IntegerData
     int m_iValue;
 };
 bool TESForm_QEndianSwapOnSave();
-void AppendChunk(int, void*, int);
+void TESForm___AddChunkData(int, void*, int);
 struct BipedModelForm
 {
     void Endian();
@@ -58,7 +58,7 @@ void TESEscortPackageData::Save_0067bec0()
     valueBlock.m_iValue = m_iValue;
     if (TESForm_QEndianSwapOnSave())
         ((BipedModelForm*)&valueBlock)->Endian();
-    AppendChunk(0x32454b50, &valueBlock, 4);
+    TESForm___AddChunkData(0x32454b50, &valueBlock, 4);
     if (TESForm_QEndianSwapOnSave())
         ((BipedModelForm*)&valueBlock)->Endian();
     if (m_pPackageTarget)

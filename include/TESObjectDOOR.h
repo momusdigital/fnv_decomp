@@ -42,7 +42,7 @@ public:
 
     void ResetFormData();
     bool Load(TESFile*);
-    bool IsTeleportDoor();
+    bool IsMinimalUse();
     bool IsRandomDoor();
     bool IsAutomaticDoor();
     bool IsFlag4Set();
@@ -52,7 +52,7 @@ public:
     void* FUN_005174d0(unsigned int);
     bool Activate(TESObjectREFR*, TESObjectREFR*, bool, TESBoundObject*, int);
     TESObjectREFR* FindRandomTeleportTarget(TESObjectREFR*, TESObjectREFR*);
-    void QueueDoorTeleport(TESObjectREFR*);
+    void HandlePlayerTeleport(TESObjectREFR*);
     TESSound* GetOpenSound();
     void ClearRandomTeleportList();
     BSSimpleList<TESForm*>* TESDataHandler_GetFactions();

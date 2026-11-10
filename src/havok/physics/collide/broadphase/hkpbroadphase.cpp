@@ -133,11 +133,12 @@ struct CpuObject
     unsigned int unk00;
     unsigned short size;
     void UpdateFields_00d970c0();
-    CpuObject* FUN_00d97100(unsigned int flags);
+    CpuObject* ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_00d970c0, then if bit 0 of flags is set, invokes the allocator from FUN_00c85750 on this with size, and returns this.
 // @fnv 0x00d97100
-CpuObject* CpuObject::FUN_00d97100(unsigned int flags)
+// src: EXE 0x00d97100
+CpuObject* CpuObject::ScalarDeletingDestructor(unsigned int flags)
 {
     UpdateFields_00d970c0();
     if (flags & 1)
@@ -151,7 +152,7 @@ CpuObject* CpuObject::FUN_00d97100(unsigned int flags)
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void* apSection);
 
-struct FUN_00d97050_cls
+struct hkCriticalSection
 {
     int unk00;
     int unk04;
@@ -164,7 +165,7 @@ struct FUN_00d97050_cls
 
 // @fnv 0x00d97050
 // src: XBOX_PDB 0x00d97050
-void FUN_00d97050_cls::hkpBroadPhase_lockImplementation()
+void hkCriticalSection::hkpBroadPhase_lockImplementation()
 {
     EnterCriticalSection(m_pSection);
 }
@@ -172,7 +173,7 @@ void FUN_00d97050_cls::hkpBroadPhase_lockImplementation()
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(void* apSection);
 extern char DAT_0102e388[];
 
-struct FUN_00d970c0_cls
+struct hkpBroadPhase
 {
     int m_vptr;
     int unk04;
@@ -193,7 +194,7 @@ struct FreeAllocator
 // Deletes the critical section m_pCs, frees it via the holder's allocator, clears m_pCs, and sets the vtable pointer to DAT_0102e388.
 // @fnv 0x00d970c0
 // src: GUESS 0x00d970c0 (confidence: low)
-void FUN_00d970c0_cls::UpdateFields_00d970c0()
+void hkpBroadPhase::UpdateFields_00d970c0()
 {
     m_vptr = (int)&DAT_010d3f7c;
     void* pCs = m_pCs;

@@ -876,7 +876,7 @@ class TESObjectWEAP : public TESBoundObject,
     TESAmmo* GetCurrentAmmo(Actor* actor);
     BGSProjectile* GetProjectileData(Actor* actor);
     float GetProjectileData();
-    unsigned char GetDamageForActor(bool split, bool unknown, Actor* actor);
+    unsigned char GetNumProjectiles(bool split, bool unknown, Actor* actor);
     WeaponProperties data;                         // +0xF4, 204 bytes
     WeaponCriticalData m_kCriticalData;            // +0x1C0, 16 bytes
     TESModel m_kModel;                             // +0x1D0, 24 bytes

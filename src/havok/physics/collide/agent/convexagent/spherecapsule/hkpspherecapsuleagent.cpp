@@ -80,7 +80,7 @@ inline void InnerCls::v3() {}
 inline void InnerCls::v4() {}
 inline void InnerCls::v5(unsigned short a, int b) { a; b; }
 
-class FUN_00d3e2b0_cls {
+class hkpSphereCapsuleAgent {
 public:
     virtual void v0(int a);
     int m_i04;
@@ -90,10 +90,10 @@ public:
 };
 
 // @fnv 0x00d3e2b0
-inline void FUN_00d3e2b0_cls::v0(int aiValue) { aiValue; }
+inline void hkpSphereCapsuleAgent::v0(int aiValue) { aiValue; }
 
 // src: HAVOK_SRC 0x00d3e2b0
-void FUN_00d3e2b0_cls::hkpSphereCapsuleAgent_cleanup(int a1)
+void hkpSphereCapsuleAgent::hkpSphereCapsuleAgent_cleanup(int a1)
 {
     if (m_w0c != 0xffff) {
         m_pInner->v5(m_w0c, a1);

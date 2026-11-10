@@ -334,7 +334,8 @@ void __fastcall NiGeomMorpherController_OnPreDisplay(NiGeomMorpherController* se
 }
 
 // @fnv 0x00a3adc0
-unsigned short NiGeomMorpherController::GetTargetCount() const
+// src: COMMUNITY 0x00a3adc0
+unsigned short NiGeomMorpherController::GetInterpolatorCount() const
 {
     if (m_spMorphTargetData.m_pObject)
         return static_cast<unsigned short>(m_spMorphTargetData.m_pObject->m_uiNumTargets);
@@ -484,7 +485,7 @@ MorphPoint3* __fastcall GetMorphVertices(NiGeomMorpherController* self, int)
 extern float DAT_011a854c[5];
 extern float DAT_011a8538[5];
 
-struct FUN_00a3e680_shell
+struct NiPathInterpolator
 {
     float SampleLength(int iA, int iB, float fT);
     float NiPathInterpolator_PathLength(int iA, int iB, float fT);
@@ -493,7 +494,7 @@ struct FUN_00a3e680_shell
 // Samples SampleLength at five scaled points from DAT_011a854c, weights each by DAT_011a8538, sums them and multiplies by fT.
 // @fnv 0x00a3e680
 // src: XBOX_PDB 0x00a3e680
-float FUN_00a3e680_shell::NiPathInterpolator_PathLength(int iA, int iB, float fT)
+float NiPathInterpolator::NiPathInterpolator_PathLength(int iA, int iB, float fT)
 {
     float fWeightedSum = 0.0f;
     for (int i = 0; i < 5; i++)
@@ -652,7 +653,8 @@ inline unsigned int NiStream::GetFileVersion() const
 
 // Links the object to the stream, reads morph data, sets per-target interpolators and key times depending on the stream version.
 // @fnv 0x00a3b5a0
-void __fastcall LinkMorphData(NiGeomMorpherController* self, int, NiStream& kStream)
+// src: COMMUNITY 0x00a3b5a0
+void __fastcall NiGeomMorpherController_LinkObject(NiGeomMorpherController* self, int, NiStream& kStream)
 {
     typedef void(__thiscall * SetInterpolatorType)(NiGeomMorpherController*, const char*, unsigned int);
     typedef void(__thiscall * SetTimeType)(NiGeomMorpherController*, float, float);
@@ -711,7 +713,8 @@ void __fastcall LinkMorphData(NiGeomMorpherController* self, int, NiStream& kStr
 }
 
 // @fnv 0x00a3a750
-void __fastcall SetMorphTarget(NiGeomMorpherController* self, int, NiObjectNET* pkTarget)
+// src: EXE 0x00a3a750
+void __fastcall NiGeomMorpherController_SetTarget(NiGeomMorpherController* self, int, NiObjectNET* pkTarget)
 {
     if (pkTarget->IsGeometry())
     {
@@ -761,7 +764,7 @@ struct FUN_00a3a7f0_target
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40();
     virtual void vf44();
@@ -785,7 +788,7 @@ bool __fastcall RegisterMorphStreamables(NiGeomMorpherController* self, int, NiS
     }
 
     unsigned short index = 0;
-    while (index < self->GetTargetCount())
+    while (index < self->GetInterpolatorCount())
     {
         void* item = self->GetInterpolator(index);
 
@@ -982,7 +985,8 @@ struct FUN_00a3acb0_elem
 
 // Calls FUN_00a6d0c0(p), then forwards p to Slot26 on each non-null item pointer in items up to FUN_008d3ed0().
 // @fnv 0x00a3acb0
-void __fastcall ProcessMorphClone(NiGeomMorpherController* self, int, void* p)
+// src: EXE 0x00a3acb0
+void __fastcall NiGeomMorpherController_ProcessClone(NiGeomMorpherController* self, int, void* p)
 {
     self->NiInterpController::ProcessClone(*static_cast<CloningProcess*>(p));
     unsigned short i;
@@ -1169,7 +1173,8 @@ struct SetterArg
 
 // Applies a SetterArg to this object: sets flags and m_28, calls Sub_00a36250/Sub_00a3aa10, and attaches an object when m_2c and m_40 are set.
 // @fnv 0x00a3b080
-void __fastcall ApplySetterArg(NiGeomMorpherController* self, int, SetterArg* a1)
+// src: COMMUNITY 0x00a3b080
+void __fastcall NiGeomMorpherController_Update(NiGeomMorpherController* self, int, SetterArg* a1)
 {
     if (self->m_spMorphTargetData.m_pObject == 0)
     {
@@ -1240,7 +1245,8 @@ NiGeomMorpherController* __cdecl NiGeomMorpherController_CreateObject()
 extern bool __cdecl IsInterpControllerEqual();
 
 // @fnv 0x00a3ad00
-bool __fastcall IsMorphEqual(NiGeomMorpherController* self, int, NiObject* pkObject)
+// src: EXE 0x00a3ad00
+bool __fastcall NiGeomMorpherController_IsEqual(NiGeomMorpherController* self, int, NiObject* pkObject)
 {
     if (!reinterpret_cast<bool (__thiscall*)(NiInterpController*, NiObject*)>(&IsInterpControllerEqual)(self, pkObject))
         return false;

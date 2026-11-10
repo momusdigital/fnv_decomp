@@ -50,13 +50,13 @@ extern MemoryManager g_memoryManager;
 
 struct FUN_00c3a640_Class
 {
-    void* AllocateStorage_00c3a640(unsigned int size);
+    void* BSSimpleArray_Allocate(unsigned int size);
 };
 
 // Allocates size*4 bytes through g_memoryManager and returns the resulting pointer.
 // @fnv 0x00c3a640
 // src: GUESS 0x00c3a640 (confidence: medium)
-void* FUN_00c3a640_Class::AllocateStorage_00c3a640(unsigned int size)
+void* FUN_00c3a640_Class::BSSimpleArray_Allocate(unsigned int size)
 {
     void* result = g_memoryManager.Allocate(size << 2);
     return result;
@@ -170,13 +170,13 @@ void FUN_00c3f6f0_Class::LockFreeMap_int64_NiPointer_BSTask_int64_IncrementCount
     InterlockedIncrement((volatile long*)((char*)this + 0x18));
 }
 
-struct FUN_00c3f710_Class
+struct LockFreePriorityQueue
 {
     void IncrementRefCount();
 };
 
 // @fnv 0x00c3f710
-void FUN_00c3f710_Class::IncrementRefCount()
+void LockFreePriorityQueue::IncrementRefCount()
 {
     InterlockedIncrement((volatile long*)((char*)this + 0xc));
 }
@@ -298,11 +298,12 @@ extern "C" void __cdecl operator delete(void*, unsigned int);
 struct FUN_00c3a140_Class
 {
     void __thiscall FUN_00c39770();
-    void* __thiscall FUN_00c3a140(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_00c39770, then deletes this with operator delete when flags has bit 0 set, and returns this.
 // @fnv 0x00c3a140
-void* FUN_00c3a140_Class::FUN_00c3a140(unsigned int flags)
+// src: EXE 0x00c3a140
+void* FUN_00c3a140_Class::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00c39770();
     if (flags & 1)
@@ -424,12 +425,12 @@ void __cdecl Object_ProcessEntries_00c3c0c0()
 }
 
 namespace fnv_00c3d380 {
-struct FUN_00c3d380_Class : public FUN_00c3c520_class
+struct QueuedChildren : public FUN_00c3c520_class
 {
     void* __thiscall FUN_00c3d380(unsigned int flags);
 };
 // @fnv 0x00c3d380
-void* __thiscall FUN_00c3d380_Class::FUN_00c3d380(unsigned int flags)
+void* __thiscall QueuedChildren::FUN_00c3d380(unsigned int flags)
 {
     SetVirtualTable_00c3c520();
     if (flags & 1)
@@ -443,13 +444,13 @@ struct _Base_00441d20
 {
     ~_Base_00441d20();
 };
-struct FUN_00c3d410_Class : _Base_00441d20
+struct QueuedFileEntry : _Base_00441d20
 {
     void* __thiscall DestroySelf(unsigned int flags);
 };
 // Runs the base destructor, frees this via the memory manager when flags has bit 0 set, and returns this.
 // @fnv 0x00c3d410
-void* __thiscall FUN_00c3d410_Class::DestroySelf(unsigned int flags)
+void* __thiscall QueuedFileEntry::DestroySelf(unsigned int flags)
 {
     _Base_00441d20::~_Base_00441d20();
     if (flags & 1)
@@ -476,12 +477,12 @@ void* __thiscall FUN_00c3d950_Class::FUN_00c3d950(unsigned int flags)
 struct FUN_00c3fca0_Class
 {
     void __thiscall BSTaskManager_int64_RemoveTask(void* a);
-    void __thiscall ProcessStateTransitionFourToFive_00c3fca0(void* p);
+    void __thiscall IOManager_FinishTask(void* p);
 };
 // Sets the field at offset 0xc to 4, calls the object's virtual method at vtable index 2, then sets the field to 5 and calls FUN_0044e050.
 // @fnv 0x00c3fca0
-// src: GUESS 0x00c3fca0 (confidence: low)
-void __thiscall FUN_00c3fca0_Class::ProcessStateTransitionFourToFive_00c3fca0(void* apObject)
+// src: GUESS 0x00c3fca0 (confidence: high)
+void __thiscall FUN_00c3fca0_Class::IOManager_FinishTask(void* apObject)
 {
     *(int*)((char*)apObject + 0xc) = 4;
     ((void(__thiscall*)(void*))(*(void***)apObject)[2])(apObject);
@@ -661,9 +662,9 @@ NiObject* __cdecl BSNodeReferences_CreateObject();
 NiObject* __cdecl NiBSBoneLODController_CreateObject();
 NiObject* __cdecl BSBound_CreateObject();
 NiObject* __cdecl BSXFlags_CreateObject();
-NiObject* __cdecl CreateNamedNode();
+NiObject* __cdecl BSDecalPlacementVectorExtraData_CreateObject();
 FUN_00c465a0* __cdecl BSWindModifier_CreateObject();
-NiObject* __cdecl CreatePositionModifierObject();
+NiObject* __cdecl BSParentVelocityModifier_CreateObject();
 NiObject* __cdecl BSFurnitureMarker_CreateObject();
 FUN_00c61b10* __cdecl BSPSysArrayEmitter_CreateObject();
 NiObject* __cdecl BSWArray_CreateObject();
@@ -673,14 +674,14 @@ NiObject* __cdecl BSValueNode_CreateObject();
 NiObject* __cdecl BSPSysMultiTargetEmitterCtlr_CreateObject();
 NiObject* __cdecl BSMasterParticleSystem_CreateObject();
 NiObject* __cdecl BSMultiBound_CreateObject();
-NiObject* __cdecl CreateNewObject();
+NiObject* __cdecl BSMultiBoundNode_CreateObject();
 NiObject* __cdecl CreateNewBodyCls();
 NiObject* __cdecl CreateBC36500Object();
 NiObject* __cdecl BSMultiBoundCapsule_CreateObject();
 FUN_00c4fb10_shell* __cdecl BSMultiBoundSphere_CreateObject();
 NiObject* __cdecl BSPSysSimpleColorModifier_CreateObject();
 NiObject* __cdecl BSDebrisNode_CreateObject();
-NiObject* __cdecl CreatePositionModifierInstance();
+NiObject* __cdecl BSPSysStripUpdateModifier_CreateObject();
 
 extern char const g_012043dc_arg0[];
 extern char const g_012043e4_arg0[];
@@ -717,9 +718,9 @@ void BSStream_InitLoaders()
     NiStream::RegisterObjectLoader(g_012031b8_arg0, NiBSBoneLODController_CreateObject);
     NiStream::RegisterObjectLoader(g_012031e8_arg0, BSBound_CreateObject);
     NiStream::RegisterObjectLoader(g_01202de0_arg0, BSXFlags_CreateObject);
-    NiStream::RegisterObjectLoader(g_012043d4_arg0, CreateNamedNode);
+    NiStream::RegisterObjectLoader(g_012043d4_arg0, BSDecalPlacementVectorExtraData_CreateObject);
     NiStream::RegisterObjectLoader(g_01202e60_arg0, reinterpret_cast<PFN_NiObjectLoader>(BSWindModifier_CreateObject));
-    NiStream::RegisterObjectLoader(g_012043c8_arg0, CreatePositionModifierObject);
+    NiStream::RegisterObjectLoader(g_012043c8_arg0, BSParentVelocityModifier_CreateObject);
     NiStream::RegisterObjectLoader(g_012031c4_arg0, BSFurnitureMarker_CreateObject);
     NiStream::RegisterObjectLoader(g_012043b0_arg0, reinterpret_cast<PFN_NiObjectLoader>(BSPSysArrayEmitter_CreateObject));
     NiStream::RegisterObjectLoader(g_012043a4_arg0, BSWArray_CreateObject);
@@ -729,14 +730,14 @@ void BSStream_InitLoaders()
     NiStream::RegisterObjectLoader(g_01203340_arg0, BSPSysMultiTargetEmitterCtlr_CreateObject);
     NiStream::RegisterObjectLoader(g_0120436c_arg0, BSMasterParticleSystem_CreateObject);
     NiStream::RegisterObjectLoader(g_01202810_arg0, BSMultiBound_CreateObject);
-    NiStream::RegisterObjectLoader(g_01202e74_arg0, CreateNewObject);
+    NiStream::RegisterObjectLoader(g_01202e74_arg0, BSMultiBoundNode_CreateObject);
     NiStream::RegisterObjectLoader(g_01202820_arg0, CreateNewBodyCls);
     NiStream::RegisterObjectLoader(g_01202818_arg0, CreateBC36500Object);
     NiStream::RegisterObjectLoader(g_01204398_arg0, BSMultiBoundCapsule_CreateObject);
     NiStream::RegisterObjectLoader(g_01203108_arg0, reinterpret_cast<PFN_NiObjectLoader>(BSMultiBoundSphere_CreateObject));
     NiStream::RegisterObjectLoader(g_01204390_arg0, BSPSysSimpleColorModifier_CreateObject);
     NiStream::RegisterObjectLoader(g_01202e84_arg0, BSDebrisNode_CreateObject);
-    NiStream::RegisterObjectLoader(g_01204388_arg0, CreatePositionModifierInstance);
+    NiStream::RegisterObjectLoader(g_01204388_arg0, BSPSysStripUpdateModifier_CreateObject);
 }
 
 extern "C" void __cdecl operator delete(void*, unsigned int);
@@ -807,13 +808,13 @@ void* QueuedParents::FUN_00c3d3b0(unsigned int flags)
     return this;
 }
 
-struct FUN_00c42f00_Class
+struct BSTaskThread
 {
     void __thiscall DestroyResources();
     void* __thiscall FUN_00c3f130(unsigned int flags);
 };
 // @fnv 0x00c3f130
-void* __thiscall FUN_00c42f00_Class::FUN_00c3f130(unsigned int flags)
+void* __thiscall BSTaskThread::FUN_00c3f130(unsigned int flags)
 {
     this->DestroyResources();
     if (flags & 1)
@@ -823,17 +824,18 @@ void* __thiscall FUN_00c42f00_Class::FUN_00c3f130(unsigned int flags)
 
 int __cdecl FUN_00ec6130(int value);
 
-struct FUN_00c32fb0_cls
+struct Setting
 {
     int m_00;
     int m_04;
     const char* m_08;
-    int GetFormatSize();
+    int Setting_DataSize();
 };
 
 // Returns a size based on the first character of m_08: 1 for b/c/h, 4 for a/f/i/r/u, and for S/s the result of FUN_00ec6130 on m_04 plus 1, else 0.
 // @fnv 0x00c32fb0
-int FUN_00c32fb0_cls::GetFormatSize()
+// src: COMMUNITY 0x00c32fb0
+int Setting::Setting_DataSize()
 {
     int result = 0;
     if (m_08 != 0)
@@ -1190,12 +1192,12 @@ struct FUN_00c3a4b0_cls
     FUN_00c3a4b0_node* m_00;
     void* m_04;
     FUN_00c3a4b0_sub m_08;
-    unsigned int __thiscall UpdateState_00c3a4b0();
+    unsigned int __thiscall NiTPointerList_RemoveHead();
 };
 
 // @fnv 0x00c3a4b0
-// src: GUESS 0x00c3a4b0 (confidence: low)
-unsigned int FUN_00c3a4b0_cls::UpdateState_00c3a4b0()
+// src: GUESS 0x00c3a4b0 (confidence: medium)
+unsigned int FUN_00c3a4b0_cls::NiTPointerList_RemoveHead()
 {
     FUN_00c3a4b0_node unusedNode;
     FUN_00c3a4b0_node* pRemoved = this->m_00;
@@ -1233,7 +1235,7 @@ struct FUN_00c3a530_cls
     FUN_00c3a530_node* m_00;
     FUN_00c3a530_node* m_04;
     FUN_00c3a530_alloc m_08;
-    void* UpdateState_00c3a530();
+    void* NiTPointerList_RemoveTail();
 };
 
 struct FUN_00c3a530_pad
@@ -1245,8 +1247,8 @@ struct FUN_00c3a530_pad
 
 // Removes the head node from a linked list, clears its payload pointer, frees the node, decrements the count and returns the payload.
 // @fnv 0x00c3a530
-// src: GUESS 0x00c3a530 (confidence: low)
-void* FUN_00c3a530_cls::UpdateState_00c3a530()
+// src: GUESS 0x00c3a530 (confidence: medium)
+void* FUN_00c3a530_cls::NiTPointerList_RemoveTail()
 {
     FUN_00c3a530_pad pad;
     FUN_00c3a530_node* pNode = m_04;
@@ -1281,7 +1283,7 @@ extern "C" void* DAT_010c117c;
 class SpawnedBase
 {
   public:
-    void UpdateFields_00b5af80(unsigned int flags);
+    void BSSimpleArray_RemoveAll(unsigned int flags);
     int m_vptr;
     int unk04;
 };
@@ -1299,7 +1301,7 @@ void FUN_00c3a620_cls::SetVirtualTableAndProcessState_00c3a620()
 {
     int unk00;
     this->m_vptr = (int)&DAT_010c117c;
-    this->SpawnedBase::UpdateFields_00b5af80(1);
+    this->SpawnedBase::BSSimpleArray_RemoveAll(1);
 }
 }  // namespace fnv_00c3a620
 
@@ -1854,7 +1856,7 @@ struct FUN_00c3df40_Param1
     __int64 unk10;
 };
 
-struct FUN_00c3df40_Class
+struct IOManager
 {
     void __thiscall BSTaskManager_int64_RequeueTask(FUN_00c3df40_Param1* a1, __int64 a2);
     void __thiscall IOManager_RequeueTask(FUN_00c3df40_Param1* a1, int a2);
@@ -1862,14 +1864,14 @@ struct FUN_00c3df40_Class
 
 // @fnv 0x00c3df40
 // src: XBOX_PDB 0x00c3df40
-void __thiscall FUN_00c3df40_Class::IOManager_RequeueTask(FUN_00c3df40_Param1* pParam, int iValue)
+void __thiscall IOManager::IOManager_RequeueTask(FUN_00c3df40_Param1* pParam, int iValue)
 {
     __int64 val = pParam->unk10;
     val = (val & 0xFFFFFFFFFF00FFFFULL) + ((__int64)iValue << 16);
     this->BSTaskManager_int64_RequeueTask(pParam, val);
 }
 
-struct FUN_00c3f650_cls
+struct LockFreeMap
 {
     unsigned int unk00;
     unsigned int unk04;
@@ -1877,7 +1879,7 @@ struct FUN_00c3f650_cls
     unsigned int Modulo(volatile unsigned int value, unsigned int unused);
 };
 // @fnv 0x00c3f650
-unsigned int FUN_00c3f650_cls::Modulo(volatile unsigned int value, unsigned int unused)
+unsigned int LockFreeMap::Modulo(volatile unsigned int value, unsigned int unused)
 {
     return value % m_uiModulus;
 }
@@ -2313,7 +2315,7 @@ struct FUN_00c3a250_Class
     void FUN_00c3a250(int& a);
 };
 
-struct FUN_00c39ad0_Class
+struct BSMultiBoundRoom
 {
     int unk00[0x30];
     FUN_00c3a250_Class m_c0;
@@ -2324,7 +2326,7 @@ struct FUN_00c39ad0_Class
 // If a is non-zero, forwards it to m_c0.FUN_00c3a250.
 // @fnv 0x00c39ad0
 // src: XBOX_PDB 0x00c39ad0
-void FUN_00c39ad0_Class::BSMultiBoundRoom_RemoveOccluder(int a)
+void BSMultiBoundRoom::BSMultiBoundRoom_RemoveOccluder(int a)
 {
     int pad0[10];
     int pad1[9];

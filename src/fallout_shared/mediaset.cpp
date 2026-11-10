@@ -79,7 +79,7 @@ bool MediaSet::Update(unsigned int time, bool force, MediaLocationController* co
         switch (Type)
         {
         case LAYER_LOCATION:
-            return UpdateLayerLocation(time, force, controller);
+            return UpdateLocation(time, force, controller);
             break;
         case LAYER_DUNGEON:
             return PointLocation(time, force, controller);
@@ -129,7 +129,8 @@ MediaSet::MediaSet()
 
 // Selects an incidental media layer for the controller based on scale and layer percentages, then starts or stops playback and updates cached state.
 // @fnv 0x00597a60
-bool MediaSet::UpdateLayerLocation(unsigned int time, bool force, MediaLocationController* controller)
+// src: COMMUNITY 0x00597a60
+bool MediaSet::UpdateLocation(unsigned int time, bool force, MediaLocationController* controller)
 {
     bool bReturn;
     bool bPlaying = FalloutAudioMedia::IsMediaPlaying(MEDIATYPE_MEDIA_LOCATION, false);
@@ -534,7 +535,7 @@ void __cdecl _FUN_00485910(unsigned int, float);
 // @fnv 0x005991b0
 void MediaSet::SaveMediaSet()
 {
-    TESForm::BeginFormRecord();
+    TESForm::TESForm_StartForm();
     TESFullName::Save_00487010();
 
     _FUN_00485910(0x314d414e, *reinterpret_cast<unsigned int*>(reinterpret_cast<char*>(this) + 0x44));
@@ -622,7 +623,7 @@ void MediaSet::SaveMediaSet()
     }
 
     reinterpret_cast<MediaFormWriter*>(this)->Finish();
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_CloseForm();
 }
 
 // @fnv 0x005978b0
@@ -638,11 +639,12 @@ unsigned int GetRandomNumberInRange(int aiMin, int aiMax);
 
 struct MediaSetBattle : public MediaSet
 {
-    bool UpdateBattleMusic(unsigned int auiTime);
+    bool MediaSet_UpdateIncidentals(unsigned int auiTime);
 };
 
 // @fnv 0x00598890
-bool MediaSetBattle::UpdateBattleMusic(unsigned int auiTime)
+// src: COMMUNITY 0x00598890
+bool MediaSetBattle::MediaSet_UpdateIncidentals(unsigned int auiTime)
 {
     if (auiTime <= DAT_011ca9fc)
     {
@@ -736,11 +738,11 @@ struct LayerInfo : MediaSetEntry
 
     const char* __thiscall Modelloader_GetReferencedThis(unsigned int index);
     int __thiscall FUN_00408a80(const char* text);
-    bool __thiscall EvaluateValue_00599a50(LayerInfo other);
+    bool __thiscall MediaSet_MediaLayer_Compare(LayerInfo other);
 };
 // @fnv 0x00599a50
-// src: GUESS 0x00599a50 (confidence: low)
-bool LayerInfo::EvaluateValue_00599a50(LayerInfo other)
+// src: COMMUNITY 0x00599a50
+bool LayerInfo::MediaSet_MediaLayer_Compare(LayerInfo other)
 {
     if (Attenuation != other.Attenuation)
         return true;
@@ -902,11 +904,12 @@ void ResetThreadFlags();
 void StartFade(int, int);
 struct DungeonMediaSet : MediaSet
 {
-    bool UpdatePlayback(bool active, unsigned int time, int mediaType);
+    bool MediaSet_UpdateBattle(bool active, unsigned int time, int mediaType);
 };
 // Starts, refreshes or fades the media set's audio based on active, time and mediaType, updating DAT_011ca9fc and the playing flag.
 // @fnv 0x00598550
-bool DungeonMediaSet::UpdatePlayback(bool active, unsigned int time, int mediaType)
+// src: COMMUNITY 0x00598550
+bool DungeonMediaSet::MediaSet_UpdateBattle(bool active, unsigned int time, int mediaType)
 {
     bool changed;
     if (active)
@@ -964,7 +967,7 @@ bool DungeonMediaSet::UpdatePlayback(bool active, unsigned int time, int mediaTy
 
 struct MediaLayerCompare
 {
-    bool EvaluateValue_00599a50(MediaLayerData other);
+    bool MediaSet_MediaLayer_Compare(MediaLayerData other);
 };
 struct MediaFormCompare
 {
@@ -985,22 +988,22 @@ bool MediaSetCompare::IsDifferentFrom(TESForm* form)
     if (other->Type != Type)
         return true;
     if (reinterpret_cast<MediaLayerCompare*>(&m_kMediaSetEntry1)
-            ->EvaluateValue_00599a50(*reinterpret_cast<MediaLayerData*>(&other->m_kMediaSetEntry1)))
+            ->MediaSet_MediaLayer_Compare(*reinterpret_cast<MediaLayerData*>(&other->m_kMediaSetEntry1)))
         return true;
     if (reinterpret_cast<MediaLayerCompare*>(&m_kMediaSetEntry2)
-            ->EvaluateValue_00599a50(*reinterpret_cast<MediaLayerData*>(&other->m_kMediaSetEntry2)))
+            ->MediaSet_MediaLayer_Compare(*reinterpret_cast<MediaLayerData*>(&other->m_kMediaSetEntry2)))
         return true;
     if (reinterpret_cast<MediaLayerCompare*>(&m_kMediaSetEntry3)
-            ->EvaluateValue_00599a50(*reinterpret_cast<MediaLayerData*>(&other->m_kMediaSetEntry3)))
+            ->MediaSet_MediaLayer_Compare(*reinterpret_cast<MediaLayerData*>(&other->m_kMediaSetEntry3)))
         return true;
     if (reinterpret_cast<MediaLayerCompare*>(&m_kMediaSetEntry4)
-            ->EvaluateValue_00599a50(*reinterpret_cast<MediaLayerData*>(&other->m_kMediaSetEntry4)))
+            ->MediaSet_MediaLayer_Compare(*reinterpret_cast<MediaLayerData*>(&other->m_kMediaSetEntry4)))
         return true;
     if (reinterpret_cast<MediaLayerCompare*>(&m_kMediaSetEntry5)
-            ->EvaluateValue_00599a50(*reinterpret_cast<MediaLayerData*>(&other->m_kMediaSetEntry5)))
+            ->MediaSet_MediaLayer_Compare(*reinterpret_cast<MediaLayerData*>(&other->m_kMediaSetEntry5)))
         return true;
     if (reinterpret_cast<MediaLayerCompare*>(&m_kMediaSetEntry6)
-            ->EvaluateValue_00599a50(*reinterpret_cast<MediaLayerData*>(&other->m_kMediaSetEntry6)))
+            ->MediaSet_MediaLayer_Compare(*reinterpret_cast<MediaLayerData*>(&other->m_kMediaSetEntry6)))
         return true;
     if (m_cMediaFlag != other->m_cMediaFlag)
         return true;

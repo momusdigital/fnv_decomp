@@ -126,17 +126,17 @@ hkFreeListAllocator* __fastcall hkFreeListAllocator_ProcessAndReturnValue_00d603
     return self;
 }
 
-struct FUN_00d61f30_shell
+struct hkStringBuf
 {
     void FUN_00d61cc0();
     void AppendStrings(int a, int b, int c, int d, int e, int f);
-    void AppendStringsAfterInitialization(int a, int b, int c, int d, int e, int f);
+    void join(int a, int b, int c, int d, int e, int f);
 };
 
 // Calls FUN_00d61cc0, then forwards the six arguments to AppendStrings.
 // @fnv 0x00d61f30
 // src: GUESS 0x00d61f30 (confidence: medium)
-void FUN_00d61f30_shell::AppendStringsAfterInitialization(int a, int b, int c, int d, int e, int f)
+void hkStringBuf::join(int a, int b, int c, int d, int e, int f)
 {
     FUN_00d61cc0();
     AppendStrings(a, b, c, d, e, f);
@@ -166,8 +166,8 @@ void hkFreeListAllocator::blockAlloc_00d5f970(int a)
 }
 
 // @fnv 0x00d5fba0
-// src: GUESS 0x00d5fba0 (confidence: low)
-int hkFreeListAllocator::GetUnkA94_00d5fba0()
+// src: COMMUNITY 0x00d5fba0
+int hkFreeListAllocator::getMemorySoftLimit()
 {
     return unkA94;
 }

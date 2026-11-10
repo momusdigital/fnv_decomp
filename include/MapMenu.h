@@ -109,11 +109,11 @@ public:
 
     void UpdateLocalMap();
     void RefreshMap();
-    void UpdateQuestObjectiveList();
+    void UpdateQuests();
     void RefreshNotesList();
     void RefreshChallengeList();
     void SetNote(BGSNote* note);
-    void RefreshRadioList();
+    void UpdateRadioList();
     void SetCurrentPage(unsigned char);
     void SetCurrentPage(int);
     void FUN_007069f0(unsigned char);
@@ -134,16 +134,16 @@ public:
     static void OpenMap();
     void UpdateSelectedQuestMarkers();
     void SelectNote(BGSNote*);
-    void RefreshMapData();
+    void StopNoteSound();
     void SetMapDisplayMode(bool);
-    NiPoint3 WorldToMapPosition(NiPoint3, TESWorldSpace*);
+    NiPoint3 WorldToMapCoord(NiPoint3, TESWorldSpace*);
     NiPoint3 MapToWorldPosition(NiPoint3, TESWorldSpace*);
-    MapPoint3 WorldToMapPosition(MapPoint3, TESWorldSpace*);
+    MapPoint3 WorldToMapCoord(MapPoint3, TESWorldSpace*);
     MapPoint3 MapToWorldPosition(MapPoint3, TESWorldSpace*);
     TESObjectREFR* GetTeleportDestination(TESObjectREFR*, PathingPath*);
     void RefreshMapMarkers();
     void UpdateMapObjectives();
-    void UpdateMapHighlight();
+    void MapMenu_HighlightCenterMarker();
     void UpdatePlayerMapMarker();
     void SetFlag8000();
     bool HasNoZeroEntries();

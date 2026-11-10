@@ -908,12 +908,13 @@ bool FUN_009e7610_shell::TurnTowardGoalAngle(float afGoalAngle, bool abForceTurn
 
 struct FUN_009e8790_shell : public DetailedActorPathHandler
 {
-    void ResetMoveState();
+    void DetailedActorPathHandler_ResetMoveModeAndDelta();
 };
 
 // Stores the mover's preferred move mode type at offset 0x60 and resets the vectors at 0x1c and 0xa0 and the float at 0x9c to zero.
 // @fnv 0x009e8790
-void FUN_009e8790_shell::ResetMoveState()
+// src: COMMUNITY 0x009e8790
+void FUN_009e8790_shell::DetailedActorPathHandler_ResetMoveModeAndDelta()
 {
     *(unsigned int*)((char*)this + 0x60) = (*(ActorMover**)((char*)this + 0x8))->GetPreferredMoveModeType();
     *(NiPoint3*)((char*)this + 0x1c) = NiPoint3::ZERO;
@@ -1101,7 +1102,7 @@ void FUN_009e9390_shell::DetailedActorPathHandler_LoadGame(BGSLoadFormBuffer* ap
         apLoadGameBuffer->ReadTypedData((char*)this + 0xbc, 4);
     }
     apLoadGameBuffer->ReadFormIdentifier((char*)this + 0xd8);
-    unsigned int uiFormCount = apLoadGameBuffer->ReadElementCount();
+    unsigned int uiFormCount = apLoadGameBuffer->LoadVariableSizedValue();
     for (unsigned int uiIndex = 0; uiIndex < uiFormCount; ++uiIndex)
     {
         const char* pForm = 0;
@@ -1148,7 +1149,7 @@ float __cdecl abs(float);
 // 0x009E0470 uses the shared handler layout; only these missing method declarations remain local.
 struct PathTravelUpdate : public DetailedActorPathHandler
 {
-    void ResetMoveState();
+    void DetailedActorPathHandler_ResetMoveModeAndDelta();
     void DetailedActorPathHandler_ComputeMinTetherDistance();
     void UpdatePathTether(float afPercentTraveled);
     int UpdatePathingGoal();
@@ -1188,7 +1189,7 @@ int PathTravelUpdate::UpdatePathTravel(float afPercentTraveled, float afDeltaT)
 
     if (((NiPointer<PathingSolution>&)pCurrentPathingSolution)->GetObjectFlags() < 2)
     {
-        ResetMoveState();
+        DetailedActorPathHandler_ResetMoveModeAndDelta();
         m_bPathFlag5 = false;
         m_kPathVector3 = *((const Actor*)pActor)->GetPos();
         m_kPathVector4 = m_kPathVector3;
@@ -1218,7 +1219,7 @@ int PathTravelUpdate::UpdatePathTravel(float afPercentTraveled, float afDeltaT)
     m_bPathingRequestPending = false;
     m_fElapsedTime = 0.0f;
     if (!((Actor*)pActor)->HasCombatState() &&
-        ((NiPointer<PathingSolution>&)pCurrentPathingSolution)->GetTotalPathLength() <
+        ((NiPointer<PathingSolution>&)pCurrentPathingSolution)->ComputeDetailedPathLength() <
             *(float*)((char*)this + 0x18) &&
         !((ActorMover*)m_pActorMover)->HasLookAtTarget())
     {
@@ -1235,7 +1236,7 @@ int PathTravelUpdate::UpdatePathTravel(float afPercentTraveled, float afDeltaT)
             (NiPoint3&)dirVec = m_kPathVector3;
         dirVec.Subtract(*((const Actor*)pActor)->GetPos());
         if (dirVec.Length() * DAT_0107d1b8 <= std::abs(dirVec.z))
-            fgoalAngle = ((Actor*)pActor)->GetCurrentTargetDistance(false);
+            fgoalAngle = ((Actor*)pActor)->GetHeading(false);
         else
             fgoalAngle = GetDirectionAngle(dirVec);
         if (!bpathTransition)
@@ -1277,11 +1278,11 @@ float __cdecl GetDirectionAngle(const NiPoint3&);
 
 struct FUN_009e8790_shell
 {
-    void ResetMoveState();
+    void DetailedActorPathHandler_ResetMoveModeAndDelta();
 };
 struct FUN_009e4c60_shell
 {
-    void UpdateLookingAngle(float, float);
+    void DetailedActorPathHandler_UpdateLooking(float, float);
 };
 struct FUN_009e7d70_shell
 {
@@ -1330,7 +1331,7 @@ int FUN_009e16e0_shell::DetailedActorPathHandler_NoPathUpdate(float afDeltaT)
             eresult = 0;
             break;
         case 7:
-            ((FUN_009e8790_shell*)this)->ResetMoveState();
+            ((FUN_009e8790_shell*)this)->DetailedActorPathHandler_ResetMoveModeAndDelta();
             *(unsigned int*)((char*)this + 0xc8) = 5;
             eresult = 5;
             break;
@@ -1376,9 +1377,9 @@ int FUN_009e16e0_shell::DetailedActorPathHandler_NoPathUpdate(float afDeltaT)
             if ((*(ActorMover**)((char*)this + 8))->GetLookAtTargetPosition((NiPoint3&)lookatPoint) &&
                 !((MobileObject*)*(Actor**)((char*)this + 4))->IsInDialogueWithPlayer())
             {
-                float fCurrentAngle = WrapAngle((*(Actor**)((char*)this + 4))->GetCurrentTargetDistance(0));
+                float fCurrentAngle = WrapAngle((*(Actor**)((char*)this + 4))->GetHeading(0));
                 NiPoint3 firingLocation = CombatUtilities_GetAttackerFiringLocation(*(Actor**)((char*)this + 4));
-                if (((NiPoint3*)&(firingLocation - lookatPoint))->GetSquaredXYLength() <
+                if (((NiPoint3*)&(firingLocation - lookatPoint))->NiPoint3_SqrXYLength() <
                     (*(Actor**)((char*)this + 4))->FUN_008be1b0() *
                         (*(Actor**)((char*)this + 4))->FUN_008be1b0() * 0.25)
                     eresult = 0;
@@ -1441,7 +1442,7 @@ int FUN_009e16e0_shell::DetailedActorPathHandler_NoPathUpdate(float afDeltaT)
                         (*(Actor**)((char*)this + 4))->SetFurnitureHeading(fCurrentAngle);
                     flookingAngle = fgoalLookAngle;
                     if (bimmobile)
-                        ((FUN_009e4c60_shell*)this)->UpdateLookingAngle(afDeltaT, flookingAngle);
+                        ((FUN_009e4c60_shell*)this)->DetailedActorPathHandler_UpdateLooking(afDeltaT, flookingAngle);
                     (*(GlobalObject_0041a250**)((char*)this + 8))->GlobalObject_0041a250::~GlobalObject_0041a250();
                 }
             }
@@ -1449,7 +1450,7 @@ int FUN_009e16e0_shell::DetailedActorPathHandler_NoPathUpdate(float afDeltaT)
         eresult = 0;
     }
     if (!bimmobile)
-        ((FUN_009e4c60_shell*)this)->UpdateLookingAngle(afDeltaT, flookingAngle);
+        ((FUN_009e4c60_shell*)this)->DetailedActorPathHandler_UpdateLooking(afDeltaT, flookingAngle);
     return eresult;
 }
 }  // namespace fnv_009e16e0
@@ -1475,7 +1476,7 @@ class DetailedActorMover
 class PathingRequestPath
 {
   public:
-    void GetLocationAtSplineParameter(float fDistance, NiPoint3& kPoint);
+    void ComputeLocationFromParameter(float fDistance, NiPoint3& kPoint);
 };
 
 class PathingRequestPtr
@@ -1547,19 +1548,19 @@ bool FUN_009e2aa0_shell::DetailedActorPathHandler_ComputeMoveMode(float fTimeDel
         else if (*(bool*)((char*)this + 0xc1))
         {
             static_cast<NiPoint3&>(kPoint) = NiPoint3::ZERO;
-            fDesiredHeading_2 = (*(Actor**)((char*)this + 4))->GetCurrentTargetDistance(false);
+            fDesiredHeading_2 = (*(Actor**)((char*)this + 4))->GetHeading(false);
         }
         else if (*(PathingRequestPtr*)((char*)this + 0xc))
         {
             ((PathingRequestPath*)*(PathingRequestPtr*)((char*)this + 0xc))
-                ->GetLocationAtSplineParameter(*(float*)((char*)this + 0xc4), kPoint);
+                ->ComputeLocationFromParameter(*(float*)((char*)this + 0xc4), kPoint);
             kPoint.Subtract(*(const NiPoint3*)((const MobileObject*)*(Actor**)((char*)this + 4))->GetPos());
             fDesiredHeading_2 = GetDirectionAngle(kPoint);
         }
         else
         {
             static_cast<NiPoint3&>(kPoint) = NiPoint3::ZERO;
-            fDesiredHeading_2 = (*(Actor**)((char*)this + 4))->GetCurrentTargetDistance(false);
+            fDesiredHeading_2 = (*(Actor**)((char*)this + 4))->GetHeading(false);
         }
         NiPoint3 kAngles = GetPitchYaw(*(const NiPoint3*)((const MobileObject*)*(Actor**)((char*)this + 4))->GetPos(), *(NiPoint3*)((char*)this + 0x34));
         if ((*(Actor**)((char*)this + 4))->IsSwimming_005a2030() &&
@@ -1726,7 +1727,7 @@ void FUN_009e3560_shell::UpdatePathRotation(float afDeltaT)
         if (pcon)
         {
             actorLoc.z +=
-                ((MobileObject*)pActor)->GetActorHeight() * DAT_01011588 * pcon->GetValue();
+                ((MobileObject*)pActor)->Actor_GetHeight() * DAT_01011588 * pcon->GetValue();
             ((HighProcessVector*)&deltaToTargetPoint)->Subtract(&actorLoc);
         }
         else
@@ -1735,7 +1736,7 @@ void FUN_009e3560_shell::UpdatePathRotation(float afDeltaT)
                 ->Subtract((NiPoint3*)((const MobileObject*)((MobileObject*)pActor))->GetPos());
         }
         if (((DetailedActorPathHandler*)this)->m_kPathVector3.z >=
-                actorLoc.z - ((MobileObject*)pActor)->GetActorHeight() &&
+                actorLoc.z - ((MobileObject*)pActor)->Actor_GetHeight() &&
             ((DetailedActorPathHandler*)this)->m_kPathVector3.z < actorLoc.z)
         {
             deltaToTargetPoint.z = 0.0f;
@@ -1793,7 +1794,7 @@ void FUN_009e3560_shell::UpdatePathRotation(float afDeltaT)
         fmoveModeAngle = 0.0f;
         break;
     }
-    float fworldSpaceMoveModeAngle = ((MobileObject*)pActor)->GetCurrentTargetDistance(false) + fmoveModeAngle;
+    float fworldSpaceMoveModeAngle = ((MobileObject*)pActor)->GetHeading(false) + fmoveModeAngle;
     float fdeltaAngle = fangleToTarget - fworldSpaceMoveModeAngle;
     NiMatrix3 MoveModeRot;
     ((FUN_009e1640_ZRotation&)MoveModeRot).SetRotationMatrix(fdeltaAngle);
@@ -1836,13 +1837,13 @@ void PathSplineUpdate::UpdatePathing(float afDeltaT)
         return;
 
     NiMatrix3 kRotationBasis;
-    ((FUN_009e1640_ZRotation&)kRotationBasis).SetRotationMatrix(((Actor*)pActor)->GetCurrentTargetDistance(false));
+    ((FUN_009e1640_ZRotation&)kRotationBasis).SetRotationMatrix(((Actor*)pActor)->GetHeading(false));
     NiPoint3 kForward = ((const NiMatrix3&)kRotationBasis).operator*(m_kPathVector1);
     float fDot;
     NiPoint3 kToTarget = ((const NiPoint3&)m_kPathVector3) - *((const Actor*)pActor)->GetPos();
     NiPoint3 kAhead;
     ((NiPointer<PathingSolution>&)pCurrentPathingSolution)
-        ->GetLocationAtSplineParameter(m_fSplineParameter + 0.10000000149011612, kAhead);
+        ->ComputeLocationFromParameter(m_fSplineParameter + 0.10000000149011612, kAhead);
     kAhead.Subtract(m_kPathVector3);
     kToTarget.z = 0.0f;
     fDot = ((const NiPoint3&)kForward).Dot(kToTarget);
@@ -1854,7 +1855,7 @@ void PathSplineUpdate::UpdatePathing(float afDeltaT)
     if (fDot < _gModifierZero || fAheadDot < _gModifierZero || fSqDist < fTargetDistSqr)
     {
         m_fPathValue16 = ((NiPointer<PathingSolution>&)pCurrentPathingSolution)
-                             ->GetSplineLengthAtParameter(m_fSplineParameter);
+                             ->ComputeDistanceToParameter(m_fSplineParameter);
         m_kPathVector4 = m_kPathVector3;
         if (((NiPointer<PathingSolution>&)pCurrentPathingSolution)->GetObjectFlags() - 1 <= m_fSplineParameter)
         {
@@ -1868,9 +1869,9 @@ void PathSplineUpdate::UpdatePathing(float afDeltaT)
         float fLastDot = fDot;
         m_fSplineParameter += 0.10000000149011612;
         ((NiPointer<PathingSolution>&)pCurrentPathingSolution)
-            ->GetLocationAtSplineParameter(m_fSplineParameter, m_kPathVector3);
+            ->ComputeLocationFromParameter(m_fSplineParameter, m_kPathVector3);
         ((NiPointer<PathingSolution>&)pCurrentPathingSolution)
-            ->GetLocationAtSplineParameter(m_fSplineParameter + 0.10000000149011612, kAhead);
+            ->ComputeLocationFromParameter(m_fSplineParameter + 0.10000000149011612, kAhead);
         kAhead.Subtract(m_kPathVector3);
         kToTarget = ((const NiPoint3&)m_kPathVector3) - *((const Actor*)pActor)->GetPos();
         kToTarget.z = 0.0f;
@@ -1899,9 +1900,9 @@ void PathSplineUpdate::UpdatePathing(float afDeltaT)
             fLastDot = fDot;
             m_fSplineParameter += 0.10000000149011612;
             ((NiPointer<PathingSolution>&)pCurrentPathingSolution)
-                ->GetLocationAtSplineParameter(m_fSplineParameter, m_kPathVector3);
+                ->ComputeLocationFromParameter(m_fSplineParameter, m_kPathVector3);
             ((NiPointer<PathingSolution>&)pCurrentPathingSolution)
-                ->GetLocationAtSplineParameter(m_fSplineParameter + 0.10000000149011612, kAhead);
+                ->ComputeLocationFromParameter(m_fSplineParameter + 0.10000000149011612, kAhead);
             kAhead.Subtract(m_kPathVector3);
             kToTarget = ((const NiPoint3&)m_kPathVector3) - *((const Actor*)pActor)->GetPos();
             kToTarget.z = 0.0f;
@@ -1935,7 +1936,7 @@ struct NiPoint3_sub : public NiPoint3
 {
     NiPoint3_sub operator-(const NiPoint3&) const;
     float Length() const;
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength() const;
 };
 
 
@@ -1947,7 +1948,7 @@ struct Flt
 struct DetailedActorPathHandlerRot : public DetailedActorPathHandler
 {
     void GetPathAngles(float*, float*);
-    void UpdateLookingAngle(float, float);
+    void DetailedActorPathHandler_UpdateLooking(float, float);
     float DetailedActorPathHandler_UpdateHeading(float, float*);
 };
 
@@ -1958,7 +1959,7 @@ float DetailedActorPathHandlerRot::DetailedActorPathHandler_UpdateHeading(float 
     float fPathHeading = 0.0f;
     float fSpeed = 0.0f;
     GetPathAngles(&fPathHeading, &fSpeed);
-    float fCurrentHeading = (*(Actor**)((char*)this + 4))->GetCurrentTargetDistance(0);
+    float fCurrentHeading = (*(Actor**)((char*)this + 4))->GetHeading(0);
     WrapValueToRange(fCurrentHeading, -3.1415927f, 3.1415927f);
     WrapValueToRange(fPathHeading, -3.1415927f, 3.1415927f);
     float fTimeSinceScaleStart = fPathHeading - fCurrentHeading;
@@ -1986,7 +1987,7 @@ float DetailedActorPathHandlerRot::DetailedActorPathHandler_UpdateHeading(float 
                 ((PathingSolution*)(unsigned int)*(Flt*)&pCurrentPathingSolution)
                     ->FindPointOnPath(m_fSplineParameter, fLookAheadDist - fDist, 1, &iNode, &kGoal);
             }
-            fFacingAngle = (*(Actor**)((char*)this + 4))->GetCurrentTargetDistance(0);
+            fFacingAngle = (*(Actor**)((char*)this + 4))->GetHeading(0);
             NiPoint3_sub toTarget = ((const NiPoint3_sub&)kGoal) - *(*(const Actor**)((char*)this + 4))->GetPos();
             fTargetAngle = GetDirectionAngle(toTarget);
             fAngleToTarget = fTargetAngle - fFacingAngle;
@@ -2010,7 +2011,7 @@ float DetailedActorPathHandlerRot::DetailedActorPathHandler_UpdateHeading(float 
                          ->PathingSolution_GetLastNode())
                          ->FUN_00717e50()
                          .FUN_005c3420<NiPoint3>())
-                        .GetSquaredXYLength() <
+                        .NiPoint3_SqrXYLength() <
                     (*(Actor**)((char*)this + 4))->FUN_008be1b0() * (*(Actor**)((char*)this + 4))->FUN_008be1b0())
                     *pfRotateMult = 0.5f;
             }
@@ -2019,7 +2020,7 @@ float DetailedActorPathHandlerRot::DetailedActorPathHandler_UpdateHeading(float 
         fPathHeading = fCurrentHeading + fTimeSinceScaleStart;
     }
     m_fPathValue18 = std::abs(fTimeSinceScaleStart);
-    UpdateLookingAngle(afDeltaT, fSpeed);
+    DetailedActorPathHandler_UpdateLooking(afDeltaT, fSpeed);
     return fPathHeading;
 }
 }  // namespace fnv_009e4800
@@ -2071,7 +2072,7 @@ void EvaluateAvoidance(Actor* apActor, PathingRequest* apRequest, unsigned int a
     float fDistance;
     Actor* pTargetActor;
     NiMatrix3 kRot;
-    ((FUN_009e1640_ZRotation&)kRot).SetRotationMatrix(apActor->GetCurrentTargetDistance(false));
+    ((FUN_009e1640_ZRotation&)kRot).SetRotationMatrix(apActor->GetHeading(false));
     NiPoint3 kIntersectionOffset = (const FUN_004b4500_ExtView&)kRot * *apDir;
     float fTravelTime;
     NiPoint3 kNormDir = kIntersectionOffset;
@@ -2106,7 +2107,7 @@ void EvaluateAvoidance(Actor* apActor, PathingRequest* apRequest, unsigned int a
         {
             ((NiPoint3&)kDelta) = (const NiPoint3&)*((const Actor*)pAvoidActor)->GetPos();
             ((NiPoint3&)kDelta).Subtract(((NiPoint3&)akStart));
-            fDistSq = ((NiPoint3&)kDelta).GetSquaredXYLength();
+            fDistSq = ((NiPoint3&)kDelta).NiPoint3_SqrXYLength();
             if (fDistSq > DAT_0106b798)
                 continue;
             fLOS = pAvoidActor->ProcessCoverLOSResult();
@@ -2121,7 +2122,7 @@ void EvaluateAvoidance(Actor* apActor, PathingRequest* apRequest, unsigned int a
                 if (pAvoidActor->IsMoving_004938e0())
                 {
                     NiMatrix3 kOtherRot;
-                    ((FUN_009e1640_ZRotation&)kOtherRot).SetRotationMatrix(pAvoidActor->GetCurrentTargetDistance(false));
+                    ((FUN_009e1640_ZRotation&)kOtherRot).SetRotationMatrix(pAvoidActor->GetHeading(false));
                     NiPoint3 kOtherOffset = (const FUN_004b4500_ExtView&)kOtherRot * (const NiPoint3&)pAvoidActor->GetCachedMoveDelta();
                     ((NiPoint3&)kRelOffset).Subtract(kOtherOffset);
                 }
@@ -2174,7 +2175,7 @@ struct FUN_009e77d0_cls : public DetailedActorPathHandler
 // @fnv 0x009e77d0
 void FUN_009e77d0_cls::UpdatePathTether(float afPercentTraveled)
 {
-    m_fPathValue2 = ((PathingSolution*)*(const Flt*)&pCurrentPathingSolution)->GetTotalPathLength();
+    m_fPathValue2 = ((PathingSolution*)*(const Flt*)&pCurrentPathingSolution)->ComputeDetailedPathLength();
     m_fSplineParameter = ((PathingSolution*)*(const Flt*)&pCurrentPathingSolution)
                              ->FindSegmentAtFraction(afPercentTraveled, m_fPathValue2, &m_uiPathPointIndex);
     if (m_bPathFlag5)
@@ -2214,11 +2215,11 @@ void FUN_009e77d0_cls::UpdatePathTether(float afPercentTraveled)
                 ((PathingSolution*)*(const Flt*)&pCurrentPathingSolution)
                     ->FindSegmentAtFraction(afPercentTraveled + fcheck5 + i * fcheck20, m_fPathValue2, &itempNode);
             ((PathingSolution*)*(const Flt*)&pCurrentPathingSolution)
-                ->GetLocationAtSplineParameter(ftempSplineT, (NiPoint3*)&newTetherLoc);
+                ->ComputeLocationFromParameter(ftempSplineT, (NiPoint3*)&newTetherLoc);
             actorToTetherDir = newTetherLoc.SubtractIntoVector(actorLoc);
             actorToTetherDir.z = 0;
             fdot = actorToTetherDir.Dot((const NiPoint3&)oldDirVec);
-            fsqrDist = actorToTetherDir.GetSquaredXYLength();
+            fsqrDist = actorToTetherDir.NiPoint3_SqrXYLength();
             if ((!bpastGoal && fdot < _gModifierZero) || (bpastGoal && fdot > _gModifierZero))
             {
                 if (botherSide)
@@ -2247,7 +2248,7 @@ void FUN_009e77d0_cls::UpdatePathTether(float afPercentTraveled)
             }
         }
         ((PathingSolution*)*(const Flt*)&pCurrentPathingSolution)
-            ->GetLocationAtSplineParameter(fbestSplineT, &m_kPathVector3);
+            ->ComputeLocationFromParameter(fbestSplineT, &m_kPathVector3);
         m_uiPathPointIndex = ibestNode;
         m_fSplineParameter = fbestSplineT;
         m_kPathVector4 = actorLoc;
@@ -2255,14 +2256,14 @@ void FUN_009e77d0_cls::UpdatePathTether(float afPercentTraveled)
     else
     {
         ((PathingSolution*)*(const Flt*)&pCurrentPathingSolution)
-            ->GetLocationAtSplineParameter(m_fSplineParameter, &m_kPathVector3);
+            ->ComputeLocationFromParameter(m_fSplineParameter, &m_kPathVector3);
         m_kPathVector4 = m_kPathVector3;
         if (afPercentTraveled > _gModifierZero)
         {
             PathingLocation tetherNavMeshLoc((const NiPoint3&)m_kPathVector3, *(::TESObjectREFR**)((char*)this + 4));
             NiPoint3 snapLocation = m_kPathVector3;
             GetNavMeshHeight(&tetherNavMeshLoc, &snapLocation.z);
-            float fheading = (*(MobileObject**)((char*)this + 4))->GetCurrentTargetDistance(false);
+            float fheading = (*(MobileObject**)((char*)this + 4))->GetHeading(false);
             (*(TESObjectREFR**)((char*)this + 4))
                 ->Actor_MoveActorAndFollowers(snapLocation, fheading, (*(TESObjectREFR**)((char*)this + 4))->GetParentCell(),
                                (*(TESObjectREFR**)((char*)this + 4))->GetParentWorldSpace(), 1, 1);
@@ -2326,7 +2327,7 @@ int FUN_009e8000_shell::UpdatePathingGoal()
                     *(const NiPoint3*)((const MobileObject*)*(MobileObject**)((char*)this + 4))->GetPos();
             else
                 bPast = true;
-            if (bPast || diff.GetSquaredXYLength() <= DAT_01092508)
+            if (bPast || diff.NiPoint3_SqrXYLength() <= DAT_01092508)
             {
                 unsigned int icurrentSize = GetObjectFlags((char*)(unsigned int)*(Flt*)((char*)this + 0xc));
                 unsigned int iupdateNode = *(unsigned short*)(*(char**)((char*)this + 8) + 0x42) > 0
@@ -2378,7 +2379,7 @@ int FUN_009e8000_shell::UpdatePathingGoal()
                      ->GetPosition())
                     ->GetLocation();
         (NiPoint3&)diff = goal - *(const NiPoint3*)((const MobileObject*)*(MobileObject**)((char*)this + 4))->GetPos();
-        fdistanceSqr = diff.GetSquaredXYLength();
+        fdistanceSqr = diff.NiPoint3_SqrXYLength();
         fgoalRadiusTestSqr = *(float*)((char*)this + 0xac);
         bgoalReached = fdistanceSqr <= *(float*)((char*)this + 0xac);
         if (bgoalReached)
@@ -2422,7 +2423,7 @@ int FUN_009e8000_shell::UpdatePathingGoal()
                 {
                     float fzdeltaThresold = BSMIN(
                         ((PathingRequest*)(unsigned int)*(Flt*)((char*)this + 0x10))->GetSmoothingRandomness(),
-                        ((Actor*)*(MobileObject**)((char*)this + 4))->GetActorHeight());
+                        ((Actor*)*(MobileObject**)((char*)this + 4))->Actor_GetHeight());
                     if (std::abs(diff.z) <= fzdeltaThresold)
                         return 5;
                 }
@@ -2678,16 +2679,17 @@ struct MobileObjectLookingHelper
 };
 struct ST_00931e50
 {
-    void ClampLookAngle(float);
+    void MobileObject_SetLooking(float);
 };
 
 struct FUN_009e4c60_t : public DetailedActorPathHandler
 {
-    void UpdateLookingAngle(float afDeltaT, float afLookingAngle);
+    void DetailedActorPathHandler_UpdateLooking(float afDeltaT, float afLookingAngle);
 };
 
 // @fnv 0x009e4c60
-void FUN_009e4c60_t::UpdateLookingAngle(float afDeltaT, float afLookingAngle)
+// src: COMMUNITY 0x009e4c60
+void FUN_009e4c60_t::DetailedActorPathHandler_UpdateLooking(float afDeltaT, float afLookingAngle)
 {
     float frotateMax;
     float fcurrentLooking;
@@ -2703,7 +2705,7 @@ void FUN_009e4c60_t::UpdateLookingAngle(float afDeltaT, float afLookingAngle)
     if (fclampedAngleDelta > frotateMax)
         fclampedAngleDelta = frotateMax;
     fcurrentLooking = fclampedAngleDelta * fdir + fcurrentLooking;
-    (*(ST_00931e50**)((char*)this + 4))->ClampLookAngle(fcurrentLooking);
+    (*(ST_00931e50**)((char*)this + 4))->MobileObject_SetLooking(fcurrentLooking);
 }
 
 struct FUN_009e5ab0_Class
@@ -2892,18 +2894,19 @@ const NiPoint3& Actor::GetCachedMoveDelta()
 
 void __fastcall SetVtable(void*);
 extern int DAT_01092484;
-struct FUN_009e2690
+struct DoorInPathFilter
 {
     void* f0;
     int f4;
     unsigned char f8;
     unsigned char f9;
     unsigned char f10;
-    FUN_009e2690(int);
+    DoorInPathFilter(int);
 };
 // Initializes the object: calls SetVtable, sets f0 to &DAT_01092484, stores a in f4, and sets f8, f9 to 0 and f10 to 1.
 // @fnv 0x009e2690
-FUN_009e2690::FUN_009e2690(int aiValue)
+// src: EXE 0x009e2690
+DoorInPathFilter::DoorInPathFilter(int aiValue)
 {
     SetVtable(this);
     f0 = &DAT_01092484;
@@ -3114,7 +3117,7 @@ void FUN_009e3c00_shell::AdvanceAlongPath(float afDist)
         return;
     this->m_fPathValue16 =
         ((PathingSolution*)pCurrentPathingSolution)
-            ->GetSplineLengthAtParameter(this->m_fSplineParameter);
+            ->ComputeDistanceToParameter(this->m_fSplineParameter);
     this->m_kPathVector4 = this->m_kPathVector3;
     ((FUN_009e5480_shell*)this)->ResetPathState();
     NiPoint3 newPoint;
@@ -4668,12 +4671,12 @@ struct FUN_006dcd70
     bool FUN_006dd640(NiPointer<NavMesh>& aspNavMesh, unsigned short& ausTriangle);
 };
 
-void __cdecl FUN_006d7490(FUN_006dcd70* apLocation, void* apPoint, int a3, FUN_009e2690* apFilter);
+void __cdecl FUN_006d7490(FUN_006dcd70* apLocation, void* apPoint, int a3, DoorInPathFilter* apFilter);
 unsigned int __fastcall GetObjectFlags(char* apPath);
 
 struct FUN_006e7a10_Class
 {
-    void GetLocationAtSplineParameter(float afT, NiPoint3& arPoint);
+    void ComputeLocationFromParameter(float afT, NiPoint3& arPoint);
 };
 
 struct FUN_009e22d0_shell : public DetailedActorPathHandler
@@ -4687,7 +4690,7 @@ bool FUN_009e22d0_shell::DetailedActorPathHandler_IsDoorInPath(unsigned int auiF
 {
     if (!(PathingSolution*)pCurrentPathingSolution)
     {
-        FUN_009e2690 kFilterTmp(auiFlags);
+        DoorInPathFilter kFilterTmp(auiFlags);
         FUN_006dcd70 _kLocation((TESObjectREFR*)pActor);
         _kLocation.FUN_006dd6f0(0);
         NiPointer<NavMesh> spNavMeshCur;
@@ -4720,10 +4723,10 @@ bool FUN_009e22d0_shell::DetailedActorPathHandler_IsDoorInPath(unsigned int auiF
                 NiPoint3 kStart4;
                 NiPoint3 kEnd2;
                 ((FUN_006e7a10_Class*)(PathingSolution*)pCurrentPathingSolution)
-                    ->GetLocationAtSplineParameter(aFT, kStart4);
+                    ->ComputeLocationFromParameter(aFT, kStart4);
                 ((FUN_006e7a10_Class*)(PathingSolution*)pCurrentPathingSolution)
-                    ->GetLocationAtSplineParameter(fNextTCur, kEnd2);
-                FUN_009e2690 kSegFilterCur(auiFlags);
+                    ->ComputeLocationFromParameter(fNextTCur, kEnd2);
+                DoorInPathFilter kSegFilterCur(auiFlags);
                 FUN_006dcd70 kSegLocation3(kStart4, (TESObjectREFR*)pActor);
                 kSegLocation3.FUN_006dd6f0(0);
                 NiPointer<NavMesh> spSegNavMeshCur;
@@ -4776,20 +4779,20 @@ void PathAngles::GetPathAngles(float& headingOut, float& lookingOut)
     {
         if (m_bPathingRequestPending)
         {
-            angle = pActor->GetCurrentTargetDistance(false);
+            angle = pActor->GetHeading(false);
         }
         else if (pCurrentPathingSolution)
         {
             NiPoint3 target;
             ((PathingSolution*)(PathingSolution*)pCurrentPathingSolution)
-                ->GetLocationAtSplineParameter(m_fElapsedTime, (NiPoint3&)target);
+                ->ComputeLocationFromParameter(m_fElapsedTime, (NiPoint3&)target);
             NiPoint3 delta = target.SubtractIntoVector(*(const NiPoint3*)((const Actor*)pActor)->GetPos());
             delta.z = 0.0f;
             angle = GetDirectionAngle((const NiPoint3&)delta);
         }
         else
         {
-            angle = pActor->GetCurrentTargetDistance(false);
+            angle = pActor->GetHeading(false);
         }
     }
     else if (!m_bPathFlag6 && ((ActorMover*)m_pActorMover)->HasLookAtTarget())
@@ -4797,10 +4800,10 @@ void PathAngles::GetPathAngles(float& headingOut, float& lookingOut)
         NiPoint3 target;
         ((ActorMover*)m_pActorMover)->GetLookAtTargetPosition((NiPoint3&)target);
         NiPoint3 position = CombatUtilities_GetAttackerFiringLocation(pActor);
-        if (position.SubtractIntoVector(target).GetSquaredXYLength() <
+        if (position.SubtractIntoVector(target).NiPoint3_SqrXYLength() <
             ((PathAngleActor*)pActor)->FUN_008be1b0() * ((PathAngleActor*)pActor)->FUN_008be1b0() * 0.25)
         {
-            angle = pActor->GetCurrentTargetDistance(false);
+            angle = pActor->GetHeading(false);
         }
         else
         {
@@ -4825,7 +4828,7 @@ void PathAngles::GetPathAngles(float& headingOut, float& lookingOut)
         if (pCurrentPathingSolution && ((PathingSolution*)pCurrentPathingSolution)->GetNodeCount() > 0)
         {
             ((PathingSolution*)(PathingSolution*)pCurrentPathingSolution)
-                ->GetLocationAtSplineParameter(float(m_fSplineParameter + 0.10000000149011612), (NiPoint3&)destination);
+                ->ComputeLocationFromParameter(float(m_fSplineParameter + 0.10000000149011612), (NiPoint3&)destination);
         }
         else
         {
@@ -4835,7 +4838,7 @@ void PathAngles::GetPathAngles(float& headingOut, float& lookingOut)
         if (((PathAngleActor*)pActor)->IsSwimming_005a2030() &&
             direction.FUN_00457990() * 0.949999988079071 <= std::abs(direction.z))
         {
-            angle = pActor->GetCurrentTargetDistance(false);
+            angle = pActor->GetHeading(false);
         }
         else
         {
@@ -5294,7 +5297,7 @@ struct AvoidPoint
     AvoidPoint ProcessAndReturnValue_0053d280(float) const;
     float Length() const;
     float FUN_004a7290() const;
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength() const;
 };
 struct AvoidLocation : PathingLocation
 {
@@ -5878,7 +5881,7 @@ int AvoidHandler::UpdateAvoidance(float deltaTime)
     if (!target || !target->NiAVObject_QFadedIn() ||
         (target->NiNode_QNotVisible() && actor->FUN_009306d0()->bhkCharacterController_QLODDistance() > *g_011f2bd0.Setting_Float_00403e20()))
         return 0;
-    if (avoidState != 2 && moveDelta.GetSquaredXYLength() < 0.25)
+    if (avoidState != 2 && moveDelta.NiPoint3_SqrXYLength() < 0.25)
         return 0;
     if (avoidState != 4 && avoidState != 3)
         actors.FUN_00470470();
@@ -7169,7 +7172,7 @@ bool __cdecl DetailedActorPathHandler_CheckDetection(Ref* apActor, Group* apGrou
     float fRadius3 = apActor->Actor_GetForwardLength();
     float fRange5 = apTarget->FUN_008be1b0() + afExtra + fRadius3;
     float fRangeSqr6 = fRange5 * fRange5;
-    if (((const NiPoint3&)kDelta).GetSquaredXYLength() < fRangeSqr6)
+    if (((const NiPoint3&)kDelta).NiPoint3_SqrXYLength() < fRangeSqr6)
     {
         if (std::abs(kDelta.z) < 180.0)
         {
@@ -7256,7 +7259,7 @@ struct DetailedPathGoalUpdate : DetailedActorPathHandler
 {
     void ResetPathState();
     void FUN_009e68c0();
-    void ResetMoveState();
+    void DetailedActorPathHandler_ResetMoveModeAndDelta();
     int DetailedActorPathHandler_UpdateWhilePlayerWaits(int);
 };
 
@@ -7401,7 +7404,7 @@ int DetailedPathGoalUpdate::DetailedActorPathHandler_UpdateWhilePlayerWaits(int 
 
             {
 
-                fHeading9 = ((Actor*)pActor)->GetCurrentTargetDistance(0);
+                fHeading9 = ((Actor*)pActor)->GetHeading(0);
 
             }
 
@@ -7413,7 +7416,7 @@ int DetailedPathGoalUpdate::DetailedActorPathHandler_UpdateWhilePlayerWaits(int 
 
     iResultY2 = 5;
 
-    ResetMoveState();
+    DetailedActorPathHandler_ResetMoveModeAndDelta();
 
     eState = 5;
 

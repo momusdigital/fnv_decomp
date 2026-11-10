@@ -21,7 +21,7 @@ public:
     bool ExtraDataList_CompareList(ExtraShell_screensplatter*);
     void ExtraDataList_SetCount(int);
     void ExtraDataList_CopyList(ExtraShell_screensplatter*);
-    signed char GetExtraByteValue();
+    signed char ExtraDataList_GetHotKey();
     void ExtraDataList_RemoveHotkey();
     OpacityFadeState* GetOffsetC();
     void FUN_0041aeb0();
@@ -549,20 +549,20 @@ struct FUN_004e04e0_base
     void FUN_00a7b440(void* node);
 };
 
-struct FUN_004e04e0_cls : FUN_004e04e0_base
+struct BSSplatterExtraData : FUN_004e04e0_base
 {
     void* m_pVTable;
     unsigned int m_04;
     unsigned int m_08;
     FUN_004e04e0_quad m_0c;
 
-    FUN_004e04e0_cls* InitializeFields_004e04e0(const FUN_004e04e0_quad* value);
+    BSSplatterExtraData* InitializeFields_004e04e0(const FUN_004e04e0_quad* value);
 };
 
 // Sets the vtable, copies the given quad into m_0c, and returns this after calling FUN_00a7b440 on FUN_004e0320().
 // @fnv 0x004e04e0
 // src: GUESS 0x004e04e0 (confidence: low)
-FUN_004e04e0_cls* FUN_004e04e0_cls::InitializeFields_004e04e0(const FUN_004e04e0_quad* pQuad)
+BSSplatterExtraData* BSSplatterExtraData::InitializeFields_004e04e0(const FUN_004e04e0_quad* pQuad)
 {
     FUN_00a7b440(BSSplatterExtraData_Tag());
     m_pVTable = (void*)DAT_01022a24;

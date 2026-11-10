@@ -79,7 +79,7 @@ struct Inner
     NiPoint3* Compute(const NiPoint3* p, int sx, int sy, int sz, NiPoint3 diff);
 };
 
-struct FUN_00eb3a00_cls
+struct NiBoxCapsuleIntersector
 {
     int unk00, unk04, unk08, unk0c, unk10, unk14, unk18;
     float s0;
@@ -111,7 +111,7 @@ inline void Scale(NiPoint3& result, const NiPoint3& v, float s)
 // Sets pos from *a scaled by s0 plus in->a, b, c, and d weighted by k0, k1, and k2, then stores in->Compute's result in out.
 // @fnv 0x00eb3a00
 // src: GAMEBRYO_LIB 0x00eb3a00
-void FUN_00eb3a00_cls::NiBoxCapsuleIntersector_ComputeContactInformation(const NiPoint3* a, const NiPoint3* b)
+void NiBoxCapsuleIntersector::NiBoxCapsuleIntersector_ComputeContactInformation(const NiPoint3* a, const NiPoint3* b)
 {
     NiPoint3 t;
     Scale(t, *a, s0);

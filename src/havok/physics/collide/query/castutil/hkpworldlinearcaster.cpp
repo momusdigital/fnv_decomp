@@ -43,7 +43,7 @@ struct NodeMatcher
     virtual unsigned char* Match(SlotRecord** ppRecord, int aKey, int aSlot);
 };
 
-struct FUN_00cfae50_cls
+struct hkpWorldLinearCaster
 {
     int unk00;
     int unk04;
@@ -60,7 +60,7 @@ struct FUN_00cfae50_cls
 
 // Looks up a slot target, matches it via m_08, dispatches the handler from the m_20 table by code, and returns m_0c->m_04.
 // @fnv 0x00cfae50
-float FUN_00cfae50_cls::InvokeSlotHandler(SlotRecord* pRecord, int a2)
+float hkpWorldLinearCaster::InvokeSlotHandler(SlotRecord* pRecord, int a2)
 {
     int iSlotAddr = (int)pRecord + pRecord->m_05;
     SlotTarget* pTarget = *(SlotTarget**)iSlotAddr;

@@ -17,8 +17,8 @@ public:
     void ResetFormData();
     bool Load(TESFile* file);
     virtual void InitItem();
-    static void CacheImpactDataSet();
-    static void RefreshImpactData(ImpactSwap* swap);
+    static void CreateDefaultImpactDataSet();
+    static void ApplyImpactSwap(ImpactSwap* swap);
     virtual void QueueResourceLoad(IO_TASK_PRIORITY priority, QueuedFile* file);
     BGSImpactData* GetImpactDataForMaterial(int material);
     void Save();

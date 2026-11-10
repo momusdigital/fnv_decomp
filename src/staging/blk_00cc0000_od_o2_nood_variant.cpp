@@ -580,14 +580,14 @@ struct BaseB
     SourceHolder* m_holder;
 };
 
-struct FUN_00cc91c0_cls : public BaseA, public BaseB
+struct bhkBallSocketConstraintChain : public BaseA, public BaseB
 {
     void bhkBallSocketConstraintChain_CopyCinfo(VectorOutput* out);
 };
 
 // @fnv 0x00cc91c0
 // src: XBOX_PDB 0x00cc91c0
-void FUN_00cc91c0_cls::bhkBallSocketConstraintChain_CopyCinfo(VectorOutput* out)
+void bhkBallSocketConstraintChain::bhkBallSocketConstraintChain_CopyCinfo(VectorOutput* out)
 {
     CopyContainerKeysToInfo(out);
     SourceHolder* holder = this ? m_holder : 0;
@@ -965,7 +965,7 @@ PoseTransform& PoseState::hkaPose_accessBoneLocalSpace(int index)
     return local[index];
 }
 
-struct FUN_00d4f2a0
+struct hkpRagdollLimitsData
 {
     int unk00;
     unsigned short m_iElementCount;
@@ -999,35 +999,35 @@ struct FUN_00d4f2a0
     int unkB8;
     int unkBC;
 
-    FUN_00d4f2a0();
+    hkpRagdollLimitsData();
     static void operator delete(void* p) throw()
     {}
     static __forceinline void* operator new(unsigned int size) throw()
     {
         hkMemoryRouter* h = (hkMemoryRouter*)hkMemoryRouter_getInstance();
         void* p = h->m_heap->blockAlloc(size);
-        ((FUN_00d4f2a0*)p)->m_iElementCount = (unsigned short)size;
+        ((hkpRagdollLimitsData*)p)->m_iElementCount = (unsigned short)size;
         return p;
     }
 };
 
-struct FUN_00cc5f30_cls
+struct hkRagdollLimitsConstraintCinfo
 {
     int unk00;
-    FUN_00d4f2a0* m_pSrc;
+    hkpRagdollLimitsData* m_pSrc;
 
-    void hkRagdollLimitsConstraintCinfo_CloneData(FUN_00d4f2a0* dst, int a2);
-    void ReleaseObject(FUN_00d4f2a0* dst, int a2);
+    void hkRagdollLimitsConstraintCinfo_CloneData(hkpRagdollLimitsData* dst, int a2);
+    void ReleaseObject(hkpRagdollLimitsData* dst, int a2);
 };
 
 // @fnv 0x00cc5f30
 // src: XBOX_PDB 0x00cc5f30
-void FUN_00cc5f30_cls::hkRagdollLimitsConstraintCinfo_CloneData(FUN_00d4f2a0* dst, int a2)
+void hkRagdollLimitsConstraintCinfo::hkRagdollLimitsConstraintCinfo_CloneData(hkpRagdollLimitsData* dst, int a2)
 {
-    FUN_00d4f2a0* src = m_pSrc;
+    hkpRagdollLimitsData* src = m_pSrc;
     if (dst == 0)
     {
-        dst = new FUN_00d4f2a0();
+        dst = new hkpRagdollLimitsData();
     }
     _mm_store_ps((float*)&dst->m_20, src->m_20);
     _mm_store_ps((float*)&dst->m_30, src->m_30);
@@ -1694,7 +1694,7 @@ struct ShapeOwner
     virtual void vf09();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -1720,7 +1720,7 @@ struct ShapeOwner
     virtual void addObject(struct ShapeObj* pkObj);
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();
@@ -1964,7 +1964,7 @@ struct ScratchGeometry
     Lane128Q dimensions;
     float tolerance, radius, margin;
     unsigned char useA, useB, specialShape, useD, useE;
-    void FUN_00d54de0();
+    void hkpMoppCompilerInput();
 };
 struct LunaAction
 {
@@ -1996,7 +1996,7 @@ unsigned int LunaTarget::bhkMoppBvTreeShape_Init(LunaArgument* argument)
     action.defaultValue = 1.0f;
     _ReadWriteBarrier();
     action.source = argument->value;
-    action.scratch.FUN_00d54de0();
+    action.scratch.hkpMoppCompilerInput();
     if (argument->value->typeCode == 14)
         action.scratch.specialShape = 1;
     const void* attrs = argument->value;
@@ -3087,7 +3087,7 @@ struct Shape : RefCountedObject
     }
 };
 
-struct FUN_00cc9d00 : RefCountedObject
+struct hkScaledMoppBvTreeShape : RefCountedObject
 {
     unsigned int unk00;
     unsigned short size;
@@ -3095,11 +3095,11 @@ struct FUN_00cc9d00 : RefCountedObject
     unsigned int unk08, unk0c;
     LocalM128 dimensions;
     unsigned int unk20, unk24, unk28, unk2c, unk30, unk34, unk38, unk3c, unk40, unk44, unk48, unk4c;
-    FUN_00cc9d00(ObjectType* type, Shape* shape, SourceGeometry* geometry);
+    hkScaledMoppBvTreeShape(ObjectType* type, Shape* shape, SourceGeometry* geometry);
     static void* operator new(unsigned int bytes)
     {
         hkMemoryRouter* router = hkMemoryRouter_getInstance();
-        FUN_00cc9d00* result = static_cast<FUN_00cc9d00*>(router->heap().blockAlloc(bytes));
+        hkScaledMoppBvTreeShape* result = static_cast<hkScaledMoppBvTreeShape*>(router->heap().blockAlloc(bytes));
         result->size = (unsigned short)bytes;
         return result;
     }
@@ -3124,7 +3124,7 @@ void OutputHandler::bhkMoppBvTreeShape_Init_00cca6f0(InitializePathingRequestFro
     if (!request->cachedGeometry)
     {
         ScratchGeometry scratch;
-        scratch.FUN_00d54de0();
+        scratch.hkpMoppCompilerInput();
         if (request->type->typeCode == 14)
             scratch.specialShape = 1;
         const void* attrs = request->type ? &request->type->attributes : 0;
@@ -3138,7 +3138,7 @@ void OutputHandler::bhkMoppBvTreeShape_Init_00cca6f0(InitializePathingRequestFro
 
     Shape* shape = new Shape(scaled, geometry->material, geometry->flags);
 
-    FUN_00cc9d00* result = new FUN_00cc9d00(request->type, shape, geometry);
+    hkScaledMoppBvTreeShape* result = new hkScaledMoppBvTreeShape(request->type, shape, geometry);
 
     shape->FUN_00c905b0();
     if (temporary)
@@ -3666,7 +3666,7 @@ struct ShapeOwner_SI
     virtual void vf09();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -3692,7 +3692,7 @@ struct ShapeOwner_SI
     virtual void addObject(hkReferencedObject* pkObj);
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();
@@ -5141,7 +5141,7 @@ struct __declspec(align(16)) ShapeCinfo
     }
 };
 
-struct FUN_00d58510
+struct hkDisplayCylinder
 {
     virtual void vf00();
     virtual void vf01();
@@ -5188,13 +5188,13 @@ struct FUN_00d58510
 
     static void* operator new(unsigned int nbytes)
     {
-        FUN_00d58510* p = (FUN_00d58510*)::hkMemoryRouter_getInstance()->heap().blockAlloc(nbytes);
+        hkDisplayCylinder* p = (hkDisplayCylinder*)::hkMemoryRouter_getInstance()->heap().blockAlloc(nbytes);
         p->m_usMemSizeAndFlags = (unsigned short)nbytes;
         return p;
     }
     static void operator delete(void* p, unsigned int nbytes);
 
-    FUN_00d58510(const ::ShapeVector& kA, const ::ShapeVector& kB, float fRadius, int iA, int iB);
+    hkDisplayCylinder(const ::ShapeVector& kA, const ::ShapeVector& kB, float fRadius, int iA, int iB);
 };
 
 struct CylinderDisplayOwner
@@ -5211,7 +5211,7 @@ struct CylinderDisplayOwner
     virtual void vf09();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -5237,7 +5237,7 @@ struct CylinderDisplayOwner
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();
@@ -5267,8 +5267,8 @@ void CylinderDisplayOwner::bhkCylinderShape_BuildDisplayGeometry(void* pkA, void
     ::AutoMemContext guard(16);
     ShapeCinfo info;
     WriteLimitedHingeData(&info);
-    FUN_00d58510* pkObj =
-        new FUN_00d58510(::ShapeVector(info.m_fA0, info.m_fA1, info.m_fA2, info.m_fA3),
+    hkDisplayCylinder* pkObj =
+        new hkDisplayCylinder(::ShapeVector(info.m_fA0, info.m_fA1, info.m_fA2, info.m_fA3),
                          ::ShapeVector(info.m_fB0, info.m_fB1, info.m_fB2, info.m_fB3), info.m_fBoundRadius, 9, 1);
     pkObj->vf04();
     void* pkResult = pkObj->m_pkResult;

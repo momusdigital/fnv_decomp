@@ -48,7 +48,7 @@ void __cdecl FalloutAudio_SetMainMenuMusic(bool);
 void __cdecl FalloutAudioMedia_MediaStop(void);
 struct FUN_008467b0_shell
 {
-    bool __thiscall LoadSaveEntry(void);
+    bool __thiscall BGSSaveLoadFileEntry_LoadGame(void);
 };
 extern int DAT_011d9474;
 extern StartMenu* DAT_011daac0;
@@ -65,7 +65,7 @@ void __cdecl ContinuePlayingAfterCreditsCallback()
         {
             FalloutAudio_SetMainMenuMusic(false);
             FalloutAudioMedia_MediaStop();
-            ((FUN_008467b0_shell*)DAT_011d9474)->LoadSaveEntry();
+            ((FUN_008467b0_shell*)DAT_011d9474)->BGSSaveLoadFileEntry_LoadGame();
         }
     }
 }

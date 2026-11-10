@@ -2968,7 +2968,7 @@ struct Region
     int count;
     Frustum* frustum;
     RenderLink* renders;
-    void SetFieldCC(Frustum*);
+    void BSMultiBoundRoom_SetCompoundFrustum(Frustum*);
 };
 struct Portal
 {
@@ -3208,7 +3208,7 @@ void Traversal::UpdateVisibility(Region* start, View* view, int arg, bool reset)
         }
         if (begun)
             f->BSCompoundFrustum_EndGroup();
-        start->SetFieldCC(f);
+        start->BSMultiBoundRoom_SetCompoundFrustum(f);
         {
             Link* n = pending.alloc.AddHead();
             n->data = start;
@@ -3321,7 +3321,7 @@ void Traversal::UpdateVisibility(Region* start, View* view, int arg, bool reset)
                             pTargetFrustum->special = true;
                         active = pSavedFrustum;
                         if (dest->frustum == 0)
-                            dest->SetFieldCC(pTargetFrustum);
+                            dest->BSMultiBoundRoom_SetCompoundFrustum(pTargetFrustum);
                     }
                 }
                 else

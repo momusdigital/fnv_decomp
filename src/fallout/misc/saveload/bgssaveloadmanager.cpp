@@ -139,7 +139,7 @@ class ModelLoader
 class VATS
 {
   public:
-    void ProcessVATSCommands();
+    void ClearCommandList();
     void Update(int, bool);
 };
 // The VATS camera singleton at 0x011f2250; 0x009c8950 is its (bool, bool) reset (a VATS-area method, not InventoryStackRecord).
@@ -391,7 +391,7 @@ bool BGSSaveLoadManager::LoadGame(const char* name, int deviceID, bool recent, b
                 InterfaceManager_GetSingleton()->FUN_00714d70(DAT_011dea24);
             }
             if (result)
-                SetSaveFileName(savedName, deviceID);
+                SetMostRecentSaveGame(savedName, deviceID);
         }
         reinterpret_cast<Main*>(g_osGlobals)->RefreshAfterSave();
     }
@@ -445,10 +445,10 @@ void BGSSaveLoadManager::FinishLoadingGame()
     reinterpret_cast<ActorMover*>(g_osGlobals)->RefreshMovementState();
     reinterpret_cast<GridCellArray*>(reinterpret_cast<BSSimpleArray<unsigned int, 1024>*>(g_TES)->GetSize())
         ->ReleaseGridCells();
-    reinterpret_cast<VATS*>(&g_011f2250)->ProcessVATSCommands();
+    reinterpret_cast<VATS*>(&g_011f2250)->ClearCommandList();
     TESWorldSpace* world = g_thePlayer->GetParentWorldSpace();
     if (world)
-        world->GetWorldTerrainManager()->Update(*static_cast<const TESObjectREFR*>(g_thePlayer)->GetPos(), 15);
+        world->GetTerrainManager()->Update(*static_cast<const TESObjectREFR*>(g_thePlayer)->GetPos(), 15);
     if (XGamerProfile_Instance())
     {
         XGamerProfile_Instance()->XGamerProfile_SetPlayingFlag(true);
@@ -476,10 +476,10 @@ void BGSSaveLoadManager::ProcessQueuedLoads()
     ScriptLocals_ClearOptimizations();
     BSAudio::GetSingleton()->BSAudio_KillAllOfType(-1, false);
     bool wasMultiThreaded = BSAudio::GetSingleton()->TESRegionData_GetPriority();
-    BSAudio::GetSingleton()->SetUseMultipleThreads(false);
+    BSAudio::GetSingleton()->SetMultiThreaded(false);
     for (unsigned int index = 0; index < 10; ++index)
         BSAudio::GetSingleton()->Update(false);
-    BSAudio::GetSingleton()->SetUseMultipleThreads(wasMultiThreaded);
+    BSAudio::GetSingleton()->SetMultiThreaded(wasMultiThreaded);
     if (reinterpret_cast<HUDMainMenu*>(&g_011f2250)->RefreshTargetDisplay())
     {
         g_011f2250.QuitVATSPlayback(true, false);
@@ -607,7 +607,8 @@ void BGSSaveLoadManager::UpdateSaveTimestamp()
 
 // Appends ".fos" to apFullFileName when its length is under 4 or it does not already end in ".fos".
 // @fnv 0x0084fec0
-void BGSSaveLoadManager::EnsureFosExtension(char* apFileName, char* apFullFileName)
+// src: COMMUNITY 0x0084fec0
+void BGSSaveLoadManager::GetFullFileName(char* apFileName, char* apFullFileName)
 {
     TaskQueueInterface::CopyStringToBuffer(apFullFileName, 0x104, apFileName);
     unsigned int ilength = BSStringLength<char>(apFullFileName);
@@ -618,7 +619,8 @@ void BGSSaveLoadManager::EnsureFosExtension(char* apFileName, char* apFullFileNa
 int __cdecl BSstrcmp(const char*, const char*);
 
 // @fnv 0x00851250
-void BGSSaveLoadManager::SetSaveFileName(char* apSaveFileName, int aiDeviceID)
+// src: COMMUNITY 0x00851250
+void BGSSaveLoadManager::SetMostRecentSaveGame(char* apSaveFileName, int aiDeviceID)
 {
     if (!apSaveFileName)
         return;
@@ -839,7 +841,8 @@ extern GlobalObject_0040c150 g_011d3ed4;
 
 // Builds a save file name from the player name, location and play time, truncating it to fit and passing it to the save manager unless autosaving.
 // @fnv 0x008517c0
-void BGSSaveLoadManager::BuildSaveFileName(char* saveFileName, bool autosave, bool displayOnly)
+// src: COMMUNITY 0x008517c0
+void BGSSaveLoadManager::GenerateSaveFileName(char* saveFileName, bool autosave, bool displayOnly)
 {
     const char* pplayerName;
     char pplayTimeString[260];
@@ -935,7 +938,7 @@ bool BGSSaveLoadManager::SaveGame_008503b0(const char* acFileName, int mode, boo
     }
     if (!acFileName)
     {
-        BuildSaveFileName(cf, 0, 0);
+        GenerateSaveFileName(cf, 0, 0);
         acFileName = cf;
     }
     SaveLoadString::strcpy_s(f, 260, acFileName);
@@ -971,7 +974,7 @@ bool BGSSaveLoadManager::SaveGame_008503b0(const char* acFileName, int mode, boo
         CloseSaveFile(i, true);
     if (remove)
     {
-        BuildWeaponPath(acFileName, ba, false);
+        BGSSaveLoadManager_GetFullPath(acFileName, ba, false);
         DumpTextAndOpen(ba);
     }
     ((SaveGameOps*)g_BGSSaveLoadGame)->FUN_00441110()->DeleteItemsFrom(h);
@@ -979,7 +982,7 @@ bool BGSSaveLoadManager::SaveGame_008503b0(const char* acFileName, int mode, boo
         AddFileToList(f, mode, iCurrentSaveGameNumber);
     if (!b && !q)
         iCurrentSaveGameNumber = iCurrentSaveGameNumber + 1;
-    SetSaveFileName(f, mode);
+    SetMostRecentSaveGame(f, mode);
     bool p = true;
     return p;
 }

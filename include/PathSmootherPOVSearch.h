@@ -32,7 +32,7 @@ public:
     void* DestroyPathSmootherPOVSearch(unsigned int);
     void CreateStartPoint();
     void CreateGoalPoint();
-    void CollectAvoidSpheres();
+    void AddPOVsFromAvoidNodes();
     void* ComputePathNodes();
     void CopyNodeListToArrays(void*, BSSimpleArray<PathSmootherPOVAvoidanceNode, 1024>*,
                               BSSimpleArray<NavMeshEdgeSegment, 1024>*);

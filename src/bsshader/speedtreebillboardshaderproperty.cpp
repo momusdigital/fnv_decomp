@@ -48,16 +48,17 @@ struct S_00ba8630_Base
     virtual ~S_00ba8630_Base();
 };
 
-struct FUN_00ba8630 : S_00ba8630_Base
+struct SpeedTreeBillboardShaderProperty : S_00ba8630_Base
 {
     int unk58;
-    FUN_00ba8630();
-    virtual ~FUN_00ba8630();
+    SpeedTreeBillboardShaderProperty();
+    virtual ~SpeedTreeBillboardShaderProperty();
 };
 
 // Initializes the object: sets unk58 to 1 and unk1C to 0xb.
 // @fnv 0x00ba8630
-FUN_00ba8630::FUN_00ba8630() : unk58(1)
+// src: GUESS 0x00ba8630 (confidence: medium)
+SpeedTreeBillboardShaderProperty::SpeedTreeBillboardShaderProperty() : unk58(1)
 {
     unk1C = 0xb;
 }

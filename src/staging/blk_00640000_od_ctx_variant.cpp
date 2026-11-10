@@ -78,7 +78,7 @@ struct FUN_00645c20_Class
 {
     unsigned short GetShortAtOffset1C0();
 };
-struct FUN_00645c80_Class
+struct TESObjectWEAP
 {
     bool __thiscall IsFlagSet() const;
 };
@@ -101,7 +101,7 @@ struct FUN_00647ac0_Class
 struct FUN_0064db00_class
 {
     int GetFieldAtOffset10();
-    bool ForwardCall_0064db00();
+    bool vector_empty();
 };
 struct FUN_0064db50_class
 {
@@ -194,7 +194,7 @@ struct FUN_00657fd0
 extern "C" void __cdecl Range_ProcessWithMoveCategory_00658bd0(int a1, int a2, int a3);
 struct FUN_00657ff0_Class
 {
-    void ForwardCall_00657ff0(int a1, int a2);
+    void vector__Destroy(int a1, int a2);
 };
 extern "C" void __cdecl Array_AllocateElements60Checked(int a, int b);
 struct FUN_00658020_Class
@@ -219,7 +219,7 @@ struct FUN_00658040
 extern "C" void __cdecl Object_DispatchIteratorRange_00658c60(int, int, int);
 struct FUN_00658060_Class
 {
-    void __thiscall ForwardCall_00658060(int a, int b);
+    void __thiscall vector__Destroy(int a, int b);
 };
 void __cdecl Object_AllocateStorage_00658ca0(int a, int b);
 struct FUN_00658090_Class
@@ -283,7 +283,7 @@ struct FUN_00659540_class
 };
 struct FUN_0065cc30_class
 {
-    int __thiscall EvaluateValue_0065cc30();
+    int __thiscall vector_size();
 };
 struct FUN_0065cc50_Class
 {
@@ -291,7 +291,7 @@ struct FUN_0065cc50_Class
 };
 struct FUN_0065cea0_class
 {
-    int __thiscall GetPointerSpanCount_0065cea0();
+    int __thiscall vector_size();
 };
 struct FUN_0065cf90_class
 {
@@ -303,7 +303,7 @@ struct FUN_0065cfb0_Class
     void __thiscall FUN_0065d6e0();
     void __thiscall ForwardCall_0065cfb0();
 };
-struct FUN_0065db40_class
+struct _Vector_const_iterator
 {
     void FaceGenData_Iterator_ClearsData();
     void* FaceGenData_Iterator_Clears();
@@ -311,20 +311,20 @@ struct FUN_0065db40_class
 void __cdecl Runtime_UpdateState_0065e2d0(int, int, int);
 struct FUN_0065db60_class
 {
-    void __thiscall ForwardCall_0065db60(int a, int b);
+    void __thiscall vector__Destroy(int a, int b);
 };
 struct FUN_0065e020_class
 {
-    void __thiscall ComputeValue_0065e020();
+    void __thiscall vector_max_size();
 };
 struct FUN_0065db90_class
 {
-    void __thiscall ForwardCall_0065db90();
+    void __thiscall vector_max_size();
 };
 extern "C" void __cdecl Array_AllocateElements12Checked(int, int);
 struct FUN_0065dbb0_class
 {
-    void __thiscall ForwardCall_0065dbb0(int arg);
+    void __thiscall allocator_allocate(int arg);
 };
 extern "C" void __cdecl Object_DispatchIteratorRange_0065e360(int, int, int);
 struct FUN_0065dbf0_class
@@ -334,67 +334,67 @@ struct FUN_0065dbf0_class
 extern "C" void __cdecl Object_UpdateFields_0065e3a0(int, int);
 struct FUN_0065dc20_class
 {
-    void __thiscall ForwardCall_0065dc20(int a);
+    void __thiscall allocator_allocate(int a);
 };
 extern "C" void __cdecl Runtime_UpdateState_0065e3f0(int a, int b, int c);
 struct FUN_0065dc60Class
 {
-    void ForwardCall_0065dc60(int a, int b);
+    void vector__Destroy(int a, int b);
 };
 extern "C" void __cdecl Runtime_UpdateState_0065e430(int, int);
 struct FUN_0065dd50_Class
 {
-    void __thiscall ForwardCall_0065dd50(int a);
+    void __thiscall allocator_allocate(int a);
 };
 struct FUN_0065dd70_Class
 {
-    void __thiscall Helper_0065dd70();
+    void __thiscall vector_max_size();
 };
 extern "C" void __cdecl UpdateState_0065e0b0(void*);
 extern "C" void __cdecl Object_AllocateElementStorage(int, int);
 struct FUN_0065ddc0_class
 {
-    void __thiscall ForwardCall_0065ddc0(int a);
+    void __thiscall allocator_allocate(int a);
 };
 struct FUN_0065dde0_Class
 {
-    void ComputeValue_0065e0e0();
+    void vector_max_size();
     void ForwardCall_0065dde0();
 };
 extern "C" void __cdecl Range_ProcessWithMoveCategory_0065e510(int, int, int);
 struct FUN_0065de00_Class
 {
-    void ForwardCall_0065de00(int a, int b);
+    void vector__Destroy(int a, int b);
 };
 extern "C" void __cdecl Object_DispatchIteratorRange_0065e5a0(int, int, int);
 struct FUN_0065de80_Class
 {
-    void ForwardCall_0065de80(int a, int b);
+    void vector__Destroy(int a, int b);
 };
 extern "C" void __cdecl Object_ProcessAndReturnValue_0065e5e0(int, int);
 struct FUN_0065deb0_Class
 {
-    void __thiscall ForwardCall_0065deb0(int arg);
+    void __thiscall allocator_allocate(int arg);
 };
 extern "C" void __cdecl Runtime_ForwardCall_0065e630(void*, void*, void*);
 struct FUN_0065df10_class
 {
-    void __thiscall ForwardCall_0065df10(void* b, void* c);
+    void __thiscall vector__Destroy(void* b, void* c);
 };
 void __cdecl Runtime_UpdateState_0065e670(int a, int b);
 struct FUN_0065df40_class
 {
-    void __thiscall ForwardCall_0065df40(int a);
+    void __thiscall allocator_allocate(int a);
 };
 struct FUN_0065df60_class
 {
-    void UpdateState_0065e170();
+    void vector_max_size();
     void ForwardCall_0065df60();
 };
 extern "C" void __cdecl CallWithByteResult(int, int, int);
 struct FUN_0065df80_class
 {
-    void __thiscall CallWithByteResult_Thunk(int a, int b);
+    void __thiscall vector__Destroy(int a, int b);
 };
 struct FUN_0065dfb0_Class
 {
@@ -472,7 +472,7 @@ struct FUN_0065f2b0_class
 extern "C" void __cdecl Object_DispatchIteratorRange_0065f9a0(int, int, int);
 struct FUN_0065f400_class
 {
-    void __thiscall ForwardCall_0065f400(int a, int b);
+    void __thiscall vector__Destroy(int a, int b);
 };
 struct FUN_0065f7c0_Class
 {
@@ -573,7 +573,7 @@ struct FUN_0064e2d0_Holder
 };
 struct FUN_0064e300_Class
 {
-    int __thiscall GetPointerSpanCount_0064e300();
+    int __thiscall vector_capacity();
 };
 extern "C" void __cdecl Runtime_CopyToUninitializedStorage(int a, int b, int c, void* d);
 struct FUN_0064e340_class
@@ -621,7 +621,7 @@ struct Holder00aad6b0
 {
     void __thiscall ProcessEntries_00aad6b0();
 };
-void __cdecl Object_ProcessState_00652fc0(float a1, int a2, int a3);
+void __cdecl BSFaceGenManager_RandomizeFaceGenetic(float a1, int a2, int a3);
 struct Class_00658100
 {
     unsigned int __thiscall ComputeValue_00658100();
@@ -640,7 +640,7 @@ struct FUN_00658bb0_Class
 };
 struct FUN_00658d00_Class
 {
-    void* __thiscall FUN_00658d00(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 void _Deallocate(void*);
 struct FUN_00658ea0_cls
@@ -726,12 +726,12 @@ struct FaceGenMatrixStorage
 {
     ~FaceGenMatrixStorage();
 };
-struct FUN_006593e0_Class
+struct FanLinCtlS
 {
     FaceGenMatrixStorage m_iWordAt00;
     char m_20[28];
     NarrowString m_40;
-    ~FUN_006593e0_Class();
+    ~FanLinCtlS();
 };
 extern "C" __declspec(dllimport) void* __stdcall CreateSemaphoreA(void*, long, long, const char*);
 struct FUN_00659500_Holder
@@ -755,11 +755,11 @@ struct FUN_0065cc70_Holder
     int m_iWordAt04;
     int m_8;
     int m_C;
-    int __thiscall GetElementChecked_0065cc70(unsigned int param);
+    int __thiscall vector_at(unsigned int param);
 };
 struct TextureBasis
 {
-    unsigned int GetPointerSpanCount_0065cea0();
+    unsigned int vector_size();
 };
 unsigned int __cdecl FUN_00ec7c56();
 struct Holder : TextureBasis
@@ -792,7 +792,7 @@ struct FUN_0065dd90_Class
     int m_iWordAt00;
     int m_iWordAt04;
     int m_8;
-    void __thiscall ForwardCall_0065dd90(int a1, int a2);
+    void __thiscall vector__Destroy(int a1, int a2);
 };
 struct _Out_0044a170
 {
@@ -804,15 +804,15 @@ struct FUN_0065ded0_Class
 };
 struct FUN_0065e020_Cls
 {
-    int __thiscall ComputeValue_0065e020();
+    int __thiscall vector_max_size();
 };
 struct FUN_0065e050_Holder
 {
-    int __thiscall UpdateState_0065e050();
+    int __thiscall vector_max_size();
 };
 struct FUN_0065e080_S
 {
-    int __thiscall ComputeValue_0065e080();
+    int __thiscall vector_max_size();
 };
 struct FUN_0065e0b0_Class
 {
@@ -828,7 +828,7 @@ struct S_0065e140
 };
 struct FUN_0065e170_Cls
 {
-    unsigned __thiscall UpdateState_0065e170();
+    unsigned __thiscall vector_max_size();
 };
 unsigned char __cdecl std_Move_cat_unsigned_char(void*, void*);
 void __cdecl Object_ProcessEntries_0065e8e0(int, int, int, unsigned char);
@@ -927,7 +927,7 @@ struct FUN_0065f4b0_Class
     int m_C;
     int m_10;
     int m_14;
-    int GetPointerRangeLengthOrZero();
+    int vector_capacity();
 };
 struct S_0065f7c0
 {
@@ -972,7 +972,7 @@ struct PropHelper
 void* DynamicCastByRTTI(const NiRTTI*, NiProperty*);
 extern int DAT_011f49e0;
 extern const char* const DAT_012005b8;
-struct FUN_00642940_class
+struct Sun
 {
     int a;
     int b;
@@ -1010,7 +1010,7 @@ struct FUN_00657e60_Class
     int m_iThirdValue;
     int m_10;
     int m_14;
-    void __thiscall ReleaseStorage_00657e60();
+    void __thiscall vector__Tidy();
 };
 struct H_0060b3b0
 {
@@ -1025,7 +1025,7 @@ struct FUN_0065d460_Class
     void* m_iThirdValue;
     void* m_10;
     void* m_14;
-    void __thiscall ReleaseStorage_0065d460();
+    void __thiscall vector__Tidy();
 };
 struct FUN_0065d660_Class
 {
@@ -1035,7 +1035,7 @@ struct FUN_0065d660_Class
     int m_iThirdValue;
     int m_10;
     int m_14;
-    void __thiscall ReleaseStorage_0065d660();
+    void __thiscall vector__Tidy();
 };
 struct FUN_0065d860_class
 {
@@ -1045,7 +1045,7 @@ struct FUN_0065d860_class
     void* m_iThirdValue;
     void* m_10;
     void* m_14;
-    void __thiscall ReleaseStorage_0065d860();
+    void __thiscall vector__Tidy();
 };
 struct EGMDeltaList;
 int __fastcall Object_GetPointerSpanCount_00657bc0(EGMDeltaList*);
@@ -1075,7 +1075,7 @@ struct FUN_0065f430_class
     void* m_iThirdValue;
     int m_10;
     int m_14;
-    void UpdateState_0065f430();
+    void vector__Tidy();
 };
 struct FUN_0064cc90_Class
 {
@@ -1161,13 +1161,13 @@ struct FUN_0065d560_Class
 };
 struct FUN_0065da00_class
 {
-    void ReleaseStorage_0065da00();
+    void vector__Tidy();
 };
 struct FUN_0065dbd0_Class
 {
     int a0;
     int a4;
-    int ForwardCall_0065dbd0();
+    int vector_max_size();
 };
 struct FUN_0065dc40_Class
 {
@@ -1177,13 +1177,13 @@ struct FUN_0065de60_Class
 {
     int m_iWordAt00;
     int m_iWordAt04;
-    int GetPositiveValue_Thunk();
+    int vector_max_size();
 };
 struct FUN_0065def0_class
 {
     int m_iWordAt00;
     int m_iWordAt04;
-    unsigned int ForwardCall_0065def0();
+    unsigned int vector_max_size();
 };
 void* __cdecl Runtime_ForwardCall_0065eb30(unsigned int a);
 struct CIdvFilenameDestructorHelper
@@ -1395,7 +1395,7 @@ struct FUN_0064bda0_Class
     virtual void vf2c();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3c();
     virtual void vf40();
     virtual void vf44();
@@ -1404,7 +1404,7 @@ struct FUN_0064bda0_Class
     virtual void vf50();
     virtual void vf54();
     virtual void vf58();
-    virtual void vf5c();
+    virtual void applyForce();
     virtual void vf60();
     virtual void vf64();
     virtual void vf68();
@@ -1448,7 +1448,7 @@ inline void FUN_0064bda0_Class::vf30()
 {}
 inline void FUN_0064bda0_Class::vf34()
 {}
-inline void FUN_0064bda0_Class::vf38()
+inline void FUN_0064bda0_Class::PrintInfo()
 {}
 inline void FUN_0064bda0_Class::vf3c()
 {}
@@ -1466,7 +1466,7 @@ inline void FUN_0064bda0_Class::vf54()
 {}
 inline void FUN_0064bda0_Class::vf58()
 {}
-inline void FUN_0064bda0_Class::vf5c()
+inline void FUN_0064bda0_Class::applyForce()
 {}
 inline void FUN_0064bda0_Class::vf60()
 {}
@@ -1534,7 +1534,7 @@ struct FUN_0064be40_shell
     bool BSFaceGenAnimationData_UpdateEyeTracking(float elapsed, int unused);
     int BSFaceGenAnimationData_GetCurrentExpression();
     void FUN_0064bf90(int deltaY, float* deltaX, float* limit, float elapsed);
-    void SetEyeHeadingAndPitch(float x, float y);
+    void BSFaceGenAnimationData_SetEyePosition(float x, float y);
 };
 struct FUN_00403e20_setting
 {
@@ -1609,14 +1609,14 @@ struct S_0064ccf0_Member
     S_0064ccf0_Member();
     ~S_0064ccf0_Member();
 };
-struct FUN_0064ccf0 : S_0064ccf0_Base
+struct BSFaceGenImage : S_0064ccf0_Base
 {
     S_0064ccf0_Ptr unk08;
     S_0064ccf0_Member unk0c;
     int unk24;
     int unk28;
-    FUN_0064ccf0(S_0064ccf0_Obj* a);
-    virtual ~FUN_0064ccf0();
+    BSFaceGenImage(S_0064ccf0_Obj* a);
+    virtual ~BSFaceGenImage();
 };
 extern unsigned char DAT_011f94b0;
 unsigned char __cdecl BSShaderManager_GetTintMipMaps();
@@ -1849,7 +1849,7 @@ struct FUN_0064fcd0_Other
     unsigned int __thiscall TESMain_GetThread(int flag);
     float __thiscall BSFaceGenKeyframeMultiple_GetQuantity(unsigned int index);
 };
-struct FUN_0064fcd0_Self
+struct BSFaceGenKeyframeMultiple
 {
     virtual int v00();
     virtual int v01();
@@ -1877,7 +1877,7 @@ struct FUN_0064fcd0_Self
     int unk0c;
     unsigned int m_uiItemCount;
     void __thiscall SetQuantity_0064a4d0(unsigned int index, float value);
-    FUN_0064fcd0_Self* __thiscall CopyFrom(FUN_0064fcd0_Other* other);
+    BSFaceGenKeyframeMultiple* __thiscall CopyFrom(FUN_0064fcd0_Other* other);
 };
 struct FUN_00438af0_cls
 {
@@ -1935,7 +1935,7 @@ struct S_006503b0_Owner
 };
 struct ModelHelper
 {
-    void EnsureMorphData();
+    void BSFaceGenModel_LoadEGMData();
 };
 struct InnerPointer
 {
@@ -2025,11 +2025,11 @@ struct FUN_00657d50_cls
     int m_0c;
     int m_10;
     int m_14;
-    void __thiscall UpdateState_00657d50();
+    void __thiscall vector__Tidy();
 };
 struct FUN_00657d50_callee_a
 {
-    void __thiscall ForwardCall_00657ff0(int a1, int a2);
+    void __thiscall vector__Destroy(int a1, int a2);
 };
 struct FUN_00657d50_callee_b
 {
@@ -2050,7 +2050,7 @@ struct FUN_00657dd0_cls
     char* m_10;
     char* m_14;
     unsigned int GetCount();
-    bool UpdateState_00657dd0(unsigned int index);
+    bool vector__Buy(unsigned int index);
 };
 struct FUN_00657ee0_sub
 {
@@ -2068,7 +2068,7 @@ struct FUN_00657ee0_cls
 
     unsigned int __thiscall Count();
     static void __cdecl Grow();
-    bool __thiscall AllocateElementStorage(unsigned int a);
+    bool __thiscall vector__Buy(unsigned int a);
 };
 class SpanEntry;
 class FUN_006580b0_cls
@@ -2204,11 +2204,11 @@ struct PacketScope
     ~PacketScope();
 };
 void __cdecl Object_ProcessEntries_00ab2640(PacketScope* scope, void* owner, PacketEntry* begin, PacketEntry* next);
-struct FUN_00659670
+struct EGTData
 {
     unsigned int mode;
     PacketEntry entries[2];
-    FUN_00659670(unsigned int selector);
+    EGTData(unsigned int selector);
 };
 struct FUN_00659710_elem
 {
@@ -2317,7 +2317,7 @@ struct Mem_65ca30
 struct FUN_0065ca30
 {
     Mem_65ca30 m_mem;
-    void ReleaseStorage_0065d460();
+    void vector__Tidy();
     ~FUN_0065ca30();
 };
 struct FUN_006815c0
@@ -2354,7 +2354,7 @@ struct FUN_0065d3a0
 struct FUN_0065ca90 : FUN_0065d3a0
 {
     FUN_0065ca90();
-    void __thiscall AllocateElementStorage_0065d4e0(int value);
+    void __thiscall vector__Buy(int value);
 };
 // Container default constructor: base storage takes a default allocator, then reserve nothing.
 class C5CB60Allocator
@@ -2384,7 +2384,7 @@ struct FUN_0065cfb0_Base
 };
 struct FUN_0065cd10 : FUN_0065cfb0_Base
 {
-    void ReleaseStorage_0065d860();
+    void vector__Tidy();
     ~FUN_0065cd10();
 };
 struct B65CD70ConstIterator
@@ -2470,7 +2470,7 @@ struct FUN_0065d0d0_cls
 };
 struct S_0065d1c0_Element
 {
-    int __thiscall ForwardCall_0065dc20(unsigned int a);
+    int __thiscall allocator_allocate(unsigned int a);
 };
 struct S_0065d1c0_Class
 {
@@ -2481,7 +2481,7 @@ struct S_0065d1c0_Class
     int m_10;
     int m_14;
 
-    unsigned int __thiscall ForwardCall_0065dbd0();
+    unsigned int __thiscall vector_max_size();
     bool __thiscall AllocateElements(unsigned int a);
 };
 extern void __cdecl ThrowVectorTooLong();
@@ -2500,12 +2500,12 @@ struct FUN_0065d2b0_cls
     int m_10;
     int m_14;
     unsigned int GetCount();
-    bool UpdateState_0065d2b0(int n);
+    bool vector__Buy(int n);
 };
 struct S_0065d3e0_Pool
 {
     int unk00;
-    char* ForwardCall_0065ddc0(unsigned n);
+    char* allocator_allocate(unsigned n);
 };
 void __cdecl ThrowVectorTooLong();
 struct S_0065d3e0_Class
@@ -2516,7 +2516,7 @@ struct S_0065d3e0_Class
     char* unk0c;
     char* unk10;
     char* unk14;
-    unsigned Helper_0065dd70();
+    unsigned vector_max_size();
     bool AllocateBuffer(unsigned n);
 };
 class FUN_0065d4e0_Pool
@@ -2536,7 +2536,7 @@ class FUN_0065d4e0_cls
     unsigned int m_14;
 
     unsigned int GetCount();
-    bool AllocateElementStorage_0065d4e0(unsigned int n);
+    bool vector__Buy(unsigned int n);
 };
 void FUN_0065d4e0_GrowFail();
 struct FUN_0065d5e0_sub
@@ -2632,7 +2632,7 @@ struct FUN_0065dae0_cls
 };
 struct FUN_0065e0e0_cls
 {
-    unsigned int ComputeValue_0065e0e0();
+    unsigned int vector_max_size();
 };
 struct S_0065e1a0
 {
@@ -2720,7 +2720,7 @@ struct Vec_65eed0_callees_b6530
 {
     Pair8_b6530* CallWithSelf(Pair8_b6530* out);
     Pair8_b6530* SetIteratorDataAndOwner(Pair8_b6530* out);
-    void ProcessAndReturnValue_0065f5a0(Pair8_b6530* out, Pair8_b6530 a, Pair8_b6530 b);
+    void vector_erase(Pair8_b6530* out, Pair8_b6530 a, Pair8_b6530 b);
 };
 struct C65F700Node;
 struct C65F700Iterator
@@ -2844,7 +2844,7 @@ struct CloneVector
 {
     float x, y, z;
 };
-struct FUN_00649680 : NiMemObject
+struct BSFaceGenAnimationData : NiMemObject
 {
     int value00, value04, value08;
     FUN_0064ec10_obj* extra;
@@ -2901,8 +2901,8 @@ struct FUN_00649680 : NiMemObject
     int value1b4;
     int value1b8;
     int value1bc;
-    FUN_00649680();
-    FUN_00649680* BSFaceGenAnimationData_CreateCopyBS();
+    BSFaceGenAnimationData();
+    BSFaceGenAnimationData* BSFaceGenAnimationData_CreateCopyBS();
 };
 template <class T> struct FGPointer
 {
@@ -3339,10 +3339,10 @@ struct S_0065fb10_Base
     ~S_0065fb10_Base();
     unsigned int Object_GetPointerSpanCount_00657bc0() const;
     bool ProcessAndReturnValue_0065f380(unsigned int n);
-    S_0065fb10_Iter EvaluateValue_0065fd10() const;
-    S_0065fb10_Iter ProcessAndReturnValue_0065fd40() const;
+    S_0065fb10_Iter vector_begin() const;
+    S_0065fb10_Iter vector_end() const;
     S_0065fb10_Elem* ForwardCall_0065ff30(S_0065fb10_Iter first, S_0065fb10_Iter last, S_0065fb10_Elem* dest);
-    void UpdateState_0065f430();
+    void vector__Tidy();
 };
 struct FUN_0065fb10 : S_0065fb10_Base
 {
@@ -3427,11 +3427,11 @@ struct FUN_0065fc10 : FUN_0065d3a0
     int* m_last;
     int* m_kRayEnd;
     int GetFieldAtOffset10();
-    bool AllocateElementStorage(unsigned int n);
-    ItQ ProcessAndReturnValue_0065fd40();
-    ItQ EvaluateValue_0065fd10();
+    bool vector__Buy(unsigned int n);
+    ItQ vector_end();
+    ItQ vector_begin();
     int* ForwardCall_0065ff60(ItQ f, ItQ l, int* d);
-    void ReleaseStorage_00657f60();
+    void vector__Tidy();
     FUN_0065fc10(FUN_0065fc10& r);
 };
 class FloatSource
@@ -3457,7 +3457,7 @@ struct FUN_0065d3a0
 {
     FUN_0065d3a0(FUN_006815c0 al) throw();
     ~FUN_0065d3a0();
-    void UpdateState_0065d2b0(int value);
+    void vector__Buy(int value);
 };
 
 struct FUN_0065c8f0 : FUN_0065d3a0
@@ -3468,7 +3468,7 @@ struct FUN_0065c8f0 : FUN_0065d3a0
 // @fnv 0x0065c8f0
 FUN_0065c8f0::FUN_0065c8f0() : FUN_0065d3a0(FUN_006815c0())
 {
-    UpdateState_0065d2b0(0);
+    vector__Buy(0);
 }
 
 }

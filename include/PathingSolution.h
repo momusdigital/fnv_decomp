@@ -67,11 +67,11 @@ public:
     unsigned int GetNodeCount();
     PathingGraphNode* GetNode(unsigned int);
     PathingGraphNode& GetLastNode();
-    float GetTotalPathLength();
-    void GetLocationAtSplineParameter(float, NiPoint3*);
-    void GetLocationAtSplineParameter(float, NiPoint3&);
+    float ComputeDetailedPathLength();
+    void ComputeLocationFromParameter(float, NiPoint3*);
+    void ComputeLocationFromParameter(float, NiPoint3&);
     float FindSegmentAtFraction(float, float, unsigned int*);
-    float GetSplineLengthAtParameter(float);
+    float ComputeDistanceToParameter(float);
     unsigned int GetObjectFlags();
     void SetByteAtOffset40(int);
     void ConstructThing(void*);

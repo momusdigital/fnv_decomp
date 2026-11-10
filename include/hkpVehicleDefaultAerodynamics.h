@@ -16,8 +16,8 @@ public:
     virtual void vf03(const float fMoveElapsedTime,
                       const hkpVehicleInstanceE443* pkVehicle,
                       AerodynamicsDragOutputE443& kDragInfoOut) throw();
-    virtual float calcDragForce(float m_fGain) throw();
-    virtual float calcLiftForce(float m_fGain) throw();
+    virtual float calcAerodynamicDrag(float m_fGain) throw();
+    virtual float calcAerodynamicLift(float m_fGain) throw();
 
     hkReal m_fAirDensity;
     hkReal m_fFrontalArea;

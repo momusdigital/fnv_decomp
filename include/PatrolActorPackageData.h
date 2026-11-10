@@ -30,8 +30,8 @@ public:
 
     bool Init(Actor* apActor, TESPackage* apPackage);
     bool AdvanceToNextReference(bool abApply);
-    TESObjectREFR* GetCurrentPatrolReference();
-    static TESObjectREFR* __cdecl GetPatrolReference(Actor* apActor, TESPackage* apPackage);
+    TESObjectREFR* GetCurrentReference();
+    static TESObjectREFR* __cdecl GetInitialReferenceForSetup(Actor* apActor, TESPackage* apPackage);
     bool IsPatrolling();
     void SetPatrolPosition(const NiPoint3& arPosition);
     bool SetPatrolRefIndex(unsigned int aiRefIndex);

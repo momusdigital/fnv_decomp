@@ -126,7 +126,7 @@ class NiQuaternion
     // float __cdecl NiQuaternion::*(float)
     // float __cdecl NiQuaternion::*(float, float, float)
     // float __cdecl NiQuaternion::*(float, float)
-    void EnsureCanonicalSign();
+    void FastNormalize();
 };
 #pragma pack(pop)
 FNV_STATIC_ASSERT(sizeof(NiQuaternion) == 16);

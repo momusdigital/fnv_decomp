@@ -35,7 +35,7 @@ struct hkMemRouter
 
 void* hkMemoryRouter_getInstance();
 void ResizeAudioStream(void* alloc, void* arr, int elemSize);
-void* AllocateWithHeader(hkMemAlloc& alloc, int numBytes);
+void* hkMemoryRouter_easyAlloc(hkMemAlloc& alloc, int numBytes);
 void hkString_memCpy(void* dst, const void* src, int n);
 
 __forceinline hkMemRouter* GetRouter()
@@ -319,7 +319,7 @@ void* Object_ProcessEntries_00e4afe0(const void* dataIn, const ClassInfo& klassI
 
     if (buffer.getSize())
     {
-        char* versioned = (char*)AllocateWithHeader(GetRouter()->heap(), buffer.getSize());
+        char* versioned = (char*)hkMemoryRouter_easyAlloc(GetRouter()->heap(), buffer.getSize());
         hkString_memCpy(versioned, buffer.m_data, buffer.getSize());
 
         for (int i = 0; i < reloc.m_pTrailingData.getSize(); ++i)

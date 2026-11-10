@@ -614,10 +614,11 @@ struct FnvCpu_FUN_00c9d460_CpuObject
     unsigned int unk00;
     unsigned short size;
     void FUN_00c9d3b0();
-    FnvCpu_FUN_00c9d460_CpuObject* FUN_00c9d460(unsigned int flags);
+    FnvCpu_FUN_00c9d460_CpuObject* ScalarDeletingDestructor(unsigned int flags);
 };
 // @fnv 0x00c9d460
-FnvCpu_FUN_00c9d460_CpuObject* FnvCpu_FUN_00c9d460_CpuObject::FUN_00c9d460(unsigned int flags)
+// src: EXE 0x00c9d460
+FnvCpu_FUN_00c9d460_CpuObject* FnvCpu_FUN_00c9d460_CpuObject::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00c9d3b0();
     if (flags & 1)
@@ -961,10 +962,10 @@ class FUN_00c9d130
   public:
     FUN_00c9d130(int flag) throw();
 };
-class FUN_00c9d220
+class hkpCharacterMotion
 {
   public:
-    FUN_00c9d220(int flag) throw();
+    hkpCharacterMotion(int flag) throw();
 };
 
 // The approved world-object constructor still names an incomplete, unit-specific flag type.
@@ -1011,7 +1012,7 @@ hkpEntity* __fastcall finishEntity(hkpEntity* self, int unused, int flag)
             ::new (&self->m_pMotionState) hkpThinBoxMotion(FinishingFlag(flag));
             break;
         case hkpMotion::MOTION_CHARACTER:
-            ::new (&self->m_pMotionState) FUN_00c9d220(flag);
+            ::new (&self->m_pMotionState) hkpCharacterMotion(flag);
             break;
         }
     }
@@ -1046,14 +1047,15 @@ struct MotionCtorBase : public hkpMotion
         }
     }
 };
-struct FUN_00c9d220 : public MotionCtorBase
+struct hkpCharacterMotion : public MotionCtorBase
 {
-    virtual ~FUN_00c9d220();
-    FUN_00c9d220(int flag);
+    virtual ~hkpCharacterMotion();
+    hkpCharacterMotion(int flag);
 };
 // Constructs a motion object by delegating to MotionCtorBase with the given flag.
 // @fnv 0x00c9d220
-FUN_00c9d220::FUN_00c9d220(int flag) : MotionCtorBase(flag)
+// src: EXE 0x00c9d220
+hkpCharacterMotion::hkpCharacterMotion(int flag) : MotionCtorBase(flag)
 {}
 }  // namespace fnv_00c9d220
 
@@ -1329,7 +1331,8 @@ __forceinline void freeExtendedListeners(hkpEntityExtendedListeners* listeners)
 
 // Deletes p98 after FUN_00c9c140, then frees storage of p60, master, slave, runtime, contact, actions and extended when each is empty.
 // @fnv 0x00c9c8f0
-void __fastcall rebuildEntity(hkpEntity* self)
+// src: COMMUNITY 0x00c9c8f0
+void __fastcall hkpEntity_deallocateInternalArrays(hkpEntity* self)
 {
     FnvRef* old = static_cast<FnvRef*>(self->m_pEntityUserData);
     if (old)

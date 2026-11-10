@@ -381,7 +381,7 @@ bool ConsoleManager::Idle(int aiKeyCode)
                                             Script script;
                                             script.NotifySaveLoadGameOfFormChange();
                                             script.SetText(batchLine);
-                                            script.CompileScriptText(m_pScriptCompiler, COMPILER_NAME_SYSTEM_WINDOW_COMPILER,
+                                            script.CompileAndRun(m_pScriptCompiler, COMPILER_NAME_SYSTEM_WINDOW_COMPILER,
                                                                      InterfaceManager_GetSingleton()->GetCurrentWeapon());
                                         }
                                     }
@@ -454,7 +454,7 @@ bool ConsoleManager::Idle(int aiKeyCode)
                     Script script;
                     script.NotifySaveLoadGameOfFormChange();
                     script.SetText(text);
-                    script.CompileScriptText(m_pScriptCompiler, COMPILER_NAME_SYSTEM_WINDOW_COMPILER, InterfaceManager_GetSingleton()->GetCurrentWeapon());
+                    script.CompileAndRun(m_pScriptCompiler, COMPILER_NAME_SYSTEM_WINDOW_COMPILER, InterfaceManager_GetSingleton()->GetCurrentWeapon());
                 }
             }
         }
@@ -650,7 +650,7 @@ struct GlobalObject_0048f200_d0071b020 : GlobalObject_0048f200
 {
     ~GlobalObject_0048f200_d0071b020();
 };
-struct FUN_0071af10
+struct MenuConsole
 {
     int f00;
     GlobalObject_0048f200_d0071b020 f04;
@@ -670,11 +670,12 @@ struct FUN_0071af10
     char pad40[0x7d0];
     char f810[0x104];
 
-    FUN_0071af10();
+    MenuConsole();
 };
 
 // @fnv 0x0071af10
-FUN_0071af10::FUN_0071af10()
+// src: COMMUNITY 0x0071af10
+MenuConsole::MenuConsole()
 {
     f39 = 0;
     f00 = 0;

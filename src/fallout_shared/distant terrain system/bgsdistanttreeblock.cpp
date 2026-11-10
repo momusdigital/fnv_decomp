@@ -477,12 +477,13 @@ struct FUN_006f8b40_shell
 {
     void ClearEntries();
     void AddTreeInstance(unsigned int type, void* instance);
-    void ReadGroups(NiFile* apInputFile);
+    void BGSDistantTreeBlock_Read(NiFile* apInputFile);
 };
 
 // Reads a group count from the file, then for each group reads a type and size and reads that many tree instance records, passing each to AddTreeInstance.
 // @fnv 0x006f8b40
-void FUN_006f8b40_shell::ReadGroups(NiFile* apInputFile)
+// src: COMMUNITY 0x006f8b40
+void FUN_006f8b40_shell::BGSDistantTreeBlock_Read(NiFile* apInputFile)
 {
     AutoMemHelper tempMemContext(0x25, true, str_0106dd30, 0x204);
 
@@ -1001,7 +1002,7 @@ struct Callee
     void FUN_0045cec0();
 };
 
-struct FUN_006f9080_owner
+struct TreeType
 {
     char unk1b[0x1c];
     Callee callee;
@@ -1014,7 +1015,7 @@ void Callee::FUN_0045cec0()
 
 // @fnv 0x006f9080
 // src: GUESS 0x006f9080 (confidence: low)
-void FUN_006f9080_owner::ForwardCall_006f9080()
+void TreeType::ForwardCall_006f9080()
 {
     callee.FUN_0045cec0();
 }
@@ -1060,7 +1061,7 @@ class B6F9570FileFinder
 class B6F9570TreeBlock
 {
   public:
-    void ReadGroups(B6F9570File* pkFile);
+    void BGSDistantTreeBlock_Read(B6F9570File* pkFile);
     void ProcessAllTrees();
 };
 
@@ -1071,7 +1072,7 @@ void BGSDistantTreeBlockLoadTask::Run()
     B6F9570File* pkFile = B6F9570FileFinder::GetFile(GetFileName(), 0, 0x800, 1);
     if (pkFile && !m_bCancelled)
     {
-        (*(B6F9570TreeBlock**)unk30)->ReadGroups(pkFile);
+        (*(B6F9570TreeBlock**)unk30)->BGSDistantTreeBlock_Read(pkFile);
         delete pkFile;
         m_bLoadComplete = true;
         (*(B6F9570TreeBlock**)unk30)->ProcessAllTrees();

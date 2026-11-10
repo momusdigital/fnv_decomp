@@ -237,7 +237,7 @@ void SandBoxActorPackageData::LoadGame(BGSLoadFormBuffer* apBuffer)
     apBuffer->ReadFormIdentifier(&pLocation);
     apBuffer->ReadFormIdentifier(&m_pCurrentTarget);
     apBuffer->ReadFormIdentifier(&m_pCurrentFurniture);
-    ItemUpdateArray = apBuffer->ReadElementCount();
+    ItemUpdateArray = apBuffer->LoadVariableSizedValue();
     m_kProcedureList.SetSize(ItemUpdateArray, true);
     for (unsigned int uiIndex = 0; uiIndex < ItemUpdateArray; uiIndex++)
     {
@@ -745,17 +745,18 @@ void SandboxPackageOperations::SelectSandboxActivity(Actor* apActor, TESPackage*
     m_fLastProcedureCheckHour = g_calendar.GetGameTime();
 }
 
-struct FUN_009f3800
+struct SandBoxChoiceListItem
 {
     TESObjectREFRHelper* f0;
     int f1;
     int f2;
     int f3;
-    FUN_009f3800(TESObjectREFRHelper* a, int b, int c);
+    SandBoxChoiceListItem(TESObjectREFRHelper* a, int b, int c);
 };
 // Stores the helper pointer and two ints, zeroes the third field, and if the helper is non-null calls its method with true.
 // @fnv 0x009f3800
-FUN_009f3800::FUN_009f3800(TESObjectREFRHelper* pHelper, int b, int c)
+// src: COMMUNITY 0x009f3800
+SandBoxChoiceListItem::SandBoxChoiceListItem(TESObjectREFRHelper* pHelper, int b, int c)
 {
     f0 = pHelper;
     f1 = b;
@@ -885,7 +886,7 @@ struct EdgeArr
     char* Object_GetIndexedValue_006a1440(unsigned int);
 };
 
-struct FUN_00693d30_shell
+struct NavMesh
 {
     char pad[0x48];
     EdgeArr m_kEdges;
@@ -893,7 +894,7 @@ struct FUN_00693d30_shell
 };
 
 // @fnv 0x00693d30
-char* FUN_00693d30_shell::GetEdge(unsigned short index)
+char* NavMesh::GetEdge(unsigned short index)
 {
     return m_kEdges.Object_GetIndexedValue_006a1440(index);
 }
@@ -1523,7 +1524,7 @@ struct ChoiceFurniture
 ChoiceFurniture* __cdecl BSFurnitureMarker_Find(void*);
 struct ChoiceCollection
 {
-    unsigned AppendElement(const FUN_009f3800&);
+    unsigned AppendElement(const SandBoxChoiceListItem&);
 };
 struct ChoiceContext
 {
@@ -1560,13 +1561,13 @@ bool __cdecl AddActivationChoice(ChoiceTargetRef* target, ChoiceContext* pContex
             unsigned markerFlags = markerBase->markers.FUN_00479e80();
             bool markerUsed = false;
             if (markerBase->markers.BGSIdleCollection_HasIdleForActor(actor, target))
-                reinterpret_cast<ChoiceCollection*>(&planner->m_kProcedureList)->AppendElement(FUN_009f3800(reinterpret_cast<TESObjectREFRHelper*>(target), 4, 1));
+                reinterpret_cast<ChoiceCollection*>(&planner->m_kProcedureList)->AppendElement(SandBoxChoiceListItem(reinterpret_cast<TESObjectREFRHelper*>(target), 4, 1));
         }
         break;
     case 42:
     case 43:
         if (permissions->IsFlag4Clear() && target->IsActorSlot() && target != DAT_011dea3c && target != actor)
-            reinterpret_cast<ChoiceCollection*>(&planner->m_kProcedureList)->AppendElement(FUN_009f3800(reinterpret_cast<TESObjectREFRHelper*>(target), 5, 1));
+            reinterpret_cast<ChoiceCollection*>(&planner->m_kProcedureList)->AppendElement(SandBoxChoiceListItem(reinterpret_cast<TESObjectREFRHelper*>(target), 5, 1));
         break;
     case 39: {
         void* object8 = target->GetFurnitureSlot();
@@ -1582,19 +1583,19 @@ bool __cdecl AddActivationChoice(ChoiceTargetRef* target, ChoiceContext* pContex
         if (IsSandboxFlag2Clear(permissions) && furnitureBase2->FUN_00509420() &&
             (!target->TESObjectREFR_GetOwner() || target->TESObjectREFR_IsAnOwner(actor, 1)))
         {
-            reinterpret_cast<ChoiceCollection*>(&planner->m_kProcedureList)->AppendElement(FUN_009f3800(reinterpret_cast<TESObjectREFRHelper*>(target), 1, 1));
+            reinterpret_cast<ChoiceCollection*>(&planner->m_kProcedureList)->AppendElement(SandBoxChoiceListItem(reinterpret_cast<TESObjectREFRHelper*>(target), 1, 1));
             planner->m_bHasBedMarker = true;
         }
         else if (IsSandboxFlag10Clear(permissions) && furnitureBase2->FUN_005093f0() &&
                  (!target->TESObjectREFR_GetOwner() || target->TESObjectREFR_IsAnOwner(actor, 1)))
         {
-            reinterpret_cast<ChoiceCollection*>(&planner->m_kProcedureList)->AppendElement(FUN_009f3800(reinterpret_cast<TESObjectREFRHelper*>(target), 0, 1));
+            reinterpret_cast<ChoiceCollection*>(&planner->m_kProcedureList)->AppendElement(SandBoxChoiceListItem(reinterpret_cast<TESObjectREFRHelper*>(target), 0, 1));
             planner->m_bHasChairMarker = true;
         }
         else if (IsSandboxFlag10Clear(permissions) && !furnitureBase2->FUN_005093f0() && !furnitureBase2->FUN_00509420() &&
                  (!target->TESObjectREFR_GetOwner() || target->TESObjectREFR_IsAnOwner(actor, 1)))
         {
-            reinterpret_cast<ChoiceCollection*>(&planner->m_kProcedureList)->AppendElement(FUN_009f3800(reinterpret_cast<TESObjectREFRHelper*>(target), 0, 1));
+            reinterpret_cast<ChoiceCollection*>(&planner->m_kProcedureList)->AppendElement(SandBoxChoiceListItem(reinterpret_cast<TESObjectREFRHelper*>(target), 0, 1));
             planner->m_bHasChairMarker = true;
         }
         break;
@@ -1603,7 +1604,7 @@ bool __cdecl AddActivationChoice(ChoiceTargetRef* target, ChoiceContext* pContex
     case 47:
         if (IsSandboxFlag1Clear(permissions) && (!target->TESObjectREFR_GetOwner() || target->TESObjectREFR_IsAnOwner(actor, 1)))
         {
-            reinterpret_cast<ChoiceCollection*>(&planner->m_kProcedureList)->AppendElement(FUN_009f3800(reinterpret_cast<TESObjectREFRHelper*>(target), 2, 1));
+            reinterpret_cast<ChoiceCollection*>(&planner->m_kProcedureList)->AppendElement(SandBoxChoiceListItem(reinterpret_cast<TESObjectREFRHelper*>(target), 2, 1));
             planner->m_bHasFoodMarker = true;
         }
         break;

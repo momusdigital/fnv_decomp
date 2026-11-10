@@ -453,7 +453,7 @@ public:
     const char* TESObjectREFR_GetFullName();
     static float GetActorScale();
     void* TESObjectREFR_GetWorldSpace(float);
-    void PathToLocation(void*, void*, void*, void*, bool);
+    void Actor_BuildRequest(void*, void*, void*, void*, bool);
     bool SetPathingRequestAvoidNodes(void*);
     Vec4 TESObjectREFR_GetWorldLocation();
     // Explicit aggregate result types retain their own return and copy conventions.
@@ -545,7 +545,7 @@ public:
     bool FUN_008b3bb0();
     bool IsPathing();
     bool Actor_SetPathfindingGoal(const NiPoint3&, void*, int);
-    void PathToLocation(PathingRequest*, const NiPoint3&, void*, void*, float, int);
+    void Actor_BuildRequest(PathingRequest*, const NiPoint3&, void*, void*, float, int);
     bool SetPathingRequestAvoidNodes(PathingRequest&);
     void Actor_RequestRotate_008bb5c0(float, bool);
     void StopMoving_008b3ab0();
@@ -568,7 +568,7 @@ public:
     bool UpdateActorInventory();
     Script* GetAttachedScript();
     bool IsCombatEngaged();
-    bool HasIdleInFormArray(TESIdleForm*);
+    bool Actor_CanUseIdle(TESIdleForm*);
     int GetAnimAction();
     bool IsInKillMove();
     TESPackage* GetCurrentAIPackage();
@@ -763,8 +763,8 @@ public:
     NiAVObject* GetHead();
     TESObjectWEAP* GetEquippedWeapon();
     float GetAdjustedAngle();
-    using MobileObject::GetActorHeight;
-    float GetActorHeight();
+    using MobileObject::Actor_GetHeight;
+    float Actor_GetHeight();
     bool IsSwimming_005a2030() const;
     float Actor_GetSneakHeight(int p);
     float TESObjectREFR_GetScale_00567400();

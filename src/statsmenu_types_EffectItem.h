@@ -38,9 +38,9 @@ class EffectItem
     float m_fCost;                    // +0x18, 4 bytes
     PerkEntryConditionSet Conditions;          // +0x1C, 8 bytes
     EffectSetting* GetEffectSetting() const;
-    bool IsScriptBasedEffect();
+    bool IsUsageMonitorEffect();
     bool IsActorValueUsed();
-    int GetAffectedActorValue();
+    int GetActorValueIndex();
     int FUN_00403ea0();
     // EffectItem
     // void __cdecl EffectItem::*()

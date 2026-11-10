@@ -187,8 +187,8 @@ void Stars::LoadGeometry(const char* path)
     fileName.PrintfString("%s%s%s", "Meshes", "\\", path);
     {
         BSStream stream;
-        if (!stream.BSStream_Load(fileName, false) || stream.GetRefAt21C() != 1 ||
-            !NiObject_IsKindOf(&DAT_011f4428, stream.GetStringAt(0)))
+        if (!stream.BSStream_Load(fileName, false) || stream.NiStream_GetObjectCount() != 1 ||
+            !NiObject_IsKindOf(&DAT_011f4428, stream.NiStream_GetObjectAt(0)))
         {
             FNV_Warning("DEFAULT: Cannot load the stars.");
             m_pRootNode->NiAVObject_SetDisplayObject(false);

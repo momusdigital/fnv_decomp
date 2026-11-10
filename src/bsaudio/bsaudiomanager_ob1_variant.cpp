@@ -110,8 +110,8 @@ public:
     float DotProduct(const LocalVec3* other) const;
     float Length() const;
     float LengthSquared() const;
-    float GetSquaredXYLength();
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength();
+    float NiPoint3_SqrXYLength() const;
     Elem16& expand(Allocator& allocator);
 
     void SetComponents(float x, float y, float z);
@@ -435,7 +435,7 @@ struct FUN_00ada1d0_shell
 {
     unsigned char _pad[0x134];
     bool m_bUISoundsEnabled;
-    void __thiscall InitUISounds(bool);
+    void __thiscall BSAudioManager_Update(bool);
 };
 struct BADC7D0Item
 {
@@ -687,7 +687,7 @@ struct AE8470List
 };
 struct FUN_00ae8550_shell
 {
-    void __thiscall SortValuesByComparison(int* values, int(__cdecl* compare)(int, int), int count);
+    void __thiscall ShellSort(int* values, int(__cdecl* compare)(int, int), int count);
 };
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile* plAddend);
@@ -1769,7 +1769,7 @@ class AudioMgr70
         return m_18.count == 0;
     }
 
-    void __thiscall InitUISounds(bool);
+    void __thiscall BSAudioManager_Update(bool);
     void __thiscall BSAudioManager_SetVoiceState(int, int);
     void __thiscall AddSound(int);
     void BSAudioManager_Shutdown();
@@ -1861,9 +1861,9 @@ void AudioMgr70::BSAudioManager_Shutdown()
 {
     if (!IsMultiThreaded70(GetAudio70()))
     {
-        InitUISounds(false);
-        InitUISounds(false);
-        InitUISounds(false);
+        BSAudioManager_Update(false);
+        BSAudioManager_Update(false);
+        BSAudioManager_Update(false);
     }
 
     BSSoundMsg70* pInfo = 0;
@@ -4268,7 +4268,7 @@ bool BSAudioManager::ProcessMessage_00adf080(::SoundMessageRecord* message)
             while (iterator)
             {
                 (*reinterpret_cast<AudioSoundMap_adf080*>(SoundList)).GetNext(iterator, soundHandle, pkSound);
-                if (!pkSound->HasStatusFlag0x80000() && pkSound->IsPlaying() && (pkSound->GetFlags() & mask) == mask &&
+                if (!pkSound->IsInDecay() && pkSound->IsPlaying() && (pkSound->GetFlags() & mask) == mask &&
                     !(pkSound->GetFlags() & 0x800) && !(pkSound->GetFlags() & 0x100000) &&
                     !(pkSound->GetFlags() & 0x400000) && !(pkSound->GetFlags() & 0x2000) &&
                     !(pkSound->GetFlags() & 0x1000) && !pkSound->Stopped10())
@@ -4932,8 +4932,8 @@ template <class T> struct BSSimpleList_00ae81e0
             }
         }
     }
-// src: GUESS 0x00ae8550 (confidence: high)
-    void SortValuesByComparison(T* arr, int(__cdecl* cmp)(T, T), int count)
+// src: GUESS 0x00ae8550 (confidence: medium)
+    void ShellSort(T* arr, int(__cdecl* cmp)(T, T), int count)
     {
         int gap = 0;
         int left = 0;
@@ -4979,7 +4979,7 @@ template <> void BSSimpleList_00ae81e0<unsigned char*>::ProcessEntries_00ae81e0(
     node2 = this;
     for (i = 0; i < _num; i++, node2 = node2->m_pkNext)
         arr5[i] = node2->m_item;
-    SortValuesByComparison(arr5, cmp, _num);
+    ShellSort(arr5, cmp, _num);
     RemoveAll();
     node2 = this;
     prev6 = 0;
@@ -7810,11 +7810,12 @@ struct S00ae9150_Obj
     int m_08;
 
     void __thiscall ClearAll();
-    S00ae9150_Obj* FUN_00ae9150(unsigned int aFlags);
+    S00ae9150_Obj* ScalarDeletingDestructor(unsigned int aFlags);
 };
 
 // @fnv 0x00ae9150
-S00ae9150_Obj* S00ae9150_Obj::FUN_00ae9150(unsigned int aFlags)
+// src: EXE 0x00ae9150
+S00ae9150_Obj* S00ae9150_Obj::ScalarDeletingDestructor(unsigned int aFlags)
 {
     int u1;
     int u2;

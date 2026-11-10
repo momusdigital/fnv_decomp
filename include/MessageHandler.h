@@ -14,7 +14,7 @@ public:
     static void SetWarningCount(int count);
 
     const char* GetWarningFileName();
-    float GetSpeechProgress();
+    float TESFile_GetFileVersion();
     void vprintf(const char* format, ...);
     void BSCoreMessage_DisableContextMessages(unsigned int);
     void* __thiscall BSCoreMessage_BSCoreMessage();

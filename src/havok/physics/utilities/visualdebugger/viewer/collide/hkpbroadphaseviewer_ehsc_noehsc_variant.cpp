@@ -16,7 +16,7 @@ extern FUN_00dd9380_StandIn* DAT_01269cd0;
 extern int DAT_01269028;
 extern char DAT_010c65b0;
 void hkpBroadphaseViewer_Create();
-void __cdecl Object_UpdateFields_00d6ad40();
+void __cdecl hkpBroadphaseViewer_registerViewer();
 extern int DAT_01269028;
 int Object_GetDAT_01269028_00d6ad60();
 struct Target {

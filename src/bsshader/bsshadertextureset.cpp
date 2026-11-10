@@ -15,7 +15,8 @@
 // @fnv 0x004ab230
 #pragma optimize("", off)
 #pragma optimize("y", off)
-NiNode* BipedAnim::GetBoneNode(BIPED_BONE boneIndex)
+// src: COMMUNITY 0x004ab230
+NiNode* BipedAnim::GetParentBone(BIPED_BONE boneIndex)
 {
     return bone[boneIndex].pParent;
 }

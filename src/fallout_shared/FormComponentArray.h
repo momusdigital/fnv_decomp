@@ -16,7 +16,7 @@ class FormComponentArray
   public:
     BaseFormComponent* m_pComponents[38];  // +0x0, 152 bytes
     FormComponentArray();
-    void InitializeFromForm(TESForm* form);
+    void FormComponentCollection_InitFormComponentArray(TESForm* form);
     // void __cdecl FormComponentArray::*()
     // void __cdecl FormComponentArray::*()
     // void __cdecl FormComponentArray::*(TESForm*)

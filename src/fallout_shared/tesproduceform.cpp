@@ -67,7 +67,7 @@ bool TESProduceForm::CompareWithBase(BaseFormComponent* apOther)
     return false;
 }
 
-void ResolveFormID(unsigned int* apFormID, TESFile* apFile);
+void TESForm_AddCompileIndex(unsigned int* apFormID, TESFile* apFile);
 TESForm* TESForm_GetFormByNumericID(unsigned int aFormID);
 void FNV_Warning(const char* apMsg, ...);
 
@@ -82,7 +82,7 @@ void TESProduceForm::ResolveIngredient(TESForm* apArg)
     if (pIngredient != 0)
     {
         unsigned int formID = (unsigned int)pIngredient;
-        ResolveFormID(&formID, apArg->GetFile(-1));
+        TESForm_AddCompileIndex(&formID, apArg->GetFile(-1));
         pIngredient = dynamic_cast<IngredientItem*>(TESForm_GetFormByNumericID(formID));
         if (pIngredient == 0)
         {

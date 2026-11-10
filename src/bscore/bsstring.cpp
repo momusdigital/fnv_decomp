@@ -168,12 +168,13 @@ struct FUN_004046b0_cls
     int unk30;
     int unk34;
     FUN_004046b0_sub m_38;
-    FUN_004046b0_arg* AssignFromSub(FUN_004046b0_arg* a1);
+    FUN_004046b0_arg* EffectSetting_GetEffectName(FUN_004046b0_arg* a1);
 };
 
 // Calls AssignFromString on a1 with the result of m_38.FUN_00717e50, sets flag to 1, and returns a1.
 // @fnv 0x004046b0
-FUN_004046b0_arg* FUN_004046b0_cls::AssignFromSub(FUN_004046b0_arg* apArg)
+// src: COMMUNITY 0x004046b0
+FUN_004046b0_arg* FUN_004046b0_cls::EffectSetting_GetEffectName(FUN_004046b0_arg* apArg)
 {
     unsigned int flag = 0;
     apArg->AssignFromString(m_38.FUN_00717e50());
@@ -212,13 +213,14 @@ const char* BSstristr(const char* apString1, const char* apString2)
     return 0;
 }
 
-struct FUN_00634830_cls
+struct Clouds
 {
-    unsigned int __thiscall GetOffset58();
+    unsigned int __thiscall Clouds_GetNumLayers();
 };
 
 // @fnv 0x00634830
-unsigned int __thiscall FUN_00634830_cls::GetOffset58()
+// src: COMMUNITY 0x00634830
+unsigned int __thiscall Clouds::Clouds_GetNumLayers()
 {
     return *(unsigned short*)((char*)this + 0x58);
 }

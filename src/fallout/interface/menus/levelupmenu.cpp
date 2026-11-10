@@ -170,7 +170,7 @@ void __cdecl UpdateLevelUpMenu()
         UpdateStatsMenuLevelText();
         StatsMenu::UpdateStatusEffects();
         ((Menu*)DAT_011d9fdc)->FUN_00726070()->Set(0x1772, 1);
-        ((Menu*)DAT_011d9fdc)->LoadMenuData();
+        ((Menu*)DAT_011d9fdc)->StartFadeOut();
         DAT_011d9fdc = 0;
     }
 }
@@ -180,14 +180,14 @@ extern int DAT_011d9fdc;
 
 struct FUN_007866e0_shell
 {
-    void UpdateDisplayValue(const char*);
+    void LevelUpMenu_SetDisplayString(const char*);
 };
 
 // @fnv 0x00786550
 // src: GUESS 0x00786550 (confidence: low)
 void LevelUpMenu_ForwardCall_00786550(const char* s)
 {
-    ((FUN_007866e0_shell*)(void*)DAT_011d9fdc)->UpdateDisplayValue(s);
+    ((FUN_007866e0_shell*)(void*)DAT_011d9fdc)->LevelUpMenu_SetDisplayString(s);
 }
 
 struct FUN_00784b90_shell
@@ -225,12 +225,13 @@ int S::ListBox_ItemChange_GetLastItem()
 struct FUN_00784bc0_shell
 {
     void FUN_00784bf0();
-    void* FUN_00784bc0(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 void _Deallocate(void*);
 // Calls FUN_00784bf0, deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x00784bc0
-void* FUN_00784bc0_shell::FUN_00784bc0(unsigned int flags)
+// src: EXE 0x00784bc0
+void* FUN_00784bc0_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00784bf0();
     if (flags & 1)
@@ -276,8 +277,8 @@ extern int DAT_011d9fdc;
 extern int DAT_011d9fe0;
 // If the tile reports the state stored in DAT_011d9fe0, clears that state via Set and notifies the holder at DAT_011d9fdc.
 // @fnv 0x00786200
-// src: GUESS 0x00786200 (confidence: medium)
-void Object_ClearTileStateAndNotify(Tile* pTile)
+// src: COMMUNITY 0x00786200
+void LevelUpMenu_ResetPerksFunc(Tile* pTile)
 {
     if (pTile->ContainsTrait(DAT_011d9fe0))
     {
@@ -611,11 +612,12 @@ extern char const str_01073e14[];
 
 struct FUN_007866e0_shell
 {
-    void UpdateDisplayValue(Tile* apTile);
+    void LevelUpMenu_SetDisplayString(Tile* apTile);
 };
 
 // @fnv 0x007866e0
-void FUN_007866e0_shell::UpdateDisplayValue(Tile* apTile)
+// src: COMMUNITY 0x007866e0
+void FUN_007866e0_shell::LevelUpMenu_SetDisplayString(Tile* apTile)
 {
     int idisplayValue = static_cast<int>(apTile->GetFloat(DAT_011d9fe4) + apTile->GetFloat(DAT_011d9fec) +
                                          apTile->GetFloat(DAT_011d9ff0));
@@ -687,7 +689,7 @@ extern int DAT_01071b64;
 void* __cdecl Tile_AddUserTrait(const void* data, int flags);
 struct LevelOption
 {
-    bool __thiscall IsTraitNonZero(void* data);
+    bool __thiscall Tile_IsTrue(void* data);
 };
 struct FUN_007877a0_Object
 {
@@ -698,7 +700,7 @@ struct FUN_007877a0_Object
 bool FUN_007877a0_Object::ListBox_BGSPerk_IsSelected(LevelOption* option)
 {
     static void* cached = Tile_AddUserTrait(&DAT_01071b64, -1);
-    return cached != 0 && option != 0 && option->IsTraitNonZero(cached);
+    return cached != 0 && option != 0 && option->Tile_IsTrue(cached);
 }
 
 struct LevelValue
@@ -1779,7 +1781,7 @@ void __cdecl LevelUpMenu_ResetSkillsFunc(Tile* apTile, int a2)
         ->v229(a2, (float)(reinterpret_cast<VT_b9166*>(DAT_011dea3c)->v291(a2, flag) -
                            (double)apTile->FUN_00a011b0(DAT_011d9ff0)));
     apTile->Tile_Set(DAT_011d9ff0, 0.0f, 1);
-    reinterpret_cast<FUN_007866e0_shell*>(DAT_011d9fdc)->UpdateDisplayValue((const char*)apTile);
+    reinterpret_cast<FUN_007866e0_shell*>(DAT_011d9fdc)->LevelUpMenu_SetDisplayString((const char*)apTile);
 }
 
 struct ContObj
@@ -1804,7 +1806,7 @@ struct NodeSrc
     virtual void ReleaseC();
     virtual void ReleaseD();
     virtual int CheckType();
-    NodeSrc* FindEntryByLevel(int lvl);
+    NodeSrc* BGSPerk_GetPerkEntryByRank(int lvl);
     ContObj* FUN_0044ddc0();
 };
 
@@ -1882,8 +1884,8 @@ void Holder::UpdateTileEffects(Tile* tile)
 
     void* found = ((HolderThis*)this)->list.FindItemData(tile);
     unsigned char lvl = (unsigned char)((LevelValue*)tile)->FUN_00a011b0(DAT_011d9ff8);
-    NodeSrc* first7 = ((NodeSrc*)found)->FindEntryByLevel(lvl);
-    NodeSrc* second = (lvl > 1) ? ((NodeSrc*)found)->FindEntryByLevel(lvl - 1) : (NodeSrc*)0;
+    NodeSrc* first7 = ((NodeSrc*)found)->BGSPerk_GetPerkEntryByRank(lvl);
+    NodeSrc* second = (lvl > 1) ? ((NodeSrc*)found)->BGSPerk_GetPerkEntryByRank(lvl - 1) : (NodeSrc*)0;
     if (first7 != 0 && first7->CheckType() == 1)
     {
         ContObj* cont1 = first7->FUN_0044ddc0();
@@ -1895,7 +1897,7 @@ void Holder::UpdateTileEffects(Tile* tile)
         {
             EffRec recVal;
             recVal.FUN_00403ba0();
-            int av7 = ((EffectItem*)*curVal->_ref_006815c0())->GetAffectedActorValue();
+            int av7 = ((EffectItem*)*curVal->_ref_006815c0())->GetActorValueIndex();
             recVal.mag = ((EffectItem*)*curVal->_ref_006815c0())->GetMagnitude();
             if (av7 == -1)
             {
@@ -1905,12 +1907,12 @@ void Holder::UpdateTileEffects(Tile* tile)
             for (cur4 = contX ? &contX->node : (LBNode*)0; cur4 != 0 && *cur4->_ref_006815c0() != 0;
                  cur4 = cur4->_ref_00726070())
             {
-                if (((EffectItem*)*cur4->_ref_006815c0())->GetAffectedActorValue() == av7)
+                if (((EffectItem*)*cur4->_ref_006815c0())->GetActorValueIndex() == av7)
                 {
                     recVal.mag -= ((EffectItem*)*cur4->_ref_006815c0())->GetMagnitude();
                 }
             }
-            if (!((LevelOption*)tile)->IsTraitNonZero((void*)DAT_011d9fe0))
+            if (!((LevelOption*)tile)->Tile_IsTrue((void*)DAT_011d9fe0))
             {
                 recVal.mag = recVal.mag * -1;
             }
@@ -2156,7 +2158,7 @@ class ListBox787
 // @fnv 0x007871f0
 bool ListBox787::SelectTile(Tile* pkTile)
 {
-    if (IsActive() && (!pkTile || (Contains(pkTile) && pkTile->IsTraitNonZero(Tile_AddUserTrait("_enabled", -1)))))
+    if (IsActive() && (!pkTile || (Contains(pkTile) && pkTile->Tile_IsTrue(Tile_AddUserTrait("_enabled", -1)))))
     {
         m_pkSelected = pkTile;
         UpdateSelection();
@@ -2177,7 +2179,7 @@ struct IMStandIn
 {
     void InterfaceManager_SetCurrentFocusTarget(int aiA, int aiB, int aiC);
 };
-struct FUN_00787600_shell
+struct ListBox
 {
     virtual void Unk_00(Tile* apTile);
     virtual void Unk_01();
@@ -2196,7 +2198,7 @@ struct FUN_00787600_shell
     void UpdateScrollTile(bool abFlag);
 };
 // @fnv 0x00787600
-void FUN_00787600_shell::UpdateScrollTile(bool abFlag)
+void ListBox::UpdateScrollTile(bool abFlag)
 {
     Tile* pTile = 0;
     if (m_pFourthMenuObject && pScrollTile)
@@ -2364,7 +2366,7 @@ int __cdecl Tile_AddUserTrait(const char* s, int n);
 bool FUN_00787b70_cls::ListBox_BGSPerk_IsEnabled()
 {
     static void* sKey = (void*)Tile_AddUserTrait("_enabled", -1);
-    return (m_0c != 0 && m_0c->IsTraitNonZero((int)sKey)) ? 1 : 0;
+    return (m_0c != 0 && m_0c->Tile_IsTrue((int)sKey)) ? 1 : 0;
 }
 
 struct ListBox64
@@ -2776,7 +2778,7 @@ void LevelUpButtonHandler::OnButtonPressed(int aiButton, Tile* tile)
         break;
     case 13:
     case 14:
-        if (tile->IsTraitNonZero(0xfa3))
+        if (tile->Tile_IsTrue(0xfa3))
         {
             avTmp = unk64.fn_7e1110(tile->FUN_0045cd60());
             delta = (aiButton == 13) ? -1 : 1;
@@ -2903,7 +2905,7 @@ namespace fnv_00787260 {
 struct LBTile
 {
     double FUN_00a011b0(int traitID);
-    bool IsTraitNonZero(int traitID);
+    bool Tile_IsTrue(int traitID);
 };
 int __cdecl Tile_TextToTrait(const char* name);
 int __cdecl Tile_AddUserTrait(const char* name, int fallback);
@@ -3001,13 +3003,13 @@ LBTile* LBItemListBox::FindEnabledTileForKey(int key)
                 if ((*node->FUN_006815c0())->tile->FUN_00a011b0(0xfac) == index)
                     found7 = (*node->FUN_006815c0())->tile;
             }
-            if (found7 && !found7->IsTraitNonZero(Tile_AddUserTrait("_enabled", -1)))
+            if (found7 && !found7->Tile_IsTrue(Tile_AddUserTrait("_enabled", -1)))
             {
                 found7 = 0;
                 if (delta3 > 0 && ++index > last2)
                 {
                     index = last2 - 1;
-                    while ((!found7 || !found7->IsTraitNonZero(Tile_AddUserTrait("_enabled", -1))) && index >= 0)
+                    while ((!found7 || !found7->Tile_IsTrue(Tile_AddUserTrait("_enabled", -1))) && index >= 0)
                     {
                         found7 = GetItemTile(index--, false);
                     }
@@ -3016,7 +3018,7 @@ LBTile* LBItemListBox::FindEnabledTileForKey(int key)
                 else if (delta3 < 0 && --index < 0)
                 {
                     index = 1;
-                    while ((!found7 || !found7->IsTraitNonZero(Tile_AddUserTrait("_enabled", -1))) && index <= last2)
+                    while ((!found7 || !found7->Tile_IsTrue(Tile_AddUserTrait("_enabled", -1))) && index <= last2)
                     {
                         found7 = GetItemTile(index++, false);
                     }
@@ -3679,7 +3681,7 @@ int LevelUpMenu_Create()
 
 struct TileValue
 {
-    bool IsTraitNonZero(int m_iValueId);
+    bool Tile_IsTrue(int m_iValueId);
 };
 // Sets or toggles pkTile's selected trait according to eMode and returns true when it writes the trait.
 // @fnv 0x00787c40
@@ -3688,7 +3690,7 @@ bool ListBox_int_::SetTileSelection(Tile* pkTile, int eMode)
     if (((FUN_00787b70_cls*)this)->ListBox_BGSPerk_IsEnabled() && pkTile && ContainsKey(pkTile))
     {
         static int s_iSelectedTrait = (int)Tile_AddUserTrait("_selected", -1);
-        bool bSelected = ((TileValue*)pkTile)->IsTraitNonZero(s_iSelectedTrait);
+        bool bSelected = ((TileValue*)pkTile)->Tile_IsTrue(s_iSelectedTrait);
         switch (eMode)
         {
         case 0:
@@ -3777,7 +3779,7 @@ void __cdecl LevelUpMenu_PerkUpdateFunc(LevelValue* apTile, int aiMatchValue)
 struct LevelGamepadTile
 {
     LevelGamepadTile* Tile_GetChildByID(int id);
-    bool IsTraitNonZero(int trait);
+    bool Tile_IsTrue(int trait);
     void Tile_PlayTileSound(int trait);
 };
 
@@ -3857,7 +3859,7 @@ bool LevelGamepadView::LevelUpMenu_DoGamepad(int aiButtonCode, float afValue)
         if (this->unk28 == 0 && this->list64.GetSelectedTile())
         {
             LevelGamepadTile* pTile1 = this->list64.GetSelectedTile()->Tile_GetChildByID(13);
-            if (pTile1->IsTraitNonZero(0xfa3))
+            if (pTile1->Tile_IsTrue(0xfa3))
             {
                 pTile1->Tile_PlayTileSound(0xfcb);
                 this->HandleClick(13, pTile1);
@@ -3869,7 +3871,7 @@ bool LevelGamepadView::LevelUpMenu_DoGamepad(int aiButtonCode, float afValue)
         if (this->unk28 == 0 && this->list64.GetSelectedTile())
         {
             LevelGamepadTile* pTile2 = this->list64.GetSelectedTile()->Tile_GetChildByID(14);
-            if (pTile2->IsTraitNonZero(0xfa3))
+            if (pTile2->Tile_IsTrue(0xfa3))
             {
                 pTile2->Tile_PlayTileSound(0xfcb);
                 this->HandleClick(14, pTile2);

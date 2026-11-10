@@ -18,7 +18,7 @@ public:
     virtual ~MobileObjectTaskletData();
     virtual void Process();
     virtual void SetMobileObjectCount(unsigned int auiObjectCount);
-    virtual void ProcessMobileObject(MobileObject* apObject);
+    virtual void HandleMobMessage(MobileObject* apObject);
     virtual void SetThreadNumber(unsigned int auiThreadNumber);
 
     BSSimpleList<MobileObject*>* pMobList;
@@ -28,5 +28,5 @@ public:
 
     void FUN_008c83a0();
     bool ProcessMessage(void* apMessage, int aiThread);
-    void ProcessMessages(int aiType);
+    void RunToCompletion(int aiType);
 };

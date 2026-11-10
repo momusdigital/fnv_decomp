@@ -41,11 +41,11 @@ class FUN_00cf4d80
     void* m_pEntityB;
 };
 
-class FUN_00d4dbe0 : public FUN_00cf4d80
+class hkpAngularDashpotAction : public FUN_00cf4d80
 {
   public:
-    FUN_00d4dbe0(void* pkEntityA, void* pkEntityB, unsigned long ulUserData) throw();
-    virtual ~FUN_00d4dbe0() throw();
+    hkpAngularDashpotAction(void* pkEntityA, void* pkEntityB, unsigned long ulUserData) throw();
+    virtual ~hkpAngularDashpotAction() throw();
 
     hkQuaternion m_rotation;
     float m_fSpringStrength;
@@ -54,7 +54,8 @@ class FUN_00d4dbe0 : public FUN_00cf4d80
 };
 
 // @fnv 0x00d4dbe0
-FUN_00d4dbe0::FUN_00d4dbe0(void* pkEntityA, void* pkEntityB, unsigned long ulUserData) throw()
+// src: EXE 0x00d4dbe0
+hkpAngularDashpotAction::hkpAngularDashpotAction(void* pkEntityA, void* pkEntityB, unsigned long ulUserData) throw()
     : FUN_00cf4d80(pkEntityA, pkEntityB, ulUserData), m_fSpringStrength(0.1f), m_fMotorDamping(0.01f)
 {
     *reinterpret_cast<__m128*>(&m_rotation) = DAT_010c71b0;
@@ -73,7 +74,7 @@ struct hkpConstraintInputD4DC
     int m_type;
 };
 
-class FUN_00d4dbe0 : public hkReferencedObject
+class hkpAngularDashpotAction : public hkReferencedObject
 {
   public:
     int unk08;
@@ -88,8 +89,8 @@ class FUN_00d4dbe0 : public hkReferencedObject
     int unk38;
     int unk3C;
 
-    FUN_00d4dbe0(void* pvEntityA, void* pvEntityB, int iUserData) throw();
-    virtual ~FUN_00d4dbe0() throw();
+    hkpAngularDashpotAction(void* pvEntityA, void* pvEntityB, int iUserData) throw();
+    virtual ~hkpAngularDashpotAction() throw();
 };
 
 class hkpConstraintTemplateD4DC
@@ -107,20 +108,20 @@ class hkpConstraintTemplateD4DC
     float m_kMinimumCorner;
     float m_kMaximumCorner;
 
-    FUN_00d4dbe0* hkpAngularDashpotAction_clone(const hkpConstraintInputD4DC& kA, const hkpConstraintInputD4DC& kB);
+    hkpAngularDashpotAction* hkpAngularDashpotAction_clone(const hkpConstraintInputD4DC& kA, const hkpConstraintInputD4DC& kB);
 };
 
-// Returns null unless kA.m_type is 2 and kB.m_type is 0; otherwise creates a FUN_00d4dbe0 from kA's entity pair and copies axis end points and min/max corners.
+// Returns null unless kA.m_type is 2 and kB.m_type is 0; otherwise creates a hkpAngularDashpotAction from kA's entity pair and copies axis end points and min/max corners.
 // @fnv 0x00d4dc30
 // src: HAVOK_SRC 0x00d4dc30
-FUN_00d4dbe0* hkpConstraintTemplateD4DC::hkpAngularDashpotAction_clone(const hkpConstraintInputD4DC& kA,
+hkpAngularDashpotAction* hkpConstraintTemplateD4DC::hkpAngularDashpotAction_clone(const hkpConstraintInputD4DC& kA,
                                                       const hkpConstraintInputD4DC& kB)
 {
     if (kA.m_type != 2)
         return 0;
     if (kB.m_type != 0)
         return 0;
-    FUN_00d4dbe0* pkResult = new FUN_00d4dbe0(kA.m_pair->m_pEntityA, kA.m_pair->m_pEntityB, m_ulUserData);
+    hkpAngularDashpotAction* pkResult = new hkpAngularDashpotAction(kA.m_pair->m_pEntityA, kA.m_pair->m_pEntityB, m_ulUserData);
     pkResult->m_kAxisEndPoints = m_kAxisEndPoints;
     pkResult->m_kMinimumCorner = m_kMinimumCorner;
     pkResult->m_kMaximumCorner = m_kMaximumCorner;

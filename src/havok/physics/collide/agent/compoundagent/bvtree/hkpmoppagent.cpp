@@ -10,7 +10,7 @@ hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 extern int DAT_010ce8f4;
 extern int DAT_0102e388;
 
-struct FUN_00d2f380_cls
+struct hkpBvTreeAgent
 {
     int m_vptr00;
     int unk04;
@@ -24,7 +24,7 @@ struct FUN_00d2f380_cls
 
 // Resets the object's vtable pointers, frees m_pData through the allocator when the capacity flag is clear, then clears the data pointer and capacity.
 // @fnv 0x00d2f380
-void FUN_00d2f380_cls::DestroyArray()
+void hkpBvTreeAgent::DestroyArray()
 {
     m_vptr00 = (int)&DAT_010ce8f4;
     hkMemoryRouter* pHolder = hkMemoryRouter_getInstance();

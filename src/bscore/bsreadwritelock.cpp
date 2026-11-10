@@ -26,7 +26,7 @@ struct ReadWriteLock
     unsigned int m_uiWriterThreadId;
 };
 typedef char _sizecheck_BSReadWriteLock[sizeof(ReadWriteLock) == 8 ? 1 : -1];
-struct FUN_00aa62e0_shell : public ReadWriteLock
+struct BSReadWriteLock : public ReadWriteLock
 {
     void BSReadWriteLock_UnlockWrite();
 };
@@ -36,7 +36,7 @@ __declspec(dllimport) long __stdcall InterlockedCompareExchange(long volatile* D
 
 // @fnv 0x00aa62e0
 // src: XBOX_PDB 0x00aa62e0
-void FUN_00aa62e0_shell::BSReadWriteLock_UnlockWrite()
+void BSReadWriteLock::BSReadWriteLock_UnlockWrite()
 {
     m_uiLockState -= 1;
     if (m_uiLockState == 0x80000000)

@@ -262,7 +262,7 @@ public:
     void SetCurrentClimate(TESClimate*, bool);
     void ResetWeather();
     void UpdateColors();
-    void UpdateWeatherTransition(float);
+    void UpdateInterior(float);
     TESWeather* GetAudioBackendData();
     float GetFieldEC();
     float GetFieldCC();
@@ -282,7 +282,7 @@ public:
     void FillColorBlendColors(void*, TESWeather*, TESWeather*, int, int*, int*);
     void UpdateWind();
     void ResetWeather_0063d060();
-    void UpdateFields_0063d0e0(TESWeather*, bool);
+    void ForceWeather(TESWeather*, bool);
     void UpdateWeather_0063d1d0();
     void UpdateSound();
     void UnloadAllTextures_0063e210();

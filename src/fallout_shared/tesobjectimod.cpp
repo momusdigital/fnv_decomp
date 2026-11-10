@@ -39,7 +39,7 @@ class TESModelRecordWriter : public TESModel
 class PickupPutdownSoundRecordWriter : public BGSPickupPutdownSounds
 {
   public:
-    void LogFormIDs();
+    void BGSPickupPutdownSounds_Save();
 };
 
 // @fnv 0x00519fc0
@@ -195,7 +195,7 @@ void TESObjectIMOD::SaveGame(BGSSaveFormBuffer* buffer)
 // @fnv 0x0051a420
 void TESObjectIMOD::SaveRecord()
 {
-    TESForm::BeginFormRecord();
+    TESForm::TESForm_StartForm();
     TESFullName::Save_00487010();
     reinterpret_cast<TESModelRecordWriter*>(reinterpret_cast<char*>(this) + 0x3c)->ProcessAndFreeData(0x4c444f4d, 0x54444f4d, 0x53444f4d);
     TESIcon::Save(0x4e4f4349);
@@ -203,9 +203,9 @@ void TESObjectIMOD::SaveRecord()
     TESScriptableForm::Save();
     TESDescription::Save();
     BGSDestructibleObjectForm::Save();
-    reinterpret_cast<PickupPutdownSoundRecordWriter*>(reinterpret_cast<char*>(this) + 0xa4)->LogFormIDs();
+    reinterpret_cast<PickupPutdownSoundRecordWriter*>(reinterpret_cast<char*>(this) + 0xa4)->BGSPickupPutdownSounds_Save();
     reinterpret_cast<TESFormSerialization*>(this)->SaveHeader();
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_CloseForm();
 }
 
 // @fnv 0x0051a4c0

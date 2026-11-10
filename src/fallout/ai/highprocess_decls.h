@@ -292,7 +292,7 @@ extern SettingT<GameSettingCollection> originalRuntimeFloatSetting137;
 class CombatDamageCalculator
 {
   public:
-    static double GetDamageMultiplier(float, float);
+    static double CombatFormulas_GetRandomBetween(float, float);
 };
 extern SettingT<GameSettingCollection> originalRuntimeFloatSetting148;
 extern SettingT<GameSettingCollection> originalRuntimeFloatSetting147;
@@ -328,7 +328,7 @@ class DetectionEvent
     int state;
     TESObjectREFR* source;
     DetectionEvent();
-    void LoadFields_008d72e0(BGSLoadFormBuffer*);
+    void DetectionEvent_LoadGame(BGSLoadFormBuffer*);
     void SetTargetReference(BGSLoadFormBuffer*);
 };
 class TopicInfoRecord

@@ -234,7 +234,7 @@ struct Context {
  int& otherPending(){return *reinterpret_cast<int*>(reinterpret_cast<char*>(this)+144);}
  unsigned char& locked(){return *reinterpret_cast<unsigned char*>(reinterpret_cast<char*>(this)+156);}
  int& mode(){return *reinterpret_cast<int*>(reinterpret_cast<char*>(this)+164);}
- void FUN_00c91120();void UpdateFields_00c91140();
+ void FUN_00c91120();void hkpWorld_internalExecutePendingBodyOperations();
 };
 struct Body { unsigned char& motion(){return *reinterpret_cast<unsigned char*>(reinterpret_cast<char*>(this)+232);} void* state(){return reinterpret_cast<char*>(this)+240;} };
 void __cdecl hkSweptTransformUtil_backStepMotionState(float,void*);
@@ -268,7 +268,7 @@ void Controller::ProcessBodies(Body** bodies,int count,Context* context,int flag
  else if(active)process(bodies,count,context,2);
  if(--context->depth()==0&&!context->locked()) {
  if(context->pending())context->FUN_00c91120();
- if(context->mode()==1&&context->otherPending())context->UpdateFields_00c91140();
+ if(context->mode()==1&&context->otherPending())context->hkpWorld_internalExecutePendingBodyOperations();
  }
  context->world()->time()=saved;
 }
@@ -2565,7 +2565,7 @@ struct Ctx {
     int m_2f8; int m_2fc; float m_300;
     Sub1E0* solverInfo() { return &m_1e0; }
     void FUN_00c91120();
-    void UpdateFields_00c91140();
+    void hkpWorld_internalExecutePendingBodyOperations();
 };
 void __cdecl hkpWorldCallbackUtil_fireIslandPostCollideCallback(Ctx*, BodyL*, Param*);
 template<int Mode> static inline void TickWrite(const char* name, volatile unsigned int& t)
@@ -2589,7 +2589,7 @@ static inline void ReleaseCtx(Ctx* c)
     if (c->m_9c != 0) return;
     if (c->m_8c) c->FUN_00c91120();
     if (c->m_a4 != 1) return;
-    if (c->m_90) c->UpdateFields_00c91140();
+    if (c->m_90) c->hkpWorld_internalExecutePendingBodyOperations();
 }
 struct ThisFull {
     int m_00; int m_04; int m_08;
@@ -3383,7 +3383,7 @@ struct S_00d0e210_World {
     int unkA0;
     int unkA4;
     void FUN_00c91120();
-    void UpdateFields_00c91140();
+    void hkpWorld_internalExecutePendingBodyOperations();
     void lockCriticalOperations() throw() { m_iCriticalOperationsLockCount++; }
     void unlockCriticalOperations() throw()
     {
@@ -3391,7 +3391,7 @@ struct S_00d0e210_World {
             if (m_iPendingOperationCount != 0)
                 FUN_00c91120();
             if (unkA4 == 1 && m_iQueuedOperationCount != 0)
-                UpdateFields_00c91140();
+                hkpWorld_internalExecutePendingBodyOperations();
         }
     }
 };
@@ -3987,7 +3987,7 @@ static __forceinline void unlockContext(Context* ctx) {
         if (ctx->pending())
             ctx->FUN_00c91120();
         if (ctx->mode() == 1 && ctx->otherPending())
-            ctx->UpdateFields_00c91140();
+            ctx->hkpWorld_internalExecutePendingBodyOperations();
     }
 }
 
@@ -4393,7 +4393,7 @@ struct RenderParams {
     unsigned unk334;
     unsigned unk338;
     unsigned batchCount;
-    void __thiscall EnterLock(unsigned);
+    void __thiscall hkpWorld_lockIslandForConstraintUpdate(unsigned);
     void __thiscall hkpWorld_unlockIslandForConstraintUpdate(unsigned);
 };
 struct CompressedBounds {
@@ -4570,7 +4570,7 @@ void __stdcall hkpContinuousSimulation_collideEntitiesBroadPhaseContinuous(Sourc
     }
     if(primary.count+secondary.count>0) {
         Trace((unsigned char*)&DAT_010cc5e4);
-        context->EnterLock(sources[0]->handle);
+        context->hkpWorld_lockIslandForConstraintUpdate(sources[0]->handle);
         context->sink->DispatchPairs(secondary.start,secondary.count);
         int pairs=primary.count;
         if(!S00d0d3f0_router()->heap().Available(pairs<<10)) {
@@ -5639,7 +5639,7 @@ struct CtrObj {
     int unkA0;
     int m_a4;
     void FUN_00c91120();
-    void UpdateFields_00c91140();
+    void hkpWorld_internalExecutePendingBodyOperations();
 };
 struct Arg0 {
     int unk00; int unk04; int unk08; int unk0c; int unk10; int unk14; int unk18; int unk1c;
@@ -6150,7 +6150,7 @@ void Self::hkpContinuousSimulation_simulateToi(Arg0* world,Entry70* pair,float d
     CtrObj* c=m_ctr;
     if(--c->m_ref94==0 && !c->m_9c) {
         if(c->unk8c)c->FUN_00c91120();
-        if(c->m_a4==1 && c->unk90)c->UpdateFields_00c91140();
+        if(c->m_a4==1 && c->unk90)c->hkpWorld_internalExecutePendingBodyOperations();
     }
     clockOne(DAT_01076f38);
     hkMemoryRouter* router3=hkMemoryRouter_getInstance();

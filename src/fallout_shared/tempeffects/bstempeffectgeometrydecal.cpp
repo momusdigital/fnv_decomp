@@ -123,7 +123,8 @@ void* NiSkinInstance::FUN_006885a0(unsigned int flags)
 
 // Calls FUN_00688770 on this, then deletes this with size 100 when flags has bit 0 set, and returns this.
 // @fnv 0x006838d0
-void* __thiscall BSTempEffectGeometryDecal::FUN_006838d0(unsigned int flags)
+// src: EXE 0x006838d0
+void* __thiscall BSTempEffectGeometryDecal::ScalarDeletingDestructor(unsigned int flags)
 {
     this->FUN_00688770();
     if (flags & 1)

@@ -198,14 +198,14 @@ void* FUN_00c61810_class::BSWArray_GetRTTI()
     return &g_012043a4;
 }
 
-struct FUN_00c61820_class
+struct PArrayPoint
 {
     void* PArrayPoint_Copy(int);
 };
 
 // @fnv 0x00c61820
 // src: COMMUNITY 0x00c61820
-void* FUN_00c61820_class::PArrayPoint_Copy(int)
+void* PArrayPoint::PArrayPoint_Copy(int)
 {
     return this;
 }
@@ -308,13 +308,13 @@ void* __thiscall FUN_00c632e0_Class::PArrayPoint_GetRTTI()
 }
 
 namespace fnv_00c63930 {
-struct FUN_00c63930_Class : public NiPSysModifier
+struct BSParentVelocityModifier : public NiPSysModifier
 {
     void BSParentVelocityModifier_LinkObject(NiStream&);
 };
 // @fnv 0x00c63930
 // src: XBOX_PDB 0x00c63930
-void FUN_00c63930_Class::BSParentVelocityModifier_LinkObject(NiStream& stream)
+void BSParentVelocityModifier::BSParentVelocityModifier_LinkObject(NiStream& stream)
 {
     NiPSysModifier::LinkObject(stream);
 }
@@ -351,12 +351,12 @@ GlobalObject_00a7b610* FUN_00c63aa0_class::BSParentVelocityModifier_GetRTTI()
     return &g_012043c8;
 }
 
-void __cdecl NiFixedString_CopyMemory_00c63c30(int, int);
+void __cdecl BSDecalPlacementVectorExtraData_FindDecalPlacementVectorGroupRecurse(int, int);
 
 // @fnv 0x00c63c10
 void __cdecl CallWithSameArgumentTwice(int aiValue)
 {
-    NiFixedString_CopyMemory_00c63c30(aiValue, aiValue);
+    BSDecalPlacementVectorExtraData_FindDecalPlacementVectorGroupRecurse(aiValue, aiValue);
 }
 
 // @fnv 0x00c644b0
@@ -494,16 +494,17 @@ NiTArray<BSAttachPointPair*, NiTMallocInterface<BSAttachPointPair*> >::~NiTArray
     NiFreeAlias(p);
 }
 
-struct FUN_00c600c0_class
+struct BSPSysStripUpdateModifier
 {
     void* __thiscall UpdateState_00c5fd50();
-    void* __thiscall FUN_00c600c0(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
     static void __cdecl operator delete(void* p, unsigned int size);
 };
 
 // Calls FUN_00c5fd50, then frees this with operator delete when flags has bit 0 set, and returns this.
 // @fnv 0x00c600c0
-void* __thiscall FUN_00c600c0_class::FUN_00c600c0(unsigned int flags)
+// src: EXE 0x00c600c0
+void* __thiscall BSPSysStripUpdateModifier::ScalarDeletingDestructor(unsigned int flags)
 {
     UpdateState_00c5fd50();
     if (flags & 1)
@@ -632,14 +633,14 @@ void FUN_00c64710_Class::ReleaseStorage_00c64710()
 }
 }  // namespace fnv_00c64710
 
-struct FUN_00c64930_Class
+struct BSReference
 {
     void BSReference_LinkObject(int a);
 };
 
 // @fnv 0x00c64930
 // src: COMMUNITY 0x00c64930
-void FUN_00c64930_Class::BSReference_LinkObject(int a)
+void BSReference::BSReference_LinkObject(int a)
 {}
 
 struct FUN_00c64940_Class
@@ -1094,7 +1095,7 @@ struct A51BF0Base
     static void* __cdecl operator new(unsigned int size);
 };
 
-struct FUN_00c61bc0_class
+struct BSPSysArrayEmitter
 {
     void __thiscall BSPSysArrayEmitter_CopyMembers(FUN_00c61b10* object, int arg);
     FUN_00c61b10* __thiscall CreateObject(int arg);
@@ -1102,7 +1103,7 @@ struct FUN_00c61bc0_class
 
 // Allocates a new FUN_00c61b10, initialises it via FUN_00c61c50 with arg, and returns the object.
 // @fnv 0x00c61bc0
-FUN_00c61b10* __thiscall FUN_00c61bc0_class::CreateObject(int arg)
+FUN_00c61b10* __thiscall BSPSysArrayEmitter::CreateObject(int arg)
 {
     FUN_00c61b10* object = new FUN_00c61b10;
     BSPSysArrayEmitter_CopyMembers(object, arg);
@@ -1190,7 +1191,8 @@ extern NiFixedString DAT_011f49e0;
 
 // Allocates a FUN_00c63ab0 with argument 0, sets its name to DAT_011f49e0, and returns it.
 // @fnv 0x00c64530
-void* CreateNamedNode()
+// src: EXE 0x00c64530
+void* BSDecalPlacementVectorExtraData_CreateObject()
 {
     FUN_00c63ab0* result = new FUN_00c63ab0(0);
     reinterpret_cast<NiAVObject*>(result)->SetName(DAT_011f49e0);
@@ -1661,7 +1663,8 @@ struct PositionModifierObject_b9439
 };
 // Allocates and constructs a PositionModifierObject_b9439 via its custom operator new and returns the pointer.
 // @fnv 0x00c63880
-PositionModifierObject_b9439* CreatePositionModifierObject()
+// src: EXE 0x00c63880
+PositionModifierObject_b9439* BSParentVelocityModifier_CreateObject()
 {
     return new PositionModifierObject_b9439();
 }
@@ -2033,7 +2036,7 @@ SimpleColorModifierClone* SimpleColorModifierCloner::CloneObject(CloningProcess&
     return pkClone;
 }
 
-struct FUN_00c615a0_class
+struct BSWArray
 {
     int unk00;
     int unk04;
@@ -2054,7 +2057,7 @@ struct Unused20
 };
 // Calls FUN_00a99b20, then appends the result of FUN_00a7d330 on g_012043a4 and of FUN_00a7d510(str_0109df4c, unk0c) to the values array.
 // @fnv 0x00c615a0
-void FUN_00c615a0_class::AppendGlobalAndFormatValues(NiTPrimitiveArray<unsigned int>* values)
+void BSWArray::AppendGlobalAndFormatValues(NiTPrimitiveArray<unsigned int>* values)
 {
     FUN_00a99b20(values);
     void* global_ptr = g_012043a4;

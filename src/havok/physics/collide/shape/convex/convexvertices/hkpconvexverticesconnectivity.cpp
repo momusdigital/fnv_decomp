@@ -8,7 +8,8 @@
 // The shared connectivity class has no reset/append declarations; these free
 // functions retain the member-call ABI (ECX object, unused EDX, callee pops arguments).
 // @fnv 0x00e48de0
-void __fastcall ResetConnectivity(hkpConvexVerticesConnectivity* connectivity, void*)
+// src: COMMUNITY 0x00e48de0
+void __fastcall hkpConvexVerticesConnectivity_clear(hkpConvexVerticesConnectivity* connectivity, void*)
 {
     connectivity->m_kVertexIndices.m_iElementCount = 0;
     connectivity->m_kNumVerticesPerFace.m_iElementCount = 0;

@@ -118,7 +118,7 @@ class NiControllerSequence : public NiObject
     void PathingLOSGridMap_SetSightRadius(float afTime);
     void* FUN_00a35820(unsigned int);
 
-    bool IsNotInChain(void* sequence);
+    bool VerifyDependencies(void* sequence);
     bool MatchesTextKeys(NiControllerSequence* sequence);
     bool SetTimeSyncSequence(NiControllerSequence* sequence);
     bool StartSequence(char priority, bool startOver, float weight, float easeInTime,
@@ -134,7 +134,7 @@ class NiControllerSequence : public NiObject
     void ReleaseItems();
     void AssignInterpolatorRef(int index, NiRefObject** output);
     void AssignInterpolatorRef(unsigned int index, NiRefObject*& output);
-    int AssignSlot(NiRefObject* interpolator, unsigned int value, unsigned char priority);
+    int AddInterpolator(NiRefObject* interpolator, unsigned int value, unsigned char priority);
     void ClearInterpolatorRefs(NiControllerSequence* source, int argument);
     bool Attach(bool update, NiAVObject* root, bool flag);
     bool AssignControllers(void* objectName, NiInterpController* controller);

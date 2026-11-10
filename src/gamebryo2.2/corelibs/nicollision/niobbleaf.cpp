@@ -243,8 +243,8 @@ public:
     float DotProduct(const LocalVec3* other) const;
     float Length() const;
     float LengthSquared() const;
-    float GetSquaredXYLength();
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength();
+    float NiPoint3_SqrXYLength() const;
     Elem16& expand(Allocator& allocator);
 
     void SetComponents(float x, float y, float z);
@@ -1146,17 +1146,18 @@ struct S_eb6b90_Node
     }
 };
 
-struct FUN_00eb6b90 : S_eb6b90_Node
+struct NiOBBLeaf : S_eb6b90_Node
 {
     NiPoint3* m_apkWorldVertex[3];
 
-    FUN_00eb6b90(S_eb6b90_Root* pkRoot, unsigned short* pusTriList, NiPoint3* pkVertex,
+    NiOBBLeaf(S_eb6b90_Root* pkRoot, unsigned short* pusTriList, NiPoint3* pkVertex,
                  NiPoint3* pkWorldVertex, unsigned short m_usTriangleID);
 };
 
 // Initializes a triangle node by computing its bounding box center, basis axes, and extents from three vertices.
 // @fnv 0x00eb6b90
-FUN_00eb6b90::FUN_00eb6b90(S_eb6b90_Root* pkRoot, unsigned short* pusTriList, NiPoint3* pkVertex,
+// src: EXE 0x00eb6b90
+NiOBBLeaf::NiOBBLeaf(S_eb6b90_Root* pkRoot, unsigned short* pusTriList, NiPoint3* pkVertex,
                            NiPoint3* pkWorldVertex, unsigned short m_usTriangleID)
 {
     unsigned short triStart = 3 * m_usTriangleID;

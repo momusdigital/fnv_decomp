@@ -136,7 +136,7 @@ class BSFaceGenTexture
 void BSFaceGenManager_LockFaceGenAccess();
 void BSFaceGenManager_UnlockFaceGenAccess();
 bool BSFaceGenManager_LoadEGMData(BSFaceGenModel*);
-BSFaceGenBaseMorphExtraData* GetExtraDataIfPresent(NiTriBasedGeom*);
+BSFaceGenBaseMorphExtraData* BSFaceGenManager_GetFaceGenBaseMorphExtraData(NiTriBasedGeom*);
 class CloningProcess
 {
   public:
@@ -327,14 +327,14 @@ NiAVObject* BSFaceGenModel::GetFaceGenModelNode(NiAVObject* object)
     return result ? reinterpret_cast<ResolveNode>((*reinterpret_cast<void***>(result))[0x94 / 4])(result) : 0;
 }
 
-void* __fastcall FUN_00659670(void* pThis, int, const char* apEGTFilename);
+void* __fastcall EGTData(void* pThis, int, const char* apEGTFilename);
 
 struct Dummy_00659780
 {
     char pad[0x34];
     Dummy_00659780(const char* apEGTFilename)
     {
-        FUN_00659670(this, 0, apEGTFilename);
+        EGTData(this, 0, apEGTFilename);
     }
 };
 
@@ -352,12 +352,13 @@ void __fastcall FUN_00659b50(void*);
 
 struct FUN_00659b20_thiscall
 {
-    void* FUN_00659b20(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_00659b50 on this, frees this with NiMemObject::operator delete when flags has bit 1 set, and returns this.
 // @fnv 0x00659b20
-void* FUN_00659b20_thiscall::FUN_00659b20(unsigned int flags)
+// src: EXE 0x00659b20
+void* FUN_00659b20_thiscall::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00659b50(this);
     if (flags & 1)
@@ -390,7 +391,7 @@ struct StatisticalEntry;
 class StatisticalArray
 {
   public:
-    unsigned int EvaluateValue_0065cc30();
+    unsigned int vector_size();
     StatisticalEntry* GetElementChecked_00662890(unsigned int);
 };
 
@@ -399,7 +400,7 @@ class StatisticalArray
 unsigned int FaceGenTriData::ProcessEntries_0065a5a0()
 {
     unsigned int uiMinValue = std_vector_FR2Vect3TC_float_std_allocator_FR2Vect3TC_float_size();
-    for (unsigned int uiIndex = 0; uiIndex < ((StatisticalArray*)((char*)this + 0xd8))->EvaluateValue_0065cc30(); ++uiIndex)
+    for (unsigned int uiIndex = 0; uiIndex < ((StatisticalArray*)((char*)this + 0xd8))->vector_size(); ++uiIndex)
     {
         if (*(unsigned int*)((char*)((StatisticalArray*)((char*)this + 0xd8))->GetElementChecked_00662890(uiIndex) + 0x1c) <
             uiMinValue)
@@ -744,16 +745,17 @@ struct FUN_0065cca0
     ~FUN_0065cca0();
 };
 void __cdecl fffReadEgmFile(const NarrowString& kName, void* pHeader, void* pSym, void* pAsym);
-struct FUN_00659560
+struct EGMData
 {
     unsigned int m_uiScaleCount;
     FUN_0065cca0 kMorphs[2];
-    FUN_00659560(const char* apcPath);
+    EGMData(const char* apcPath);
 };
 
 // Constructs a name from apcPath and passes it with this and both kMorphs entries to FUN_00aafc80.
 // @fnv 0x00659560
-FUN_00659560::FUN_00659560(const char* apcPath)
+// src: COMMUNITY 0x00659560
+EGMData::EGMData(const char* apcPath)
 {
     NarrowString kName(apcPath);
     fffReadEgmFile(kName, this, &kMorphs[0], &kMorphs[1]);
@@ -822,15 +824,16 @@ struct FaceGenTextureFile
 {
     ~FaceGenTextureFile();
 };
-struct FUN_00659a20
+struct BSFaceGenModelTextureData
 {
     BSStringT<char> strName;
     FaceGenTextureFile* m_pTextureData;
-    ~FUN_00659a20();
+    ~BSFaceGenModelTextureData();
 };
 
 // @fnv 0x00659a20
-FUN_00659a20::~FUN_00659a20()
+// src: COMMUNITY 0x00659a20
+BSFaceGenModelTextureData::~BSFaceGenModelTextureData()
 {
     if (m_pTextureData)
         delete m_pTextureData;
@@ -871,7 +874,7 @@ void FUN_0065a840_t::BSFaceGenModel_ForceLoadModelTexture()
 namespace fnv_0065bf80 {
 struct FUN_0065bf80_shell : public BSFaceGenModel
 {
-    bool EnsureMorphData();
+    bool BSFaceGenModel_LoadEGMData();
 };
 
 struct S7010
@@ -889,26 +892,27 @@ struct FUN_0065cca0
     void* pEnd;
     FUN_0065cca0();
 };
-struct FUN_00659560
+struct EGMData
 {
     unsigned int m_uiScaleCount;
     FUN_0065cca0 kMorphs[2];
-    FUN_00659560(const char*);
+    EGMData(const char*);
 };
 
 // @fnv 0x0065bf80
-bool FUN_0065bf80_shell::EnsureMorphData()
+// src: COMMUNITY 0x0065bf80
+bool FUN_0065bf80_shell::BSFaceGenModel_LoadEGMData()
 {
     AutoMemHelper tempMemContext(
         0x38, true, "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout Shared\\FaceGen\\BSFaceGenModel.cpp", 0x4f0);
     if (!m_pGeometryModel)
         return false;
-    if (!*(FUN_00659560**)((char*)m_pGeometryModel + 8))
+    if (!*(EGMData**)((char*)m_pGeometryModel + 8))
     {
         if (!((S7010*)m_pGeometryModel)->Length())
             return false;
-        *(FUN_00659560**)((char*)m_pGeometryModel + 8) =
-            new FUN_00659560((const char*)Modelloader_GetReferencedThis((int*)m_pGeometryModel));
+        *(EGMData**)((char*)m_pGeometryModel + 8) =
+            new EGMData((const char*)Modelloader_GetReferencedThis((int*)m_pGeometryModel));
     }
     return true;
 }
@@ -917,12 +921,13 @@ bool FUN_0065bf80_shell::EnsureMorphData()
 int __fastcall Object_GetPointerSpanCount_00657bc0(FaceGenVector<ThreeComponentVector<short> >* pDeltas);
 struct FUN_0065c110_t : public BSFaceGenModel
 {
-    unsigned int GetEGMSize();
+    unsigned int BSFaceGenModel_GetEGMDataSize();
 };
 
 // Sums the size of the EGM data: base struct plus per-morph list and delta sizes for both morph lists, returning the total.
 // @fnv 0x0065c110
-unsigned int FUN_0065c110_t::GetEGMSize()
+// src: COMMUNITY 0x0065c110
+unsigned int FUN_0065c110_t::BSFaceGenModel_GetEGMDataSize()
 {
     unsigned int uiSize = 0;
     unsigned int i;
@@ -1181,12 +1186,12 @@ struct FUN_0065c090_shell
     int unk00;
     int unk04;
     FUN_0065c090_Inner* unk08;
-    bool UpdateState_0065c090();
+    bool BSFaceGenModel_TryUnloadEGMData();
 };
 
 // @fnv 0x0065c090
-// src: GUESS 0x0065c090 (confidence: low)
-bool FUN_0065c090_shell::UpdateState_0065c090()
+// src: GUESS 0x0065c090 (confidence: medium)
+bool FUN_0065c090_shell::BSFaceGenModel_TryUnloadEGMData()
 {
     if (unk08 && unk08->unk08)
     {
@@ -1231,12 +1236,13 @@ FUN_00659ae0::FUN_00659ae0()
 
 struct FUN_0065a970_shell : BSFaceGenModel
 {
-    bool ApplyMorphs(FaceGenCoordinate* apCoordinate, NiTriBasedGeom* apGeometry, bool abIncludeZero);
+    bool BSFaceGenModel_ApplyCoordinateToExistingMesh(FaceGenCoordinate* apCoordinate, NiTriBasedGeom* apGeometry, bool abIncludeZero);
 };
 
 // Applies face-gen morph data to apGeometry vertices using apCoordinate weights, updating positions and additional geometry data in place.
 // @fnv 0x0065a970
-bool FUN_0065a970_shell::ApplyMorphs(FaceGenCoordinate* apCoordinate, NiTriBasedGeom* apGeometry, bool abIncludeZero)
+// src: COMMUNITY 0x0065a970
+bool FUN_0065a970_shell::BSFaceGenModel_ApplyCoordinateToExistingMesh(FaceGenCoordinate* apCoordinate, NiTriBasedGeom* apGeometry, bool abIncludeZero)
 {
     if (!m_pGeometryModel)
         return false;
@@ -1268,7 +1274,7 @@ bool FUN_0065a970_shell::ApplyMorphs(FaceGenCoordinate* apCoordinate, NiTriBased
     NiPoint3* pAdditional = 0;
     NiPoint3* pVerticesCount = 0;
     NiPoint3* pThePositions = 0;
-    BSFaceGenBaseMorphExtraData* pLastMorphExtra = GetExtraDataIfPresent(apGeometry);
+    BSFaceGenBaseMorphExtraData* pLastMorphExtra = BSFaceGenManager_GetFaceGenBaseMorphExtraData(apGeometry);
     NiPoint3* pExtraVerticesTmp = pLastMorphExtra ? pLastMorphExtra->GetVertices() : 0;
     NiPoint3* pExtra = 0;
     bool bPackedResult = false;
@@ -1443,11 +1449,11 @@ FUN_0065c630::FUN_0065c630() : Base65C630(Allocator65C630())
 
 namespace fnv_00659c40 {
 extern "C" void __cdecl _Deallocate(void*);
-struct FUN_00659a20
+struct BSFaceGenModelTextureData
 {
-    ~FUN_00659a20();
+    ~BSFaceGenModelTextureData();
 };
-struct FUN_00659c40_shell : FUN_00659a20
+struct FUN_00659c40_shell : BSFaceGenModelTextureData
 {
     void* FUN_00659c40(unsigned int flags);
 };

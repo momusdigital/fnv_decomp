@@ -161,7 +161,8 @@ inline bool NiTimeController::GetManagerControlled() const
     return ((m_uiObjectFlags >> 5) & 1) ? true : false;
 }
 // @fnv 0x00a56a00
-void __fastcall UpdateAlpha(NiAlphaController* self, void*, UpdateData& kData)
+// src: EXE 0x00a56a00
+void __fastcall NiAlphaController_Update(NiAlphaController* self, void*, UpdateData& kData)
 {
     if (self->GetManagerControlled())
     {

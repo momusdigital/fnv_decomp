@@ -1,6 +1,6 @@
 // Unit-local header for fallout_shared/bgstextureset.cpp.
 // Class layouts (TESObject through BGSTextureSet) are copied verbatim from
-// the PC object is 0xA0 bytes (InitializeNullTextureSet operator new) with 6
+// the PC object is 0xA0 bytes (CreateNullTextureSet operator new) with 6
 // texture slots, a DecalData* at +0x80, flags at +0x84 and 6 file entries at
 // +0x88 (ResetFormData/ClearData/Load all loop 6). Real method declarations
 #ifndef FNV_BGSTEXTURESET_UNIT_H
@@ -106,9 +106,9 @@ class BGSTextureSet : public TESBoundObject, public BSTextureSet
     void ResetFormData();
     virtual void ClearData();
     virtual const char* GetTextureFilePath(int aeTextureType);
-    void LoadTextures(int aePriority, QueuedFile* apQueuedFile, bool abLoad);
+    void QueueTextureSet(int aePriority, QueuedFile* apQueuedFile, bool abLoad);
     static BGSTextureSet* GetEmptyTextureSet();
-    static void InitializeNullTextureSet();
+    static void CreateNullTextureSet();
 
     static BGSTextureSet* s_pNullTextureSet;
 };

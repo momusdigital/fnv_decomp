@@ -177,7 +177,7 @@ struct Entry
 };
 struct Inventory
 {
-    Entry* FindEntryWithExtraListType(int);
+    Entry* InventoryChanges_GetHotkeyItem(int);
 };
 struct Process
 {
@@ -801,7 +801,7 @@ struct Wheel
 void Wheel::HotKeysWheel_UseHotkeyItem()
 {
     Inventory* inv3 = FUN_004bf220(DAT_011dea3c);
-    Entry* entry5 = inv3 ? inv3->FindEntryWithExtraListType(*(int*)((char*)this + 0x28)) : 0;
+    Entry* entry5 = inv3 ? inv3->InventoryChanges_GetHotkeyItem(*(int*)((char*)this + 0x28)) : 0;
     void* extra = entry5 && entry5->Modelloader_GetReferencedThis() ? *entry5->Modelloader_GetReferencedThis()->FUN_006815c0() : 0;
     bool ammo4 =
         (entry5 && entry5->FUN_0044ddc0()->FUN_00401170() == 0x28 && entry5->FUN_0044ddc0()->TESObjectWEAP_IsThrownWeapon()) ? 1 : 0;

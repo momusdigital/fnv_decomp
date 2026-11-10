@@ -731,7 +731,7 @@ Tile* HUDMainMenu_Create()
             NiControllerManager* l_114 = (NiControllerManager*)pController27;
             HUDMainMenu_pme->m_pHudAnimationSequence =
                 static_cast<NiControllerSequence*>(l_114->FindSequenceByName(NiFixedString("Forward")));
-            l_114->DeactivateAllSequences(0.0f);
+            l_114->DeactivateAll(0.0f);
             if (HUDMainMenu_pme->m_pHudAnimationSequence)
                 l_114->FUN_0047aab0(HUDMainMenu_pme->m_pHudAnimationSequence, 0, 1, 1.0f, 0.0f, 0);
         }

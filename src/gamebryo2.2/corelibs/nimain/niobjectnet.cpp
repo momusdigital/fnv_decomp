@@ -241,7 +241,7 @@ void __fastcall AssignFixedString(char* pThis, int, char** ppkName)
 
 struct FUN_00a5bfa0_shell : public NiObjectNET
 {
-    void ClearExtraData();
+    void NiObjectNET_RemoveAllExtraData();
 };
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void*);
@@ -254,7 +254,8 @@ struct NiExtraDataDeleteProxy : public NiObjectNET
 
 // Under the extra-data lock, deletes all extra data entries, frees the extra data array, and resets the count and max size.
 // @fnv 0x00a5bfa0
-void FUN_00a5bfa0_shell::ClearExtraData()
+// src: COMMUNITY 0x00a5bfa0
+void FUN_00a5bfa0_shell::NiObjectNET_RemoveAllExtraData()
 {
     EnterCriticalSection(&g_NiObjectNETExtraDataLock);
     for (short i = static_cast<short>(m_usExtraDataSize) - 1; i >= 0; --i)
@@ -1202,12 +1203,13 @@ bool FUN_00a5bca0_shell::SetExtraDataName(NiExtraData* pkExtra)
 
 struct FUN_00a5be90_shell : public NiObjectNET
 {
-    bool DeleteExtraDataByKey(const NiFixedString& kKey);
+    bool NiObjectNET_RemoveExtraData(const NiFixedString& kKey);
 };
 
 // Binary-searches m_ppkExtra using filename pointer ordering and deletes an entry when its filename pointer equals kKey.
 // @fnv 0x00a5be90
-bool FUN_00a5be90_shell::DeleteExtraDataByKey(const NiFixedString& kKey)
+// src: COMMUNITY 0x00a5be90
+bool FUN_00a5be90_shell::NiObjectNET_RemoveExtraData(const NiFixedString& kKey)
 {
     if (m_usExtraDataSize == 0)
         return false;

@@ -127,7 +127,8 @@ void __cdecl Deallocate(void*);
 
 // If the pointer at offset 0x420 is non-null, deallocates it and clears the pointer and the count at offset 0x424.
 // @fnv 0x00473960
-void TESFile::ClearDecompressedFormBuffer()
+// src: COMMUNITY 0x00473960
+void TESFile::FreeDecompressedBuffer()
 {
     if (m_pDecompressedFormBuffer != 0)
     {

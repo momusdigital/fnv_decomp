@@ -56,24 +56,24 @@ struct FUN_0061fc10_shell
 {
     void* m_iWordAt00;
     void* m_iWordAt04;
-    void __thiscall FUN_0061fc10(unsigned int a, unsigned int b);
+    void __thiscall ZoneEntry(unsigned int a, unsigned int b);
 };
 
 extern void* DAT_0104e3e8;
 
-struct FUN_0062d840_shell
+struct TrapEntry
 {
     void* m_iWordAt00;
     void* m_iWordAt04;
     void* __thiscall TrapEntry_TrapEntry(unsigned int a, unsigned int b);
 };
 
-// Calls FUN_0061fc10 with a and b, sets the first field to point at DAT_0104e3e8, and returns this.
+// Calls ZoneEntry with a and b, sets the first field to point at DAT_0104e3e8, and returns this.
 // @fnv 0x0062d840
 // src: EXE 0x0062d840
-void* __thiscall FUN_0062d840_shell::TrapEntry_TrapEntry(unsigned int a, unsigned int b)
+void* __thiscall TrapEntry::TrapEntry_TrapEntry(unsigned int a, unsigned int b)
 {
-    ((FUN_0061fc10_shell*)this)->FUN_0061fc10(a, b);
+    ((FUN_0061fc10_shell*)this)->ZoneEntry(a, b);
     m_iWordAt00 = &DAT_0104e3e8;
     return this;
 }
@@ -83,16 +83,17 @@ struct Member140
     void __thiscall bhkTTNode_TESObjectREFR_bhkTTNode_TESObjectREFR(unsigned int a, unsigned int b);
 };
 extern int DAT_0104d9cc[];
-struct FUN_0061fc10
+struct ZoneEntry
 {
     void* m0;
     char _4[16];
     int _14;
-    FUN_0061fc10(unsigned int a, unsigned int b);
+    ZoneEntry(unsigned int a, unsigned int b);
 };
 // Calls FUN_00620720 on the member at offset 4 with a and b, then sets m0 to DAT_0104d9cc and _14 to 0.
 // @fnv 0x0061fc10
-FUN_0061fc10::FUN_0061fc10(unsigned int uiFirst, unsigned int uiSecond)
+// src: EXE 0x0061fc10
+ZoneEntry::ZoneEntry(unsigned int uiFirst, unsigned int uiSecond)
 {
     ((Member140*)((char*)this + 4))->bhkTTNode_TESObjectREFR_bhkTTNode_TESObjectREFR(uiFirst, uiSecond);
     m0 = DAT_0104d9cc;
@@ -100,7 +101,7 @@ FUN_0061fc10::FUN_0061fc10(unsigned int uiFirst, unsigned int uiSecond)
 }
 
 extern int DAT_0104d9d8;
-struct FUN_0061fe70_shell
+struct TrapTargetEntry
 {
     void* m_iWordAt00;
     void* m_iWordAt04;
@@ -109,7 +110,7 @@ struct FUN_0061fe70_shell
 };
 // Calls FUN_0061fba0 with a and b, stores the address of DAT_0104d9d8 at this, and returns this.
 // @fnv 0x0061fe70
-void* __thiscall FUN_0061fe70_shell::Construct(unsigned int a, unsigned int b)
+void* __thiscall TrapTargetEntry::Construct(unsigned int a, unsigned int b)
 {
     TargetEntry_TargetEntry(a, b);
     *reinterpret_cast<void**>(this) = &DAT_0104d9d8;
@@ -164,11 +165,11 @@ void FUN_0061fea0_shell::ClearList()
     m_14 = 0;
 }
 
-// Allocates and constructs a new FUN_0061fc10 object from the two unsigned int arguments and returns it.
+// Allocates and constructs a new ZoneEntry object from the two unsigned int arguments and returns it.
 // @fnv 0x0061ffe0
 void* BGSZoneTargetListener::Create(unsigned int uiFirst, unsigned int uiSecond)
 {
-    return new FUN_0061fc10(uiFirst, uiSecond);
+    return new ZoneEntry(uiFirst, uiSecond);
 }
 
 struct ZoneBase

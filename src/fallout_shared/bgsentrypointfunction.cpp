@@ -208,7 +208,7 @@ void BGSEntryPointFunctionDataTwoValue::FUN_005e6490()
 }
 
 // @fnv 0x005e64e0
-void* BGSEntryPointFunctionDataTwoValue::FUN_005e64e0(unsigned int flags)
+void* BGSEntryPointFunctionDataTwoValue::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_005e6490();
     if (flags & 1)
@@ -566,7 +566,7 @@ BGSEntryPointFunctionData* BGSEntryPointFunctionDataActivateChoice::Duplicate_00
     BGSEntryPointFunctionDataActivateChoice* pduplicate = new BGSEntryPointFunctionDataActivateChoice();
 
     pduplicate->SetLabel(this->choiceText);
-    pduplicate->GetName().CopyScriptContents(&this->GetName());
+    pduplicate->GetName().CopyResultScript(&this->GetName());
     pduplicate->flags = this->flags;
 
     return pduplicate;

@@ -65,7 +65,7 @@ class LocalPoint3Ext
     LocalPoint3Ext& Subtract(const LocalPoint3Ext& point);
     float GetLengthSquared();
     void ComputeMagnitude();
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength() const;
     float Length() const;
 
     AimVector SubtractIntoVector(const AimVector& point) const;
@@ -155,7 +155,8 @@ BSMultiBound::BSMultiBound()
 
 // Updates the exterior cell grid around location, queues neighbouring cells, refreshes worldspace and physics, and returns 1 when the grid changed or 0 otherwise.
 // @fnv 0x00452580
-int TES::FindCellAtPosition(const NiPoint3* location, bool updatePhysics)
+// src: COMMUNITY 0x00452580
+int TES::UpdateCurrentGridCell(const NiPoint3* location, bool updatePhysics)
 {
     NiAVObject_GetWorldTranslate()->RemoveAll();
     InitFromMatrix();
@@ -166,7 +167,7 @@ int TES::FindCellAtPosition(const NiPoint3* location, bool updatePhysics)
     }
     if (g_BGSSaveLoadGame->BGSSaveLoadGame_GetSaveGameLoading())
         ((LoadedAreaBound*)m_spLoadedAreaBound)->FUN_00628da0();
-    ((LoadedAreaBound*)m_spLoadedAreaBound)->LoadedAreaBound_Update(GetDetailedActorPathHandler(), m_pGridCells);
+    ((LoadedAreaBound*)m_spLoadedAreaBound)->LoadedAreaBound_Update(GetCurrentCell(), m_pGridCells);
     if (!g_dataHandler)
         return 0;
     if (iFirstValue == 0x7fffffff || iSecondValue == 0x7fffffff)
@@ -206,7 +207,7 @@ int TES::FindCellAtPosition(const NiPoint3* location, bool updatePhysics)
             int iQueueY = position.y >> 12;
             if (m_iGridWidth != iQueueX || m_iGridHeight != iQueueY)
             {
-                if (*DAT_011c3d40.Bool() && GetInteriorBufferCount(true))
+                if (*DAT_011c3d40.Bool() && FreeInteriorBuffer(true))
                     SetTESActive(false);
                 int iHalfGridCount = (unsigned int)*DAT_011c63cc.Int() >> 1;
                 int iQueuedX = m_iGridWidth;
@@ -268,7 +269,7 @@ int TES::FindCellAtPosition(const NiPoint3* location, bool updatePhysics)
         DAT_011c9618->ExteriorCellLoader_WaitForTasks();
     if (!IsCellInterior() || bIsLoading)
     {
-        if (*DAT_011c3d40.Bool() && GetInteriorBufferCount(true))
+        if (*DAT_011c3d40.Bool() && FreeInteriorBuffer(true))
             SetTESActive(false);
         if (!GetParentWorldSpace())
             AssignWorldSpace(g_dataHandler->GetSourceFiles()->GetItem());
@@ -303,7 +304,7 @@ int TES::FindCellAtPosition(const NiPoint3* location, bool updatePhysics)
             SetSkyMode(0);
         if (TESObjectCELL::GetExteriorbhkWorld())
             TESObjectCELL::GetExteriorbhkWorld()->bhkWorld_StartBatchingAdds();
-        RefreshGrid();
+        TES_GridArrayLoad();
         TES_SetUpdateGridString();
         if (TESObjectCELL::GetExteriorbhkWorld())
         {
@@ -316,13 +317,14 @@ int TES::FindCellAtPosition(const NiPoint3* location, bool updatePhysics)
     SetTESActive(false);
     RefreshWorldSpace();
     if (!IsCellInterior())
-        m_pContainingWorldspace->GetWorldTerrainManager()->Update(*((const TESObjectREFR*)g_thePlayer)->GetPos(), 15);
+        m_pContainingWorldspace->GetTerrainManager()->Update(*((const TESObjectREFR*)g_thePlayer)->GetPos(), 15);
     BSTaskThread_SetUpdateSleepEnabled(true);
     return 1;
 }
 
 // @fnv 0x004e59f0
-WaterSurface* TESWaterSystem::GetWaterZone(TESObjectREFR* apWaterRef, TESObjectREFR* apLookupRef, float afHeight)
+// src: COMMUNITY 0x004e59f0
+WaterSurface* TESWaterSystem::FindWaterGroup(TESObjectREFR* apWaterRef, TESObjectREFR* apLookupRef, float afHeight)
 {
     NiPoint3 kNormal(0.0f, 0.0f, 1.0f);
     NiPoint3 kPosition = NiPoint3::ZERO;
@@ -387,7 +389,7 @@ void TESWaterSystem::UpdateWaterZone(TESObjectREFR* apWaterRef, TESObjectREFR* a
 {
     if (!apWaterRef && (!apLookupRef || !apLookupRef->GetParentCell()))
         return;
-    WaterSurface* pGroup = GetWaterZone(apWaterRef, apLookupRef, afHeight);
+    WaterSurface* pGroup = FindWaterGroup(apWaterRef, apLookupRef, afHeight);
     if (!pGroup)
         return;
     RemoveReferenceFromCell(apLookupRef, pGroup);
@@ -518,7 +520,7 @@ struct Main
     static void FreeMenuRootNode();
     static void FreeMenuRootNode3D();
     static void CreateMenuRootNode();
-    static void CreateMenuSceneGraph();
+    static void CreateMenuRootNode3D();
     static NiNode* LandLODNode();
     static NiNode* ObjectLODNode();
     static NiNode* WaterLODNode();
@@ -738,7 +740,8 @@ float __fastcall TESWeather_GetWeatherData(const unsigned char* _this, StackArgs
 }
 
 // @fnv 0x004ed270
-bool __fastcall IsFlagBit2Set(const unsigned char* _this)
+// src: COMMUNITY 0x004ed270
+bool __fastcall TESWeather_IsRainy(const unsigned char* _this)
 {
     return (_this[0xeb] & 4) != 0;
 }
@@ -829,7 +832,8 @@ int* __cdecl TESObjectCELL_GetAutoWaterReflectList()
 
 
 // @fnv 0x004e32c0
-void __fastcall CheckWaterFlag8000000(BGSPlaceableWater* water)
+// src: COMMUNITY 0x004e32c0
+void __fastcall BGSPlaceableWater_IsLODWater(BGSPlaceableWater* water)
 {
     water->HasFlags(0x8000000);
 }
@@ -1270,7 +1274,8 @@ void FUN_004e2140_shell::SetValue(int value)
 
 
 // @fnv 0x004e32a0
-void __fastcall SetWaterFlag800(BGSPlaceableWater* water)
+// src: COMMUNITY 0x004e32a0
+void __fastcall BGSPlaceableWater_GetRefractsLand(BGSPlaceableWater* water)
 {
     water->HasFlags(0x800);
 }
@@ -1363,7 +1368,8 @@ namespace fnv_004e32e0 {
 
 
 // @fnv 0x004e32e0
-void __fastcall SetWaterFlag10000000(BGSPlaceableWater* water)
+// src: COMMUNITY 0x004e32e0
+void __fastcall BGSPlaceableWater_IsDepthEnabled(BGSPlaceableWater* water)
 {
     water->HasFlags(0x10000000);
 }
@@ -1684,7 +1690,7 @@ struct FUN_00759d80_shell
 char BGSTerrainManager_GetCurrentWorldHasLOD()
 {
     TESWorldSpace* ws = ((TES*)g_TES)->GetParentWorldSpace();
-    if (ws && ws->GetWorldTerrainManager() && ((FUN_00759d80_shell*)ws->GetWorldTerrainManager())->AnimatingText_IsDisplayFinished())
+    if (ws && ws->GetTerrainManager() && ((FUN_00759d80_shell*)ws->GetTerrainManager())->AnimatingText_IsDisplayFinished())
     {
         return 1;
     }
@@ -1946,11 +1952,12 @@ extern const char str_0102301c[];
 
 struct TESWaterSystem_shell
 {
-    BSRenderedTexture* CreateRenderedTexture(unsigned int value);
+    BSRenderedTexture* TESWaterSystem_CreateQuadShape(unsigned int value);
 };
 
 // @fnv 0x004e7680
-BSRenderedTexture* TESWaterSystem_shell::CreateRenderedTexture(unsigned int value)
+// src: COMMUNITY 0x004e7680
+BSRenderedTexture* TESWaterSystem_shell::TESWaterSystem_CreateQuadShape(unsigned int value)
 {
     AutoMemHelper tempMemContext(0x1d, true, str_0102301c, 0xb91);
     return new BSRenderedTexture(value);
@@ -2334,11 +2341,12 @@ struct Cls5140
     Owner5140* pOwner;
     NiAV5140* TESWaterSystem_GetWaterGeometry(Ref5140* ref);
     void ReleaseWaterResources(int a, int b);
-    void DetachRef(Ref5140* apRef, int aiUnused, Target5140* apTarget);
+    void TESWaterSystem_RemoveLODWater(Ref5140* apRef, int aiUnused, Target5140* apTarget);
 };
 
 // @fnv 0x004e5140
-void Cls5140::DetachRef(Ref5140* apRef, int aiUnused, Target5140* apTarget)
+// src: COMMUNITY 0x004e5140
+void Cls5140::TESWaterSystem_RemoveLODWater(Ref5140* apRef, int aiUnused, Target5140* apTarget)
 {
     apTarget->SetBase(apRef->GetBase());
     if (pOwner)
@@ -2505,7 +2513,7 @@ class FUN_004e52f0_arg
 class FUN_004e52f0_cls
 {
   public:
-    void RemoveWaterRef(FUN_004e52f0_arg* a, const NiPoint3* pos, const NiMatrix3* mat);
+    void TESWaterSystem_RemovePlaceableWater(FUN_004e52f0_arg* a, const NiPoint3* pos, const NiMatrix3* mat);
     void TESWaterSystem_RemoveWaterRefFromWaterSystem(FUN_004e52f0_arg* arg);
 };
 
@@ -2516,7 +2524,7 @@ void FUN_004e52f0_cls::TESWaterSystem_RemoveWaterRefFromWaterSystem(FUN_004e52f0
     NiPoint3 pos = arg->vfn_1d0()->NiAVObject_GetWorldTranslate();
     NiMatrix3 mat;
     mat = arg->vfn_1d0()->NiAVObject_GetWorldRotate().m_Rotate;
-    RemoveWaterRef(arg, &pos, &mat);
+    TESWaterSystem_RemovePlaceableWater(arg, &pos, &mat);
 }
 
 struct Settings
@@ -2855,11 +2863,12 @@ struct WaterList_004e83e0
 };
 struct WaterScanner_004e83e0
 {
-    bool IsPlayerNearWaterActor(void* collection);
+    bool TESWaterSystem_ActorWithinRangeOfWadingWater(void* collection);
 };
 // Scans the collection's water list and returns true if the player is an entry or within the configured distance of a non-excluded actor.
 // @fnv 0x004e83e0
-bool WaterScanner_004e83e0::IsPlayerNearWaterActor(void* collection)
+// src: COMMUNITY 0x004e83e0
+bool WaterScanner_004e83e0::TESWaterSystem_ActorWithinRangeOfWadingWater(void* collection)
 {
     void* position;
     void* nextPosition =
@@ -3145,8 +3154,8 @@ struct WSys
     WList groups;
     char pad48[0x7c - 0x48];
     WMap map;
-    bool IsPlayerNearWaterActor(WGroup*);
-    void* CreateWaterShaderNode(WGroup*, int);
+    bool TESWaterSystem_ActorWithinRangeOfWadingWater(WGroup*);
+    void* TESWaterSystem_CreateWadingWaterGeometry(WGroup*, int);
     void TESWaterSystem_UpdateActorsInWater();
 };
 
@@ -3166,7 +3175,7 @@ void WSys::TESWaterSystem_UpdateActorsInWater()
         if (m5)
         {
             WGroup* group = (WGroup*)groups.AddEight(m5);
-            if (group->bActive && !group->refs.NiTListBase_DFALL_NiTListItem_BSAnimGroupSequence_const_BSAnimGroupSequence_const_IsEmpty() && IsPlayerNearWaterActor(group))
+            if (group->bActive && !group->refs.NiTListBase_DFALL_NiTListItem_BSAnimGroupSequence_const_BSAnimGroupSequence_const_IsEmpty() && TESWaterSystem_ActorWithinRangeOfWadingWater(group))
             {
                 void* pos2 = group->refs.Modelloader_GetReferencedThis();
                 void* ne = 0;
@@ -3182,7 +3191,7 @@ void WSys::TESWaterSystem_UpdateActorsInWater()
                         {
                             if (!group->list58.Modelloader_GetReferencedThis())
                                 group->list58.FUN_0066b0d0(
-                                    CreateWaterShaderNode(group, TESWaterSystem_GetWaterRoot(*DAT_011c7b54.Setting_Float_00403e20())));
+                                    TESWaterSystem_CreateWadingWaterGeometry(group, TESWaterSystem_GetWaterRoot(*DAT_011c7b54.Setting_Float_00403e20())));
                             NiPoint3 ny = ((WVirt*)DAT_011dea3c)->GetPos();
                             NiPoint3 refPos = ref->GetPos();
                             refPos.z = group->plane.FUN_0084d030();
@@ -3567,7 +3576,7 @@ struct WaterUpdate
     unsigned unk34;
     unsigned unk38;
     WaterState state;
-    void UpdateWaterGroup(NiCamera*, bool);
+    void TESWaterSystem_UpdateLODWater(NiCamera*, bool);
     void UpdateWaterGroups(NiCamera*, bool);
     bool TESWaterSystem_CheckUpdateActorsInWater();
     void TESWaterSystem_UpdateActorsInWater();
@@ -3643,7 +3652,7 @@ void WaterUpdate::TESWaterSystem_UpdateWaterSystem(NiCamera* camera, void* unuse
         waterHasWorld = true;
     else
         waterHasWorld = false;
-    UpdateWaterGroup(camera, waterNewFrame);
+    TESWaterSystem_UpdateLODWater(camera, waterNewFrame);
     if (!state.NiTListBase_DFALL_NiTListItem_BSAnimGroupSequence_const_BSAnimGroupSequence_const_IsEmpty() || waterForceA || waterForceB)
     {
         UpdateWaterGroups(camera, waterNewFrame);
@@ -4633,11 +4642,12 @@ struct WaterSystemUpdate : TESWaterSystem
     NiGeometry* TESWaterSystem_GetWaterGeometry(TESObjectREFR*);
     void ClearTextureAndShaderTextures(WaterGroup*, int, int);
     void TESWaterSystem_UpdateWaterShaderProperties(WaterGroup*);
-    void UpdateWaterGroup(void* context, bool force);
+    void TESWaterSystem_UpdateLODWater(void* context, bool force);
 };
 // Iterates the group's water references, marks the group for update when a reference needs it or force is set, and updates or clears each water shader property.
 // @fnv 0x004e3320
-void WaterSystemUpdate::UpdateWaterGroup(void* context, bool force)
+// src: COMMUNITY 0x004e3320
+void WaterSystemUpdate::TESWaterSystem_UpdateLODWater(void* context, bool force)
 {
     if (group)
     {
@@ -5753,10 +5763,11 @@ struct Main61
     int unk44;
     Water61* water;
     void TESWaterSystem_EnableWaterSystem();
-    Reference61* CreateWaterReference(Node61*, World61*, Node61*, Node61*, bool);
+    Reference61* TESWaterSystem_AddLODWater(Node61*, World61*, Node61*, Node61*, bool);
 };
 // @fnv 0x004e4c80
-Reference61* Main61::CreateWaterReference(Node61* geometry, World61* world, Node61* parent, Node61* intermediate,
+// src: COMMUNITY 0x004e4c80
+Reference61* Main61::TESWaterSystem_AddLODWater(Node61* geometry, World61* world, Node61* parent, Node61* intermediate,
                                           bool extra)
 {
     if (!DAT_011dea10->FUN_004fd3e0()->IsFlagSet() && !world->IsFlagSet())
@@ -5977,11 +5988,12 @@ class WaterSystem5370
     WaterGeom* TESWaterSystem_GetWaterGeometry(TESObjectREFR*);
     void ReleaseWaterResources(int, int);
     void SetBitFlagsOnListItems();
-    bool RemoveWaterRef(TESObjectREFR* apRef, const NiPoint3* apPos, const WaterRotation* apRot);
+    bool TESWaterSystem_RemovePlaceableWater(TESObjectREFR* apRef, const NiPoint3* apPos, const WaterRotation* apRot);
 };
 
 // @fnv 0x004e5370
-bool WaterSystem5370::RemoveWaterRef(TESObjectREFR* apRef, const NiPoint3* apPos, const WaterRotation* apRot)
+// src: COMMUNITY 0x004e5370
+bool WaterSystem5370::TESWaterSystem_RemovePlaceableWater(TESObjectREFR* apRef, const NiPoint3* apPos, const WaterRotation* apRot)
 {
     if (DAT_01189624 && *g_011c7adc.Bool())
     {
@@ -6300,10 +6312,11 @@ void __cdecl TESObjectREFR_RemoveMasterParticleAddonNodes(void*);
 struct Target5c80
 {
     Entry5c80* FUN_004e59f0(void*, Object5c80*, float);
-    void AddObjectToEntry(void*, Object5c80*, float);
+    void TESWaterSystem_AddTESObjectToWaterGroup(void*, Object5c80*, float);
 };
 // @fnv 0x004e5c80
-void Target5c80::AddObjectToEntry(void* location, Object5c80* object, float distance)
+// src: COMMUNITY 0x004e5c80
+void Target5c80::TESWaterSystem_AddTESObjectToWaterGroup(void* location, Object5c80* object, float distance)
 {
     if (!location && !object->FUN_008d6f30())
         return;
@@ -6957,16 +6970,17 @@ struct FUN_004e8160_shell
     float f98;
 
     void* TESWaterSystem_CreateQuadData(float fSize, int iCount, int iA, unsigned char ucB, unsigned char ucC);
-    Node4e8* CreateRenderedTexture(void* pkGeometry);
+    Node4e8* TESWaterSystem_CreateQuadShape(void* pkGeometry);
     Geom4e8* TESWaterSystem_GetWaterGeometry(void* pkRef);
-    Node4e8* CreateWaterShaderNode(Water4e8* pkWater, int iUnused, float fSize);
+    Node4e8* TESWaterSystem_CreateWadingWaterGeometry(Water4e8* pkWater, int iUnused, float fSize);
 };
 
 // @fnv 0x004e8160
-Node4e8* FUN_004e8160_shell::CreateWaterShaderNode(Water4e8* pkWater, int iUnused, float fSize)
+// src: COMMUNITY 0x004e8160
+Node4e8* FUN_004e8160_shell::TESWaterSystem_CreateWadingWaterGeometry(Water4e8* pkWater, int iUnused, float fSize)
 {
     void* pkMGeometry = TESWaterSystem_CreateQuadData(fSize, 0x200, 1, 1, 1);
-    Node4e8* pkANode = CreateRenderedTexture(pkMGeometry);
+    Node4e8* pkANode = TESWaterSystem_CreateQuadShape(pkMGeometry);
     NiPoint3 kPos(0.0f, 0.0f, 0.0f);
     if (DAT_011dea3c)
         pkANode->NiAVObject_SetTranslate(DAT_011dea3c->FUN_00436aa0());
@@ -8075,7 +8089,7 @@ struct ConstraintReference
 };
 struct Cell
 {
-    N* GetCellNodeAt(int);
+    N* TESObjectCELL_GetLandNode(int);
 };
 struct CellHandle
 {
@@ -8414,7 +8428,7 @@ void Target::TESWaterSystem_MTSetupSelectiveReflectionTexture(void* input, State
                                             if (cell)
                                                 for (int k = 0; k < 4; ++k)
                                                 {
-                                                    N* node = owner->cell->GetCellNodeAt(k);
+                                                    N* node = owner->cell->TESObjectCELL_GetLandNode(k);
                                                     state->nodes.NiTPointerListBase_NiTPointerAllocator_unsigned_int_unsigned_int_AddHead(node);
                                                 }
                                         }
@@ -9635,7 +9649,7 @@ struct Ref074
 };
 struct Cell074
 {
-    NiAVObject* GetCellNodeAt(unsigned int);
+    NiAVObject* TESObjectCELL_GetLandNode(unsigned int);
 };
 struct Extra074
 {
@@ -9937,7 +9951,7 @@ void Owner074::RenderWaterRefs(NiCamera* camera, State074* state)
                                             {
                                                 for (int i = 0; i < 4; i++)
                                                 {
-                                                    NiAVObject* child = (*value)->GetCellNodeAt(i);
+                                                    NiAVObject* child = (*value)->TESObjectCELL_GetLandNode(i);
                                                     state->nodes.NiTPointerListBase_NiTPointerAllocator_unsigned_int_unsigned_int_AddHead(static_cast<void*>(child));
                                                 }
                                             }

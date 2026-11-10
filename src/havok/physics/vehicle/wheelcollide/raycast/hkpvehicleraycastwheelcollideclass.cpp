@@ -7,25 +7,26 @@
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance();
 
-struct FUN_00dfeb10
+struct hkpVehicleRayCastWheelCollide
 {
     unsigned short m_u04;
     unsigned short m_u06;
-    FUN_00dfeb10();
-    virtual ~FUN_00dfeb10();
+    hkpVehicleRayCastWheelCollide();
+    virtual ~hkpVehicleRayCastWheelCollide();
     static void operator delete(void* apMemory)
     {
         hkMemoryRouter* pHolder = hkMemoryRouter_getInstance();
-        unsigned int uiSize = ((FUN_00dfeb10*)apMemory)->m_u04;
+        unsigned int uiSize = ((hkpVehicleRayCastWheelCollide*)apMemory)->m_u04;
         hkMemoryAllocator* pAllocator = reinterpret_cast<hkMemoryAllocator*>(pHolder->m_heap);
         typedef void (__thiscall *FreeFunction)(hkMemoryAllocator*, void*, unsigned int);
         (*reinterpret_cast<FreeFunction**>(pAllocator))[2](pAllocator, apMemory, uiSize);
     }
 };
 
-// Initialises m_u04 and m_u06 to zero for a FUN_00dfeb10 instance.
+// Initialises m_u04 and m_u06 to zero for a hkpVehicleRayCastWheelCollide instance.
 // @fnv 0x00dfeb10
-FUN_00dfeb10::FUN_00dfeb10()
+// src: EXE 0x00dfeb10
+hkpVehicleRayCastWheelCollide::hkpVehicleRayCastWheelCollide()
 {
     m_u04 = 0;
     m_u06 = 0;

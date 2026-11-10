@@ -127,14 +127,14 @@ void CombatProcedureAttackGrenade::Shutdown_009cafc0()
     CombatProcedure::RunProcedure();
 }
 
-struct FUN_009cb440_shell
+struct CombatState
 {
     void __thiscall CombatState_SetTargetFlushed(unsigned char b);
 };
 
 // @fnv 0x009cb440
 // src: XBOX_PDB 0x009cb440
-void __thiscall FUN_009cb440_shell::CombatState_SetTargetFlushed(unsigned char b)
+void __thiscall CombatState::CombatState_SetTargetFlushed(unsigned char b)
 {
     *reinterpret_cast<unsigned char*>(this + 0x73) = b;
 }
@@ -144,12 +144,13 @@ void __cdecl Deallocate(void*);
 struct FUN_009caeb0_shell
 {
     void __thiscall UpdateFields_009cafa0();
-    void* __thiscall FUN_009caeb0(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls FUN_009cafa0, then frees this object with Deallocate when flags has bit 0 set, and returns this.
 // @fnv 0x009caeb0
-void* __thiscall FUN_009caeb0_shell::FUN_009caeb0(unsigned int flags)
+// src: EXE 0x009caeb0
+void* __thiscall FUN_009caeb0_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     UpdateFields_009cafa0();
     if (flags & 1)
@@ -177,7 +178,7 @@ void FUN_009cafa0_shell::UpdateFields_009cafa0()
 extern Setting originalRuntimeFloatSetting375;
 struct IMH
 {
-    struct FUN_009cb440_shell* CombatController_GetCombatState();
+    struct CombatState* CombatController_GetCombatState();
 };
 struct Helper_caae0
 {
@@ -549,7 +550,7 @@ NiPoint3 CombatProcedureShell::GetPathingPoint()
         return NiPoint3_ZERO;
     }
     TESObjectREFR* ref = unk04->GetCurrentWeapon();
-    PathingRequest* req = ref->GetOrFallback(CombatProcedure_GetAttacker());
+    PathingRequest* req = ref->TESObjectWEAP_GetProjectile(CombatProcedure_GetAttacker());
     float dist = req->GetFloatAtOffset68() * (b30 ? *originalRuntimeFloatSetting375.Float() : 1.0f);
     NiPoint3 point;
     if (!b14)
@@ -1080,7 +1081,7 @@ struct MidObj
 };
 struct Obj703
 {
-    MidObj* GetOrFallback(ActorObj* a);
+    MidObj* TESObjectWEAP_GetProjectile(ActorObj* a);
 };
 struct Obj586
 {
@@ -1147,7 +1148,7 @@ void Package::UpdateWeaponFire()
     s = m_04->GetCurrentWeapon();
     Obj70* aPObj;
     aPObj = actor2->vfn_1e4();
-    if (!s || !aPObj || !s->GetOrFallback(actor2))
+    if (!s || !aPObj || !s->TESObjectWEAP_GetProjectile(actor2))
     {
         CombatProcedure_SetFailed("Missing either weapon, animation, or weapon projectile");
         return;
@@ -1183,7 +1184,7 @@ void Package::UpdateWeaponFire()
     CombatUtilities_ComputeOptimalWeaponRanges(m_04, s, &reinterpret_cast<NiPoint3&>(dir3).x, &reinterpret_cast<NiPoint3&>(dir3).y, &reinterpret_cast<NiPoint3&>(dir3).z);
     float kIter[3];
     m_24.SubtractIntoVector(&reinterpret_cast<NiPoint3&>(kIter), actor2->vfn_1f4());
-    if (reinterpret_cast<NiPoint3&>(kIter).GetSquaredXYLength() > reinterpret_cast<NiPoint3&>(dir3).z * reinterpret_cast<NiPoint3&>(dir3).z)
+    if (reinterpret_cast<NiPoint3&>(kIter).NiPoint3_SqrXYLength() > reinterpret_cast<NiPoint3&>(dir3).z * reinterpret_cast<NiPoint3&>(dir3).z)
     {
         ClearLookAtTarget_00996ea0();
         m_10 = 0;
@@ -1202,7 +1203,7 @@ void Package::UpdateWeaponFire()
         return;
     }
     SoundObj* idx;
-    idx = s->GetOrFallback(actor2)->BGSProjectile_GetExplosion();
+    idx = s->TESObjectWEAP_GetProjectile(actor2)->BGSProjectile_GetExplosion();
     NiPoint3* AP;
     float CTmp[3];
     if (idx)
@@ -1215,7 +1216,7 @@ void Package::UpdateWeaponFire()
         }
     }
     MidObj* pForm;
-    pForm = s->GetOrFallback(actor2);
+    pForm = s->TESObjectWEAP_GetProjectile(actor2);
     if (!m_14)
     {
         if (!CombatUtilities_CheckProjectileArc(actor2, i, pForm, 0, &m_30, &m_24, -1.0f))

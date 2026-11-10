@@ -31,7 +31,8 @@ FogPropertyWithBase::FogPropertyWithBase()
 
 // Stores a scaled depth value at offset 0x2c and the constant 163840.0f at offset 0x30.
 // @fnv 0x00bb8140
-void __fastcall SetDepthParams(FogPropertyWithBase* property, void*, float afDepth)
+// src: COMMUNITY 0x00bb8140
+void __fastcall BSFogProperty_SetDepth(FogPropertyWithBase* property, void*, float afDepth)
 {
     property->m_fFogStartDistance = (1.0 - afDepth * DAT_010b9e30) * DAT_0103a480;
     property->m_fFogEndDistance = 163840.0f;

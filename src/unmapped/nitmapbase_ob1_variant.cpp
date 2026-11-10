@@ -27,7 +27,7 @@ public:
 };
 
 extern int DAT_01189c40;
-struct FUN_00404b10_class
+struct GameSettingCollection
 {
     void* m_p;
     void __thiscall FUN_00404b90(int);

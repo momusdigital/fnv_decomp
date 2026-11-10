@@ -47,7 +47,7 @@ public:
     float GetValue();
     float TESEffectShader_GetAddOnScaleStart();
     float TESObjectWEAP_GetFiringRumbleRightMotorStrength();
-    void UpdateShaderState(Texture*, float, float, float, bool);
+    void TESEffectShader_AnimateTextureEffect(Texture*, float, float, float, bool);
     void FUN_00680110(void*);
     void FUN_00403550(int);
     int FUN_00519b00();

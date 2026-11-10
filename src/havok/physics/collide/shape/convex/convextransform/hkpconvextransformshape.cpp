@@ -453,7 +453,7 @@ struct FUN_00d5de40_Child
     virtual void vf2c();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3c();
     virtual void vf40();
     virtual void vf44(hkVector4* value)
@@ -501,7 +501,8 @@ void FUN_00d5de40_Obj::hkpConvexTransformShape_getCentreImpl(hkVector4* value)
 // The child call at vtable +0x34 is GetFirstVertex; the transform at +0x20 identifies the convex transform shape.
 // The shared host header omits this override; unused EDX preserves its thiscall ABI without a local class copy.
 // @fnv 0x00d5dea0
-void __fastcall GetConvexTransformFirstVertex(const hkpConvexTransformShape* self, void*, hkVector4q& vertexOut)
+// src: EXE 0x00d5dea0
+void __fastcall hkpConvexTransformShape_getFirstVertex(const hkpConvexTransformShape* self, void*, hkVector4q& vertexOut)
 {
     __declspec(align(16)) hkVector4 childVertex;
     static_cast<const hkpConvexShape*>(self->m_pContainedShape.m_pContainedShape)->GetFirstVertex(childVertex);
@@ -588,7 +589,7 @@ struct TransformChild
     virtual void vf2c();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3c(int a, int b, int c);
 };
 

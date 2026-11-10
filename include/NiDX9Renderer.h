@@ -83,7 +83,7 @@ public:
     virtual void Unk_4D(unsigned int arg0, unsigned int arg1);
     virtual void Unk_4E(void* buf);
     virtual void CreateSourceTexture(NiSourceTexture* texture);
-    virtual bool CreateRenderedTexture(NiRenderedTexture* texture,
+    virtual bool TESWaterSystem_CreateQuadShape(NiRenderedTexture* texture,
                                                Ni2DBuffer::MultiSamplePreference preference);
 
     virtual void vf81();

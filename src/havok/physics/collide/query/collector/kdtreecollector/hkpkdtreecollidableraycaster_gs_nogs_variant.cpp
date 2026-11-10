@@ -105,14 +105,14 @@ struct SpawnedBase
     virtual ~SpawnedBase()
     {}
 };
-struct FUN_00d979f0_cls : SpawnedBase
+struct hkKdTreeCollidableRayBundleCaster : SpawnedBase
 {
     int m_i04;
     int m_i08;
     int m_i0C;
     int m_i10;
 
-    FUN_00d979f0_cls* ResetFields() throw();
+    hkKdTreeCollidableRayBundleCaster* ResetFields() throw();
 };
 
 #include <xmmintrin.h>

@@ -154,11 +154,12 @@ struct FUN_00b01020_Holder
 extern MemoryManager g_memoryManager;
 struct FUN_00b01310_shell
 {
-    void* FUN_00b01310(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_00b01020 on this, deallocates this via g_memoryManager when flags has bit 1 set, and returns this.
 // @fnv 0x00b01310
-void* FUN_00b01310_shell::FUN_00b01310(unsigned int flags)
+// src: EXE 0x00b01310
+void* FUN_00b01310_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     ((FUN_00b01020_Holder*)this)->FUN_00b01020();
     if (flags & 1)

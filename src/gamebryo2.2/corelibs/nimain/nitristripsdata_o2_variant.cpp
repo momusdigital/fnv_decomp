@@ -102,7 +102,8 @@ NiTriStripsData::NiTriStripsData(unsigned short vertices, NiPoint3* vertexData, 
 unsigned int __fastcall GetGeometryBlockAllocationSize(NiGeometryData*);
 
 // @fnv 0x00a76020
-unsigned int __fastcall GetTriangleStripBlockAllocationSize(NiTriStripsData* self)
+// src: EXE 0x00a76020
+unsigned int __fastcall NiTriStripsData_GetBlockAllocationSize(NiTriStripsData* self)
 {
     unsigned short listLen = self->m_usTriangles + self->m_usStrips * 2;
     unsigned int size = (listLen + self->m_usStrips) * 2;
@@ -193,7 +194,8 @@ unsigned int NiGetViewerString_00a7d5a0(const void*, const void*);
 void __fastcall AppendTriangleDataViewerStrings(NiTriBasedGeomData*, void*, StripViewerArray&);
 
 // @fnv 0x00a76430
-void __fastcall GetTriangleStripViewerStrings(NiTriStripsData* self, void* unused, StripViewerArray& stream)
+// src: EXE 0x00a76430
+void __fastcall NiTriStripsData_GetViewerStrings(NiTriStripsData* self, void* unused, StripViewerArray& stream)
 {
     AppendTriangleDataViewerStrings(self, unused, stream);
     unsigned int entry = NiViewerStrings_NiGetViewerString_Title(*reinterpret_cast<const NiRTTI* const*>(&DAT_011f4a70));
@@ -297,7 +299,8 @@ void NiTriStripsData::LoadBinary(NiStream& stream)
 
 // The shared strip-data header has no triangle-index override.
 // @fnv 0x00a75e40
-void __fastcall GetTriangleStripIndices(const NiTriStripsData* self, void*, unsigned short i,
+// src: EXE 0x00a75e40
+void __fastcall NiTriStripsData_GetTriangleIndices(const NiTriStripsData* self, void*, unsigned short i,
                                         unsigned short& i0, unsigned short& i1, unsigned short& i2)
 {
     unsigned short* pusStripLists = self->m_pusStripLists;

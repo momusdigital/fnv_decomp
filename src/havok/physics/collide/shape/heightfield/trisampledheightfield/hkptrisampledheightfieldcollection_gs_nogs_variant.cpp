@@ -11,7 +11,7 @@
 
 __forceinline hkAabb::hkAabb() {}
 
-struct FUN_00d26460_cls
+struct hkpTriSampledHeightFieldCollection
 {
     int unk00;
     int unk04;
@@ -31,7 +31,7 @@ struct FUN_00d26460_cls
 };
 // @fnv 0x00d26460
 // src: XBOX_PDB 0x00d26460
-void FUN_00d26460_cls::hkpTriSampledHeightFieldCollection_getAabb(const hkTransform& kTransform, float fTolerance, hkAabb& kAabbOut)
+void hkpTriSampledHeightFieldCollection::hkpTriSampledHeightFieldCollection_getAabb(const hkTransform& kTransform, float fTolerance, hkAabb& kAabbOut)
 {
     hkAabb kAabb;
     hkpTriSampledHeightFieldCollection_getHeightFieldShape()->CalculateAabb(kTransform,

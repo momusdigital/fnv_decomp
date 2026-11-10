@@ -46,10 +46,10 @@ __forceinline void Vec4::set(float start, float end)
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 extern "C" void __cdecl Deallocate(void*);
 extern int DAT_010c63bc;
-struct FUN_00d04300
+struct hkpBroadPhaseListener
 {
     int* m_p;
-    FUN_00d04300(bool del);
+    hkpBroadPhaseListener(bool del);
 };
 int __fastcall hkpMultiThreadedSimulation_getMultithreadConfig(int self, int, int* out);
 void __fastcall hkpMultiThreadedSimulation_setMultithreadConfig(void* this_, int, int* arg, int);
@@ -272,7 +272,7 @@ struct FUN_00c90f30
     int value;
     __declspec(nothrow) FUN_00c90f30();
 };
-struct FUN_00d02c80 : FUN_00d0d020
+struct hkpMultiThreadedSimulation : FUN_00d0d020
 {
     virtual void method0();
     ListenerA a;
@@ -313,7 +313,7 @@ struct FUN_00d02c80 : FUN_00d0d020
     int unk138;
     int unk13C;
     FUN_00cf6da0 workLock;
-    FUN_00d02c80(World*);
+    hkpMultiThreadedSimulation(World*);
 };
 // FUN_00d01fc0  (0x00d01fc0, 89 bytes)
 //
@@ -381,7 +381,7 @@ struct PairArray
 char* __cdecl hkMemoryRouter_getInstance();
 void __cdecl ResizeAudioStream(void* alloc, PairArray* arr, int elemSize);
 void __cdecl hkpWorldAgentUtil_addAgent(char* a, char* b, char* c);
-struct FUN_00d026e0_cls
+struct MtEntityEntityBroadPhaseListener
 {
     int unk00;
     char* m_04;
@@ -966,7 +966,7 @@ struct FUN_00d02e70_cls
     Event* items30;
     int count34;
     unsigned int capacity38;
-    void AddToiEvent(char* input, EventMeta* meta, CRITICAL_SECTION* cs);
+    void hkpMultiThreadedSimulation_addToiEventWithCriticalSectionLock(char* input, EventMeta* meta, CRITICAL_SECTION* cs);
 };
 template <class T> __forceinline void exchangePairField(T& a, T& b)
 {
@@ -1055,7 +1055,7 @@ struct Job
 struct Jobs : RuntimeBase
 {
     virtual void start(Job*, int);
-    virtual void wait();
+    virtual void hkSemaphore_release();
 };
 struct Entity;
 struct Body;
@@ -2060,7 +2060,7 @@ struct StepWorld
     void IncrementCounter();
     void nullsub_6();
     void FUN_00c91120();
-    void UpdateFields_00c91140();
+    void hkpWorld_internalExecutePendingBodyOperations();
     void hkpWorld_unlock();
     int hkpWorld_getMemoryWatchDog();
 };
@@ -2263,7 +2263,7 @@ struct Stepper
 
     int f100;
 
-    void AddToiEvent(Output*, Agent*, void*);
+    void hkpMultiThreadedSimulation_addToiEventWithCriticalSectionLock(Output*, Agent*, void*);
 
     int hkpMultiThreadedSimulation_finishMtStep(Job*, Jobs*);
 };
@@ -4331,7 +4331,7 @@ struct SubObj
         return m_78;
     }
     void FUN_00c91120();
-    void UpdateFields_00c91140();
+    void hkpWorld_internalExecutePendingBodyOperations();
 };
 struct ElemSub
 {
@@ -5181,13 +5181,13 @@ struct Obj
             if (m_8c)
                 FUN_00c91120();
             if (m_a4 == 1 && m_90)
-                UpdateFields_00c91140();
+                hkpWorld_internalExecutePendingBodyOperations();
         }
     }
     void* hkpWorld_getMemoryWatchDog();
     void ComputeMemoryUsage(MemoryInfo* out);
     void FUN_00c91120();
-    void UpdateFields_00c91140();
+    void hkpWorld_internalExecutePendingBodyOperations();
     void nullsub_6();
 };
 struct Simulation

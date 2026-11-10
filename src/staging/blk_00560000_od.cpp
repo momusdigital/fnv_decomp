@@ -89,8 +89,8 @@ public:
     float DotProduct(const LocalVec3* other) const;
     float Length() const;
     float LengthSquared() const;
-    float GetSquaredXYLength();
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength();
+    float NiPoint3_SqrXYLength() const;
     Elem16& expand(Allocator& allocator);
 
     void SetComponents(float x, float y, float z);
@@ -245,27 +245,28 @@ BSExtraData* TESObjectREFR::GetExtraData(unsigned char type) const
 struct ABD_005f92d0
 {
     bool GetFlag(unsigned int) const;
-    bool GetFlag8();
+    bool TESActorBaseData_GetRespawn();
 };
 
 // @fnv 0x0056af00
-bool ABD_005f92d0::GetFlag8()
+// src: COMMUNITY 0x0056af00
+bool ABD_005f92d0::TESActorBaseData_GetRespawn()
 {
     return GetFlag(8);
 }
 
-struct FUN_0056af20_Class
+struct TESObjectCONT
 {
     bool __thiscall IsFlag2Set();
 };
 
 // @fnv 0x0056af20
-bool __thiscall FUN_0056af20_Class::IsFlag2Set()
+bool __thiscall TESObjectCONT::IsFlag2Set()
 {
     return (signed char)((char*)this)[0x98] & 2;
 }
 
-struct FUN_0056d360_Class
+struct bhkRigidBodyCinfo
 {
     void bhkRigidBodyCinfo_SetMotionType(int a);
 };
@@ -277,7 +278,7 @@ struct FUN_005407b0_Class
 
 // @fnv 0x0056d360
 // src: COMMUNITY 0x0056d360
-void FUN_0056d360_Class::bhkRigidBodyCinfo_SetMotionType(int aiValue)
+void bhkRigidBodyCinfo::bhkRigidBodyCinfo_SetMotionType(int aiValue)
 {
     ((FUN_005407b0_Class*)((char*)this + 0xd4))->UpdateState_005407b0(aiValue);
 }
@@ -289,7 +290,7 @@ struct FUN_0056d610_base
     virtual ~FUN_0056d610_base();
 };
 
-struct FUN_0056d5f0_class : FUN_0056d610_base
+struct bhkWaterPhantomCallbackShape : FUN_0056d610_base
 {
     void SetVtableAndProcessState_0056d610();
     void* bhkWaterPhantomCallbackShape_bhkWaterPhantomCallbackShape();
@@ -297,7 +298,7 @@ struct FUN_0056d5f0_class : FUN_0056d610_base
 
 // @fnv 0x0056d5f0
 // src: EXE 0x0056d5f0
-void* FUN_0056d5f0_class::bhkWaterPhantomCallbackShape_bhkWaterPhantomCallbackShape()
+void* bhkWaterPhantomCallbackShape::bhkWaterPhantomCallbackShape_bhkWaterPhantomCallbackShape()
 {
     SetVtableAndProcessState_0056d610();
     *reinterpret_cast<void**>(this) = &DAT_01030534;
@@ -306,16 +307,16 @@ void* FUN_0056d5f0_class::bhkWaterPhantomCallbackShape_bhkWaterPhantomCallbackSh
 
 extern int DAT_01030570;
 
-struct FUN_0056d610Class
+struct hkpPhantomCallbackShape
 {
     void __thiscall FUN_0056d640(int);
-    FUN_0056d610Class* __thiscall SetVtableAndProcessState_0056d610();
+    hkpPhantomCallbackShape* __thiscall SetVtableAndProcessState_0056d610();
 };
 
 // Calls FUN_0056d640 with 0x1d, stores the address of DAT_01030570 at the start of this, and returns this.
 // @fnv 0x0056d610
 // src: GUESS 0x0056d610 (confidence: low)
-FUN_0056d610Class* __thiscall FUN_0056d610Class::SetVtableAndProcessState_0056d610()
+hkpPhantomCallbackShape* __thiscall hkpPhantomCallbackShape::SetVtableAndProcessState_0056d610()
 {
     FUN_0056d640(0x1d);
     *reinterpret_cast<int**>(this) = &DAT_01030570;
@@ -411,12 +412,13 @@ struct FUN_0056d610
 {
     void __thiscall Init();
 };
-struct FUN_0056f690
+struct bhkAcousticSpacePhantomCallbackShape
 {
-    FUN_0056f690();
+    bhkAcousticSpacePhantomCallbackShape();
 };
 // @fnv 0x0056f690
-FUN_0056f690::FUN_0056f690()
+// src: EXE 0x0056f690
+bhkAcousticSpacePhantomCallbackShape::bhkAcousticSpacePhantomCallbackShape()
 {
     ((FUN_0056d610*)this)->Init();
     *(int*)this = (int)&DAT_01030dc0;
@@ -435,7 +437,7 @@ bool FUN_00456630_helper::NiAVObject_GetHasMovingSound()
     return NiAVObject_GetBit(0x20000);
 }
 
-int __fastcall GetByteAtOffset38(void*);
+int __fastcall TESObjectCELL_GetState(void*);
 struct FUN_00570ec0
 {
     int __thiscall Get();
@@ -443,7 +445,7 @@ struct FUN_00570ec0
 // @fnv 0x00570ec0
 int __thiscall FUN_00570ec0::Get()
 {
-    return !(GetByteAtOffset38(this) - 1);
+    return !(TESObjectCELL_GetState(this) - 1);
 }
 
 struct FUN_00570ee0_class
@@ -459,14 +461,14 @@ void FUN_00570ee0_class::BSFadeNode_HasMovingSound()
     NiAVObject_GetHasMovingSound();
 }
 
-struct FUN_00570f40_Class
+struct BGSSaveLoadGame
 {
     bool BGSSaveLoadGame_GetGlobalAllowChanges() const;
 };
 
 // @fnv 0x00570f40
 // src: COMMUNITY 0x00570f40
-bool FUN_00570f40_Class::BGSSaveLoadGame_GetGlobalAllowChanges() const
+bool BGSSaveLoadGame::BGSSaveLoadGame_GetGlobalAllowChanges() const
 {
     return (((*reinterpret_cast<const unsigned int*>(reinterpret_cast<const char*>(this) + 0x244)) & 1) == 0) ? true
                                                                                                               : false;
@@ -477,7 +479,7 @@ struct FUN_006205e0_shell
 {
     void __thiscall RemoveNode(void*);
 };
-struct FUN_00576830_shell
+struct BGSZoneTargetListener
 {
     void* BGSZoneTargetListener_GetZoneEntry(BSOcclusionPlane*);
     void BGSZoneTargetListener_RemoveZone(BSOcclusionPlane* p);
@@ -485,7 +487,7 @@ struct FUN_00576830_shell
 // Calls FUN_00576830 on the occlusion plane, then passes the result to RemoveNode on this object.
 // @fnv 0x00576800
 // src: COMMUNITY 0x00576800
-void FUN_00576830_shell::BGSZoneTargetListener_RemoveZone(BSOcclusionPlane* apPlane)
+void BGSZoneTargetListener::BGSZoneTargetListener_RemoveZone(BSOcclusionPlane* apPlane)
 {
     ((FUN_006205e0_shell*)this)->RemoveNode(BGSZoneTargetListener_GetZoneEntry(apPlane));
 }
@@ -496,14 +498,14 @@ struct V4_538f40
 };
 struct FUN_00577070_class
 {
-    void UpdateState_00577090();
+    void hkMatrix3_setIdentity();
     void hkTransform_setIdentity();
 };
 // @fnv 0x00577070
 // src: COMMUNITY 0x00577070
 void FUN_00577070_class::hkTransform_setIdentity()
 {
-    UpdateState_00577090();
+    hkMatrix3_setIdentity();
     ((V4_538f40*)((char*)this + 0x30))->hkVector4_setZero4();
 }
 
@@ -605,11 +607,12 @@ void* __thiscall FUN_0057c370_Class::FUN_0057c370(unsigned int flags)
 struct FUN_0057c4a0_Class
 {
     void __thiscall FUN_0057c780();
-    void* __thiscall FUN_0057c4a0(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_0057c780, then deletes this if flags has bit 0 set, and returns this.
 // @fnv 0x0057c4a0
-void* FUN_0057c4a0_Class::FUN_0057c4a0(unsigned int flags)
+// src: EXE 0x0057c4a0
+void* FUN_0057c4a0_Class::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0057c780();
     if (flags & 1)
@@ -666,7 +669,7 @@ void* FUN_0057ca90_Class::FUN_0057ca90(unsigned int flags)
 
 struct FUN_00560d10_shell
 {
-    float& __thiscall GetVectorElement_Thunk(unsigned int);
+    float& __thiscall bhkCharacterController_GetVectorElement(unsigned int);
 };
 struct Modifier
 {
@@ -681,10 +684,10 @@ struct AlphaColor
 // @fnv 0x00560c80
 Modifier* CopyModifierSettings(Modifier* apModifier, FUN_00560d10_shell* apSource)
 {
-    apModifier->SetValue(apSource->GetVectorElement_Thunk(0));
-    ((FUN_00560cf0_Class*)apModifier)->MuzzleFlash_SetDurationTimer(apSource->GetVectorElement_Thunk(1));
-    ((PackageTargetRecord*)apModifier)->SetTargAcquireRadius(apSource->GetVectorElement_Thunk(2));
-    ((AlphaColor*)apModifier)->TESRegionPoint_SetX(apSource->GetVectorElement_Thunk(3));
+    apModifier->SetValue(apSource->bhkCharacterController_GetVectorElement(0));
+    ((FUN_00560cf0_Class*)apModifier)->MuzzleFlash_SetDurationTimer(apSource->bhkCharacterController_GetVectorElement(1));
+    ((PackageTargetRecord*)apModifier)->SetTargAcquireRadius(apSource->bhkCharacterController_GetVectorElement(2));
+    ((AlphaColor*)apModifier)->TESRegionPoint_SetX(apSource->bhkCharacterController_GetVectorElement(3));
     return apModifier;
 }
 
@@ -1006,7 +1009,7 @@ struct PhysicsAccessHook
 {
     void __thiscall CheckAccess();
 };
-struct FUN_00c9e910_Class
+struct hkpShapePhantom
 {
     void __thiscall hkpShapePhantom_setTransform(int a);
 };
@@ -1022,7 +1025,7 @@ void __thiscall FUN_0056e050_Class::bhkShapePhantom_setTransform(int a)
     if (p)
     {
         ((PhysicsAccessHook*)this)->CheckAccess();
-        ((FUN_00c9e910_Class*)p)->hkpShapePhantom_setTransform(a);
+        ((hkpShapePhantom*)p)->hkpShapePhantom_setTransform(a);
         ((PhysicsAccessHook*)this)->CheckAccess();
     }
 }
@@ -1052,18 +1055,18 @@ void __thiscall ReferencePositionAccess::SetZ(float afZ)
 
 struct FUN_00577110_shell
 {
-    void ProcessState_00577110();
+    void hkMatrix3_setZero();
 };
 struct FUN_00577090_shell : FUN_005770e0_shell
 {
-    void UpdateState_00577090();
+    void hkMatrix3_setIdentity();
 };
 // Calls FUN_00577110 on this, then sets the base-class elements at indices 0, 1 and 2 to 1.0f.
 // @fnv 0x00577090
-// src: GUESS 0x00577090 (confidence: low)
-void FUN_00577090_shell::UpdateState_00577090()
+// src: COMMUNITY 0x00577090
+void FUN_00577090_shell::hkMatrix3_setIdentity()
 {
-    ((FUN_00577110_shell*)this)->ProcessState_00577110();
+    ((FUN_00577110_shell*)this)->hkMatrix3_setZero();
     float f = 1.0f;
     FUN_005770e0_shell::GetCharacterControllerValue(0, 0) = f;
     FUN_005770e0_shell::GetCharacterControllerValue(1, 1) = f;
@@ -1682,7 +1685,7 @@ bool ReferenceAnimationAccess::TESObjectREFR_CheckSaveAnimation()
     return false;
 }
 
-struct SceneObject : FUN_0056af20_Class
+struct SceneObject : TESObjectCONT
 {
     int FUN_00401170();
 };
@@ -1692,7 +1695,7 @@ struct FUN_0056ae60_Class
     bool TESObjectREFR_IsLeveledCreature();
     SceneObject* BGSSaveFormBuffer_GetForm();
 };
-// Returns false if FUN_0056af40 is true; otherwise switches on the type from FUN_007af430 and calls GetFlag8 or IsFlag2Set on the object.
+// Returns false if FUN_0056af40 is true; otherwise switches on the type from FUN_007af430 and calls TESActorBaseData_GetRespawn or IsFlag2Set on the object.
 // @fnv 0x0056ae60
 // src: XBOX_PDB 0x0056ae60
 bool FUN_0056ae60_Class::TESObjectREFR_GetRespawn()
@@ -1709,7 +1712,7 @@ bool FUN_0056ae60_Class::TESObjectREFR_GetRespawn()
                 SceneObject* object = BGSSaveFormBuffer_GetForm();
                 if (object)
                 {
-                    result = reinterpret_cast<ABD_005f92d0*>(reinterpret_cast<char*>(object) + 0x30)->GetFlag8();
+                    result = reinterpret_cast<ABD_005f92d0*>(reinterpret_cast<char*>(object) + 0x30)->TESActorBaseData_GetRespawn();
                 }
             }
             break;
@@ -2158,7 +2161,7 @@ void SceneSounds57::TESObjectREFR_UpdateAddonNodeSoundsRecursive(NiAVObject* obj
             {
                 if (extra.operator->())
                 {
-                    object->DeleteExtraDataByKey(BGSAddonNodeSoundHandleExtra_Tag());
+                    object->NiObjectNET_RemoveExtraData(BGSAddonNodeSoundHandleExtra_Tag());
                     extra->handle.Stop();
                     extra->handle.Release();
                 }
@@ -2431,7 +2434,7 @@ void C_56d250::ForwardCall_0056d250()
 
 // @fnv 0x00560d10
 // src: GUESS 0x00560d10 (confidence: medium)
-float& FUN_00560d10_shell::GetVectorElement_Thunk(unsigned int i)
+float& FUN_00560d10_shell::bhkCharacterController_GetVectorElement(unsigned int i)
 {
     return reinterpret_cast<bhkCharacterController*>(this)->GetVectorElement(i);
 }
@@ -2443,7 +2446,7 @@ struct FUN_00576870_class
 // Calls FUN_00576870 on the object at offset 4 when that pointer is non-null, passing p, and returns the result or 0.
 // @fnv 0x00576830
 // src: COMMUNITY 0x00576830
-void* FUN_00576830_shell::BGSZoneTargetListener_GetZoneEntry(BSOcclusionPlane* apOcclusionPlane)
+void* BGSZoneTargetListener::BGSZoneTargetListener_GetZoneEntry(BSOcclusionPlane* apOcclusionPlane)
 {
     return *(FUN_00576870_class**)((char*)this + 4)
                ? (*(FUN_00576870_class**)((char*)this + 4))->ZoneEntry_GetZoneEntry_0(apOcclusionPlane)

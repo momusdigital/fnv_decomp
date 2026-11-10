@@ -163,7 +163,8 @@ struct Rel
 void __fastcall FUN_00a8f490(NiD3DShaderInterface*);
 void __cdecl __Dummy_00b6fef0(void*, unsigned int);
 // @fnv 0x00e81ab0
-NiD3DShaderInterface* __fastcall FUN_00e81ab0(NiD3DShaderInterface* o, int, unsigned int flags)
+// src: EXE 0x00e81ab0
+NiD3DShaderInterface* __fastcall ScalarDeletingDestructor(NiD3DShaderInterface* o, int, unsigned int flags)
 {
     *(int**)o = &DAT_010ef39c;
     Rel* d = (Rel*)o->m_pkD3DDevice;

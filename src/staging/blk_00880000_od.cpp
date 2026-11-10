@@ -149,7 +149,7 @@ void TESObjectREFR::Actor_InitiateSurfacePackage()
     Actor_ForceStopMoving(this);
 
     TESPackage* packageLocation = TESPackage::CreatePackageForType(0x1d);
-    packageLocation->SetPackageType(0x1d);
+    packageLocation->SetPackType(0x1d);
     packageLocation->SetMustReachLocation(true);
     packageLocation->SetMustComplete(true);
 
@@ -361,7 +361,7 @@ bool FUN_00884ae0_cls::Actor_IsFightingOrAlarmed()
 
 struct FUN_004939d0_Class
 {
-    void __thiscall UpdateAnimationForRef(void*);
+    void __thiscall Animation_UpdateMovementNoWorldUpdate(void*);
 };
 
 struct FUN_008885a0_Class
@@ -498,7 +498,7 @@ void __thiscall FUN_008885a0_Class::Actor_UpdateAnimMovement()
 {
     FUN_004939d0_Class* result = FUN_008885a0_Get();
     if (result)
-        result->UpdateAnimationForRef(this);
+        result->Animation_UpdateMovementNoWorldUpdate(this);
 }
 
 const NiFixedString& FixedStrings_QDVPG();
@@ -546,9 +546,9 @@ struct EffectView
     float FUN_004a40e0();
     float FUN_00598040();
     float TESCombatStyle_GetWeaponMinRangeMult();
-    bool CallMemberAtOffset54();
+    bool BGSImpactData_GetAlphaTesting();
     bool BGSImpactData_GetIsAlphaBlend();
-    unsigned int GetNextFromSubobject();
+    unsigned int BGSImpactData_GetDecalColor();
 };
 // 0x0058e9d0 selects BGSImpactData by material; 0x006733e0 returns its decal texture set.
 struct MaterialImpactRecord : EffectView
@@ -586,7 +586,7 @@ struct HitSource
     NiPoint3 normal;
 };
 struct BaseData;
-struct FUN_004a37b0;
+struct DECAL_CREATION_DATA;
 struct AppliedEffect;
 struct ProcessView
 {
@@ -702,9 +702,9 @@ struct ProcessView
 };
 struct AppliedEffect
 {
-    void TESObjectCELL_AddDecal(FUN_004a37b0*, int, char);
+    void TESObjectCELL_AddDecal(DECAL_CREATION_DATA*, int, char);
 };
-struct FUN_004a37b0
+struct DECAL_CREATION_DATA
 {
     NiPoint3 point, normal;
     int unk18, unk1c, unk20, unk24;
@@ -719,7 +719,7 @@ struct FUN_004a37b0
     int unk6c;
     unsigned char f70, f71, f72, f73, f74, f75, f76, f77, f78, f79, f7a, f7b;
     int unk7c;
-    FUN_004a37b0();
+    DECAL_CREATION_DATA();
 };
 struct BaseData
 {
@@ -1186,7 +1186,7 @@ void SpellActor::Actor_CreateBloodOnWeapon(float distance, HitSource* hit, Spell
                 memcpy(&normal9, &playerNormal4, sizeof(normal9));
             else
                 memcpy(&normal9, &hit->normal.GetNegatedVector(), sizeof(normal9));
-            FUN_004a37b0 data;
+            DECAL_CREATION_DATA data;
             memcpy(&data.point, &point, sizeof(data.point));
             memcpy(&data.normal, &normal9, sizeof(data.normal));
             data.node = node2;
@@ -1203,11 +1203,11 @@ void SpellActor::Actor_CreateBloodOnWeapon(float distance, HitSource* hit, Spell
             data.f5c = _projectile->FUN_00598040();
             data.f58 = _projectile->TESCombatStyle_GetWeaponMinRangeMult();
             data.f77 = 1;
-            data.f74 = _projectile->CallMemberAtOffset54();
+            data.f74 = _projectile->BGSImpactData_GetAlphaTesting();
             data.f75 = _projectile->BGSImpactData_GetIsAlphaBlend();
-            memcpy(&data.color, &NiPoint3((unsigned char)(_projectile->GetNextFromSubobject() & 0xff) / 255.0,
-                                        (unsigned char)(((unsigned short)_projectile->GetNextFromSubobject() >> 8) & 0xff) / 255.0,
-                                        (unsigned char)((_projectile->GetNextFromSubobject() >> 16) & 0xff) / 255.0), sizeof(data.color));
+            memcpy(&data.color, &NiPoint3((unsigned char)(_projectile->BGSImpactData_GetDecalColor() & 0xff) / 255.0,
+                                        (unsigned char)(((unsigned short)_projectile->BGSImpactData_GetDecalColor() >> 8) & 0xff) / 255.0,
+                                        (unsigned char)((_projectile->BGSImpactData_GetDecalColor() >> 16) & 0xff) / 255.0), sizeof(data.color));
             data.f78 = 1;
             if (specialTmp)
             {

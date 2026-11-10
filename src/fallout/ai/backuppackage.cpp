@@ -200,7 +200,7 @@ struct BackupPackageActorSupport : Actor
 void BackupPackageActorSupport::InstallBackupPackage(void* unused)
 {
     TESPackage* value = TESPackage::CreatePackageForType(14);
-    value->SetPackageType(14);
+    value->SetPackType(14);
     value->SetMustReachLocation(false);
     value->SetMustComplete(false);
     LocationDescriptor* location = new LocationDescriptor;

@@ -7,11 +7,12 @@
 struct FUN_00404cd0_Class
 {
     void __thiscall UpdateFields_00404c80();
-    void* __thiscall FUN_00404cd0(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 
 // @fnv 0x00404cd0
-void* __thiscall FUN_00404cd0_Class::FUN_00404cd0(unsigned int flags)
+// src: EXE 0x00404cd0
+void* __thiscall FUN_00404cd0_Class::ScalarDeletingDestructor(unsigned int flags)
 {
     UpdateFields_00404c80();
     if (flags & 1)

@@ -50,7 +50,7 @@ class LocalPoint3Ext
     LocalPoint3Ext& Subtract(const LocalPoint3Ext& point);
     float GetLengthSquared();
     void ComputeMagnitude();
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength() const;
     float Length() const;
 
     AimVector SubtractIntoVector(const AimVector& point) const;

@@ -30,7 +30,7 @@ class NiObject
     void FUN_00a5d3d0();
     void CopyMembersStream(unsigned int, void*);
     NiObject* Clone();
-    void ResolveObjectPointer(NiPointer<NiObject>&);
+    void CreateDeepCopy(NiPointer<NiObject>&);
     void CopyMemberData(NiObject*, CloningProcess&);
     void LockFreeMap_TESObjectREFR_NiPointer_QueuedReference_LockFreeMapInterface_RemoveAt_00528ce0(NiObject*);
 };

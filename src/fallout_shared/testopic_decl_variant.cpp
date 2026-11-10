@@ -48,7 +48,7 @@ TESTopicInfo* TESTopic_GetMatchingFollowUpInfo(TESTopicInfo* input, bool& deferr
                 if (mobile->HasSaidTopicInfo(info))
                     allowed = false;
             }
-            if (info && allowed && info->IsInfoValidForDialogue(deferred, 0, speaker, listener))
+            if (info && allowed && info->CheckCondition(deferred, 0, speaker, listener))
             {
                 deferredResult = false;
                 bool keep = true;

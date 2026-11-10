@@ -159,11 +159,12 @@ void __cdecl _Deallocate(void*);
 struct FUN_0050a820_shell
 {
     void FUN_0050a850();
-    void* FUN_0050a820(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_0050a850, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x0050a820
-void* FUN_0050a820_shell::FUN_0050a820(unsigned int flags)
+// src: EXE 0x0050a820
+void* FUN_0050a820_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0050a850();
     if (flags & 1)

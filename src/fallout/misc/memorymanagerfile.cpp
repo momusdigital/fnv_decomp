@@ -54,11 +54,12 @@ void* _Deallocate(void* p);
 
 struct FUN_00878450_shell : FUN_00878430_shell
 {
-    void* __thiscall FUN_00878450(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 
 // @fnv 0x00878450
-void* __thiscall FUN_00878450_shell::FUN_00878450(unsigned int flags)
+// src: EXE 0x00878450
+void* __thiscall FUN_00878450_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     SetPtr();
     if (flags & 1)

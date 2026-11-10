@@ -366,7 +366,7 @@ void __cdecl QuickSortByLowWord(unsigned int* base, int lo, int hi, int unkArg);
 static int staticIsBitSet(void* self, int index, unsigned int* bits);
 int IsBitmapBitSet(void* table, int index, unsigned int* bits);
 extern int DAT_011b37a4[];
-class FUN_00d11120_cls {
+class hkp3AxisSweep_hkpBpAxis {
 public:
     Endpoint* m_endpoints;
     void MergeEndpoints(char* cells, int n, int m,

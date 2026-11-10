@@ -466,7 +466,7 @@ double ExpressionEvaluator::Eval(const char* data, TESObjectREFR* reference, TES
         }
         else
         {
-            if (IsIntegerString(token.text))
+            if (IsStringInteger(token.text))
             {
                 Value.Type = 0;
                 Value.m_lIntegerValue = atol(token.text);
@@ -642,12 +642,12 @@ struct FUN_00b3b1d0_shell
     char _pad[0x18];
     NodeB* f18;
     int f1c;
-    void UpdateState_00b3b1d0(NodeB*);
+    void _Tree__Lrotate(NodeB*);
 };
 
 // @fnv 0x00b3b1d0
-// src: GUESS 0x00b3b1d0 (confidence: low)
-void FUN_00b3b1d0_shell::UpdateState_00b3b1d0(NodeB* apNode)
+// src: GUESS 0x00b3b1d0 (confidence: high)
+void FUN_00b3b1d0_shell::_Tree__Lrotate(NodeB* apNode)
 {
     NodeB* pNode = apNode->f8;
 
@@ -679,14 +679,14 @@ void FUN_00b3b1d0_shell::UpdateState_00b3b1d0(NodeB* apNode)
     apNode->f4 = pNode;
 }
 
-struct FUN_00b3b280_owner : FUN_00b3b810_shell
+struct _Tree : FUN_00b3b810_shell
 {
     void UpdateFields_00b3b280(NodeB* pArg);
 };
 
 // @fnv 0x00b3b280
 // src: GUESS 0x00b3b280 (confidence: low)
-void FUN_00b3b280_owner::UpdateFields_00b3b280(NodeB* pNode)
+void _Tree::UpdateFields_00b3b280(NodeB* pNode)
 {
     NodeB* pOld = pNode->f0;
     NodeB* pPrev;

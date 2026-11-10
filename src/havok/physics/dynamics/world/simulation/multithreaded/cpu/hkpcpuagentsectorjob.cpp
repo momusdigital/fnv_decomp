@@ -7,11 +7,11 @@
 #include "../../../../../../../../include/hkVector4.h"
 #include <string.h>
 
-struct FUN_00d93330 {
+struct hkpDeferredConstraintOwner {
     void __thiscall UpdateConstraint(int);
 };
 // @fnv 0x00d93330
-void __thiscall FUN_00d93330::UpdateConstraint(int v)
+void __thiscall hkpDeferredConstraintOwner::UpdateConstraint(int v)
 {
     ++(*(int*)((char*)this + 0x18));
     *(int*)((char*)this + 0x1c) = v;
@@ -189,7 +189,7 @@ struct Job {
     union { int sector; unsigned char useContinuousQuality; };
 };
 struct World {
-    void EnterLock(Island *);
+    void hkpWorld_lockIslandForConstraintUpdate(Island *);
     void hkpWorld_unlockIslandForConstraintUpdate(Island *);
 };
 struct Quality { int field00, field04, field08, field0c; int createPredictive; int field14, field18, field1c, field20, field24, field28, field2c, field30, field34, field38, field3c; };
@@ -207,7 +207,7 @@ struct Physics {
     int fieldc0, fieldc4, fieldc8, fieldcc, fieldd0, fieldd4, fieldd8, fielddc;
     int fielde0, fielde4, fielde8, fieldec, fieldf0, fieldf4, fieldf8, fieldfc;
     int toiQueue;
-    void AddToiEvent(Output *, Entry *, int *);
+    void hkpMultiThreadedSimulation_addToiEventWithCriticalSectionLock(Output *, Entry *, int *);
 };
 struct Globals {
     World *world;
@@ -299,7 +299,7 @@ int hkCpuAgentSectorJob(Globals *globals, Queue *queue, Job *job) {
             output.end = output.contacts; output.count = 0;
             hkAgentNnMachine_ProcessAgent(current, &context, &output, current->manager);
             if (output.end != output.contacts) current->manager->process(bodyA, bodyB, &context, &output);
-            if (output.toi.time != 3.402820018375656e38) physics->AddToiEvent(&output, current, &physics->toiQueue);
+            if (output.toi.time != 3.402820018375656e38) physics->hkpMultiThreadedSimulation_addToiEventWithCriticalSectionLock(&output, current, &physics->toiQueue);
             owner.flush();
             current = next; next = prefetched;
             if (DAT_01269200 == 1) break;
@@ -322,7 +322,7 @@ int hkCpuAgentSectorJob(Globals *globals, Queue *queue, Job *job) {
         if (!job->batch) {
             if ((owner.maximum | owner.added | owner.removed | owner.changed) || owner.commands.size) {
                 island = work.savedIsland;
-                globals->world->EnterLock(island);
+                globals->world->hkpWorld_lockIslandForConstraintUpdate(island);
                 island->maximum = island->maximum > owner.maximum ? island->maximum : owner.maximum;
                 island->added += owner.added; island->removed += owner.removed; island->changed += owner.changed;
                 if (owner.commands.size) hkPhysicsCommandMachineProcess(globals->world, (char *)&owner.commands + owner.commands.offset, owner.commands.size);
@@ -347,7 +347,7 @@ int hkCpuAgentSectorJob(Globals *globals, Queue *queue, Job *job) {
             output.end = output.contacts; output.count = 0;
             hkAgentNnMachine_ProcessAgent(entry, &context, &output, entry->manager);
             if (output.end != output.contacts) entry->manager->process(entry->bodyA, entry->bodyB, &context, &output);
-            if (output.toi.time != 3.402820018375656e38) globals->physics->AddToiEvent(&output, entry, &globals->physics->toiQueue);
+            if (output.toi.time != 3.402820018375656e38) globals->physics->hkpMultiThreadedSimulation_addToiEventWithCriticalSectionLock(&output, entry, &globals->physics->toiQueue);
             owner.flush();
             if (DAT_01269200 == 1) break;
         }

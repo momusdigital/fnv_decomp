@@ -245,13 +245,13 @@ struct FUN_00cb2050_cls
     __m128 m_kRow2;
     __m128 m_kRow3;
 
-    void CopyMaskedMatrixRows(FUN_00cb2050_cls* apOut);
+    void hkTransform_setAbs(FUN_00cb2050_cls* apOut);
 };
 
 // Copies the four m_kRow vectors into apOut, masking the first three with DAT_010c4c10 and shuffling the fourth with DAT_010c7170.
 // @fnv 0x00cb2050
 // src: GUESS 0x00cb2050 (confidence: medium)
-void FUN_00cb2050_cls::CopyMaskedMatrixRows(FUN_00cb2050_cls* apOut)
+void FUN_00cb2050_cls::hkTransform_setAbs(FUN_00cb2050_cls* apOut)
 {
     apOut->m_kRow0 = _mm_and_ps(m_kRow0, DAT_010c4c10);
     apOut->m_kRow1 = _mm_and_ps(m_kRow1, DAT_010c4c10);

@@ -40,7 +40,8 @@ void* CreatureSounds::DeleteThis(unsigned int flags)
 }
 
 // @fnv 0x005f0900
-void CreatureSounds::AddSoundForType(SoundListEntry* sound, CREATURE_SOUND_TYPE type)
+// src: COMMUNITY 0x005f0900
+void CreatureSounds::AddCreatureSound(SoundListEntry* sound, CREATURE_SOUND_TYPE type)
 {
     if (sound && type >= 0 && type < 22)
     {
@@ -65,7 +66,8 @@ void CreatureSounds::AddSoundForType(SoundListEntry* sound, CREATURE_SOUND_TYPE 
 }
 
 // @fnv 0x005f0480
-bool CreatureSounds::LoadSoundsFromFile(TESFile* file, CREATURE_SOUND_TYPE type, TESCreature* creature)
+// src: COMMUNITY 0x005f0480
+bool CreatureSounds::LoadCreatureSound(TESFile* file, CREATURE_SOUND_TYPE type, TESCreature* creature)
 {
     bool result = false;
     if (file)
@@ -102,7 +104,7 @@ bool CreatureSounds::LoadSoundsFromFile(TESFile* file, CREATURE_SOUND_TYPE type,
             if (file->GetChunkID() == 0x43445343)
             {
                 file->GetChunkData(&sound->m_ucSortOrder, 1);
-                AddSoundForType(sound, type);
+                AddCreatureSound(sound, type);
                 result = true;
             }
             else
@@ -198,7 +200,7 @@ void FUN_005f0640_shell::CopyCreatureSoundLists(CreatureSounds* apCopy)
                 SoundListEntry* pdata = pCurrentElementNext->GetItem();
                 SoundListEntry* pnewdata = new SoundListEntry;
                 CopyPointerAndByte(pnewdata, pdata);
-                AddSoundForType(pnewdata, (CREATURE_SOUND_TYPE)i);
+                AddCreatureSound(pnewdata, (CREATURE_SOUND_TYPE)i);
                 pCurrentElementNext = pCurrentElementNext->GetNext();
             }
         }
@@ -233,12 +235,12 @@ void __cdecl _FUN_00485910(unsigned int, unsigned int);
 
 struct FUN_005f03a0_shell : public CreatureSounds
 {
-    void ProcessEntries_005f03a0();
+    void CreatureSounds_Save();
 };
 
 // @fnv 0x005f03a0
-// src: GUESS 0x005f03a0 (confidence: low)
-void FUN_005f03a0_shell::ProcessEntries_005f03a0()
+// src: COMMUNITY 0x005f03a0
+void FUN_005f03a0_shell::CreatureSounds_Save()
 {
     for (int i = 0; i < 22; ++i)
     {

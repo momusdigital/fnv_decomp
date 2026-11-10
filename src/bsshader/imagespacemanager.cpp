@@ -2366,7 +2366,8 @@ inline AutoMemContext::~AutoMemContext()
 
 // Creates NiScreenElements, sets rectangle bounds and data using a1 and a2, then assigns the elements to a3.
 // @fnv 0x00b8c3b0
-void ImageSpaceManager::SetMenuBackgroundBlend(float afWidth, float afHeight,
+// src: COMMUNITY 0x00b8c3b0
+void ImageSpaceManager::CreatePartialScreenGeometry(float afWidth, float afHeight,
                                                  void* screenElements)
 {
     NiPointer<NiScreenElements>& apScreenElements = *static_cast<NiPointer<NiScreenElements>*>(screenElements);

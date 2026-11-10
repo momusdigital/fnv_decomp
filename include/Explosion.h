@@ -57,7 +57,7 @@ public:
     NiPoint3 kClosestPointNormal;
     float m_fClosestPointScalar;
 
-    float GetEffectiveValue();
+    float BGSExplosion_GetImageSpaceRadiusBSUnits();
     int* FindEntryResultByCategory(int category);
 
     bool IsNotCulled();

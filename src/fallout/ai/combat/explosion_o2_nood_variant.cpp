@@ -119,7 +119,7 @@ struct RetObj
     virtual void vf9();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -148,7 +148,7 @@ struct RetObj
 };
 struct Standin77900
 {
-    bool __thiscall HasAnyFlags(int);
+    bool __thiscall BGSExplosion_IsFlagSet(int);
 };
 extern Setting originalRuntimeFloatSetting818;
 extern const float runtimeFloatSettingDefault247;
@@ -213,7 +213,7 @@ struct FUN_005762b0_cls
     {}
     virtual void vf11()
     {}
-    virtual void vf12()
+    virtual void SetMapName()
     {}
     virtual void vf13()
     {}
@@ -265,7 +265,7 @@ struct FUN_005762b0_cls
     {}
     virtual void vf37()
     {}
-    virtual void vf38()
+    virtual void PrintInfo()
     {}
     virtual void vf39()
     {}
@@ -453,7 +453,7 @@ struct FUN_009ac550_cls : Standin77900
 {
     char _pad[0x8b];
     float m_8C;
-    float GetEffectiveValue();
+    float BGSExplosion_GetImageSpaceRadiusBSUnits();
 };
 extern int g_ae140Count;
 struct Ae140Vec
@@ -507,14 +507,14 @@ struct BaseObject
         hkpCdPointCollector_hkpCdPointCollector();
     }
 };
-struct FUN_009afaf0 : BaseObject
+struct hkpFixedBufferCdPointCollector : BaseObject
 {
     VectorHolder first;
     VectorHolder second;
     VectorHolder third;
     VectorHolder fourth;
-    FUN_009afaf0(unsigned int firstValue, unsigned int secondValue);
-    virtual ~FUN_009afaf0();
+    hkpFixedBufferCdPointCollector(unsigned int firstValue, unsigned int secondValue);
+    virtual ~hkpFixedBufferCdPointCollector();
 };
 struct FUN_009afca0_holder
 {
@@ -839,7 +839,7 @@ struct ExtraX
 };
 struct HandlerX
 {
-    void PlaceObjectReference(void*, const NiPoint3&, const NiPoint3&, CellX*, void*, int, int, int);
+    void TESDataHandler_CreateReferenceAtLocation(void*, const NiPoint3&, const NiPoint3&, CellX*, void*, int, int, int);
 };
 extern HandlerX* DAT_011c3f2c;
 extern ProcessLists DAT_011e0e80;

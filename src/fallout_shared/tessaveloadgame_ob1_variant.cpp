@@ -45,15 +45,16 @@ struct HelperL
     static void operator delete(void* pvMem);
 };
 extern int DAT_010c1604;
-struct FUN_00c3da50 : BaseListL
+struct IOManager : BaseListL
 {
     void* m_pFirstData;
     HelperL* m_pHelper;
     unsigned int m_68, m_6c, m_70, m_74, m_78, m_7c, m_80;
-    FUN_00c3da50();
+    IOManager();
 };
 // @fnv 0x00c3da50
-FUN_00c3da50::FUN_00c3da50() : BaseListL(10, 1, 120)
+// src: EXE 0x00c3da50
+IOManager::IOManager() : BaseListL(10, 1, 120)
 {
     m_vtbl = &DAT_010c1604;
     m_70 = 0;

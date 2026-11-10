@@ -22,7 +22,7 @@ public:
     virtual void vf09();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
 
     RadioConvTask(RadioState*);
     ~RadioConvTask();

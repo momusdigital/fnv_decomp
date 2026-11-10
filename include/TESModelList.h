@@ -26,8 +26,8 @@ public:
     void CopyModelListToBuffer(void* destination, unsigned int flags);
     void CopyModelListToBuffer(unsigned int modelChunkID, unsigned int dataChunkID);
     void CopyModelListToBuffer(CHUNK_ID modelChunkID, CHUNK_ID dataChunkID);
-    void LoadStringChunk(TESModelList* modelList, TESFile* file);
-    bool ContainsFile(const char* filename);
+    void LoadModelListChunk(TESModelList* modelList, TESFile* file);
+    bool IsModelInList(const char* filename);
     void AddModel_00489fa0(const char* filename);
     void FUN_00489a60();
     BSSimpleList<const char*>* FUN_00717e50();

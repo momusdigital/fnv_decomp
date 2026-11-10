@@ -319,7 +319,7 @@ void BSShaderNoLighting::InitializeShaderData()
     {
         if (vertexConfigs[i].path)
         {
-            GetShaderPath(vertexConfigs[i].path, path);
+            MakePath(vertexConfigs[i].path, path);
             sprintf_s(output, 260, "NOLIGHT%03i.vso", i);
             AssignShader(m_spTreeVertexShader[i], CompileVertexShader(path, vertexConfigs[i].macros, "vs_2_0", output));
         }
@@ -368,25 +368,25 @@ void BSShaderNoLighting::InitializeShaderData()
     waterAtConfig.macros[0].Definition = "";
     waterAtConfig.macros[1].Name = 0;
     fnv_zlib_memset(&waterAtConfig.macros[1].Definition, 0, 60);
-    GetShaderPath(texConfig.path, path);
+    MakePath(texConfig.path, path);
     sprintf_s(output, 260, "NOLIGHTTEX.pso");
     AssignShader(m_spPixelShaderVariants[0], CompilePixelShader(path, texConfig.macros, "ps_2_a", output));
-    GetShaderPath(vcConfig.path, path);
+    MakePath(vcConfig.path, path);
     sprintf_s(output, 260, "NOLIGHTVCONLY.pso");
     AssignShader(m_spPixelShaderVariants[1], CompilePixelShader(path, vcConfig.macros, "ps_2_a", output));
-    GetShaderPath(texVcConfig.path, path);
+    MakePath(texVcConfig.path, path);
     sprintf_s(output, 260, "NOLIGHTTEXVC.pso");
     AssignShader(m_spPixelShaderVariants[2], CompilePixelShader(path, texVcConfig.macros, "ps_2_a", output));
-    GetShaderPath(premultConfig.path, path);
+    MakePath(premultConfig.path, path);
     sprintf_s(output, 260, "NOLIGHTTEXVCPMA.pso");
     AssignShader(m_spPixelShaderVariants[3], CompilePixelShader(path, premultConfig.macros, "ps_2_a", output));
-    GetShaderPath(mat.path, path);
+    MakePath(mat.path, path);
     sprintf_s(output, 260, "NOLIGHTMAT.pso");
     AssignShader(m_spPixelShaderVariants[4], CompilePixelShader(path, mat.macros, "ps_2_a", output));
-    GetShaderPath(waterConfig.path, path);
+    MakePath(waterConfig.path, path);
     sprintf_s(output, 260, "NOLIGHTWF.pso");
     AssignShader(m_spPixelShaderVariants[5], CompilePixelShader(path, waterConfig.macros, "ps_2_a", output));
-    GetShaderPath(waterAtConfig.path, path);
+    MakePath(waterAtConfig.path, path);
     sprintf_s(output, 260, "NOLIGHTWFAt.pso");
     AssignShader(m_spPixelShaderVariants[6], CompilePixelShader(path, waterAtConfig.macros, "ps_2_a", output));
 }
@@ -471,7 +471,7 @@ BSShader* BSShaderNoLighting::CreateShader()
     shader->InitializeShaderData();
     shader->BSShaderNoLighting_LoadStagesAndPasses();
     shader->InitShaderConstants();
-    shader->UseShaderDeclaration(pDecl0);
+    shader->NiD3DShader_SetShaderDecl(pDecl0);
     return shader;
 }
 

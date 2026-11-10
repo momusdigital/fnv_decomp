@@ -125,14 +125,14 @@ public:
     void Font_GetLineOffsets(char* str, float* pSize, float* pOut, int iFlags, int iStart);
     void Font_GetLineOffsets(const char* text, float& x, float& y, int flags,
                       unsigned int start);
-    NiTriShape* CreateTextShape(int count, void* p, bool b);
+    NiTriShape* Font_MakeTriShape(int count, void* p, bool b);
     void CheckForVariablesInText(const char* input, Layout* layout);
     void CheckForVariablesInText(const char* input, TextLayout::Layout* layout);
     void CheckForVariablesInText(const char* input, TextMeasurement* layout);
     void Font_CreateText(TextString&, int*, int*, int, int, int, int,
                       const Color4*, TextNode**, TextNode**);
     PageMeshes::Shape* MakeButton();
-    PageMeshes::Shape* CreateTextShape(int, const PageMeshes::Color*, bool);
+    PageMeshes::Shape* Font_MakeTriShape(int, const PageMeshes::Color*, bool);
     void UpdateIconGeometry(int, PageMeshes::Shape*, NiPoint3&);
     void BuildGlyphQuad(PageMeshes::Letter*, int, PageMeshes::Shape*, NiPoint3&,
                         const PageMeshes::Color*);
@@ -140,7 +140,7 @@ public:
     static void MapCharacter(unsigned char& character);
     void AddCharacterToShape(FontCharacterInfo* letter, int index, NiTriShape* shape,
                              NiPoint3& position, const NiColorA* color);
-    Shape* CreateTextShape(int, const Color*, bool);
+    Shape* Font_MakeTriShape(int, const Color*, bool);
     void UpdateIconGeometry(int, Shape*, NiPoint3&);
     void BuildGlyphQuad(Letter*, int, Shape*, NiPoint3&, const Color*);
     float GetHeight() const;

@@ -64,11 +64,11 @@ float FUN_008786b0_shell::SceneGraph_GetFarDistance()
     {
         ffar = DAT_01083c64;
     }
-    else if (!g_TES || !g_TES->GetHitSound() || g_TES->GetHitSound()->GetWorldTerrainManager()->FUN_00454b70())
+    else if (!g_TES || !g_TES->GetHitSound() || g_TES->GetHitSound()->GetTerrainManager()->FUN_00454b70())
     {
         if (g_TES && ((BGSCameraPath*)g_TES)->GetPrevPath() && g_TES->GetLogDate()->Sky_GetMode() == 1)
         {
-            ffar = ((TESObjectCELL*)((BGSCameraPath*)g_TES)->GetPrevPath())->GetInteriorLightValue();
+            ffar = ((TESObjectCELL*)((BGSCameraPath*)g_TES)->GetPrevPath())->GetDataClipDist();
             if (ffar <= _gModifierZero || ffar > DAT_010c26d8)
             {
                 ffar = DAT_010c26d8;
@@ -84,7 +84,7 @@ float FUN_008786b0_shell::SceneGraph_GetFarDistance()
         float ffarMax;
         if (g_TES && ((BGSCameraPath*)g_TES)->GetPrevPath() && g_TES->GetLogDate()->Sky_GetMode() == 1)
         {
-            ffarMax = ((TESObjectCELL*)((BGSCameraPath*)g_TES)->GetPrevPath())->GetInteriorLightValue();
+            ffarMax = ((TESObjectCELL*)((BGSCameraPath*)g_TES)->GetPrevPath())->GetDataClipDist();
             if (ffarMax <= _gModifierZero || ffarMax > g_0120312c.Float()->f)
             {
                 ffarMax = g_0120312c.Float()->f;

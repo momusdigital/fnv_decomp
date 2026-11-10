@@ -51,7 +51,7 @@ public:
     bool SetPosition(float fX, float fY, float fZ);
     bool SetBeamEnd(const NiPoint3& kPosition);
     bool SetBeamEnd(float fX, float fY, float fZ);
-    void SetMinMax(float fMin, float fMax);
+    void SetMinMaxDistance(float fMin, float fMax);
     void SetAttenuationCurve(unsigned short a, unsigned short b, unsigned short c, unsigned short d, unsigned short e);
     void SetReverbAttenuation(unsigned short usAttenuation);
     bool SetOrientation(float fX, float fY, float fZ);

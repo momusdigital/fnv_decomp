@@ -23,12 +23,13 @@ struct FUN_00c74e70_cls
 {
     int m_vptr;
 
-    FUN_00c74e70_cls* FUN_00c74e70(unsigned char acFlags);
+    FUN_00c74e70_cls* ScalarDeletingDestructor(unsigned char acFlags);
 };
 
 // Sets the object's vtable pointer to DAT_010c4b60 and, when bit 0 of acFlags is set, releases the object through DAT_011f6238, returning this.
 // @fnv 0x00c74e70
-FUN_00c74e70_cls* FUN_00c74e70_cls::FUN_00c74e70(unsigned char acFlags)
+// src: EXE 0x00c74e70
+FUN_00c74e70_cls* FUN_00c74e70_cls::ScalarDeletingDestructor(unsigned char acFlags)
 {
     m_vptr = (int)&DAT_010c4b60;
     if (acFlags & 1)

@@ -168,13 +168,13 @@ template <int N> struct EndianSizeTag
 
 void __cdecl BSEndian(int*, EndianSizeTag<2>);
 
-struct FUN_00403720_shell
+struct AlchemyItemData
 {
     void __thiscall SwapEndian();
 };
 
 // @fnv 0x00403720
-void __thiscall FUN_00403720_shell::SwapEndian()
+void __thiscall AlchemyItemData::SwapEndian()
 {
     BSEndian((int*)this, EndianSizeTag<2>());
     BSEndian((int*)((char*)this + 8), EndianSizeTag<2>());
@@ -261,7 +261,7 @@ struct S_00477f20
 };
 struct FUN_0047b560_holder
 {
-    void LogFormIDs(void);
+    void BGSPickupPutdownSounds_Save(void);
 };
 struct FUN_00479350_shell
 {
@@ -286,13 +286,13 @@ void FUN_00402f10_shell::AlchemyItem_SaveMagicItemComponents()
     ((FUN_0047a240_shell*)((char*)this + 0x48))->FUN_0047a240(0x4f43494d);
     ((TESScriptableForm*)((char*)this + 0x58))->Save_0048cca0();
     ((S_00477f20*)((char*)this + 0x74))->FUN_00477f20();
-    ((FUN_0047b560_holder*)((char*)this + 0x7c))->LogFormIDs();
+    ((FUN_0047b560_holder*)((char*)this + 0x7c))->BGSPickupPutdownSounds_Save();
     ((FUN_00479350_shell*)((char*)this + 0x6c))->BGSEquipType_Save();
     ((FUN_00485e00_shell*)((char*)this - 0x30))->TESForm_SaveData();
 }
 
 namespace fnv_00403790 {
-struct FUN_00403720_shell
+struct AlchemyItemData
 {
     void SwapEndian();
 };
@@ -303,7 +303,7 @@ struct FUN_00403790_shell
 // @fnv 0x00403790
 void FUN_00403790_shell::CallNestedAtOffsetB8()
 {
-    ((FUN_00403720_shell*)((char*)this + 0xb8))->SwapEndian();
+    ((AlchemyItemData*)((char*)this + 0xb8))->SwapEndian();
 }
 }  // namespace fnv_00403790
 
@@ -461,14 +461,15 @@ struct LH
 };
 struct FUN_004036d0_shell
 {
-    bool IsInWaterList();
-    static TESForm* LookupFormByEditorID(const char*);
+    bool AlchemyItem_IsWater();
+    static TESForm* GetFormByEditorID(const char*);
 };
 // Looks up the form list "WaterLIST" and returns whether this object is contained in its header's list.
 // @fnv 0x004036d0
-bool FUN_004036d0_shell::IsInWaterList()
+// src: COMMUNITY 0x004036d0
+bool FUN_004036d0_shell::AlchemyItem_IsWater()
 {
-    BGSListForm* pWaterList = (BGSListForm*)LookupFormByEditorID("WaterLIST");
+    BGSListForm* pWaterList = (BGSListForm*)GetFormByEditorID("WaterLIST");
     if (pWaterList)
     {
         BGSListForm* pThis = (BGSListForm*)this;
@@ -652,7 +653,7 @@ struct AlchData
 {
     void SwapEndian();
 };
-void AppendChunk(unsigned int, void*, unsigned int);
+void TESForm___AddChunkData(unsigned int, void*, unsigned int);
 bool TESForm_QEndianSwapOnSave();
 
 struct AlchSaveBase
@@ -723,7 +724,7 @@ void AlchemySave::AlchemyItem_Endian()
     SetSound(GetFieldC8() ? (FormStub*)GetFieldC8()->GetFormIDStub() : 0);
     if (TESForm_QEndianSwapOnSave())
         data.SwapEndian();
-    AppendChunk(s24(), &data, 0x14);
+    TESForm___AddChunkData(s24(), &data, 0x14);
     if (TESForm_QEndianSwapOnSave())
         data.SwapEndian();
     FUN_00874460(oldItem);

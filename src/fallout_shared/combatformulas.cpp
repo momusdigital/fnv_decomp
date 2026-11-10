@@ -49,9 +49,9 @@
 class CombatFormulaWeapon : public TESObjectWEAP
 {
 public:
-    BGSProjectile* GetProjectileForOwner(ActorValueOwner* owner);
+    BGSProjectile* TESObjectWEAP_GetProjectile(ActorValueOwner* owner);
     void SetFlag2(bool set);
-    bool IsDamageDisabled();
+    bool TESObjectWEAP_GetPreventUseInNormalCombat();
     float GetField124Float();
     bool IsFlag20Set() const;
     unsigned char GetBaseVATSChance(unsigned char modded);
@@ -62,7 +62,8 @@ public:
 };
 
 // @fnv 0x004be0b0
-float InventoryStackRecord::GetArmorDamageThreshold(Actor* actor)
+// src: COMMUNITY 0x004be0b0
+float InventoryStackRecord::ItemChange_GetModifiedDamageThreshold(Actor* actor)
 {
     float fArmorProtectionValue = -1.0f;
     TESObjectARMO* pArmorForm;
@@ -208,7 +209,7 @@ float CombatDamageCalculator::CalculateWeaponDamage(ActorValueOwner* owner, TESO
                                                                                                             0))
                                                                                                     ->GetBoltSound())
                                                                                                 ->GetTargetRadius() *
-                                                                                            weapon->GetDamageForActor(
+                                                                                            weapon->GetNumProjectiles(
                                                                                                 bHasSplitBeam, false,
                                                                                                 pActor);
                                                                                     switch (weapon->FUN_00446390())
@@ -444,7 +445,8 @@ float CombatDamageCalculator::CalculateWeaponDamage(ActorValueOwner* owner, TESO
 }
 
 // @fnv 0x00646800
-float CombatDamageCalculator::GetActorValueMultiplier(ActorValueOwner* owner, ActorValue::Index part, bool percentage)
+// src: COMMUNITY 0x00646800
+float CombatDamageCalculator::CombatFormulas_GetBodyPartCondition(ActorValueOwner* owner, ActorValue::Index part, bool percentage)
 {
     float fWeaponDamage = 1.0f;
     switch (part)
@@ -465,7 +467,8 @@ float CombatDamageCalculator::GetActorValueMultiplier(ActorValueOwner* owner, Ac
 
 // Computes the min and max of two floats and returns a random float in that range, or the shared value if they are equal.
 // @fnv 0x006465f0
-float CombatDamageCalculator::GetDamageMultiplier(float afValueA, float afValueB)
+// src: COMMUNITY 0x006465f0
+float CombatDamageCalculator::CombatFormulas_GetRandomBetween(float afValueA, float afValueB)
 {
     // Local min/max pair (maximum stored first, at +0x00); not the shared AABB Bounds.
     struct DamageRange
@@ -640,7 +643,8 @@ void CombatFormulaWeapon::SetFlag2(bool abSet)
 }
 
 // @fnv 0x00646230
-bool CombatFormulaWeapon::IsDamageDisabled()
+// src: COMMUNITY 0x00646230
+bool CombatFormulaWeapon::TESObjectWEAP_GetPreventUseInNormalCombat()
 {
     return (data.WeaponAttackData & 0x40) ? true : false;
 }
@@ -715,7 +719,8 @@ float __cdecl ComputeExplosionDamageFalloff(float afExplosionRadius, float afBas
 }
 
 // @fnv 0x00525ae0
-BGSProjectile* CombatFormulaWeapon::GetProjectileForOwner(ActorValueOwner* pActorOffset)
+// src: COMMUNITY 0x00525ae0
+BGSProjectile* CombatFormulaWeapon::TESObjectWEAP_GetProjectile(ActorValueOwner* pActorOffset)
 {
     Actor* actor = pActorOffset ? (Actor*)((char*)pActorOffset - 0xA4) : 0;
     return GetProjectileData(actor);
@@ -726,7 +731,7 @@ BGSProjectile* CombatFormulaWeapon::GetProjectileForOwner(ActorValueOwner* pActo
 float TESObjectWEAP::GetAttackSpeed(bool bModValue)
 {
     if (bModValue)
-        return GetModdedWeaponValue((WEAPON_MOD_EFFECT)8, 0) + data.m_fAnimationAttackMultiplier;
+        return GetModEffectValue((WEAPON_MOD_EFFECT)8, 0) + data.m_fAnimationAttackMultiplier;
     else
         return data.m_fAnimationAttackMultiplier;
 }
@@ -776,7 +781,7 @@ unsigned char CombatFormulaWeapon::GetBaseVATSChance(unsigned char type)
 {
     if (type)
     {
-        return (unsigned char)GetModdedWeaponValue((WEAPON_MOD_EFFECT)13, 0) + data.m_ucBaseVATSChance;
+        return (unsigned char)GetModEffectValue((WEAPON_MOD_EFFECT)13, 0) + data.m_ucBaseVATSChance;
     }
     else
     {
@@ -800,7 +805,7 @@ float __cdecl ActorValueOwner_GetWeaponAnimMult(ActorValueOwner* pActorValueOwne
     bool bUseSplit = false;
     if (item)
         bUseSplit = item->SetEquipmentState(0xc);
-    frateOfFire = weapon->GetDamageForActor(bUseSplit, false, pactor) * frateOfFire;
+    frateOfFire = weapon->GetNumProjectiles(bUseSplit, false, pactor) * frateOfFire;
     return frateOfFire;
 }
 
@@ -900,12 +905,12 @@ float CombatFormulas_GetArmCondition(ActorValueOwner* actor, int weaponType)
     case 7:
     case 8:
     case 9:
-        result = (CombatDamageCalculator::GetActorValueMultiplier(actor, ActorValue::Index(27), false) +
-                  CombatDamageCalculator::GetActorValueMultiplier(actor, ActorValue::Index(28), false)) /
+        result = (CombatDamageCalculator::CombatFormulas_GetBodyPartCondition(actor, ActorValue::Index(27), false) +
+                  CombatDamageCalculator::CombatFormulas_GetBodyPartCondition(actor, ActorValue::Index(28), false)) /
                  2.0;
         break;
     default:
-        result = CombatDamageCalculator::GetActorValueMultiplier(actor, ActorValue::Index(28), false);
+        result = CombatDamageCalculator::CombatFormulas_GetBodyPartCondition(actor, ActorValue::Index(28), false);
         break;
     }
     return result;
@@ -1291,7 +1296,7 @@ extern const double DAT_0102f078;
 float __cdecl ComputeWeaponDamage(CombatActorForm* form, TESObjectWEAP* weapon, float condition, DamageAmmo* ammo,
                                   void* changes, void* extra)
 {
-    if (weapon && static_cast<CombatFormulaWeapon*>(weapon)->IsDamageDisabled())
+    if (weapon && static_cast<CombatFormulaWeapon*>(weapon)->TESObjectWEAP_GetPreventUseInNormalCombat())
         return 0.0f;
     float damage3 = 0.0f;
     if (form->GetFormType() == 43 || form->GetFormType() == 42)
@@ -1512,7 +1517,8 @@ unsigned short __cdecl CombatFormulas_SelectDodgeDirection(OCActor* apActor, boo
 float CombatFormulas_CalcWeaponDamage(void*, int, float, float, int, int, int, bool);
 // Computes weapon damage from condition and ammo, applies ammo effects and perk modifiers, and returns the result.
 // @fnv 0x006450f0
-float GetWeaponDamage(TESObjectWEAP* weapon, float condition, InventoryStackRecord* extra, TESAmmo* specifiedAmmo)
+// src: COMMUNITY 0x006450f0
+float CombatFormulas_CalcWeaponDamageForDisplay(TESObjectWEAP* weapon, float condition, InventoryStackRecord* extra, TESAmmo* specifiedAmmo)
 {
     float damage = 0.0f;
     damage = CombatDamageCalculator::CalculateWeaponDamage(
@@ -1580,7 +1586,7 @@ extern const double DAT_01012070;
 
 float __cdecl FUN_00646800(ActorValueOwner* owner, int attribute, int unused);
 float __cdecl CombatFormulas_GetWeaponStrengthRequirementModifier(unsigned int weaponType, unsigned int baseValue, unsigned int perkLevel);
-float __cdecl ComputeScaledCount(int weaponCategory, int ownerValue, int mode);
+float __cdecl CombatFormulas_GetWeaponSkillRequirementModifier(int weaponCategory, int ownerValue, int mode);
 
 // Computes a weapon damage modifier from actor perks, game settings, weapon type and category values, clamps it to a minimum and returns it.
 // @fnv 0x00646910
@@ -1637,10 +1643,10 @@ float __cdecl ComputeWeaponDamageModifier(Actor* actor, TESObjectWEAP* weapon, v
     modifier4 += weaponModifier4;
 
     int weaponCategoryX = weapon ? weapon->GetUnk15C() : 0x2d;
-    float categoryValueB = reinterpret_cast<ActorValueOwner*>((char*)actor + 0xa4)->GetActorValueAsInteger(weaponCategoryX);
+    float categoryValueB = reinterpret_cast<ActorValueOwner*>((char*)actor + 0xa4)->GetClampedActorValueI(weaponCategoryX);
     int categoryLevel = (unsigned int)categoryValueB;
     int weaponClass2 = reinterpret_cast<CombatFormulaWeapon*>(weapon)->GetField1BC();
-    float categoryModifier4 = ComputeScaledCount(weaponClass2, categoryLevel, 0);
+    float categoryModifier4 = CombatFormulas_GetWeaponSkillRequirementModifier(weaponClass2, categoryLevel, 0);
     modifier4 += categoryModifier4;
 
     float multiplier7 = static_cast<float>(1.0 - categoryValueB * *DAT_011cf7f8.Float() * (double)0.01f);
@@ -1655,7 +1661,8 @@ float FUN_00476b20(float value);
 void ClampUInt(unsigned* value, unsigned low, unsigned high);
 extern Setting originalRuntimeFloatSetting583;
 // @fnv 0x00647870
-float ComputeScaledCount(unsigned first, unsigned second, unsigned third)
+// src: COMMUNITY 0x00647870
+float CombatFormulas_GetWeaponSkillRequirementModifier(unsigned first, unsigned second, unsigned third)
 {
     unsigned count = 0;
     float amount_2 = 0.0f;
@@ -1785,7 +1792,8 @@ extern const float DAT_01016410;
 
 // Computes the hit chance for a weapon attack on a target, applying range, spread, ammo, and stealth modifiers, and returns the final probability.
 // @fnv 0x00646f70
-float __cdecl GetHitChance(ActorValueOwner* m_pkAttacker, TESObjectREFR* pTarget, TESObjectWEAP* pWeapon,
+// src: COMMUNITY 0x00646f70
+float __cdecl CombatFormulas_GetVATSChanceToHit(ActorValueOwner* m_pkAttacker, TESObjectREFR* pTarget, TESObjectWEAP* pWeapon,
                            void* unused14, void* unused18, float fSpreadBonus, const char* pAmmoName,
                            CombatFormulaWeapon* pWeaponMod, float fWeaponDamage, float afDistance, float fWeaponSpread,
                            CombatDebugLog* pLog)
@@ -1818,8 +1826,8 @@ float __cdecl GetHitChance(ActorValueOwner* m_pkAttacker, TESObjectREFR* pTarget
     float fConditionMultVal = fCurWeight * fWeaponDamage + (1.0f - fCurWeight);
     if (pWeapon && !TESObjectWEAP_IsMeleeWeapon(pWeapon))
     {
-        if (((CombatFormulaWeapon*)pWeapon)->GetProjectileForOwner(m_pkAttacker) &&
-            ((CombatFormulaWeapon*)pWeapon)->GetProjectileForOwner(m_pkAttacker)->GetExplosionProximity() != DAT_01012060)
+        if (((CombatFormulaWeapon*)pWeapon)->TESObjectWEAP_GetProjectile(m_pkAttacker) &&
+            ((CombatFormulaWeapon*)pWeapon)->TESObjectWEAP_GetProjectile(m_pkAttacker)->GetExplosionProximity() != DAT_01012060)
         {
             if (pLog)
                 pLog->Log(1, 3, "Target out of explosion range");
@@ -2021,13 +2029,13 @@ float __cdecl CombatFormulas_CalcWeaponDamage(ActorValueOwner* apOwner, TESObjec
 
     float fAmmoBonus6 = 0.0f;
     if (!abNoAmmo && apWeapon && reinterpret_cast<DmgAmmo*>(
-            static_cast<CombatFormulaWeapon*>(apWeapon)->GetProjectileForOwner(abUseActor ? apOwner : 0)) &&
+            static_cast<CombatFormulaWeapon*>(apWeapon)->TESObjectWEAP_GetProjectile(abUseActor ? apOwner : 0)) &&
         reinterpret_cast<DmgAmmo*>(
-            static_cast<CombatFormulaWeapon*>(apWeapon)->GetProjectileForOwner(abUseActor ? apOwner : 0))->GetEffect())
+            static_cast<CombatFormulaWeapon*>(apWeapon)->TESObjectWEAP_GetProjectile(abUseActor ? apOwner : 0))->GetEffect())
     {
         fAmmoBonus6 = DmgAmmoEffectMult(reinterpret_cast<DmgAmmo*>(
-            static_cast<CombatFormulaWeapon*>(apWeapon)->GetProjectileForOwner(abUseActor ? apOwner : 0))->GetEffect()) *
-                      apWeapon->GetDamageForActor(apItem ? apItem->SetEquipmentState(0xc) : false, false,
+            static_cast<CombatFormulaWeapon*>(apWeapon)->TESObjectWEAP_GetProjectile(abUseActor ? apOwner : 0))->GetEffect()) *
+                      apWeapon->GetNumProjectiles(apItem ? apItem->SetEquipmentState(0xc) : false, false,
                                                   abUseActor ? dynamic_cast<Actor*>(apOwner) : 0);
     }
 

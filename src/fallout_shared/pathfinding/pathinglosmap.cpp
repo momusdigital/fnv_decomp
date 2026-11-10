@@ -181,7 +181,8 @@ PathingLOSMapDestructor::~PathingLOSMapDestructor()
 
 // Clears the total count, maps each array entry's navmesh id to a running offset, sums sizes, then allocates and fills m_pData with 0x7f.
 // @fnv 0x006e1500
-bool PathingLOSMap::BuildNavMeshMap(NavMeshCollection* pNavMeshArray)
+// src: COMMUNITY 0x006e1500
+bool PathingLOSMap::Setup(NavMeshCollection* pNavMeshArray)
 {
     unsigned int i;
     unsigned int j2;

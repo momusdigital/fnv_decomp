@@ -18,7 +18,8 @@ void BGSDefaultObjectManager::ResetFormData()
 }
 
 // @fnv 0x0058db10
-TESForm* BGSDefaultObjectManager::GetDefaultObjectByIndex(DEFAULT_OBJECT index)
+// src: COMMUNITY 0x0058db10
+TESForm* BGSDefaultObjectManager::GetDefaultObject(DEFAULT_OBJECT index)
 {
     if (!Instance()->IsFormInitialized())
         return 0;
@@ -128,7 +129,7 @@ void BGSDefaultObjectManager::Save()
 {
     unsigned int pidarray4[34];
     int i;
-    BeginFormRecord();
+    TESForm_StartForm();
     for (i = 0; i < 34; ++i)
     {
         if (m_apDefaultObjects[i])
@@ -137,5 +138,5 @@ void BGSDefaultObjectManager::Save()
             pidarray4[i] = 0;
     }
     TESForm_AddChunkArray_00485710(0x41544144, pidarray4, 34);
-    FinishFormRecord();
+    TESForm_CloseForm();
 }

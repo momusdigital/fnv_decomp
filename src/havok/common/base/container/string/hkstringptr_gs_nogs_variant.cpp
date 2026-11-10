@@ -7,7 +7,7 @@
 // src/havok/common/base/container/string/hkstringptr.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/projects/fallout/code/havok/source/common/base/container/string/hkstringptr.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 int __cdecl hkString_strLen(const char* s);
-char* __cdecl AllocateWithHeader(void* alloc, int size);
+char* __cdecl hkMemoryRouter_easyAlloc(void* alloc, int size);
 void __cdecl hkString_strCpy(char* dst, const char* src);
 char* __cdecl hkString_strDup(const char* s, void* alloc);
 extern void* g_01268358;

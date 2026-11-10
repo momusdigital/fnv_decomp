@@ -34,7 +34,7 @@ struct SpawnedBase
     {}
 };
 
-struct FUN_00e022d0_cls : SpawnedBase
+struct hkxMaterialEffect : SpawnedBase
 {
     unsigned short m_uSize;
     unsigned short m_u06;
@@ -43,12 +43,13 @@ struct FUN_00e022d0_cls : SpawnedBase
     int m_i14;
     unsigned int m_uiObjectFlags;
 
-    FUN_00e022d0_cls* FUN_00e022d0(unsigned char acFlags);
+    hkxMaterialEffect* ScalarDeletingDestructor(unsigned char acFlags);
 };
 
 // Frees the data array via the audio allocator, resets the members, destroys the base and optionally frees the object itself.
 // @fnv 0x00e022d0
-FUN_00e022d0_cls* FUN_00e022d0_cls::FUN_00e022d0(unsigned char acFlags)
+// src: EXE 0x00e022d0
+hkxMaterialEffect* hkxMaterialEffect::ScalarDeletingDestructor(unsigned char acFlags)
 {
     hkMemoryRouter* pHolder = hkMemoryRouter_getInstance();
     hkMemoryAllocator* pAllocator = reinterpret_cast<hkMemoryAllocator*>(pHolder->m_heap);

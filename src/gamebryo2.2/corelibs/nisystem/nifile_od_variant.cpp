@@ -23,14 +23,15 @@ void FileFinder_AccessFile();
 void __cdecl NiFile_SetFileCreateFunc(void (*apfnCallback)(const char*, int, unsigned int));
 void __cdecl NiFile_SetFileAccessFunc(void (*apfnCallback)());
 
-class FUN_00afdc60 : public FUN_00afe9f0
+class FileFinder : public FUN_00afe9f0
 {
   public:
-    FUN_00afdc60(int aiArg1, int aiArg2, bool abFlag);
+    FileFinder(int aiArg1, int aiArg2, bool abFlag);
 };
 
 // @fnv 0x00afdc60
-FUN_00afdc60::FUN_00afdc60(int aiArg1, int aiArg2, bool abFlag) : FUN_00afe9f0(0)
+// src: GUESS 0x00afdc60 (confidence: medium)
+FileFinder::FileFinder(int aiArg1, int aiArg2, bool abFlag) : FUN_00afe9f0(0)
 {
     int aiUnused[3];
     (void)aiUnused;

@@ -140,11 +140,12 @@ void __cdecl _Deallocate(void*);
 struct FUN_008d1f10_shell : public Character
 {
     void FUN_008d2060();
-    FUN_008d1f10_shell* FUN_008d1f10(unsigned int aiFlags);
+    FUN_008d1f10_shell* ScalarDeletingDestructor(unsigned int aiFlags);
 };
 // Calls FUN_008d2060, then deallocates this if bit 0 of aiFlags is set, and returns this.
 // @fnv 0x008d1f10
-FUN_008d1f10_shell* FUN_008d1f10_shell::FUN_008d1f10(unsigned int aiFlags)
+// src: EXE 0x008d1f10
+FUN_008d1f10_shell* FUN_008d1f10_shell::ScalarDeletingDestructor(unsigned int aiFlags)
 {
     FUN_008d2060();
     if (aiFlags & 1)
@@ -1637,19 +1638,20 @@ class PoolEntryArray
     void SetAt(unsigned int uiIndex, PoolEntry* const& rpEntry);
 };
 
-class FUN_0096a850 : public PoolEntryArray
+class ProcessArray : public PoolEntryArray
 {
   public:
     void* m_apActive[4];
     void* m_apPending[4];
     void* m_apFree[4];
 
-    FUN_0096a850();
+    ProcessArray();
 };
 
 // Constructs a PoolEntryArray with size 1000, nulls all 1000 entries, and clears the four active, pending and free slots.
 // @fnv 0x0096a850
-FUN_0096a850::FUN_0096a850() : PoolEntryArray(0, 1)
+// src: GUESS 0x0096a850 (confidence: medium)
+ProcessArray::ProcessArray() : PoolEntryArray(0, 1)
 {
     SetSize(1000);
     for (unsigned int i = 0; i < 1000; i++)
@@ -2103,7 +2105,7 @@ void FUN_0093a8f0_shell::PlayerCharacter_ModActorBaseValueI(int aiAV, int aiAmou
     NotifyAVChange(this, aiAV, fOld, (float)aiAmount, 0);
 }
 
-extern "C" void* __cdecl CreatePackageByType(int);
+extern "C" void* __cdecl TESPackage_CreatePackage(int);
 
 struct XA8a
 {
@@ -2772,7 +2774,7 @@ void XObj::PlayerCharacter_InitiateCannibalPackage(void* arg0)
     PlayerCharacter_ForceTemp3rdPerson(1);
     member68->Attach(0, this);
     member68->Detach(0);
-    XAObj* A5 = (XAObj*)CreatePackageByType(0x26);
+    XAObj* A5 = (XAObj*)TESPackage_CreatePackage(0x26);
     A5->FUN_00826b40(1);
     A5->FUN_00826b90(1);
     XPObj* P = new XPObj;
@@ -2846,7 +2848,7 @@ struct DataBF
 };
 struct PackBF
 {
-    void SetPackageType(int);
+    void SetPackType(int);
     void FUN_00826b40(bool);
     void FUN_00826b90(bool);
     void SetPackageLocation(LocBF*);
@@ -2854,7 +2856,7 @@ struct PackBF
     void FUN_00984f60(int);
     DataBF* FUN_00671d10();
 };
-void* __cdecl CreatePackageByType(int);
+void* __cdecl TESPackage_CreatePackage(int);
 struct GlobalBF
 {
     void PlayerCharacter_IssueStealWarning();
@@ -2876,8 +2878,8 @@ void PackageAssignment::Actor_InitiateStealWarning(void* arg, int unused)
     void* old3 = ((ProcBF*)GetProcess())->get();
     if (FUN_009344a0() && ((TargetBF*)FUN_009344a0())->FUN_00678610())
         Unk_A2();
-    PackBF* pack = (PackBF*)CreatePackageByType(0x22);
-    pack->SetPackageType(0x22);
+    PackBF* pack = (PackBF*)TESPackage_CreatePackage(0x22);
+    pack->SetPackType(0x22);
     pack->FUN_00826b40(true);
     pack->FUN_00826b90(true);
     LocBF* loc = new LocBF;
@@ -3513,7 +3515,7 @@ struct AssignedTargetView
 };
 struct AssignedExtraView
 {
-    void AllocateStorage_0041c930(void*, unsigned int, unsigned int, bool, bool, bool);
+    void ExtraDataList_SetPackageExtra(void*, unsigned int, unsigned int, bool, bool, bool);
 };
 struct AssignedArgument
 {
@@ -3540,7 +3542,7 @@ void AssignedCharacter::Character_InitiateCannibalPackage(AssignedArgument* argu
     // Location data installed into the travel package.
     XPObj* package;
     // AI package for travel to the supplied location.
-    XAObj* location = (XAObj*)CreatePackageByType(38);
+    XAObj* location = (XAObj*)TESPackage_CreatePackage(38);
     location->FUN_00826b40(1);
     location->FUN_00826b90(1);
     package = new XPObj;
@@ -3558,7 +3560,7 @@ void AssignedCharacter::Character_InitiateCannibalPackage(AssignedArgument* argu
     ((AssignedProcess*)GetProcess())->Update();
     if (((AssignedProcess*)m_pBaseProcess)->GetTarget())
     {
-        BSFile_GetDevice()->AllocateStorage_0041c930(
+        BSFile_GetDevice()->ExtraDataList_SetPackageExtra(
             ((AssignedProcess*)m_pBaseProcess)->GetTarget(), ((AssignedProcess*)m_pBaseProcess)->State23c(),
             ((AssignedProcess*)m_pBaseProcess)->State128(), ((AssignedProcess*)m_pBaseProcess)->State11c(),
             ((AssignedProcess*)m_pBaseProcess)->State4e8(), ((AssignedProcess*)m_pBaseProcess)->State5a4());

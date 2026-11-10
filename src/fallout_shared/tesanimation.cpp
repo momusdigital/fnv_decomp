@@ -25,7 +25,8 @@ void TESAnimation::ClearComponent()
 }
 
 // @fnv 0x0047fd90
-bool TESAnimation::HasSpecialAnimations()
+// src: COMMUNITY 0x0047fd90
+bool TESAnimation::HasKFFiles()
 {
     if (m_kKFFileList.IsEmpty())
     {

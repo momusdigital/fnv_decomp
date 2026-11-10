@@ -15,7 +15,7 @@ class ImageSpaceModifierInstance : public NiObject
     virtual void vfn_8c();
     virtual void vfn_90();
     virtual ImageSpaceModifierInstanceForm* GetInstanceForm();
-    virtual void vf38(char* apBuffer);
+    virtual void PrintInfo(char* apBuffer);
 
     static float GetTime();
     bool IsFlagSet();

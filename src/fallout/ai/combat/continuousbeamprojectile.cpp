@@ -370,7 +370,7 @@ struct ScAVObject
     ScTransform* GetSourceFilesFromForm();
     ScGeom* NiGeometry_GetModelData();
     unsigned int NiParticleSystem_GetModifierCount();
-    ScAVObject* GetByIndex(unsigned int uiIndex);
+    ScAVObject* NiParticleSystem_GetModifierAt(unsigned int uiIndex);
 };
 bool __cdecl NiObject_IsKindOf(ScRTTI* pkRTTI, void* pkObject);
 void* __cdecl NiXenonRenderer_GetRenderer();
@@ -393,7 +393,7 @@ void ContinuousBeamProjectile::ScaleObject(NiAVObject* pkObject, float fScale)
                     ScAVObject* pkNode = reinterpret_cast<ScAVObject*>(pkObject);
                     for (unsigned int i = 0; i < pkNode->NiParticleSystem_GetModifierCount(); i++)
                     {
-                        ScAVObject* pkChild = pkNode->GetByIndex(i);
+                        ScAVObject* pkChild = pkNode->NiParticleSystem_GetModifierAt(i);
                         if (NiObject_IsKindOf(&g_kRTTI_01202508, pkChild))
                         {
                             ScChild* pkTarget = (ScChild*)pkChild;

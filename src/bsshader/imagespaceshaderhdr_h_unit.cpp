@@ -55,10 +55,11 @@ struct Caller
 };
 struct StandIn
 {
-    void* FUN_00b907f0(unsigned int);
+    void* ImageSpaceShaderHDRBrightPassFilter_ScalarDeletingDestructor(unsigned int);
 };
 // @fnv 0x00b907f0
-void* StandIn::FUN_00b907f0(unsigned int auiFlags)
+// src: GUESS 0x00b907f0 (confidence: medium)
+void* StandIn::ImageSpaceShaderHDRBrightPassFilter_ScalarDeletingDestructor(unsigned int auiFlags)
 {
     *(void**)this = (void*)&DAT_010b3c58;
     *(void**)((char*)this + 0x6c) = (void*)&vftable_ImageSpaceShaderHDRBrightPassFilter;
@@ -94,13 +95,13 @@ void* S00b90e30::DestroyImageSpaceShaderHDRLightAdapt(unsigned int flags)
 extern void* vftable_ImageSpaceShaderHDRDownSample16;
 extern void* DAT_010B3DF4;
 void __cdecl _delete(void*, unsigned int);
-struct FUN_00b90980_shell
+struct ImageSpaceShaderHDRDownSample16
 {
     void FUN_00c03a20();
     void* DestroyImageSpaceShaderHDRDownSample16(unsigned int);
 };
 // @fnv 0x00b90980
-void* FUN_00b90980_shell::DestroyImageSpaceShaderHDRDownSample16(unsigned int auiFlags)
+void* ImageSpaceShaderHDRDownSample16::DestroyImageSpaceShaderHDRDownSample16(unsigned int auiFlags)
 {
     *(void**)this = &vftable_ImageSpaceShaderHDRDownSample16;
     *(void**)((char*)this + 0x6c) = &DAT_010B3DF4;
@@ -116,11 +117,12 @@ void __cdecl _delete(void*, unsigned int);
 struct Unk914
 {
     void FUN_00c03a20();
-    void* FUN_00b914a0(unsigned int);
+    void* ImageSpaceShaderHDRDownSample16LightAdapt_ScalarDeletingDestructor(unsigned int);
 };
 // Sets the vtable and a member pointer, calls FUN_00c03a20, and if flags bit 0 is set deletes this with size 0xd0, returning this.
 // @fnv 0x00b914a0
-void* Unk914::FUN_00b914a0(unsigned int flags)
+// src: GUESS 0x00b914a0 (confidence: high)
+void* Unk914::ImageSpaceShaderHDRDownSample16LightAdapt_ScalarDeletingDestructor(unsigned int flags)
 {
     *(void**)this = &vftable_ImageSpaceShaderHDRDownSample16LightAdapt;
     *(void**)((char*)this + 0x6c) = &DAT_010B4914;
@@ -134,13 +136,13 @@ void __cdecl FUN_00c03a20(void);
 extern int vftable_ImageSpaceShaderHDRDownSample9;
 extern int vftable_ImageSpaceShaderHDRDownSample9_2;
 
-struct FUN_00b90b10_shell
+struct ImageSpaceShaderHDRDownSample9
 {
     void* DestroyImageSpaceShaderHDRDownSample9(unsigned int flags);
 };
 
 // @fnv 0x00b90b10
-void* FUN_00b90b10_shell::DestroyImageSpaceShaderHDRDownSample9(unsigned int flags)
+void* ImageSpaceShaderHDRDownSample9::DestroyImageSpaceShaderHDRDownSample9(unsigned int flags)
 {
     *(int*)this = (int)&vftable_ImageSpaceShaderHDRDownSample9;
     *(int*)((char*)this + 0x6c) = (int)&vftable_ImageSpaceShaderHDRDownSample9_2;
@@ -426,7 +428,7 @@ namespace fnv_00b909b0 {
 // sub ecx,0x6c; jmp target  ==  MSVC adjustor thunk for a virtual overridden through the second base.
 struct PrimaryBase
 {
-    virtual void FUN_00b909b0();
+    virtual void ImageSpaceShaderHDRDownSample16_ScalarDeletingDestructorThunk();
     int unk04;
     int unk08;
     int unk0C;
@@ -457,14 +459,15 @@ struct PrimaryBase
 
 struct SecondaryBase
 {
-    virtual void FUN_00b909b0();
+    virtual void ImageSpaceShaderHDRDownSample16_ScalarDeletingDestructorThunk();
 };
 
 struct Derived : PrimaryBase, SecondaryBase
 {
     Derived();
 // @fnv 0x00b909b0
-    virtual void FUN_00b909b0();
+// src: GUESS 0x00b909b0 (confidence: medium)
+    virtual void ImageSpaceShaderHDRDownSample16_ScalarDeletingDestructorThunk();
 };
 
 Derived::Derived()
@@ -1006,7 +1009,7 @@ Derived::Derived()
 namespace fnv_00b914d0 {
 struct Base1
 {
-    virtual void FUN_00b914d0();
+    virtual void ImageSpaceShaderHDRDownSample16LightAdapt_ScalarDeletingDestructorThunk();
     int unk04;
     int unk08;
     int unk0C;
@@ -1036,13 +1039,14 @@ struct Base1
 };
 struct Base2
 {
-    virtual void FUN_00b914d0();
+    virtual void ImageSpaceShaderHDRDownSample16LightAdapt_ScalarDeletingDestructorThunk();
 };
 struct Derived : Base1, Base2
 {
     Derived();
 // @fnv 0x00b914d0
-    virtual void FUN_00b914d0();
+// src: GUESS 0x00b914d0 (confidence: medium)
+    virtual void ImageSpaceShaderHDRDownSample16LightAdapt_ScalarDeletingDestructorThunk();
 };
 Derived::Derived()
 {}

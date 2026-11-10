@@ -62,7 +62,7 @@ unsigned int iFormID;
     unsigned char ReadTypedData(bool* data, unsigned int size);
     bool ReadFormIdentifier(void* formID);
     unsigned int ReadFormIdentifier();
-    int ReadElementCount();
+    int LoadVariableSizedValue();
     void SetBuffer(char* buffer, unsigned int size, unsigned int position);
     void AddToOffset(int offset);
     int CheckValueMatchesField(SaveFile* file);

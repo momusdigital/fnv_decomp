@@ -222,7 +222,7 @@ extern NiGPUProgram* DAT_012021e4;
 
 struct FUN_00bcbc70_shell : public GeometryDecalShader
 {
-    void __thiscall CreateDecalShaders();
+    void __thiscall GeometryDecalShader_LoadShaders();
     void __thiscall GeometryDecalShader_ReloadShaders();
 };
 
@@ -230,7 +230,7 @@ struct FUN_00bcbc70_shell : public GeometryDecalShader
 // src: XBOX_PDB 0x00bcbc70
 void __thiscall FUN_00bcbc70_shell::GeometryDecalShader_ReloadShaders()
 {
-    CreateDecalShaders();
+    GeometryDecalShader_LoadShaders();
     void(__thiscall * fn)(FUN_00bcbc70_shell*) = *(void(__thiscall**)(FUN_00bcbc70_shell*))(*(char**)this + 0x13c);
     fn(this);
 }
@@ -256,7 +256,7 @@ void* FUN_00bcc070_shell::DestroyIfFlagged(unsigned int a)
 
 struct FUN_00bcb4d0_shell : public GeometryDecalShader
 {
-    void CreateDecalShaders();
+    void GeometryDecalShader_LoadShaders();
 };
 
 struct ShaderSourceInfo
@@ -281,7 +281,8 @@ inline void AssignRef(PassReference& dst, const PassReference& src)
 }
 
 // @fnv 0x00bcb4d0
-void FUN_00bcb4d0_shell::CreateDecalShaders()
+// src: COMMUNITY 0x00bcb4d0
+void FUN_00bcb4d0_shell::GeometryDecalShader_LoadShaders()
 {
     char pTempFileName[260];
     const char* pPixelShaderProfile;
@@ -298,7 +299,7 @@ void FUN_00bcb4d0_shell::CreateDecalShaders()
     VSbaseParam.macros[5] = DAT_01063f48;
     VSbaseParam.macros[6] = 0;
     _fnv_zlib_memset(&VSbaseParam.macros[7], 0, 0x2c);
-    BSShader::GetShaderPath(VSbaseParam.path, pCacheFileName);
+    BSShader::MakePath(VSbaseParam.path, pCacheFileName);
     _sprintf_s(pTempFileName, 0x104, "GDECAL.vso");
     pShaderPasses[0] =
         CompileVertexShader(pCacheFileName, (const _D3DXMACRO*)VSbaseParam.macros, "vs_1_1", pTempFileName);
@@ -306,7 +307,7 @@ void FUN_00bcb4d0_shell::CreateDecalShaders()
     ShaderSourceInfo vsSkinnedParams = {
         "lighting\\2x\\v\\decal.v.hlsl",
         {"DECAL", g_011c72c0_arg1, "GEOMDECAL", g_011c72c0_arg1, "MAXDECALS", DAT_01063f48, "SKIN", g_011c72c0_arg1}};
-    BSShader::GetShaderPath(vsSkinnedParams.path, pCacheFileName);
+    BSShader::MakePath(vsSkinnedParams.path, pCacheFileName);
     _sprintf_s(pTempFileName, 0x104, "GDECALS.vso");
     pShaderPasses[1] =
         CompileVertexShader(pCacheFileName, (const _D3DXMACRO*)vsSkinnedParams.macros, "vs_1_1", pTempFileName);
@@ -322,7 +323,7 @@ void FUN_00bcb4d0_shell::CreateDecalShaders()
     PSbaseParam.macros[5] = DAT_01063f48;
     PSbaseParam.macros[6] = 0;
     _fnv_zlib_memset(&PSbaseParam.macros[7], 0, 0x2c);
-    BSShader::GetShaderPath(PSbaseParam.path, pCacheFileName);
+    BSShader::MakePath(PSbaseParam.path, pCacheFileName);
     _sprintf_s(pTempFileName, 0x104, "GDECAL.pso");
     pShaderPasses[2] =
         CompilePixelShader(pCacheFileName, (const _D3DXMACRO*)PSbaseParam.macros, pPixelShaderProfile, pTempFileName);
@@ -656,12 +657,12 @@ GeometryDecalShader* __cdecl CreateGeometryDecalShader()
     static_cast<ProgramView*>(DAT_012021e4)->Finish();
     GeometryDecalShader* shader = new GeometryDecalShader;
     shader->Initialize();
-    static_cast<FUN_00bcb4d0_shell*>(shader)->CreateDecalShaders();
+    static_cast<FUN_00bcb4d0_shell*>(shader)->GeometryDecalShader_LoadShaders();
     for (unsigned int i = 0; i < 2; ++i)
         NiD3DPass::CreateD3DPass(shader->m_spPasses[i]);
     shader->SetupPasses();
     shader->InitShaderConstants();
-    shader->UseShaderDeclaration(reinterpret_cast<NiD3DShaderDeclaration*>(DAT_012021e0));
+    shader->NiD3DShader_SetShaderDecl(reinterpret_cast<NiD3DShaderDeclaration*>(DAT_012021e0));
     return shader;
 }
 

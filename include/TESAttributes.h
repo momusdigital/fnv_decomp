@@ -58,7 +58,7 @@ public:
     void SaveGame(unsigned int buffer);
     void LoadGame(BGSLoadFormBuffer* buffer);
     void LoadGame(unsigned int buffer, unsigned int flags);
-    void LoadDataIfChanged(BGSLoadFormBuffer* buffer);
+    void TESAttributes_LoadGame(BGSLoadFormBuffer* buffer);
 
 
     unsigned char cAttribute[7];

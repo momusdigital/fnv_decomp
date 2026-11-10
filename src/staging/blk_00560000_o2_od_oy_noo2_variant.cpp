@@ -20,7 +20,7 @@ class FUN_00577110_cls
 {
   public:
     FUN_00577110_slot* GetSlot(unsigned int index, LocalBlock20* scratch);
-    void ProcessState_00577110();
+    void hkMatrix3_setZero();
 };
 
 class __declspec(align(16)) LocalBlock20
@@ -38,8 +38,8 @@ class FUN_00577110_slot
 };
 
 // @fnv 0x00577110
-// src: GUESS 0x00577110 (confidence: low)
-void FUN_00577110_cls::ProcessState_00577110()
+// src: GUESS 0x00577110 (confidence: high)
+void FUN_00577110_cls::hkMatrix3_setZero()
 {
     LocalBlock20 local;
     local.Init();
@@ -54,7 +54,7 @@ struct __declspec(align(16)) FUN_0056ded0
     FUN_0056ded0();
 };
 FUN_0056ded0& __cdecl FUN_0056df80(FUN_0056ded0& destination, const NiTransform& source);
-struct FUN_0056df20_Class
+struct bhkSimpleShapePhantom
 {
     void bhkShapePhantom_setTransform(FUN_0056ded0*);
     void bhkShapePhantom_SetTransform(const NiTransform& src);
@@ -62,7 +62,7 @@ struct FUN_0056df20_Class
 // Built from prior 2026-10-25 contributions, with byte-addressable transform storage.
 // @fnv 0x0056df20
 // src: XBOX_PDB 0x0056df20
-void FUN_0056df20_Class::bhkShapePhantom_SetTransform(const NiTransform& src)
+void bhkSimpleShapePhantom::bhkShapePhantom_SetTransform(const NiTransform& src)
 {
     FUN_0056ded0 local;
     bhkShapePhantom_setTransform(&FUN_0056df80(local, src));

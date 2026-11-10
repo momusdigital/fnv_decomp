@@ -32,7 +32,7 @@ struct FUN_00ca9440_src
     unsigned int m_1c;
 };
 
-struct FUN_00ca9440_cls
+struct hkpClosestRayHitCollector
 {
     unsigned int unk00;
     float m_04;
@@ -60,7 +60,7 @@ struct FUN_00ca9440_cls
 
 // @fnv 0x00ca9440
 // src: XBOX_PDB 0x00ca9440
-void FUN_00ca9440_cls::hkpClosestRayHitCollector_addRayHit(HKPCloseNode* node, FUN_00ca9440_src* src)
+void hkpClosestRayHitCollector::hkpClosestRayHitCollector_addRayHit(HKPCloseNode* node, FUN_00ca9440_src* src)
 {
     if (src->m_10 < m_20)
     {

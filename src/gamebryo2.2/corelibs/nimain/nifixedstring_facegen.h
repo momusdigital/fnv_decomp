@@ -42,7 +42,7 @@ class FaceGenImage : public NiMemObject
 struct TextureChannel
 {
     unsigned char data[24];
-    const signed char* GetElementChecked_0065cc70(unsigned int);
+    const signed char* vector_at(unsigned int);
 };
 struct TextureRow
 {
@@ -53,7 +53,7 @@ struct TextureRow
 struct TextureBasis
 {
     unsigned char data[24];
-    unsigned int GetPointerSpanCount_0065cea0();
+    unsigned int vector_size();
     TextureRow* ProcessEntries_0065cec0(unsigned int);
 };
 struct FaceGenTextureFile

@@ -140,12 +140,12 @@ struct FUN_007242c0_shell
 int GetTileValueID(const char*, int);
 extern int DAT_011d8cd8;
 extern int DAT_011d8cdc;
-void __cdecl ProcessEntries_00724930();
+void __cdecl ListBox_UpdateTileIndices();
 struct FUN_00721bc0_shell
 {
     int x;
     void __thiscall SortEntriesAndRefresh(int(__cdecl* param)(void*, void*));
-    void __thiscall ProcessEntries_00724930();
+    void __thiscall ListBox_UpdateTileIndices();
 };
 struct FUN_00723030_Holder
 {
@@ -181,7 +181,7 @@ struct FUN_00723fd0_shell : GlobalObject_00869f00
 struct FUN_00724090_shell
 {
     void __thiscall FUN_00721150();
-    void* __thiscall FUN_00724090(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 struct FUN_00721920_shell
 {
@@ -230,7 +230,7 @@ struct FUN_007643c0_p07 : Member_007a8b10
 struct ListBoxSortList;
 struct FUN_007a6480_shell
 {
-    void __thiscall ProcessEntries_007a6480();
+    void __thiscall ListBox_UpdateTileIndices();
 };
 struct FUN_007a22a0_shell
 {
@@ -716,7 +716,7 @@ struct FUN_00724930_cls
     void __thiscall AccumulateTileHeight(Tile* p);
     void __thiscall UpdateState_00724dd0();
     void __thiscall UpdateTraitDisplay();
-    void ProcessEntries_00724930();
+    void ListBox_UpdateTileIndices();
 };
 float __cdecl FUN_004e4430(float);
 int __cdecl BSMAX_00647b70(int, int);
@@ -814,7 +814,7 @@ extern void* DAT_01070890;
 void __cdecl AddToHeadList(FUN_00730810*);
 struct FUN_00730e20_inner
 {
-    bool IsTraitNonZero(void* apKey);
+    bool Tile_IsTrue(void* apKey);
 };
 struct FUN_00730e20_cls
 {
@@ -1480,7 +1480,7 @@ struct ListBoxClear
     float m_fFirstListValue;
 
     bool ListBox_unsigned_int_GetFlag(unsigned int flags);
-    void UpdateScrollTraits();
+    void ListBox_UpdateScrollBar();
     void UpdateHighlightTiles();
     void ProcessEntries_007230e0();
 };
@@ -1828,9 +1828,9 @@ class FUN_007a3ac0_ListBox
     float m_fFirstListValue;
 
     bool ListBox_unsigned_int_GetFlag(unsigned int flags);
-    void UpdateScrollTraits_007a7700();
+    void ListBox_UpdateScrollDelta();
     void UpdateHighlightTraits_007a73e0();
-    void ProcessEntries_007a3ac0();
+    void ListBox_RemoveAll();
 };
 struct NavItem
 {
@@ -2045,7 +2045,7 @@ void AGOwner::Tile_Value_AddRefValueAction(int iIndex, Tile* pTile, int iValue)
     AGValueItem* pLast = m_pHead;
     AGValueItem* pItem = new AGValueItem;
     pItem->m_iIndex = iIndex;
-    pItem->m_pIntegerData = (TileValue*)pTile->GetOrCreateTraitValue(iValue);
+    pItem->m_pIntegerData = (TileValue*)pTile->Tile_AddValue(iValue);
     if (pLast)
     {
         while (pLast->m_pNext)

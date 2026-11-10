@@ -67,7 +67,7 @@ bool PatrolActorPackageData::Init(Actor* apActor, TESPackage* apPackage)
 {
     pActor = apActor;
     pPackage = apPackage;
-    m_pEscortPackageData = apPackage->GetPackagePatrolData();
+    m_pEscortPackageData = apPackage->GetPatrolPackageData();
     m_uiSecondValueAfterReferenceFlag = 0;
     m_bPatrolFlag = true;
     m_uiValueAfterReferenceFlag = 0;
@@ -90,7 +90,8 @@ class BGSMessageInitAccess
 
 // Returns the reference from the pack's icon form if it resolves to one, otherwise falls back to the actor's linked reference.
 // @fnv 0x009f2d40
-TESObjectREFR* __cdecl PatrolActorPackageData::GetPatrolReference(Actor* apActor, TESPackage* apPack)
+// src: COMMUNITY 0x009f2d40
+TESObjectREFR* __cdecl PatrolActorPackageData::GetInitialReferenceForSetup(Actor* apActor, TESPackage* apPack)
 {
     LocationDescriptor* ploc;
     TESObjectREFR* pinitialReference = 0;
@@ -173,7 +174,8 @@ bool PatrolActorPackageData::SetPatrolRefIndex(unsigned int aiRefIndex)
 
 
 // @fnv 0x009f3390
-TESObjectREFR* PatrolActorPackageData::GetCurrentPatrolReference()
+// src: COMMUNITY 0x009f3390
+TESObjectREFR* PatrolActorPackageData::GetCurrentReference()
 {
     if (!References.NiTListBase_DFALL_NiTListItem_BSAnimGroupSequence_const_BSAnimGroupSequence_const_IsEmpty())
     {
@@ -477,7 +479,7 @@ void PatrolActorPackageData::SelectClosestPatrolPoint(const NiPoint3& arPoint)
     NiPoint3* pOrigPos = 0;
     int iPrevIdx = 0;
     bool bOldForward = true;
-    PatrolRefStub* pR = (PatrolRefStub*)GetCurrentPatrolReference();
+    PatrolRefStub* pR = (PatrolRefStub*)GetCurrentReference();
     if (!pR)
         return;
     NiPoint3* pPt = pR->GetPos();
@@ -492,17 +494,17 @@ void PatrolActorPackageData::SelectClosestPatrolPoint(const NiPoint3& arPoint)
         pOld = pR;
         pOrigPos = pPt;
         AdvanceToNextReference(false);
-        PatrolRefStub* pNext = (PatrolRefStub*)GetCurrentPatrolReference();
+        PatrolRefStub* pNext = (PatrolRefStub*)GetCurrentReference();
         PatrolTarget* pData = pNext ? pNext->GetTarget() : 0;
         if (!pData || pData->ExtraDataList_GetPatrolRefCanBeUsedBy(pActor))
         {
-            pR = (PatrolRefStub*)GetCurrentPatrolReference();
+            pR = (PatrolRefStub*)GetCurrentReference();
             if (!pR)
                 break;
             pPt = pR->GetPos();
             NiPoint3 kDelta = *pOrigPos - arPoint;
             NiPoint3 kLine = *pPt - *pOrigPos;
-            float fDistance = kDelta.GetSquaredXYLength();
+            float fDistance = kDelta.NiPoint3_SqrXYLength();
             if (fDistance < afThirdFloatArgument)
             {
                 afThirdFloatArgument = fDistance;

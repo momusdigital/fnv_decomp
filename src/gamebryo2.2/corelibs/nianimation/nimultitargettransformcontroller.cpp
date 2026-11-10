@@ -245,7 +245,8 @@ inline NiMultiTargetTransformController* ConstructMultiTargetController(void* me
 }
 
 // @fnv 0x00a302d0
-NiObject* __fastcall CloneMultiTargetController(NiMultiTargetTransformController* self, int, CloningProcess* process)
+// src: EXE 0x00a302d0
+NiObject* __fastcall NiMultiTargetTransformController_CreateClone(NiMultiTargetTransformController* self, int, CloningProcess* process)
 {
     void* memory = BSFadeNode::operator new(sizeof(NiMultiTargetTransformController));
     NiMultiTargetTransformController* clone = memory ? ConstructMultiTargetController(memory) : 0;
@@ -254,7 +255,8 @@ NiObject* __fastcall CloneMultiTargetController(NiMultiTargetTransformController
 }
 
 // @fnv 0x00a30330
-NiMultiTargetTransformController* __cdecl CreateCtl()
+// src: EXE 0x00a30330
+NiMultiTargetTransformController* __cdecl NiMultiTargetTransformController_CreateObject()
 {
     void* memory = BSFadeNode::operator new(sizeof(NiMultiTargetTransformController));
     return memory ? ConstructMultiTargetController(memory) : 0;
@@ -290,7 +292,8 @@ extern float DAT_01096b8c;
 
 // If active, iterates targets with selective update, blends each via Update, and applies non-sentinel translate, rotate and scale values.
 // @fnv 0x00a2fbe0
-void __fastcall UpdateTargets(NiMultiTargetTransformController* self, int, NiUpdateData* UpdateData)
+// src: COMMUNITY 0x00a2fbe0
+void __fastcall NiMultiTargetTransformController_Update(NiMultiTargetTransformController* self, int, NiUpdateData* UpdateData)
 {
     if (ControllerActive(self))
     {
@@ -405,7 +408,8 @@ template <class T> inline void WriteBinaryValue(NiStream& kStream, const T& valu
 // SaveBinary
 // Saves the base controller, the target count, then each target's link ID to the stream.
 // @fnv 0x00a30440
-void __fastcall SaveMultiTargetBinary(NiMultiTargetTransformController* self, int, NiStream& kStream)
+// src: EXE 0x00a30440
+void __fastcall NiMultiTargetTransformController_SaveBinary(NiMultiTargetTransformController* self, int, NiStream& kStream)
 {
     self->NiObject::SaveBinary(kStream);
     WriteBinaryValue(kStream, self->m_usNumInterps);
@@ -432,7 +436,8 @@ extern int DAT_011f36bc;
 void __fastcall WriteManagerControlledFlag(NiMultiTargetTransformController*, int, FUN_00a304b0_arr*);
 
 // @fnv 0x00a304b0
-void __fastcall GetMultiTargetViewerStrings(NiMultiTargetTransformController* self, int, FUN_00a304b0_arr* pArr)
+// src: EXE 0x00a304b0
+void __fastcall NiMultiTargetTransformController_GetViewerStrings(NiMultiTargetTransformController* self, int, FUN_00a304b0_arr* pArr)
 {
     reinterpret_cast<void (__thiscall*)(NiMultiTargetTransformController*, FUN_00a304b0_arr*)>(&WriteManagerControlledFlag)(self, pArr);
     void* pItem = NiViewerStrings_NiGetViewerString_Title(DAT_011f36bc);
@@ -468,7 +473,8 @@ unsigned short __fastcall FindItemIndexByName(const NiMultiTargetTransformContro
 }
 
 // @fnv 0x00a2fa20
-unsigned short __fastcall GetMultiTargetCount(const NiMultiTargetTransformController* self)
+// src: EXE 0x00a2fa20
+unsigned short __fastcall NiMultiTargetTransformController_GetInterpolatorCount(const NiMultiTargetTransformController* self)
 {
     return self->m_usNumInterps;
 }
@@ -485,7 +491,8 @@ inline void ReadBinaryValue(NiStream& kStream, unsigned short& usValue)
 
 // Calls FUN_00a2f910, reads m_usNumInterps, passes it to FUN_00a2feb0, then assigns returned pointers to m_ppTargetObjects.
 // @fnv 0x00a303d0
-void __fastcall LoadMultiTargetBinary(NiMultiTargetTransformController* self, int, NiStream& kStream)
+// src: EXE 0x00a303d0
+void __fastcall NiMultiTargetTransformController_LoadBinary(NiMultiTargetTransformController* self, int, NiStream& kStream)
 {
     self->NiInterpController::LoadBinary(kStream);
     ReadBinaryValue(kStream, self->m_usNumInterps);

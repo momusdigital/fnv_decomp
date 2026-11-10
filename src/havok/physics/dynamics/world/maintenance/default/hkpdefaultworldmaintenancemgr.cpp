@@ -15,17 +15,18 @@ struct S_00d0b250_RefObj
     {}
 };
 
-struct FUN_00d0b250 : S_00d0b250_RefObj
+struct hkpDefaultWorldMaintenanceMgr : S_00d0b250_RefObj
 {
     float m_kPointA;
     float m_kPointB;
-    FUN_00d0b250();
-    virtual ~FUN_00d0b250();
+    hkpDefaultWorldMaintenanceMgr();
+    virtual ~hkpDefaultWorldMaintenanceMgr();
 };
 
 // Initializes the object's two float members to 33.0 and 63.0 and sets the base reference count to 1.
 // @fnv 0x00d0b250
-FUN_00d0b250::FUN_00d0b250() : m_kPointA(33.0f), m_kPointB(63.0f)
+// src: EXE 0x00d0b250
+hkpDefaultWorldMaintenanceMgr::hkpDefaultWorldMaintenanceMgr() : m_kPointA(33.0f), m_kPointB(63.0f)
 {}
 
 struct S_00d0b230_Dst

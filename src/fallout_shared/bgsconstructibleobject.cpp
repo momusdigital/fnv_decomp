@@ -66,7 +66,7 @@ void BGSConstructibleObject::InitializeData()
 // @fnv 0x004f9a90
 void ConstructibleObjectOperations::Save()
 {
-    TESForm::BeginFormRecord();
+    TESForm::TESForm_StartForm();
     TESFullName::Save_00487010();
     ((ModelSave*)((char*)this + 0x3c))->ProcessAndFreeData(0x4C444f4d, 0x54444f4d, 0x53444f4d);
     TESIcon::Save(0x4e4f4349);
@@ -84,7 +84,7 @@ void ConstructibleObjectOperations::Save()
         unsigned int itempint2 = ((TESForm*)m_pWorkbenchKeyword)->GetHavokWorldObjectCountInSceneGraph_0084e3a0();
         TESForm_AddChunk_00485910(0x4d414e43, itempint2);
     }
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_CloseForm();
 }
 
 // Loads a bound object record from the file, dispatching each chunk to the matching loader and returning true.
@@ -182,7 +182,7 @@ void ConstructibleObjectOperations::Copy(unsigned int a1)
 }
 
 TESForm* __cdecl TESForm_GetFormByNumericID(unsigned int id);
-void __cdecl ResolveFormID(unsigned int* id, void* file);
+void __cdecl TESForm_AddCompileIndex(unsigned int* id, void* file);
 int __cdecl Warning_005b5e40(const char* fmt, ...);
 
 // @fnv 0x004f95a0
@@ -194,7 +194,7 @@ void ConstructibleObjectOperations::LoadFormReferences()
     unsigned int id = (unsigned int)m_pCreatedObject;
     if (id)
     {
-        ResolveFormID(&id, FUN_00484e60(-1));
+        TESForm_AddCompileIndex(&id, FUN_00484e60(-1));
         m_pCreatedObject = dynamic_cast<BGSListForm*>(TESForm_GetFormByNumericID(id));
         if (!m_pCreatedObject)
             Warning_005b5e40("MASTERFILE: Could not find item list (%08X) on constructible object '%s' (%08X).", id, GetName(),
@@ -203,7 +203,7 @@ void ConstructibleObjectOperations::LoadFormReferences()
     id = (unsigned int)m_pWorkbenchKeyword;
     if (id)
     {
-        ResolveFormID(&id, FUN_00484e60(-1));
+        TESForm_AddCompileIndex(&id, FUN_00484e60(-1));
         m_pWorkbenchKeyword = dynamic_cast<TESBoundObject*>(TESForm_GetFormByNumericID(id));
         if (!m_pWorkbenchKeyword)
             Warning_005b5e40("MASTERFILE: Could not find created item (%08X) on constructible object '%s' (%08X).", id,

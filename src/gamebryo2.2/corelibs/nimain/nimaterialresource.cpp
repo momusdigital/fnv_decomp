@@ -16,15 +16,15 @@ void* __cdecl operator new(unsigned int size, unsigned int flags);
 void* __cdecl operator new(unsigned int size);
 void* __cdecl ReleaseStrings();
 
-struct FUN_00eea750_shell
+struct NiMaterialResource
 {
-    virtual ~FUN_00eea750_shell();
+    virtual ~NiMaterialResource();
     void* Destroy(unsigned int flags);
 };
 
 // Calls ReleaseStrings, then frees this with operator delete when flags has bit 0 set, and returns this.
 // @fnv 0x00eea750
-void* FUN_00eea750_shell::Destroy(unsigned int flags)
+void* NiMaterialResource::Destroy(unsigned int flags)
 {
     ReleaseStrings();
     if (flags & 1)

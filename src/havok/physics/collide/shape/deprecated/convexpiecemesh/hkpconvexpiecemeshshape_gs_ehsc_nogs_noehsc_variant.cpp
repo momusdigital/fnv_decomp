@@ -25,7 +25,7 @@ struct HkpStandIn
     virtual void v0() = 0;
 
     void ForwardCall_00e490d0();
-    HkpStandIn* FUN_00e01010(int flags);
+    HkpStandIn* ScalarDeletingDestructor(int flags);
 
     unsigned short value;
 };

@@ -53,7 +53,7 @@ void operator delete(void*, unsigned int);
 struct S_00c53e10
 {
     void FUN_00c53e40();
-    void* FUN_00c53e10(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 struct Inner_00c53ed0
 {

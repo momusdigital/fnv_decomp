@@ -623,7 +623,7 @@ struct EntryListNode
 };
 struct Changes
 {
-    void FilterInventoryChanges(Form*, EntryListNode*);
+    void InventoryChanges_GetRepairItemGroup(Form*, EntryListNode*);
 };
 Changes* __cdecl FUN_004bf220(void*);
 extern void* player;

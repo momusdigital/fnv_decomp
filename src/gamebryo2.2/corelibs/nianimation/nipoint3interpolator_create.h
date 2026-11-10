@@ -4,7 +4,7 @@
 class StateNode
 {
   public:
-    void ResetCameraState();
+    void BGSCameraShot_FreeCamera();
 };
 void ImageSpaceModifierInstance_Stop(ImageSpaceModifierInstanceDOF*);
 #include "../../../../include/SettingT_GameSettingCollection_.h"

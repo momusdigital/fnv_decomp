@@ -79,11 +79,12 @@ void _Deallocate(void*);
 struct FUN_00409b10_shell
 {
     void FUN_00409b40();
-    void* FUN_00409b10(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_00409b40, then frees this with _Deallocate when flags has bit 1 set, and returns this.
 // @fnv 0x00409b10
-void* FUN_00409b10_shell::FUN_00409b10(unsigned int flags)
+// src: EXE 0x00409b10
+void* FUN_00409b10_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00409b40();
     if (flags & 1)
@@ -470,7 +471,7 @@ struct Blk
 };
 }
 bool __cdecl TESForm_QEndianSwapOnSave();
-void __cdecl AppendChunk(void* stream, void* data, unsigned int size);
+void __cdecl TESForm___AddChunkData(void* stream, void* data, unsigned int size);
 
 class PrimaryBase409
 {
@@ -511,7 +512,7 @@ void Obj409::IngredientItem_Endian()
 {
     if (TESForm_QEndianSwapOnSave())
         m_70.QuestPerkEntryData_Endian();
-    AppendChunk(v9(), &m_70, 8);
+    TESForm___AddChunkData(v9(), &m_70, 8);
     if (TESForm_QEndianSwapOnSave())
         m_70.QuestPerkEntryData_Endian();
 }

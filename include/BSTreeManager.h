@@ -29,6 +29,6 @@ public:
 
     BSTreeManager();
     static void Create(bool);
-    static void UpdateTreeInstances();
-    BSTreeNode* CreateTreeInstance(int, int);
+    static void ClearCanopyShadow();
+    BSTreeNode* BSTreeManager_CreateTreeForReference(int, int);
 };

@@ -30,15 +30,15 @@ public:
     void InitItem(TESForm* form);
     void InitializeComponent();
     void ProcessAndFreeData(unsigned int, unsigned int, unsigned int);
-    bool SerializeList(char**, unsigned int*);
+    bool BuildTextureSwapChunkData(char**, unsigned int*);
     void ApplyTextureSwapOverrides(unsigned int);
     bool CompareTextureSwaps(BaseFormComponent*);
     void LoadTextureSwapChunk(char* buffer, unsigned int size, unsigned short version);
     bool ParseTextureSwapData(void* data, unsigned int size, unsigned int version);
     DistantTreeTextureInfo* GetTexSwap(int index);
     void AddTexSwap(const char* name, int index, BGSTextureSet* textureSet);
-    void ClearTextureSwaps();
-    void ApplyTextureSwaps(NiAVObject* object);
+    void ClearTexSwapList();
+    void SwapTextures(NiAVObject* object);
     const char* GetModelFilePath();
 
     static void ReadTextureSwapChunk(TESModelTextureSwap* model, TESFile* file);

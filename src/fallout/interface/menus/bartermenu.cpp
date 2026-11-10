@@ -97,7 +97,7 @@ struct FUN_0071a670_shell
     void UpdateItems();
 };
 
-struct FUN_00730b80_shell
+struct ListBox
 {
     char pad[4];
     BSSimpleList<WeatherEntry*> list;
@@ -106,7 +106,7 @@ struct FUN_00730b80_shell
 
 // Sorts the weather entry list with the given comparison function, then calls UpdateItems on this object.
 // @fnv 0x00730b80
-void FUN_00730b80_shell::SortWeatherEntries(int(__cdecl* fn)(WeatherEntry*, WeatherEntry*))
+void ListBox::SortWeatherEntries(int(__cdecl* fn)(WeatherEntry*, WeatherEntry*))
 {
     list.Sort(fn);
     reinterpret_cast<FUN_0071a670_shell*>(this)->UpdateItems();
@@ -168,7 +168,7 @@ bool BarterMenu_PlayerFirstPassFilterFunc(InventoryStackRecord* entry)
                                      ? static_cast<TESObjectWEAP*>(entry->FUN_0044ddc0())
                                      : 0;
                         if (!form || (biped && !biped->TESBipedModelForm_GetPlayable()) || form->IsQuestItem() || TESContainer_IsGold(form) ||
-                            !name || !name->GetModelLength() || (armor && !armor->IsFlag80Clear()) ||
+                            !name || !name->GetModelLength() || (armor && !armor->TESObjectWEAP_GetIsPlayable()) ||
                             (weapon && !weapon->FUN_004c94d0()) || form->FUN_00401170() == 0x2e)
                             unavailable = true;
                     }
@@ -540,7 +540,7 @@ struct SysVA
 };
 struct SysVC
 {
-    void* GetCountableItemCount();
+    void* InventoryChanges_GetGoldAmount();
 };
 struct SysVB
 {
@@ -562,7 +562,7 @@ void BarterMenu::UpdateCapsLabels()
 {
     char buf[0x40];
     m_i8C = (int)fnv_0072db60::DAT_011dea3c->Actor_GetGoldAmount();
-    m_i90 = (int)fnv_0072db60::DAT_011c3f2c->TESDataHandler_GetBarterContainer()->GetCountableItemCount();
+    m_i90 = (int)fnv_0072db60::DAT_011c3f2c->TESDataHandler_GetBarterContainer()->InventoryChanges_GetGoldAmount();
     fnv_0072db60::BSsprintf(buf, 0x40, "%s   %d", fnv_0072db60::DAT_011d25b0.FUN_00403df0(), m_i8C);
     m_apTiles[5]->Tile_Set_00a01350(0xfc4, buf, 1);
     fnv_0072db60::BSsprintf(buf, 0x40, "%s   %d", fnv_0072db60::DAT_011d25b0.FUN_00403df0(), m_i90);
@@ -771,7 +771,7 @@ float __cdecl BarterMenu_GetSortValue(Tile* tile, S_0072ed00_Item* item)
     float amount = item->FUN_004bd400();
     float base = amount;
     bool b5 = reinterpret_cast<S_0072ed00_List&>(((BarterMenu*)DAT_011d8fa4)->m_kPlayerList).ContainsKey(tile);
-    bool b8 = tile->IsTraitNonZero(DAT_011d8fb4);
+    bool b8 = tile->Tile_IsTrue(DAT_011d8fb4);
     float result = 0.0f;
     if (amount < 0.0)
     {
@@ -842,7 +842,7 @@ namespace fnv_0072f210 {
 
 struct BarterTile
 {
-    bool IsTraitNonZero(int m_uiSoundID);
+    bool Tile_IsTrue(int m_uiSoundID);
     void FUN_00700320(int m_uiSoundID, int iValue);
     void Tile_Set_00a01350(int m_uiSoundID, const char* pString, bool bPropagate);
     void FUN_00707e10(const char* pName);
@@ -873,7 +873,7 @@ void __cdecl UpdateBarterItemTile(BarterTile* pkTile, InventoryStackRecord* pkIt
     char acBuffer[0x80];
     float fValue = BarterMenu_GetSortValue(pkTile, pkItem);
     int iCount = 0;
-    if (!pkTile->IsTraitNonZero(g_iTileIDEquipped_011d8fb4))
+    if (!pkTile->Tile_IsTrue(g_iTileIDEquipped_011d8fb4))
     {
         InventoryStackRecord* pkOther =
             g_pkBarterMenu_011d8fa4->FindMatchingEntry(&g_pkBarterMenu_011d8fa4->m_kMerchantItems, pkItem);
@@ -891,7 +891,7 @@ void __cdecl UpdateBarterItemTile(BarterTile* pkTile, InventoryStackRecord* pkIt
         BSsprintf(acBuffer, 0x80, s_szCountFormat, pkItem->GetFullName(), iCount);
         pkTile->Tile_Set_00a01350(0xfc4, acBuffer, true);
     }
-    if (pkItem->ItemChange_GetWorn(0) && !pkTile->IsTraitNonZero(g_iTileIDEquipped_011d8fb4))
+    if (pkItem->ItemChange_GetWorn(0) && !pkTile->Tile_IsTrue(g_iTileIDEquipped_011d8fb4))
         pkTile->FUN_00700320(Tile_AddUserTrait(s_szIsEquipped, -1), 1);
     if (fValue <= 0.0)
         FUN_00406d30(acBuffer, 0x80, s_szNoValue);
@@ -1020,7 +1020,7 @@ void __cdecl UpdateBarterQuantity(int iCount)
     g_thePlayer_011dea3c->PlayActorSound(
         g_pkSelectedItem_011d8fa8->FUN_0044ddc0(),
         g_pkBarterMenu_011d8fa4->m_pkActiveList == &g_pkBarterMenu_011d8fa4->m_kPlayerList, 0);
-    if (pkTile->IsTraitNonZero(g_iTileIDEquipped_011d8fb4))
+    if (pkTile->Tile_IsTrue(g_iTileIDEquipped_011d8fb4))
         g_pkBarterMenu_011d8fa4->DecrementEntryCount(iCount);
     else
         g_pkBarterMenu_011d8fa4->AddOrUpdateEntryCount(iCount);
@@ -1242,7 +1242,7 @@ struct DataSource
 struct DataHandler
 {
     void* TESDataHandler_GetBarterContainer();
-    void UpdateInventoryForReference(void* a);
+    void TESDataHandler_CreateBarterContainer(void* a);
 };
 
 extern DataHandler* g_dataHandler;
@@ -1318,7 +1318,7 @@ void __thiscall BarterMenu::RebuildInventoryLists(int arg)
     }
     else
     {
-        g_dataHandler->UpdateInventoryForReference(m_pkMerchant);
+        g_dataHandler->TESDataHandler_CreateBarterContainer(m_pkMerchant);
         reinterpret_cast<ListObj&>(m_kMerchantList).PopulateInventoryList((void*)g_thePlayer, (void*)::BarterMenu_PlayerFirstPassFilterFunc, 0, 0, 0, 0);
         reinterpret_cast<ListObj&>(m_kPlayerList).PopulateInventoryList(m_pkMerchant, (void*)IsFilteredFromBarter, 0, 0, 0, 1);
     }
@@ -1431,8 +1431,8 @@ int CompareF070Entries(F070Entry* pkA, F070Entry* pkB)
     void* pvItemA = pkA->m_pvItem;
     void* pvDataB = pkB->m_pvItem;
     int iResult = 0;
-    bool bHighlightA = pkA->m_pkTile->IsTraitNonZero(g_iF070HighlightTrait);
-    bool bB = pkB->m_pkTile->IsTraitNonZero(g_iF070HighlightTrait);
+    bool bHighlightA = pkA->m_pkTile->Tile_IsTrue(g_iF070HighlightTrait);
+    bool bB = pkB->m_pkTile->Tile_IsTrue(g_iF070HighlightTrait);
     if (bHighlightA && !bB)
         iResult = -1;
     else if (!bHighlightA && bB)
@@ -1757,7 +1757,7 @@ bool __cdecl IsFilteredFromBarter(InventoryStackRecord* apEntry)
                   ? (TESObjectWEAP*)((InventoryStackRecord*)apEntry)->FUN_0044ddc0()
                   : 0;
     if (!formTmp || (bipedVal && !bipedVal->TESBipedModelForm_GetPlayable()) || TESContainer_IsGold(formTmp) || !name ||
-        !name->GetModelLength() || (armor && !armor->IsFlag80Clear()) || (weapon_ && !weapon_->FUN_004c94d0()))
+        !name->GetModelLength() || (armor && !armor->TESObjectWEAP_GetIsPlayable()) || (weapon_ && !weapon_->FUN_004c94d0()))
     {
         filteredVal = true;
     }

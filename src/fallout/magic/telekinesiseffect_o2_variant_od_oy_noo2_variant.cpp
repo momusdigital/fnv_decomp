@@ -34,7 +34,7 @@ struct FUN_0082aa90_shell
     unsigned int GetFloatAsUInt();
 };
 void* __cdecl bhkEntity_Getbhk(void const*);
-struct FUN_0082aeb0_shell
+struct bhkUnaryAction
 {
     void* __thiscall bhkUnaryAction_GethkRigidBody();
     void* __thiscall bhkUnaryAction_GetRigidBody();
@@ -93,7 +93,7 @@ class TelekinesisTarget
 class PlayerCameraT
 {
   public:
-    FUN_0082aeb0_shell* GetGrab();
+    bhkUnaryAction* GetGrab();
     void ReleaseGrab();
     const NiPoint3T& GetRotation();
 };

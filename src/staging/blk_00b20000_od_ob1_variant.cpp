@@ -81,7 +81,7 @@ struct FUN_00b27660_class
     int c2c;
     FUN_00b27660_class(int a);
 };
-struct FUN_00b373c0_class
+struct CWindEngine
 {
     float f0;
     float f4;
@@ -100,7 +100,7 @@ struct FUN_00b373c0_class
     int i38;
     float f3C;
     float f40;
-    FUN_00b373c0_class();
+    CWindEngine();
 };
 struct FUN_00b3c550_class
 {
@@ -267,7 +267,7 @@ struct FUN_00b335c0_cls
     unsigned int unk08;
     unsigned int m_0c;
     unsigned int m_10;
-    ProbePair ProcessAndReturnValue_00b335c0(unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5);
+    ProbePair vector_erase(unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5);
 };
 struct FUN_00b33af0_pair
 {
@@ -300,7 +300,7 @@ struct FUN_00b33af0_cls
     unsigned int m_0c;
     unsigned int m_10;
     unsigned int m_14;
-    FUN_00b33af0_pair* UpdateState_00b33af0(FUN_00b33af0_pair* out, unsigned int unk0c, unsigned int a, unsigned int unk14,
+    FUN_00b33af0_pair* vector_erase(FUN_00b33af0_pair* out, unsigned int unk0c, unsigned int a, unsigned int unk14,
                                     unsigned int b);
 };
 extern "C" unsigned int __cdecl Runtime_EvaluateValue_00b35c30(unsigned int, unsigned int, unsigned int);
@@ -1560,8 +1560,8 @@ template <class T> struct ShortVec : ContainerBase
         return VecIter<T>(where.ptr, this);
     }
     T* copy(T* a, T* b, T* c);
-// src: GUESS 0x00b33af0 (confidence: low)
-    VecIter<T> __thiscall UpdateState_00b33af0(ConstIter<T> a, ConstIter<T> b)
+// src: GUESS 0x00b33af0 (confidence: medium)
+    VecIter<T> __thiscall vector_erase(ConstIter<T> a, ConstIter<T> b)
     {
         ConstIter<T> firstArgument = a;
         T* firstPointer = firstArgument.ptr;
@@ -1590,7 +1590,7 @@ template <class T> struct ShortVec : ContainerBase
         if (size() < newSize)
             UpdateState_00b34e10(end(), newSize - size(), val);
         else if (newSize < size())
-            UpdateState_00b33af0(begin() + newSize, end());
+            vector_erase(begin() + newSize, end());
     }
 };
 template void ShortVec<unsigned short>::ProcessState_00b337f0(unsigned int, unsigned short);
@@ -3979,12 +3979,12 @@ template <class _Ty> class vectorS : public _Vector_valS<_Ty>
 class FUN_00b32540_Vector : public vectorS<int>
 {
   public:
-    void ProcessState_00b32540();
+    void vector_clear();
 };
 
 // @fnv 0x00b32540
-// src: GUESS 0x00b32540 (confidence: low)
-void FUN_00b32540_Vector::ProcessState_00b32540()
+// src: GUESS 0x00b32540 (confidence: high)
+void FUN_00b32540_Vector::vector_clear()
 {
     erase(begin(), end());
 }

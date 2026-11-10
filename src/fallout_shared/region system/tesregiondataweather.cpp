@@ -14,7 +14,7 @@ struct RegionDataAccess : TESRegionData
 
 struct WeatherListAccess : TESWeatherList
 {
-    void WriteWeatherList(unsigned int);
+    void TESWeatherList_Save(unsigned int);
     void CopyWeatherList(TESWeatherList*, int);
     bool IsEmpty();
 };
@@ -24,7 +24,7 @@ void TESRegionDataWeather::LoadWeatherData(TESFile* file, TESRegion* region)
 {
     int warnings = Warning();
     SetWarningState(true);
-    TESWeatherList::LoadWeatherEntries(&weatherList, file, region);
+    TESWeatherList::LoadWeatherListChunk(&weatherList, file, region);
     SetWarningState(false);
     if (Warning() > warnings && region)
         Warning("Warnings were encountered while loading weather list chunk from region %s", region->GetName());
@@ -39,7 +39,7 @@ TESRegionDataWeather::TESRegionDataWeather()
 void TESRegionDataWeather::Save()
 {
     TESRegionData::Save();
-    static_cast<WeatherListAccess*>(&weatherList)->WriteWeatherList(0x54574452);
+    static_cast<WeatherListAccess*>(&weatherList)->TESWeatherList_Save(0x54574452);
 }
 
 void* __cdecl operator new(unsigned int);

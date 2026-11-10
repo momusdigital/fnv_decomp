@@ -24,7 +24,7 @@ struct Sub16
     void hkVector4_compareLessThanEqual4(Vec16* out, void* other);
 };
 
-struct FUN_00628d10_cls
+struct hkAabb
 {
     unsigned int unk00;
     unsigned int unk04;
@@ -33,12 +33,12 @@ struct FUN_00628d10_cls
     Sub16 m_sub;
     void hkVector4_compareLessThanEqual4(Vec16* out, void* other);
     void UpdateState_00622570(bool flag);
-    FUN_00628d10_cls* hkAabb_contains(FUN_00628d10_cls* a, FUN_00628d10_cls* b);
+    hkAabb* hkAabb_contains(hkAabb* a, hkAabb* b);
 };
 
 // @fnv 0x00628d10
 // src: COMMUNITY 0x00628d10
-FUN_00628d10_cls* FUN_00628d10_cls::hkAabb_contains(FUN_00628d10_cls* a, FUN_00628d10_cls* b)
+hkAabb* hkAabb::hkAabb_contains(hkAabb* a, hkAabb* b)
 {
     __declspec(align(16)) Vec16 r0;
     __declspec(align(16)) Vec16 r1;

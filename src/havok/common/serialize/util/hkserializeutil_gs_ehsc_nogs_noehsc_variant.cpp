@@ -15,7 +15,7 @@ extern "C" void __cdecl Object_ProcessAndReturnValue_00d485a0(int, int, int, int
 void __cdecl Object_ForwardCall_00d48660(int a, int b, int c);
 extern int DAT_0102e388;
 extern int DAT_010d7540;
-struct FUN_00dcc160_cls
+struct hkIstream
 {
     void* vtbl;
     int a;
@@ -80,7 +80,7 @@ struct FUN_00dbc670_storage
 };
 struct FUN_00dbc670_shell
 {
-    void FUN_00dbc670();
+    void hkBinaryPackfileWriter();
     void hkPackfileWriter_setContents(int, int, int);
     int ProcessPoly(int, int);
     void SetVirtualTableAndProcessState_00dbc6e0();

@@ -28,12 +28,13 @@ extern "C" void __cdecl __Dummy_00b6fef0(void*, unsigned int);
 
 struct NiSpotLightShell
 {
-    NiSpotLightShell* __thiscall FUN_00a94d60(unsigned int flags);
+    NiSpotLightShell* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls _FUN_00a72010, then if flags has bit 1 set calls __Dummy_00b6fef0 on this with size 0x114, and returns this.
 // @fnv 0x00a94d60
-NiSpotLightShell* __thiscall NiSpotLightShell::FUN_00a94d60(unsigned int flags)
+// src: EXE 0x00a94d60
+NiSpotLightShell* __thiscall NiSpotLightShell::ScalarDeletingDestructor(unsigned int flags)
 {
     _FUN_00a72010();
     if (flags & 1)

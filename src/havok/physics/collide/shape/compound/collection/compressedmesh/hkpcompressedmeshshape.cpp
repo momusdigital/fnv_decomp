@@ -100,13 +100,14 @@ unsigned int hkpCompressedMeshShape::GetShapeIndexMask()
 // Layout-free helpers retain methods absent from the shared mesh declaration.
 struct CompressedMeshDeleteCall : ::hkpCompressedMeshShape
 {
-    void* __thiscall FUN_00e3deb0(unsigned int uiFlags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int uiFlags);
 };
 
 hkMemoryRouter* __cdecl _D1A0E0GetMemoryRouter();
 
 // @fnv 0x00e3deb0
-void* __thiscall CompressedMeshDeleteCall::FUN_00e3deb0(unsigned int uiFlags)
+// src: EXE 0x00e3deb0
+void* __thiscall CompressedMeshDeleteCall::ScalarDeletingDestructor(unsigned int uiFlags)
 {
     CompressedMeshDeleteCall* pShape = this;
 
@@ -122,8 +123,8 @@ void* __thiscall CompressedMeshDeleteCall::FUN_00e3deb0(unsigned int uiFlags)
 }
 
 // @fnv 0x00e3c9d0
-// src: GUESS 0x00e3c9d0 (confidence: high)
-__declspec(noinline) unsigned int __stdcall hkpCompressedMeshShape_ReturnConstant_0xF0(unsigned int a1, unsigned int a2)
+// src: EXE 0x00e3c9d0
+__declspec(noinline) unsigned int __stdcall hkpCompressedMeshShape_calcSizeForSpu(unsigned int a1, unsigned int a2)
 {
     return 0xF0;
 }
@@ -175,7 +176,7 @@ extern "C" void _ReadWriteBarrier(void);
 
 const void* DAT_010d0fc4[];
 
-struct FUN_00d59710
+struct hkpConvexVerticesShape
 {
     const void** m_vtbl;
     unsigned short unk04;
@@ -203,11 +204,12 @@ struct FUN_00d59710
     unsigned int m_uiF58;
     unsigned int m_uiF5c;
     unsigned int m_uiF60;
-    FUN_00d59710(float fScale);
+    hkpConvexVerticesShape(float fScale);
 };
 
 // @fnv 0x00d59710
-FUN_00d59710::FUN_00d59710(float fScale)
+// src: EXE 0x00d59710
+hkpConvexVerticesShape::hkpConvexVerticesShape(float fScale)
 {
     unsigned short us = 1;
     unsigned int uiZero = 0;
@@ -995,7 +997,7 @@ struct ConvexShape
 };
 struct ShapeBuffer
 {
-    ConvexShape* FUN_00d59710(float radius);
+    ConvexShape* hkpConvexVerticesShape(float radius);
 };
 struct BufferRef
 {
@@ -1038,7 +1040,7 @@ Triangle* CompressedMeshChildQuery::AllocateStorage_00e3d3f0(unsigned int key, B
         _mm_store_ps(&transform.m_f10, _mm_load_ps(&DAT_01268380.x));
         _mm_store_ps(&transform.m_f20, _mm_load_ps(&DAT_01268390.x));
         _mm_store_ps(&transform.m_f30, _mm_load_ps(&DAT_012683a0.x));
-        ConvexShape* shape = bufv ? bufv->FUN_00d59710(mesh.m_fSphereRadius) : 0;
+        ConvexShape* shape = bufv ? bufv->hkpConvexVerticesShape(mesh.m_fSphereRadius) : 0;
         ConvexPiece* pieces = reinterpret_cast<ConvexPiece*>(mesh.m_kConvexPieces.m_data);
         if (pieces[index].transform != 0xffff)
         {

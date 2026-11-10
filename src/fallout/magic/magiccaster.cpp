@@ -176,7 +176,7 @@ extern ModelLoader* g_modelLoader;
 // Handoff for the remaining four functions of this unit (all decoded, none
 // attempted): 0x815B00 RemoveCastingArt calls GetCasterActor plus slots
 // +0x34/+0x24/+0x40/+0x48 and direct callees 0x453470, 0x4DEF90, 0x80FCC0
-// 0x48CEE0, 0x445300 (global 0x11C3B3C). 0x815C50 HasActiveEffect does
+// 0x48CEE0, 0x445300 (global 0x11C3B3C). 0x815C50 TargetSelf does
 // dynamic_cast (via __RTDynamicCast at 0xEC43FB with RTTI refs 0x11A1224 /
 // bool(MagicTarget*, NiPoint3, MagicItem*, ActiveEffect*, bool)) with a
 // global NiPoint3 at 0x11F426C whose name is still unknown. 0x818C60
@@ -244,7 +244,8 @@ bool MagicCaster::AddEffectToTarget(MagicTarget* target, blob12 position, MagicI
 }
 
 // @fnv 0x00815c50
-bool MagicCaster::HasActiveEffect(ActiveEffect* effect)
+// src: COMMUNITY 0x00815c50
+bool MagicCaster::TargetSelf(ActiveEffect* effect)
 {
     MagicTarget* pTarget;
     bool bRetVal = false;
@@ -1210,7 +1211,7 @@ struct SpellFeedback : MagicItem
     EffectSetting* FUN_0040a300(int);
     ::BSStringT<char> GetNameForType(int);
 };
-struct FUN_0081c470_shell
+struct MagicLight
 {
     void MagicLight_Fade(bool, float);
 };
@@ -1258,7 +1259,7 @@ bool CastingCheck::TryCast(TESBoundObject* source)
     MagicCaster_FindTargets(cost, source, false, 1.0f, false);
     SpellCast(spell, true);
     if (apTargetLight)
-        ((FUN_0081c470_shell*)apTargetLight)->MagicLight_Fade(false, 0.75f);
+        ((MagicLight*)apTargetLight)->MagicLight_Fade(false, 0.75f);
     return true;
 }
 
@@ -1985,7 +1986,7 @@ struct P142Prefix
 };
 struct P142EffectList : P142Prefix, P142Node
 {
-    EffectItem* FindCostliestEffectItem(int, int);
+    EffectItem* GetCostliestEffect(int, int);
     int EffectItemList_GetAssociatedSkill(int, float);
 };
 struct P142Spell : TESFullName, P142EffectList
@@ -2310,7 +2311,7 @@ void P142Caster::ApplySpellEffects(P142Spell* spell, int flags, NiPoint3 positio
     P142EffectList* targets = spell;
     float entry = spell->GetSpellType() == 0 ? GetCasterEffectiveness(false, 0.0f) : 1.0f;
     entry *= effectiveness;
-    EffectItem* notified = spell->FindCostliestEffectItem(2, 0);
+    EffectItem* notified = spell->GetCostliestEffect(2, 0);
     BSSimpleList<const char*> special;
     special.RemoveAll();
     GatherTargetsInArea(spell, 2, position, &special);
@@ -2350,7 +2351,7 @@ void P142Caster::ApplySpellEffects(P142Spell* spell, int flags, NiPoint3 positio
         targets = static_cast<P142EffectList*>(targets->FUN_00726070());
     }
     bool primary = source->GetAVEffect()->FUN_004086a0() == 3;
-    EffectItem* secondary = spell->FindCostliestEffectItem(2, 1);
+    EffectItem* secondary = spell->GetCostliestEffect(2, 1);
     if (!primary)
     {
         if (secondary)
@@ -2425,7 +2426,7 @@ bool CasterOps::CheckHealthDamageKill(Recipient* pRecipient, EffectSpec* pEffect
                 if (setting->FUN_00403e80())
                     value = setting->CombatController_GetCombatState();
                 else
-                    value = effect->GetHavokWorldObjectCountInSceneGraph_0084e3a0()->GetAffectedActorValue();
+                    value = effect->GetHavokWorldObjectCountInSceneGraph_0084e3a0()->GetActorValueIndex();
                 if (value == 16 && setting->IsFlagSet_00403e60(4) && !setting->IsFlagSet_00403e60(2))
                 {
                     float magnitude = effect->GetFloatAtOffset1C();
@@ -3276,7 +3277,7 @@ struct EffectDistance
 };
 struct EffectList
 {
-    EffectItem* FindCostliestEffectItem(int, int);
+    EffectItem* GetCostliestEffect(int, int);
 };
 struct SpellOps
 {
@@ -3350,18 +3351,19 @@ AimPoint CombatUtilities_GetAngleToProjectedTarget(AimPoint, TESObjectREFR*, flo
 void MagicProjectile_Launch(MagicCaster*, int, MagicEffectCollection*, MagicItem*, EffectItem*, EffectSetting*, AimPoint, AimPoint);
 struct FUN_00818610_class : MagicCaster
 {
-    void CastAimEffect();
+    void MagicCaster_FireProjectile();
 };
 // If the caster has a valid spell and effect item, computes aim points from the aim reference or actor and dispatches the magic effect via FUN_0081e040.
 // @fnv 0x00818610
-void FUN_00818610_class::CastAimEffect()
+// src: COMMUNITY 0x00818610
+void FUN_00818610_class::MagicCaster_FireProjectile()
 {
     if (!GetSelectedMagicItem())
         return;
     AimRef* s = (AimRef*)GetCasterReference();
     Actor* h = GetCasterActor();
     TESObjectREFR* p = GetCurrentMagicTarget() ? ((AimTarget*)GetCurrentMagicTarget())->Reference() : 0;
-    EffectItem* i = ((SpellOps*)GetSelectedMagicItem())->effects.FindCostliestEffectItem(2, 0);
+    EffectItem* i = ((SpellOps*)GetSelectedMagicItem())->effects.GetCostliestEffect(2, 0);
     EffectSetting* a = GetSelectedMagicItem()->GetEffectSettingForRange(MagicSystem::SELF);
     if (!i)
         return;
@@ -3373,7 +3375,7 @@ void FUN_00818610_class::CastAimEffect()
         AimPoint cf = AimZero;
         if (h)
         {
-            cf.z = h->GetCurrentTargetDistance(false);
+            cf.z = h->GetHeading(false);
             cf.x = ((ActorLooking*)h)->GetLooking();
             b = *s->Position();
             float delta = s->Upper().z - s->Lower().z;
@@ -3976,7 +3978,7 @@ struct EffectList : UnsignedIntegerValue, EffectLink
     bool CanBePoison();
     bool HasTouchEffect();
     bool HasNonDetrimentalEffect();
-    EffectItem* FindCostliestEffectItem(int, bool);
+    EffectItem* GetCostliestEffect(int, bool);
     void* EffectItemList_GetAssociatedSkill(bool);
 };
 struct NameView
@@ -4427,7 +4429,7 @@ struct Caster
     virtual Object* GetCasterObject();
     virtual Node* GetMagicNode();
     virtual MagicItem* GetSpell();
-    virtual bool HasActiveEffect(ActiveEffect*);
+    virtual bool TargetSelf(ActiveEffect*);
     virtual float Effectiveness(bool, float);
     virtual void SetSpell(MagicItem*);
     virtual Target* GetCurrentMagicTarget();
@@ -4441,7 +4443,7 @@ struct Caster
     void MagicCaster_DoExplosion(NiPoint3, void*, MagicItem*, EffectItem*, Context*, float, float);
     bool CheckHealthDamageKill(MagicTarget*, MagicItem*);
     void ApplyExplosion(Actor*, NiPoint3, EffectItem*, float);
-    void CastAimEffect();
+    void MagicCaster_FireProjectile();
     void MagicCaster_FindTargets(float, Source*, bool, float, bool);
 };
 // Casts the current spell on a target, creating active effects, applying area effects, and updating the caster's state.
@@ -4494,8 +4496,8 @@ void Caster::MagicCaster_FindTargets(float power, Source* source, bool immediate
     bool didTarget2 = false;
     MagicItem* castSpell9 = spellB;
     IngredientItem* ingredientSlot11 = dynamic_cast<IngredientItem*>(castSpell9);
-    EffectItem* kSelfEffect = reinterpret_cast<MagicView*>(castSpell9)->FindCostliestEffectItem(0, false);
-    EffectItem* aTouchEffect = reinterpret_cast<MagicView*>(castSpell9)->FindCostliestEffectItem(1, false);
+    EffectItem* kSelfEffect = reinterpret_cast<MagicView*>(castSpell9)->GetCostliestEffect(0, false);
+    EffectItem* aTouchEffect = reinterpret_cast<MagicView*>(castSpell9)->GetCostliestEffect(1, false);
     SpellItem* spellFormSlot1 = dynamic_cast<SpellItem*>(spellB);
     Context contextSlot12;
     contextSlot12.FUN_00470470();
@@ -4549,18 +4551,18 @@ void Caster::MagicCaster_FindTargets(float power, Source* source, bool immediate
                 if (alchemy2 && alchemy2->AlchemyItem_IsFlagSet(4))
                 {
                     float potency = casterActorSlot25->AttachSubObject() * multiplier;
-                    if (casterActorSlot25->IsCharacter() && ((EffectItem*)active->GetHavokWorldObjectCountInSceneGraph_0084e3a0())->GetAffectedActorValue() == 16)
+                    if (casterActorSlot25->IsCharacter() && ((EffectItem*)active->GetHavokWorldObjectCountInSceneGraph_0084e3a0())->GetActorValueIndex() == 16)
                         FUN_005e58f0(12, casterActorSlot25, &potency);
                     active->FUN_00804bc0(potency);
                 }
-                if (alchemy2 && alchemy2->AlchemyItem_IsFlagSet(2) && ((EffectItem*)active->GetHavokWorldObjectCountInSceneGraph_0084e3a0())->GetAffectedActorValue() != 54)
+                if (alchemy2 && alchemy2->AlchemyItem_IsFlagSet(2) && ((EffectItem*)active->GetHavokWorldObjectCountInSceneGraph_0084e3a0())->GetActorValueIndex() != 54)
                 {
                     float foodPower = casterActorSlot25->Actor_GetSurvivalEffectivenessMultiplier() * multiplier;
-                    if (casterActorSlot25->IsCharacter() && ((EffectItem*)active->GetHavokWorldObjectCountInSceneGraph_0084e3a0())->GetAffectedActorValue() == 16)
+                    if (casterActorSlot25->IsCharacter() && ((EffectItem*)active->GetHavokWorldObjectCountInSceneGraph_0084e3a0())->GetActorValueIndex() == 16)
                         FUN_005e58f0(12, casterActorSlot25, &foodPower);
                     active->FUN_00804bc0(foodPower);
                 }
-                else if (alchemy2 && alchemy2->AlchemyItem_IsFlagSet(2) && ((EffectItem*)active->GetHavokWorldObjectCountInSceneGraph_0084e3a0())->GetAffectedActorValue() == 54)
+                else if (alchemy2 && alchemy2->AlchemyItem_IsFlagSet(2) && ((EffectItem*)active->GetHavokWorldObjectCountInSceneGraph_0084e3a0())->GetActorValueIndex() == 54)
                 {
                     float modifier = 1.0f;
                     FUN_005e58f0(44, casterActorSlot25, &modifier);
@@ -4577,7 +4579,7 @@ void Caster::MagicCaster_FindTargets(float power, Source* source, bool immediate
                     active->AddFlags(2);
                     active->AddFlags(8);
                 }
-                bool accepted = HasActiveEffect(active);
+                bool accepted = TargetSelf(active);
                 if (accepted)
                     didTarget2 = true;
             }
@@ -4622,7 +4624,7 @@ void Caster::MagicCaster_FindTargets(float power, Source* source, bool immediate
             cursorA = static_cast<EffectList*>(cursorA->FUN_00726070());
     }
     MagicArt* artSlot15 = reinterpret_cast<MagicAccessor*>(spellB)->FUN_0040a300(false);
-    EffectItem* areaEffect7 = reinterpret_cast<MagicView*>(spellB)->FindCostliestEffectItem(1, true);
+    EffectItem* areaEffect7 = reinterpret_cast<MagicView*>(spellB)->GetCostliestEffect(1, true);
     bool specialSlot29 = spellFormSlot1 && reinterpret_cast<SpellView*>(spellFormSlot1)->FUN_0040e210(0x80);
     Object* areaTarget3 =
         aTargetObject ? aTargetObject : ((casterActorSlot25 && specialSlot29) ? casterActorSlot25 : 0);
@@ -4663,7 +4665,7 @@ void Caster::MagicCaster_FindTargets(float power, Source* source, bool immediate
     }
     contextSlot12.FUN_00470470();
     if (reinterpret_cast<MagicView*>(spellB)->HasNonDetrimentalEffect())
-        CastAimEffect();
+        MagicCaster_FireProjectile();
     else if (didTarget2 && casterActorSlot25 && (spellB->GetSpellType() == 0 || spellB->GetSpellType() == 5))
         casterActorSlot25->UseSkill(reinterpret_cast<MagicView*>(spellB)->EffectItemList_GetAssociatedSkill(true), 0);
     if (releaseModel && artSlot15 && artSlot15->model.FUN_0048cee0() > 0)

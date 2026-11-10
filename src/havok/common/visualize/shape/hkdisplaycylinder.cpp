@@ -73,10 +73,10 @@ class DE1F50Shape : public DE1F50ReferencedObject
     int unk5C;
 };
 
-class FUN_00de1f50 : public DE1F50Shape
+class hkDisplayBox : public DE1F50Shape
 {
   public:
-    FUN_00de1f50(const DE1F50Vector4& v);
+    hkDisplayBox(const DE1F50Vector4& v);
     virtual void unk00();
 
     DE1F50Vector4 m_vector;
@@ -84,7 +84,8 @@ class FUN_00de1f50 : public DE1F50Shape
 
 // Constructor that stores the given DE1F50Vector4 into m_vector.
 // @fnv 0x00de1f50
-FUN_00de1f50::FUN_00de1f50(const DE1F50Vector4& v) : m_vector(v)
+// src: EXE 0x00de1f50
+hkDisplayBox::hkDisplayBox(const DE1F50Vector4& v) : m_vector(v)
 {
     m_vector = v;
 }

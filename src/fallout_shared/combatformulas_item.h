@@ -7,7 +7,7 @@ class InventoryStackRecord
 {
   public:
     BSSimpleList<ExtraDataList*>* m_pExtraDataLists;  // +0x0
-    float GetArmorDamageThreshold(Actor* actor);
+    float ItemChange_GetModifiedDamageThreshold(Actor* actor);
     float GetConditionPercent(bool percentage);
     static float GetConditionPercent(float health);
     bool SetEquipmentState(int effect, float& value);

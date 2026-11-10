@@ -81,7 +81,7 @@ bool S00458900_Vector::hkVector4_equals3(const S00458900_Vector* v, float epsilo
     return kDiff.hkVector4_compareLessThanEqual4(&kEpsilon).hkVector4Comparison_allAreSet(7);
 }
 
-struct FUN_00458990_Holder
+struct hkVector4Comparison
 {
     __m128 m_v;
     int hkVector4Comparison_allAreSet(int mask);
@@ -89,19 +89,19 @@ struct FUN_00458990_Holder
 
 // @fnv 0x00458990
 // src: COMMUNITY 0x00458990
-int FUN_00458990_Holder::hkVector4Comparison_allAreSet(int mask)
+int hkVector4Comparison::hkVector4Comparison_allAreSet(int mask)
 {
     return (_mm_movemask_ps(m_v) & mask) == mask;
 }
 
-struct FUN_004589c0_cls
+struct hkVector4
 {
     __m128 m_v;
     void hkVector4_setAll(float value);
 };
 // @fnv 0x004589c0
 // src: COMMUNITY 0x004589c0
-void FUN_004589c0_cls::hkVector4_setAll(float value)
+void hkVector4::hkVector4_setAll(float value)
 {
     m_v = _mm_set1_ps(value);
 }

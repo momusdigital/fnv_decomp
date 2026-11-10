@@ -24,11 +24,11 @@ public:
     bool Load(TESFile* file);
     bool IsFlagSet();
     void SetFlag(bool flag);
-    bool IsNotFlag2Set();
+    bool CanBeMale();
     bool IsFlag4Clear();
     bool IsNotEqual(TESForm* compare);
     void CopyFromEyes(TESForm* copy);
-    bool CanBeNPC(TESNPC* npc);
+    bool CanBeEyesForNPC(TESNPC* npc);
     void SetMale(bool flag);
     void SetFemale(bool flag);
     void SaveEyes();

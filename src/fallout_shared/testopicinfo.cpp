@@ -241,8 +241,8 @@ void TESTopicInfo::ClearData()
         ClearResponses();
         ResetResponseList();
         Script emptyScript;
-        g_resultScripts[0].CopyScriptContents(&emptyScript);
-        g_resultScripts[1].CopyScriptContents(&emptyScript);
+        g_resultScripts[0].CopyResultScript(&emptyScript);
+        g_resultScripts[1].CopyResultScript(&emptyScript);
     }
     g_cachedResponseInfo = 0;
     g_cachedResultScriptInfo = 0;
@@ -320,7 +320,7 @@ TESResponseList* TESTopicInfo::DuplicateResponseList(TESResponseList* pResponseL
         {
             if (pResponseList)
             {
-                pResponseList->SetResponseList(g_topicInfoResponses.QResponseList());
+                pResponseList->ResponseListWrapper_CopyResponseList(g_topicInfoResponses.QResponseList());
                 return pResponseList;
             }
             else
@@ -334,7 +334,7 @@ TESResponseList* TESTopicInfo::DuplicateResponseList(TESResponseList* pResponseL
         responseReader.file = GetFile(-1);
         if (!responseReader.file || !m_ulTopicFlags)
             return pResponseList ? pResponseList : &g_topicInfoResponses;
-        responseReader.file = responseReader.file->GetParentTESFile();
+        responseReader.file = responseReader.file->GetThreadSafeFile();
         if (!responseReader.file->SetOffset(m_ulTopicFlags))
             return pResponseList ? pResponseList : &g_topicInfoResponses;
         form = responseReader.file->GetTESForm();
@@ -712,13 +712,13 @@ bool TESTopicInfo::HasResultScript()
     return (iFormFlags & 0x2000) ? true : false;
 }
 
-void __fastcall RemoveAllLists(void*);
+void __fastcall TESConversationData_ClearLists(void*);
 
 // Clears the three conversation-link lists before destroying their list members.
 // @fnv 0x0061c190
 TESTopicInfoData::~TESTopicInfoData()
 {
-    RemoveAllLists(this);
+    TESConversationData_ClearLists(this);
 }
 
 // If head is null, stores a as the head node; otherwise forwards a to head->AppendResponse.
@@ -796,7 +796,8 @@ void* ResponseDeletion::DestroyAndFree(unsigned int flags)
 
 // Calls RemoveAll on the list at offset 8, on this object's own list, and on the list at offset 0x10.
 // @fnv 0x0061c330
-void __fastcall RemoveAllLists(void* data)
+// src: COMMUNITY 0x0061c330
+void __fastcall TESConversationData_ClearLists(void* data)
 {
     static_cast<TESTopicInfoData*>(data)->m_kLinkToList.RemoveAll();
     static_cast<TESTopicInfoData*>(data)->m_kLinkFromList.RemoveAll();
@@ -845,7 +846,8 @@ void TESTopicInfo::RevertLegacy(unsigned int aiFlags)
 }
 
 // @fnv 0x0061cb60
-void TESResponseList::SetResponseList(TESResponse* head)
+// src: COMMUNITY 0x0061cb60
+void TESResponseList::ResponseListWrapper_CopyResponseList(TESResponse* head)
 {
     ClearResponses();
     TESResponse* previous = 0;
@@ -881,11 +883,11 @@ extern "C" void* _data_011c16bc;
 void TESTopicInfo::SetConditionList(PerkEntryConditionSet* apCond)
 {
     if (apCond)
-        m_kInfoConditions.CopyConditions(apCond, (PerkEntryConditionSet*)this);
+        m_kInfoConditions.TESCondition_Copy(apCond, (PerkEntryConditionSet*)this);
     else
     {
         PerkEntryConditionSet temp;
-        m_kInfoConditions.CopyConditions(&temp, (PerkEntryConditionSet*)this);
+        m_kInfoConditions.TESCondition_Copy(&temp, (PerkEntryConditionSet*)this);
     }
 }
 
@@ -933,7 +935,7 @@ int __fastcall TESTopicInfo_GetDummyNodeState(const char*);
 
 
 // @fnv 0x0061e600
-bool TESTopicInfo::IsInfoValidForDialogue(bool& rbDeferred, TESQuest* apQuest, TESObjectREFR* apSpeaker,
+bool TESTopicInfo::CheckCondition(bool& rbDeferred, TESQuest* apQuest, TESObjectREFR* apSpeaker,
                                   TESObjectREFR* apListener)
 {
     bool bResult;
@@ -1099,7 +1101,7 @@ void TESTopicInfoData::Copy(TESTopicInfo* unused, TESTopicInfoData* source)
 {
     if (!source)
         return;
-    RemoveAllLists(this);
+    TESConversationData_ClearLists(this);
     TESTopic* item9;
     {
         BSSimpleList<TESTopic*>* iter = 0;
@@ -1151,14 +1153,15 @@ struct DialogueTopicCompare
     virtual void Slot14();
     virtual bool Compare(TESTopic*);
 };
-TESTopic* FindTopicByInfo(TESForm*);
+TESTopic* TESTopic_GetOwnerTopic(TESForm*);
 struct TopicInfoCompare : TESTopicInfo
 {
     bool IsLessThan(TESForm*);
-    bool CompareTopicForm(TESForm*);
+    bool TESTopicInfo_Sort(TESForm*);
 };
 // @fnv 0x0061d710
-bool TopicInfoCompare::CompareTopicForm(TESForm* form)
+// src: EXE 0x0061d710
+bool TopicInfoCompare::TESTopicInfo_Sort(TESForm* form)
 {
     bool bResult = false;
     switch (static_cast<DialogueFormType*>(form)->FUN_00401170())
@@ -1167,8 +1170,8 @@ bool TopicInfoCompare::CompareTopicForm(TESForm* form)
         TESTopicInfo* pOtherInfo = dynamic_cast<TESTopicInfo*>(form);
         if (pOtherInfo)
         {
-            TESTopic* pSourceTopic = FindTopicByInfo(this);
-            TESTopic* otherOwner = FindTopicByInfo(pOtherInfo);
+            TESTopic* pSourceTopic = TESTopic_GetOwnerTopic(this);
+            TESTopic* otherOwner = TESTopic_GetOwnerTopic(pOtherInfo);
             if (otherOwner && pSourceTopic && otherOwner != pSourceTopic)
             {
                 bResult = reinterpret_cast<DialogueTopicCompare*>(pSourceTopic)->Compare(otherOwner);
@@ -1180,7 +1183,7 @@ bool TopicInfoCompare::CompareTopicForm(TESForm* form)
         TESTopic* topic = dynamic_cast<TESTopic*>(form);
         if (topic)
         {
-            TESTopic* owner = FindTopicByInfo(this);
+            TESTopic* owner = TESTopic_GetOwnerTopic(this);
             if (owner && owner != topic)
                 bResult = reinterpret_cast<DialogueTopicCompare*>(owner)->Compare(topic);
         }
@@ -1211,7 +1214,7 @@ struct TopicInfoGroupOutput
 
 extern TESTopicInfo* DAT_01187344;
 extern TESResponse* DAT_01187020;
-int __cdecl FindTopicByInfo(void* object);
+int __cdecl TESTopic_GetOwnerTopic(void* object);
 
 struct TopicInfoGroupData
 {
@@ -1233,7 +1236,7 @@ void TopicInfoGroupData::GetResponseForTopicInfo(TopicInfoGroupOutput* output, T
             case 0:
                 if (input->unk08 == DAT_01187344)
                 {
-                    iVar1 = FindTopicByInfo(this);
+                    iVar1 = TESTopic_GetOwnerTopic(this);
                     if (iVar1 != 0)
                     {
                         output->pResponse = DAT_01187020;
@@ -1293,7 +1296,7 @@ void TopicInfoDebug::PrintDebugInfo(DebugTextOut* out)
                     topicText3, responseText9);
 }
 
-// The shared API returns the speech threshold from GetDifficultyLevel; this
+// The shared API returns the speech threshold from GetDifficulty; this
 // unit also needs the original getter for the stored difficulty enum.
 struct TopicInfoDifficulty : TESTopicInfo
 {
@@ -1348,8 +1351,8 @@ void TESTopicInfo::Copy(TESForm* form)
     }
     SetDifficultyLevel(static_cast<TopicInfoDifficulty*>(topic)->GetSpeechChallengeLevel());
     SetSpeaker(topic->GetSpeaker());
-    GetResultScript(0)->CopyScriptContents(topic->GetResultScript(0));
-    GetResultScript(1)->CopyScriptContents(topic->GetResultScript(1));
+    GetResultScript(0)->CopyResultScript(topic->GetResultScript(0));
+    GetResultScript(1)->CopyResultScript(topic->GetResultScript(1));
     SetInfoIndex(topic->GetInfoIndex());
     SetConditionList(topic->GetInfoConditions());
     if (topic->GetConversationData())
@@ -1374,10 +1377,10 @@ Script* TESTopicInfo::GetResultScript(unsigned int auiIndex)
         return &g_resultScripts[h];
     g_cachedResultScriptInfo = this;
     Script i;
-    g_resultScripts[0].CopyScriptContents(&i);
+    g_resultScripts[0].CopyResultScript(&i);
     g_resultScripts[0].NotifySaveLoadGameOfFormChange();
     g_resultScripts[0].GetHeader()->m_bQuest = false;
-    g_resultScripts[1].CopyScriptContents(&i);
+    g_resultScripts[1].CopyResultScript(&i);
     g_resultScripts[1].NotifySaveLoadGameOfFormChange();
     g_resultScripts[1].GetHeader()->m_bQuest = false;
     if (!HasResultScript())
@@ -1387,7 +1390,7 @@ Script* TESTopicInfo::GetResultScript(unsigned int auiIndex)
     TESFile* a = GetFile(-1);
     if (!a || !m_ulTopicFlags)
         return &g_resultScripts[h];
-    a = a->GetParentTESFile();
+    a = a->GetThreadSafeFile();
     if (!a->SetOffset(m_ulTopicFlags))
         return &g_resultScripts[h];
     unsigned char p = a->GetTESForm();
@@ -1462,7 +1465,8 @@ extern GlobalObject2_0040c150 g_011cc024;
 extern GlobalObject2_0040c150 g_011cbf54;
 
 // @fnv 0x0061f2b0
-int TESTopicInfo::GetDifficultyLevel()
+// src: COMMUNITY 0x0061f2b0
+int TESTopicInfo::GetDifficulty()
 {
     switch (m_eDifficultyLevel)
     {

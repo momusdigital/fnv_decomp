@@ -6,7 +6,7 @@ class NiD3DGPUProgramCache : public NiGPUProgramCache
 {
 public:
     virtual ~NiD3DGPUProgramCache();
-    virtual void vf38();
+    virtual void PrintInfo();
 
     static const char* GetVertexShaderProfile();
     static const char* GetPixelShaderProfile(bool usePixelLevel);

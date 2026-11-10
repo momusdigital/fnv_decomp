@@ -20,7 +20,7 @@ public:
     virtual void remove(OverlapCollidable* collidable);
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void FreeListenerArrays() throw();
 
     void vfunc04();

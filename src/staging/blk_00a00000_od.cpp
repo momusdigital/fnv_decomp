@@ -551,12 +551,13 @@ struct FUN_00a0d5c0_Local
 
 struct FUN_00a0d5c0_Class
 {
-    int __thiscall FUN_00a0d5c0(int arg);
+    int __thiscall ScalarDeletingDestructor(int arg);
 };
 
 // Calls FUN_00a0d2a0 on this, then if bit 0 of arg is set calls FUN_00aa4060 on this, and returns this as an int.
 // @fnv 0x00a0d5c0
-int __thiscall FUN_00a0d5c0_Class::FUN_00a0d5c0(int aiFlags)
+// src: EXE 0x00a0d5c0
+int __thiscall FUN_00a0d5c0_Class::ScalarDeletingDestructor(int aiFlags)
 {
     FUN_00a0d5c0_Local local;
 

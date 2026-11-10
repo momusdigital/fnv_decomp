@@ -32,14 +32,15 @@ public:
 extern "C" void __cdecl Deallocate(void*);
 extern int DAT_010c63bc;
 
-struct FUN_00d04300
+struct hkpBroadPhaseListener
 {
     int* m_p;
-    FUN_00d04300(bool del);
+    hkpBroadPhaseListener(bool del);
 };
 
 // @fnv 0x00d04300
-FUN_00d04300::FUN_00d04300(bool del)
+// src: EXE 0x00d04300
+hkpBroadPhaseListener::hkpBroadPhaseListener(bool del)
 {
     m_p = &DAT_010c63bc;
     if (del & 1)
@@ -300,7 +301,7 @@ struct FUN_00c90f30
     int value;
     __declspec(nothrow) FUN_00c90f30();
 };
-struct FUN_00d02c80 : FUN_00d0d020
+struct hkpMultiThreadedSimulation : FUN_00d0d020
 {
     virtual void method0();
     ListenerA a;
@@ -341,10 +342,11 @@ struct FUN_00d02c80 : FUN_00d0d020
     int unk138;
     int unk13C;
     FUN_00cf6da0 workLock;
-    FUN_00d02c80(World*);
+    hkpMultiThreadedSimulation(World*);
 };
 // @fnv 0x00d02c80
-FUN_00d02c80::FUN_00d02c80(World* world)
+// src: EXE 0x00d02c80
+hkpMultiThreadedSimulation::hkpMultiThreadedSimulation(World* world)
     : FUN_00d0d020(world), firstLock(4000), secondLock(4000), queueLock(4000), workLock(4000)
 {
 
@@ -490,7 +492,7 @@ char* __cdecl hkMemoryRouter_getInstance();
 void __cdecl ResizeAudioStream(void* alloc, PairArray* arr, int elemSize);
 void __cdecl hkpWorldAgentUtil_addAgent(char* a, char* b, char* c);
 
-struct FUN_00d026e0_cls
+struct MtEntityEntityBroadPhaseListener
 {
     int unk00;
     char* m_04;
@@ -499,7 +501,7 @@ struct FUN_00d026e0_cls
 
 // Resolves two records from pr, and either appends the pair to the array at world+0x6c or updates sub+0x14 and calls FUN_00cc0f40 based on a grid lookup.
 // @fnv 0x00d026e0
-void FUN_00d026e0_cls::ProcessPair(int* aiPair)
+void MtEntityEntityBroadPhaseListener::ProcessPair(int* aiPair)
 {
     int a = aiPair[0];
     int x = a + *(signed char*)(a + 5);
@@ -1123,11 +1125,12 @@ struct CpuObject
     unsigned int unk00;
     unsigned short size;
     void FUN_00d02da0();
-    CpuObject* FUN_00d04320(unsigned int flags);
+    CpuObject* ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_00d02da0, then if bit 0 of flags is set, invokes the allocator from FUN_00c85750 on this with size, and returns this.
 // @fnv 0x00d04320
-CpuObject* CpuObject::FUN_00d04320(unsigned int flags)
+// src: EXE 0x00d04320
+CpuObject* CpuObject::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00d02da0();
     if (flags & 1)
@@ -2108,12 +2111,13 @@ struct FUN_00d02e70_cls
     Event* items30;
     int count34;
     unsigned int capacity38;
-    void AddToiEvent(char* input, EventMeta* meta, CRITICAL_SECTION* cs);
+    void hkpMultiThreadedSimulation_addToiEventWithCriticalSectionLock(char* input, EventMeta* meta, CRITICAL_SECTION* cs);
 };
 
 // If the event array is full, logs a TOI queue-full message and returns; otherwise appends an Event under cs and fills it from input and meta.
 // @fnv 0x00d02e70
-void FUN_00d02e70_cls::AddToiEvent(char* input, EventMeta* meta, CRITICAL_SECTION* cs)
+// src: COMMUNITY 0x00d02e70
+void FUN_00d02e70_cls::hkpMultiThreadedSimulation_addToiEventWithCriticalSectionLock(char* input, EventMeta* meta, CRITICAL_SECTION* cs)
 {
     if (count34 == (capacity38 & 0x3fffffff))
     {
@@ -2294,7 +2298,7 @@ struct Job
 struct Jobs : RuntimeBase
 {
     virtual void start(Job*, int);
-    virtual void wait();
+    virtual void hkSemaphore_release();
 };
 
 struct Entity;
@@ -3324,7 +3328,7 @@ struct StepWorld
     void IncrementCounter();
     void nullsub_6();
     void FUN_00c91120();
-    void UpdateFields_00c91140();
+    void hkpWorld_internalExecutePendingBodyOperations();
     void hkpWorld_unlock();
     int hkpWorld_getMemoryWatchDog();
 };
@@ -3546,7 +3550,7 @@ struct Stepper
 
     int f100;
 
-    void AddToiEvent(Output*, Agent*, void*);
+    void hkpMultiThreadedSimulation_addToiEventWithCriticalSectionLock(Output*, Agent*, void*);
 
     int hkpMultiThreadedSimulation_finishMtStep(Job*, Jobs*);
 };
@@ -3722,7 +3726,7 @@ int Stepper::hkpMultiThreadedSimulation_finishMtStep(Job* job, Jobs* jobs)
                         agent->manager->process(*savedA, *scratch.db, *d, out);
 
                     if (out.hasToi())
-                        AddToiEvent(&out, agent, &f100);
+                        hkpMultiThreadedSimulation_addToiEventWithCriticalSectionLock(&out, agent, &f100);
                 }
             }
 
@@ -3788,7 +3792,7 @@ int Stepper::hkpMultiThreadedSimulation_finishMtStep(Job* job, Jobs* jobs)
             world->FUN_00c91120();
 
         if (world->f0a4 == 1 && world->f090)
-            world->UpdateFields_00c91140();
+            world->hkpWorld_internalExecutePendingBodyOperations();
     }
 
     result = 0;
@@ -3897,7 +3901,7 @@ int Stepper::hkpMultiThreadedSimulation_finishMtStep(Job* job, Jobs* jobs)
         }
         job->SetSimulationEnabled(0);
         job->SetValue(jobState.prior);
-        jobs->wait();
+        jobs->hkSemaphore_release();
         {
             TraceBuffer* p = (TraceBuffer*)TlsGetValue(DAT_0126835c);
             TraceRecord* r = p->next;
@@ -5988,7 +5992,7 @@ struct SubObj
         return m_78;
     }
     void FUN_00c91120();
-    void UpdateFields_00c91140();
+    void hkpWorld_internalExecutePendingBodyOperations();
 };
 
 struct ElemSub
@@ -6495,7 +6499,7 @@ void ThisCls::hkpMultiThreadedSimulation_collideEntitiesNeedingPsiCollisionDetec
         if (sub->m_8c != 0)
             sub->FUN_00c91120();
         if (sub->m_a4 == 1 && sub->m_90 != 0)
-            sub->UpdateFields_00c91140();
+            sub->hkpWorld_internalExecutePendingBodyOperations();
     }
     TraceBuffer* pTraceBuf2 = (TraceBuffer*)TlsGetValue(DAT_0126835c);
     if (pTraceBuf2->next < pTraceBuf2->end)

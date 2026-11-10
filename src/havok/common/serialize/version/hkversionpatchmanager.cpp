@@ -18,13 +18,13 @@ struct FUN_00d874d0_s
 {
     void hkCachedHashMap_hkStringMapOperations_hkContainerHeapAllocator_insert(const char* a, int b);
 };
-struct FUN_00db7d00_class
+struct hkVersionPatchManager_UidFromClassVersion
 {
     void* __thiscall hkVersionPatchManager_UidFromClassVersion_cache(unsigned int a);
 };
 // @fnv 0x00db7d00
 // src: XBOX_PDB 0x00db7d00
-void* __thiscall FUN_00db7d00_class::hkVersionPatchManager_UidFromClassVersion_cache(unsigned int a)
+void* __thiscall hkVersionPatchManager_UidFromClassVersion::hkVersionPatchManager_UidFromClassVersion_cache(unsigned int a)
 {
     if (a)
     {
@@ -888,7 +888,7 @@ struct StrX
 {
     int m_00;
     void SetField00(void* a) throw();
-    int TestValue() throw();
+    int hkDataClass_isNull() throw();
     void Object_DoNothing_00dba660() throw();
 };
 struct HelperX
@@ -922,7 +922,7 @@ struct MgrA
     void FUN_00d87790(int a) throw();
     void hkCachedHashMap_hkStringMapOperations_hkContainerHeapAllocator_insert(int a, void* b) throw();
     void* GetValue(int a, int b) throw();
-    void ProcessAndReturnValue_00d87820(int a) throw();
+    void hkStringMap_remove(int a) throw();
     int hkCachedHashMap_hkStringMapOperations_hkContainerHeapAllocator_getIterator() throw();
     void SetBoolFromThreshold(void* valid, int iterator) throw();
     void* hkCachedHashMap_hkStringMapOperations_hkContainerHeapAllocator_getValue(int a) throw();
@@ -940,7 +940,7 @@ struct MgrB
     int m_08;
     int m_0c;
     void FUN_00d87790(MapTag a) throw();
-    void ProcessAndReturnValue_00d87820(int a) throw();
+    void hkStringMap_remove(int a) throw();
     void FreeBuffer() throw();
     void hkCachedHashMap_hkStringMapOperations_hkContainerHeapAllocator_insert(int a, void* b) throw();
     void* GetValue(int a, int b) throw();
@@ -1220,7 +1220,7 @@ int This::ProcessVersionPatches(ArgA* apSource, ArgA* argB, VecP* apOutput)
                 int key = ce->m_04 ? ce->m_04 : saved;
                 StrX oStr;
                 oStr.SetField00(world.hkDataWorldDict_findClass(key));
-                if (oStr.TestValue())
+                if (oStr.hkDataClass_isNull())
                 {
                     ClassCinfo oCinfo;
                     oCinfo.name = key;
@@ -1322,7 +1322,7 @@ int This::ProcessVersionPatches(ArgA* apSource, ArgA* argB, VecP* apOutput)
             if (mga.GetValue(r, 0))
             {
                 int r2 = ((VObj*)pSource.m_pData[j5])->FUN_v2();
-                mga.ProcessAndReturnValue_00d87820(r2);
+                mga.hkStringMap_remove(r2);
             }
         }
         int si = mga.hkCachedHashMap_hkStringMapOperations_hkContainerHeapAllocator_getIterator();
@@ -1572,11 +1572,12 @@ struct CpuObject
     unsigned int unk00;
     unsigned short size;
     void FUN_00db85e0();
-    CpuObject* FUN_00dba580(unsigned int flags);
+    CpuObject* ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_00db85e0, then if flags has bit 0 set, releases this object through the allocator with its size, and returns this.
 // @fnv 0x00dba580
-CpuObject* CpuObject::FUN_00dba580(unsigned int flags)
+// src: EXE 0x00dba580
+CpuObject* CpuObject::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00db85e0();
     if (flags & 1)

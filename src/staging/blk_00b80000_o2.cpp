@@ -286,15 +286,16 @@ struct ImageSpaceEffectShader
     ImageSpaceEffectShader();
     ~ImageSpaceEffectShader();
 };
-struct FUN_00b8d700
+struct ISBlend
 {
     ImageSpaceEffectShader shader;
-    FUN_00b8d700();
+    ISBlend();
 };
 extern int DAT_010b083c;
 extern int DAT_010b0860;
 // @fnv 0x00b8d700
-FUN_00b8d700::FUN_00b8d700()
+// src: GUESS 0x00b8d700 (confidence: medium)
+ISBlend::ISBlend()
 {
     *(int*)this = (int)&DAT_010b0860;
     *(int*)((char*)this + 0x6c) = (int)&DAT_010b083c;
@@ -329,12 +330,13 @@ struct ImageSpaceEffectShader
 };
 extern int DAT_010b0b98;
 extern int DAT_010b0b78;
-struct FUN_00b8d990 : public ImageSpaceEffectShader
+struct ISBlur3 : public ImageSpaceEffectShader
 {
-    FUN_00b8d990();
+    ISBlur3();
 };
 // @fnv 0x00b8d990
-FUN_00b8d990::FUN_00b8d990()
+// src: GUESS 0x00b8d990 (confidence: medium)
+ISBlur3::ISBlur3()
 {
     *(int**)((char*)this + 0x00) = &DAT_010b0b98;
     *(int**)((char*)this + 0x6c) = &DAT_010b0b78;
@@ -1222,12 +1224,13 @@ struct ImageSpaceEffectShader
     ImageSpaceEffectShader();
     ~ImageSpaceEffectShader();
 };
-struct FUN_00b92180 : ImageSpaceEffectShader
+struct ISRefraction : ImageSpaceEffectShader
 {
-    FUN_00b92180();
+    ISRefraction();
 };
 // @fnv 0x00b92180
-FUN_00b92180::FUN_00b92180()
+// src: GUESS 0x00b92180 (confidence: medium)
+ISRefraction::ISRefraction()
 {
     *(void**)((char*)this + 0) = (void*)&DAT_010b57d0;
     *(void**)((char*)this + 0x6c) = (void*)&DAT_010b57b0;
@@ -1323,13 +1326,14 @@ struct ImageSpaceEffectShader
 };
 extern "C" int DAT_010b5e84;
 extern "C" int DAT_010b5ea8;
-struct FUN_00b927e0 : ImageSpaceEffectShader
+struct ISWaterDisplacementTexOffset : ImageSpaceEffectShader
 {
-    FUN_00b927e0();
+    ISWaterDisplacementTexOffset();
     NiTPrimitiveArray<::ImageSpaceTexture*>* mTextures;
 };
 // @fnv 0x00b927e0
-FUN_00b927e0::FUN_00b927e0()
+// src: GUESS 0x00b927e0 (confidence: medium)
+ISWaterDisplacementTexOffset::ISWaterDisplacementTexOffset()
 {
     *(unsigned int*)this = (unsigned int)&DAT_010b5ea8;
     *(unsigned int*)((char*)this + 0x6c) = (unsigned int)&DAT_010b5e84;
@@ -1369,12 +1373,13 @@ struct ImageSpaceEffectShader
     ImageSpaceEffectShader();
     ~ImageSpaceEffectShader();
 };
-struct FUN_00b92930 : ImageSpaceEffectShader
+struct ISWaterDisplacementWadingRipple : ImageSpaceEffectShader
 {
-    FUN_00b92930();
+    ISWaterDisplacementWadingRipple();
 };
 // @fnv 0x00b92930
-FUN_00b92930::FUN_00b92930()
+// src: GUESS 0x00b92930 (confidence: medium)
+ISWaterDisplacementWadingRipple::ISWaterDisplacementWadingRipple()
 {
     *(void**)((char*)this + 0) = &DAT_010b6048;
     *(void**)((char*)this + 0x6c) = &DAT_010b6028;
@@ -1563,14 +1568,15 @@ struct ImageSpaceEffectShader
     ImageSpaceEffectShader();
     ~ImageSpaceEffectShader();
 };
-struct FUN_00b93180 : public ImageSpaceEffectShader
+struct ISWaterDisplacementNormals : public ImageSpaceEffectShader
 {
     void* vtbl;
     void* p6c;
-    FUN_00b93180();
+    ISWaterDisplacementNormals();
 };
 // @fnv 0x00b93180
-FUN_00b93180::FUN_00b93180()
+// src: GUESS 0x00b93180 (confidence: medium)
+ISWaterDisplacementNormals::ISWaterDisplacementNormals()
 {
     vtbl = (void*)&DAT_010b6a40;
     ((void**)((char*)this + 0x6c))[0] = (void*)&DAT_010b6a20;
@@ -1688,13 +1694,14 @@ struct ImageSpaceEffectShader
     ImageSpaceEffectShader();
     ~ImageSpaceEffectShader();
 };
-struct FUN_00b93bf0 : public ImageSpaceEffectShader
+struct ISWaterFFTVerticalScramble : public ImageSpaceEffectShader
 {
-    FUN_00b93bf0();
+    ISWaterFFTVerticalScramble();
 };
 // Initializes two pointers at offsets 0x0 and 0x6c and sets the primitive array at offset 0x94 to size 4.
 // @fnv 0x00b93bf0
-FUN_00b93bf0::FUN_00b93bf0()
+// src: GUESS 0x00b93bf0 (confidence: medium)
+ISWaterFFTVerticalScramble::ISWaterFFTVerticalScramble()
 {
     m_ppVirtualMethodTable = (void*)&DAT_010b7278;
     *(void**)((char*)this + 0x6c) = (void*)&DAT_010b7258;
@@ -1731,12 +1738,13 @@ struct ImageSpaceEffectShader
     ImageSpaceEffectShader();
     ~ImageSpaceEffectShader();
 };
-struct FUN_00b93d40_class : public ImageSpaceEffectShader
+struct ISWaterFFTNormals : public ImageSpaceEffectShader
 {
-    FUN_00b93d40_class();
+    ISWaterFFTNormals();
 };
 // @fnv 0x00b93d40
-FUN_00b93d40_class::FUN_00b93d40_class()
+// src: GUESS 0x00b93d40 (confidence: medium)
+ISWaterFFTNormals::ISWaterFFTNormals()
 {
     *(void**)((char*)this) = &DAT_010b7418;
     *(void**)((char*)this + 0x6c) = &DAT_010b73f4;
@@ -1857,12 +1865,13 @@ struct ImageSpaceEffectShader
 };
 extern int DAT_010b7a2c;
 extern int DAT_010b7a50;
-struct FUN_00b94280_class : public ImageSpaceEffectShader
+struct ISWaterFFTDisplayAmplitude : public ImageSpaceEffectShader
 {
-    FUN_00b94280_class();
+    ISWaterFFTDisplayAmplitude();
 };
 // @fnv 0x00b94280
-FUN_00b94280_class::FUN_00b94280_class()
+// src: GUESS 0x00b94280 (confidence: medium)
+ISWaterFFTDisplayAmplitude::ISWaterFFTDisplayAmplitude()
 {
     *(int*)((char*)this + 0x00) = (int)&DAT_010b7a50;
     *(int*)((char*)this + 0x6c) = (int)&DAT_010b7a2c;
@@ -2009,13 +2018,14 @@ FUN_00b8dae0_class::FUN_00b8dae0_class()
     ((NiTPrimitiveArray<::ImageSpaceTexture*>*)((char*)this + 0x94))->SetSize(2);
 }
 
-struct FUN_00b8dc30_class : public ImageSpaceEffectShader
+struct ISBlur7 : public ImageSpaceEffectShader
 {
-    FUN_00b8dc30_class();
+    ISBlur7();
 };
 // Initializes the object's vtable pointers and sets the size of the texture array at offset 0x94 to 2.
 // @fnv 0x00b8dc30
-FUN_00b8dc30_class::FUN_00b8dc30_class()
+// src: GUESS 0x00b8dc30 (confidence: medium)
+ISBlur7::ISBlur7()
 {
     int* v = (int*)this;
     v[0] = (int)&DAT_010b0ec0;
@@ -2040,15 +2050,16 @@ FUN_00b8ded0::FUN_00b8ded0()
     ((NiTPrimitiveArray<::ImageSpaceTexture*>*)((char*)this + 0x94))->SetSize(2);
 }
 
-struct FUN_00b8e170 : ImageSpaceEffectShader
+struct ISBlur15 : ImageSpaceEffectShader
 {
     char m_00b8e170[0x95 - sizeof(ImageSpaceEffectShader)];
     DeferredTextureArrayMember m_00b8e204;
-    FUN_00b8e170();
+    ISBlur15();
 };
 // Initialises the vtable pointers and sets the embedded texture array to size 2.
 // @fnv 0x00b8e170
-FUN_00b8e170::FUN_00b8e170()
+// src: GUESS 0x00b8e170 (confidence: medium)
+ISBlur15::ISBlur15()
 {
     ((int*)this)[0] = (int)&DAT_010b14c0;
     ((int*)this)[0x1b] = (int)&DAT_010b14a0;
@@ -2232,14 +2243,15 @@ FUN_00b92a80_class::FUN_00b92a80_class()
     reinterpret_cast<NiTPrimitiveArray<::ImageSpaceTexture*>*>(&m_aiIndexedValues)->SetSize(2);
 }
 
-struct FUN_00b92d90 : ImageSpaceEffectShader
+struct ISWaterDisplacementRainHeightmap : ImageSpaceEffectShader
 {
     int m_00b6548;
     int m_00b6524;
-    FUN_00b92d90();
+    ISWaterDisplacementRainHeightmap();
 };
 // @fnv 0x00b92d90
-FUN_00b92d90::FUN_00b92d90()
+// src: GUESS 0x00b92d90 (confidence: medium)
+ISWaterDisplacementRainHeightmap::ISWaterDisplacementRainHeightmap()
 {
     *(int*)this = (int)&DAT_010b6548;
     *(int*)((char*)this + 0x6c) = (int)&DAT_010b6524;
@@ -2267,7 +2279,7 @@ FUN_00b93030::FUN_00b93030()
 extern int DAT_010b7578;
 extern int DAT_010b7598;
 
-struct FUN_00b93e90 : ImageSpaceEffectShader
+struct ISWaterFFTFilter : ImageSpaceEffectShader
 {
     void* m_000;
     void* m_004;
@@ -2307,12 +2319,13 @@ struct FUN_00b93e90 : ImageSpaceEffectShader
     void* m_08c;
     void* m_090;
     DeferredTextureArrayMember m_094;
-    FUN_00b93e90();
+    ISWaterFFTFilter();
 };
 
 // Initializes the object's pointers to two globals and sizes the texture array to 2.
 // @fnv 0x00b93e90
-FUN_00b93e90::FUN_00b93e90()
+// src: GUESS 0x00b93e90 (confidence: medium)
+ISWaterFFTFilter::ISWaterFFTFilter()
 {
     m_000 = (void*)&DAT_010b7598;
     m_06c = (void*)&DAT_010b7578;
@@ -2337,7 +2350,7 @@ FUN_00b93fe0::FUN_00b93fe0()
 
 extern int DAT_010b7bf0;
 extern int DAT_010b7bcc;
-struct FUN_00b943d0_class : public ImageSpaceEffectShader
+struct ISWaterFFTDisplayWaterHeight : public ImageSpaceEffectShader
 {
     int m_04;
     int m_08;
@@ -2377,10 +2390,11 @@ struct FUN_00b943d0_class : public ImageSpaceEffectShader
     int m_90;
     int m_94;
     DeferredTextureArrayMember arr;
-    FUN_00b943d0_class();
+    ISWaterFFTDisplayWaterHeight();
 };
 // @fnv 0x00b943d0
-FUN_00b943d0_class::FUN_00b943d0_class()
+// src: GUESS 0x00b943d0 (confidence: medium)
+ISWaterFFTDisplayWaterHeight::ISWaterFFTDisplayWaterHeight()
 {
     *reinterpret_cast<int**>(this) = &DAT_010b7bf0;
     *reinterpret_cast<int**>(reinterpret_cast<char*>(this) + 0x6c) = &DAT_010b7bcc;
@@ -2461,13 +2475,14 @@ FUN_00b8d810_class::FUN_00b8d810_class(unsigned char flag)
 
 extern int _data_011c16bc;
 
-struct FUN_00b8dd80_Class : public ImageSpaceEffectShader
+struct ISBlur9 : public ImageSpaceEffectShader
 {
-    FUN_00b8dd80_Class();
+    ISBlur9();
 };
 
 // @fnv 0x00b8dd80
-FUN_00b8dd80_Class::FUN_00b8dd80_Class()
+// src: GUESS 0x00b8dd80 (confidence: medium)
+ISBlur9::ISBlur9()
 {
     *(int**)this = &DAT_010b1040;
     *(int**)((char*)this + 0x6c) = &DAT_010b101c;
@@ -2558,50 +2573,53 @@ FUN_00b92bd0_class::FUN_00b92bd0_class()
 
 extern int _data_011c16bc;
 
-struct FUN_00b932d0_class : ImageSpaceEffectShader
+struct ISWaterSpectrum : ImageSpaceEffectShader
 {
     char pad[0x6c];
     void* m_6c;
     char pad2[0x24];
     DeferredTextureArrayMember m_94;
-    FUN_00b932d0_class();
+    ISWaterSpectrum();
 };
 
 // Initialises the vtable and m_6c pointers and sets the m_94 texture array size to 3.
 // @fnv 0x00b932d0
-FUN_00b932d0_class::FUN_00b932d0_class()
+// src: GUESS 0x00b932d0 (confidence: medium)
+ISWaterSpectrum::ISWaterSpectrum()
 {
     *(void**)this = (void*)&DAT_010b6bd8;
     m_6c = (void*)&DAT_010b6bb8;
     reinterpret_cast<NiTPrimitiveArray<::ImageSpaceTexture*>*>(&m_94)->SetSize(3);
 }
 
-struct FUN_00b93600_class : ImageSpaceEffectShader
+struct ISWaterFFTHorizontalButterfly : ImageSpaceEffectShader
 {
     char pad[0x94 - sizeof(ImageSpaceEffectShader) + 1];
     DeferredTextureArrayMember m_ppData;  // +0x94
-    FUN_00b93600_class();
+    ISWaterFFTHorizontalButterfly();
 };
 
 // @fnv 0x00b93600
-FUN_00b93600_class::FUN_00b93600_class()
+// src: GUESS 0x00b93600 (confidence: medium)
+ISWaterFFTHorizontalButterfly::ISWaterFFTHorizontalButterfly()
 {
     *(void**)this = (void*)&DAT_010b6d90;
     *(void**)((char*)this + 0x6c) = (void*)&DAT_010b6d70;
     reinterpret_cast<NiTPrimitiveArray<::ImageSpaceTexture*>*>(&m_ppData)->SetSize(4);
 }
 
-struct FUN_00b93950_class : ImageSpaceEffectShader
+struct ISWaterFFTVerticalButterfly : ImageSpaceEffectShader
 {
     char pad[0x6c];
     int m_6c;
     char pad2[0x24];
     DeferredTextureArrayMember m_94;
-    FUN_00b93950_class();
+    ISWaterFFTVerticalButterfly();
 };
 
 // @fnv 0x00b93950
-FUN_00b93950_class::FUN_00b93950_class()
+// src: GUESS 0x00b93950 (confidence: medium)
+ISWaterFFTVerticalButterfly::ISWaterFFTVerticalButterfly()
 {
     *(int*)this = (int)&DAT_010b6f38;
     m_6c = (int)&DAT_010b6f14;
@@ -2610,15 +2628,16 @@ FUN_00b93950_class::FUN_00b93950_class()
 
 extern int _data_011c16bc;
 
-struct FUN_00b93aa0_class : ImageSpaceEffectShader
+struct ISWaterFFTHorizontalScramble : ImageSpaceEffectShader
 {
     void* vtbl_6c;
-    FUN_00b93aa0_class();
+    ISWaterFFTHorizontalScramble();
 };
 
 // Sets the two vtables and sizes the NiTPrimitiveArray<::ImageSpaceTexture*> at offset 0x94 to 4.
 // @fnv 0x00b93aa0
-FUN_00b93aa0_class::FUN_00b93aa0_class()
+// src: GUESS 0x00b93aa0 (confidence: medium)
+ISWaterFFTHorizontalScramble::ISWaterFFTHorizontalScramble()
 {
     *(int*)this = (int)&DAT_010b70d8;
     *(int*)((char*)this + 0x6c) = (int)&DAT_010b70b8;
@@ -5362,13 +5381,13 @@ class FUN_00b8f590_cls
     virtual void v51();
     virtual void v52();
     virtual void v53();
-    void UpdateState_00b8f590();
+    void InitNullShader();
 };
 
 // Fills a shader frame with the base.v.hlsl path, NOTEX and NULL names, zeroes its parameter blocks, then calls v4F and v53.
 // @fnv 0x00b8f590
-// src: GUESS 0x00b8f590 (confidence: low)
-void FUN_00b8f590_cls::UpdateState_00b8f590()
+// src: GUESS 0x00b8f590 (confidence: medium)
+void FUN_00b8f590_cls::InitNullShader()
 {
     FUN_00b8f590_frame f;
     f.unk00 = "imagespace\\1x\\v\\base.v.hlsl";
@@ -5871,12 +5890,12 @@ struct FUN_00b8fc50_cls
     virtual void v144();
     virtual void v148();
     virtual void v14c();
-    void UpdateState_00b8fc50();
+    void InitRadialBlurHighShader();
 };
 // Fills two shader parameter blocks (base.v.hlsl/TEX2 and RadialBlur.p.hlsl/NUM_STEPS=10.0f), passes them to v13c with RBLURH/vs_1_1/ps_2_0, then calls v14c.
 // @fnv 0x00b8fc50
-// src: GUESS 0x00b8fc50 (confidence: low)
-void FUN_00b8fc50_cls::UpdateState_00b8fc50()
+// src: GUESS 0x00b8fc50 (confidence: medium)
+void FUN_00b8fc50_cls::InitRadialBlurHighShader()
 {
     unsigned int f[0x26];
     f[0x13] = (unsigned int)"imagespace\\1x\\v\\base.v.hlsl";
@@ -6119,7 +6138,7 @@ struct FUN_00b916f0_Object
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40();
     virtual void vf44();
@@ -6661,7 +6680,7 @@ struct FUN_00b91bf0_Object
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40();
     virtual void vf44();
@@ -6873,7 +6892,7 @@ void FUN_00b91d60_cls::InitNoiseScrollAndBlendShader()
 
 extern "C" void FUN_00ec61c0(void* a, unsigned int b, unsigned int c);
 extern "C" int FUN_00b4f380(int a);
-struct FUN_00b91eb0_cls
+struct ISNoiseNormalMap
 {
     virtual void v00();
     virtual void v04();
@@ -6962,7 +6981,7 @@ struct FUN_00b91eb0_cls
     void InitNoiseNormalMapShader();
 };
 // @fnv 0x00b91eb0
-void FUN_00b91eb0_cls::InitNoiseNormalMapShader()
+void ISNoiseNormalMap::InitNoiseNormalMapShader()
 {
     unsigned int f[0x26];
     f[0x13] = (unsigned int)"imagespace\\1x\\v\\base.v.hlsl";
@@ -8118,12 +8137,12 @@ class FUN_00b92e00_cls
     virtual void v51();
     virtual void v52();
     virtual void v53();
-    void UpdateFields_00b92e00();
+    void ISWaterDisplacementRainHeightmap_CreateShaders();
 };
 
 // @fnv 0x00b92e00
-// src: GUESS 0x00b92e00 (confidence: low)
-void FUN_00b92e00_cls::UpdateFields_00b92e00()
+// src: GUESS 0x00b92e00 (confidence: medium)
+void FUN_00b92e00_cls::ISWaterDisplacementRainHeightmap_CreateShaders()
 {
     FUN_00b92e00_frame f;
     f.unk4C = "water\\2_ab\\v\\displace.v.hlsl";
@@ -8506,12 +8525,12 @@ class FUN_00b931f0_cls
     virtual void v51();
     virtual void v52();
     virtual void v53();
-    void UpdateState_00b931f0();
+    void ISWaterDisplacementNormals_CreateShaders();
 };
 
 // @fnv 0x00b931f0
-// src: GUESS 0x00b931f0 (confidence: low)
-void FUN_00b931f0_cls::UpdateState_00b931f0()
+// src: GUESS 0x00b931f0 (confidence: medium)
+void FUN_00b931f0_cls::ISWaterDisplacementNormals_CreateShaders()
 {
     FUN_00b931f0_frame f;
     f.unk4C = "water\\2_ab\\v\\displace.v.hlsl";
@@ -9314,12 +9333,12 @@ class FUN_00b93b10_cls
     virtual void v82();
     virtual void v83();
 
-    void UpdateState_00b93b10();
+    void ISWaterFFTHorizontalScramble_CreateShaders();
 };
 
 // @fnv 0x00b93b10
-// src: GUESS 0x00b93b10 (confidence: low)
-void FUN_00b93b10_cls::UpdateState_00b93b10()
+// src: GUESS 0x00b93b10 (confidence: medium)
+void FUN_00b93b10_cls::ISWaterFFTHorizontalScramble_CreateShaders()
 {
     ShaderSourceA source;
     ShaderSourceB sourceB;
@@ -9527,7 +9546,7 @@ struct FUN_00b93db0_Object
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40();
     virtual void vf44();
@@ -9599,12 +9618,12 @@ struct FUN_00b93db0_Object
     virtual void vf148();
     virtual void vf14C();
 
-    void __thiscall UpdateState_00b93db0();
+    void __thiscall ISWaterFFTNormals_CreateShaders();
 };
 
 // @fnv 0x00b93db0
-// src: GUESS 0x00b93db0 (confidence: low)
-void __thiscall FUN_00b93db0_Object::UpdateState_00b93db0()
+// src: GUESS 0x00b93db0 (confidence: medium)
+void __thiscall FUN_00b93db0_Object::ISWaterFFTNormals_CreateShaders()
 {
     FUN_00b93db0_First first;
     FUN_00b93db0_Second second;
@@ -9797,7 +9816,7 @@ struct S_00b94050_Obj
     virtual void vf9();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -9823,7 +9842,7 @@ struct S_00b94050_Obj
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();
@@ -12014,12 +12033,12 @@ struct FUN_00b8ff10_class : public S_00b8ff10_Base
     virtual void v82();
     virtual void v83();
 
-    void __thiscall UpdateState_00b8ff10();
+    void __thiscall InitShader();
 };
 
 // @fnv 0x00b8ff10
-// src: GUESS 0x00b8ff10 (confidence: low)
-void FUN_00b8ff10_class::UpdateState_00b8ff10()
+// src: GUESS 0x00b8ff10 (confidence: medium)
+void FUN_00b8ff10_class::InitShader()
 {
     S_00b8ff10_Local1 local1;
     S_00b8ff10_Local2 local2;
@@ -13262,7 +13281,7 @@ struct CB8F360
 };
 struct CB92180
 {
-    CB92180* __thiscall FUN_00b92180();
+    CB92180* __thiscall ISRefraction();
 };
 struct CB8D330
 {
@@ -13282,7 +13301,7 @@ struct CB8D5B0
 };
 struct CB8D700
 {
-    CB8D700* __thiscall FUN_00b8d700();
+    CB8D700* __thiscall ISBlend();
 };
 struct CB922D0
 {
@@ -13402,7 +13421,7 @@ struct CB91A40
 };
 struct CB8D990
 {
-    CB8D990* __thiscall FUN_00b8d990();
+    CB8D990* __thiscall ISBlur3();
 };
 struct CB8DAE0
 {
@@ -13426,7 +13445,7 @@ struct CB8E020
 };
 struct CB8E170
 {
-    CB8E170* __thiscall FUN_00b8e170();
+    CB8E170* __thiscall ISBlur15();
 };
 struct CB8E2C0
 {
@@ -13474,7 +13493,7 @@ struct CB93AA0
 };
 struct CB93BF0
 {
-    CB93BF0* __thiscall FUN_00b93bf0();
+    CB93BF0* __thiscall ISWaterFFTVerticalScramble();
 };
 struct CB93D40
 {
@@ -13482,7 +13501,7 @@ struct CB93D40
 };
 struct CB93E90
 {
-    CB93E90* __thiscall FUN_00b93e90();
+    CB93E90* __thiscall ISWaterFFTFilter();
 };
 struct CB93FE0
 {
@@ -13506,11 +13525,11 @@ struct CB92690
 };
 struct CB927E0
 {
-    CB927E0* __thiscall FUN_00b927e0();
+    CB927E0* __thiscall ISWaterDisplacementTexOffset();
 };
 struct CB92930
 {
-    CB92930* __thiscall FUN_00b92930();
+    CB92930* __thiscall ISWaterDisplacementWadingRipple();
 };
 struct CB92A80
 {
@@ -13522,7 +13541,7 @@ struct CB92BD0
 };
 struct CB92D90
 {
-    CB92D90* __thiscall FUN_00b92d90();
+    CB92D90* __thiscall ISWaterDisplacementRainHeightmap();
 };
 struct CB92EE0
 {
@@ -13534,7 +13553,7 @@ struct CB93030
 };
 struct CB93180
 {
-    CB93180* __thiscall FUN_00b93180();
+    CB93180* __thiscall ISWaterDisplacementNormals();
 };
 struct CB91CF0
 {
@@ -15723,7 +15742,7 @@ class FUN_00b8a8e0_base
     int unk04;
 };
 
-class FUN_00b8a8e0 : public FUN_00b8a8e0_base
+class ImageSpaceShaderParam : public FUN_00b8a8e0_base
 {
   public:
     int unk08;
@@ -15750,13 +15769,14 @@ class FUN_00b8a8e0 : public FUN_00b8a8e0_base
     Sub68_b9960 m_68;
     Sub78_b9960 m_78;
 
-    virtual ~FUN_00b8a8e0();
+    virtual ~ImageSpaceShaderParam();
     void Cleanup();
 };
 
 // Destructor that calls Cleanup; the member and base destructors then run implicitly.
 // @fnv 0x00b8a8e0
-FUN_00b8a8e0::~FUN_00b8a8e0()
+// src: GUESS 0x00b8a8e0 (confidence: medium)
+ImageSpaceShaderParam::~ImageSpaceShaderParam()
 {
     Cleanup();
 }

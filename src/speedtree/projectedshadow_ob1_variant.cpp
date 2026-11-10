@@ -84,8 +84,8 @@ public:
     float DotProduct(const LocalVec3* other) const;
     float Length() const;
     float LengthSquared() const;
-    float GetSquaredXYLength();
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength();
+    float NiPoint3_SqrXYLength() const;
     Elem16& expand(Allocator& allocator);
 
     void SetComponents(float x, float y, float z);
@@ -147,13 +147,13 @@ struct V3
         z = 0.0f;
     }
 };
-struct FUN_00b3e6c0_cls
+struct CProjectedShadow
 {
     V3 a;
     V3 b;
     V3 c;
     Sub s;
-    FUN_00b3e6c0_cls* ClearVectors();
+    CProjectedShadow* ClearVectors();
 };
 
 struct Vec2

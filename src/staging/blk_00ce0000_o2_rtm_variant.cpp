@@ -20,12 +20,12 @@
 #include "../../include/hkpBroadPhaseListener.h"
 extern int DAT_010cc164;
 void __cdecl FUN_00d86220();
-struct FUN_00cf45d0_class
+struct bhkSpringDamperConstraintMotor
 {
     int vtable;
-    FUN_00cf45d0_class();
+    bhkSpringDamperConstraintMotor();
 };
-struct FUN_00cf4ca0_class
+struct hkpBinaryAction
 {
     int m_auiShapeKeys[6];
     hkReferencedObject* m_kPointA;
@@ -58,7 +58,7 @@ struct FUN_00ce4a20_cls
     int __thiscall ProcessAndReturnValue_00ce4a20(int a);
 };
 extern int DAT_0102e378;
-void __cdecl Object_UpdateFields_00cf69a0(int* a);
+void __cdecl finishLoadedObject_hkReferencedObject(int* a);
 struct FUN_00cf69c0_class
 {
     int m_kPointA;
@@ -72,14 +72,14 @@ struct FUN_00cf86e0_class
     void hkpSimulation_setFrameTimeMarker(float f);
 };
 extern int DAT_010cc2e0;
-struct FUN_00cf4820_class
+struct hkPointToPathConstraintCinfo
 {
     int* vtbl;
     int m1;
     int m2;
     int m3;
     int m4;
-    FUN_00cf4820_class();
+    hkPointToPathConstraintCinfo();
 };
 extern int DAT_0102e388;
 struct FUN_00cf86d0_cls
@@ -93,17 +93,17 @@ struct FUN_00cf86d0_cls
 extern int DAT_010cb864;
 extern int DAT_0102e388;
 // Sub-object at +0x10; FUN_00ce5370 is the game's constructor for it.
-struct FUN_00ce5370_cls
+struct hkaSkeletonMapperData
 {
     void UpdateState_00ce5370();
 };
-struct FUN_00ce29e0_cls
+struct hkaSkeletonMapper
 {
     int* m_pVTable;          // +0x00
     int unk04;               // +0x04
     int unk08;               // +0x08
     int unk0C;               // +0x0C
-    FUN_00ce5370_cls m_sub;  // +0x10
+    hkaSkeletonMapperData m_sub;  // +0x10
     void UpdateFields_00ce29e0();
 };
 struct FnvSpawnedObject;
@@ -242,7 +242,7 @@ struct SubObject_b3813
     int unk00;
     void Release();
 };
-struct FUN_00cf4eb0_cls
+struct hkpAction
 {
     int m_vptr;
     unsigned short m_uSize;
@@ -252,7 +252,7 @@ struct FUN_00cf4eb0_cls
     int unk10;
     SubObject_b3813 m_sub;
 
-    FUN_00cf4eb0_cls* Destroy(unsigned char acFlags);
+    hkpAction* Destroy(unsigned char acFlags);
 };
 struct S_00cf4f00
 {
@@ -342,9 +342,9 @@ class FUN_00cf4f70_cls
 };
 struct FUN_00cf6980_class
 {
-    virtual void Object_ForwardCall_00cf6980(int);
+    virtual void cleanupLoadedObject_hkReferencedObject(int);
 };
-void __cdecl Object_ForwardCall_00cf6980(FUN_00cf6980_class* object);
+void __cdecl cleanupLoadedObject_hkReferencedObject(FUN_00cf6980_class* object);
 extern int DAT_01268748;
 int* __cdecl Runtime_GetDAT01268748Address();
 extern int DAT_0102e378;
@@ -578,16 +578,16 @@ extern "C" unsigned int __cdecl SaveUIntArray(NiStream& kStream, const ArrayData
     return totalSize;
 }
 extern int DAT_010cc064;
-struct FUN_00cdf560
+struct hkpPositionConstraintMotor
 {
     int m0;
     int m4;
     int m8;
-    FUN_00cdf560(float);
+    hkpPositionConstraintMotor(float);
 };
-struct FUN_00cf4190 : FUN_00cdf560
+struct bhkPositionConstraintMotor : hkpPositionConstraintMotor
 {
-    FUN_00cf4190();
+    bhkPositionConstraintMotor();
 };
 extern int DAT_01268730;
 int* bhkPositionConstraintMotor_GetRTTI();
@@ -785,7 +785,7 @@ struct S_00cfc5a0
     unsigned short unkA8;
     unsigned short unkAA;
 };
-struct FUN_00cfc5a0
+struct hkpReportContactMgr
 {
     int* vtbl;
     unsigned short unk04;
@@ -796,7 +796,7 @@ struct FUN_00cfc5a0
     S_00cfc5a0* unk14;
     unsigned short unk18;
 
-    FUN_00cfc5a0(int a1, S_00cfc5a0* a2, S_00cfc5a0* a3);
+    hkpReportContactMgr(int a1, S_00cfc5a0* a2, S_00cfc5a0* a3);
 };
 void Object_DoNothing_00cfdb40();
 // Per-thread profiler ring: TlsGetValue(index) -> buffer with head@+4 / end@+0xc,

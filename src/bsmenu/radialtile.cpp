@@ -4,13 +4,14 @@
 
 #include "../../include/TileImage.h"
 
-struct FUN_00a21660 : TileImage
+struct RadialTile : TileImage
 {
-    FUN_00a21660();
+    RadialTile();
 };
 // Constructs a TileImage-derived object; the body only declares unused locals and performs no work.
 // @fnv 0x00a21660
-FUN_00a21660::FUN_00a21660()
+// src: EXE 0x00a21660
+RadialTile::RadialTile()
 {
     int a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11;
 }
@@ -23,13 +24,14 @@ extern P03MM g_memoryManager;
 
 struct FUN_00a219e0_shell
 {
-    void* FUN_00a219e0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     void __thiscall DestroyTileImageBase();
 };
 
 // Calls DestroyTileImageBase, then deallocates this via g_memoryManager when flags has bit 1 set, and returns this.
 // @fnv 0x00a219e0
-void* FUN_00a219e0_shell::FUN_00a219e0(unsigned int flags)
+// src: EXE 0x00a219e0
+void* FUN_00a219e0_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     DestroyTileImageBase();
     if (flags & 1)
@@ -54,7 +56,7 @@ void* FUN_00a219e0_shell::FUN_00a219e0(unsigned int flags)
 //     00a216ad  c3                 ret
 //
 // The function puts the vtable pointer of the class back at the front of the
-// object (0x01095750 is the vftable of FUN_00a21660) and then chains to the
+// object (0x01095750 is the vftable of RadialTile) and then chains to the
 // base class destructor TileImage::~TileImage() at 0x0070b6c0.
 //
 // The /Od frame is 0x1c bytes wide: six dead words plus the spilled `this`.

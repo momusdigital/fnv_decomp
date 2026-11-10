@@ -8,7 +8,7 @@
 
 extern "C" const void* g_011f3fd4;
 const void* __cdecl NiFlipController_GetRTTI();
-void* __cdecl CreateNiFlipController();
+void* __cdecl NiFlipController_CreateObject();
 
 struct StaticKey
 {

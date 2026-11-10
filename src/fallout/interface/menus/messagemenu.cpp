@@ -338,7 +338,7 @@ void* DelStandIn::Destroy(unsigned int flags)
 
 InterfaceManager* __cdecl InterfaceManager_GetSingleton();
 int __cdecl Tile_TextToTrait(const char* apTraitName);
-struct FUN_007a8850
+struct MessageMenu_MessageMenuEntry
 {
     StrMem strMessage;
     int iIcon;
@@ -355,10 +355,11 @@ struct FUN_007a8850
     float fDisplayTime;
     float fBackgroundAlpha;
     int iFlags;
-    FUN_007a8850();
+    MessageMenu_MessageMenuEntry();
 };
 // @fnv 0x007a8850
-FUN_007a8850::FUN_007a8850()
+// src: COMMUNITY 0x007a8850
+MessageMenu_MessageMenuEntry::MessageMenu_MessageMenuEntry()
 {
     iIcon = 0;
     bHasButtons = false;
@@ -736,7 +737,7 @@ void FUN_007aa2a0_shell::UpdateMenuAction()
         {
             if (static_cast<unsigned char>(GetByteAtOffset56(reinterpret_cast<char*>(GetCurrentArrayElement()))) == 0)
             {
-                if (m_pTiles[0]->IsTraitNonZero(0xfa3))
+                if (m_pTiles[0]->Tile_IsTrue(0xfa3))
                 {
                     if (FUN_0059bb30() == 4)
                     {
@@ -1005,7 +1006,7 @@ struct MsgString
     MsgString(const char* apText);
     ~MsgString();
     unsigned int FUN_00825c00();
-    unsigned int ProcessState_005103a0(const char* apDelimiter, unsigned int auiStart);
+    unsigned int string_find(const char* apDelimiter, unsigned int auiStart);
     MsgString Substr(unsigned int auiStart, unsigned int auiLength);
     const char* std_string_debug_c_str();
 };
@@ -1141,13 +1142,13 @@ void MsgMenu::PopulateFromMessageData()
         MsgString kButtonText(pMessagePtr->kButtons.Modelloader_GetReferencedThis());
         for (iIndex = 0; uiPosNum < kButtonText.FUN_00825c00() - 1; iIndex++)
         {
-            MsgString kPart = kButtonText.Substr(uiPosNum, kButtonText.ProcessState_005103a0(DAT_01063d7c, uiPosNum) - uiPosNum);
+            MsgString kPart = kButtonText.Substr(uiPosNum, kButtonText.string_find(DAT_01063d7c, uiPosNum) - uiPosNum);
             if (kPart.FUN_00825c00() > 0)
             {
                 Tile* pText = 0;
                 pItemNew = DAT_011da4f0->kButtons.ListBox_int_AddItem(
                     pMessagePtr->cButtonBase + iIndex,
-                    kButtonText.Substr(uiPosNum, kButtonText.ProcessState_005103a0(DAT_01063d7c, uiPosNum) - uiPosNum)
+                    kButtonText.Substr(uiPosNum, kButtonText.string_find(DAT_01063d7c, uiPosNum) - uiPosNum)
                         .std_string_debug_c_str(),
                     0, 0);
                 pText = pItemNew->GetNamedChild(s_szListItemText);
@@ -1163,7 +1164,7 @@ void MsgMenu::PopulateFromMessageData()
                 }
                 fListHeightTmp = pItemNew->FUN_00a011b0(0xfb0) + fListHeightTmp;
             }
-            uiPosNum = kButtonText.ProcessState_005103a0(DAT_01063d7c, uiPosNum);
+            uiPosNum = kButtonText.string_find(DAT_01063d7c, uiPosNum);
             if (uiPosNum < kButtonText.FUN_00825c00() - 1)
                 uiPosNum = uiPosNum + 1;
         }
@@ -1198,7 +1199,7 @@ void MsgMenu::PopulateFromMessageData()
     else
         fMaxWidthCur = DAT_011da4f0->FUN_00726070()->FUN_00a011b0(Tile_TextToTrait(s_szMaxMenuWidth));
     fMaxWidthCur = fMaxWidthCur - fHorBuf * 2;
-    if (DAT_011da4f0->m_pTiles[2]->IsTraitNonZero(0xfa3))
+    if (DAT_011da4f0->m_pTiles[2]->Tile_IsTrue(0xfa3))
         fMaxWidthCur = fMaxWidthCur - 120.0;
     DAT_011da4f0->m_pTiles[3]->Tile_Set(0xfba, fMaxWidthCur, true);
     MsgSize kSizeFinal = FUN_005bd5b0()->FUN_00a1b020(pMessagePtr->kText.Modelloader_GetReferencedThis(), 2,

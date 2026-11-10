@@ -35,13 +35,13 @@ public:
     virtual void InitItem();
 
     void* Destroy(unsigned int flags);
-    void SetBodyModelPath(int sex, int part, const char* path);
-    void SetHeadModelPath(int sex, int part, const char* path);
-    void SetBodyTextureModelPath(int sex, const char* path);
+    void SetHeadPartModel(int sex, int part, const char* path);
+    void SetBodyPartModel(int sex, int part, const char* path);
+    void SetBodyTextureModel(int sex, const char* path);
     void ResetFormData();
-    void ClearFaceGenUndo();
+    void KillEGTData();
     TESModel* GetHeadPartModel(SEX sex, int part);
-    bool GetBipedObjectModelPath(TESNPC* npc, BIPED_OBJECT part, char* path);
+    bool GetBodyTextureFileName(TESNPC* npc, BIPED_OBJECT part, char* path);
     TESModel* GetBipedObjectModel(SEX sex, BIPED_OBJECT part);
     TESModel* GetBodyPartModel(SEX sex, int part);
     TESModel* GetHeadPartModel_00613970(int sex, int part);
@@ -49,7 +49,7 @@ public:
     TESTexture* GetBodyPartTexture(int sex, int part);
     TESTexture* GetBodyPartTexture(unsigned int sex, unsigned int part);
     TESTexture* GetBodyPartTexture(int sex, unsigned int part);
-    void BuildBodyTexturePath(TESNPC* npc, char* path);
+    void GetBodyModTextureName(TESNPC* npc, char* path);
     void SetDefaultHairColor(SEX sex, unsigned char color);
     void SetDefaultVoiceType(SEX sex, BGSVoiceType* voice);
     BGSTextureModel* GetBodyTextureModel(int sex);

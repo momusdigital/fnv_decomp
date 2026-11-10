@@ -1,5 +1,5 @@
 // RTM variant of hkpcharactermotion.cpp: these functions match VC9 RTM (15.00.21022.08).
-// Exe 0x00d1efd0 ApplyCharacterForceAtPoint: retain this LocalM128 view; the CRT type does not preserve this unit.
+// Exe 0x00d1efd0 hkpCharacterMotion_applyForce: retain this LocalM128 view; the CRT type does not preserve this unit.
 // VC9 requires the __m128 compatibility typedef for its native SIMD ABI (renamed tags fail C2719).
 typedef union __declspec(intrin_type) __declspec(align(16)) {
     float m128_f32[4];
@@ -19,7 +19,8 @@ extern "C" LocalM128 _mm_shuffle_ps(LocalM128, LocalM128, unsigned int);
 
 // The shared class lacks these wrapper declarations; an unused EDX argument preserves the thiscall ABI.
 // @fnv 0x00d1efd0
-void __fastcall ApplyCharacterForceAtPoint(hkpCharacterMotion* motion, void*, float s,
+// src: COMMUNITY 0x00d1efd0
+void __fastcall hkpCharacterMotion_applyForce(hkpCharacterMotion* motion, void*, float s,
                                          const hkVector4& v, const hkVector4& point)
 {
     __declspec(align(16)) hkVector4 t;

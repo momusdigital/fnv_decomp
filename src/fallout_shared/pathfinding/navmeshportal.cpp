@@ -15,7 +15,7 @@ struct DFD0File
     bool IsEndianConversionRequired();
 };
 
-void __cdecl ResolveFormID(int* piFormID, DFD0File* pkFile);
+void __cdecl TESForm_AddCompileIndex(int* piFormID, DFD0File* pkFile);
 
 struct DFD0Form
 {
@@ -44,7 +44,7 @@ void DFD0Data::LoadFormRef(void* pUnused, DFD0File* pkFile, const char* pBuffer)
     int iFormID = *(const int*)pBuffer;
     if (pkFile->IsEndianConversionRequired())
         BSEndian_00401080(&iFormID, DFD0SwapFlag());
-    ResolveFormID(&iFormID, pkFile);
+    TESForm_AddCompileIndex(&iFormID, pkFile);
     if (iFormID)
         m_pBase = g_DFD0TES->GetForm(iFormID)->GetBase();
     else

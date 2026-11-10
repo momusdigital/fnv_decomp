@@ -9,7 +9,7 @@ class DurationData
 {
   public:
     int PackageLocation_GetLocType();
-    int GetSecondByte();
+    int PackageSchedule_GetStartDayOfWeek();
     char Main_GameReset();
     char FUN_0086a460();
     int FUN_00726070();

@@ -65,7 +65,7 @@ class BipedAnim
   public:
     char data[0x2b4];
     BipedAnim(TESObjectREFR*, NiNode*);
-    void InitBoneSlots(NiNode*);
+    void BipedAnim_InitRoot(NiNode*);
 };
 // Calls 0x7A (get) and 0x7C (set, pointer argument) of TESObjectREFR's vftable.
 class TESObjectREFRBipedSlots

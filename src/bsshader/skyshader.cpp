@@ -1739,7 +1739,7 @@ struct Shell_b899a0
     int fac;
     int fb0;
     int fb4;
-    void FUN_00baf3c0();
+    void BSShaderData();
     void AddProperties(Shape_b899a0* obj, unsigned int flag);
 };
 // Allocates a 4-vertex quad shape with two triangles, sets its bound to origin with radius 1000, and stores it in rspOut.
@@ -1770,7 +1770,7 @@ void __cdecl SkyShader_CreateSkyQuad(ShapePtr_b899a0& rspOut)
     pkGeometryData->m_kCenter = Pt3_b899a0(0.0f, 0.0f, 0.0f);
     pkGeometryData->m_fBoundRadius = 1000.0f;
     Shell_b899a0 kShell;
-    kShell.FUN_00baf3c0();
+    kShell.BSShaderData();
     kShell.f00 = 6;
     kShell.f90 = 4;
     kShell.AddProperties(pShape, 1);

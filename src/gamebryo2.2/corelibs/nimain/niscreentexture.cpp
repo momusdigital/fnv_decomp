@@ -70,7 +70,8 @@ void NiScreenTexture::ReleaseReference_00a95590()
 void __cdecl _delete(void*, unsigned int);
 // Calls FUN_00a95590, then if flags has bit 1 set frees this with size 0x20, and returns this.
 // @fnv 0x00a95740
-void* __thiscall NiScreenTexture::FUN_00a95740(unsigned int flags)
+// src: EXE 0x00a95740
+void* __thiscall NiScreenTexture::ScalarDeletingDestructor(unsigned int flags)
 {
     ReleaseReference_00a95590();
     if (flags & 1)

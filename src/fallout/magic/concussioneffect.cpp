@@ -61,7 +61,7 @@ void ConcussionEffect::ApplyConcussion(Actor* actor)
                 DAT_011dbe50 = true;
                 if (actor->IsPlayerRef() && !g_thePlayer->IsSleepingOrResting())
                 {
-                    ImageSpaceModifierInstanceForm::Trigger(TESImageSpaceModifier::GetConcussionModifier(),
+                    ImageSpaceModifierInstanceForm::Trigger(TESImageSpaceModifier::GetConcussion(),
                                                             DAT_011cf834.Float()->f, 0);
                     BSAudio::GetSingleton()->GetSoundHandleByEditorID(kConcussionFXCrippleHead, 0x101).Play(false);
                 }
@@ -84,7 +84,8 @@ extern unsigned char DAT_0118abb1;
 extern TESImageSpaceModifier* DAT_011c9704;
 
 // @fnv 0x0080bfa0
-TESImageSpaceModifier* TESImageSpaceModifier::GetConcussionModifier()
+// src: COMMUNITY 0x0080bfa0
+TESImageSpaceModifier* TESImageSpaceModifier::GetConcussion()
 {
     if (!DAT_0118abb1)
         return 0;
@@ -93,14 +94,14 @@ TESImageSpaceModifier* TESImageSpaceModifier::GetConcussionModifier()
     return DAT_011c9704;
 }
 
-struct FUN_0052d240_shell
+struct PathingSpline
 {
     void FUN_00483710();
     void BGSStaticCollection_ClearData();
 };
 // @fnv 0x0052d240
 // src: COMMUNITY 0x0052d240
-void FUN_0052d240_shell::BGSStaticCollection_ClearData()
+void PathingSpline::BGSStaticCollection_ClearData()
 {
     FUN_00483710();
 }

@@ -19,9 +19,9 @@ struct FUN_00c99fb0_Manager
 };
 extern FUN_00c99fb0_Manager* __cdecl hkMemoryRouter_getInstance();
 extern "C" void __stdcall DeleteCriticalSection(void* section);
-struct FUN_00c99fb0
+struct hkDebugDisplay
 {
-    virtual ~FUN_00c99fb0();
+    virtual ~hkDebugDisplay();
     unsigned short unk04;
     void* field08;
     int field0c;
@@ -31,7 +31,8 @@ struct FUN_00c99fb0
 };
 // Deletes and frees the critical section when present, frees the buffer when count is nonnegative, then resets field0c, field08, and field10.
 // @fnv 0x00c99fb0
-FUN_00c99fb0::~FUN_00c99fb0()
+// src: EXE 0x00c99fb0
+hkDebugDisplay::~hkDebugDisplay()
 {
     if (field14)
     {
@@ -46,9 +47,9 @@ FUN_00c99fb0::~FUN_00c99fb0()
     field08 = 0;
     field10 = (int)0x80000000;
 }
-void FUN_00c99fb0::operator delete(void* object)
+void hkDebugDisplay::operator delete(void* object)
 {
-    FUN_00c99fb0* self = (FUN_00c99fb0*)object;
+    hkDebugDisplay* self = (hkDebugDisplay*)object;
     FUN_00c99fb0_Manager* manager = hkMemoryRouter_getInstance();
     unsigned short size = self->unk04;
     manager->allocator->FreeObject(object, size);

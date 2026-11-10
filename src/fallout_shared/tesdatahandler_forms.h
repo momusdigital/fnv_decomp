@@ -10,7 +10,7 @@ class NiNode;
 class TESFormInitFlag
 {
   public:
-    static TESForm* LookupFormByEditorID(const char*);
+    static TESForm* GetFormByEditorID(const char*);
     static TESForm* GetFormByID(unsigned int);
 };
 class TESFormList

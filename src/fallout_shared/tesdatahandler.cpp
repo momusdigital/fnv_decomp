@@ -186,12 +186,12 @@ struct FNVFile;
 struct TESDataHandlerUnitOperations : public TESDataHandler
 {
     void InitializeCellData();
-    TESObjectCELL* CreateExteriorCell(const char*, int, int, TESWorldSpace*);
+    TESObjectCELL* TESDataHandler_NewCell(const char*, int, int, TESWorldSpace*);
     TESForm* FindFormByEditorID(const char*);
     void SetCellQueueProcessing(bool);
-    void ClearPendingReferences();
-    void ValidateFormIcons();
-    void UpdateInventoryForReference(int);
+    void TESDataHandler_CleanUpBadForms();
+    void TESDataHandler_CheckIcons();
+    void TESDataHandler_CreateBarterContainer(int);
     void ProcessInventoryRecords(FNVFile*, int, int);
 };
 
@@ -1467,7 +1467,8 @@ void TESDataHandler::RegisterAddonNode(BGSAddonNode* node)
 }
 
 // @fnv 0x0046feb0
-int TESDataHandler::GetDLCIndex(const char* name)
+// src: COMMUNITY 0x0046feb0
+int TESDataHandler::IsDLCPackageName(const char* name)
 {
     if (BSStringLength(name) < 2)
         return 0;
@@ -1539,7 +1540,8 @@ void TESDataHandler::GetRegions()
 }
 
 // @fnv 0x00462f40
-TESFile* TESDataHandler::LookupTESFile(const char* name)
+// src: COMMUNITY 0x00462f40
+TESFile* TESDataHandler::GetListFile(const char* name)
 {
     BSSimpleList<TESFile*>* list = GetFileList();
     if (name)
@@ -1574,7 +1576,7 @@ void TESDataHandler::SetSaveLoadGameState(int size)
 unsigned int TESDataHandler::GetNextID()
 {
     DAT_011c4000.Lock("TESDataHandler::GetNextID");
-    while (IsIDUsed(iNextID))
+    while (IsFormIDInUse(iNextID))
         IncrementID();
     unsigned int result = iNextID;
     IncrementID();
@@ -1583,14 +1585,15 @@ unsigned int TESDataHandler::GetNextID()
 }
 
 // @fnv 0x00462ee0
-void TESDataHandler::BuildCompiledFileList()
+// src: COMMUNITY 0x00462ee0
+void TESDataHandler::CreateThreadSafeFiles()
 {
     BSSimpleList<TESFile*>* list = GetFileList();
     while (list && !list->IsEmpty())
     {
         TESFile* file = list->GetItem();
         if (file->GetIsChecked())
-            file->GetParentTESFile();
+            file->GetThreadSafeFile();
         list = list->GetNext();
     }
 }
@@ -1615,7 +1618,7 @@ void* NiTPointerListBase<NiTPointerAllocator<unsigned int>, TESForm*>::FindPos(T
 // @fnv 0x004616c0
 TESSound* TESDataHandler::GetSoundByEditorID(const char* name)
 {
-    TESForm* form = TESFormInitFlag::LookupFormByEditorID(name);
+    TESForm* form = TESFormInitFlag::GetFormByEditorID(name);
     if (form && form->GetFormType() == 13)
         return static_cast<TESSound*>(form);
     else
@@ -1624,7 +1627,8 @@ TESSound* TESDataHandler::GetSoundByEditorID(const char* name)
 
 // Returns the addon node at the given index, or null if the index is out of range.
 // @fnv 0x004617e0
-BGSAddonNode* TESDataHandler::GetAddonNodeByIndex(unsigned int index)
+// src: COMMUNITY 0x004617e0
+BGSAddonNode* TESDataHandler::GetAddonNode(unsigned int index)
 {
     if (index >= (*reinterpret_cast<NiTArray<BGSAddonNode*, NiTMallocInterface<BGSAddonNode*> >*>(arrayAddonNodes)).GetSize())
         return 0;
@@ -1644,14 +1648,16 @@ TESLoadScreenType* TESDataHandler::GetLoadScreenType(unsigned int id)
 }
 
 // @fnv 0x00461600
-TESFaction* TESDataHandler::GetFactionByFormID(unsigned int id)
+// src: COMMUNITY 0x00461600
+TESFaction* TESDataHandler::GetFaction(unsigned int id)
 {
     return dynamic_cast<TESFaction*>(TESFormInitFlag::GetFormByID(id));
 }
 
 // Returns the loaded file at the given index, or null if the index is outside 0-254.
 // @fnv 0x00465010
-TESFile* TESDataHandler::GetCompiledFileByIndex(int index)
+// src: COMMUNITY 0x00465010
+TESFile* TESDataHandler::GetCompiledFile(int index)
 {
     if (index < 0 || (unsigned int)index > 254)
         return 0;
@@ -1672,7 +1678,8 @@ unsigned int TESDataHandler::GetCompiledFileCount()
 
 // Checks whether a TESForm is a valid target for this enchantment by form type and enchantment type, returning true or false.
 // @fnv 0x004094f0
-bool EnchantmentItem::IsValidObject(TESForm* form)
+// src: COMMUNITY 0x004094f0
+bool EnchantmentItem::IsValidEnchantForObject(TESForm* form)
 {
     TESObject* object = dynamic_cast<TESObject*>(form);
     if (!object)
@@ -1757,7 +1764,7 @@ void TESDataHandler::InitializeMagicSystem()
     DAT_011ca284 = 0;
     DAT_011ca288 = 0;
     ActorValue::LoadActorValueDefinitions();
-    DAT_011ca700->InitializeCameraPaths();
+    DAT_011ca700->BGSCameraPathManager_CreateDefaultPath();
     DAT_011ca284 = dynamic_cast<BGSExplosion*>(TESFormInitFlag::GetFormByID(0x1f5));
     if (!DAT_011ca284)
     {
@@ -2109,7 +2116,7 @@ void TESDataHandler::InitializeMagicSystem()
             marker->SetAltered(false);
         }
     }
-    CreateDefaultTopics();
+    TESTopic_AddDefaultTopics();
     if (!TESFormInitFlag::GetFormByID(53))
     {
         TESGlobal* global = new TESGlobal;
@@ -2325,11 +2332,11 @@ void TESDataHandler::InitializeMagicSystem()
         RegisterEffectSetting(effect);
     }
     TESSound::InitializeMagicSystem();
-    BGSImpactDataSet::CacheImpactDataSet();
+    BGSImpactDataSet::CreateDefaultImpactDataSet();
     BGSEquipType_GenerateDefaultMenuIcons();
-    BGSBodyPartData::InitializeBodyPartData();
-    BGSTextureSet::InitializeNullTextureSet();
-    BGSEncounterZone::CreateDefaultEncounterZone();
+    BGSBodyPartData::GenerateDefaultBodyPartData();
+    BGSTextureSet::CreateNullTextureSet();
+    BGSEncounterZone::CreateNoZone();
     if (!TESFormInitFlag::GetFormByID(61))
     {
         TESCombatStyle* style = new TESCombatStyle;
@@ -2581,7 +2588,8 @@ class SaveLoadChangeHistory
 };
 
 // @fnv 0x00469760
-bool TESDataHandler::IsIDUsed(unsigned int aiFormID)
+// src: COMMUNITY 0x00469760
+bool TESDataHandler::IsFormIDInUse(unsigned int aiFormID)
 {
     if (TESFormInitFlag::GetFormByID(aiFormID))
         return true;
@@ -2605,10 +2613,11 @@ void TESDataHandler::IncrementID()
 // @fnv 0x0046a010
 struct TESFormLoadState : public TESForm
 {
-    void SetInitializationFlag(bool);
+    void TESForm_SetStillLoading(bool);
 };
 
-void TESFormLoadState::SetInitializationFlag(bool abVal)
+// src: COMMUNITY 0x0046a010
+void TESFormLoadState::TESForm_SetStillLoading(bool abVal)
 {
     abVal ? *reinterpret_cast<unsigned int*>(reinterpret_cast<char*>(this) + 8) |= 0x200000
           : *reinterpret_cast<unsigned int*>(reinterpret_cast<char*>(this) + 8) &= ~0x200000;
@@ -2732,7 +2741,7 @@ struct Main
     static void FreeMenuRootNode();
     static void FreeMenuRootNode3D();
     static void CreateMenuRootNode();
-    static void CreateMenuSceneGraph();
+    static void CreateMenuRootNode3D();
     static NiNode* LandLODNode();
     static NiNode* ObjectLODNode();
     static NiNode* WaterLODNode();
@@ -3049,7 +3058,7 @@ bool TESDataHandler::LoadPluginFiles(bool abDownloadedContentOnly)
     if (((LC3_DH*)this)->b619)
     {
         FUN_00471400(((LC3_DH*)this)->m_pActiveFile);
-        ((LC3_DH*)this)->m_pActiveFile->CheckMasterFiles(GetFileList(), true);
+        ((LC3_DH*)this)->m_pActiveFile->GenIndexTable(GetFileList(), true);
     }
     while (pheadpartList && *pheadpartList->_ref_006815c0())
     {
@@ -3057,7 +3066,7 @@ bool TESDataHandler::LoadPluginFiles(bool abDownloadedContentOnly)
         if (pfile->GetIsChecked())
         {
             FUN_00471400(pfile);
-            pfile->CheckMasterFiles(GetFileList(), true);
+            pfile->GenIndexTable(GetFileList(), true);
             if (!CheckTESFileVersion(pfile))
             {
                 v = pfile->GetIndexCount();
@@ -3472,20 +3481,20 @@ bool TESDataHandler::LoadPluginFiles(bool abDownloadedContentOnly)
         pragdoll = (LC3_Node*)pragdoll->GetFirst();
     }
     BGSDefaultObjectManager::Instance()->InitItem();
-    pdefobj = BGSDefaultObjectManager::Instance()->GetDefaultObjectByIndex(0x1f);
+    pdefobj = BGSDefaultObjectManager::Instance()->GetDefaultObject(0x1f);
     pshaderList = 0;
     if (pdefobj)
     {
         pshaderList = pdefobj;
         g_dataHandler->FUN_00464d50(pshaderList);
     }
-    pdefobj = BGSDefaultObjectManager::Instance()->GetDefaultObjectByIndex(0x20);
+    pdefobj = BGSDefaultObjectManager::Instance()->GetDefaultObject(0x20);
     if (pdefobj)
     {
         pshaderList = pdefobj;
         g_dataHandler->FUN_00464d70(pshaderList);
     }
-    pdefobj = BGSDefaultObjectManager::Instance()->GetDefaultObjectByIndex(0x21);
+    pdefobj = BGSDefaultObjectManager::Instance()->GetDefaultObject(0x21);
     if (pdefobj)
     {
         pshaderList = pdefobj;
@@ -3570,7 +3579,7 @@ bool TESDataHandler::LoadPluginFiles(bool abDownloadedContentOnly)
             ppackage->InitItem();
         pprojList = (LC3_Node*)pprojList->GetFirst();
     }
-    ValidateFactionReactions();
+    TESFaction_CheckFactionReactions();
     MarkGameSettingsLoaded();
     DAT_011c3f30 = 0;
     ((::PlayerCharacter*)g_thePlayer)->GetCharacterProgressionInfo()->CharacterProgression_InitializeData();
@@ -4118,7 +4127,7 @@ extern const float runtimeFloatSettingDefault40;
 
 struct TESFile_Helper
 {
-    void ResetFileState(bool);
+    void TESRewind(bool);
 };
 
 // Opens the file at ppath+pfilename, falling back to a .tes file, updating fileData/fileFlags and the stream, and returns whether opening succeeded.
@@ -4219,8 +4228,8 @@ bool TESFile::OpenTESFile(char* ppath, char* pfilename, int accessmode, bool loc
 
     m_uiChunkOffset = m_pFile->GetSize();
     if (!accessmode)
-        LoadFormAndUpdateFlag();
-    ((TESFile_Helper*)this)->ResetFileState(accessmode == 0);
+        TESFile_InitEndian();
+    ((TESFile_Helper*)this)->TESRewind(accessmode == 0);
 
     bretval = true;
     if ((unsigned int)m_eChunkID != 0x52444548 && GetFileVersion() != DAT_01019de8)
@@ -4382,17 +4391,17 @@ struct SubX
     void ClearField88();
     SubX* FUN_0043b5d0();
     void BSSimpleList_NiPointer_bhkAction_RemoveAll();
-    void ClearHelper();
+    void PlayerCharacter_RemovePlayerMapMarker();
     void ProcessEntries_005102e0();
     void RemoveAll();
     void TESRegionList_Clear();
     void NavMeshObstacleManager_ClearAllObstacles();
     int TES_GetNavMeshInfoMap();
-    void SetNavMeshMaps(int a1);
+    void TES_SetNavMeshInfoMap(int a1);
     bool _GetByte05();
     void DeleteAllOwnedForms();
-    void ReleaseStorage_00600030();
-    void DestroyCameraPaths();
+    void TESIdleManager_DestroyRootIdleArrayForms();
+    void BGSCameraPathManager_DestroyRootPathArrayForms();
     void TESFile_SetActive(bool a1);
 };
 struct FormMapX
@@ -4526,7 +4535,7 @@ bool DataHandlerX::TESDataHandler_ClearData()
     xDAT_011dea10->FUN_0043b5d0()->BSSimpleList_NiPointer_bhkAction_RemoveAll();
     xFUN_00868d70(0);
     xFUN_004ff190();
-    ((SubX*)xDAT_011dea3c)->ClearHelper();
+    ((SubX*)xDAT_011dea3c)->PlayerCharacter_RemovePlayerMapMarker();
     xFUN_004c1c40();
     xFUN_00593210();
     xFUN_0058d710();
@@ -4817,7 +4826,7 @@ bool DataHandlerX::TESDataHandler_ClearData()
     xFUN_006c0720()->NavMeshObstacleManager_ClearAllObstacles();
     if (xDAT_011dea10->TES_GetNavMeshInfoMap())
     {
-        xDAT_011dea10->SetNavMeshMaps(0);
+        xDAT_011dea10->TES_SetNavMeshInfoMap(0);
     }
     if (!xDAT_011dea0c || !xDAT_011dea0c->_GetByte05())
     {
@@ -4825,9 +4834,9 @@ bool DataHandlerX::TESDataHandler_ClearData()
     }
     else
     {
-        xDAT_011cb6a0->ReleaseStorage_00600030();
+        xDAT_011cb6a0->TESIdleManager_DestroyRootIdleArrayForms();
     }
-    xDAT_011ca700->DestroyCameraPaths();
+    xDAT_011ca700->BGSCameraPathManager_DestroyRootPathArrayForms();
     while ((pzgs = (*reinterpret_cast<ListX<FormX*>*>(listCameraShots)).GetItem()) != 0)
     {
         (*reinterpret_cast<ListX<FormX*>*>(listCameraShots)).RemoveHead();
@@ -4995,7 +5004,8 @@ struct CellWorldHelper
 
 // Creates a TESObjectCELL for the given editorID and coordinates, assigns its ref ID and flags, adds it to the world, and returns it or null on failure.
 // @fnv 0x00461330
-TESObjectCELL* TESDataHandlerUnitOperations::CreateExteriorCell(const char* editorID, int x, int y, TESWorldSpace* world)
+// src: COMMUNITY 0x00461330
+TESObjectCELL* TESDataHandlerUnitOperations::TESDataHandler_NewCell(const char* editorID, int x, int y, TESWorldSpace* world)
 {
     if (!world)
         return 0;
@@ -5121,8 +5131,8 @@ struct DeletionObject
     bool FUN_00440d80();
     void TESObjectCELL_Detach(bool);
     void SetState(bool);
-    void RemoveNonPersistentRefs();
-    void ProcessRefrList();
+    void UnLoadAllTempData();
+    void TESObjectCELL_ClearReference3D();
     bool FUN_00551620();
     void TESObjectCELL_SetLowestProcessToMiddleLow(bool);
     void ChangeProcessLevel(bool);
@@ -5165,8 +5175,8 @@ void DeletionDataHandler::DeleteObject(DeletionObject* object)
     object->TESObjectCELL_Detach(true);
     reinterpret_cast<DeletionQueueMethods*>(&DAT_011e0e80)->ProcessLists_RemoveTempEffectsForCell(object);
     object->SetState(true);
-    object->RemoveNonPersistentRefs();
-    object->ProcessRefrList();
+    object->UnLoadAllTempData();
+    object->TESObjectCELL_ClearReference3D();
     while (object->FUN_00551620())
         object->TESObjectCELL_SetLowestProcessToMiddleLow(false);
     if (!reinterpret_cast<DeletionDataHandler*>(g_dataHandler)->TESDataHandler_GetClearingData())
@@ -5198,7 +5208,8 @@ void Warning_005b5e40(const char*);
 
 
 // @fnv 0x00464e50
-void TESDataHandlerUnitOperations::ClearPendingReferences()
+// src: COMMUNITY 0x00464e50
+void TESDataHandlerUnitOperations::TESDataHandler_CleanUpBadForms()
 {
     if (!((FUN_00464e50_list*)((char*)this + 0x1fc))->NiTListBase_DFALL_NiTListItem_BSAnimGroupSequence_const_BSAnimGroupSequence_const_IsEmpty() && DAT_011c54b9)
     {
@@ -5231,11 +5242,12 @@ extern "C" __declspec(dllimport) int __stdcall CloseHandle(HANDLE);
 void __cdecl FNV_Warning(const char*, ...);
 struct TextureScanner
 {
-    void CheckTextureFileForEmbeddedData(const char* path);
+    void TESDataHandler_CheckForNiRawImageData(const char* path);
 };
 // Opens the file at path, reads it, and warns if the bytes contain the "NiRawImageData" marker, then closes the handle.
 // @fnv 0x0046f0c0
-void TextureScanner::CheckTextureFileForEmbeddedData(const char* path)
+// src: COMMUNITY 0x0046f0c0
+void TextureScanner::TESDataHandler_CheckForNiRawImageData(const char* path)
 {
     HANDLE hFile = CreateFileA(path, 0x80000000, 1, 0, 3, 0x08000001, 0);
     if (hFile != (HANDLE)-1)
@@ -5689,11 +5701,12 @@ struct HandlerView : TESDataHandler
     bool FUN_00469860(unsigned int);
     TESObjectREFR* TESDataHandler_CreateExplosionAtLocation(TESBoundObject*, NiPoint3*, NiPoint3*, TESObjectCELL*, TESWorldSpace*);
     TESObjectREFR* CreateExplosion(TESBoundObject*, NiPoint3*, NiPoint3*, TESObjectCELL*, TESWorldSpace*);
-    TESObjectREFR* PlaceObjectReference(TESBoundObject*, NiPoint3*, NiPoint3*, TESObjectCELL*, TESWorldSpace*,
+    TESObjectREFR* TESDataHandler_CreateReferenceAtLocation(TESBoundObject*, NiPoint3*, NiPoint3*, TESObjectCELL*, TESWorldSpace*,
                                         TESObjectREFR*, const char*, TESForm*);
 };
 // @fnv 0x004698a0
-TESObjectREFR* HandlerView::PlaceObjectReference(TESBoundObject* base, NiPoint3* position, NiPoint3* rotation,
+// src: COMMUNITY 0x004698a0
+TESObjectREFR* HandlerView::TESDataHandler_CreateReferenceAtLocation(TESBoundObject* base, NiPoint3* position, NiPoint3* rotation,
                                                  TESObjectCELL* apInteriorCell, TESWorldSpace* apWorldSpace,
                                                  TESObjectREFR* apExistingRef, const char* editorID, TESForm* owner)
 {
@@ -5756,7 +5769,7 @@ TESObjectREFR* HandlerView::PlaceObjectReference(TESBoundObject* base, NiPoint3*
         {
             ::Actor* actor = (::Actor*)b;
             if (actor->GetActorBase()->GetUsesLeveledTemplate())
-                actor->GetActorBase()->SetTemplateReference(actor);
+                actor->GetActorBase()->CalcTemplateForRef(actor);
         }
         if (FUN_00469860(b->GetFormID()))
             ((RefVirtualView*)b)->FUN_48(0);
@@ -5936,7 +5949,8 @@ extern const char str_010198b8[];
 
 // Iterates the form map and reports TESIcon, TESTexture and TESBipedModelForm entries whose icon path is missing or fails to resolve.
 // @fnv 0x0046ec10
-void TESDataHandlerUnitOperations::ValidateFormIcons()
+// src: COMMUNITY 0x0046ec10
+void TESDataHandlerUnitOperations::TESDataHandler_CheckIcons()
 {
     if (*g_011c3f98.FUN_00408d60())
         return;
@@ -6093,10 +6107,11 @@ struct WeaponInventoryView
 struct InventoryHandler : TESDataHandler
 {
     void FUN_0046faf0();
-    void UpdateInventoryForReference(TESObjectREFR* reference);
+    void TESDataHandler_CreateBarterContainer(TESObjectREFR* reference);
 };
 // @fnv 0x0046f310
-void InventoryHandler::UpdateInventoryForReference(TESObjectREFR* reference)
+// src: COMMUNITY 0x0046f310
+void InventoryHandler::TESDataHandler_CreateBarterContainer(TESObjectREFR* reference)
 {
     if (!reinterpret_cast<FUN_004befb0*&>(pBarterContainer))
         reinterpret_cast<FUN_004befb0*&>(pBarterContainer) = new FUN_004befb0(0);
@@ -7074,7 +7089,7 @@ void TESDataHandlerUnitOperations::ProcessInventoryRecords(FNVFile* file, int re
         }
         else
         {
-            UpdateInventoryForReference(source);
+            TESDataHandler_CreateBarterContainer(source);
             current = 0;
             processed = 0;
             retrying = true;

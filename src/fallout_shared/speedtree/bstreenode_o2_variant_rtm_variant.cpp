@@ -843,7 +843,7 @@ struct TlsGuard_t
         g_tlsBlock.m_2b4 = m_saved;
     }
 };
-struct FUN_00c88210_cls
+struct bhkPCollisionObject
 {
     void __thiscall bhkNiCollisionObject_CopyMembers(BSFadeNode* node, unsigned int flags);
     BSFadeNode* bhkPCollisionObject_CreateClone(unsigned int flags);
@@ -1940,7 +1940,7 @@ struct FUN_00c8c1e0_rec
     FUN_00c8c1e0_sub sub;
 };
 extern "C" void __cdecl bhkStream_Endian(void* p);
-struct FUN_00c8c1e0_cls
+struct bhkTransformShape
 {
     virtual void v00()
     {}

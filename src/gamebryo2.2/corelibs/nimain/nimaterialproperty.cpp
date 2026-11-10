@@ -179,7 +179,8 @@ void ReleaseGlobalHolder()
 }
 
 // @fnv 0x00a75730
-NiObject* __fastcall NiMaterialProperty_MakeClone(NiMaterialProperty* pThis, void*, CloningProcess& kCloning)
+// src: EXE 0x00a75730
+NiObject* __fastcall NiMaterialProperty_CreateClone(NiMaterialProperty* pThis, void*, CloningProcess& kCloning)
 {
     if (pThis->m_spControllers)
     {

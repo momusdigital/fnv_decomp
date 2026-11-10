@@ -40,12 +40,12 @@ void __cdecl BSEndian(unsigned char*, BSIntToType4);
 void __cdecl BSEndian(unsigned char*, BSIntToType5);
 void __cdecl BSEndian(unsigned char*, BSIntToType6);
 void __cdecl BSEndian(unsigned char*, BSIntToType7);
-struct FUN_00414290
+struct OBJ_TREE
 {
     void Init();
 };
 // @fnv 0x00414290
-void FUN_00414290::Init()
+void OBJ_TREE::Init()
 {
     BSEndian((unsigned char*)this, BSIntToType0());
     BSEndian((unsigned char*)this + 4, BSIntToType1());

@@ -23,7 +23,7 @@ public:
 
 extern int DAT_01189c40;
 
-struct FUN_00404b10_class
+struct GameSettingCollection
 {
     void* m_p;
     void __thiscall FUN_00404b90(int);
@@ -32,7 +32,7 @@ struct FUN_00404b10_class
 
 // Calls FUN_00404b90 with DAT_01189c40, sets m_p to "@K@", and returns this.
 // @fnv 0x00404b10
-void* __thiscall FUN_00404b10_class::Initialize()
+void* __thiscall GameSettingCollection::Initialize()
 {
     FUN_00404b90(DAT_01189c40);
     m_p = "@K@";

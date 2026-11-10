@@ -253,7 +253,7 @@ void __cdecl Deallocate(void* p);
 void __cdecl Deallocate(void* p);
 struct FUN_005e0680_Class : FUN_005e0340Class
 {
-    void* __thiscall FUN_005e0680(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 void __cdecl Deallocate(void*);
 struct FUN_005dd7b0_class
@@ -342,7 +342,7 @@ void __cdecl BSEndian(unsigned char*, EndianSizeTag<0>);
 void __cdecl TESFile_TransformReferencedInt64(void*, EndianSizeTag<0>);
 struct T2870
 {
-    void __thiscall ProcessState_005e2870();
+    void __thiscall SCRIPT_LOCAL_Endian();
 };
 struct FUN_005ec700_shell : TESFaction_RankDataView
 {
@@ -704,7 +704,7 @@ struct FUN_005ff520_shell
 };
 struct FUN_005ff560_shell
 {
-    void RemoveChildAndRelinkNeighbors(unsigned int);
+    void TESIdleForm_RemoveChildAtIndex(unsigned int);
 };
 struct FUN_005ff5d0_class
 {
@@ -811,7 +811,7 @@ struct FUN_005e0600_Class
 };
 void* __cdecl FUN_00885750();
 void hkDeallocateStack_char(void* p);
-struct FUN_005e3fe0_class
+struct PART_DATA
 {
     void __thiscall SwapEndianFields();
 };
@@ -847,7 +847,7 @@ class FNVObject
     void* Key();
 };
 int __cdecl FNVCompare(void* key, void* a1);
-class FUN_005e0860_cls
+class SettingCollectionList
 {
   public:
     int unk000;
@@ -1058,7 +1058,7 @@ struct FloatStringEntryRecord
     float f1C;
     StrArray strings;
     EntryArray entries;
-    void AssignEntriesStringsAndFloats(FloatStringEntryRecord* other);
+    void FootIK_DATA_Copy(FloatStringEntryRecord* other);
 };
 // FUN_005eedc0 : returns &m_pEntries[index] (element size 0x38)
 struct FUN_005eedc0_item
@@ -1082,7 +1082,7 @@ struct FUN_005eedc0_cls
 {
     int m_unk00;
     FUN_005eedc0_item* m_pEntries;
-    FUN_005eedc0_item* GetIndexedValue_005eedc0(int index);
+    FUN_005eedc0_item* BSSimpleArray_GetAt(int index);
 };
 struct FUN_005efa80_cls
 {
@@ -1132,7 +1132,7 @@ struct RootCls_b9637
     RootCls_b9637();
     ~RootCls_b9637();
 };
-class FUN_005f21c0_cls : public RootCls_b9637
+class TESAnimGroup : public RootCls_b9637
 {
   public:
     virtual void unk00();
@@ -1147,8 +1147,8 @@ class FUN_005f21c0_cls : public RootCls_b9637
     int unk34;
     int unk38;
 
-    FUN_005f21c0_cls(unsigned short a);
-    void SetAnimGroupType(unsigned short a);
+    TESAnimGroup(unsigned short a);
+    void TESAnimGroup_SetType(unsigned short a);
 };
 struct PairRecord16
 {
@@ -1433,7 +1433,7 @@ struct FUN_005f2b60_cls
     unsigned int GetCount();
     Entry* GetAt(unsigned int i);
     int GetKind();
-    void ProcessSoundEntries(Ref* ref, float fFrom, float fTo, Script* script);
+    void TESAnimGroup_PlaySounds(Ref* ref, float fFrom, float fTo, Script* script);
 };
 // GetEntryByte0d: lookup of a per-entry byte value by index.
 // The class holds a count of entries at +0x0c and a pointer to a table of
@@ -1639,13 +1639,13 @@ class ThisMember_b3969
     ThisMember_b3969(unsigned int aValue, bool aFlag);
     ~ThisMember_b3969();
 };
-class FUN_005ffaf0 : public ThisBase_b3969
+class TESIdleManager : public ThisBase_b3969
 {
   public:
     unsigned char m_14;
     ThisMember_b3969 m_18;
 
-    FUN_005ffaf0();
+    TESIdleManager();
 };
 // Thiscall dtor, 98 bytes /MT /Od /GS /EHsc: body call on this (state 1),
 // member sub-object at +0x18 released (state 0), then base sub-object dtor on this (state -1).
@@ -1728,7 +1728,7 @@ struct SkinPartObj_S
 };
 SkinPartObj_S* NiDynamicCast(const NiRTTI_S* rtti, SkinInst_S* obj);
 extern const NiRTTI_S g_011f49d8;
-void SetPartitionVisibility(int partition, AVObj_S* root);
+void BGSBodyPart_ShowLimb(int partition, AVObj_S* root);
 struct CompareEntry
 {
     bool Differs(CompareEntry*);
@@ -1950,7 +1950,7 @@ struct SoundData
     int unk20;
 };
 void __cdecl TESForm_AddChunk_3(unsigned int chunkId, unsigned char value);
-void __cdecl AppendChunk(unsigned int chunkId, void* data, unsigned int size);
+void __cdecl TESForm___AddChunkData(unsigned int chunkId, void* data, unsigned int size);
 unsigned char __cdecl TESForm_QEndianSwapOnSave();
 struct FUN_005e2fa0_SoundFile
 {
@@ -1991,8 +1991,8 @@ struct FUN_005e2fa0_standin
     FUN_005e2fa0_SoundData unk44;
     unsigned char unk68;
 
-    void __thiscall BeginFormRecord();
-    void __thiscall FinishFormRecord();
+    void __thiscall TESForm_StartForm();
+    void __thiscall TESForm_CloseForm();
     void __thiscall WriteToStream();
 };
 class TESSound;
@@ -2050,7 +2050,7 @@ struct FUN_005e50f0_Obj
 };
 struct FUN_005e5190_Class
 {
-    unsigned char GetByte63();
+    unsigned char BGSBodyPart_GetActorValue();
 };
 struct Obj5e5300
 {
@@ -2356,7 +2356,7 @@ class FUN_005e4bc0 : public FUN_00483630_holder, public TESModel, public BGSPrel
 struct Skin55;
 struct Part55
 {
-    void SetEntryStateByKey(unsigned short partition, bool visible);
+    void BSDismemberSkinInstance_SetBodyPartEnabled(unsigned short partition, bool visible);
 };
 struct Node55;
 struct BaseObject55
@@ -2405,7 +2405,7 @@ struct Body55
     int unk2C;
     int unk30;
     Name55* names[15];
-    void HidePartitionsUnderAncestor(Object55* ancestor, Object55* root, int excluded, Object55* object);
+    void BGSBodyPartData_HideChildLimbs(Object55* ancestor, Object55* root, int excluded, Object55* object);
 };
 namespace s5e5d20 {
 
@@ -2581,16 +2581,17 @@ struct LocalState
     int unk00, unk04, unk08, unk0c, unk10, unk14;
     int unk18, unk1c, unk20, unk24, unk28, unk2c;
 };
-struct FUN_005ff890
+struct IDLE_ANIM_ROOT
 {
     LocalFormArray first;
     LocalFormArray second;
     LocalString name;
     LocalState state;
-    FUN_005ff890(const char*);
+    IDLE_ANIM_ROOT(const char*);
 };
 // @fnv 0x005ff890
-FUN_005ff890::FUN_005ff890(const char* text)
+// src: COMMUNITY 0x005ff890
+IDLE_ANIM_ROOT::IDLE_ANIM_ROOT(const char* text)
 {
     name.Set(text, 0);
     first.SetSize(1);

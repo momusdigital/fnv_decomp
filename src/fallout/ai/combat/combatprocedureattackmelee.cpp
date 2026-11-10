@@ -88,7 +88,7 @@ class LocalPoint3Ext
     LocalPoint3Ext& Subtract(const LocalPoint3Ext& point);
     float GetLengthSquared();
     void ComputeMagnitude();
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength() const;
     float Length() const;
 
     AimVector SubtractIntoVector(const AimVector& point) const;
@@ -286,13 +286,14 @@ void FUN_009cd410_shell::CombatProcedureAttackMelee_StartEngage()
     SetMode(0);
 }
 
-struct FUN_009cdde0_shell
+struct CombatMovementRestrictions
 {
-    bool HasNoFlag(unsigned short mask);
+    bool CombatMovementRestrictions_CanMove(unsigned short mask);
 };
 // Returns true when the 16-bit flags at offset 8 do not contain any bit of mask.
 // @fnv 0x009cdde0
-bool FUN_009cdde0_shell::HasNoFlag(unsigned short mask)
+// src: COMMUNITY 0x009cdde0
+bool CombatMovementRestrictions::CombatMovementRestrictions_CanMove(unsigned short mask)
 {
     return !(*(unsigned short*)((char*)this + 8) & mask) != 0;
 }
@@ -424,21 +425,21 @@ void FUN_009cf660_shell::SetMode(int mode)
 }
 
 namespace fnv_009cfbd0 {
-struct FUN_009cdde0_shell
+struct CombatMovementRestrictions
 {
-    char HasNoFlag(unsigned short mask);
+    char CombatMovementRestrictions_CanMove(unsigned short mask);
 };
 struct FUN_009cfbd0_shell
 {
     char CombatProcedureAttackMelee_CheckDodge(unsigned short mask);
 };
-// Forwards the mask to the HasNoFlag method of the object at offset 0x64 and returns its result.
+// Forwards the mask to the CombatMovementRestrictions_CanMove method of the object at offset 0x64 and returns its result.
 // @fnv 0x009cfbd0
 // src: XBOX_PDB 0x009cfbd0
 char FUN_009cfbd0_shell::CombatProcedureAttackMelee_CheckDodge(unsigned short mask)
 {
     char result = 1;
-    result = ((FUN_009cdde0_shell*)((char*)this + 0x64))->HasNoFlag(mask);
+    result = ((CombatMovementRestrictions*)((char*)this + 0x64))->CombatMovementRestrictions_CanMove(mask);
     return result;
 }
 }  // namespace fnv_009cfbd0
@@ -609,7 +610,7 @@ void CombatProcedureAttackMelee::SaveGame(BGSSaveFormBuffer* buf)
     ((fnv_009d0690::FUN_009a5eb0_shell*)((char*)this + 0x38))->FUN_009a5eb0(buf);
     ((fnv_009d0690::FUN_009a5eb0_shell*)((char*)this + 0x40))->FUN_009a5eb0(buf);
     ((fnv_009d0690::FUN_009a5eb0_shell*)((char*)this + 0x48))->FUN_009a5eb0(buf);
-    ((CombatTargetTimestamp*)((char*)this + 0x60))->SaveTimeStamp(buf);
+    ((CombatTargetTimestamp*)((char*)this + 0x60))->CombatTimeStamp_SaveGame(buf);
     buf->SaveData((char*)this + 0x50, 1, 0);
     buf->SaveData((char*)this + 0x54, 4, 0);
 }
@@ -847,7 +848,8 @@ extern int DAT_011a8244;
 
 // Chooses a melee attack id from distance, reach, power-attack and animation state, setting the power-attack and switch-attack flags.
 // @fnv 0x009ccb20
-int CombatProcedureAttackMelee::ChooseMeleeAttack(bool abMidAttack, float afDistance, float afReach, bool abTargetAttacking,
+// src: COMMUNITY 0x009ccb20
+int CombatProcedureAttackMelee::SelectAttack(bool abMidAttack, float afDistance, float afReach, bool abTargetAttacking,
                                              bool abTargetPostAttack, bool abTargetRecoiling, bool* abDoPowerAttack,
                                              bool* abSwitchAttack)
 {
@@ -1409,7 +1411,7 @@ void This::CombatProcedureAttackMelee_MeleeDecision()
     if (IsWithinThreshold(s12, v51, 0))
     {
         n44 = 0.0f;
-        n44 = CalculateWeightedValue((int)m_04->GetCurrentCombatStyle(), m_04->CombatController_GetAttackSkill(), r23->GetActorValueAsInteger(11), s33,
+        n44 = CalculateWeightedValue((int)m_04->GetCurrentCombatStyle(), m_04->CombatController_GetAttackSkill(), r23->GetClampedActorValueI(11), s33,
                                      GetCurrentWeapon((int)m_04) == 0, s5, t45->GetHasKnockedState(), r14);
         if (m_04->CombatController_GetCombatState().GetHandle()->FUN_00435e00() > 5.0 && n44 != 0.0)
             n44 += 100.0;
@@ -1448,7 +1450,7 @@ void This::CombatProcedureAttackMelee_MeleeDecision()
             }
             bool found = false;
             bool bp2 = false;
-            int res = ((CombatProcedureAttackMelee*)this)->ChooseMeleeAttack(t57, s12, v51, s33, s20, s5, &found, &bp2);
+            int res = ((CombatProcedureAttackMelee*)this)->SelectAttack(t57, s12, v51, s33, s20, s5, &found, &bp2);
             if (res != 0xff)
             {
                 if (GetTarget_00996e00()->GetNiNode() != 0)
@@ -2807,7 +2809,7 @@ struct MeleeDebugFlags
     unsigned short flags;
     unsigned short unknown;
     unsigned short FUN_004a8ae0();
-    bool HasNoFlag(unsigned short);
+    bool CombatMovementRestrictions_CanMove(unsigned short);
     bool TESTextureList_GetTextureCount();
 };
 struct MeleeDebugOutput
@@ -2896,10 +2898,10 @@ void MeleeDebugProcedure::PrintDebugInfo(MeleeDebugOutput* output, int x, int y)
         output->Print(x, y, DAT_01090dc8, delayTimer.FUN_00435e00(), delayTimer.CombatTimer_GetTargetTime());
     output->Print(x, y, DAT_01090db8, DAT_011a5ab8[attackState], description);
     if (stateFlags.FUN_004a8ae0() && !actor->IsPathing())
-        output->Print(x, y, DAT_01090d8c, stateFlags.HasNoFlag(4) ? DAT_01017b68 : DAT_01017b64,
-                      stateFlags.HasNoFlag(8) ? DAT_01017b68 : DAT_01017b64,
-                      stateFlags.HasNoFlag(1) ? DAT_01017b68 : DAT_01017b64,
-                      stateFlags.HasNoFlag(2) ? DAT_01017b68 : DAT_01017b64);
+        output->Print(x, y, DAT_01090d8c, stateFlags.CombatMovementRestrictions_CanMove(4) ? DAT_01017b68 : DAT_01017b64,
+                      stateFlags.CombatMovementRestrictions_CanMove(8) ? DAT_01017b68 : DAT_01017b64,
+                      stateFlags.CombatMovementRestrictions_CanMove(1) ? DAT_01017b68 : DAT_01017b64,
+                      stateFlags.CombatMovementRestrictions_CanMove(2) ? DAT_01017b68 : DAT_01017b64);
     if (stateFlags.TESTextureList_GetTextureCount())
         output->Print(x, y, DAT_01090d70);
 }
@@ -4567,7 +4569,7 @@ void FUN_009cf090_Class::TryAttackTarget(float afArg1, float afArg2)
                 if (iRandA < this->m_04->GetCurrentCombatStyle()->GetByteAtOffsetAD())
                 {
                     fChanceTmp = CalculateWeightedValue((int)this->m_04->GetCurrentCombatStyle(), this->m_04->CombatController_GetAttackSkill(),
-                                                        pkActorVal->GetActorValueAsInteger(11), bTargetAttacking4,
+                                                        pkActorVal->GetClampedActorValueI(11), bTargetAttacking4,
                                                         !this->m_04->GetCurrentWeapon(), bTargetPostAttack_2,
                                                         pkTarget5->GetHasKnockedState(), bTargetRecoiling);
 
@@ -4821,7 +4823,7 @@ extern "C" char DAT_011cf4e0;
 struct Act
 {
     float FUN_008be1b0();
-    void PathToLocation(Req*, void const*, unsigned, unsigned, float, Avoid*);
+    void Actor_BuildRequest(Req*, void const*, unsigned, unsigned, float, Avoid*);
     void SetPathingRequestAvoidNodes(Req*);
 };
 struct Targ : CombatAttackVT
@@ -4859,7 +4861,7 @@ void C009ce5b0::CombatProcedureAttackMelee_MoveToFaceTargetLocation(NiPoint3* ap
         Ptr avoidX(new Avoid);
         avoidX.Modelloader_GetReferencedThis()->AppendNode(Shape(target->v07d(), *((Setting*)&DAT_011cf4e0)->Setting_Float_00403e20(),
                                                   *((Setting*)&DAT_011cf120)->Setting_Float_00403e20()));
-        actor2->PathToLocation(&request, &location.FUN_005c3420(), (unsigned)location.FUN_006dd4f0(), (unsigned)location.FUN_00441110(), 5.0f,
+        actor2->Actor_BuildRequest(&request, &location.FUN_005c3420(), (unsigned)location.FUN_006dd4f0(), (unsigned)location.FUN_00441110(), 5.0f,
                              avoidX.Modelloader_GetReferencedThis());
     }
     else
@@ -4867,7 +4869,7 @@ void C009ce5b0::CombatProcedureAttackMelee_MoveToFaceTargetLocation(NiPoint3* ap
         float distance = 10.0f;
         if ((unsigned char)GetByteAtOffset70(holder->CombatController_GetCombatState()))
             distance = CombatUtilities_ComputeFaceTargetDistance(actor2, target, CombatProcedureAttackMelee_GetCurrentAttackReach());
-        actor2->PathToLocation(&request, (void*)target->v07d(), target->FUN_008d6f30(), (unsigned)target->TESObjectREFR_GetWorldSpace(),
+        actor2->Actor_BuildRequest(&request, (void*)target->v07d(), target->FUN_008d6f30(), (unsigned)target->TESObjectREFR_GetWorldSpace(),
                              distance, 0);
     }
     actor2->SetPathingRequestAvoidNodes(&request);

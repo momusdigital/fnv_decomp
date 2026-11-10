@@ -471,13 +471,14 @@ struct Cls
     int m_54;
     int m_58;
     int m_5c;
-    Cls* FUN_00cbb8b0(int flags);
+    Cls* ScalarDeletingDestructor(int flags);
     void ReleaseReference_00d2b2b0();
 };
 
 // Clears the array at m_54 and releases its buffer unless flagged, calls FUN_00d2b2b0, and frees this through the TLS heap when bit 0 of flags is set.
 // @fnv 0x00cbb8b0
-Cls* Cls::FUN_00cbb8b0(int flags)
+// src: EXE 0x00cbb8b0
+Cls* Cls::ScalarDeletingDestructor(int flags)
 {
     hkMemoryRouter* tls = hkMemoryRouter_getInstance();
     hkMemoryAllocator* heap = (hkMemoryAllocator*)tls->m_heap;

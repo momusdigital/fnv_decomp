@@ -160,8 +160,8 @@ RigidBodyConstruction* RigidBodyConstruction::AllocateStorage_00ca8c90(const hkp
     if (info.motionType == 5)
     {
         hkpFixedRigidMotion* fixed = ::new (&m_pMotionState) hkpFixedRigidMotion(&info.position, &info.rotation);
-        reinterpret_cast<hkUFloat8*>(&fixed->m_kMotionState.m_fSurfaceFriction)->FindFloatTableIndex(&info.maxLinear);
-        reinterpret_cast<hkUFloat8*>(&fixed->m_kMotionState.m_fRestitution)->FindFloatTableIndex(&info.maxAngular);
+        reinterpret_cast<hkUFloat8*>(&fixed->m_kMotionState.m_fSurfaceFriction)->SetReal(&info.maxLinear);
+        reinterpret_cast<hkUFloat8*>(&fixed->m_kMotionState.m_fRestitution)->SetReal(&info.maxAngular);
         fixed->FUN_00c86420(1);
         m_kCollidable.m_pMotionState = &m_pMotionState.m_kMotionState.m_kMotionTransform;
         if (info.penetrationDepth <= 0.0f)

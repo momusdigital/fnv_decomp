@@ -101,7 +101,7 @@ struct HkDisplayConvexObj
     unsigned short m_u04;
     unsigned short unk06;
 
-    HkDisplayConvexObj* FUN_00de1d20(HkArrayPairBlock* a1);
+    HkDisplayConvexObj* hkDisplayConvex(HkArrayPairBlock* a1);
 };
 
 void __cdecl FUN_00c90940(HkAllocator* a1, HkArrayRaw* a2, int a3);
@@ -144,7 +144,7 @@ HkDisplayConvexObj* FUN_00ddfc30_cls::hkpShapeDisplayBuilder_getCurrentRawGeomet
         pHolder = (HkAllocHolder*)hkMemoryRouter_getInstance();
         mem = pHolder->m_pAllocator->Alloc(0x60);
         ((HkDisplayConvexObj*)mem)->m_u04 = 0x60;
-        m_pConvex = ((HkDisplayConvexObj*)mem)->FUN_00de1d20(pBlock);
+        m_pConvex = ((HkDisplayConvexObj*)mem)->hkDisplayConvex(pBlock);
 
         pHolder = (HkAllocHolder*)hkMemoryRouter_getInstance();
         if (apArray->m_iArrayLength == (int)(apArray->m_uCapFlags & 0x3fffffffu))

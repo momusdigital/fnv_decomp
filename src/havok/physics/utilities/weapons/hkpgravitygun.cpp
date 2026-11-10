@@ -262,7 +262,7 @@ inline const hkVector4& hkpRigidBody::getCenterOfMassInWorld() const
 
 inline hkReal gravityGunBodyMass(hkpRigidBody* body)
 {
-    return body->m_pMotionState.GetMassValue();
+    return body->m_pMotionState.getMass();
 }
 
 // The shared gravity-gun declarations still use the opaque GGRigidBody pointer type.
@@ -280,8 +280,8 @@ bool hkpGravityGun::isGrabbed(const GGRigidBody* body) const
 
 // Finds the best rigid body to grab by scoring candidates in active and inactive islands, then ray-casting to verify line of sight.
 // @fnv 0x00e45a60
-// src: GUESS 0x00e45a60 (confidence: medium)
-GGRigidBody* hkpGravityGun::FindVisibleRigidBodyToGrab(const GGTransform& viewTransform, const GGRigidBody* characterBody,
+// src: COMMUNITY 0x00e45a60
+GGRigidBody* hkpGravityGun::pickBody(const GGTransform& viewTransform, const GGRigidBody* characterBody,
                                       const GGWorld* world)
 {
     hkpRigidBody* pickedBody = 0;

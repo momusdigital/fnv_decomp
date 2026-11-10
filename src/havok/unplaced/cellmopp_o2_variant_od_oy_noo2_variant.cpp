@@ -721,7 +721,7 @@ struct FUN_00ca4fd0_Value
     virtual void v52();
     virtual void Target(int first, int second);
 };
-class FUN_00ca4fd0_cls
+class bhkBvTreeShape
 {
   public:
     int unk00;

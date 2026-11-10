@@ -24,7 +24,7 @@ public:
     void PlayerCharacter_RewardKarma(int);
     float TESObjectREFR_GetScale_00567400();
     void PlayActorSound(TESBoundObject* o, int a1, int a2);
-    void SyncHolderValue();
+    void PlayerCharacter_Setup3rdPersonCameraCaster();
 };
 #include "../../../../include/TESBipedModelForm.h"
 #include "../../../../include/TESForm.h"
@@ -527,7 +527,7 @@ void ContainerMenu::Close()
 
         ((BSSimpleList<ActorCause*>*)&DAT_011d93f8->m_kContainerItems)->RemoveAll();
         (*(Tile**)((char*)DAT_011d93f8 + 4))->Set(0x1772, 1);
-        DAT_011d93f8->LoadMenuData();
+        DAT_011d93f8->StartFadeOut();
         if (((CloseVirtualSlots*)((Actor*)g_thePlayer)->GetProcess())->vfn_474(true))
             g_thePlayer->UpdatePlayerControls();
         FUN_00778b10();
@@ -707,7 +707,7 @@ bool IsRefBaseObjectUnplayable(RefEx* apRef)
                 GetAmmunitionList(reinterpret_cast<BGSAmmoForm*>(
                     reinterpret_cast<char*>(g_thePlayer->GetActiveWeapon()) +
                     offsetof(TESObjectWEAP, m_pAmmo) - offsetof(BGSAmmoForm, m_pAmmo)))
-                    ->GetConditionIndex(pObject) < 0;
+                    ->GetItemIndex(pObject) < 0;
         }
         else
         {
@@ -823,7 +823,7 @@ struct SourceForm
 {
     int FUN_00401170();
     bool TESObjectWEAP_IsThrownWeapon();
-    CurrentItem* GetOrFallback(Actor* actor);
+    CurrentItem* TESObjectWEAP_GetProjectile(Actor* actor);
 };
 struct InventoryEntry
 {
@@ -864,9 +864,9 @@ bool ContainerMenu::IsPlacingMine(InventoryEntry* entry, ExpectedReference* refe
         SourceForm* b = entry->FUN_0044ddc0();
         if (b->TESObjectWEAP_IsThrownWeapon())
         {
-            if (b->GetOrFallback(a))
+            if (b->TESObjectWEAP_GetProjectile(a))
             {
-                if (b->GetOrFallback(a)->BGSProjectile_GetMotionType() == 0x20000)
+                if (b->TESObjectWEAP_GetProjectile(a)->BGSProjectile_GetMotionType() == 0x20000)
                 {
                     return true;
                 }
@@ -1708,7 +1708,7 @@ void ContainerItemTransfer::TransferItem(void* a1, Entry_0075d6b0* entry, int co
     XList_0075d6b0* extra = entry->Modelloader_GetReferencedThis() ? *entry->Modelloader_GetReferencedThis()->FUN_006815c0() : 0;
     if (ok)
     {
-        BGSProjectile_InitLiveGrenade(entry->FUN_0044ddc0()->GetOrFallback(0), to8, from4, entry->FUN_0044ddc0());
+        BGSProjectile_InitLiveGrenade(entry->FUN_0044ddc0()->TESObjectWEAP_GetProjectile(0), to8, from4, entry->FUN_0044ddc0());
         ((List_0075d6b0*)&m_kContainerItems)->FUN_005ae3d0(entry->FUN_0044ddc0());
         to8->FUN_17c(entry->FUN_0044ddc0(), extra, count, 0, 0, 0, 0, 0, 1, 0);
         return;
@@ -1776,7 +1776,7 @@ bool ContainerMenu::PickpocketCheck(Actor* actor, int amount)
     if (actor && amount > 0 && !actor->GetHasKnockedState())
     {
         int chance = fnv_0075e0b0::ComputeClampedSettingSum(
-            fnv_0075e0b0::DAT_011dea3c->GetActorValueAsInteger(static_cast<ActorValue::Index>(42)),
+            fnv_0075e0b0::DAT_011dea3c->GetClampedActorValueI(static_cast<ActorValue::Index>(42)),
             actor->GetActorValue(static_cast<ActorValue::Index>(42)), (float)amount);
         // Actor::Unk_11F has no arguments in the shared header; this call uses two stack arguments.
         reinterpret_cast<void (__thiscall*)(Actor*, int, int)>(
@@ -1931,7 +1931,7 @@ void ContainerMenu::SetLabelText(const char* text)
     float dimensions9[3];
     FUN_005bd5b0()->FUN_00a1b020(dimensions9, text, font8, DAT_01016970, 0);
     float widthTmp = m_pTiles[6]->FUN_0045cd60()->FUN_00a011b0(4017) - DAT_01072310;
-    if (m_pTiles[5]->IsTraitNonZero(4003))
+    if (m_pTiles[5]->Tile_IsTrue(4003))
         widthTmp -= DAT_010356b0;
     if (dimensions9[0] > widthTmp)
     {
@@ -2016,15 +2016,16 @@ struct Base0071
     void* vtable;
     unsigned int unk04, unk08, unk0c, unk10, unk14, unk18, unk1c, unk20, unk24;
 };
-struct FUN_0071f240 : Base0071
+struct TutorialMenu : Base0071
 {
     unsigned int unk28, unk2c, unk30, unk34, unk38, unk3c, unk40, unk44;
     unsigned int unk48, unk4c, unk50;
-    FUN_0071f240();
+    TutorialMenu();
 };
 // Sets the vtable, zeroes the 0x20-byte block at unk28, and clears unk4c, unk48 and unk50.
 // @fnv 0x0071f240
-FUN_0071f240::FUN_0071f240()
+// src: EXE 0x0071f240
+TutorialMenu::TutorialMenu()
 {
     vtable = &DAT_0106ff84;
     ourMemset(&unk28, 0, 0x20);
@@ -2401,7 +2402,7 @@ struct S650List
 };
 struct S650Group
 {
-    int GetConditionIndex(S650Form*);
+    int GetItemIndex(S650Form*);
 };
 S650Group* __cdecl FUN_00483a00(char*);
 extern "C" char DAT_010722f4;
@@ -2466,7 +2467,7 @@ bool S650::ContainerMenu_FilterModeFunc(S650Ref* pRef)
     {
         S650Group* group = FUN_00483a00(&DAT_010722f4);
         S650Form* form = pRef->FUN_0044ddc0();
-        if (group && group->GetConditionIndex(form) >= 0)
+        if (group && group->GetItemIndex(form) >= 0)
             result2 = true;
         if (form && !form->FUN_004c94d0())
             result2 = true;
@@ -3829,9 +3830,9 @@ struct ObjRaw
 };
 struct InvChg
 {
-    ObjRef* FindEntryWithExtraListType(int a1);
-    void ClearExtraForSlot(ObjRef* b, int a2);
-    void SetInventorySlotExtraData(ObjRef* p, int v, int a3);
+    ObjRef* InventoryChanges_GetHotkeyItem(int a1);
+    void InventoryChanges_RemoveHotkeyItem(ObjRef* b, int a2);
+    void InventoryChanges_SetHotkeyItem(ObjRef* p, int v, int a3);
 };
 struct Loader
 {
@@ -3840,7 +3841,7 @@ struct Loader
 };
 extern Loader* DAT_011c3b3c;
 InvChg* __cdecl FUN_004bf220(void* arg);
-TESModelTextureSwap* __cdecl GetBipedModelTextureSwap(TESBoundObject* o, void* player);
+TESModelTextureSwap* __cdecl TESBipedModelForm_GetBipedTESModel(TESBoundObject* o, void* player);
 
 struct ThiS
 {
@@ -3867,26 +3868,26 @@ void ThiS::HotKeysWheel_SetHotkeyItem(ObjRef* apObjRef)
     InvChg* aX = FUN_004bf220(DAT_011dea3c);
     if (!(apObjRef != 0 && f24 != 0 && aX != 0))
         return;
-    ObjRef* b = aX->FindEntryWithExtraListType(f28);
+    ObjRef* b = aX->InventoryChanges_GetHotkeyItem(f28);
     int v4 = apObjRef->Modelloader_GetReferencedThis() ? *(int*)((ObjRaw*)apObjRef->Modelloader_GetReferencedThis())->FUN_006815c0() : 0;
     TESModelTextureSwap* c_;
     TESModelTextureSwap* d;
     if (b != 0)
     {
-        aX->ClearExtraForSlot(b, f28);
+        aX->InventoryChanges_RemoveHotkeyItem(b, f28);
         if (b->FUN_0044ddc0() != 0)
         {
-            c_ = GetBipedModelTextureSwap(b->FUN_0044ddc0(), DAT_011dea3c);
+            c_ = TESBipedModelForm_GetBipedTESModel(b->FUN_0044ddc0(), DAT_011dea3c);
             if (c_ == 0)
                 c_ = dynamic_cast<TESModelTextureSwap*>(b->FUN_0044ddc0());
             if (c_ != 0)
                 DAT_011c3b3c->ModelLoader_ReleaseFile(const_cast<char*>(c_->GetModelFilePath()));
         }
     }
-    aX->SetInventorySlotExtraData(apObjRef, v4, f28);
+    aX->InventoryChanges_SetHotkeyItem(apObjRef, v4, f28);
     if (apObjRef->FUN_0044ddc0() != 0)
     {
-        d = GetBipedModelTextureSwap(apObjRef->FUN_0044ddc0(), DAT_011dea3c);
+        d = TESBipedModelForm_GetBipedTESModel(apObjRef->FUN_0044ddc0(), DAT_011dea3c);
         if (d == 0)
             d = dynamic_cast<TESModelTextureSwap*>(apObjRef->FUN_0044ddc0());
         if (d != 0)

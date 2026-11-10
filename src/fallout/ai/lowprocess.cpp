@@ -340,7 +340,7 @@ void LowProcess::Update(MobileObject* mobile)
                     {
                         if (!update.actor->IsAtPosition(GetCurrentPackage()->GetPackageLocationPosition(update.actor),
                                                         GetCurrentPackage()->GetPackageLocationCell(update.actor),
-                                                        GetCurrentPackage()->GetPackageWorldSpace(update.actor), -1.0f,
+                                                        GetCurrentPackage()->GetLocationWorld(update.actor), -1.0f,
                                                         0))
                             return;
                     }
@@ -603,9 +603,9 @@ void LowProcess::Update(MobileObject* mobile)
                     SetProcessTarget(update.actor, -1);
                     return;
                 }
-                if (GetCurrentPackage() && GetCurrentPackage()->IsMustReachLocation())
+                if (GetCurrentPackage() && GetCurrentPackage()->GetOncePerDay())
                     update.actor->vfn_28c(GetCurrentPackage(), static_cast<unsigned char>(g_calendar.GetGameHour()));
-                if (GetCurrentPackage() && GetCurrentPackage()->IsMustComplete())
+                if (GetCurrentPackage() && GetCurrentPackage()->GetIsCreated())
                     update.actor->SetSpeakingState(false);
                 if (Interface_GetTargetREFR() == update.actor)
                 {
@@ -719,7 +719,7 @@ bool LowProcess::CheckForNewPackage(Actor* actor, bool force)
                     if (sentEnd)
                     {
                         Script::GetLocalData(context.previous, actor->GetExtraData(), 0x400);
-                        if (context.previous && context.previous->IsMustReachLocation())
+                        if (context.previous && context.previous->GetOncePerDay())
                             actor->vfn_28c(context.previous, static_cast<unsigned char>(g_calendar.GetGameHour()));
                     }
                 }
@@ -730,7 +730,7 @@ bool LowProcess::CheckForNewPackage(Actor* actor, bool force)
                     (context.previous->GetProcedureType() != -1 &&
                      DAT_011a3ff0[context.previous->GetProcedureType()][static_cast<const BaseProcess*>(this)->GetPackageInfoValue()] == 54))
                 {
-                    if (context.previous && context.previous->IsMustReachLocation())
+                    if (context.previous && context.previous->GetOncePerDay())
                         actor->vfn_28c(context.previous, static_cast<unsigned char>(g_calendar.GetGameHour()));
                     changed = true;
                 }
@@ -747,7 +747,7 @@ bool LowProcess::CheckForNewPackage(Actor* actor, bool force)
                      DAT_011a3ff0[context.previous->GetProcedureType()][static_cast<const BaseProcess*>(this)->GetPackageInfoValue()] == 54))
                 {
                     if (DAT_011a3ff0[context.previous->GetProcedureType()][static_cast<const BaseProcess*>(this)->GetPackageInfoValue()] == 54 &&
-                        context.previous && context.previous->IsMustReachLocation())
+                        context.previous && context.previous->GetOncePerDay())
                         actor->vfn_28c(context.previous, static_cast<unsigned char>(g_calendar.GetGameHour()));
                     changed = true;
                 }
@@ -758,7 +758,7 @@ bool LowProcess::CheckForNewPackage(Actor* actor, bool force)
                 changed = true;
             if (changed || (force && !context.previous->UsesPackageAnimation()))
             {
-                if (context.previous->IsMustComplete())
+                if (context.previous->GetIsCreated())
                 {
                     actor->SetSpeakingState(false);
                     if (GetCurrentPackage() && context.previous == GetCurrentPackage())
@@ -772,7 +772,7 @@ bool LowProcess::CheckForNewPackage(Actor* actor, bool force)
                     return false;
                 TESPackage* current = GetCurrentPackage();
                 if (context.previous && context.previous != current &&
-                    (!current || !current->IsPackageBlockingGreeting()))
+                    (!current || !current->IsInterruptPackage()))
                 {
                     if (context.previous->TESPackage_GetPCContinue() && g_thePlayer->GetParentCell() == actor->GetParentCell())
                     {
@@ -898,7 +898,7 @@ void LowProcess::SetMobileObjectState(MobileObject* mobile, bool runEvents)
                     case 6:
                         actor->SetLocationOnReference(context.package->GetPackageLocationPosition(actor));
                         state.cell = context.package->GetPackageLocationCell(actor);
-                        state.world = context.package->GetPackageWorldSpace(actor);
+                        state.world = context.package->GetLocationWorld(actor);
                         if (reinterpret_cast<LocationDescriptor*>(
                                 reinterpret_cast<BGSMessageInitAccess*>(context.package)->GetIconFormID()) &&
                             reinterpret_cast<LocationDescriptor*>(
@@ -913,7 +913,7 @@ void LowProcess::SetMobileObjectState(MobileObject* mobile, bool runEvents)
                         {
                             actor->SetLocationOnReference(context.package->GetPackageLocationPosition(actor));
                             state.cell = context.package->GetPackageLocationCell(actor);
-                            state.world = context.package->GetPackageWorldSpace(actor);
+                            state.world = context.package->GetLocationWorld(actor);
                             teleport = false;
                         }
                         else
@@ -932,7 +932,7 @@ void LowProcess::SetMobileObjectState(MobileObject* mobile, bool runEvents)
                             {
                                 actor->SetLocationOnReference(context.package->GetPackageLocationPosition(actor));
                                 state.cell = context.package->GetPackageLocationCell(actor);
-                                state.world = context.package->GetPackageWorldSpace(actor);
+                                state.world = context.package->GetLocationWorld(actor);
                                 teleport = false;
                             }
                         }
@@ -940,7 +940,7 @@ void LowProcess::SetMobileObjectState(MobileObject* mobile, bool runEvents)
                     case 3:
                         actor->SetLocationOnReference(context.package->GetPackageLocationPosition(actor));
                         state.cell = context.package->GetPackageLocationCell(actor);
-                        state.world = context.package->GetPackageWorldSpace(actor);
+                        state.world = context.package->GetLocationWorld(actor);
                         if (reinterpret_cast<LocationDescriptor*>(
                                 reinterpret_cast<BGSMessageInitAccess*>(context.package)->GetIconFormID()) &&
                             reinterpret_cast<LocationDescriptor*>(
@@ -953,7 +953,7 @@ void LowProcess::SetMobileObjectState(MobileObject* mobile, bool runEvents)
                     case 4:
                         actor->SetLocationOnReference(context.package->GetPackageLocationPosition(actor));
                         state.cell = context.package->GetPackageLocationCell(actor);
-                        state.world = context.package->GetPackageWorldSpace(actor);
+                        state.world = context.package->GetLocationWorld(actor);
                         if (reinterpret_cast<LocationDescriptor*>(
                                 reinterpret_cast<BGSMessageInitAccess*>(context.package)->GetIconFormID()) &&
                             reinterpret_cast<LocationDescriptor*>(
@@ -989,7 +989,7 @@ void LowProcess::SetMobileObjectState(MobileObject* mobile, bool runEvents)
                         break;
                     }
                     actor->RefreshPackageState();
-                    if (context.package->IsMustReachLocation())
+                    if (context.package->GetOncePerDay())
                         actor->vfn_28c(context.package, static_cast<unsigned char>(g_calendar.GetGameHour()));
                     if (context.package->IsFlag10Set())
                         g_dataHandler->GetReferencesInArea(
@@ -1053,9 +1053,9 @@ TESObjectREFR* LowProcess::ResolvePackageTarget(Actor* actor, TESPackage* packag
             case 13: {
                 PatrolActorPackageData* patrol = static_cast<PatrolActorPackageData*>(LowProcess::GetCurrentPackageData());
                 if (patrol)
-                    result = patrol->GetCurrentPatrolReference();
+                    result = patrol->GetCurrentReference();
                 if (!pTarget)
-                    result = PatrolActorPackageData::GetPatrolReference(actor, package);
+                    result = PatrolActorPackageData::GetInitialReferenceForSetup(actor, package);
                 break;
             }
             default:
@@ -1102,10 +1102,10 @@ TESObjectREFR* LowProcess::ResolvePackageTarget(Actor* actor, TESPackage* packag
                     {
                         patrol = static_cast<PatrolActorPackageData*>(LowProcess::GetCurrentPackageData());
                         if (patrol)
-                            result = patrol->GetCurrentPatrolReference();
+                            result = patrol->GetCurrentReference();
                     }
                     if (!result)
-                        result = PatrolActorPackageData::GetPatrolReference(actor, package);
+                        result = PatrolActorPackageData::GetInitialReferenceForSetup(actor, package);
                     break;
                 }
                 default: {
@@ -1266,7 +1266,7 @@ bool LowProcess::ProcessActivate(Actor* actor, bool acquire)
             if (actor->GetCurrentProcessLevel() != eProcessType)
                 return true;
         }
-        bPickResultFound = package->IsActorInPackageRadius(actor, false);
+        bPickResultFound = package->TESPackage_IsActorAtRefTarget(actor, false);
         if (bPickResultFound)
         {
             TESObjectREFR* activated = pTarget;
@@ -1427,7 +1427,7 @@ float LowProcess::RunProcessUpdate(Actor* actor, PatrolActorPackageData* patrol,
 {
     bool bSameCell;
     {
-        TESObjectREFR* pPatrolRef = patrol->GetCurrentPatrolReference();
+        TESObjectREFR* pPatrolRef = patrol->GetCurrentReference();
         if (!pPatrolRef)
         {
             SetAnimationState(static_cast<unsigned int>(-1));
@@ -1451,8 +1451,8 @@ float LowProcess::RunProcessUpdate(Actor* actor, PatrolActorPackageData* patrol,
             if (g_thePlayer->IsSleepingOrResting())
                 teleportActor = true;
             else
-                teleportActor = !(context.pActorCell && g_TES->IsCellBuffered(context.pActorCell, false)) &&
-                                !(context.pTargetCell && g_TES->IsCellBuffered(context.pTargetCell, false));
+                teleportActor = !(context.pActorCell && g_TES->IsCellLoaded(context.pActorCell, false)) &&
+                                !(context.pTargetCell && g_TES->IsCellLoaded(context.pTargetCell, false));
             if (!teleportActor && actor->IsActorEssential())
             {
                 ProcessPatrolPackage(actor, patrol);
@@ -1589,7 +1589,7 @@ void LowProcess::UpdateActorPackage(Actor* actor, bool flag, unsigned int value,
                      GetCurrentPackage()->GetPackType() == 1))
     {
         SetProcessTarget(actor, 1);
-        if (GetCurrentPackage()->IsMustComplete())
+        if (GetCurrentPackage()->GetIsCreated())
         {
             UpdateCurrentPackage(actor);
             StopPackage();
@@ -1625,7 +1625,7 @@ void LowProcess::UpdateActorPackage(Actor* actor, bool flag, unsigned int value,
 // @fnv 0x00912340
 void LowProcess::ProcessPatrolPackage(Actor* actor, PatrolActorPackageData* patrol)
 {
-    TESObjectREFR* pPatrolRef = patrol->GetCurrentPatrolReference();
+    TESObjectREFR* pPatrolRef = patrol->GetCurrentReference();
     if (!pPatrolRef)
     {
         SetAnimationState(static_cast<unsigned int>(-1));
@@ -1639,8 +1639,8 @@ void LowProcess::ProcessPatrolPackage(Actor* actor, PatrolActorPackageData* patr
     {
         TESObjectCELL* pActorCell = actor->GetParentCell();
         TESObjectCELL* pRefCell = pPatrolRef->GetParentCell();
-        bSkipRequest = !(pActorCell && g_TES->IsCellBuffered(pActorCell, false)) &&
-                       !(pRefCell && g_TES->IsCellBuffered(pRefCell, false));
+        bSkipRequest = !(pActorCell && g_TES->IsCellLoaded(pActorCell, false)) &&
+                       !(pRefCell && g_TES->IsCellLoaded(pRefCell, false));
     }
     if (!bSkipRequest)
     {
@@ -1762,7 +1762,7 @@ void LowProcess::LoadGame(BGSLoadFormBuffer* buffer)
     m_pFormList = dynamic_cast<BGSListForm*>(
         GetFormByID(reinterpret_cast<BGSLoadGameBuffer*>(buffer)->ReadFormIdentifier()));
     buffer->ReadFormIdentifier(&m_pObjectReference);
-    state.count = buffer->ReadElementCount();
+    state.count = buffer->LoadVariableSizedValue();
     for (state.index = 0; state.index < state.count; ++state.index)
     {
         state.item = 0;
@@ -1813,7 +1813,7 @@ TESObjectREFR* LowProcess::ResolvePackageLocation(Actor* actor, TESPackage* pack
                 else if (search.type == 5)
                 {
                     m_pBoundObject78 = 0;
-                    m_eReferenceTypeInfo = location->GetObjectType();
+                    m_eReferenceTypeInfo = location->PackageLocation_GetLocObjectType();
                 }
                 search.radius = 0.0f;
                 if (!package || !package->GetPackageSearchRadius(actor, search.radius))
@@ -1972,21 +1972,21 @@ float LowProcess::UpdatePatrolProgress(Actor* actor, PatrolActorPackageData* pat
     {
         TESObjectREFR* reference;
         float remaining;
-        float wait;
+        float hkSemaphore_release;
     } context;
-    context.reference = patrol->GetCurrentPatrolReference();
+    context.reference = patrol->GetCurrentReference();
     if (!context.reference)
     {
         SetAnimationState(static_cast<unsigned int>(-1));
         return 0.0f;
     }
-    context.wait = 0.0f;
+    context.hkSemaphore_release = 0.0f;
     if (reinterpret_cast<ExtraDataListHelper*>(context.reference->GetExtraData())->GetStartingPositionData())
-        context.wait = reinterpret_cast<ExtraDataListHelper*>(context.reference->GetExtraData())
+        context.hkSemaphore_release = reinterpret_cast<ExtraDataListHelper*>(context.reference->GetExtraData())
                            ->GetStartingPositionData()
                            ->GetX();
-    context.wait = BSMAX_00404010(0.0f, context.wait - patrol->m_fElapsedWaitTime);
-    context.remaining = delta - context.wait;
+    context.hkSemaphore_release = BSMAX_00404010(0.0f, context.hkSemaphore_release - patrol->m_fElapsedWaitTime);
+    context.remaining = delta - context.hkSemaphore_release;
     if (context.remaining > 0.0)
     {
         if (!patrol->AdvanceToNextReference(true))
@@ -1994,11 +1994,11 @@ float LowProcess::UpdatePatrolProgress(Actor* actor, PatrolActorPackageData* pat
             SetProcessTarget(actor, 1);
             return 0.0f;
         }
-        if (patrol->GetCurrentPatrolReference() == context.reference)
+        if (patrol->GetCurrentReference() == context.reference)
             context.remaining = 0.0f;
         else
         {
-            NiPoint3 difference = *static_cast<const TESObjectREFR*>(patrol->GetCurrentPatrolReference())->GetPos();
+            NiPoint3 difference = *static_cast<const TESObjectREFR*>(patrol->GetCurrentReference())->GetPos();
             difference.Subtract(*static_cast<const TESObjectREFR*>(context.reference)->GetPos());
             if (difference.FUN_004a7290() < static_cast<double>(0.001f))
                 context.remaining = 0.0f;
@@ -3172,7 +3172,7 @@ struct FUN_004212b0_shell
 
 struct FUN_0041cab0
 {
-    void ProcessInteger(int);
+    void ExtraDataList_SetPackageExtraTarget(int);
 };
 
 
@@ -3191,13 +3191,13 @@ bool LowProcess::StartPatrolPackage(Actor* apActor, TESPackage* apPackage)
                 if (pdata->Init(apActor, apPackage))
                 {
                     pdata->eState = PatrolActorPackageData::PATROL_STATE_TRAVELING_TO_NEXT_REF;
-                    ((FUN_0041cab0*)apActor->GetExtraData())->ProcessInteger((int)pdata->GetCurrentPatrolReference());
+                    ((FUN_0041cab0*)apActor->GetExtraData())->ExtraDataList_SetPackageExtraTarget((int)pdata->GetCurrentReference());
                     return true;
                 }
             }
             else if (pdata->AdvanceToNextReference(true))
             {
-                ((FUN_0041cab0*)apActor->GetExtraData())->ProcessInteger((int)pdata->GetCurrentPatrolReference());
+                ((FUN_0041cab0*)apActor->GetExtraData())->ExtraDataList_SetPackageExtraTarget((int)pdata->GetCurrentReference());
                 return true;
             }
         }
@@ -3702,7 +3702,7 @@ struct FUN_0041c930
 
 struct FUN_004211d0
 {
-    void __thiscall AttachActorPackageData(ActorPackageData*);
+    void __thiscall ExtraDataList_SetActorPackageData(ActorPackageData*);
 };
 
 struct FUN_008c6060_shell
@@ -3724,7 +3724,7 @@ void LowProcess::SavePackageToExtraData(MobileObject* apMob)
     ExtraDataList* pextra;
     ActorPackageData* pinstanceData;
 
-    if (GetCurrentPackage() && !GetCurrentPackage()->IsMustComplete())
+    if (GetCurrentPackage() && !GetCurrentPackage()->GetIsCreated())
     {
         pextra = apMob->GetExtraData();
 
@@ -3750,7 +3750,7 @@ void LowProcess::SavePackageToExtraData(MobileObject* apMob)
                 }
             }
 
-            reinterpret_cast<FUN_004211d0*>(pextra)->AttachActorPackageData(pinstanceData);
+            reinterpret_cast<FUN_004211d0*>(pextra)->ExtraDataList_SetActorPackageData(pinstanceData);
 
             reinterpret_cast<FUN_008c6060_shell*>(reinterpret_cast<char*>(this) + 4)->FUN_008c6060();
         }
@@ -5206,7 +5206,7 @@ struct Inventory57
     FUN_004459e0_Entry57* InventoryChanges_GetInventoryItem(Form57*, int);
     int FUN_004c8f30(Form57*);
 };
-bool __cdecl MatchesObjectType(Form57*, unsigned int);
+bool __cdecl TESPackage_FormMatchesPackageObjectType(Form57*, unsigned int);
 Inventory57* __cdecl FUN_004bf220(Ref57*);
 extern Ref57* DAT_011dea3c;
 // Checks whether ref matches the target's package by category, object, condition and type, appending matching inventory records to the package list.
@@ -5238,7 +5238,7 @@ bool __cdecl CheckPackageMatch(Ref57* ref, long aTargetRef)
     }
     if (!package4)
         return true;
-    if (package4->category && MatchesObjectType(form12, package4->category))
+    if (package4->category && TESPackage_FormMatchesPackageObjectType(form12, package4->category))
     {
         if (package4->condition && actor19)
         {
@@ -5337,7 +5337,7 @@ bool __cdecl CheckPackageMatch(Ref57* ref, long aTargetRef)
                     FUN_004459e0_Entry57* existing = inventory27->InventoryChanges_GetInventoryItem(base14->form, 0);
                     if (!existing)
                     {
-                        if (package4->category && MatchesObjectType(base14->form, package4->category))
+                        if (package4->category && TESPackage_FormMatchesPackageObjectType(base14->form, package4->category))
                             baseMatch76 = true;
                         else if (package4->object && package4->object == base14->form)
                             baseMatch76 = true;
@@ -5380,7 +5380,7 @@ bool __cdecl CheckPackageMatch(Ref57* ref, long aTargetRef)
                     bool entryMatch = false;
                     if (unused9 && entry->ItemChange_GetItemHealth(0) <= 0.0 && checkWeight36)
                         entryMatch = false;
-                    else if (package4->category && MatchesObjectType(entry->FUN_0044ddc0(), package4->category))
+                    else if (package4->category && TESPackage_FormMatchesPackageObjectType(entry->FUN_0044ddc0(), package4->category))
                         entryMatch = true;
                     else if (package4->object && package4->object == entry->FUN_0044ddc0())
                         entryMatch = true;
@@ -6030,7 +6030,7 @@ struct E
     int ExtraDataList_GetPackageExtraIndex();
     void ExtraDataList_SetPackageExtraIndex(int);
     void SetExtraDataFlag(bool);
-    void AllocateStorage_0041c930(P*, int, int, bool);
+    void ExtraDataList_SetPackageExtra(P*, int, int, bool);
     void FUN_004211d0(int);
 };
 struct Empty
@@ -6086,7 +6086,7 @@ bool LowProcess::TrySelectTarget(Actor* ref, TESPackage** ppOut)
                     SetProcessConditionMet(false);
                     SetAnimationComplete(false);
                     E* f7 = reinterpret_cast<R*>(ref)->BSFile_GetDevice();
-                    f7->AllocateStorage_0041c930(d, 0, g4, reinterpret_cast<CheckProcessFlag>((*reinterpret_cast<void***>(this))[0x11c / 4])(
+                    f7->ExtraDataList_SetPackageExtra(d, 0, g4, reinterpret_cast<CheckProcessFlag>((*reinterpret_cast<void***>(this))[0x11c / 4])(
                         this, reinterpret_cast<CheckProcessFlag>((*reinterpret_cast<void***>(this))[0x4e8 / 4])(
                             this, static_cast<const BaseProcess*>(this)->IsProcessActivityActive())));
                     int e = FUN_008c6ca0(d->FUN_0041ca90());
@@ -6141,7 +6141,7 @@ void LowProcess::ProcessCombat(Actor* pActor)
     }
     if (pTarget)
     {
-        if (!GetCurrentPackage()->IsActorInPackageRadius(pActor, false))
+        if (!GetCurrentPackage()->TESPackage_IsActorAtRefTarget(pActor, false))
         {
             UpdateActorPackage(pActor, false, 0x101, false);
             return;
@@ -6218,7 +6218,7 @@ struct Shell8859e0
     bool Actor_CanChildUseObject(TESObject*);
 };
 
-bool MatchesObjectType(TESForm*, int);
+bool TESPackage_FormMatchesPackageObjectType(TESForm*, int);
 
 // @fnv 0x0090e660
 // src: XBOX_PDB 0x0090e660
@@ -6236,7 +6236,7 @@ bool LowProcess_EvaluateGenericLocation(TESObjectREFR* refr, long apActor)
     bool isActor = refr->IsActor();
     TESForm* pBaseForm = refr->GetObjectReference();
     int formType3 = pBaseForm->GetFormType();
-    if (pLowProcess->m_eReferenceTypeInfo && MatchesObjectType(refr->GetObjectReference(), pLowProcess->m_eReferenceTypeInfo))
+    if (pLowProcess->m_eReferenceTypeInfo && TESPackage_FormMatchesPackageObjectType(refr->GetObjectReference(), pLowProcess->m_eReferenceTypeInfo))
     {
         if (!refr->HasHealth(false))
         {
@@ -6270,7 +6270,7 @@ bool LowProcess_EvaluateGenericLocation(TESObjectREFR* refr, long apActor)
                 {
                     bool bMatch = false;
                     if (pLowProcess->m_eReferenceTypeInfo &&
-                        MatchesObjectType((TESForm*)item->FUN_0044ddc0(), pLowProcess->m_eReferenceTypeInfo))
+                        TESPackage_FormMatchesPackageObjectType((TESForm*)item->FUN_0044ddc0(), pLowProcess->m_eReferenceTypeInfo))
                         bMatch = true;
                     else if ((TESObjectREFR*)pLowProcess->m_pBoundObject78 == (TESObjectREFR*)item->FUN_0044ddc0())
                         bMatch = true;
@@ -7543,7 +7543,7 @@ struct MovementReferenceCalls
     Refr* TESObjectREFR_GetLinkedRef();
     void* FUN_008d6f30();
     void* TESObjectREFR_GetWorldSpace();
-    void PathToLocation(PathingRequest*, void const*, unsigned, unsigned, float, unsigned);
+    void Actor_BuildRequest(PathingRequest*, void const*, unsigned, unsigned, float, unsigned);
     void SetPathingRequestAvoidNodes(PathingRequest*);
 };
 }  // namespace fnv_00912db0
@@ -7592,7 +7592,7 @@ void LowProcess::StartPackagePathing(Actor* actor, TESForm* form)
     {
         PathingRequest reqA;
         ((MovementReferenceCalls*)actor)
-            ->PathToLocation(&reqA, ((MovementReferenceCalls*)pTgt9)->vfn_1f4(), (unsigned)((MovementReferenceCalls*)pTgt9)->FUN_008d6f30(),
+            ->Actor_BuildRequest(&reqA, ((MovementReferenceCalls*)pTgt9)->vfn_1f4(), (unsigned)((MovementReferenceCalls*)pTgt9)->FUN_008d6f30(),
                              (unsigned)((MovementReferenceCalls*)pTgt9)->TESObjectREFR_GetWorldSpace(), f4, 0);
         reqA.SetUseSoft(false);
         ((MovementReferenceCalls*)actor)->SetPathingRequestAvoidNodes(&reqA);
@@ -7601,7 +7601,7 @@ void LowProcess::StartPackagePathing(Actor* actor, TESForm* form)
     else if (i382 || n1cObj)
     {
         PathingRequest reqB;
-        ((MovementReferenceCalls*)actor)->PathToLocation(&reqB, &pos5, i382, n1cObj, f4, 0);
+        ((MovementReferenceCalls*)actor)->Actor_BuildRequest(&reqB, &pos5, i382, n1cObj, f4, 0);
         reqB.SetUseSoft(false);
         ((MovementReferenceCalls*)actor)->SetPathingRequestAvoidNodes(&reqB);
         reinterpret_cast<fnv_00912db0::SForm*>(form)->SetScript((void*)1);

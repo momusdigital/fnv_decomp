@@ -68,14 +68,14 @@ void FUN_009c8660_Class::BGSCameraShot_GetTargetNode()
 
 extern int DAT_01090874;
 
-struct FUN_009ca6c0_class
+struct CombatProcedure
 {
     void SetVirtualTable_009ca6c0();
 };
 
 // @fnv 0x009ca6c0
 // src: GUESS 0x009ca6c0 (confidence: low)
-void FUN_009ca6c0_class::SetVirtualTable_009ca6c0()
+void CombatProcedure::SetVirtualTable_009ca6c0()
 {
     *(int*)this = (int)&DAT_01090874;
 }
@@ -203,14 +203,14 @@ unsigned int __thiscall FUN_009d9f00_Class::Projectile_GetSecondaryItemChange()
     return *(unsigned int*)((char*)this + 0x144);
 }
 
-struct FUN_009d9f40_Class
+struct hkpEntity
 {
     void* CombatGroup_GetLastSearchAreaUpdateTimer();
 };
 
 // @fnv 0x009d9f40
 // src: XBOX_PDB 0x009d9f40
-void* FUN_009d9f40_Class::CombatGroup_GetLastSearchAreaUpdateTimer()
+void* hkpEntity::CombatGroup_GetLastSearchAreaUpdateTimer()
 {
     return reinterpret_cast<char*>(this) + 0xE0;
 }
@@ -221,7 +221,7 @@ void* FUN_009d9f40_Class::CombatGroup_GetLastSearchAreaUpdateTimer()
 // src: XBOX_PDB 0x009dfd50
 void* PathBuilder::BSSimpleArray_VirtualPathingNode_1024_GetLast()
 {
-    return GetElementAddress30_006e8f40((char*)m_pAllocator - 1);
+    return BSSimpleArray_GetAt((char*)m_pAllocator - 1);
 }
 
 
@@ -309,13 +309,13 @@ struct Call741e0
 {
     void FUN_00c741e0(int);
 };
-struct FUN_009c6440_Class
+struct ProjectileListener
 {
     int ProjectileListener_ProjectileListener(int a, int b);
 };
 // @fnv 0x009c6440
 // src: EXE 0x009c6440
-int FUN_009c6440_Class::ProjectileListener_ProjectileListener(int a, int aiStoredValue)
+int ProjectileListener::ProjectileListener_ProjectileListener(int a, int aiStoredValue)
 {
     ((Call741e0*)this)->FUN_00c741e0(a);
     *(int*)this = (int)&DAT_01090594;
@@ -356,14 +356,14 @@ void bhkWorld_SetVatsReplay(unsigned char value)
     DAT_012677cc = value;
 }
 
-struct FUN_009ca4c0_shell
+struct VATS_COMMAND
 {
     void FreeStoredPointer();
 };
 
 void __cdecl Deallocate(void*);
 
-struct FUN_009c8870_Class : FUN_009ca4c0_shell
+struct FUN_009c8870_Class : VATS_COMMAND
 {
     void* FUN_009c8870(unsigned int flags);
 };
@@ -385,7 +385,7 @@ struct PathingRequestAvoidPointer
     PathingAvoidNodeArray* p;
     PathingRequestAvoidPointer& operator=(PathingRequestAvoidPointer const&);
 };
-struct FUN_009d7c80_Class
+struct CombatProcedureMove
 {
     bool CombatProcedureMove_CreatePath();
     void UpdateOutput(PathingRequestAvoidPointer*);
@@ -393,7 +393,7 @@ struct FUN_009d7c80_Class
 };
 // @fnv 0x009d7c80
 // src: XBOX_PDB 0x009d7c80
-bool FUN_009d7c80_Class::CombatProcedureMove_CreatePath()
+bool CombatProcedureMove::CombatProcedureMove_CreatePath()
 {
     PathingRequestAvoidPointer t(0);
     UpdateOutput(&t);
@@ -402,7 +402,7 @@ bool FUN_009d7c80_Class::CombatProcedureMove_CreatePath()
 
 extern int DAT_011f21b8;
 
-struct FUN_009c6a30 : SL
+struct VATSCameraData : SL
 {
     int a_8;
     int a_c;
@@ -420,11 +420,12 @@ struct FUN_009c6a30 : SL
     int a_3c;
     int a_40;
     int a_44;
-    FUN_009c6a30();
+    VATSCameraData();
 };
 
 // @fnv 0x009c6a30
-FUN_009c6a30::FUN_009c6a30() : a_34(0)
+// src: GUESS 0x009c6a30 (confidence: medium)
+VATSCameraData::VATSCameraData() : a_34(0)
 {
     a_8 = 0;
     DAT_011f21b8 = 0;
@@ -483,7 +484,7 @@ CF845* __thiscall FUN_009c1a00_Class::ConstructCF845(CF845* pObject)
 
 struct FUN_0058d510_class
 {
-    NiPoint3* GetCameraPosition(NiPoint3*);
+    NiPoint3* GetTargetPos(NiPoint3*);
 };
 
 
@@ -518,7 +519,7 @@ NiPoint3* FUN_009c8ac0_class::VATS_GetCamshotTargetPos(NiPoint3* result)
     {
         // Output storage avoids introducing a default-constructor call in this /Od unit.
         float sourcePoint[sizeof(NiPoint3) / sizeof(float)];
-        point = *m_10->GetCameraPosition(reinterpret_cast<NiPoint3*>(sourcePoint));
+        point = *m_10->GetTargetPos(reinterpret_cast<NiPoint3*>(sourcePoint));
     }
 
     if (point.HasEqualComponents(NiPoint3::ZERO))
@@ -539,7 +540,7 @@ struct FUN_009ca680
 {
     FUN_009ca680();
 };
-struct FUN_009cbad0 : FUN_009ca680
+struct CombatProcedureAttackLow : FUN_009ca680
 {
     int m_iWordAt00;
     int m_iWordAt04;
@@ -549,11 +550,12 @@ struct FUN_009cbad0 : FUN_009ca680
     float m_14;
     int m_18;
     int m_1c;
-    FUN_009cbad0();
+    CombatProcedureAttackLow();
 };
 // Initializes the object: stores the address of DAT_01090aec and zeroes m_10, m_14 and m_1c.
 // @fnv 0x009cbad0
-FUN_009cbad0::FUN_009cbad0()
+// src: EXE 0x009cbad0
+CombatProcedureAttackLow::CombatProcedureAttackLow()
 {
     m_iWordAt00 = (int)&DAT_01090aec;
     m_10 = 0;
@@ -628,7 +630,7 @@ struct OrientationObject
 {
     void** vtable;
     float __thiscall FUN_00931d70();
-    void __thiscall ClampLookAngle(float value);
+    void __thiscall MobileObject_SetLooking(float value);
     OrientationSource* __thiscall FUN_004181e0();
     void __thiscall SetOrientationFromDirection(NiPoint3 input);
 };
@@ -660,7 +662,7 @@ void OrientationObject::SetOrientationFromDirection(NiPoint3 aDirection)
     {
         ((SetAngleFn*)vtable)[177](this, e);
     }
-    ClampLookAngle(d);
+    MobileObject_SetLooking(d);
 }
 
 struct InputX
@@ -2239,7 +2241,7 @@ struct FUN_009d4f50_obj
     TESObjectREFR* GetFieldBC();
 };
 
-struct FUN_009d4f50_cls
+struct CombatProcedureEngageTarget
 {
     int unk00;
     FUN_009d4f50_obj* m_04;
@@ -2248,7 +2250,7 @@ struct FUN_009d4f50_cls
 
 // @fnv 0x009d4f50
 // src: XBOX_PDB 0x009d4f50
-bool FUN_009d4f50_cls::CombatProcedureEngageTarget_CanAttackerSneak()
+bool CombatProcedureEngageTarget::CombatProcedureEngageTarget_CanAttackerSneak()
 {
     // Keep the original uninitialized vector buffers and explicit output-parameter call.
     float local24[sizeof(NiPoint3) / sizeof(float)];
@@ -2393,7 +2395,7 @@ struct FUN_009dfd70_Sub
     ~FUN_009dfd70_Sub();
 };
 
-struct FUN_009dfd70_cls
+struct ActorPathHandler
 {
     void* m_vptr;
     int m_04;
@@ -2401,12 +2403,13 @@ struct FUN_009dfd70_cls
     FUN_009dfd70_Sub m_0c;
     FUN_009dfd70_Sub m_10;
 
-    FUN_009dfd70_cls(int aA, int aB);
+    ActorPathHandler(int aA, int aB);
 };
 
 // Initializes the object: sets the vtable pointer, stores aA in m_04 and aB in m_08, and default-constructs m_0c and m_10 with 0.
 // @fnv 0x009dfd70
-FUN_009dfd70_cls::FUN_009dfd70_cls(int aA, int aB) : m_vptr(&DAT_0109231c), m_04(aA), m_08(aB), m_0c(0), m_10(0)
+// src: EXE 0x009dfd70
+ActorPathHandler::ActorPathHandler(int aA, int aB) : m_vptr(&DAT_0109231c), m_04(aA), m_08(aB), m_0c(0), m_10(0)
 {}
 
 struct FUN_009dfe40_Sub
@@ -2619,13 +2622,13 @@ struct ImpImpact
     float GetModifierValue();
     float GetNestedValue();
     unsigned char BGSImpactData_GetIsAlphaBlend();
-    unsigned char CallMemberAtOffset54();
+    unsigned char BGSImpactData_GetAlphaTesting();
     unsigned char BGSImpactData_GetIsParallax();
     unsigned char BGSImpactData_GetParallaxPasses();
     float FUN_004a41c0();
     float FUN_004a40e0();
     float TESCombatStyle_GetWeaponMinRangeMult();
-    unsigned int GetNextFromSubobject();
+    unsigned int BGSImpactData_GetDecalColor();
     int FUN_005f36f0();
     float GetEndKeyTime_00508100();
     int GetGlobalValue();
@@ -2968,7 +2971,7 @@ void* __cdecl hkpGetRigidBody(ImpSurface* apSurface);
 ImpAttachHandle __cdecl bhkWorldObject_GetProperty(void* apObject, void* apType);
 ImpAttach* __cdecl bhkUtilFunctions_GetNiAVObject(ImpSurface* apSurface);
 void* __cdecl TESObjectREFR_FindReferenceFor3D(ImpAttach* apAttach);
-bool __cdecl IsAcousticSpaceFormTypeAllowed(void* apGeometry, int aiFlags);
+bool __cdecl BGSDecalManager_IsValidDecalImpact(void* apGeometry, int aiFlags);
 ImpPoint __cdecl FUN_004a3760(float afScale, const ImpPoint& arPoint);
 void __cdecl BSTempEffectParticle_Spawn(ImpCell* apCell, float afSize, const char* apTexture, ImpPoint kWorldPosition, ImpPoint kPos,
                           float afScale, int aiFlags, int a7);
@@ -3166,7 +3169,7 @@ void ImpProjectile::ApplyImpact(ImpTarget* apTarget, ImpPoint* apPos, ImpPoint* 
                                 }
                                 void* pGeometryRef = TESObjectREFR_FindReferenceFor3D(pAttach);
                                 if (!bHasAnimation &&
-                                    (!pGeometryRef || !IsAcousticSpaceFormTypeAllowed(pGeometryRef, 1)))
+                                    (!pGeometryRef || !BGSDecalManager_IsValidDecalImpact(pGeometryRef, 1)))
                                     continue;
                                 ImpDecalManager* pManager = DAT_011dea10->TES_GetCellForPoint(*apPos);
                                 ImpDecalParams kParamsCur;
@@ -3180,17 +3183,17 @@ void ImpProjectile::ApplyImpact(ImpTarget* apTarget, ImpPoint* apPos, ImpPoint* 
                                 kParamsCur.fPathHeading = fPathHeading;
                                 kParamsCur.m_ucClipIdentifier = m_ucClipIdentifier;
                                 kParamsCur.ucFlagC = pImpactTmp->BGSImpactData_GetIsAlphaBlend();
-                                kParamsCur.ucFlagB = pImpactTmp->CallMemberAtOffset54();
+                                kParamsCur.ucFlagB = pImpactTmp->BGSImpactData_GetAlphaTesting();
                                 kParamsCur.ucFlagA = pImpactTmp->BGSImpactData_GetIsParallax();
                                 kParamsCur.fParallax = pImpactTmp->FUN_004a41c0();
                                 kParamsCur.ucFlagD = pImpactTmp->BGSImpactData_GetParallaxPasses();
                                 kParamsCur.m_fShininess = pImpactTmp->FUN_004a40e0();
                                 kParamsCur.m_fSpecularStrength = pImpactTmp->TESCombatStyle_GetWeaponMinRangeMult();
                                 kParamsCur.kColor = ImpPoint(
-                                    (unsigned char)(pImpactTmp->GetNextFromSubobject() & 0xff) / 255.0,
-                                    (unsigned char)(((unsigned short)pImpactTmp->GetNextFromSubobject() >> 8) & 0xff) /
+                                    (unsigned char)(pImpactTmp->BGSImpactData_GetDecalColor() & 0xff) / 255.0,
+                                    (unsigned char)(((unsigned short)pImpactTmp->BGSImpactData_GetDecalColor() >> 8) & 0xff) /
                                         255.0,
-                                    (unsigned char)((pImpactTmp->GetNextFromSubobject() >> 16) & 0xff) / 255.0);
+                                    (unsigned char)((pImpactTmp->BGSImpactData_GetDecalColor() >> 16) & 0xff) / 255.0);
                                 if (iSurfaceMaterialCur == 3)
                                     kParamsCur.ucSkinned = 1;
                                 pManager->TESObjectCELL_AddDecal(&kParamsCur, 1, 0);

@@ -56,7 +56,7 @@ class LegacyActorBaseData
     char flags;
     int services;
     unsigned char trainingSkill, trainingLevel;
-    void SwapEndianData();
+    void OLD_CLASS_DATA_Endian();
 };
 class TESClassData
 {
@@ -71,7 +71,7 @@ class TESClass : public TESForm, public TESFullName, public TESDescription, publ
 {
   public:
     TESClassData data;
-    void SetClassSkillAtIndex(int, ActorValue::Index);
+    void SetTagSkill(int, ActorValue::Index);
     void ResetFormData();
     void LoadGame(BGSLoadFormBuffer*);
     bool Load(TESFile*);

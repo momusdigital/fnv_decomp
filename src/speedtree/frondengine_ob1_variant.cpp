@@ -44,7 +44,7 @@ struct FUN_00b1db00_class
     int i8;
     int ic;
     int i10;
-    unsigned int __thiscall GetElementAddress38_00b1db00(unsigned int a);
+    unsigned int __thiscall vector_at(unsigned int a);
 };
 unsigned int __cdecl FUN_00ec7c56(void);
 struct FUN_00b30fd0_class
@@ -58,7 +58,7 @@ struct FUN_00b319a0_class
     int m_8;
     int m_iThirdValue;
     int m_10;
-    int __thiscall ProcessAndReturnValue_00b319a0(int n);
+    int __thiscall vector_at(int n);
 };
 unsigned int __cdecl FUN_00ec7c56();
 void __cdecl operator delete(void*);
@@ -71,7 +71,7 @@ struct FUN_00b1ec70_class
     int* q;
     int* r;
     void __thiscall FUN_00b1ebc0(int* a, int* b);
-    void __thiscall ReleaseStorage_00b1ec70();
+    void __thiscall vector__Tidy();
 };
 struct FUN_00b1ff50
 {
@@ -111,7 +111,7 @@ struct FUN_00b1fe80_helper
     int* m10;
     int* m14;
     void __thiscall FUN_00b22650(int* a, int* b);
-    void __thiscall UpdateFields_00b1fe80();
+    void __thiscall vector__Tidy();
 };
 void __cdecl operator delete(void*);
 struct FUN_00b20c30_class
@@ -126,7 +126,7 @@ struct FUN_00b1f650_class
     void* pc;
     void* pe;
     void* pp;
-    void __thiscall ReleaseStorage_00b1f650();
+    void __thiscall vector__Tidy();
 };
 struct FUN_00b249d0_local
 {
@@ -350,7 +350,7 @@ struct FrondMatrix
         return FrondMatrix(r);
     }
 // src: GUESS 0x00b1ae00 (confidence: low)
-    inline void UpdateFields_00b1ae00(float angle)
+    inline void RotateX(float angle)
     {
         FrondMatrix rotation;
         rotation.m11 = (float)FUN_00ec9f30((float)(angle / DAT_010a4d90));
@@ -510,9 +510,9 @@ struct FrondOutput
     {
         count = (unsigned short)n;
     }
-    void UpdateFields_00b300c0(const FrondPoint&);
+    void CIndexedGeometry_AddVertexCoord(const FrondPoint&);
     void CIndexedGeometry_AddVertexTexCoord0(const float*, unsigned short);
-    void UpdateFields_00b30020(const float*);
+    void AddColor(const float*);
     void AppendThreeFloatComponents(const float*);
     void UpdateState_00b305f0(const FrondPoint&);
     void UpdateFields_00b30660(const FrondPoint&);
@@ -538,7 +538,7 @@ struct FrondInput
             FUN_00ec7c56();
         return first[i];
     }
-    FrondGuidePoint* GetElementAddress38_00b1db00(unsigned int);
+    FrondGuidePoint* vector_at(unsigned int);
 };
 struct FrondBuilder
 {
@@ -571,7 +571,7 @@ void FrondBuilder::ProcessEntries_00b19ad0(FrondInput* input)
                     rotationSlot17 = (*input)[i].rotation;
                 else
                     rotationSlot17 = (*input)[i - 1].rotation;
-                rotationSlot17.UpdateFields_00b1ae00(slice * step + input->angle);
+                rotationSlot17.RotateX(slice * step + input->angle);
                 FrondPoint direction = FrondPoint(0.0f, 1.0f, 0.0f).FUN_00b12890(rotationSlot17);
                 directionX.AppendElementWithGrowth(direction);
                 FrondPoint tangentVal;
@@ -602,13 +602,13 @@ void FrondBuilder::ProcessEntries_00b19ad0(FrondInput* input)
                     right8 = (*input)[i].Diff_00b13040(direction.ScaleSwizzled(input->width));
                 }
                 float v3 = i / (input->size() - 1.0);
-                output->UpdateFields_00b300c0(left2);
+                output->CIndexedGeometry_AddVertexCoord(left2);
                 float uv1[2];
                 uv1[0] = 1.0f;
                 uv1[1] = v3;
                 output->CIndexedGeometry_AddVertexTexCoord0(uv1, (unsigned short)input->layer);
                 colorAlloc2[0] = colorAlloc2[1] = colorAlloc2[2] = colorAlloc2[3] = 1.0f;
-                output->UpdateFields_00b30020(colorAlloc2);
+                output->AddColor(colorAlloc2);
                 output->AppendThreeFloatComponents(&tangentVal.x);
                 output->UpdateState_00b305f0(direction);
                 normalChild3 = direction.FUN_00b12810(tangentVal);
@@ -620,11 +620,11 @@ void FrondBuilder::ProcessEntries_00b19ad0(FrondInput* input)
                 if (output->isEnabled())
                     output->AppendInvertedValueAndDispatchIndex((*input)[i].scale, (*input)[i].material);
                 output->advance();
-                output->UpdateFields_00b300c0(right8);
+                output->CIndexedGeometry_AddVertexCoord(right8);
                 uv1[0] = 0.0f;
                 output->CIndexedGeometry_AddVertexTexCoord0(uv1, (unsigned short)input->layer);
                 colorAlloc2[0] = colorAlloc2[1] = colorAlloc2[2] = colorAlloc2[3] = 1.0f;
-                output->UpdateFields_00b30020(colorAlloc2);
+                output->AddColor(colorAlloc2);
                 output->AppendThreeFloatComponents(&tangentVal.x);
                 output->UpdateState_00b305f0(direction);
                 normalChild3 = direction.FUN_00b12810(tangentVal);
@@ -634,7 +634,7 @@ void FrondBuilder::ProcessEntries_00b19ad0(FrondInput* input)
                     normalChild3.Normalize_00b12790();
                 output->UpdateFields_00b30660(normalChild3);
                 if (output->isEnabled())
-                    output->AppendInvertedValueAndDispatchIndex(input->GetElementAddress38_00b1db00(i)->scale, (*input)[i].material);
+                    output->AppendInvertedValueAndDispatchIndex(input->vector_at(i)->scale, (*input)[i].material);
                 output->advance();
             }
             float totalLeft6 = 0.0f, totalRight9 = 0.0f;
@@ -949,11 +949,11 @@ struct FUN_00b22ff0 : VecBase
     ~FUN_00b22ff0()
     {}
     FUN_00b22ff0& AssignVectorContents(const FUN_00b22ff0& r);
-    void ProcessState_00b26570(FUN_00b22ff0& r);
+    void vector_swap(FUN_00b22ff0& r);
 };
 // @fnv 0x00b26570
-// src: GUESS 0x00b26570 (confidence: low)
-void FUN_00b22ff0::ProcessState_00b26570(FUN_00b22ff0& r)
+// src: GUESS 0x00b26570 (confidence: high)
+void FUN_00b22ff0::vector_swap(FUN_00b22ff0& r)
 {
     if (this == &r)
         ;
@@ -2340,7 +2340,7 @@ struct Parser
     int GetNextElement();
     float CTreeFileAccess_ParseFloat();
     int CTreeFileAccess_ParseBranchParameter();
-    bool ProcessAndTransformResult_00b06180();
+    bool CTreeFileAccess_ParseBool();
     FUN_0044a4c0 CTreeFileAccess_ParseString();
 };
 struct PQ : FUN_0044a4c0
@@ -2418,7 +2418,7 @@ void Frond::CFrondEngine_Parse(Parser* p)
             i44 = p->GetNextElement();
             break;
         case 0x32cf:
-            b4c = p->ProcessAndTransformResult_00b06180();
+            b4c = p->CTreeFileAccess_ParseBool();
             break;
         case 0x32d1:
             i68 = p->GetNextElement();
@@ -2616,11 +2616,11 @@ struct FUN_00b1b960_class
     char pad2[0x7c - 0x6c];
     unsigned int m_uiMinRows;
     unsigned int m_uiMinCols;
-    void ProcessEntries_00b1b960(unsigned int uiLod, int iOffset, LodGrid* pGrid);
+    void CFrondEngine_BuildLodStrips(unsigned int uiLod, int iOffset, LodGrid* pGrid);
 };
 // @fnv 0x00b1b960
-// src: GUESS 0x00b1b960 (confidence: low)
-void FUN_00b1b960_class::ProcessEntries_00b1b960(unsigned int uiLod, int iOffset, LodGrid* pGrid)
+// src: GUESS 0x00b1b960 (confidence: medium)
+void FUN_00b1b960_class::CFrondEngine_BuildLodStrips(unsigned int uiLod, int iOffset, LodGrid* pGrid)
 {
     if (m_pEntryObject)
     {
@@ -4072,7 +4072,7 @@ void __thiscall FUN_00b1df10_obj::UpdateState_00b1df10()
     int u15;
     {
         S00b1df10_Guard g;
-        FUN_00b1f650_class::ReleaseStorage_00b1f650();
+        FUN_00b1f650_class::vector__Tidy();
     }
     {
         void* p = *(void**)this;
@@ -6430,7 +6430,7 @@ void __thiscall S00b1e5d0_Obj::UpdateState_00b1e5d0()
     int u13;
     {
         EmptyGuard t;
-        this->UpdateFields_00b1fe80();
+        this->vector__Tidy();
     }
     {
         int v = this->m0;
@@ -6755,12 +6755,12 @@ struct FUN_00b1eb00_class
     int m_iThirdValue;
     int m_10;
     int m_14;
-    bool __thiscall ProcessAndReturnValue_00b1eb00(unsigned int n);
+    bool __thiscall vector__Buy(unsigned int n);
 };
 
 // @fnv 0x00b1eb00
-// src: GUESS 0x00b1eb00 (confidence: low)
-bool FUN_00b1eb00_class::ProcessAndReturnValue_00b1eb00(unsigned int n)
+// src: GUESS 0x00b1eb00 (confidence: high)
+bool FUN_00b1eb00_class::vector__Buy(unsigned int n)
 {
     int CNVal;
     int CN_;
@@ -6962,12 +6962,12 @@ struct VdElemV : public VdVector<VdInner>
 }
 struct FUN_00b1ebc0 : public VdVectorImpl<VdElemV>
 {
-    void VdDestroyRange_Thunk(VdElemV* _First, VdElemV* _Last);
+    void vector__Destroy(VdElemV* _First, VdElemV* _Last);
 };
 
 // @fnv 0x00b1ebc0
-// src: GUESS 0x00b1ebc0 (confidence: medium)
-void FUN_00b1ebc0::VdDestroyRange_Thunk(VdElemV* _First, VdElemV* _Last)
+// src: GUESS 0x00b1ebc0 (confidence: high)
+void FUN_00b1ebc0::vector__Destroy(VdElemV* _First, VdElemV* _Last)
 {
     VdDestroyRange<VdAlloc<VdElemV> >(_First, _Last, _Alval);
 }
@@ -8811,11 +8811,11 @@ struct GvObj
 using namespace tidyb1f9;
 struct FUN_00b1f9e0 : GvVector<GvNamed>
 {
-    void ReleaseStorage_00b1f9e0();
+    void vector__Tidy();
 };
 // @fnv 0x00b1f9e0
-// src: GUESS 0x00b1f9e0 (confidence: medium)
-void FUN_00b1f9e0::ReleaseStorage_00b1f9e0()
+// src: GUESS 0x00b1f9e0 (confidence: high)
+void FUN_00b1f9e0::vector__Tidy()
 {
     if (_Myfirst != 0)
     {
@@ -10605,12 +10605,12 @@ struct VdElemW : public VdVector<VdElemV>
 }
 struct FUN_00b20c30 : public VdVectorImpl<VdElemW>
 {
-    void Helper_00b20c30(VdElemW* _First, VdElemW* _Last);
+    void vector__Destroy(VdElemW* _First, VdElemW* _Last);
 };
 
 // @fnv 0x00b20c30
-// src: GUESS 0x00b20c30 (confidence: low)
-void FUN_00b20c30::Helper_00b20c30(VdElemW* _First, VdElemW* _Last)
+// src: GUESS 0x00b20c30 (confidence: high)
+void FUN_00b20c30::vector__Destroy(VdElemW* _First, VdElemW* _Last)
 {
     VdDestroyRange<VdAlloc<VdElemW> >(_First, _Last, _Alval);
 }
@@ -11457,12 +11457,12 @@ struct VdElemV : public VdVector<unsigned short>
 }
 struct FUN_00b22650 : public VdVectorImpl<VdElemV>
 {
-    void Helper_00b22650(VdElemV* _First, VdElemV* _Last);
+    void vector__Destroy(VdElemV* _First, VdElemV* _Last);
 };
 
 // @fnv 0x00b22650
-// src: GUESS 0x00b22650 (confidence: low)
-void FUN_00b22650::Helper_00b22650(VdElemV* _First, VdElemV* _Last)
+// src: GUESS 0x00b22650 (confidence: high)
+void FUN_00b22650::vector__Destroy(VdElemV* _First, VdElemV* _Last)
 {
     VdDestroyRange<VdAlloc<VdElemV> >(_First, _Last, _Alval);
 }
@@ -16802,7 +16802,7 @@ struct VecQ
         Destroy_range(f, l, m_al);
     }
     void ClearAllElements();
-    bool ProcessAndReturnValue_00b1eb00(unsigned n);
+    bool vector__Buy(unsigned n);
     VecQ& AssignVectorElements_00b24ae0(const VecQ& _Right);
 };
 // @fnv 0x00b24ae0
@@ -16837,7 +16837,7 @@ VecQ& VecQ::AssignVectorElements_00b24ae0(const VecQ& _Right)
                 _DestroyI(m_pHeadNode, m_last);
                 m_al.deallocate(m_pHeadNode, m_kRayEnd - m_pHeadNode);
             }
-            if (ProcessAndReturnValue_00b1eb00(_Right.size()))
+            if (vector__Buy(_Right.size()))
             {
                 Dead26();
                 m_last = _Ucopy(_Right.m_pHeadNode, _Right.m_last, m_pHeadNode);
@@ -17014,7 +17014,7 @@ struct VecQ
     }
     void ProcessState_00b1de20();
     void FUN_00b1ebc0(ElQ* f, ElQ* l);
-    bool ProcessAndReturnValue_00b1eb00(unsigned n);
+    bool vector__Buy(unsigned n);
     VecQ& AssignVectorElements_00b24f40(const VecQ& _Right);
 };
 // @fnv 0x00b24f40
@@ -17050,7 +17050,7 @@ VecQ& VecQ::AssignVectorElements_00b24f40(const VecQ& _Right)
                 _DestroyI(m_pHeadNode, m_last);
                 m_al.deallocate(m_pHeadNode, m_kRayEnd - m_pHeadNode);
             }
-            if (ProcessAndReturnValue_00b1eb00(_Right.size()))
+            if (vector__Buy(_Right.size()))
             {
                 Dead26();
                 m_last = _Ucopy(_Right.m_pHeadNode, _Right.m_last, m_pHeadNode);
@@ -17767,12 +17767,12 @@ struct Elem5580
 class FUN_00b25580_Vector : public vectorS<Elem5580>
 {
   public:
-    iterator ProcessAndReturnValue_00b25580(const_iterator _First_arg, const_iterator _Last_arg);
+    iterator vector_erase(const_iterator _First_arg, const_iterator _Last_arg);
 };
 
 // @fnv 0x00b25580
-// src: GUESS 0x00b25580 (confidence: low)
-FUN_00b25580_Vector::iterator FUN_00b25580_Vector::ProcessAndReturnValue_00b25580(const_iterator _First_arg, const_iterator _Last_arg)
+// src: GUESS 0x00b25580 (confidence: high)
+FUN_00b25580_Vector::iterator FUN_00b25580_Vector::vector_erase(const_iterator _First_arg, const_iterator _Last_arg)
 {
     iterator _First = _Make_iter(_First_arg);
     iterator _Last = _Make_iter(_Last_arg);
@@ -23973,7 +23973,7 @@ class FUN_00b231f0 : public S00b24290_Base
         int u12;
         int u13;
         int u14;
-        ((FUN_00b1ec70_class*)this)->ReleaseStorage_00b1ec70();
+        ((FUN_00b1ec70_class*)this)->vector__Tidy();
     }
 };
 inline void S00b24290_Construct(FUN_00b231f0* p, const S00b24290_Arg& v)
@@ -24211,13 +24211,13 @@ inline void Unused()
 {
     RotMat kResult;
 }
-struct FUN_00b1ae00_class : RotMat
+struct Mat3 : RotMat
 {
-    void __thiscall UpdateFields_00b1ae00(float angle);
+    void __thiscall RotateX(float angle);
 };
 // @fnv 0x00b1ae00
 // src: GUESS 0x00b1ae00 (confidence: low)
-void FUN_00b1ae00_class::UpdateFields_00b1ae00(float fAngleDifference)
+void Mat3::RotateX(float fAngleDifference)
 {
     RotMat cRotMatrix;
     cRotMatrix.CRotTransform_CRotTransform();
@@ -24379,12 +24379,12 @@ struct FUN_00b1be50_Owner
     int unk3c;
     CurveQ* m_profile;
     unsigned m_uiItemCount;
-    void ProcessEntries_00b1be50(ScaleQ* scale, PointVecQ& points, PointVecQ& normals);
+    void CFrondEngine_ComputeProfilePoints(ScaleQ* scale, PointVecQ& points, PointVecQ& normals);
 };
 
 // @fnv 0x00b1be50
-// src: GUESS 0x00b1be50 (confidence: low)
-void FUN_00b1be50_Owner::ProcessEntries_00b1be50(ScaleQ* scale, PointVecQ& points, PointVecQ& normals)
+// src: GUESS 0x00b1be50 (confidence: medium)
+void FUN_00b1be50_Owner::CFrondEngine_ComputeProfilePoints(ScaleQ* scale, PointVecQ& points, PointVecQ& normals)
 {
     float base = m_profile->CIdvBezierSpline_Evaluate(0.0f) * scale->m_height;
     for (unsigned i = 0; i < m_uiItemCount; i++)
@@ -27387,7 +27387,7 @@ struct ElemQ : VBQ
     MQ m;
     ElemQ();
     ElemQ(const ElemQ& o);
-    void ProcessState_00b267a0(ElemQ& o);
+    void vector_swap(ElemQ& o);
 };
 __forceinline void Del(ElemQ* p, unsigned int f)
 {
@@ -27423,7 +27423,7 @@ ElemQ* Object_ProcessEntries_00b25ca0(ElemQ* first, ElemQ* last, ElemQ* dest)
         for (; first != last; ++dest, ++first)
         {
             Construct(dest, _Val);
-            dest->ProcessState_00b267a0(*first);
+            dest->vector_swap(*first);
         }
     }
     catch (...)
@@ -27464,7 +27464,7 @@ struct ElemQ : VBQ
     MQ m;
     ElemQ();
     ElemQ(const ElemQ& o);
-    void ProcessState_00b26570(ElemQ& o);
+    void vector_swap(ElemQ& o);
 };
 __forceinline void Del(ElemQ* p, unsigned int f)
 {
@@ -27500,7 +27500,7 @@ ElemQ* Object_ProcessEntries_00b25e20(ElemQ* first, ElemQ* last, ElemQ* dest)
         for (; first != last; ++dest, ++first)
         {
             Construct(dest, _Val);
-            dest->ProcessState_00b26570(*first);
+            dest->vector_swap(*first);
         }
     }
     catch (...)
@@ -27729,11 +27729,11 @@ struct FUN_00b231f0 : VecBase
     ~FUN_00b231f0()
     {}
     FUN_00b231f0& AssignVectorElements_00b24f40(const FUN_00b231f0& r);
-    void ProcessState_00b267a0(FUN_00b231f0& r);
+    void vector_swap(FUN_00b231f0& r);
 };
 // @fnv 0x00b267a0
-// src: GUESS 0x00b267a0 (confidence: low)
-void FUN_00b231f0::ProcessState_00b267a0(FUN_00b231f0& r)
+// src: GUESS 0x00b267a0 (confidence: high)
+void FUN_00b231f0::vector_swap(FUN_00b231f0& r)
 {
     if (this == &r)
         ;
@@ -28504,8 +28504,8 @@ struct FloatMatrix3
     float xx, xy, xz, yx, yy, yz, zx, zy, zz;
     void CRotTransform_CRotTransform();
     FloatMatrix3 Multiply(const FloatMatrix3&) const;
-// src: GUESS 0x00b1ae00 (confidence: low)
-    void UpdateFields_00b1ae00(float angle)
+// src: GUESS 0x00b1ae00 (confidence: medium)
+    void RotateX(float angle)
     {
         FloatMatrix3 rotation;
         rotation.CRotTransform_CRotTransform();
@@ -28584,7 +28584,7 @@ struct FUN_00b31270 : FUN_00b39460, FUN_00b1fe80
 {
     FUN_00b31270();
     void AppendElementWithGrowth_00b1e640(const FUN_00449fd0&);
-    FUN_00449fd0& ProcessAndReturnValue_00b319a0(unsigned int);
+    FUN_00449fd0& vector_at(unsigned int);
 };
 struct Color4
 {
@@ -28617,7 +28617,7 @@ struct Geometry
     FUN_00449fd0 positions;
     FUN_00449fd0 windPositions;
 // src: GUESS 0x00b300c0 (confidence: low)
-    void UpdateFields_00b300c0(const CVec3& point)
+    void CIndexedGeometry_AddVertexCoord(const CVec3& point)
     {
         float px = point.x;
         float py = point.y;
@@ -28634,15 +28634,15 @@ struct Geometry
     }
     void CIndexedGeometry_AddVertexTexCoord0(const TexCoord&, unsigned short);
 // src: GUESS 0x00b30060 (confidence: low)
-    unsigned int GetIndexedValue_00b30060(const Color4& color)
+    unsigned int PackColor(const Color4& color)
     {
         return (unsigned int)(color.r * 255.0) + ((unsigned int)(color.g * 255.0) << 8) +
                ((unsigned int)(color.b * 255.0) << 16) - 0x1000000;
     }
 // src: GUESS 0x00b30020 (confidence: low)
-    void UpdateFields_00b30020(const Color4& color)
+    void AddColor(const Color4& color)
     {
-        unsigned int packed = GetIndexedValue_00b30060(color);
+        unsigned int packed = PackColor(color);
         colors.UpdateState_00b32210(packed);
     }
     void AppendThreeFloatComponents(const CVec3&);
@@ -28678,7 +28678,7 @@ struct B1FrondBuilder
 {
     Geometry* geometry;
     void* configuration;
-    void ProcessEntries_00b1be50(FrondInput*, FUN_00b1e3e0&, FUN_00b1e3e0&);
+    void CFrondEngine_ComputeProfilePoints(FrondInput*, FUN_00b1e3e0&, FUN_00b1e3e0&);
     void ProcessEntries_00b1b000(FrondInput* frond);
 };
 // @fnv 0x00b1b000
@@ -28689,7 +28689,7 @@ void B1FrondBuilder::ProcessEntries_00b1b000(FrondInput* frond)
     {
         FUN_00b1e3e0 positions3;
         FUN_00b1e3e0 normals;
-        ProcessEntries_00b1be50(frond, positions3, normals);
+        CFrondEngine_ComputeProfilePoints(frond, positions3, normals);
         frond->stride = positions3.size();
         frond->start = geometry->GetVertex();
         for (unsigned int guide = 0; guide < frond->size(); ++guide)
@@ -28700,15 +28700,15 @@ void B1FrondBuilder::ProcessEntries_00b1b000(FrondInput* frond)
                 float across_2 = vertex / (frond->stride - 1.0);
                 FloatMatrix3 current2X = (*(FloatMatrix3*)&(*frond)[guide].rotation);
                 FloatMatrix3 previousA = guide ? (*(FloatMatrix3*)&(*frond)[guide - 1].rotation) : current2X;
-                current2X.UpdateFields_00b1ae00(frond->angle);
-                previousA.UpdateFields_00b1ae00(frond->angle);
+                current2X.RotateX(frond->angle);
+                previousA.RotateX(frond->angle);
                 CVec3 point7 = positions3[vertex].FUN_00b12890(current2X);
                 CVec3 priority_2 = positions3[vertex].FUN_00b12890(previousA);
                 CVec3 midPoint =
                     (*(CVec3*)&(*frond)[guide]).AddVector(point7.AddVector(priority_2).ScaleSwizzled(0.5f));
                 CVec3 tangentsB = point7.AddVector(priority_2);
                 tangentsB.Normalize_00b12790();
-                geometry->UpdateFields_00b300c0(midPoint);
+                geometry->CIndexedGeometry_AddVertexCoord(midPoint);
                 TexCoord uvB;
                 uvB.u = across_2;
                 uvB.v = along;
@@ -28719,14 +28719,14 @@ void B1FrondBuilder::ProcessEntries_00b1b000(FrondInput* frond)
                 localA.Normalize_00b12790();
                 Color4 colorSlot5;
                 colorSlot5.r = colorSlot5.g = colorSlot5.b = colorSlot5.a = 1.0f;
-                geometry->UpdateFields_00b30020(colorSlot5);
+                geometry->AddColor(colorSlot5);
                 geometry->AppendThreeFloatComponents(localA);
                 geometry->UpdateState_00b305f0(tangentsB);
                 CVec3 binormalVal = localA.FUN_00b12810(tangentsB);
                 binormalVal.Normalize_00b12790();
                 geometry->UpdateFields_00b30660(binormalVal);
                 if (geometry->HasWind())
-                    geometry->AppendInvertedValueAndDispatchIndex(frond->GetElementAddress38_00b1db00(guide)->scale, frond->GetElementAddress38_00b1db00(guide)->material);
+                    geometry->AppendInvertedValueAndDispatchIndex(frond->vector_at(guide)->scale, frond->vector_at(guide)->material);
                 geometry->AdvanceVertex();
             }
         }
@@ -28761,7 +28761,7 @@ void B1FrondBuilder::ProcessEntries_00b1b000(FrondInput* frond)
                 TexCoord uv3;
                 uv3.u = original4[0];
                 static const float textureScale = 0.999f;
-                uv3.v = *cumulativeLengths.ProcessAndReturnValue_00b319a0(column).GetElementPointerChecked(row) / *local2.GetElementPointerChecked(column) *
+                uv3.v = *cumulativeLengths.vector_at(column).GetElementPointerChecked(row) / *local2.GetElementPointerChecked(column) *
                         textureScale;
                 geometry->CIndexedGeometry_AddVertexTexCoord0(uv3, (unsigned short)frond->layer);
                 geometry->AdvanceVertex();
@@ -29678,7 +29678,7 @@ struct MidQ_b200 : FUN_00b20ba0
 struct FUN_00b200f0 : MidQ_b200
 {
     FUN_00b200f0(const FUN_00b200f0& r);
-    bool ProcessAndReturnValue_00b1eb00(unsigned int n);
+    bool vector__Buy(unsigned int n);
     void UpdateState_00b1e970();
     unsigned int size() const
     {
@@ -29712,7 +29712,7 @@ inline CItQ_b200::CItQ_b200(ElQ_b200* p, const FUN_00b200f0* c)
 // @fnv 0x00b200f0
 FUN_00b200f0::FUN_00b200f0(const FUN_00b200f0& r) : MidQ_b200(AlQ_b200())
 {
-    if (ProcessAndReturnValue_00b1eb00(r.size()))
+    if (vector__Buy(r.size()))
     {
         DeadA_b200();
         try
@@ -29831,8 +29831,8 @@ struct MidQ : FUN_00b20ba0
     {
         return Unchecked_uninitialized_copy(f, l, p, m_al);
     }
-    bool ProcessAndReturnValue_00b1eb00(unsigned n);
-    void ReleaseStorage_00b1ec70();
+    bool vector__Buy(unsigned n);
+    void vector__Tidy();
 };
 struct VecCopyR : MidQ
 {
@@ -29841,7 +29841,7 @@ struct VecCopyR : MidQ
 // @fnv 0x00b231f0
 VecCopyR::VecCopyR(const VecCopyR& r) : MidQ(AlR())
 {
-    if (ProcessAndReturnValue_00b1eb00(r.size()))
+    if (vector__Buy(r.size()))
     {
         try
         {
@@ -29851,7 +29851,7 @@ VecCopyR::VecCopyR(const VecCopyR& r) : MidQ(AlR())
         }
         catch (...)
         {
-            ReleaseStorage_00b1ec70();
+            vector__Tidy();
             throw;
         }
     }
@@ -29903,7 +29903,7 @@ VcElem* Frondengine_EvaluateValue_00b23830(VcElem* _First, VcElem* _Last, VcElem
 struct E93Q
 {
     int m[6];
-    void ProcessState_00b26570(E93Q& o);
+    void vector_swap(E93Q& o);
 };
 struct NsTag93
 {
@@ -29938,7 +29938,7 @@ __forceinline void Dead64Q()
 }
 __forceinline void Swap93(E93Q& a, E93Q& b)
 {
-    a.ProcessState_00b26570(b);
+    a.vector_swap(b);
     Dead64Q();
 }
 __forceinline E93Q* MbFwd93(E93Q* F, E93Q* L, E93Q* D, FwdTag93)
@@ -30352,7 +30352,7 @@ struct FrondEngine
     void ProcessEntries_00b19ad0(FrondGuide&);
     void AllocateStorage_00b1aed0(unsigned short, int, FrondGuide&);
     void ProcessEntries_00b1b000(FrondGuide&);
-    void ProcessEntries_00b1b960(unsigned short, int, FrondGuide&);
+    void CFrondEngine_BuildLodStrips(unsigned short, int, FrondGuide&);
     void CFrondEngine_Compute(FrondGeometry*, void*);
 };
 static const char vertexLimitMessage[] = "frond vertices exceed %d";
@@ -30412,7 +30412,7 @@ void FrondEngine::CFrondEngine_Compute(FrondGeometry* output, void* context)
             for (unsigned j = 0; j < guides[level].size(); ++j)
             {
                 guides[level][j].i34 = guides[0][j].i34;
-                ProcessEntries_00b1b960(level, guides[0][j].i30, guides[level][j]);
+                CFrondEngine_BuildLodStrips(level, guides[0][j].i30, guides[level][j]);
             }
         }
         break;

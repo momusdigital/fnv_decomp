@@ -184,19 +184,22 @@ FUN_005050b0::~FUN_005050b0()
 {}
 
 // @fnv 0x00506370
-TESTexture* TESEffectShader::GetFieldAt14C()
+// src: COMMUNITY 0x00506370
+TESTexture* TESEffectShader::GetTextureShaderTexture()
 {
     return reinterpret_cast<TESTexture*>(&m_kFillTexture);
 }
 
 // @fnv 0x00506390
-TESTexture* TESEffectShader::GetFieldAt158()
+// src: COMMUNITY 0x00506390
+TESTexture* TESEffectShader::GetParticleShaderTexture()
 {
     return reinterpret_cast<TESTexture*>(&m_kParticleShaderTexture);
 }
 
 // @fnv 0x005063b0
-TESTexture* TESEffectShader::GetFieldAt164()
+// src: COMMUNITY 0x005063b0
+TESTexture* TESEffectShader::GetBlockOutTexture()
 {
     return reinterpret_cast<TESTexture*>(&m_kHolesTexture);
 }
@@ -287,9 +290,9 @@ void TESEffectShader::CopyFrom(const TESForm* apCopy)
         return;
     TESForm::CopyFrom(pcopy);
     _memcpy(GetData(), pcopy->GetData(), 0x134);
-    m_kFillTexture.CopyFromBase((BaseFormComponent*)pcopy->GetFieldAt14C());
-    m_kParticleShaderTexture.CopyFromBase((BaseFormComponent*)pcopy->GetFieldAt158());
-    m_kHolesTexture.CopyFromBase((BaseFormComponent*)pcopy->GetFieldAt164());
+    m_kFillTexture.CopyFromBase((BaseFormComponent*)pcopy->GetTextureShaderTexture());
+    m_kParticleShaderTexture.CopyFromBase((BaseFormComponent*)pcopy->GetParticleShaderTexture());
+    m_kHolesTexture.CopyFromBase((BaseFormComponent*)pcopy->GetBlockOutTexture());
 }
 
 int __cdecl _memcmp(const void*, const void*, unsigned int);
@@ -302,12 +305,12 @@ bool TESEffectShader::Compare(TESForm* apCompare)
         return true;
     if (TESForm::Compare(pOtherShader))
         return true;
-    if (m_kFillTexture.CompareWithBase((BaseFormComponent*)pOtherShader->GetFieldAt14C()))
+    if (m_kFillTexture.CompareWithBase((BaseFormComponent*)pOtherShader->GetTextureShaderTexture()))
         return true;
     if (m_kParticleShaderTexture.CompareWithBase(
-            (BaseFormComponent*)pOtherShader->GetFieldAt158()))
+            (BaseFormComponent*)pOtherShader->GetParticleShaderTexture()))
         return true;
-    if (m_kHolesTexture.CompareWithBase((BaseFormComponent*)pOtherShader->GetFieldAt164()))
+    if (m_kHolesTexture.CompareWithBase((BaseFormComponent*)pOtherShader->GetBlockOutTexture()))
         return true;
     if (_memcmp(&Data, pOtherShader->GetData(), sizeof(EffectShaderData)))
         return true;
@@ -326,7 +329,7 @@ bool _FUN_00401500();
 // @fnv 0x005060f0
 void TESEffectShader::SaveForm()
 {
-    TESForm::BeginFormRecord();
+    TESForm::TESForm_StartForm();
 
     if (reinterpret_cast<TESModel*>(reinterpret_cast<char*>(this) + 0x14c)->GetModelLength() == 0)
     {
@@ -379,7 +382,7 @@ void TESEffectShader::SaveForm()
 
     Data.pAddonModels = psaveAddon;
 
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_CloseForm();
 }
 
 // @fnv 0x005064d0
@@ -429,7 +432,8 @@ struct ShaderPropStub
 int BSstrcmp(const char*, const char*);
 
 // @fnv 0x00507b40
-void TESEffectShader::ApplyShaderToTree(NiAVObject* apObject, BSShaderPPLightingProperty::TextureEffectData* apData)
+// src: COMMUNITY 0x00507b40
+void TESEffectShader::StartTextureShader(NiAVObject* apObject, BSShaderPPLightingProperty::TextureEffectData* apData)
 {
     if (apObject)
     {
@@ -463,7 +467,7 @@ void TESEffectShader::ApplyShaderToTree(NiAVObject* apObject, BSShaderPPLighting
             {
                 for (unsigned int i = 0; i < pNode->FUN_0043b480(); i++)
                 {
-                    ApplyShaderToTree(pNode->FUN_0043b4a0(i), apData);
+                    StartTextureShader(pNode->FUN_0043b4a0(i), apData);
                 }
             }
         }
@@ -479,11 +483,12 @@ struct S_00507c90_Item
 };
 struct S_00507c90_Cls
 {
-    void ClearItemRef(NiAVObject* obj, S_00507c90_Ptr* ref);
+    void TESEffectShader_StopTextureShader(NiAVObject* obj, S_00507c90_Ptr* ref);
 };
 // Recursively walks obj's list, and for items whose value is 8..12 clears the reference if it equals ref.
 // @fnv 0x00507c90
-void S_00507c90_Cls::ClearItemRef(NiAVObject* obj, S_00507c90_Ptr* ref)
+// src: COMMUNITY 0x00507c90
+void S_00507c90_Cls::TESEffectShader_StopTextureShader(NiAVObject* obj, S_00507c90_Ptr* ref)
 {
     if (obj)
     {
@@ -503,7 +508,7 @@ void S_00507c90_Cls::ClearItemRef(NiAVObject* obj, S_00507c90_Ptr* ref)
             if (list)
             {
                 for (unsigned int i2 = 0; i2 < (unsigned int)list->FUN_0043b480(); i2++)
-                    ClearItemRef(list->FUN_0043b4a0(i2), ref);
+                    TESEffectShader_StopTextureShader(list->FUN_0043b4a0(i2), ref);
             }
         }
     }
@@ -663,11 +668,12 @@ struct ShaderUpdate
     float StartTime();
     float EndAlpha();
     float StartAlpha();
-    void UpdateShaderState(ShaderState*, float, float, float, unsigned char);
+    void TESEffectShader_AnimateTextureEffect(ShaderState*, float, float, float, unsigned char);
 };
 // Advances a ShaderState's fill/edge alpha, UV offsets and alpha from delta, duration, time and mode.
 // @fnv 0x00507e30
-void ShaderUpdate::UpdateShaderState(ShaderState* state, float delta, float duration, float time, unsigned char mode)
+// src: COMMUNITY 0x00507e30
+void ShaderUpdate::TESEffectShader_AnimateTextureEffect(ShaderState* state, float delta, float duration, float time, unsigned char mode)
 {
     if (state)
     {

@@ -171,14 +171,14 @@ Obj* NiObject_DynamicCast(int* dat, Obj* o_tmp);
 Obj* FUN_004b5a20(Obj* o_tmp);
 int TESObjectREFR_FindReferenceFor3D(Obj* o_tmp);
 
-struct FUN_0062a510_cls
+struct TESArrowTargetListener
 {
     void TESArrowTargetListener_entityRemovedCallback(int a1);
 };
 
 // @fnv 0x0062a510
 // src: XBOX_PDB 0x0062a510
-void FUN_0062a510_cls::TESArrowTargetListener_entityRemovedCallback(int a1)
+void TESArrowTargetListener::TESArrowTargetListener_entityRemovedCallback(int a1)
 {
     Obj* o_tmp = bhkEntity_Getbhk(a1);
     Obj* p = NiObject_DynamicCast(&DAT_012681c0, o_tmp);

@@ -153,8 +153,8 @@ void __cdecl hkPredGskAgent3_initAgentFunc(int* pObject)
 
 extern int DAT_010cf9a4;
 // @fnv 0x00d48350
-// src: GUESS 0x00d48350 (confidence: low)
-void __cdecl Runtime_UpdateState_00d48350(int* p)
+// src: COMMUNITY 0x00d48350
+void __cdecl finishLoadedObject_hkpPhysicsData(int* p)
 {
     if (p)
         *p = (int)&DAT_010cf9a4;
@@ -166,8 +166,8 @@ struct FUN_00d49580_vtbl
 };
 
 // @fnv 0x00d49580
-// src: GUESS 0x00d49580 (confidence: low)
-void __cdecl Object_InvokeVirtualMethod_00d49580(FUN_00d49580_vtbl* p)
+// src: COMMUNITY 0x00d49580
+void __cdecl cleanupLoadedObject_hkpStorageSampledHeightFieldShape(FUN_00d49580_vtbl* p)
 {
     p->v0(0);
 }
@@ -177,8 +177,8 @@ extern int DAT_010ce31c;
 extern int DAT_010cfb34;
 
 // @fnv 0x00d495a0
-// src: GUESS 0x00d495a0 (confidence: low)
-void __cdecl Object_UpdateFields_00d495a0(int* pObject, int b)
+// src: COMMUNITY 0x00d495a0
+void __cdecl finishLoadedObject_hkpStorageSampledHeightFieldShape(int* pObject, int b)
 {
     if (pObject)
     {
@@ -196,36 +196,36 @@ void __cdecl Object_UpdateFields_00d495a0(int* pObject, int b)
 }
 
 // @fnv 0x00d4b190
-// src: GUESS 0x00d4b190 (confidence: low)
-void __cdecl Runtime_Helper_00d4b190(void* p)
+// src: COMMUNITY 0x00d4b190
+void __cdecl cleanupLoadedObject_hkpStorageExtendedMeshShapeMeshSubpartStorage(void* p)
 {
     ((void(__thiscall*)(void*, int))(*reinterpret_cast<void***>(p))[0])(p, 0);
 }
 
 struct FUN_00d4b250_class
 {
-    void __thiscall Runtime_ForwardCall_00d4b250(int);
+    void __thiscall cleanupLoadedObject_hkpStorageExtendedMeshShape(int);
 };
 struct FUN_00d4b250_vt
 {
-    virtual void __thiscall Runtime_ForwardCall_00d4b250(int);
+    virtual void __thiscall cleanupLoadedObject_hkpStorageExtendedMeshShape(int);
 };
 // @fnv 0x00d4b250
-// src: GUESS 0x00d4b250 (confidence: low)
-void __cdecl Runtime_ForwardCall_00d4b250(FUN_00d4b250_vt* p)
+// src: COMMUNITY 0x00d4b250
+void __cdecl cleanupLoadedObject_hkpStorageExtendedMeshShape(FUN_00d4b250_vt* p)
 {
-    p->Runtime_ForwardCall_00d4b250(0);
+    p->cleanupLoadedObject_hkpStorageExtendedMeshShape(0);
 }
 
 struct FUN_00d4be50_vt
 {
-    virtual void Runtime_ForwardCall_00d4be50(int);
+    virtual void cleanupLoadedObject_hkpStorageMeshShapeSubpartStorage(int);
 };
 // @fnv 0x00d4be50
-// src: GUESS 0x00d4be50 (confidence: low)
-void __cdecl Runtime_ForwardCall_00d4be50(FUN_00d4be50_vt* p)
+// src: COMMUNITY 0x00d4be50
+void __cdecl cleanupLoadedObject_hkpStorageMeshShapeSubpartStorage(FUN_00d4be50_vt* p)
 {
-    p->Runtime_ForwardCall_00d4be50(0);
+    p->cleanupLoadedObject_hkpStorageMeshShapeSubpartStorage(0);
 }
 
 struct CollisionAgentFunctionTable
@@ -275,28 +275,28 @@ struct FUN_00d48330_vt
     virtual void v0(int);
 };
 // @fnv 0x00d48330
-// src: GUESS 0x00d48330 (confidence: low)
-void __cdecl Runtime_ForwardCall_00d48330(FUN_00d48330_vt* p)
+// src: COMMUNITY 0x00d48330
+void __cdecl cleanupLoadedObject_hkpPhysicsData(FUN_00d48330_vt* p)
 {
     p->v0(0);
 }
 
 // @fnv 0x00d49510
-// src: GUESS 0x00d49510 (confidence: low)
-void __cdecl Runtime_ForwardCall_00d49510(FUN_00d49580_vtbl* p)
+// src: COMMUNITY 0x00d49510
+void __cdecl cleanupLoadedObject_hkpRigidBody(FUN_00d49580_vtbl* p)
 {
     p->v0(0);
 }
 
 struct FUN_00d4b1f0_vt
 {
-    virtual void __thiscall Runtime_ForwardCall_00d4b1f0(int);
+    virtual void __thiscall cleanupLoadedObject_hkpStorageExtendedMeshShapeShapeSubpartStorage(int);
 };
 // @fnv 0x00d4b1f0
-// src: GUESS 0x00d4b1f0 (confidence: low)
-void __cdecl Runtime_ForwardCall_00d4b1f0(FUN_00d4b1f0_vt* p)
+// src: COMMUNITY 0x00d4b1f0
+void __cdecl cleanupLoadedObject_hkpStorageExtendedMeshShapeShapeSubpartStorage(FUN_00d4b1f0_vt* p)
 {
-    p->Runtime_ForwardCall_00d4b1f0(0);
+    p->cleanupLoadedObject_hkpStorageExtendedMeshShapeShapeSubpartStorage(0);
 }
 
 struct FUN_00d4b320_vt
@@ -304,29 +304,29 @@ struct FUN_00d4b320_vt
     virtual void v0(int);
 };
 // @fnv 0x00d4b320
-// src: GUESS 0x00d4b320 (confidence: low)
-void __cdecl Object_InvokeVirtualMethod_00d4b320(FUN_00d4b320_vt* p)
+// src: COMMUNITY 0x00d4b320
+void __cdecl cleanupLoadedObject_hkpExtendedMeshShape(FUN_00d4b320_vt* p)
 {
     p->v0(0);
 }
 
 // @fnv 0x00d4beb0
-// src: GUESS 0x00d4beb0 (confidence: low)
-void __cdecl Runtime_ForwardCall_00d4beb0(FUN_00d49580_vtbl* p)
+// src: COMMUNITY 0x00d4beb0
+void __cdecl cleanupLoadedObject_hkpStorageMeshShape(FUN_00d49580_vtbl* p)
 {
     p->v0(0);
 }
 
 struct FUN_00d4bf30_vt
 {
-    virtual void Runtime_ForwardCall_00d4bf30(int);
+    virtual void cleanupLoadedObject_hkpMeshShape(int);
 };
 
 // @fnv 0x00d4bf30
-// src: GUESS 0x00d4bf30 (confidence: low)
-void __cdecl Runtime_ForwardCall_00d4bf30(FUN_00d4bf30_vt* p)
+// src: COMMUNITY 0x00d4bf30
+void __cdecl cleanupLoadedObject_hkpMeshShape(FUN_00d4bf30_vt* p)
 {
-    p->Runtime_ForwardCall_00d4bf30(0);
+    p->cleanupLoadedObject_hkpMeshShape(0);
 }
 
 extern const char* const g_01268eb4_arg1;
@@ -863,7 +863,7 @@ FnvVtObj* FnvVtObj::SetVirtualTable_00d49c40(unsigned int unusedArg)
 extern int DAT_010cfd44;
 extern int DAT_010cfd20;
 
-struct FUN_00d49c50_cls
+struct hkpStorageExtendedMeshShape
 {
     volatile void* m_pVtbl;
     int m_unk04;
@@ -938,7 +938,7 @@ struct FUN_00d49c50_cls
 // Calls FUN_00d569c0, sets both vtables, and initializes the six fields at offsets 0xF0-0x104, returning this.
 // @fnv 0x00d49c50
 // src: HAVOK_LIB 0x00d49c50
-void* FUN_00d49c50_cls::hkpStorageExtendedMeshShape_hkpStorageExtendedMeshShape(float afValue, int i)
+void* hkpStorageExtendedMeshShape::hkpStorageExtendedMeshShape_hkpStorageExtendedMeshShape(float afValue, int i)
 {
     FUN_00d569c0(afValue, i);
     m_pVtbl = (void*)&DAT_010cfd44;
@@ -1011,8 +1011,8 @@ struct FUN_00d4a180_cls
 };
 
 // @fnv 0x00d4b230
-// src: GUESS 0x00d4b230 (confidence: low)
-void __cdecl Runtime_ProcessState_00d4b230(FUN_00d4a180_cls* pTarget, int aiValue)
+// src: COMMUNITY 0x00d4b230
+void __cdecl finishLoadedObject_hkpStorageExtendedMeshShape(FUN_00d4a180_cls* pTarget, int aiValue)
 {
     if (pTarget != 0)
         pTarget->FUN_00d4a180(aiValue);
@@ -1080,8 +1080,8 @@ class FUN_00d4b300_cls
 };
 
 // @fnv 0x00d4b300
-// src: GUESS 0x00d4b300 (confidence: low)
-void __cdecl Object_ProcessState_00d4b300(FUN_00d4b300_cls* pObject, int aiValue)
+// src: COMMUNITY 0x00d4b300
+void __cdecl finishLoadedObject_hkpExtendedMeshShape(FUN_00d4b300_cls* pObject, int aiValue)
 {
     if (pObject != 0)
     {
@@ -1135,7 +1135,7 @@ FnvVtObj* FnvVtObj::SetVptr(unsigned int unusedArg)
 extern int DAT_010d055c;
 extern int DAT_010d053c;
 
-struct FUN_00d4b3c0_cls
+struct hkpStorageMeshShape
 {
     volatile void* m_pVtbl;
     int m_unk04;
@@ -1170,7 +1170,7 @@ struct FUN_00d4b3c0_cls
 
 // @fnv 0x00d4b3c0
 // src: HAVOK_LIB 0x00d4b3c0
-void* FUN_00d4b3c0_cls::hkpStorageMeshShape_hkpStorageMeshShape(float afValue, int aiValue)
+void* hkpStorageMeshShape::hkpStorageMeshShape_hkpStorageMeshShape(float afValue, int aiValue)
 {
     FUN_00dcd310(afValue, aiValue);
     m_pVtbl = (void*)&DAT_010d055c;
@@ -1210,8 +1210,8 @@ struct FUN_00d4ba30_class
 };
 
 // @fnv 0x00d4be90
-// src: GUESS 0x00d4be90 (confidence: low)
-void __cdecl Object_ProcessState_00d4be90(FUN_00d4ba30_class* pObject, int value)
+// src: COMMUNITY 0x00d4be90
+void __cdecl finishLoadedObject_hkpStorageMeshShape(FUN_00d4ba30_class* pObject, int value)
 {
     if (pObject != 0)
         pObject->FUN_00d4ba30(value);
@@ -1252,8 +1252,8 @@ class D4BF10Object
 };
 
 // @fnv 0x00d4bf10
-// src: GUESS 0x00d4bf10 (confidence: low)
-void Runtime_AllocateStorage_00d4bf10(void* apMemory, int finishing)
+// src: COMMUNITY 0x00d4bf10
+void finishLoadedObject_hkpMeshShape(void* apMemory, int finishing)
 {
     if (apMemory)
     {
@@ -1402,15 +1402,16 @@ struct S_00d4ce60_Base
     int unk158;
     int unk15C;
 };
-struct FUN_00d4ce60 : S_00d4ce60_Base
+struct hkpCachingShapePhantom : S_00d4ce60_Base
 {
     S_00d4ce60_Entry* m_data;
     int m_iElementCount;
     int m_iCapacityState;
-    ~FUN_00d4ce60() throw();
+    ~hkpCachingShapePhantom() throw();
 };
 // @fnv 0x00d4ce60
-FUN_00d4ce60::~FUN_00d4ce60() throw()
+// src: EXE 0x00d4ce60
+hkpCachingShapePhantom::~hkpCachingShapePhantom() throw()
 {
     S_00d4ce60_Msg msg;
     for (int i = m_iElementCount - 1; i >= 0; i--)
@@ -1438,10 +1439,11 @@ struct FnvCpu_FUN_00d4de00_CpuObject
     unsigned int unk00;
     unsigned short size;
     void ReleaseReferencedObjectsAndLock();
-    FnvCpu_FUN_00d4de00_CpuObject* FUN_00d4de00(unsigned int flags);
+    FnvCpu_FUN_00d4de00_CpuObject* ScalarDeletingDestructor(unsigned int flags);
 };
 // @fnv 0x00d4de00
-FnvCpu_FUN_00d4de00_CpuObject* FnvCpu_FUN_00d4de00_CpuObject::FUN_00d4de00(unsigned int flags)
+// src: EXE 0x00d4de00
+FnvCpu_FUN_00d4de00_CpuObject* FnvCpu_FUN_00d4de00_CpuObject::ScalarDeletingDestructor(unsigned int flags)
 {
     ReleaseReferencedObjectsAndLock();
     if (flags & 1)
@@ -1512,7 +1514,7 @@ class SpawnedObject
 
 hkMemoryRouter* hkMemoryRouter_getInstance();
 
-class FUN_00d50140_cls
+class hkGenericConstraintCinfo
 {
   public:
     unsigned int unk00;
@@ -1530,7 +1532,7 @@ void* SpawnedObject::operator new(unsigned int size)
 
 // If m_04 is null, allocates a SpawnedObject via operator new and stores it in m_04; returns sizeof(SpawnedObject).
 // @fnv 0x00d50140
-int FUN_00d50140_cls::EnsureSpawnedObject()
+int hkGenericConstraintCinfo::EnsureSpawnedObject()
 {
     AutoMemContext guard(16);
     if (m_04 == 0)
@@ -3384,10 +3386,10 @@ class FUN_00d48320
 FUN_00d48320::FUN_00d48320(FinishingFlag flag)
 {}
 
-class FUN_00dcc160_cls
+class hkIstream
 {
   public:
-    FUN_00dcc160_cls* InitFromValue(void* pvSource);
+    hkIstream* InitFromValue(void* pvSource);
     void SetVirtualTable_00dcc160();
 
     int m_iUnk00;
@@ -3399,7 +3401,7 @@ class FUN_00dcc160_cls
 // src: XBOX_PDB 0x00d491b0
 void* __cdecl hkSerializeUtil_loadOnHeap_00d491b0(void* pvSource, void* pvArg, void* pvArgCur, void* kvArg)
 {
-    FUN_00dcc160_cls kData;
+    hkIstream kData;
     void* pvData = kData.InitFromValue(pvSource)->m_pResource;
     void* pvResult = hkSerializeUtil_loadOnHeap(pvData, pvArg, pvArgCur, kvArg);
     kData.SetVirtualTable_00dcc160();
@@ -3479,13 +3481,13 @@ struct hkContainerD539
     int m_numKeys;
 };
 
-class FUN_00c89c80_obj
+class bhkConstraint
 {
   public:
     void CopyFromSource(unsigned int info) throw();
 };
 
-class hkShapeD539 : public FUN_00c89c80_obj
+class hkShapeD539 : public bhkConstraint
 {
   public:
     int unk00;
@@ -3678,7 +3680,7 @@ struct FUN_00d58ce0_DisplayObj
     virtual void vf08(int, int);
 };
 
-struct FUN_00d58ce0_Class
+struct hkDisplayGeometry
 {
     int unk00;
     unsigned short unk04;
@@ -3689,7 +3691,7 @@ struct FUN_00d58ce0_Class
 extern "C" void __cdecl FUN_00da2560();
 
 // @fnv 0x00d58ce0
-int __thiscall FUN_00d58ce0_Class::FUN_00d58ce0(unsigned char flag)
+int __thiscall hkDisplayGeometry::FUN_00d58ce0(unsigned char flag)
 {
     FUN_00da2560();
 
@@ -3704,7 +3706,7 @@ int __thiscall FUN_00d58ce0_Class::FUN_00d58ce0(unsigned char flag)
 }
 
 extern double DAT_010229c0;
-struct FUN_00d5d660_cls
+struct hkPseudoRandomGenerator
 {
     int m_i00;
     int m_i04;
@@ -3712,7 +3714,7 @@ struct FUN_00d5d660_cls
 };
 // Advances the linear congruential state four times and writes each new state, scaled to [0,1), into pOut[0..3].
 // @fnv 0x00d5d660
-void __thiscall FUN_00d5d660_cls::NextFloat4(float* pOut)
+void __thiscall hkPseudoRandomGenerator::NextFloat4(float* pOut)
 {
     m_i04 = (int)((long long)m_i04 * 0x19660dLL + 0x3c6ef35fLL);
     *pOut = (float)(unsigned int)m_i04 * 2.3283064365386963e-10;
@@ -4168,11 +4170,11 @@ class FUN_00dd0420_Class
     int unk00;
 };
 
-class FUN_00d50c00
+class hkpGenericConstraintData
 {
   public:
-    FUN_00d50c00(FinishingFlag flag);
-    virtual ~FUN_00d50c00();
+    hkpGenericConstraintData(FinishingFlag flag);
+    virtual ~hkpGenericConstraintData();
 
     int unk04;
     int unk08;
@@ -4181,7 +4183,8 @@ class FUN_00d50c00
 };
 
 // @fnv 0x00d50c00
-FUN_00d50c00::FUN_00d50c00(FinishingFlag flag) : m_kListeners(flag)
+// src: EXE 0x00d50c00
+hkpGenericConstraintData::hkpGenericConstraintData(FinishingFlag flag) : m_kListeners(flag)
 {
     m_data.hkpGenericConstraintDataScheme_hkpGenericConstraintDataScheme(flag.m_bFinishing);
     if (flag.m_bFinishing)
@@ -5052,7 +5055,8 @@ struct Entity35D0
 };
 // Gets the owning entity's world, calls UpdateEntity on m_phkObject, invokes OnRemoved, and returns the world's result or false if no world.
 // @fnv 0x00d535d0
-bool __fastcall RemovePhysicsWorldObject(bhkWorldObject* self, void*)
+// src: EXE 0x00d535d0
+bool __fastcall bhkConstraintChain_Remove(bhkWorldObject* self, void*)
 {
     AutoMemContext kContext(0x10);
     // This unit uses slot +0x94; the shared GetWorld declaration currently occupies +0x98.
@@ -5611,19 +5615,20 @@ class RefPtrD482
     void AssignObject(int iParam) throw();
 };
 
-class FUN_00d48250
+class NamedVariant
 {
   public:
     hkStringPtr m_name;
     hkStringPtr m_pClassName;
     RefPtrD482 m_object;
 
-    FUN_00d48250(const char* pcName, int iParam) throw();
+    NamedVariant(const char* pcName, int iParam) throw();
 };
 
 // Stores pcName in m_name, builds a ref-counted object via FUN_00d47750(iParam) into m_object, and sets m_pClassName from FUN_00d46d40 if available.
 // @fnv 0x00d48250
-FUN_00d48250::FUN_00d48250(const char* pcName, int iParam) throw() : m_object(0)
+// src: GUESS 0x00d48250 (confidence: medium)
+NamedVariant::NamedVariant(const char* pcName, int iParam) throw() : m_object(0)
 {
     m_name = pcName;
     {
@@ -5675,7 +5680,7 @@ struct S_00d4f0f0_S
     __forceinline S_00d4f0f0_S() : unk40(6)
     {}
 };
-struct FUN_00d4f0f0 : S_00d4f0f0_B2
+struct hkpStiffSpringConstraintData : S_00d4f0f0_B2
 {
     S_00d4f0f0_H h;
     int unk14;
@@ -5685,13 +5690,14 @@ struct FUN_00d4f0f0 : S_00d4f0f0_B2
     hkVector4 unk30;
     S_00d4f0f0_S s;
     float unk44;
-    FUN_00d4f0f0();
+    hkpStiffSpringConstraintData();
     virtual void v0();
 };
 
-// Constructor for FUN_00d4f0f0 that zero-initializes unk44 and the two hkVector4 fields unk20 and unk30.
+// Constructor for hkpStiffSpringConstraintData that zero-initializes unk44 and the two hkVector4 fields unk20 and unk30.
 // @fnv 0x00d4f0f0
-FUN_00d4f0f0::FUN_00d4f0f0()
+// src: EXE 0x00d4f0f0
+hkpStiffSpringConstraintData::hkpStiffSpringConstraintData()
 {
     unk44 = 0.0f;
     SpringSimd::_mm_store_ps(unk20.m_vComponents.m128_f32, SpringSimd::_mm_setzero_ps());
@@ -5807,21 +5813,22 @@ struct hkpRagdollDataS : hkpConstraintDataS
     void setConeStab(hkBool b);
 };
 
-struct FUN_00d4f2a0 : hkpRagdollDataS
+struct hkpRagdollLimitsData : hkpRagdollDataS
 {
     hkpRagdollAtomsS m_kBridgeAtoms;
-    FUN_00d4f2a0();
-    virtual ~FUN_00d4f2a0();
+    hkpRagdollLimitsData();
+    virtual ~hkpRagdollLimitsData();
 };
 
 __declspec(noinline) void hkpRagdollDataS::setConeStab(hkBool b)
 {
-    static_cast<FUN_00d4f2a0*>(this)->m_kBridgeAtoms.m_kConeLimit.m_ucAngleMeasurementMode = b.m_cBooleanValue ? 16 : 0;
+    static_cast<hkpRagdollLimitsData*>(this)->m_kBridgeAtoms.m_kConeLimit.m_ucAngleMeasurementMode = b.m_cBooleanValue ? 16 : 0;
 }
 
 // Initializes bridge ragdoll atoms with identity rotations, twist limits of +/-0.5236 rad, cone limits, and plane limits with tau factor 0.8.
 // @fnv 0x00d4f2a0
-FUN_00d4f2a0::FUN_00d4f2a0()
+// src: GUESS 0x00d4f2a0 (confidence: high)
+hkpRagdollLimitsData::hkpRagdollLimitsData()
 {
     m_kBridgeAtoms.m_kLocalRotations.m_kRotationA.setIdentity();
     m_kBridgeAtoms.m_kLocalRotations.m_kRotationB.setIdentity();
@@ -5878,7 +5885,7 @@ struct Matrix
 };
 }
 
-class FUN_00d52fc0
+class hkpHingeLimitsData
 {
   public:
     int* m_vptr;
@@ -5902,12 +5909,13 @@ class FUN_00d52fc0
     unsigned short m_90;
     unsigned char m_92;
 
-    FUN_00d52fc0();
+    hkpHingeLimitsData();
 };
 
 // Constructor: sets the vptr, several small integer fields, two identity matrices, and three floats (two from globals, one 1.0).
 // @fnv 0x00d52fc0
-FUN_00d52fc0::FUN_00d52fc0()
+// src: EXE 0x00d52fc0
+hkpHingeLimitsData::hkpHingeLimitsData()
 {
     m_vptr = &DAT_010d0be4;
     m_06 = 1;
@@ -5929,9 +5937,9 @@ extern int DAT_010d0cd4;
 extern float DAT_0104da48;
 struct FUN_00ca9360_sub
 {
-    void __fastcall FindFloatTableIndex(int count, float* value);
+    void __fastcall SetReal(int count, float* value);
 };
-struct FUN_00d54290
+struct hkpBallAndSocketConstraintData
 {
     void* volatile m_vptr;
     unsigned short m_unk04;
@@ -5949,11 +5957,12 @@ struct FUN_00d54290
     volatile unsigned char m_byte42;
     FUN_00ca9360_sub m_data43;
     volatile float m_float44;
-    FUN_00d54290();
+    hkpBallAndSocketConstraintData();
 };
-// Initializes a FUN_00d54290 object, setting m_word06 to 1, m_word10 to 3, m_word40 to 5, and calling m_data43.FUN_00ca9360(5, &one).
+// Initializes a hkpBallAndSocketConstraintData object, setting m_word06 to 1, m_word10 to 3, m_word40 to 5, and calling m_data43.FUN_00ca9360(5, &one).
 // @fnv 0x00d54290
-FUN_00d54290::FUN_00d54290()
+// src: EXE 0x00d54290
+hkpBallAndSocketConstraintData::hkpBallAndSocketConstraintData()
 {
     float one = 1.0f;
     m_word06 = 1;
@@ -5962,7 +5971,7 @@ FUN_00d54290::FUN_00d54290()
     m_word10 = 3;
     m_byte42 = 0;
     m_word40 = 5;
-    m_data43.FindFloatTableIndex(5, &one);
+    m_data43.SetReal(5, &one);
     m_float44 = DAT_0104da48;
     ::D4F2A0Simd::_mm_store_ps((float*)&m_zero20, ::D4F2A0Simd::_mm_setzero_ps());
     ::D4F2A0Simd::_mm_store_ps((float*)&m_zero30, ::D4F2A0Simd::_mm_setzero_ps());
@@ -5982,9 +5991,9 @@ static inline char& MoppInputSetBool(char& rcBool, bool b)
     return rcBool;
 }
 
-struct FUN_00d54de0
+struct hkpMoppCompilerInput
 {
-    FUN_00d54de0();
+    hkpMoppCompilerInput();
 
     ::hkVector4 m_vector;
     float m_value10;
@@ -5997,9 +6006,10 @@ struct FUN_00d54de0
     char m_flag20;
 };
 
-// Initializes a FUN_00d54de0 with default vector, scalar values, and boolean flags.
+// Initializes a hkpMoppCompilerInput with default vector, scalar values, and boolean flags.
 // @fnv 0x00d54de0
-FUN_00d54de0::FUN_00d54de0()
+// src: GUESS 0x00d54de0 (confidence: medium)
+hkpMoppCompilerInput::hkpMoppCompilerInput()
 {
     m_value18 = DAT_01017870;
     m_value10 = DAT_010231a8;

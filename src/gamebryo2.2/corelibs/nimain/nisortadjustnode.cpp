@@ -127,7 +127,8 @@ void* __cdecl NiSortAdjustNode_CreateObject()
 }
 
 // @fnv 0x00a95410
-void __fastcall LinkSortAdjustNode(NiSortAdjustNode* self, void*, NiStream& stream)
+// src: EXE 0x00a95410
+void __fastcall NiSortAdjustNode_LinkObject(NiSortAdjustNode* self, void*, NiStream& stream)
 {
     self->NiNode::ReadChildListFromStream(stream);
     if (stream.GetFileVersion() < 0x14000004)
@@ -142,7 +143,8 @@ void __fastcall SaveSortAdjustNode(NiSortAdjustNode* self, void*, NiStream& stre
 }
 
 // @fnv 0x00a952e0
-unsigned char __fastcall IsSortAdjustNodeEqual(NiSortAdjustNode* self, void*, NiSortAdjustNode* other)
+// src: EXE 0x00a952e0
+unsigned char __fastcall NiSortAdjustNode_IsEqual(NiSortAdjustNode* self, void*, NiSortAdjustNode* other)
 {
     unsigned char result = ((NiNodeEqualityCalls*)self)->IsEqual(other);
     if (!result)
@@ -151,7 +153,8 @@ unsigned char __fastcall IsSortAdjustNodeEqual(NiSortAdjustNode* self, void*, Ni
 }
 
 // @fnv 0x00a953b0
-NiNode* __fastcall CloneSortAdjustNode(NiSortAdjustNode* self, void*, void* process)
+// src: EXE 0x00a953b0
+NiNode* __fastcall NiSortAdjustNode_CreateClone(NiSortAdjustNode* self, void*, void* process)
 {
     void* storage = Object_DispatchCommandFour(0xb0);
     NiSortAdjustNode* p = storage ? ConstructSortAdjustNode(storage) : 0;
@@ -161,7 +164,8 @@ NiNode* __fastcall CloneSortAdjustNode(NiSortAdjustNode* self, void*, void* proc
 }
 
 // @fnv 0x00a95440
-void __fastcall LoadSortAdjustNode(NiSortAdjustNode* self, void*, NiStream& stream)
+// src: EXE 0x00a95440
+void __fastcall NiSortAdjustNode_LoadBinary(NiSortAdjustNode* self, void*, NiStream& stream)
 {
     self->NiNode::LoadBinary(stream);
     int eMode;

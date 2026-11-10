@@ -45,8 +45,8 @@ class Iface2
 };
 void SleepWaitMenu_Close();
 // @fnv 0x007055c0
-// src: GUESS 0x007055c0 (confidence: low)
-void Object_UpdateFields_007055c0()
+// src: COMMUNITY 0x007055c0
+void Interface_CloseSleepMenu()
 {
     if (InterfaceManager_GetSingleton() && ((Iface2*)InterfaceManager_GetSingleton())->TESTextureList_GetTextureCount())
     {

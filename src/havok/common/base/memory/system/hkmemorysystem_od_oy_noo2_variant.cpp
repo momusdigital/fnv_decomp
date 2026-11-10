@@ -9,7 +9,7 @@ int hkMemorySystem_getInstance();
 extern int g_CBBFD0Value;
 int __cdecl hkMemorySystem_GetCBBFD0Value();
 extern int DAT_010c8efc;
-struct FUN_00cbbfe0_This
+struct hkMemorySystem
 {
     int unk00;
     void __thiscall SetVirtualTable_00cbbfe0();

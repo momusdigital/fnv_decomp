@@ -42,7 +42,8 @@ TESWorldSpace* TeleportableReference::GetTeleportWorldspace(void)
 }
 
 // @fnv 0x0043a210
-void TeleportableReference::SetLinkedDoorReference(TESObjectREFR* reference, bool set)
+// src: COMMUNITY 0x0043a210
+void TeleportableReference::DoorTeleportData_SetConnectedCellsPublic(TESObjectREFR* reference, bool set)
 {
     DoorCell* cell;
     if (reference)
@@ -119,12 +120,13 @@ struct ExtraListRemover
 
 struct FUN_004197d0_shell : public BaseExtraList
 {
-    void SetExtraDataValue(int value);
+    void ExtraDataList_SetGlobal(int value);
 };
 
 // Sets the value of extra data type 0x22, removing it when zero or creating and adding it when absent.
 // @fnv 0x004197d0
-void FUN_004197d0_shell::SetExtraDataValue(int value)
+// src: COMMUNITY 0x004197d0
+void FUN_004197d0_shell::ExtraDataList_SetGlobal(int value)
 {
     BSExtraData* extra = GetExtraData(0x22);
     if (extra)
@@ -188,14 +190,14 @@ struct FUN_00578870_host
 {
     void TESObjectREFR_GetMapNameForLocation(::BSStringT<char>*);
 };
-struct FUN_0043a2e0_host
+struct DoorTeleportData
 {
     FUN_00578870_host* m;
     void SetString(::BSStringT<char>*);
 };
 // If m is non-null, calls m->FUN_00578870(a); otherwise calls a->Set($SG4382, 0).
 // @fnv 0x0043a2e0
-void FUN_0043a2e0_host::SetString(::BSStringT<char>* apStr)
+void DoorTeleportData::SetString(::BSStringT<char>* apStr)
 {
     if (m)
         m->TESObjectREFR_GetMapNameForLocation(apStr);
@@ -258,13 +260,13 @@ void _FUN_00485990(unsigned int type, void* data, unsigned int size);
 
 struct FUN_0043a420_shell : public DoorTeleportLoadData
 {
-    void SaveDoorTeleportData();
+    void DoorTeleportData_Save();
 };
 
 // Copies the door FormID, position, rotation, and flags into data, conditionally calls SwapEndian, and passes data to _FUN_00485990.
 // @fnv 0x0043a420
-// src: GUESS 0x0043a420 (confidence: medium)
-void FUN_0043a420_shell::SaveDoorTeleportData()
+// src: COMMUNITY 0x0043a420
+void FUN_0043a420_shell::DoorTeleportData_Save()
 {
     if (!door)
         return;

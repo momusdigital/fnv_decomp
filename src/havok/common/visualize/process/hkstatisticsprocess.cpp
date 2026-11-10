@@ -85,8 +85,8 @@ public:
     float DotProduct(const LocalVec3* other) const;
     float Length() const;
     float LengthSquared() const;
-    float GetSquaredXYLength();
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength();
+    float NiPoint3_SqrXYLength() const;
     Elem16& expand(Allocator& allocator);
 
     void SetComponents(float x, float y, float z);
@@ -705,7 +705,7 @@ struct Sbf00_Ctx
     int unk2c;
     int unk30;
     int unk34;
-    void FUN_00cc06f0(ArrayMember* apArr, int a2);
+    void hkArrayStreamWriter(ArrayMember* apArr, int a2);
     void FUN_00cc0780();
 };
 struct Sbf00_Name
@@ -784,18 +784,19 @@ struct SbfBytes
     SbfBytes() : m_pData(0), m_iArrayLength(0), m_uCapacity(0x80000000)
     {}
 };
-struct FUN_00ddbf00 : SbfBases
+struct hkStatisticsProcess : SbfBases
 {
     SbfPtrs m_kFirst;
     SbfBytes m_kSecond;
     SbfBytes m_kThird;
-    FUN_00ddbf00(PtrArrayMember* pSource);
+    hkStatisticsProcess(PtrArrayMember* pSource);
 };
 // Copies pointer elements from pSource into m_kFirst, growing its backing array when the source count exceeds capacity.
 // @fnv 0x00ddbf00
-FUN_00ddbf00::FUN_00ddbf00(PtrArrayMember* pSource)
+// src: EXE 0x00ddbf00
+hkStatisticsProcess::hkStatisticsProcess(PtrArrayMember* pSource)
 {
-    FUN_00ddbf00* pThis = this;
+    hkStatisticsProcess* pThis = this;
     ArrayMember* pSecond = (ArrayMember*)&m_kSecond;
     Sbf00_Ctx kCtx;
     kCtx.m_kSub.InitHeading();
@@ -811,7 +812,7 @@ FUN_00ddbf00::FUN_00ddbf00(PtrArrayMember* pSource)
     kArr.m_pData = 0;
     kArr.m_iArrayLength = 0;
     kArr.m_uCapacity = 0x80000000;
-    kCtx.FUN_00cc06f0(pSecond, 1);
+    kCtx.hkArrayStreamWriter(pSecond, 1);
     {
         Sbf00_Name kName;
         kName.FUN_00dc1680(&DAT_010d6ae8);

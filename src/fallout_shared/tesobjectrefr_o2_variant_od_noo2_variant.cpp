@@ -42,9 +42,9 @@ struct FUN_0056e2d0
     virtual ~FUN_0056e2d0();
 };
 extern const void* vftable_FUN_0056e2d0;
-struct FUN_00c6d190 : bhkRefObject
+struct bhkSimpleShapePhantom : bhkRefObject
 {
-    FUN_00c6d190();
+    bhkSimpleShapePhantom();
 };
 void bhkSerializable_Kill();
 struct FUN_00c9d4c0_holder
@@ -201,8 +201,8 @@ struct S_00cb3070
 struct MM
 {
     void Deallocate(void* p);
-    void FUN_00cb2ff0();
-    void* FUN_00cb30a0(unsigned int);
+    void bhkRigidBodyT();
+    void* ScalarDeletingDestructor(unsigned int);
 };
 extern MM _g_memoryManager;
 extern int DAT_012681fc;
@@ -516,10 +516,10 @@ class FUN_00c8bed0_base_cls
     ~FUN_00c8bed0_base_cls();
     int unk04;
 };
-class FUN_00c8bed0_cls : public FUN_00c8bed0_base_cls
+class bhkTransformShape : public FUN_00c8bed0_base_cls
 {
   public:
-    virtual ~FUN_00c8bed0_cls();
+    virtual ~bhkTransformShape();
     void unk08();
 };
 struct FUN_00c9eb30 : FUN_00c9f3b0
@@ -728,7 +728,7 @@ inline void* operator new(unsigned int n)
 }
 struct FUN_00c9efa0_cls
 {
-    void bhkWorldObject_CopyMembers(FUN_00c6d190* p, unsigned int flag);
+    void bhkWorldObject_CopyMembers(bhkSimpleShapePhantom* p, unsigned int flag);
     bhkRefObject* bhkSimpleShapePhantom_CreateClone(unsigned int flag);
 };
 struct S_00c9f1e0_Shape
@@ -1464,10 +1464,10 @@ struct SphereShape : SphereShapeBase
     void bhkConvexShape_GetViewerStrings(ViewerStringArray* apViewerStrings);
 };
 extern int DAT_0126825c;
-class FUN_00c9fd70_cls : public FUN_00c9fb00
+class bhkBoxShape : public FUN_00c9fb00
 {
   public:
-    virtual ~FUN_00c9fd70_cls();
+    virtual ~bhkBoxShape();
     void bhkSerializable_Kill();
 };
 struct SphereScaleFields
@@ -1822,16 +1822,16 @@ class FUN_00cc2350 : public CC2350Base
     virtual ~FUN_00cc2350();
 };
 extern int DAT_01268660;
-struct FUN_00cca8d0 : FUN_00c9fb00
+struct bhkTriangleShape : FUN_00c9fb00
 {
-    virtual ~FUN_00cca8d0();
+    virtual ~bhkTriangleShape();
     void bhkSerializable_Kill();
 };
 extern int DAT_0126868c;
-struct FUN_00ccd080 : FUN_00c9fb00
+struct bhkCylinderShape : FUN_00c9fb00
 {
     int unk04;
-    virtual ~FUN_00ccd080();
+    virtual ~bhkCylinderShape();
 };
 extern int DAT_0126869c;
 struct FUN_00ccdbc0 : FUN_00c9fb00
@@ -1845,23 +1845,23 @@ class CCE900Base
     virtual ~CCE900Base();
 };
 extern int g_iCCE900Count;
-class FUN_00cce900 : public CCE900Base
+class bhkConvexTransformShape : public CCE900Base
 {
   public:
     void Release();
 
-    virtual ~FUN_00cce900();
+    virtual ~bhkConvexTransformShape();
 };
-struct FUN_00ccf4f0_cls : FUN_00c9fb00
+struct bhkConvexSweepShape : FUN_00c9fb00
 {
     int unk04;
-    virtual ~FUN_00ccf4f0_cls();
+    virtual ~bhkConvexSweepShape();
 };
 extern int DAT_012686c0;
-class FUN_00ccf740_cls : public FUN_00c9fb00
+class bhkConvexListShape : public FUN_00c9fb00
 {
   public:
-    virtual ~FUN_00ccf740_cls();
+    virtual ~bhkConvexListShape();
     void bhkSerializable_Kill();
 };
 class NiControllerC9E : public NiObject

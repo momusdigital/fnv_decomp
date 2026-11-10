@@ -182,7 +182,7 @@ unsigned int GetAVObjectForCollidable(FormLike* form)
 struct VQueryObj
 {
     ~VQueryObj();
-    unsigned char BSOcclusionQuery_GetResult(unsigned int* result, int wait);
+    unsigned char BSOcclusionQuery_GetResult(unsigned int* result, int hkSemaphore_release);
 };
 
 struct VRenderer
@@ -722,7 +722,7 @@ struct ExtraRefraction
 };
 struct ExtraListRender
 {
-    ExtraRefraction* GetRefractionProperty();
+    ExtraRefraction* ExtraDataList_GetRefractionPropertyExtra();
 };
 struct RenderActor
 {
@@ -1105,7 +1105,7 @@ void VATSRender::FOVATSEffectManager_DrawTargetToTexture(RenderTexture* texture,
     float renderer = 0.0f;
     ApplyPerkModifiers(0x45, DAT_011dea3c, &renderer);
     if (saved && saved->BSFile_GetDevice() && renderer > 0.0)
-        amount = saved->BSFile_GetDevice()->GetRefractionProperty();
+        amount = saved->BSFile_GetDevice()->ExtraDataList_GetRefractionPropertyExtra();
     actor = 0;
     float issued = 0.0f;
     if (amount && saved)

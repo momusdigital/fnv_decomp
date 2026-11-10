@@ -6,7 +6,7 @@
 #include "../../../include/BSFile.h"
 
 // 0x00afc0c0 reads +0x168, past the end of BSFile (0x158 bytes): the owner is another class.
-class FUN_00afc0c0_Owner
+class CompressedArchiveFile
 {
   public:
     char* GetName168() const;
@@ -22,7 +22,7 @@ unsigned int bhkHingeConstraint::GetInstanceSize()
     return 20;
 }
 // @fnv 0x00afc0c0
-char* FUN_00afc0c0_Owner::GetName168() const
+char* CompressedArchiveFile::GetName168() const
 {
     return m_pName168;
 }

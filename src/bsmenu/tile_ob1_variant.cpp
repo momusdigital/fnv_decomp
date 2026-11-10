@@ -292,7 +292,7 @@ struct TileValue_00a0a270 {
     void Tile_Value_SetFloat_00a0a270(float afValue, bool abClearActions);
 };
 struct TileValueOwner_00a01000 {
-    TileValue_00a0a270* GetOrCreateTraitValue(int aiTrait);
+    TileValue_00a0a270* Tile_AddValue(int aiTrait);
 };
 struct FUN_00a012d0_t {
     void Tile_Set(int aiTrait, float afValue, bool abClearActions);
@@ -302,7 +302,7 @@ struct FUN_00a012d0_t {
 // src: XBOX_PDB 0x00a012d0
 void FUN_00a012d0_t::Tile_Set(int aiTrait, float afValue, bool abClearActions)
 {
-    TileValue_00a0a270* pvalue = ((TileValueOwner_00a01000*)this)->GetOrCreateTraitValue(aiTrait);
+    TileValue_00a0a270* pvalue = ((TileValueOwner_00a01000*)this)->Tile_AddValue(aiTrait);
     if (pvalue != 0)
     {
         AutoTileLock __my_auto_tile_lock;
@@ -322,7 +322,7 @@ struct FUN_00a01350_shell : public Tile {
 
 struct FUN_00a01350_Value;
 struct FUN_00a01350_Obj {
-    FUN_00a01350_Value* GetOrCreateTraitValue(int);
+    FUN_00a01350_Value* Tile_AddValue(int);
 };
 struct FUN_00a01350_Value {
     void SetString(char*, bool);
@@ -332,7 +332,7 @@ struct FUN_00a01350_Value {
 // src: XBOX_PDB 0x00a01350
 void FUN_00a01350_shell::Tile_Set_00a01350(int aiTrait, char* apValue, bool abClearActions)
 {
-    FUN_00a01350_Value* pvalue = ((FUN_00a01350_Obj*)this)->GetOrCreateTraitValue(aiTrait);
+    FUN_00a01350_Value* pvalue = ((FUN_00a01350_Obj*)this)->Tile_AddValue(aiTrait);
     if (pvalue) {
         AutoTileLock __my_auto_tile_lock;
         pvalue->SetString(apValue, abClearActions);
@@ -944,11 +944,12 @@ struct FUN_00a0d220_cls {
 
     void BaseCleanup();
 
-    FUN_00a0d220_cls* FUN_00a0d220(unsigned int auiFlags);
+    FUN_00a0d220_cls* ScalarDeletingDestructor(unsigned int auiFlags);
 };
 
 // @fnv 0x00a0d220
-FUN_00a0d220_cls* FUN_00a0d220_cls::FUN_00a0d220(unsigned int auiFlags)
+// src: EXE 0x00a0d220
+FUN_00a0d220_cls* FUN_00a0d220_cls::ScalarDeletingDestructor(unsigned int auiFlags)
 {
     FUN_00a0d220_frame frame;
     m_vptr = (int)&DAT_01094d9c;
@@ -1000,12 +1001,12 @@ struct FUN_00a0d280_cls {
     int m_08;
     Sub_0043a010 m_sub;
 
-    void ProcessState_00a0d280();
+    void NiTMapBase_NewItem();
 };
 
 // @fnv 0x00a0d280
-// src: GUESS 0x00a0d280 (confidence: low)
-void FUN_00a0d280_cls::ProcessState_00a0d280()
+// src: GUESS 0x00a0d280 (confidence: medium)
+void FUN_00a0d280_cls::NiTMapBase_NewItem()
 {
     TileScratch_00a0d280 scratch;
     (void)scratch;
@@ -1158,11 +1159,11 @@ void __cdecl Tile_DeleteGlobalItems()
 }
 
 void __cdecl AutoTileLock_AutoTileLock();
-extern "C" void __cdecl Object___imp__LeaveCriticalSection_Thunk();
+extern "C" void __cdecl Tile_Unlock();
 
 struct TileSearchLock {
     TileSearchLock() { AutoTileLock_AutoTileLock(); }
-    ~TileSearchLock() { Object___imp__LeaveCriticalSection_Thunk(); }
+    ~TileSearchLock() { Tile_Unlock(); }
 };
 
 struct TileFloatList {
@@ -1230,15 +1231,16 @@ struct TileTemplateNew_ac80 {
     static void* operator new(unsigned int auiSize) { return DAT_011f6238.Allocate(auiSize); }
     static void operator delete(void* apMem) { DAT_011f6238.Deallocate(apMem); }
 };
-struct FUN_00a0ac80 {
+struct Tile_BuildStorage {
     TileCollection* pTemplate;
     TileTemplateList_ac80 xList;
     int iUnk0C;
     bool bOwns;
-    FUN_00a0ac80();
+    Tile_BuildStorage();
 };
 // @fnv 0x00a0ac80
-FUN_00a0ac80::FUN_00a0ac80()
+// src: GUESS 0x00a0ac80 (confidence: medium)
+Tile_BuildStorage::Tile_BuildStorage()
 {
     pTemplate = (TileCollection*)new TileTemplateNew_ac80("main", this);
     iUnk0C = 0;
@@ -1246,7 +1248,7 @@ FUN_00a0ac80::FUN_00a0ac80()
 }
 
 void AutoTileLock_AutoTileLock();
-void Object___imp__LeaveCriticalSection_Thunk();
+void Tile_Unlock();
 
 class TileV;
 
@@ -1264,7 +1266,7 @@ class FnvTileLock
 {
 public:
     FnvTileLock() { AutoTileLock_AutoTileLock(); }
-    ~FnvTileLock() { Object___imp__LeaveCriticalSection_Thunk(); }
+    ~FnvTileLock() { Tile_Unlock(); }
 };
 
 inline bool HasValue(TileValueV* pList, int m_iValueId)
@@ -1586,7 +1588,7 @@ struct S00ac5490_Base {
     virtual ~S00ac5490_Base();
 };
 
-struct FUN_00ac5490 : public S00ac5490_Base {
+struct BSFaceGenBinaryFile : public S00ac5490_Base {
     int unk08;
     int unk0C;
     int unk10;
@@ -1603,11 +1605,12 @@ struct FUN_00ac5490 : public S00ac5490_Base {
     int unk3C;
     int unk40;
     int unk44;
-    FUN_00ac5490(S00ac5490_Str a);
+    BSFaceGenBinaryFile(S00ac5490_Str a);
 };
 
 // @fnv 0x00ac5490
-FUN_00ac5490::FUN_00ac5490(S00ac5490_Str a) : S00ac5490_Base(a)
+// src: EXE 0x00ac5490
+BSFaceGenBinaryFile::BSFaceGenBinaryFile(S00ac5490_Str a) : S00ac5490_Base(a)
 {
     int d1;
     unk40 = 0;
@@ -1714,8 +1717,8 @@ struct MemoryContextGuard {
     __forceinline ~MemoryContextGuard() { SetMemoryContext(previous); }
 };
 void __cdecl AutoTileLock_AutoTileLock();
-void __cdecl Object___imp__LeaveCriticalSection_Thunk();
-struct TileReleaseLock { __forceinline ~TileReleaseLock() { Object___imp__LeaveCriticalSection_Thunk(); } };
+void __cdecl Tile_Unlock();
+struct TileReleaseLock { __forceinline ~TileReleaseLock() { Tile_Unlock(); } };
 extern MemoryManager DAT_011f6238;
 struct ReleaseValue {
     __forceinline ~ReleaseValue();
@@ -1834,7 +1837,7 @@ struct ReleaseTile {
     void Tile_SetMenuDeleting();
     void Tile_SeverExtraData();
     void Tile_SetParent(Tile*, Tile*);
-    void RemoveFadeItemsForTile(unsigned int);
+    void Tile_EndGradualSetFloat(unsigned int);
     void Tile_Release();
 };
 void __cdecl ClearInterfaceRefs(ReleaseTile*);
@@ -1854,7 +1857,7 @@ void ReleaseTile::Tile_Release() {
         delete values.buffer[i];
     }
     values.FUN_008454f0(true);
-    RemoveFadeItemsForTile(0x80000000);
+    Tile_EndGradualSetFloat(0x80000000);
     if (node && node->GetParent()) {
         node->GetParent()->RemoveObject(node);
     }
@@ -1869,7 +1872,7 @@ namespace fnv_00a00a30 {
 extern MemoryManager DAT_011f6238;
 
 void __cdecl AutoTileLock_AutoTileLock(); // EnterCriticalSection on the menu lock
-void __cdecl Object___imp__LeaveCriticalSection_Thunk(); // LeaveCriticalSection
+void __cdecl Tile_Unlock(); // LeaveCriticalSection
 
 class TileTemplateA00 {
 public:
@@ -1945,7 +1948,7 @@ extern SimpleListA00<FadeNodeA00*> DAT_011f3348;
 class MenuLockA00 {
 public:
     MenuLockA00() { AutoTileLock_AutoTileLock(); }
-    ~MenuLockA00() { Object___imp__LeaveCriticalSection_Thunk(); }
+    ~MenuLockA00() { Tile_Unlock(); }
 };
 
 // @fnv 0x00a00a30
@@ -2012,8 +2015,8 @@ struct Tile3D_FactoryView : ::Tile {
     SmallArray second;
 };
 }
-struct FUN_00a21660 : TileImage {
-    FUN_00a21660();
+struct RadialTile : TileImage {
+    RadialTile();
 };
 // @fnv 0x00a00c20
 // src: COMMUNITY 0x00a00c20
@@ -2026,7 +2029,7 @@ Tile* __cdecl Tile_CreateByID(int aiType)
     case 0x388: return (Tile*)new tile_factory::Tile3D_FactoryView;
     case 0x387: return (Tile*)new TileText;
     case 0x389: return (Tile*)new TileMenu;
-    case 0x38c: return (Tile*)new FUN_00a21660;
+    case 0x38c: return (Tile*)new RadialTile;
     }
     return 0;
 }
@@ -2048,11 +2051,11 @@ public:
 extern const char* DAT_011f34cc;
 
 void AutoTileLock_AutoTileLock();
-void Object___imp__LeaveCriticalSection_Thunk();
+void Tile_Unlock();
 
 struct TileListLock {
     TileListLock() { AutoTileLock_AutoTileLock(); }
-    ~TileListLock() { Object___imp__LeaveCriticalSection_Thunk(); }
+    ~TileListLock() { Tile_Unlock(); }
 };
 
 struct ExtraNode {
@@ -2092,12 +2095,12 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volati
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* lpAddend);
 
 void __cdecl AutoTileLock_AutoTileLock();
-void __cdecl Object___imp__LeaveCriticalSection_Thunk();
+void __cdecl Tile_Unlock();
 
 class MenuLockA01 {
 public:
     MenuLockA01() { AutoTileLock_AutoTileLock(); }
-    ~MenuLockA01() { Object___imp__LeaveCriticalSection_Thunk(); }
+    ~MenuLockA01() { Tile_Unlock(); }
 };
 
 class RefObjectA01 {
@@ -2173,14 +2176,14 @@ void UpdateRegistration::Tile_SeverExtraData()
 
 namespace fnv_00a01e20 {
 extern MemoryManager DAT_011f6238;
-struct FUN_00a0ac80;
-typedef FUN_00a0ac80 XmlNode;
-struct FUN_00a0ac80 {
+struct Tile_BuildStorage;
+typedef Tile_BuildStorage XmlNode;
+struct Tile_BuildStorage {
     static __forceinline void* operator new(unsigned int bytes) {
         return DAT_011f6238.Allocate(bytes);
     }
     static __forceinline void operator delete(void*) {}
-    FUN_00a0ac80();
+    Tile_BuildStorage();
     XmlNode* m_pTreeNode;
     XmlNode* m_parent;
     XmlNode* m_iFirstChild;
@@ -2548,11 +2551,11 @@ void __cdecl Tile_UpdateAll(bool update)
 
 namespace fnv_00a07580 {
 void __cdecl AutoTileLock_AutoTileLock();
-void __cdecl Object___imp__LeaveCriticalSection_Thunk();
+void __cdecl Tile_Unlock();
 
 struct LockGuard_00a07580 {
     LockGuard_00a07580() { ::AutoTileLock_AutoTileLock(); }
-    ~LockGuard_00a07580() { ::Object___imp__LeaveCriticalSection_Thunk(); }
+    ~LockGuard_00a07580() { ::Tile_Unlock(); }
 };
 
 struct TileResult_00a07580 {
@@ -2661,7 +2664,7 @@ struct ClipTile {
     unsigned int unk08, unk0c, unk10, unk14, unk18, unk1c, unk20, unk24, unk28;
     ClipNode* model;
     __forceinline ClipNode* Model() { return model; }
-    bool IsTraitNonZero(int);
+    bool Tile_IsTrue(int);
     bool FUN_00a03c60();
     void Tile_ReClipChildren(float left, float top, float right, float bottom);
 };
@@ -2688,7 +2691,7 @@ void ClipTile::Tile_ReClipChildren(float left, float top, float right, float bot
         ClipTile*& entry = position->m_element;
         position = position->m_pkNext;
         child = entry;
-        if (child->IsTraitNonZero(0xfae)) {
+        if (child->Tile_IsTrue(0xfae)) {
             ClipNode* modelCheck = child->model;
             if (modelCheck) {
             index = 0;
@@ -2913,13 +2916,13 @@ void __cdecl Tile_AddReaction(int iKey, int iItem)
 }  // namespace fnv_00a0a130
 
 void __cdecl AutoTileLock_AutoTileLock();
-void __cdecl Object___imp__LeaveCriticalSection_Thunk();
+void __cdecl Tile_Unlock();
 extern const double _gModifierZero;
 
 class MenuLockB35 {
 public:
     MenuLockB35() { AutoTileLock_AutoTileLock(); }
-    ~MenuLockB35() { Object___imp__LeaveCriticalSection_Thunk(); }
+    ~MenuLockB35() { Tile_Unlock(); }
 };
 
 class ChildTraitInvalidator;
@@ -3098,7 +3101,7 @@ namespace fnv_00aaa7d0 {
 // references.  They are the frames of two /Ob1 inline candidates that the compiler
 // started to inline and then declined (it allocates their locals in the caller's
 // frame anyway, see the "declined inline" reservation behaviour of VC9 /Od+/Ob1):
-//   * the FUN_00ac5490 constructor (12 dwords) -- reserved after the bool temps,
+//   * the BSFaceGenBinaryFile constructor (12 dwords) -- reserved after the bool temps,
 //     which is what puts the argument-address temp at [ebp-0xc0] (-0x30).
 //   * FractalHeader::FUN_00aaa720 (9 dwords) -- reserved after it, which is what
 //     puts the discarded call-result temps at [ebp-0xe8..-0xf1] (-0x54).
@@ -3134,14 +3137,14 @@ struct FUN_00aaaa80 {
     FUN_00aaaa80();
     virtual ~FUN_00aaaa80();
 };
-struct FUN_00ac5490 : FUN_00aaaa80 {
+struct BSFaceGenBinaryFile : FUN_00aaaa80 {
     void* file;
     void* archive;
-    FUN_00ac5490(GameString signature);
+    BSFaceGenBinaryFile(GameString signature);
     bool BSFaceGenBinaryFile_openForRead(GameString filename, bool binary);
     bool BSFaceGenBinaryFile_readHeader(void* buffer, unsigned int size, unsigned int count);
     void ClearHolders();
-    __forceinline ~FUN_00ac5490() {
+    __forceinline ~BSFaceGenBinaryFile() {
         ClearHolders();
     }
 };
@@ -3151,10 +3154,10 @@ struct FractalHeader {
     unsigned int values[2][2];
     void nullsub_321();
 };
-struct FractalReaderA { bool FanLinCtlGrpS_readFromFile(FUN_00ac5490*, unsigned int (*)[2]); };
-struct FractalReaderB { bool FanGenCtlsGrpC_readFromFile(FUN_00ac5490*, unsigned int (*)[2]); };
+struct FractalReaderA { bool FanLinCtlGrpS_readFromFile(BSFaceGenBinaryFile*, unsigned int (*)[2]); };
+struct FractalReaderB { bool FanGenCtlsGrpC_readFromFile(BSFaceGenBinaryFile*, unsigned int (*)[2]); };
 
-inline FUN_00ac5490::FUN_00ac5490(GameString signature)
+inline BSFaceGenBinaryFile::BSFaceGenBinaryFile(GameString signature)
 {
     int c00, c01, c02, c03, c04, c05, c06, c07, c08, c09, c10;
     c00 = (int)&signature; c01 = c00 + 1; c02 = c01 + 1; c03 = c02 + 1;
@@ -3178,7 +3181,7 @@ inline void FractalHeader::nullsub_321()
 bool __cdecl fanReadCtlFile(const GameString& filename, unsigned int* width,
     unsigned int* height, unsigned int values[2][2], FractalReaderA* a, FractalReaderB* b)
 {
-    FUN_00ac5490 stream("FRCTL001");
+    BSFaceGenBinaryFile stream("FRCTL001");
     if (!stream.BSFaceGenBinaryFile_openForRead(filename, true))
         return false;
     FractalHeader header;
@@ -3362,7 +3365,7 @@ extern MemoryManager g_memoryManager;
 extern __declspec(thread) int DAT_000002b4;
 extern void (__stdcall *DAT_00fdf05c)(void*);
 extern void (__stdcall *DAT_00fdf100)(void*);
-struct FUN_00a031b0_shell { Tile* CreateMenuTiles(void*); };
+struct FUN_00a031b0_shell { Tile* Tile_BuildAndNameTree(void*); };
 struct Tile__TileTemplate;
 
 struct TemplateListNode {
@@ -3450,7 +3453,7 @@ Tile* TileLoader::Tile_ReadFile(void* arg0) {
     if (DAT_011f32c8)
         return 0;
 
-    pTile7 = this->CreateMenuTiles(pTemplate->unk0c ? pTemplate->unk0c : pTemplate->unk00);
+    pTile7 = this->Tile_BuildAndNameTree(pTemplate->unk0c ? pTemplate->unk0c : pTemplate->unk00);
     if (DAT_011f32c8)
         return 0;
 
@@ -4116,7 +4119,7 @@ struct R_SetF { void Tile_Set(int, float, bool); };
 
 struct R_SetS { void Tile_Set_00a01350(int, const char*, bool); };
 
-struct R_ValOwner { R_Val* GetOrCreateTraitValue(int); };
+struct R_ValOwner { R_Val* Tile_AddValue(int); };
 
 struct R_P03 { void AppendFloatAction(int, float); };
 
@@ -4349,7 +4352,7 @@ void C00a033b0::Tile_ConnectTraitsToTree(R_Menu* a1)
 
             if (aa)
 
-                ((R_P03*)((R_ValOwner*)ad)->GetOrCreateTraitValue(aa))->AppendFloatAction(ao->m10, ao->fvalue);
+                ((R_P03*)((R_ValOwner*)ad)->Tile_AddValue(aa))->AppendFloatAction(ao->m10, ao->fvalue);
 
             else
 
@@ -4371,7 +4374,7 @@ void C00a033b0::Tile_ConnectTraitsToTree(R_Menu* a1)
 
                 {
 
-                    ((R_P09*)((R_ValOwner*)ad)->GetOrCreateTraitValue(aa))->Tile_Value_AddRefValueAction(ao->m10, aj, fnv_FloatToInt(ao->fvalue));
+                    ((R_P09*)((R_ValOwner*)ad)->Tile_AddValue(aa))->Tile_Value_AddRefValueAction(ao->m10, aj, fnv_FloatToInt(ao->fvalue));
 
                 }
 
@@ -4391,7 +4394,7 @@ void C00a033b0::Tile_ConnectTraitsToTree(R_Menu* a1)
 
             {
 
-                ((R_P03*)((R_ValOwner*)ad)->GetOrCreateTraitValue(aa))->AppendFloatAction(2024, (float)fnv_FloatToInt(ao->fvalue));
+                ((R_P03*)((R_ValOwner*)ad)->Tile_AddValue(aa))->AppendFloatAction(2024, (float)fnv_FloatToInt(ao->fvalue));
 
             }
 
@@ -4409,7 +4412,7 @@ void C00a033b0::Tile_ConnectTraitsToTree(R_Menu* a1)
 
             {
 
-                ((R_P03*)((R_ValOwner*)ad)->GetOrCreateTraitValue(aa))->AppendFloatAction(2025, (float)fnv_FloatToInt(ao->fvalue));
+                ((R_P03*)((R_ValOwner*)ad)->Tile_AddValue(aa))->AppendFloatAction(2025, (float)fnv_FloatToInt(ao->fvalue));
 
             }
 

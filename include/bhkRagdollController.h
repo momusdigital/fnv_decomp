@@ -74,7 +74,7 @@ public:
     void bhkRagdollController_EnableRagdollFeedback(bool);
     void bhkRagdollController_GetEyeAngles(float*, float*);
     void SetFloats(float, float);
-    // Head-look limits Actor::m_pRagdollController (+0xAC) receives in TESNPC::UpdateActorFaceGen (0x00607420):
+    // Head-look limits Actor::m_pRagdollController (+0xAC) receives in TESNPC::AttachHead (0x00607420):
     // 0x00607830 stores +0x1a8; 0x00607810 stores +0xf8 + bone*0x50; 0x00c748d0 stores +0x134/+0x138 + bone*0x50.
     void SetMaxEyePitch(float);
     void SetBoneMaxAngle(int, float);

@@ -59,7 +59,7 @@ extern MemoryManager g_memoryManager;
 struct S00b02640
 {
     void DestroyAndFreeLibraries();
-    void* FUN_00b02640(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 struct FUN_00b02130_shell
 {
@@ -77,7 +77,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall WaitForMultipleObjects(
                                                                                 int bWaitAll,
                                                                                 unsigned long dwMilliseconds);
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject);
-struct FUN_00b01f50_shell
+struct BSWin32TaskletManager
 {
     void BSWin32TaskletManager_ShutdownAllTasks();
 };

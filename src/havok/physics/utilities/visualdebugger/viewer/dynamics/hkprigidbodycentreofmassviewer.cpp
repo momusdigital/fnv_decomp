@@ -37,7 +37,7 @@ struct Entries
 };
 struct Owner
 {
-    void ProcessEntries_00d69c10(void* item);
+    void hkpRigidBodyCentreOfMassViewer_addWorld(void* item);
 };
 struct View
 {
@@ -59,13 +59,13 @@ void View::ProcessEntries_00d69f60()
     if (entries)
     {
         for (int i = 0; i < entries->count; ++i)
-            reinterpret_cast<Owner*>(reinterpret_cast<char*>(this) - 8)->ProcessEntries_00d69c10(entries->items[i]);
+            reinterpret_cast<Owner*>(reinterpret_cast<char*>(this) - 8)->hkpRigidBodyCentreOfMassViewer_addWorld(entries->items[i]);
     }
 }
 
 struct Target
 {
-    void ProcessEntries_00d69c10();
+    void hkpRigidBodyCentreOfMassViewer_addWorld();
 };
 struct FUN_00d69fb0_cls
 {
@@ -75,7 +75,7 @@ struct FUN_00d69fb0_cls
 // @fnv 0x00d69fb0
 void FUN_00d69fb0_cls::CallTargetMethod()
 {
-    ((Target*)((char*)this - 0x20))->ProcessEntries_00d69c10();
+    ((Target*)((char*)this - 0x20))->hkpRigidBodyCentreOfMassViewer_addWorld();
 }
 
 
@@ -208,7 +208,7 @@ void* Owner::DestroyOwner(unsigned int flags)
 Owner force_vtable;
 }  // namespace fnv_00d6a1f0
 
-// AttachAndDispatch: thiscall, one stack parameter (ArgOwner*).
+// hkpRigidBodyCentreOfMassViewer_removeWorld: thiscall, one stack parameter (ArgOwner*).
 
 struct SubList
 {
@@ -268,7 +268,7 @@ struct ArgOwner
     void Detach(void* p);
 };
 
-struct FUN_00d69b20_cls
+struct hkpRigidBodyCentreOfMassViewer
 {
     int unk00;
     int unk04;
@@ -283,12 +283,13 @@ struct FUN_00d69b20_cls
     Fn_SlotObj m_28;
     int m_2c;
 
-    void AttachAndDispatch(ArgOwner* a1);
+    void hkpRigidBodyCentreOfMassViewer_removeWorld(ArgOwner* a1);
 };
 
 // Attaches and detaches this object's slots on a1, then dispatches every element of a1's three lists through m_28.v08.
 // @fnv 0x00d69b20
-void FUN_00d69b20_cls::AttachAndDispatch(ArgOwner* apOwner)
+// src: COMMUNITY 0x00d69b20
+void hkpRigidBodyCentreOfMassViewer::hkpRigidBodyCentreOfMassViewer_removeWorld(ArgOwner* apOwner)
 {
     apOwner->Attach(this != 0 ? (void*)&m_28 : 0);
     apOwner->Detach(this != 0 ? (void*)&m_2c : 0);
@@ -324,7 +325,7 @@ void FUN_00d69b20_cls::AttachAndDispatch(ArgOwner* apOwner)
 namespace fnv_00d69fa0 {
 class SpawnedObject;
 
-class FUN_00d69b20_cls
+class hkpRigidBodyCentreOfMassViewer
 {
   public:
     void FUN_00d69b20_target();
@@ -340,7 +341,7 @@ class FUN_00d69fa0_cls
 // src: GUESS 0x00d69fa0 (confidence: low)
 void FUN_00d69fa0_cls::ForwardCall_00d69fa0()
 {
-    ((FUN_00d69b20_cls*)((char*)this - 0x20))->FUN_00d69b20_target();
+    ((hkpRigidBodyCentreOfMassViewer*)((char*)this - 0x20))->FUN_00d69b20_target();
 }
 }  // namespace fnv_00d69fa0
 
@@ -566,17 +567,17 @@ struct FUN_00d6a0a0 : Base00, Base08, Base20, Base28, Base2C
 {
     Array unk30;
     virtual ~FUN_00d6a0a0();
-    void AttachAndDispatch(void* item) throw();
+    void hkpRigidBodyCentreOfMassViewer_removeWorld(void* item) throw();
 };
 
-// Destructor: iterates the Source's unk70 entries and calls AttachAndDispatch on each pointer in unk6C when unk24 is set.
+// Destructor: iterates the Source's unk70 entries and calls hkpRigidBodyCentreOfMassViewer_removeWorld on each pointer in unk6C when unk24 is set.
 // @fnv 0x00d6a0a0
 FUN_00d6a0a0::~FUN_00d6a0a0()
 {
     if (unk24)
     {
         for (int i = 0; i < unk24->unk70; i++)
-            AttachAndDispatch(unk24->unk6C[i]);
+            hkpRigidBodyCentreOfMassViewer_removeWorld(unk24->unk6C[i]);
     }
 }
 }  // namespace fnv_00d6a0a0
@@ -998,12 +999,12 @@ struct CenterOfMassRemovalDispatcher
     int unk24;
     Callback callback28;
     int data2c;
-    void ProcessEntries_00d69c10(Context* context);
+    void hkpRigidBodyCentreOfMassViewer_addWorld(Context* context);
 };
 // Passes callback28 and data2c to context, then calls callback28.deliver for each entry in the data48 lists of list28, list34 and special20.
 // @fnv 0x00d69c10
-// src: GUESS 0x00d69c10 (confidence: low)
-void CenterOfMassRemovalDispatcher::ProcessEntries_00d69c10(Context* context)
+// src: COMMUNITY 0x00d69c10
+void CenterOfMassRemovalDispatcher::hkpRigidBodyCentreOfMassViewer_addWorld(Context* context)
 {
     context->hkpWorld_addEntityListener(this ? &callback28 : 0);
     context->hkpWorld_addWorldPostSimulationListener(this ? &data2c : 0);

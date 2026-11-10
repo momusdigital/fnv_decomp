@@ -15,7 +15,7 @@ struct FUN_00621100_shell
     void SetVtable();
 };
 extern float DAT_0104da4c;
-struct FUN_00621290_shell
+struct hkpLinearCastInput
 {
     void* InitFloats();
     void _ref_006815c0();

@@ -4,7 +4,7 @@
 void* __cdecl _NiMalloc(unsigned int);
 void __cdecl _NiFree(void*);
 
-struct FUN_00a311e0_s
+struct NiTPrimitiveArray
 {
     unsigned int* m_pBase;
     unsigned int m_uiElementCount;
@@ -14,7 +14,7 @@ struct FUN_00a311e0_s
 
 // @fnv 0x00a311e0
 // src: XBOX_PDB 0x00a311e0
-void FUN_00a311e0_s::NiTSet_NiScreenGeometryData_ScreenElement_NiTMallocInterface_NiScreenGeometryData_ScreenElement_Add(unsigned int uiCapacity)
+void NiTPrimitiveArray::NiTSet_NiScreenGeometryData_ScreenElement_NiTMallocInterface_NiScreenGeometryData_ScreenElement_Add(unsigned int uiCapacity)
 {
     if (uiCapacity != m_uiElementCount)
     {

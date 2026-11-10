@@ -385,12 +385,13 @@ void* __cdecl __memcpy(void* destination, const void* source, unsigned int size)
 
 struct FUN_006b48f0_shell : public NavMeshInfo
 {
-    void WriteToChunkBuffer(char* apChunkBuffer);
+    void NavMeshInfo_FillInfoChunk(char* apChunkBuffer);
 };
 
 // Serializes uiFlags, form IDs, a NiPoint3, optional bounds data and a float into apChunkBuffer, byte-swapping each value when FUN_00401500 is true.
 // @fnv 0x006b48f0
-void FUN_006b48f0_shell::WriteToChunkBuffer(char* apChunkBuffer)
+// src: COMMUNITY 0x006b48f0
+void FUN_006b48f0_shell::NavMeshInfo_FillInfoChunk(char* apChunkBuffer)
 {
     unsigned int itempint;
     float ftempFloat;
@@ -453,7 +454,7 @@ void FUN_006b48f0_shell::WriteToChunkBuffer(char* apChunkBuffer)
 
 struct FUN_006b4b50_shell : public NavMeshInfo
 {
-    void LoadNavMeshInfo(char*, TESFile*, int);
+    void NavMeshInfo_SetFromInfoChunk(char*, TESFile*, int);
 };
 
 void* __cdecl __memcpy(void* destination, const void* source, unsigned int size);
@@ -464,7 +465,8 @@ struct FUN_0069c8f0_shell
 };
 
 // @fnv 0x006b4b50
-void FUN_006b4b50_shell::LoadNavMeshInfo(char* apChunkBuffer, TESFile* apFile, int aiFileVersionNumber)
+// src: COMMUNITY 0x006b4b50
+void FUN_006b4b50_shell::NavMeshInfo_SetFromInfoChunk(char* apChunkBuffer, TESFile* apFile, int aiFileVersionNumber)
 {
     __memcpy(&this->uiFlags, apChunkBuffer, 4);
     if (apFile->GetChunkData())

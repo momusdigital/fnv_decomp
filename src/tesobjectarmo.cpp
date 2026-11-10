@@ -126,7 +126,8 @@ void TESObjectARMO::ResetFormData()
 
 // Returns 1 for heavy armor, 2 for medium armor, otherwise 0.
 // @fnv 0x00514410
-unsigned char TESObjectARMO::GetArmorType()
+// src: COMMUNITY 0x00514410
+unsigned char TESObjectARMO::GetArmorWeight()
 {
     if (GetIsHeavyArmor())
         return 1;
@@ -477,19 +478,19 @@ TESObjectARMO::~TESObjectARMO()
 {}
 
 bool TESForm_QEndianSwapOnSave();
-void AppendChunk(unsigned int, void*, unsigned int);
+void TESForm___AddChunkData(unsigned int, void*, unsigned int);
 void TESForm_AddChunk_00485910(unsigned int, unsigned int);
 struct FUN_004855a0_shell
 {
-    void BeginFormRecord();
-    void FinishFormRecord();
+    void TESForm_StartForm();
+    void TESForm_CloseForm();
     void TESForm_SaveData();
 };
 
 // Serialization methods missing from the shared component headers use method-only bridges.
 struct BipedModelSerialization
 {
-    void InitBipedModel();
+    void TESBipedModelForm_Save();
 };
 
 struct RepairListSerialization
@@ -503,7 +504,7 @@ struct BipedModelListSerialization
 
 struct PickupPutdownSerialization
 {
-    void LogFormIDs();
+    void BGSPickupPutdownSounds_Save();
 };
 struct RefObj
 {
@@ -514,12 +515,12 @@ struct FoleyNode : BSSimpleList<SoundDescriptor*>
     SoundDescriptor*& FUN_006815c0();
     FoleyNode* FUN_00726070();
 };
-struct FUN_00513d60
+struct FOLEY_SOUND
 {
     unsigned int formID;
     unsigned char soundType;
     int value;
-    FUN_00513d60();
+    FOLEY_SOUND();
     void FUN_00483710();
 };
 struct ArmorSerializer : TESObjectARMO
@@ -530,20 +531,20 @@ struct ArmorSerializer : TESObjectARMO
 // @fnv 0x00513d90
 void ArmorSerializer::Save()
 {
-    ((FUN_004855a0_shell*)this)->BeginFormRecord();
+    ((FUN_004855a0_shell*)this)->TESForm_StartForm();
     TESFullName::Save_00487010();
     TESScriptableForm::Save();
     TESEnchantableForm::Save();
-    reinterpret_cast<BipedModelSerialization*>(((char*)this + 0x70))->InitBipedModel();
+    reinterpret_cast<BipedModelSerialization*>(((char*)this + 0x70))->TESBipedModelForm_Save();
     BGSDestructibleObjectForm::Save();
     reinterpret_cast<RepairListSerialization*>(((char*)this + 0x15C))->FUN_0047b8a0();
     reinterpret_cast<BipedModelListSerialization*>(((char*)this + 0x164))->BGSBipedModelList_Save();
     BGSEquipType::Save();
-    reinterpret_cast<PickupPutdownSerialization*>(((char*)this + 0x16C))->LogFormIDs();
+    reinterpret_cast<PickupPutdownSerialization*>(((char*)this + 0x16C))->BGSPickupPutdownSounds_Save();
     ((FUN_004855a0_shell*)this)->TESForm_SaveData();
     if (TESForm_QEndianSwapOnSave())
         reinterpret_cast<ArmorDataEndian*>(&data)->OBJ_WEAP_CRITICAL_Endian();
-    AppendChunk(0x4d414e44, &data, sizeof(data));
+    TESForm___AddChunkData(0x4d414e44, &data, sizeof(data));
     if (TESForm_QEndianSwapOnSave())
         reinterpret_cast<ArmorDataEndian*>(&data)->OBJ_WEAP_CRITICAL_Endian();
     TESForm_AddChunk_00485910(0x4d414e42, m_bUsesSoundList ? 1 : 0);
@@ -564,19 +565,19 @@ void ArmorSerializer::Save()
             node = node->FUN_00726070();
             if (sound && sound->SoundAssetTmp)
             {
-                FUN_00513d60 saved;
+                FOLEY_SOUND saved;
                 saved.formID = ((RefObj*)sound->SoundAssetTmp)->_ref_0084e3a0();
                 saved.soundType = sound->layoutPadding4[0];
                 saved.value = sound->eType;
                 if (TESForm_QEndianSwapOnSave())
                     saved.FUN_00483710();
-                AppendChunk(0x4d414e53, &saved, sizeof(saved));
+                TESForm___AddChunkData(0x4d414e53, &saved, sizeof(saved));
                 if (TESForm_QEndianSwapOnSave())
                     saved.FUN_00483710();
             }
         }
     }
-    ((FUN_004855a0_shell*)this)->FinishFormRecord();
+    ((FUN_004855a0_shell*)this)->TESForm_CloseForm();
 }
 
 void* __cdecl operator new(unsigned int);

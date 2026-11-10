@@ -47,13 +47,13 @@ void MatrixRange::SetMatrixRange(unsigned int nStartingMatrix, unsigned int nMat
 }
 
 extern float DAT_011f8d80;
-struct FUN_00b37470_shell
+struct CWindEngine
 {
     float SetStrength(float fOldStrength, float fNewStrength, float fOldTimeShift);
 };
 // Stores the old strength, recomputes the frequency-scaled values at offsets 0x20/0x24 and the phase at offset 0, resets 0x30/0x34, and returns the phase.
 // @fnv 0x00b37470
-float FUN_00b37470_shell::SetStrength(float fOldStrength, float fNewStrength, float fOldTimeShift)
+float CWindEngine::SetStrength(float fOldStrength, float fNewStrength, float fOldTimeShift)
 {
     float fNewLeafFrequency = DAT_010a5784 * fNewStrength * ((float*)((char*)this + 0x1c))[0];
     ((float*)((char*)this + 4))[0] = fOldStrength;

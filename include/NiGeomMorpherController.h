@@ -30,7 +30,7 @@ public:
     virtual ~NiGeomMorpherController() throw();
     virtual NiObject* MakeClone(CloningProcess& kCloning);
 
-    virtual unsigned short GetTargetCount() const;
+    virtual unsigned short GetInterpolatorCount() const;
     virtual unsigned short GetTargetIndex(const char* pcID) const;
     virtual unsigned short GetTargetIndex(const NiFixedString& kID) const;
 

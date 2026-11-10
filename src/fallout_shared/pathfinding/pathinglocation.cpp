@@ -11,7 +11,7 @@ PathingLocation::~PathingLocation()
 // @fnv 0x006dce10
 PathingLocation::PathingLocation(const NiPoint3& location, TESObjectREFR* reference)
 {
-    SetLocationData(location, reinterpret_cast<TESObjectCELL*>(reinterpret_cast<LowProcess*>(reference)->LowProcess::GetTarget()),
+    SetupData(location, reinterpret_cast<TESObjectCELL*>(reinterpret_cast<LowProcess*>(reference)->LowProcess::GetTarget()),
                     reference->GetParentWorldSpace());
 }
 
@@ -45,7 +45,7 @@ TESObjectCELL* PathingLocation::GetContainingCell()
         return pCell;
     else if (m_pContainingWorldspace)
     {
-        TESObjectCELL* cell = m_pContainingWorldspace->GetCellByKey(m_uiPathingFlags);
+        TESObjectCELL* cell = m_pContainingWorldspace->GetCellFromKey(m_uiPathingFlags);
         if (cell)
             return cell;
     }
@@ -374,7 +374,7 @@ PathingLocation::PathingLocation(const NiPoint3& location, const NavMeshInfo* in
 // @fnv 0x006dce60
 PathingLocation::PathingLocation(NiPoint3 const& a, TESObjectCELL* b)
 {
-    SetLocationData(a, b, 0);
+    SetupData(a, b, 0);
 }
 
 // @fnv 0x006dd4d0
@@ -428,7 +428,7 @@ PathingLocation::PathingLocation(const NiPoint3& location, const PathingLocation
             return;
         }
     }
-    SetLocationData(location, const_cast<PathingLocation&>(hint).GetContainingCell(),
+    SetupData(location, const_cast<PathingLocation&>(hint).GetContainingCell(),
                           const_cast<PathingLocation&>(hint).GetParentWorldspace());
 }
 
@@ -461,7 +461,7 @@ void PathingLocation::SetLocationSimple(void* point)
     {
         int key = TESWorldSpace::GetKeyForWorldCoord(Location);
         if (key != m_uiPathingFlags)
-            SetLocationData((*static_cast<const NiPoint3*>(point)), 0, m_pContainingWorldspace);
+            SetupData((*static_cast<const NiPoint3*>(point)), 0, m_pContainingWorldspace);
     }
 }
 
@@ -489,7 +489,8 @@ const BSSimpleArray<const NavMeshInfo*, 1024>* Pathing_GetPotentialNavMeshInfoFo
 
 // Stores the position, resolves the nav-mesh array from the world or cell, marks all meshes reachable when exactly one mesh exists, and sets flags.
 // @fnv 0x006dd280
-void PathingLocation::SetLocationData(const NiPoint3& position, TESObjectCELL* cell, TESWorldSpace* world)
+// src: COMMUNITY 0x006dd280
+void PathingLocation::SetupData(const NiPoint3& position, TESObjectCELL* cell, TESWorldSpace* world)
 {
     Location = position;
     uiFlags = 0;
@@ -573,17 +574,18 @@ void PathingLocationOwner::PathSmoother_AddPathingNode(const NiPoint3& position,
     PathSmoother_AddPathingNode_0(&location);
 }
 
-struct FUN_006f4da0
+struct VirtualPathingNode
 {
     unsigned int flags;
     PathingLocation path;
     int context;
-    FUN_006f4da0(int, int);
+    VirtualPathingNode(int, int);
 };
 
 // Initialises the path from source, stores contextValue, sets flags to 6 and adds bit 1 when the path check for 0 succeeds.
 // @fnv 0x006f4da0
-FUN_006f4da0::FUN_006f4da0(int source, int contextValue) : path()
+// src: COMMUNITY 0x006f4da0
+VirtualPathingNode::VirtualPathingNode(int source, int contextValue) : path()
 {
     path = *reinterpret_cast<const PathingLocation*>(source);
     context = contextValue;
@@ -903,7 +905,7 @@ extern const float DAT_01016970;  // FLT_MAX
 // @fnv 0x006ddc00
 bool PathingLocation::IsPathingLocationValid()
 {
-    SetLocationData(Location, pCell, m_pContainingWorldspace);
+    SetupData(Location, pCell, m_pContainingWorldspace);
     if (!m_pLocationNavMesh && !pNavMeshInfoArray)
         return false;
     if (m_pLocationNavMesh && m_usTriangleID != kClearTriangleDataValue1)
@@ -921,7 +923,7 @@ bool PathingLocation::IsPathingLocationValid()
                 {
                     NiPoint3 kTriCenter = kMeshPtr.Modelloader_GetReferencedThis()->FUN_00558220(m_usTriangleID);
                     NavEdgeHit kResult = kMeshPtr.Modelloader_GetReferencedThis()
-                                            ->FindEdgeIntersection(m_usTriangleID, -1, kTriCenter, Location);
+                                            ->FindInterectingEdge2(m_usTriangleID, -1, kTriCenter, Location);
                     if (kResult.m_iEdgeNumber)
                         Location = kResult.kPoint.ApplyScaled(0.9f).FUN_00439e90(kTriCenter.ApplyScaled(0.1f));
                 }
@@ -941,7 +943,7 @@ bool PathingLocation::IsPathingLocationValid()
         bool bValidFound = false;
         unsigned int uiNumMeshes = ((NLMeshInfoArray*)pNavMeshInfoArray)->FUN_0044ddc0();
         bool bClose = false;
-        if (DAT_011dea10->GetCellHeightAtPosition(reinterpret_cast<NiPoint3*>(&Location), reinterpret_cast<int>(pCell)) + 25.0 > Location.z)
+        if (DAT_011dea10->TES_GetWaterHeight(reinterpret_cast<NiPoint3*>(&Location), reinterpret_cast<int>(pCell)) + 25.0 > Location.z)
             bClose = true;
         for (unsigned int i = 0; i < uiNumMeshes; i++)
         {
@@ -963,7 +965,7 @@ bool PathingLocation::IsPathingLocationValid()
             {
                 NiPoint3 kToCenter =
                     Location.SubtractIntoVector(pFoundNavMesh.Modelloader_GetReferencedThis()->FUN_00558220(usTri));
-                float fDist = kToCenter.GetSquaredXYLength();
+                float fDist = kToCenter.NiPoint3_SqrXYLength();
                 float m_fGlyphExtent = kToCenter.z;
                 bool bGood = false;
                 if ((bClose || m_fGlyphExtent < 180.0) && m_fGlyphExtent > -64.0)
@@ -1002,7 +1004,7 @@ bool PathingLocation::IsPathingLocationValid()
             {
                 NiPoint3 kTriCenter = spBest.Modelloader_GetReferencedThis()->FUN_00558220(usBestTri);
                 NavEdgeHit kResult = spBest.Modelloader_GetReferencedThis()
-                                        ->FindEdgeIntersection(usBestTri, -1, kTriCenter, Location);
+                                        ->FindInterectingEdge2(usBestTri, -1, kTriCenter, Location);
                 if (kResult.m_iEdgeNumber)
                     Location = kTriCenter.ApplyScaled(0.1f).FUN_00439e90(kResult.kPoint.ApplyScaled(0.9f));
                 return true;

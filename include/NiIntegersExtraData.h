@@ -19,7 +19,7 @@ class NiIntegersExtraData : public NiExtraData
     void AssignPointerArray(int a, int b);
     void SetVtableAndProcessState_00a99950();
     NiIntegersExtraData* NiIntegersExtraData_00a99980(int a, int b);
-    NiIntegersExtraData* FUN_00a99a50(int flag);
+    NiIntegersExtraData* ScalarDeletingDestructor(int flag);
     bool IsEqual_00a998e0(NiIntegersExtraData* pObject);
     void CopyMembers_00a99870(NiIntegersExtraData* pDest, void* pCloning);
     NiExtraData* CreateClone_00a999b0(void* pvProcess);

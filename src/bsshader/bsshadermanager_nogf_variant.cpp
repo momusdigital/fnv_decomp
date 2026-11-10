@@ -108,7 +108,7 @@ NiObject* __cdecl CreateDerived();
 NiObject* __cdecl CreateInterpDerivedBc36();
 NiObject* __cdecl VolumetricFogShaderProperty_CreateObject();
 NiObject* __cdecl CreateSpawnedObj9441();
-NiObject* __cdecl CreateShaderAccumulator();
+NiObject* __cdecl BSTextureData_CreateObject();
 extern const char g_011f9140_arg0[];
 extern const char g_011f9f00_arg0[];
 extern const char g_011fa010_arg0[];

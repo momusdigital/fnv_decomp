@@ -181,9 +181,9 @@ public:
     int GetPlayerLevel();
     void UpdateRadiationEffects();
     MagicShaderHitEffect* GetField6A4();
-    int GetField230();
+    int TESObjectWEAP_GetMeleeBlockSound();
     MusicMarkerReference* GetMusicMarkerReference();
-    void WriteProgressData(int value);
+    void PlayerCharacter_ExportProgressData(int value);
     void UpdatePlayerState();
     float GetScale();
     bool PlaceAtPosition(NiPoint3& position);
@@ -302,7 +302,7 @@ public:
     bool PlayerCharacter_AddTopic(int value, unsigned char sort, int flags);
     void PlayerCharacter_SetSelectedSpell(BaseB* node);
     void SetArg(ArgObj* argument);
-    void __thiscall ClearHelper();
+    void __thiscall PlayerCharacter_RemovePlayerMapMarker();
     void RestorePlayerLocation(bool travel);
     bool IsPlayerTargeted(Ref* actor, bool mode);
     unsigned char PlayerCharacter_IsPipboyActive();

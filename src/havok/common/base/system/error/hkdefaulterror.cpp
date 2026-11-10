@@ -7,7 +7,7 @@ struct FUN_00626490_Class
 {
     int LookupHashEntry(int first, int second);
 };
-struct FUN_00d2b3b0_Class
+struct hkDefaultError
 {
     int unk00;
     int unk04;
@@ -16,7 +16,7 @@ struct FUN_00d2b3b0_Class
 };
 // @fnv 0x00d2b3b0
 // src: HAVOK_LIB 0x00d2b3b0
-unsigned char* FUN_00d2b3b0_Class::hkDefaultError_isEnabled(unsigned char* result, int value)
+unsigned char* hkDefaultError::hkDefaultError_isEnabled(unsigned char* result, int value)
 {
     *result = (helper.LookupHashEntry(value, 0) == 0);
     return result;

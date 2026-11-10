@@ -10,10 +10,10 @@ struct FUN_00c9ea90_Base
     FUN_00c9ea90_Base(int a, int b);
 };
 
-struct FUN_00c9ea90 : FUN_00c9ea90_Base
+struct hkpPhantom : FUN_00c9ea90_Base
 {
     virtual void v0();
-    FUN_00c9ea90(int a1);
+    hkpPhantom(int a1);
 };
 
 struct __declspec(align(16)) FUN_00827200_class
@@ -28,10 +28,10 @@ struct FUN_00cf2410_class
     int __thiscall hkMotionState_initMotionState(int, void*);
 };
 
-class FUN_00c9ea40_cls : public FUN_00c9ea90
+class hkpShapePhantom : public hkpPhantom
 {
   public:
-    virtual ~FUN_00c9ea40_cls();
+    virtual ~hkpShapePhantom();
     virtual void v1();
 
     int unk04;
@@ -81,12 +81,13 @@ class FUN_00c9ea40_cls : public FUN_00c9ea90
     __declspec(property(get=GetSweptStorage)) hkMotionState m_swept;
     __forceinline hkMotionState& GetSweptStorage() { return *reinterpret_cast<hkMotionState*>(m_sweptStorage); }
 
-    FUN_00c9ea40_cls(int a, int b);
+    hkpShapePhantom(int a, int b);
 };
 
 // Calls the base constructor, initializes a temporary from b, passes it with b + 0x30 to FUN_00cf2410, and points m_motionPtr at m_swept.
 // @fnv 0x00c9ea40
-FUN_00c9ea40_cls::FUN_00c9ea40_cls(int a, int b) : FUN_00c9ea90(a)
+// src: EXE 0x00c9ea40
+hkpShapePhantom::hkpShapePhantom(int a, int b) : hkpPhantom(a)
 {
     FUN_00827200_class tmp;
     tmp.FUN_00cb26e0(b);

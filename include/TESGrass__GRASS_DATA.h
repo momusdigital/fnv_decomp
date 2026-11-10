@@ -18,7 +18,7 @@ enum TESGrass__GRASS_WATER_STATE
 class TESGrass__GRASS_DATA
 {
 public:
-    void ResetGrassData();
+    void TESGrass_GRASS_DATA_Endian();
 
     unsigned char m_ucDensity;
     unsigned char m_ucMinSlope;

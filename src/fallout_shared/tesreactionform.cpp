@@ -213,7 +213,7 @@ void TESReactionForm::LoadGame(BGSLoadFormBuffer* buffer)
     if (static_cast<const FormChangeMask&>(buffer->GetChangeFlags(4u)))
     {
         ClearReactionList();
-        unsigned int count = buffer->ReadElementCount();
+        unsigned int count = buffer->LoadVariableSizedValue();
         for (unsigned int i = 0; i < count; ++i)
         {
             GROUP_REACTION* entry = new GROUP_REACTION;
@@ -226,7 +226,7 @@ void TESReactionForm::LoadGame(BGSLoadFormBuffer* buffer)
 }
 
 bool TESForm_QEndianSwapOnSave();
-void AppendChunk(unsigned int, void*, unsigned int);
+void TESForm___AddChunkData(unsigned int, void*, unsigned int);
 
 // @fnv 0x0048bb70
 void TESReactionForm::Save()
@@ -248,7 +248,7 @@ void TESReactionForm::Save()
             if (TESForm_QEndianSwapOnSave())
                 data.Endian();
 
-            AppendChunk(0x4d414e58, &data, 0xc);
+            TESForm___AddChunkData(0x4d414e58, &data, 0xc);
 
             if (TESForm_QEndianSwapOnSave())
                 data.Endian();

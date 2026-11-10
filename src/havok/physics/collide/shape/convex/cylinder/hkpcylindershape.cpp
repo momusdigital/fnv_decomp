@@ -5,8 +5,8 @@
 #include "../../../../../../../include/hkpCylinderShape.h"
 
 // @fnv 0x00d571b0
-// src: GUESS 0x00d571b0 (confidence: high)
-int __cdecl hkpCylinderShape_ReturnConstant_0x12()
+// src: COMMUNITY 0x00d571b0
+int __cdecl hkpCylinderShape_getNumCollisionSpheresImpl()
 {
     return 0x12;
 }

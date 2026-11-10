@@ -54,7 +54,8 @@ BGSRepairItemList::~BGSRepairItemList()
 
 void __cdecl TESForm_AddChunk_00485910(unsigned int, unsigned int);
 // @fnv 0x0047b8a0
-void __fastcall SaveRepairItemList(BGSRepairItemList* component)
+// src: COMMUNITY 0x0047b8a0
+void __fastcall BGSRepairItemList_Save(BGSRepairItemList* component)
 {
     unsigned int formID;
     if (component->pListForm != 0)

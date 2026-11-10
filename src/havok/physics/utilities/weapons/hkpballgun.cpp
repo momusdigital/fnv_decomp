@@ -73,7 +73,8 @@ class hkpFirstPersonGunListener
 
 // hkpBallGun.h lacks reset; ECX carries the gun, and unused EDX preserves the thiscall stack.
 // @fnv 0x00e46ea0
-void __fastcall resetBallGun(hkpBallGun* gun, void*, hkpWorld* pkWorld) throw()
+// src: COMMUNITY 0x00e46ea0
+void __fastcall hkpBallGun_reset(hkpBallGun* gun, void*, hkpWorld* pkWorld) throw()
 {
     while (!static_cast<hkQueue<hkpRigidBody*>*>(gun->m_pBulletQueue)->isEmpty())
     {

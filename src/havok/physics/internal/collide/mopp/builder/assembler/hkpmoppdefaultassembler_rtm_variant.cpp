@@ -365,7 +365,7 @@ struct FUN_00e09640_class
     virtual void unknownVirtual();
     unsigned short unk04;
     void __thiscall DestroyAudioBuffer();
-    FUN_00e09640_class* __thiscall FUN_00e09640(int flags);
+    FUN_00e09640_class* __thiscall ScalarDeletingDestructor(int flags);
 };
 struct FUN_00e06800_cls
 {

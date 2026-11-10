@@ -44,7 +44,8 @@ NiParticlesData* __fastcall ConstructParticlesData(NiParticlesData* data)
 }
 
 // @fnv 0x00a967e0
-void __fastcall SetActiveParticleCount(NiParticlesData* data, void*, unsigned short usActive)
+// src: COMMUNITY 0x00a967e0
+void __fastcall NiParticlesData_SetActiveVertexCount(NiParticlesData* data, void*, unsigned short usActive)
 {
     unsigned short active = data->m_usVertices;
     if (usActive <= active)
@@ -204,7 +205,8 @@ bool NiPSysData::IsEqual(NiObject* object) const
 
 // Keep the original 32-bit result; the shared GetParticleVertexCount returns 16 bits.
 // @fnv 0x00c24ea0
-unsigned int __fastcall GetAvailableParticleIndex(NiPSysData* data)
+// src: EXE 0x00c24ea0
+unsigned int __fastcall NiPSysData_AddParticle(NiPSysData* data)
 {
     unsigned short count = data->m_usNumActive;
     if (count == 0)
@@ -251,7 +253,7 @@ void NiPSysData::SaveBinary(NiStream& stream)
 
 extern int DAT_010be45c;
 
-struct FUN_00c25850_cls
+struct NiPSysUpdateTask
 {
     void* m_pVTable;
     int m_iValue04;
@@ -260,12 +262,12 @@ struct FUN_00c25850_cls
     volatile float m_fValue10;
 
     void BaseCtor();
-    FUN_00c25850_cls* NiPSysUpdateTask_NiPSysUpdateTask();
+    NiPSysUpdateTask* NiPSysUpdateTask_NiPSysUpdateTask();
 };
 
 // @fnv 0x00c25850
 // src: EXE 0x00c25850
-FUN_00c25850_cls* FUN_00c25850_cls::NiPSysUpdateTask_NiPSysUpdateTask()
+NiPSysUpdateTask* NiPSysUpdateTask::NiPSysUpdateTask_NiPSysUpdateTask()
 {
     BaseCtor();
     m_iValue08 = 0;
@@ -511,7 +513,7 @@ void NiPSysData::LoadBinary(NiStream& stream)
         m_pfRotationAngles = (float*)_NiMalloc(m_usVertices * 4);
         m_pkRotationAxes = (NiPoint3*)new (g_memoryManager) S00c25340_Pt3[m_usVertices];
         for (unsigned short i = 0; i < m_usVertices; ++i)
-            m_pkRotations[i].GetAngleAxis(m_pfRotationAngles[i], m_pkRotationAxes[i]);
+            m_pkRotations[i].ToAngleAxis(m_pfRotationAngles[i], m_pkRotationAxes[i]);
         SetRotations(0);
     }
     m_pkParticleInfo = (Point3ParameterData*)new (g_memoryManager) S00c25340_Info[m_usVertices];
@@ -544,7 +546,8 @@ void NiPSysData::LoadBinary(NiStream& stream)
 extern int DAT_010be254;
 
 // @fnv 0x00c252d0
-NiPSysData* __fastcall CloneParticleData(NiPSysData* source, void*, CloningProcess& kCloning)
+// src: EXE 0x00c252d0
+NiPSysData* __fastcall NiPSysData_CreateClone(NiPSysData* source, void*, CloningProcess& kCloning)
 {
     NiPSysData* pkClone = new NiPSysData;
     source->CopyMemberData(pkClone, kCloning);

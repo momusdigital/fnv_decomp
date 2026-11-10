@@ -10,7 +10,8 @@
 #include "../../../../../include/NiBinaryStream.h"
 
 // @fnv 0x00c903b0
-__declspec(noinline) void __fastcall ReleaseUnserializedReference(hkReferencedObject* object)
+// src: COMMUNITY 0x00c903b0
+__declspec(noinline) void __fastcall hkReferencedObject_removeReferenceLockUnchecked(hkReferencedObject* object)
 {
     if (object->m_usMemSizeAndFlags)
     {
@@ -67,7 +68,7 @@ void FUN_00cd29c0_class::hkpWorldObject_setAiObjectData(RefObj* object)
     *reinterpret_cast<RefObj**>(reinterpret_cast<unsigned char*>(this) + 0x84) = object;
 }
 
-struct FUN_00cdf6e0_class
+struct hkRefPtr
 {
     void** m_pVTable;
     short m_uiObjectFlags;
@@ -78,7 +79,7 @@ struct FUN_00cdf6e0_class
 };
 
 // @fnv 0x00cdf6e0
-void FUN_00cdf6e0_class::SetReferencedObject(hkReferencedObject* pObject)
+void hkRefPtr::SetReferencedObject(hkReferencedObject* pObject)
 {
     hkReferencedObject* pNewRef = pObject;
     if (pNewRef)
@@ -95,15 +96,15 @@ struct RefObj
     void FUN_00c90510();
 };
 
-struct FUN_00d47750_class
+struct hkRefVariant
 {
     RefObj* m_pObject;
 
-    FUN_00d47750_class* AssignObject(RefObj** pObject);
+    hkRefVariant* AssignObject(RefObj** pObject);
 };
 
 // @fnv 0x00d47750
-FUN_00d47750_class* FUN_00d47750_class::AssignObject(RefObj** pObject)
+hkRefVariant* hkRefVariant::AssignObject(RefObj** pObject)
 {
     RefObj* object = *pObject;
     if (object)
@@ -549,18 +550,18 @@ struct ThreadFlagGuard
         g_threadFlag = previousFlag;
     }
 };
-struct FUN_00ca9b40_class
+struct hkpMalleableConstraintData
 {
     void** m_pVTable;
     short m_uiObjectFlags;
     short m_uCount;
     int m_extraneousState;
     ObjectRef* m_pObject;
-    void UpdateFields_00ca9b40(ObjectRef* pObject);
+    void SetConstraintData(ObjectRef* pObject);
 };
 // @fnv 0x00ca9b40
-// src: GUESS 0x00ca9b40 (confidence: low)
-void FUN_00ca9b40_class::UpdateFields_00ca9b40(ObjectRef* pObject)
+// src: GUESS 0x00ca9b40 (confidence: medium)
+void hkpMalleableConstraintData::SetConstraintData(ObjectRef* pObject)
 {
     ThreadFlagGuard guard;
     if (pObject)
@@ -595,7 +596,7 @@ struct DeviceOwner
     int unk00, unk04, unk08, unk0c;
     DeviceSubobject m_subobject;
     int unk14, unk18, m_payload;
-    void UpdateFields_00ca9b40(Resource*);
+    void SetConstraintData(Resource*);
 };
 struct InputObject
 {
@@ -605,7 +606,7 @@ struct InputObject
     }
 };
 Resource* __cdecl bhkConstraintManager_LoadBinary(InputObject*);
-struct FUN_00ca9ce0_class
+struct hkMalleableConstraintCinfo
 {
     int unk00;
     DeviceOwner* m_pOwnerObject;
@@ -613,12 +614,12 @@ struct FUN_00ca9ce0_class
     void ProcessInput(InputObject*);
 };
 // @fnv 0x00ca9ce0
-void FUN_00ca9ce0_class::ProcessInput(InputObject* input)
+void hkMalleableConstraintCinfo::ProcessInput(InputObject* input)
 {
     hkConstraintCinfo_LoadBinary(input);
     DeviceOwner* owner = m_pOwnerObject;
     Resource* resource = bhkConstraintManager_LoadBinary(input);
-    owner->UpdateFields_00ca9b40(resource);
+    owner->SetConstraintData(resource);
     owner->m_subobject.hkpBridgeConstraintAtom_init(owner);
     resource->FUN_00c905b0();
     DeviceCallback* callback = input->GetCallback();
@@ -930,7 +931,7 @@ extern hkReferencedObjectLock* DAT_012681d4;
 static inline void replaceInstanceC904(hkReferencedObjectLock* p)
 {
     if (hkSingletonC904::DAT_012681d4)
-        ReleaseUnserializedReference(hkSingletonC904::DAT_012681d4);
+        hkReferencedObject_removeReferenceLockUnchecked(hkSingletonC904::DAT_012681d4);
     hkSingletonC904::DAT_012681d4 = p;
 }
 
@@ -1035,13 +1036,13 @@ struct FUN_00c90510_class
     void FUN_00c90510();
     void FUN_00c905b0();
 };
-struct FUN_00cc49b0_class;
+struct ahkpBreakableConstraintData;
 struct FUN_00d21ce0_class
 {
     int unk0c, unk10, unk14;
-    void hkpBridgeConstraintAtom_init(FUN_00cc49b0_class* parent);
+    void hkpBridgeConstraintAtom_init(ahkpBreakableConstraintData* parent);
 };
-struct FUN_00cc49b0_class
+struct ahkpBreakableConstraintData
 {
     int unk00, unk04, unk08;
     FUN_00d21ce0_class subobject;
@@ -1066,7 +1067,7 @@ struct ScopedThreadState
 // Retains value if present, releases owner if present, assigns value, copies two values from vf24, and calls subobject.FUN_00d21ce0(this).
 // @fnv 0x00cc49b0
 // src: XBOX_PDB 0x00cc49b0
-void FUN_00cc49b0_class::ahkpBreakableConstraintData_SetChild(FUN_00c90510_class* apOwner)
+void ahkpBreakableConstraintData::ahkpBreakableConstraintData_SetChild(FUN_00c90510_class* apOwner)
 {
     ScopedThreadState thread;
     if (apOwner)
@@ -1391,7 +1392,7 @@ void __cdecl hkReferencedObject_removeReferences(void* items, int count, int str
             char* item = (char*)items;
             do
             {
-                ReleaseUnserializedReference(*((hkReferencedObject**)item));
+                hkReferencedObject_removeReferenceLockUnchecked(*((hkReferencedObject**)item));
                 item += stride;
             } while (--count);
         }
@@ -1410,7 +1411,7 @@ void __cdecl hkReferencedObject_removeReferences(void* items, int count, int str
             char* item = (char*)items;
             do
             {
-                ReleaseUnserializedReference(*((hkReferencedObject**)item));
+                hkReferencedObject_removeReferenceLockUnchecked(*((hkReferencedObject**)item));
                 item += step;
             } while (--remaining);
         }

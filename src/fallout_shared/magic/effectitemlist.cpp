@@ -59,7 +59,7 @@ typedef char _sizecheck_EffectItem[sizeof(EffectItem) == 36 ? 1 : -1];
 int __fastcall EffectItemList_GetAssociatedSkill(EffectItemList* pthis)
 {
     int eresult = -1;
-    EffectItem* peffect = pthis->FindCostliestEffectItem(3, 0);
+    EffectItem* peffect = pthis->GetCostliestEffect(3, 0);
     if (peffect)
     {
         eresult = peffect->GetEffectID();
@@ -98,7 +98,8 @@ bool __cdecl ActorValue_IsFlagSet(int aiIndex, int aiFlag)
 
 void _FNV_Warning(const char*);
 // @fnv 0x00406ee0
-EffectItem* EffectItemList::GetEffectItemAtIndex(unsigned char aiIndex)
+// src: COMMUNITY 0x00406ee0
+EffectItem* EffectItemList::GetEffectItemByIndex(unsigned char aiIndex)
 {
     unsigned char uiCurrentIndex = 0;
     BSSimpleList<EffectItem*>* pCurrentElementNext = this ? reinterpret_cast<BSSimpleList<EffectItem*>*>(&m_item) : 0;
@@ -265,7 +266,8 @@ bool EffectItemList::HasDetrimentalEffect()
 }
 
 // @fnv 0x004064d0
-EffectItem* EffectItemList::FindCostliestEffectItem(int aeRange, bool abAreaOnly)
+// src: COMMUNITY 0x004064d0
+EffectItem* EffectItemList::GetCostliestEffect(int aeRange, bool abAreaOnly)
 {
     EffectItemList* pCurrentElementNext;
     EffectItem* pBestItem;
@@ -302,11 +304,12 @@ void _Deallocate(void*);
 struct Fake406e40
 {
     void FUN_00406de0();
-    void* FUN_00406e40(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 // Calls FUN_00406de0, then frees this via _Deallocate when flags has bit 1 set, and returns this.
 // @fnv 0x00406e40
-void* Fake406e40::FUN_00406e40(unsigned int flags)
+// src: EXE 0x00406e40
+void* Fake406e40::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00406de0();
     if (flags & 1)
@@ -394,8 +397,8 @@ struct EffectItemListNodeOperations : BSSimpleList<EffectItem*>
 struct EffectItemListOperations : EffectItemList
 {
     bool Compare(EffectItemList* other);
-    void CopyItemsFromList(EffectItemList* list);
-    unsigned char FindEffectItemIndex(int formID);
+    void EffectItemList_Copy(EffectItemList* list);
+    unsigned char EffectItemList_GetEffectItemIndex(int formID);
 };
 
 // Returns true if the two effect lists differ.
@@ -448,7 +451,8 @@ class B5B10ItemCopy
 
 // Clears the owner, then walks the linked EffectItemList and adds a B5B10ItemCopy for each non-null EffectItem.
 // @fnv 0x00405b10
-void EffectItemListOperations::CopyItemsFromList(EffectItemList* pkList)
+// src: COMMUNITY 0x00405b10
+void EffectItemListOperations::EffectItemList_Copy(EffectItemList* pkList)
 {
     RemoveAllEffects();
     EffectItemList* pkNode = pkList;
@@ -487,7 +491,8 @@ EffectSetting* GetUsageMonitorEntry406();
 
 // Returns the first effect item using the script effect setting, or null.
 // @fnv 0x00406200
-EffectItem* EffectItemList::GetScriptEffect()
+// src: COMMUNITY 0x00406200
+EffectItem* EffectItemList::GetUsageMonitorEffect()
 {
     EffectItem* pkResult = 0;
     EffectItemList* pkNode = this;
@@ -523,7 +528,8 @@ float EffectItemList::GetTotalCost(Actor* actor)
 }
 
 // @fnv 0x00406e70
-unsigned char EffectItemListOperations::FindEffectItemIndex(int aiFormID)
+// src: COMMUNITY 0x00406e70
+unsigned char EffectItemListOperations::EffectItemList_GetEffectItemIndex(int aiFormID)
 {
     unsigned char idx3 = 0;
     BSSimpleList<EffectItem*>* cur = this ? reinterpret_cast<BSSimpleList<EffectItem*>*>(&m_item) : 0;

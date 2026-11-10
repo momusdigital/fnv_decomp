@@ -171,7 +171,7 @@ LocalDialogMenu::DialogState LocalDialogMenu::BeginDialogueResponse(bool usePref
                         {
                             ActorValue::Index value = function->actorValue;
                             int required = (int)pConditionItem->GetItem()->GetConditionValue();
-                            int current = g_thePlayer->actorValueOwner.GetActorValueAsInteger(value);
+                            int current = g_thePlayer->actorValueOwner.GetClampedActorValueI(value);
                             if (current < required)
                                 TopicMenuController::IncrementMiscStat(31);
                             else
@@ -278,7 +278,7 @@ void LocalDialogMenu::LoadTopicsList()
                     {
                         ActorValue::Index value = function->actorValue;
                         int required = (int)cursor->GetItem()->GetConditionValue();
-                        int current = g_thePlayer->actorValueOwner.GetActorValueAsInteger(value);
+                        int current = g_thePlayer->actorValueOwner.GetClampedActorValueI(value);
                         if (current < required)
                         {
                             sprintf_s(text, 512, "%s %d/%d", text, current, required);
@@ -637,7 +637,7 @@ void LocalDialogMenu::Close()
                 reinterpret_cast<BaseProcess*>(reinterpret_cast<PlayerQuestData*>(actor)->GetLogDate())->UpdateCurrentPackage(reinterpret_cast<Actor*>(actor));
         }
         reinterpret_cast<Tile*>(reinterpret_cast<BSSimpleList<TESTopic*>*>(DAT_011d9510)->GetNext())->Set(0xFA3, 1);
-        DAT_011d9510->LoadMenuData();
+        DAT_011d9510->StartFadeOut();
     }
     reinterpret_cast<DialogMenuAudioCalls*>(BSAudio::GetSingleton())->DeactivateAudio();
     BSAudio::DeactivateAudio();
@@ -694,7 +694,7 @@ void LocalDialogMenu::HandleSelection(int id, Tile* tile)
                 {
                     ActorValue::Index value = function->actorValue;
                     int required = (int)pConditionItem->GetItem()->GetConditionValue();
-                    int current = g_thePlayer->actorValueOwner.GetActorValueAsInteger(value);
+                    int current = g_thePlayer->actorValueOwner.GetClampedActorValueI(value);
                     if (current < required)
                     {
                         if (wasNew)
@@ -835,7 +835,7 @@ void DialogMenu_ServiceStart()
                 0.0f, DAT_011d9510->pDialogueItem->GetSelectedTopic()->GetActiveResponse(), false);
             *(bool*)((char*)DAT_011d9510->m_pDialogueSpeaker + 0x7c) = true;
         }
-        DAT_011d9510->LoadMenuData();
+        DAT_011d9510->StartFadeOut();
     }
 }
 

@@ -155,7 +155,8 @@ __forceinline void ConstructFogPropertyInPlace(NiFogProperty* property)
 
 // Allocates memory for a NiFogProperty and constructs it in place, returning the new object or null on allocation failure.
 // @fnv 0x00a99fd0
-NiFogProperty* __cdecl CreateNiFogProperty()
+// src: EXE 0x00a99fd0
+NiFogProperty* __cdecl NiFogProperty_CreateObject()
 {
     void* memory = Object_DispatchCommandFour(sizeof(NiFogProperty));
     if (memory != 0)

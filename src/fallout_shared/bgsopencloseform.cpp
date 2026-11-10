@@ -47,7 +47,8 @@ extern float DAT_0101ab70;
 void bhkNiCollisionObject_ResetSim(NiNode*, bool);
 
 // @fnv 0x0047a490
-bool BGSOpenCloseForm::HasOpenCloseComponent(TESForm* apForm)
+// src: COMMUNITY 0x0047a490
+bool BGSOpenCloseForm::IsOpenCloseForm(TESForm* apForm)
 {
     bool bResult = false;
     bool bIsActivatorForm = false;
@@ -78,7 +79,7 @@ int BGSOpenCloseForm::GetOpenState(TESObjectREFR* ref)
 {
     // Local names preserve MSVC9 stack allocation order.
     OPEN_STATE eState = CLOSED_UNKNOWN;
-    if (ref && HasOpenCloseComponent(ref->GetObjectReference()))
+    if (ref && IsOpenCloseForm(ref->GetObjectReference()))
     {
         bool pManager = ref->GetAction(OBJECT_ACTION_OBJECT_ACTION_OPEN);  // Saved open action flag.
         if (pManager)
@@ -110,7 +111,7 @@ int BGSOpenCloseForm::GetOpenState(TESObjectREFR* ref)
 bool BGSOpenCloseForm::SetOpenState(TESObjectREFR* ref, bool open, bool immediate)
 {
     bool result = false;
-    if (ref && HasOpenCloseComponent(ref->GetObjectReference()))
+    if (ref && IsOpenCloseForm(ref->GetObjectReference()))
     {
         if (IsConditionMet() && ref != AIThreadManager::IsConditionMet())
         {
@@ -147,19 +148,19 @@ bool BGSOpenCloseForm::SetOpenState(TESObjectREFR* ref, bool open, bool immediat
                 if (immediate)
                 {
                     ref->GetExtraData()->CallExtraDataListMethod36(0);
-                    controller->StopSequence(active, 0.0f);
-                    controller->ActivateControllerSequence(inactive, 0, false, 1.0f, 0.0f, static_cast<NiControllerSequence*>(0));
+                    controller->DeactivateSequence(active, 0.0f);
+                    controller->ActivateSequence(inactive, 0, false, 1.0f, 0.0f, static_cast<NiControllerSequence*>(0));
                     inactive->PathingLOSGridMap_SetSightRadius(-DAT_0101ab70);
                     NiUpdateData data(inactive->NiPSysSpawnModifier_GetLifeSpan(), true, false);
                     ref->GetNiNode()->Update(static_cast<const NiUpdateData&>(data));
-                    controller->StopSequence(inactive, 0.0f);
+                    controller->DeactivateSequence(inactive, 0.0f);
                     ref->TESObjectREFR_SetLastFinishedSequence(static_cast<const NiControllerSequence*>(active)->GetName());
                     bhkNiCollisionObject_ResetSim(ref->GetNiNode(), true);
                 }
                 else
                 {
-                    controller->StopSequence(inactive, 0.0f);
-                    controller->ActivateControllerSequence(active, 0, false, 1.0f, 0.0f, static_cast<NiControllerSequence*>(0));
+                    controller->DeactivateSequence(inactive, 0.0f);
+                    controller->ActivateSequence(active, 0, false, 1.0f, 0.0f, static_cast<NiControllerSequence*>(0));
                     active->PathingLOSGridMap_SetSightRadius(-DAT_0101ab70);
                     NiUpdateData data(active->NiPSysSpawnModifier_GetLifeSpan(), true, false);
                     ref->GetNiNode()->Update(static_cast<const NiUpdateData&>(data));
@@ -211,11 +212,12 @@ NiFixedString* __cdecl FixedStrings_QSpecialIdle_AreaEffect()
 }
 
 // @fnv 0x0047a3a0
-BGSOpenCloseForm* GetOpenCloseForm(TESForm* apForm)
+// src: COMMUNITY 0x0047a3a0
+BGSOpenCloseForm* BGSOpenCloseForm_GetAsOpenCloseForm(TESForm* apForm)
 {
     BGSOpenCloseForm* pOpenCloseForm = 0;
 
-    if (apForm && BGSOpenCloseForm::HasOpenCloseComponent(apForm))
+    if (apForm && BGSOpenCloseForm::IsOpenCloseForm(apForm))
     {
         switch (static_cast<const TESForm*>(apForm)->GetFormType())
         {
@@ -293,7 +295,8 @@ OpenCloseHandler* GetHandler(TESForm*);
 bool ShouldQueue();
 EventQueue* GetQueue();
 // @fnv 0x0047ac70
-void __cdecl ProcessOpenCloseEvent(Ref* ref, SequenceEvent* sequence)
+// src: COMMUNITY 0x0047ac70
+void __cdecl BGSOpenCloseForm_HandleAnimEnd(Ref* ref, SequenceEvent* sequence)
 {
     bool handled = false;
     if (ref && sequence)

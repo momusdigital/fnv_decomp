@@ -350,14 +350,15 @@ extern float __cdecl NiMin(float, float);
 // The shared reference-based welding signature changes code at 0x00d203f0; retain this pointer-based adapter.
 class TriangleWelding : public hkpTriangleShape {
 public:
-    int WeldContactPoint(unsigned short* indices, unsigned char* count,
+    int hkpTriangleShape_weldContactPointImpl(unsigned short* indices, unsigned char* count,
         const hkVector4* position, const hkTransform* transform,
         SupportShape* source, const hkTransform* sourceTransform, hkVector4* output);
 };
 
 // Welds a triangle edge against a support shape, adjusting the face normal and separation based on welding type and sector cone.
 // @fnv 0x00d203f0
-int TriangleWelding::WeldContactPoint(unsigned short* indices, unsigned char* count,
+// src: COMMUNITY 0x00d203f0
+int TriangleWelding::hkpTriangleShape_weldContactPointImpl(unsigned short* indices, unsigned char* count,
     const hkVector4* position, const hkTransform* transform,
     SupportShape* source, const hkTransform* sourceTransform, hkVector4* output) {
     unsigned int weldingType = *(const unsigned char*)&m_eWeldingType;

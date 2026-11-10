@@ -75,7 +75,7 @@ struct Type2Object858 : Object858
 
 struct Raw858
 {
-    Type7Object858* FUN_00cdf2f0();
+    Type7Object858* hkpRagdollConstraintData();
     Type6Object858* FUN_00d4fe80();
     Type2Object858* FUN_00cb9090();
 };
@@ -95,7 +95,7 @@ Object858* __cdecl hkpConstraintDataCloningUtil_cloneIfCanHaveMotors(Object858* 
     switch (pkSource->GetType())
     {
     case 7: {
-        Type7Object858* pkResult = Allocate858(0x140)->FUN_00cdf2f0();
+        Type7Object858* pkResult = Allocate858(0x140)->hkpRagdollConstraintData();
         pkResult->kPayload.ProcessAndReturnValue_00d85ba0(&((Type7Object858*)pkSource)->kPayload);
         pkResult->iValue = pkSource->iValue;
         Clonable858** ppkChildren = pkResult->apkChildren;

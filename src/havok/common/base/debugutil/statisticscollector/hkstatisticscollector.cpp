@@ -6,7 +6,7 @@
 
 extern int DAT_0102e388;
 
-struct FUN_00d06f70_s
+struct hkBaseObject
 {
     int* p;
     int x;
@@ -16,7 +16,7 @@ struct FUN_00d06f70_s
 
 // @fnv 0x00d06f70
 // src: GUESS 0x00d06f70 (confidence: low)
-void FUN_00d06f70_s::InitializeFields_00d06f70()
+void hkBaseObject::InitializeFields_00d06f70()
 {
     y = 0;
     p = &DAT_0102e388;
@@ -24,7 +24,7 @@ void FUN_00d06f70_s::InitializeFields_00d06f70()
 
 int __cdecl hkStatisticsCollector_getAllocatedSize(void* apBuffer, int aiCount);
 
-struct FUN_00d06fb0_cls
+struct hkStatisticsCollector
 {
     virtual void v00();
     virtual void v04();
@@ -38,7 +38,7 @@ struct FUN_00d06fb0_cls
 
 // Computes a mode from apSecond and aiCount when aiCount is positive and aiMode is zero, then dispatches with flag 1.
 // @fnv 0x00d06fb0
-void FUN_00d06fb0_cls::DispatchWithMode(void* apFirst, void* apSecond, int aiCount, int aiMode)
+void hkStatisticsCollector::DispatchWithMode(void* apFirst, void* apSecond, int aiCount, int aiMode)
 {
     int iMode = aiMode;
     if (aiCount > 0 && iMode == 0)

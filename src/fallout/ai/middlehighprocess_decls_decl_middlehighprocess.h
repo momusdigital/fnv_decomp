@@ -8,7 +8,7 @@
 class BipedAnim
 {
   public:
-    NiNode* GetBoneNode(BIPED_BONE);
+    NiNode* GetParentBone(BIPED_BONE);
 };
 
 template <>

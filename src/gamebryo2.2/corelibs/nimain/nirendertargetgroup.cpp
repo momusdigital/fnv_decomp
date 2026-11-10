@@ -98,7 +98,8 @@ void __fastcall DestroyRenderTargetGroup(NiRenderTargetGroup* pkGroup);
 
 // Calls FUN_00ee8560, then if bit 0 of flags is set calls __Dummy_00b6fef0 on this with 0x28, and returns this.
 // @fnv 0x00ee87e0
-void* __thiscall NiRenderTargetGroup::FUN_00ee87e0(unsigned int flags)
+// src: EXE 0x00ee87e0
+void* __thiscall NiRenderTargetGroup::ScalarDeletingDestructor(unsigned int flags)
 {
     NiRenderTargetGroup* p = this;
     DestroyRenderTargetGroup(this);
@@ -323,7 +324,7 @@ class AA1AC0Class
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40();
     virtual void vf44();
@@ -376,7 +377,8 @@ unsigned int AA1AC0Class::NiFile_GetBuffer()
 
 // This flag accessor has no matching member declaration in the shared header.
 // @fnv 0x00ee8540
-unsigned char __fastcall GetRenderTargetGroupResolveFlag(const NiRenderTargetGroup* pkGroup)
+// src: EXE 0x00ee8540
+unsigned char __fastcall NiRenderTargetGroup_GetByte08(const NiRenderTargetGroup* pkGroup)
 {
     return *reinterpret_cast<const unsigned char*>(&pkGroup->m_bNeedsResolve);
 }
@@ -391,7 +393,8 @@ struct RefCountedObj
 
 // Replaces the item at uiIndex with pNew, decrementing the old item's ref count and incrementing the new one's.
 // @fnv 0x00ee8620
-bool __fastcall SetRenderTargetGroupItem(NiRenderTargetGroup* pkGroup, void*, RefCountedObj* apItem, unsigned int uiIndex)
+// src: EXE 0x00ee8620
+bool __fastcall NiRenderTargetGroup_AttachBuffer(NiRenderTargetGroup* pkGroup, void*, RefCountedObj* apItem, unsigned int uiIndex)
 {
     pkGroup->SetRendererData_00ee8460(0);
     RefCountedObj** m_apItems = reinterpret_cast<RefCountedObj**>(pkGroup->GetBuffers());

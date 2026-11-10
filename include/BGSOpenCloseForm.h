@@ -30,7 +30,7 @@ public:
     virtual bool GetBlockActivatesWhileOpening() const;
 
     static BGSOpenCloseForm* GetOpenCloseComponent(TESForm* form);
-    static bool HasOpenCloseComponent(TESForm* form);
+    static bool IsOpenCloseForm(TESForm* form);
     static bool HasOpenCloseAnims(NiNode* node);
     static void HandleOpenCloseActivation(TESObjectREFR* ref, TESObjectREFR* actor, BGSOpenCloseForm* form);
     static void HandleAnimStartHavok(TESObjectREFR* ref, NiControllerSequence* sequence);

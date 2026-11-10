@@ -103,17 +103,18 @@ struct RefObj
     short m_sReferenceCount;
 };
 
-struct FUN_00d1fa50 : RefObj
+struct hkaDetectRagdollPenetration : RefObj
 {
     Desc m_kCreateDesc;
     int m_uiItemCount;
     hkIntArrayLocalForm m_aiIndexedValues;
     bool m_flag;
-    FUN_00d1fa50(const Desc& d);
+    hkaDetectRagdollPenetration(const Desc& d);
 };
 
 // @fnv 0x00d1fa50
-FUN_00d1fa50::FUN_00d1fa50(const Desc& d)
+// src: EXE 0x00d1fa50
+hkaDetectRagdollPenetration::hkaDetectRagdollPenetration(const Desc& d)
 {
     m_vtbl = DAT_010ce1a8;
     m_sReferenceCount = 1;
@@ -344,13 +345,14 @@ struct FUN_00d1fe70_cls
     int m_1c;
     int m_20;
 
-    FUN_00d1fe70_cls* FUN_00d1fe70(unsigned char acFlags);
+    FUN_00d1fe70_cls* ScalarDeletingDestructor(unsigned char acFlags);
     static void operator delete(void* apMemory) throw();
 };
 
 // Frees the m_p18 array, resets its state, restores the vtable, and optionally frees this when acFlags bit 0 is set.
 // @fnv 0x00d1fe70
-FUN_00d1fe70_cls* FUN_00d1fe70_cls::FUN_00d1fe70(unsigned char acFlags)
+// src: EXE 0x00d1fe70
+FUN_00d1fe70_cls* FUN_00d1fe70_cls::ScalarDeletingDestructor(unsigned char acFlags)
 {
     hkMemoryRouter* pHolder = hkMemoryRouter_getInstance();
     hkMemoryAllocator* pAllocator = reinterpret_cast<hkMemoryAllocator*>(pHolder->m_heap);

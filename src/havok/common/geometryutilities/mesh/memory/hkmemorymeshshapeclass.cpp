@@ -5,8 +5,8 @@
 extern int DAT_0126e330;
 
 // @fnv 0x00e014c0
-// src: GUESS 0x00e014c0 (confidence: low)
-int* __cdecl Object_GetGlobalObjectAddress_00e014c0()
+// src: EXE 0x00e014c0
+int* __cdecl hkMemoryMeshShape_getClassType()
 {
     return &DAT_0126e330;
 }
@@ -58,21 +58,22 @@ struct E014D0MemoryRouter
 
 extern "C" E014D0MemoryRouter& __cdecl hkMemoryRouter_getInstance();
 
-struct FUN_00e014d0
+struct hkMemoryMeshShape
 {
     unsigned short m_usMemSizeAndFlags;
     short m_sReferenceCount;
 
-    FUN_00e014d0();
-    virtual ~FUN_00e014d0();
+    hkMemoryMeshShape();
+    virtual ~hkMemoryMeshShape();
 
     static void operator delete(void* p, unsigned int nbytes)
     {
-        FUN_00e014d0* b = static_cast<FUN_00e014d0*>(p);
+        hkMemoryMeshShape* b = static_cast<hkMemoryMeshShape*>(p);
         hkMemoryRouter_getInstance().heap().ReleaseBlock(p, b->m_usMemSizeAndFlags);
     }
 };
 
 // @fnv 0x00e014d0
-FUN_00e014d0::FUN_00e014d0()
+// src: EXE 0x00e014d0
+hkMemoryMeshShape::hkMemoryMeshShape()
 {}

@@ -111,7 +111,7 @@ int __cdecl MinInt(int iA, int iB)
     return result;
 }
 
-struct FUN_004a8f50_shell
+struct BGSTextureUseMap
 {
     void NiTMap_NiTexture_TEX_USER_DATA_NiTMap(int a);
     void* BGSTextureUseMap_BGSTextureUseMap();
@@ -119,9 +119,9 @@ struct FUN_004a8f50_shell
 
 // @fnv 0x004a8f50
 // src: XBOX_PDB 0x004a8f50
-void* __thiscall FUN_004a8f50_shell::BGSTextureUseMap_BGSTextureUseMap()
+void* __thiscall BGSTextureUseMap::BGSTextureUseMap_BGSTextureUseMap()
 {
-    ((FUN_004a8f50_shell*)((char*)this + 4))->NiTMap_NiTexture_TEX_USER_DATA_NiTMap(0x25);
+    ((BGSTextureUseMap*)((char*)this + 4))->NiTMap_NiTexture_TEX_USER_DATA_NiTMap(0x25);
     return this;
 }
 
@@ -153,7 +153,7 @@ SceneInfo& BSSimpleArray<SceneInfo, 1024>::GetAt(unsigned int a)
 
 struct FUN_004a9630_shell
 {
-    void* FUN_004a9630(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };
 
 struct FUN_004a9850_shell
@@ -164,7 +164,8 @@ struct FUN_004a9850_shell
 void __cdecl _Deallocate(void* p);
 
 // @fnv 0x004a9630
-void* FUN_004a9630_shell::FUN_004a9630(unsigned int flags)
+// src: EXE 0x004a9630
+void* FUN_004a9630_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     ((FUN_004a9850_shell*)this)->FUN_004a9850();
     if (flags & 1)
@@ -175,7 +176,7 @@ void* FUN_004a9630_shell::FUN_004a9630(unsigned int flags)
 extern int DAT_0101ec68;
 void* __cdecl memset(void*, int, unsigned int);
 
-struct FUN_004a7c40_shell
+struct BGSSceneInfo
 {
     void* InitializeFields_004a7c40();
     void ClearToZero();
@@ -183,10 +184,10 @@ struct FUN_004a7c40_shell
 
 // @fnv 0x004a7c40
 // src: GUESS 0x004a7c40 (confidence: low)
-void* FUN_004a7c40_shell::InitializeFields_004a7c40()
+void* BGSSceneInfo::InitializeFields_004a7c40()
 {
     *(int*)this = (int)&DAT_0101ec68;
-    ((FUN_004a7c40_shell*)((char*)this + 4))->ClearToZero();
+    ((BGSSceneInfo*)((char*)this + 4))->ClearToZero();
     memset((char*)this + 4, 0, 0x40);
     *(int*)((char*)this + 0x44) = 0;
     return this;
@@ -194,13 +195,13 @@ void* FUN_004a7c40_shell::InitializeFields_004a7c40()
 
 void* __cdecl memset(void* dest, int c, unsigned int n);
 
-struct FUN_004a7c80_shell
+struct SCENE_INFO_DATA_STRUCT
 {
     void* ClearToZero();
 };
 
 // @fnv 0x004a7c80
-void* FUN_004a7c80_shell::ClearToZero()
+void* SCENE_INFO_DATA_STRUCT::ClearToZero()
 {
     memset(this, 0, 0x40);
     return this;
@@ -236,14 +237,14 @@ void FUN_004a7cd0_shell::SetField0000()
     m_0000 = &DAT_0101ec68;
 }
 
-struct FUN_004a8030_shell
+struct NiGeometry
 {
     unsigned int NiGeometry_GetNormals();
 };
 // Returns the thread ID of the BSThread stored at offset 0xb8 of this object.
 // @fnv 0x004a8030
 // src: XBOX_PDB 0x004a8030
-unsigned int FUN_004a8030_shell::NiGeometry_GetNormals()
+unsigned int NiGeometry::NiGeometry_GetNormals()
 {
     return ((BSThread*)((Flt*)((char*)this + 0xb8))->operator unsigned int())->GetThreadID();
 }
@@ -254,11 +255,12 @@ struct Proc_S
 };
 struct This_004a8050
 {
-    void* GetNextProc();
+    void* NiGeometry_GetColors();
 };
 // Returns the result of GetNext() on the Proc_S pointer stored at offset 0xB8 of this object.
 // @fnv 0x004a8050
-void* This_004a8050::GetNextProc()
+// src: COMMUNITY 0x004a8050
+void* This_004a8050::NiGeometry_GetColors()
 {
     return ((Proc_S*)(unsigned int)*(Flt*)((char*)this + 0xB8))->GetNext();
 }
@@ -359,10 +361,11 @@ struct FUN_004a8090_shell
 {
     char _pad[0xB8];
     Flt m_kHandle;
-    int CallTargetV36();
+    int NiGeometry_GetActiveVertexCount();
 };
 // @fnv 0x004a8090
-int FUN_004a8090_shell::CallTargetV36()
+// src: COMMUNITY 0x004a8090
+int FUN_004a8090_shell::NiGeometry_GetActiveVertexCount()
 {
     return ((Target*)(unsigned int)m_kHandle)->v36();
 }
@@ -443,19 +446,20 @@ extern unsigned char DAT_0118868d;
 
 struct FUN_004a8230_shell
 {
-    void LoadSceneModels();
+    void BGSSceneInfo_CollectSceneDataFromAddonNodes();
     void AccumulateSceneStatistics(NiNode* node, void* data, bool trackActors, bool extra);
-    void ResetAndProcessNode(NiNode* node, bool includeAddonNodes, bool trackActors);
+    void BGSSceneInfo_CollectSceneDataFromNode(NiNode* node, bool includeAddonNodes, bool trackActors);
 };
 
 // @fnv 0x004a8230
-void FUN_004a8230_shell::ResetAndProcessNode(NiNode* node, bool includeAddonNodes, bool trackActors)
+// src: COMMUNITY 0x004a8230
+void FUN_004a8230_shell::BGSSceneInfo_CollectSceneDataFromNode(NiNode* node, bool includeAddonNodes, bool trackActors)
 {
     g_011c5be8.RemoveAll();
     g_011c5ad0.RemoveAll();
 
     if (includeAddonNodes && DAT_0118868d && DAT_011c5ab4.GetSize() == 0)
-        this->LoadSceneModels();
+        this->BGSSceneInfo_CollectSceneDataFromAddonNodes();
 
     memset((char*)this + 4, 0, 0x40);
 
@@ -512,11 +516,12 @@ bool __cdecl BSParticleSystemManager_IsValidMasterParticleSystem(void*);
 struct LoadScenes
 {
     void AccumulateSceneStatistics(void*, void*, int, int);
-    void LoadSceneModels();
+    void BGSSceneInfo_CollectSceneDataFromAddonNodes();
 };
 // Iterates all scenes, fills a SceneInfo per index, builds a model path from the scene description name, loads it, and registers it unless already loaded.
 // @fnv 0x004a80c0
-void LoadScenes::LoadSceneModels()
+// src: COMMUNITY 0x004a80c0
+void LoadScenes::BGSSceneInfo_CollectSceneDataFromAddonNodes()
 {
     unsigned int count = DAT_011c3f2c->FUN_0045a120();
     for (unsigned int uiSceneIndex = 0; uiSceneIndex < count; ++uiSceneIndex)
@@ -633,9 +638,9 @@ struct FUN_0042f4e0
 };
 struct ScriptProgram
 {
-    unsigned short CallTargetV36();
+    unsigned short NiGeometry_GetActiveVertexCount();
     int FUN_0049ec60();
-    int GetNextProc();
+    int NiGeometry_GetColors();
     int NiGeometry_GetNormals();
     int GetScriptText();
 };
@@ -852,10 +857,10 @@ void SceneCounter::AccumulateSceneStats(SceneOwner* owner)
             if (b)
             {
                 int e2 = 0;
-                unsigned int j2 = b->CallTargetV36();
+                unsigned int j2 = b->NiGeometry_GetActiveVertexCount();
                 if (b->FUN_0049ec60())
                     e2 += j2 * 12;
-                if (b->GetNextProc())
+                if (b->NiGeometry_GetColors())
                     e2 += j2 * 16;
                 if (b->NiGeometry_GetNormals())
                     e2 += j2 * 12;
@@ -935,9 +940,9 @@ struct StatGeom
 struct ScriptExecutionContext
 {
     unsigned short FUN_004a1ff0();
-    unsigned short CallTargetV36();
+    unsigned short NiGeometry_GetActiveVertexCount();
     void* FUN_0049ec60();
-    void* GetNextProc();
+    void* NiGeometry_GetColors();
     void* NiGeometry_GetNormals();
     void* GetScriptText();
 };
@@ -1180,10 +1185,10 @@ void SceneStatistics::AccumulateSceneStatistics(StatObject* object, int* output,
                     {
                         counts[7] += data->FUN_004a1ff0();
                         int bytes = 0;
-                        int vertices = data->CallTargetV36();
+                        int vertices = data->NiGeometry_GetActiveVertexCount();
                         if (data->FUN_0049ec60())
                             bytes += vertices * 12;
-                        if (data->GetNextProc())
+                        if (data->NiGeometry_GetColors())
                             bytes += vertices * 16;
                         if (data->NiGeometry_GetNormals())
                             bytes += vertices * 12;
@@ -1237,7 +1242,7 @@ struct FUN_004a7c40
         unk44;
     FUN_004a7c40();
     void SetDifficultyLevel(Cell245*);
-    void ResetAndProcessNode(NiNode*, bool, bool);
+    void BGSSceneInfo_CollectSceneDataFromNode(NiNode*, bool, bool);
     void AccumulateSceneStats(Cell245*);
     unsigned int GetValueAt(int);
     float GetScaledSlotValue(int);
@@ -1247,7 +1252,7 @@ struct FUN_004aa340
     int unk00, unk04, unk08, unk0c, unk10;
     FUN_004aa340();
     ~FUN_004aa340();
-    void SetValueAndCall(NiNode*, Cell245*, int);
+    void BGSTextureUseMap_CollectTexUseData(NiNode*, Cell245*, int);
     unsigned int BGSTextureUseMap_GetTotalTextureSize();
 };
 struct GlobalObject2_0096a2d0
@@ -1295,9 +1300,9 @@ void __cdecl BGSSceneInfo_CollectSceneDataForLoadedArea(float* cost, float* coun
         Cell245* cell = DAT_011dea10->GetInteriorCell();
         FUN_004a7c40* scene = new FUN_004a7c40;
         scene->SetDifficultyLevel(cell);
-        scene->ResetAndProcessNode(cell->Get3D_00545cb0(), addons, false);
+        scene->BGSSceneInfo_CollectSceneDataFromNode(cell->Get3D_00545cb0(), addons, false);
         scene->AccumulateSceneStats(cell);
-        list.SetValueAndCall(cell->Get3D_00545cb0(), cell, 0);
+        list.BGSTextureUseMap_CollectTexUseData(cell->Get3D_00545cb0(), cell, 0);
         map.FUN_005ae3d0(scene);
     }
     else
@@ -1315,8 +1320,8 @@ void __cdecl BGSSceneInfo_CollectSceneDataForLoadedArea(float* cost, float* coun
                     Cell245* scene2 = *entry;
                     FUN_004a7c40* cell2 = new FUN_004a7c40;
                     cell2->SetDifficultyLevel(scene2);
-                    cell2->ResetAndProcessNode(scene2->Get3D_00545cb0(), addons, false);
-                    list.SetValueAndCall(scene2->Get3D_00545cb0(), scene2, 0);
+                    cell2->BGSSceneInfo_CollectSceneDataFromNode(scene2->Get3D_00545cb0(), addons, false);
+                    list.BGSTextureUseMap_CollectTexUseData(scene2->Get3D_00545cb0(), scene2, 0);
                     cell2->AccumulateSceneStats(scene2);
                     map.FUN_005ae3d0(cell2);
                 }

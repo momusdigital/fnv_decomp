@@ -167,8 +167,8 @@ void ValueModifierEffect::RefreshPlayerActorValue()
 {
     if ((MagicTarget*)((ActorMover*)this)->GetCurrentMoveModeType() ==
             (g_thePlayer ? (MagicTarget*)((char*)g_thePlayer + (sizeof(MobileObject) + sizeof(MagicCaster))) : 0) &&
-        (ActorValue_IsAttribute((ActorValue::Index)pEffect->GetAffectedActorValue()) ||
-         ActorValue::IsSkill((ActorValue::Index)pEffect->GetAffectedActorValue())) &&
+        (ActorValue_IsAttribute((ActorValue::Index)pEffect->GetActorValueIndex()) ||
+         ActorValue::IsSkill((ActorValue::Index)pEffect->GetActorValueIndex())) &&
         pEffect->IsHostile())
     {
         if (((MagicItem*)((InventoryStackRecord*)this)->GetObject())->GetSpellType() != 4 &&
@@ -177,7 +177,7 @@ void ValueModifierEffect::RefreshPlayerActorValue()
             bool continuous = pEffect->GetEffectSetting()->IsFlagSet(2) || IsFlagged();
             char buffer[200];
             sprintf(buffer, "%s %s %s", g_011d2ce8.String(),
-                    ActorValue::GetActorValueName((ActorValue::Index)pEffect->GetAffectedActorValue()),
+                    ActorValue::GetActorValueName((ActorValue::Index)pEffect->GetActorValueIndex()),
                     continuous ? g_011d21a8.String()
                                : g_011d4a5c.String());
             ValuemodifiereffectInterfaceView::ShowMessage(buffer, 0, 0, 0, 2.0f, false);
@@ -272,7 +272,7 @@ FUN_0082ba60::FUN_0082ba60(MagicCaster* apCaster, MagicItem* apSpell, EffectItem
     if (psetting->HasAssociatedActorValue())
         *(int*)((char*)this + 0x48) = psetting->GetAssociatedActorValue();
     else
-        *(int*)((char*)this + 0x48) = apEffect->GetAffectedActorValue();
+        *(int*)((char*)this + 0x48) = apEffect->GetActorValueIndex();
 
     if (apEffect->GetEffectSetting()->IsFlagSet(0x100))
         *(float*)((char*)this + 0x1c) = 1.0f;

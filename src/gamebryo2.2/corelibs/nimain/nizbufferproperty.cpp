@@ -50,13 +50,13 @@ struct FUN_00a62140_shell
     bool NiSequenceStreamHelper_IsEqual(void* other);
 };
 
-struct FUN_00a5f480_cls
+struct NiZBufferProperty
 {
     bool IsEquivalent(void* other);
 };
 
 // @fnv 0x00a5f480
-bool FUN_00a5f480_cls::IsEquivalent(void* other)
+bool NiZBufferProperty::IsEquivalent(void* other)
 {
     if (!reinterpret_cast<FUN_00a62140_shell*>(this)->NiSequenceStreamHelper_IsEqual(other))
     {

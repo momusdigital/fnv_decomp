@@ -1908,7 +1908,7 @@ struct FUN_00c04030_renderer
     virtual void vf2c();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3c();
     virtual void vf40();
     virtual void vf44();
@@ -1917,7 +1917,7 @@ struct FUN_00c04030_renderer
     virtual void vf50();
     virtual void vf54();
     virtual void vf58();
-    virtual void vf5c();
+    virtual void applyForce();
     virtual void vf60();
     virtual void vf64();
     virtual void vf68();
@@ -1958,7 +1958,7 @@ struct FUN_00c04030_class
     virtual void vf2c();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3c();
     virtual void vf40();
     virtual void vf44();
@@ -1967,7 +1967,7 @@ struct FUN_00c04030_class
     virtual void vf50();
     virtual void vf54();
     virtual void vf58();
-    virtual void vf5c();
+    virtual void applyForce();
     virtual void vf60();
     virtual void vf64();
     virtual void vf68();
@@ -4693,11 +4693,12 @@ struct FUN_00c1d980_cls
     int m_vptr;
     int m_04;
 
-    FUN_00c1d980_cls* FUN_00c1d980(unsigned char acFlags);
+    FUN_00c1d980_cls* ScalarDeletingDestructor(unsigned char acFlags);
 };
 
 // @fnv 0x00c1d980
-FUN_00c1d980_cls* FUN_00c1d980_cls::FUN_00c1d980(unsigned char acFlags)
+// src: EXE 0x00c1d980
+FUN_00c1d980_cls* FUN_00c1d980_cls::ScalarDeletingDestructor(unsigned char acFlags)
 {
     int value = m_04;
     m_vptr = (int)&DAT_010bd698;
@@ -4743,7 +4744,7 @@ FUN_00c1d9b0_cls* FUN_00c1d9b0_cls::FUN_00c1d9b0(unsigned char acFlags)
 }
 }  // namespace fnv_00c1d9b0
 
-struct FUN_00c1f4e0_cls
+struct NiPSysModifier
 {
     int unk00;
     int unk04;
@@ -4757,7 +4758,7 @@ struct FUN_00c1f4e0_cls
 
 // @fnv 0x00c1f4e0
 // src: XBOX_PDB 0x00c1f4e0
-void FUN_00c1f4e0_cls::NiPSysModifier_SetActive(unsigned char value)
+void NiPSysModifier::NiPSysModifier_SetActive(unsigned char value)
 {
     m_b14 = value;
 }
@@ -9746,7 +9747,7 @@ struct P440Renderer
     unsigned int unk18c;
     unsigned int unk190;
     P440Camera* camera;
-    const P440Vector& GetCameraPosition() const
+    const P440Vector& GetTargetPos() const
     {
         return camera->position;
     }

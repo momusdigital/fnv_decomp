@@ -2,7 +2,7 @@
 // src/bsshader/bsdistanttreeshaderproperty.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/_fallout3/platforms/common/code/bsshader/bsdistanttreeshaderproperty.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
-struct FUN_00462d80_shell
+struct NiBinaryStream
 {
     unsigned int __thiscall InvokeAndAccumulate(void* pvBuffer, unsigned int uiBytes, unsigned int* uiBytesRead,
                                                 unsigned int uiSize);
@@ -11,7 +11,7 @@ struct FUN_00462d80_shell
 
 // Reads uiBytes into pvBuffer via InvokeAndAccumulate and returns the number of bytes read.
 // @fnv 0x00462d80
-unsigned int __thiscall FUN_00462d80_shell::ReadBytes(void* pvBuffer, unsigned int uiBytes)
+unsigned int __thiscall NiBinaryStream::ReadBytes(void* pvBuffer, unsigned int uiBytes)
 {
     unsigned int uiSize = 1;
     unsigned int uiBytesRead = InvokeAndAccumulate(pvBuffer, uiBytes, &uiSize, 1);

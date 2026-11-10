@@ -26,7 +26,7 @@ public:
     void ResetFormData();
     void SetupCamera(void* reference, int mode);
     void UpdateCamera(float time);
-    NiPoint3 GetCameraPosition();
+    NiPoint3 GetTargetPos();
     bool IsNotFlag4Set();
     bool IsInitialized();
     float TESCombatStyle_GetTargetingFOV();

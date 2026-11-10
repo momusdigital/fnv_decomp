@@ -635,7 +635,7 @@ struct FUN_00619df0_shell
     bool TESTopic_IsRemappedRumors();
     TESTopicInfo* FUN_0061a790(bool* apbFlag, TESObjectREFR* apSpeaker, PlayerCharacter* apPlayer, int a4,
                                TESTopic* apTopic, int a6);
-    TESQuest* FindQuestForTopicInfo(TESTopicInfo* apInfo);
+    TESQuest* TESTopic_GetOwnerQuest(TESTopicInfo* apInfo);
 };
 
 struct FUN_0042df90_shell
@@ -694,14 +694,15 @@ struct FUN_0083ed50_ref
     virtual void v12(unsigned int auiFlags);
 };
 
-struct FUN_0083ed50_shell : public TopicMenuController
+struct MenuTopicManager : public TopicMenuController
 {
-    void BuildMenuTopics(BSSimpleList<TESTopic*>* apList, bool abFlag, bool abNoSort, TESTopic* apTopic);
+    void MenuTopicManager_FillTopicList(BSSimpleList<TESTopic*>* apList, bool abFlag, bool abNoSort, TESTopic* apTopic);
 };
 
 // Iterates a TESTopic list, filters by flag and type against an actor value, builds MenuTopic entries, adds new ones to the list, and optionally sorts it.
 // @fnv 0x0083ed50
-void FUN_0083ed50_shell::BuildMenuTopics(BSSimpleList<TESTopic*>* apList, bool abFlag, bool abNoSort, TESTopic* apTopic)
+// src: COMMUNITY 0x0083ed50
+void MenuTopicManager::MenuTopicManager_FillTopicList(BSSimpleList<TESTopic*>* apList, bool abFlag, bool abNoSort, TESTopic* apTopic)
 {
     bool bStateChanged = false;
     Actor* pActorCur = dynamic_cast<Actor*>(m_pDialogueSpeaker);
@@ -744,7 +745,7 @@ void FUN_0083ed50_shell::BuildMenuTopics(BSSimpleList<TESTopic*>* apList, bool a
             ((FUN_00619df0_shell*)pTopic)->FUN_0061a790(&bChoice, m_pDialogueSpeaker, g_thePlayer, 0, apTopic, 0);
         if (pInfo)
         {
-            TESQuest* pQuest4 = ((FUN_00619df0_shell*)pTopic)->FindQuestForTopicInfo(pInfo);
+            TESQuest* pQuest4 = ((FUN_00619df0_shell*)pTopic)->TESTopic_GetOwnerQuest(pInfo);
             bool bSave = false;
             bool bCreate5 = true;
             if (((FUN_00619df0_shell*)pTopic)->TESTopic_IsRemappedRumors())
@@ -1186,7 +1187,7 @@ struct InfoShell
 struct TopicShell
 {
     TESTopicInfo* FUN_0061a790(char* a, void* b, void* c, int d, int e, int f);
-    TESQuest* FindQuestForTopicInfo(TESTopicInfo* p);
+    TESQuest* TESTopic_GetOwnerQuest(TESTopicInfo* p);
 };
 
 struct ProcShell
@@ -1260,7 +1261,7 @@ bool Mgr::CheckTopicInfoChance(MenuTopic* pTopic)
             else
             {
                 BSSimpleList<MenuTopic*>* pList = new BSSimpleList<MenuTopic*>;
-                MenuTopic* pNew = new MenuTopic(((TopicShell*)pT2)->FindQuestForTopicInfo(pInfo), pT2, pInfo,
+                MenuTopic* pNew = new MenuTopic(((TopicShell*)pT2)->TESTopic_GetOwnerQuest(pInfo), pT2, pInfo,
                                                 (MobileObject*)m_pDialogueSpeaker, false);
                 pNew->FillResponseList();
                 ((InfoShell*)pTopic->GetTopicInfo())->MarkAsRefusal();

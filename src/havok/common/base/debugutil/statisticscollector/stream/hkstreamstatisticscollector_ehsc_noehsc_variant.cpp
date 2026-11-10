@@ -222,7 +222,7 @@ struct SpawnedHandle
         m_uiFilterValue = n;
     }
 };
-struct FUN_00ddf170_cls
+struct hkStreamStatisticsCollector
 {
     void* m_vtbl;
     int unk04;
@@ -232,7 +232,7 @@ struct FUN_00ddf170_cls
     SpawnedHandle m_14;
     SpawnedHandle m_20;
 
-    FUN_00ddf170_cls* hkStreamStatisticsCollector_hkStreamStatisticsCollector(int a1, int a2);
+    hkStreamStatisticsCollector* hkStreamStatisticsCollector_hkStreamStatisticsCollector(int a1, int a2);
 };
 int hkString_strLen(const char* s);
 struct StrPacker

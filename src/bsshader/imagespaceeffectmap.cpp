@@ -145,7 +145,7 @@ struct MemMgr_cls
 
 extern MemMgr_cls DAT_011f6238;
 
-struct FUN_00b8a9e0
+struct ImageSpaceShaderParam
 {
     int unk00;
     int unk04;
@@ -182,7 +182,7 @@ struct FUN_00b8a9e0
     int unk80;
     int unk84;
 
-    FUN_00b8a9e0();
+    ImageSpaceShaderParam();
     static void* operator new(unsigned int size) throw()
     {
         return DAT_011f6238.Game_DoHeapAlloc(size);
@@ -195,12 +195,12 @@ struct FUN_00b8a9e0
 struct Sub18_cls
 {
     void* vtable;
-    FUN_00b8a9e0** data;
+    ImageSpaceShaderParam** data;
     unsigned short capacity;
     unsigned short size;
     unsigned short effectiveSize;
     unsigned short growBy;
-    void FUN_00ba3aa0(int index, FUN_00b8a9e0* const& value);
+    void FUN_00ba3aa0(int index, ImageSpaceShaderParam* const& value);
 };
 
 struct Sub28_cls
@@ -222,7 +222,7 @@ struct FUN_00baa240_cls
 
     void SetTextureArraySize(int a1);
     void SetEffectParamAt(int a1, int a2, int a3);
-    void FUN_00ba3c70(int a1, int a2, FUN_00b8a9e0* a3, int a4);
+    void FUN_00ba3c70(int a1, int a2, ImageSpaceShaderParam* a3, int a4);
     void Initialize(FUN_00baa240_cls* a1, int a2);
 };
 
@@ -231,12 +231,12 @@ void FUN_00baa240_cls::Initialize(FUN_00baa240_cls* a1, int aiArg)
 {
     SetTextureArraySize(1);
     m_28.FUN_00a90180(2);
-    FUN_00b8a9e0* obj = new FUN_00b8a9e0();
+    ImageSpaceShaderParam* obj = new ImageSpaceShaderParam();
     obj->FUN_00b8ab10(0, 1);
     obj->FUN_00b8a790(0, 1.0f, 1.0f, 1.0f, 1.0f);
     obj->FUN_00b8a8d0(0xa8, 0xf);
     {
-        FUN_00b8a9e0* toStore = obj;
+        ImageSpaceShaderParam* toStore = obj;
         m_18.FUN_00ba3aa0(0, toStore);
     }
     SetEffectParamAt(0, 1, 0);

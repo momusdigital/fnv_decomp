@@ -35,10 +35,11 @@ extern MemoryManager g_memoryManager;
 struct FUN_00af3a10_Class
 {
     void SetVirtualTable_00af39c0();
-    void* FUN_00af3a10(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 // @fnv 0x00af3a10
-void* FUN_00af3a10_Class::FUN_00af3a10(unsigned int flags)
+// src: EXE 0x00af3a10
+void* FUN_00af3a10_Class::ScalarDeletingDestructor(unsigned int flags)
 {
     SetVirtualTable_00af39c0();
     if (flags & 1)

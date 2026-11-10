@@ -26,10 +26,11 @@ struct Holder_00a4da90
     char _pad[0x34];
     Map_00a4da90 _map;
     void FUN_00a6d290();
-    void* FUN_00a4da90(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 // @fnv 0x00a4da90
-void* Holder_00a4da90::FUN_00a4da90(unsigned int flags)
+// src: EXE 0x00a4da90
+void* Holder_00a4da90::ScalarDeletingDestructor(unsigned int flags)
 {
     _map.FUN_00a4d660();
     FUN_00a6d290();

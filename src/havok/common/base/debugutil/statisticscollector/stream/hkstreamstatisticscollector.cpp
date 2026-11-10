@@ -389,7 +389,7 @@ struct SpawnedHandle
     }
 };
 
-struct FUN_00ddf170_cls
+struct hkStreamStatisticsCollector
 {
     void* m_vtbl;
     int unk04;
@@ -399,13 +399,13 @@ struct FUN_00ddf170_cls
     SpawnedHandle m_14;
     SpawnedHandle m_20;
 
-    FUN_00ddf170_cls* hkStreamStatisticsCollector_hkStreamStatisticsCollector(int a1, int a2);
+    hkStreamStatisticsCollector* hkStreamStatisticsCollector_hkStreamStatisticsCollector(int a1, int a2);
 };
 
 // Calls a base method, sets the vtable, initializes two SpawnedHandle members, and optionally allocates a buffer.
 // @fnv 0x00ddf170
 // src: HAVOK_LIB 0x00ddf170
-FUN_00ddf170_cls* FUN_00ddf170_cls::hkStreamStatisticsCollector_hkStreamStatisticsCollector(int a1, int aiBufferSize)
+hkStreamStatisticsCollector* hkStreamStatisticsCollector::hkStreamStatisticsCollector_hkStreamStatisticsCollector(int a1, int aiBufferSize)
 {
     ((SubBase*)this)->FUN_00d06f50(a1);
     int value = aiBufferSize;

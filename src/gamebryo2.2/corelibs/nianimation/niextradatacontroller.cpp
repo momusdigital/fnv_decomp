@@ -47,7 +47,8 @@ bool __fastcall RegisterExtraDataStreamables(NiExtraDataController* self, int, N
 __declspec(dllimport) long __stdcall InterlockedDecrement(volatile long*);
 // Releases the extra data and resolves it again after changing the target.
 // @fnv 0x00a57330
-void __fastcall SetExtraDataTarget(NiExtraDataController* self, int, NiObjectNET* pkTarget)
+// src: EXE 0x00a57330
+void __fastcall NiExtraDataController_SetTarget(NiExtraDataController* self, int, NiObjectNET* pkTarget)
 {
     NiExtraData* p = self->m_pExtraData.m_pObject;
     if (p)
@@ -101,7 +102,8 @@ struct FUN_00a57150_obj66
 };
 
 // @fnv 0x00a57150
-void __fastcall ProcessExtraDataClone(NiExtraDataController* self, int, void* arg)
+// src: EXE 0x00a57150
+void __fastcall NiExtraDataController_ProcessClone(NiExtraDataController* self, int, void* arg)
 {
     void* src = arg;
     self->NiSingleInterpController::ProcessClone(*(CloningProcess*)src);

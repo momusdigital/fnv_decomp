@@ -10,7 +10,8 @@ extern double DAT_01011588;
 // These Havok base constructors are inline in the original constructor at 0x00e44310.
 
 // @fnv 0x00e442e0
-float hkpVehicleDefaultAerodynamics::calcLiftForce(float speed) throw()
+// src: COMMUNITY 0x00e442e0
+float hkpVehicleDefaultAerodynamics::calcAerodynamicLift(float speed) throw()
 {
     return m_fAirDensity * DAT_01011588 * m_fLiftCoefficient * m_fFrontalArea * speed * speed;
 }
@@ -26,7 +27,8 @@ hkpVehicleDefaultAerodynamics::hkpVehicleDefaultAerodynamics() throw()
 }
 
 // @fnv 0x00e44340
-float hkpVehicleDefaultAerodynamics::calcDragForce(float speed) throw()
+// src: COMMUNITY 0x00e44340
+float hkpVehicleDefaultAerodynamics::calcAerodynamicDrag(float speed) throw()
 {
     float fAbs = (float)fabs((double)speed);
     return speed * (fAbs * (m_fAirDensity * -0.5 * m_fDragCoefficient * m_fFrontalArea));

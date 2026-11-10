@@ -465,7 +465,7 @@ class Owner9C64
     virtual void v2b0();
     virtual void v2b4();
     virtual void v2b8();
-    virtual float GetCurrentTargetDistance(int iMode);
+    virtual float GetHeading(int iMode);
     virtual void v2c0();
     virtual void v2c4();
     virtual void v2c8();
@@ -724,7 +724,7 @@ void Listener9C64::ProjectileListener_contactPointAddedCallback(void* pvUnused, 
             NiPoint3 kForward;
             kFrom = *pkOwner->GetPos();
             Matrix9C64 kRot;
-            kRot.SetZRotation(pkOwner->GetCurrentTargetDistance(0));
+            kRot.SetZRotation(pkOwner->GetHeading(0));
             Matrix9C64 kPitch;
             kPitch.SetXRotation(pkOwner->GetLooking());
             kRot = kRot * kPitch;

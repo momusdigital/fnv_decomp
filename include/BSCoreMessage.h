@@ -13,5 +13,5 @@ public:
                                unsigned int aStyle);
 
     void UpdateFields_00aa4c80();
-    void* FUN_00aa4d00(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };

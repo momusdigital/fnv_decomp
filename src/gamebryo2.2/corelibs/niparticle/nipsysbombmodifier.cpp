@@ -150,7 +150,8 @@ template <class Enum> static inline void ReadBombEnum(NiBinaryStream& input, Enu
 
 // Loads the base data, then the bomb parameters from the stream's input.
 // @fnv 0x00c2eb80
-void __fastcall LoadBombBinary(NiPSysBombModifier* modifier, void*, NiStream& stream)
+// src: EXE 0x00c2eb80
+void __fastcall NiPSysBombModifier_LoadBinary(NiPSysBombModifier* modifier, void*, NiStream& stream)
 {
     modifier->NiPSysModifier::LoadBinary(stream);
     stream.ReadLinkID();
@@ -175,7 +176,8 @@ template <class T> inline void SaveBombValue(NiStream& kStream, const T& value)
 
 // Saves the modifier base, bomb object link, direction, and decay parameters.
 // @fnv 0x00c2ec40
-void __fastcall SaveBombBinary(NiPSysBombModifier* modifier, void*, NiStream& kStream)
+// src: EXE 0x00c2ec40
+void __fastcall NiPSysBombModifier_SaveBinary(NiPSysBombModifier* modifier, void*, NiStream& kStream)
 {
     modifier->NiPSysModifier::SaveBinary(kStream);
     kStream.SaveLinkID(modifier->m_pkBombObject);

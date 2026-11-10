@@ -3089,7 +3089,7 @@ struct TrimWords : TrimContainer
     {
         return TrimIterator(_Where._Myptr, this);
     }
-    TrimIterator ProcessAndReturnValue_00b335c0(TrimConstIterator _First_arg, TrimConstIterator _Last_arg);
+    TrimIterator vector_erase(TrimConstIterator _First_arg, TrimConstIterator _Last_arg);
     void _Destroy(unsigned int* _First, unsigned int* _Last);
     unsigned int& operator[](unsigned int _Pos)
     {
@@ -3180,8 +3180,8 @@ inline void TrimWords::_Destroy(unsigned int* _First, unsigned int* _Last)
 {
     TrimDestroyRange(_First, _Last, _Alval);
 }
-// src: GUESS 0x00b335c0 (confidence: low)
-inline TrimIterator TrimWords::ProcessAndReturnValue_00b335c0(TrimConstIterator _First_arg, TrimConstIterator _Last_arg)
+// src: GUESS 0x00b335c0 (confidence: medium)
+inline TrimIterator TrimWords::vector_erase(TrimConstIterator _First_arg, TrimConstIterator _Last_arg)
 {
     TrimIterator _First = _Make_iter(_First_arg);
     TrimIterator _Last = _Make_iter(_Last_arg);
@@ -3222,7 +3222,7 @@ void BitTrim::UpdateState_00b41db0(unsigned int _Size)
         ThrowLengthError();
     unsigned int _Words = _Nw(_Size);
     if (_Words < _Myvec.size())
-        _Myvec.ProcessAndReturnValue_00b335c0(_Myvec.begin() + _Words, _Myvec.end());
+        _Myvec.vector_erase(_Myvec.begin() + _Words, _Myvec.end());
     _Mysize = _Size;
     _Size %= 32;
     if (0 < _Size)

@@ -37,7 +37,7 @@ void BGSLoadedReferenceCollection::RemoveReference_005270b0(TESObjectREFR* apRef
 
     eformType = _FNV_GetFormType(_FNV_GetObjectReference(apRef));
 
-    if (TESContainer::IsValidContainerType((unsigned char)eformType))
+    if (TESContainer::ContainerCanHoldType((unsigned char)eformType))
     {
         LoadedReferenceMap* prefMap;
 

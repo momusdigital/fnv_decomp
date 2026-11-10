@@ -206,7 +206,7 @@ struct FNV_A90A50_Array : FNV_A90A50_ArrayBase
     {}
 };
 
-struct FUN_00a90a50 : FUN_00a7b690
+struct NiScreenGeometryData : FUN_00a7b690
 {
     unsigned char unk58;
     unsigned char unk59;
@@ -214,12 +214,13 @@ struct FUN_00a90a50 : FUN_00a7b690
     unsigned int unk5c;
     FNV_A90A50_Array member60;
     virtual void baseVirtual();
-    FUN_00a90a50();
+    NiScreenGeometryData();
 };
 
 // Constructor that zero-initialises unk58, unk59 and unk5c and default-constructs the member60 array.
 // @fnv 0x00a90a50
-FUN_00a90a50::FUN_00a90a50() : unk58(0), unk59(0), unk5c(0)
+// src: EXE 0x00a90a50
+NiScreenGeometryData::NiScreenGeometryData() : unk58(0), unk59(0), unk5c(0)
 {}
 
 template <class T, class TAlloc> inline unsigned int NiTArray<T, TAlloc>::SetAtGrow(unsigned int uiIndex, const T& element)
@@ -262,7 +263,8 @@ inline void* __cdecl operator new(unsigned int, void* p)
 }
 // Allocates a NiProperty, clears the low bit of the 0x18 field, sets the vtable to DAT_0109f68c, and returns it.
 // @fnv 0x00a8f580
-NiProperty* __cdecl CreateProperty()
+// src: EXE 0x00a8f580
+NiProperty* __cdecl NiCullingProperty_CreateObject()
 {
     NiCullingProperty* pProperty = (NiCullingProperty*)BSFadeNode::operator new(0x1c);
     if (pProperty)

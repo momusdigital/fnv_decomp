@@ -31,8 +31,8 @@ struct FUN_00c54b70_cls
     unsigned short m_0a;
     unsigned short unk0c;
     unsigned short m_0e;
-    void AllocateStorage_00c54850(unsigned int n);
-    void FUN_00c54a30(unsigned int idx, NiIntegerStreamEntry& e);
+    void NiTObjectArray_SetSize(unsigned int n);
+    void NiTObjectArray(unsigned int idx, NiIntegerStreamEntry& e);
     unsigned int NiTArray_FurnitureMark_NiTNewInterface_FurnitureMark_Add(NiIntegerStreamEntry& e);
 };
 struct FUN_00c54cc0_cls
@@ -74,7 +74,7 @@ struct ElemZ
         return !HasEqualFields(kOther);
     }
 };
-struct FUN_00c54a30
+struct NiTObjectArray
 {
     void* m_pv0;
     ElemZ* m_pUserData;
@@ -84,7 +84,7 @@ struct FUN_00c54a30
     void SetAt(unsigned int uiIndex, const ElemZ& kElem);
 };
 // @fnv 0x00c54a30
-void FUN_00c54a30::SetAt(unsigned int uiIndex, const ElemZ& kElem)
+void NiTObjectArray::SetAt(unsigned int uiIndex, const ElemZ& kElem)
 {
     static ElemZ s_kEmpty;
     if (uiIndex >= m_usSize)
@@ -426,8 +426,8 @@ struct NiIntStreamAllocatorC
 };
 
 // @fnv 0x00c54850
-// src: GUESS 0x00c54850 (confidence: low)
-void FUN_00c54b70_cls::AllocateStorage_00c54850(unsigned int uiMaxSize)
+// src: GUESS 0x00c54850 (confidence: medium)
+void FUN_00c54b70_cls::NiTObjectArray_SetSize(unsigned int uiMaxSize)
 {
     if (uiMaxSize == m_08)
         return;

@@ -195,13 +195,14 @@ struct FUN_008c6060_shell
     void FUN_008c6060();
 };
 extern int DAT_0101d398;
-struct FUN_0048b800 : BFC_s
+struct TESRaceForm : BFC_s
 {
-    FUN_0048b800();
+    TESRaceForm();
 };
 // Sets the object's vtable pointer to DAT_0101d398 and then calls FUN_008c6060 on this object.
 // @fnv 0x0048b800
-FUN_0048b800::FUN_0048b800()
+// src: EXE 0x0048b800
+TESRaceForm::TESRaceForm()
 {
     *(int*)this = (int)&DAT_0101d398;
     ((FUN_008c6060_shell*)this)->FUN_008c6060();
@@ -217,14 +218,15 @@ struct BFC_s
 {
     BFC_s();
 };
-struct FUN_0048e7a0 : BFC_s
+struct TESValueForm : BFC_s
 {
     void FUN_008c6060();
-    FUN_0048e7a0();
+    TESValueForm();
 };
 // Sets the object's first field to point at DAT_0101d81c, then calls FUN_008c6060.
 // @fnv 0x0048e7a0
-FUN_0048e7a0::FUN_0048e7a0()
+// src: EXE 0x0048e7a0
+TESValueForm::TESValueForm()
 {
     *reinterpret_cast<int*>(this) = reinterpret_cast<int>(&DAT_0101d81c);
     FUN_008c6060();
@@ -434,11 +436,12 @@ void __thiscall FUN_0049c570::Reset()
 struct S_486a60
 {
     void FUN_00486a60();
-    void* __thiscall FUN_00486c00(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 void __cdecl Deallocate(void*);
 // @fnv 0x00486c00
-void* __thiscall S_486a60::FUN_00486c00(unsigned int flags)
+// src: EXE 0x00486c00
+void* __thiscall S_486a60::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00486a60();
     if (flags & 1)
@@ -553,14 +556,14 @@ template <int N> struct EndianSizeTag
 };
 void __cdecl BSEndian(unsigned short*, EndianSizeTag<2>);
 bool __cdecl TESForm_QEndianSwapOnSave();
-void __cdecl AppendChunk(void*, void*, unsigned int);
+void __cdecl TESForm___AddChunkData(void*, void*, unsigned int);
 // @fnv 0x00485950
 // src: XBOX_PDB 0x00485950
 void __cdecl TESForm_AddChunk_00485950(void* apDest, unsigned short ausValue)
 {
     if (TESForm_QEndianSwapOnSave())
         BSEndian((unsigned short*)&ausValue, EndianSizeTag<2>());
-    AppendChunk(apDest, &ausValue, 2);
+    TESForm___AddChunkData(apDest, &ausValue, 2);
 }
 
 void __cdecl _Deallocate(void*);
@@ -656,13 +659,14 @@ struct FUN_0048b590_shell
     void __thiscall ClearFields();
 };
 extern int DAT_0101d2a4;
-struct FUN_0048b560 : BFC_s
+struct TESProduceForm : BFC_s
 {
-    FUN_0048b560();
+    TESProduceForm();
 };
 // Sets the object's vtable pointer to DAT_0101d2a4 and then calls ClearFields on this.
 // @fnv 0x0048b560
-FUN_0048b560::FUN_0048b560() : BFC_s()
+// src: EXE 0x0048b560
+TESProduceForm::TESProduceForm() : BFC_s()
 {
     *(int*)this = (int)&DAT_0101d2a4;
     ((FUN_0048b590_shell*)this)->ClearFields();
@@ -757,12 +761,12 @@ void __thiscall S_004963e0::SetFromFourInts(FourInts* apValues)
 
 struct FUN_00497bc0_Class
 {
-    void SaveFields_00497bc0(BGSSaveFormBuffer* buffer, int a);
+    void AnimIdle_SaveGame(BGSSaveFormBuffer* buffer, int a);
 };
 // Saves three 4-byte fields at offsets 8, 0xc and 0x14 of this object into the given BGSSaveFormBuffer.
 // @fnv 0x00497bc0
 // src: GUESS 0x00497bc0 (confidence: medium)
-void FUN_00497bc0_Class::SaveFields_00497bc0(BGSSaveFormBuffer* buffer, int aiUnused)
+void FUN_00497bc0_Class::AnimIdle_SaveGame(BGSSaveFormBuffer* buffer, int aiUnused)
 {
     buffer->SaveData(this + 8, 4, 0);
     buffer->SaveData(this + 0xc, 4, 0);
@@ -931,7 +935,8 @@ void DecalManager_Destroy_()
 }
 
 // @fnv 0x00481090
-TESModelTextureSwap* GetBipedModelTextureSwap(TESForm* form, TESObjectREFR* refr)
+// src: COMMUNITY 0x00481090
+TESModelTextureSwap* TESBipedModelForm_GetBipedTESModel(TESForm* form, TESObjectREFR* refr)
 {
     TESBipedModelForm* model2 = dynamic_cast<TESBipedModelForm*>(form);
     if (!model2)
@@ -1038,7 +1043,7 @@ void __thiscall FUN_0049a920_s::Animation_RevertTES(unsigned int a)
     *(int*)((char*)this + 0xfc) = 0;
     Animation_ClearGroup(7, 0.0f);
     if (*(Flt*)((char*)this + 0xd8))
-        ((NiControllerManager*)(unsigned int)*(Flt*)((char*)this + 0xd8))->DeactivateAllSequences(0.0f);
+        ((NiControllerManager*)(unsigned int)*(Flt*)((char*)this + 0xd8))->DeactivateAll(0.0f);
     Animation_ClearControllersInterpolators(((KFModel*)this)->GetControllerSequence());
     ((H00499080*)this)->Animation_ClearBlendInterps();
     ((H00499240*)this)->Animation_ReloadTargets(true);
@@ -1132,12 +1137,12 @@ struct FUN_0049f510
     int m0;
     ActorAvoidanceEntry* m1;
     unsigned int m2;
-    void RemoveLastEntry();
+    void BSSimpleArray_PopBack();
 };
 // If m2 is nonzero, calls FUN_0072ba80 on the last element of the m1 array and decrements m2.
 // @fnv 0x0049f510
 // src: GUESS 0x0049f510 (confidence: medium)
-void FUN_0049f510::RemoveLastEntry()
+void FUN_0049f510::BSSimpleArray_PopBack()
 {
     if (!m2)
         return;
@@ -1260,7 +1265,7 @@ void __cdecl TESForm_AddChunkArray16(void* destination, void* source, unsigned i
 // src: COMMUNITY 0x004858f0
 void __cdecl TESForm_AddChunk_3(unsigned int a, unsigned char ucValue)
 {
-    AppendChunk((void*)a, &ucValue, 1);
+    TESForm___AddChunkData((void*)a, &ucValue, 1);
 }
 
 int __cdecl strcpy_s(char*, unsigned int, char*);
@@ -1486,33 +1491,34 @@ struct GameMember
     unsigned int unk0c;
     ~GameMember();
 };
-struct FUN_004876d0
+struct TESLeveledList
 {
-    virtual ~FUN_004876d0();
+    virtual ~TESLeveledList();
     GameMember firstMember;
     GameMember secondMember;
     void FUN_00487770();
 };
 // @fnv 0x004876d0
-FUN_004876d0::~FUN_004876d0()
+// src: EXE 0x004876d0
+TESLeveledList::~TESLeveledList()
 {
     FUN_00487770();
 }
 
-struct FUN_004899f0_cls
+struct TESTextureList
 {
     unsigned char m_uiItemCount;
     unsigned int* m_pData;
 
     void Reset();
-    void TESTextureList_Copy(const FUN_004899f0_cls* src);
+    void TESTextureList_Copy(const TESTextureList* src);
 };
 
 void* __cdecl CopyMemory_Thunk(void* dst, const void* src, unsigned int size);
 
 // @fnv 0x004899f0
 // src: COMMUNITY 0x004899f0
-void FUN_004899f0_cls::TESTextureList_Copy(const FUN_004899f0_cls* apSource)
+void TESTextureList::TESTextureList_Copy(const TESTextureList* apSource)
 {
     Reset();
     m_uiItemCount = apSource->m_uiItemCount;
@@ -2001,11 +2007,12 @@ struct Node487a60
 struct Owner487a60
 {
     Node487a60* GetList();
-    Entry487a60* InsertEntryByPriority(unsigned short priority, unsigned short type, int value, int data);
+    Entry487a60* TESLeveledList_AddLeveledObject(unsigned short priority, unsigned short type, int value, int data);
 };
 
 // @fnv 0x00487a60
-Entry487a60* Owner487a60::InsertEntryByPriority(unsigned short priority, unsigned short type, int value, int data)
+// src: COMMUNITY 0x00487a60
+Entry487a60* Owner487a60::TESLeveledList_AddLeveledObject(unsigned short priority, unsigned short type, int value, int data)
 {
     Entry487a60* entry = 0;
     Node487a60* node = GetList();
@@ -2275,7 +2282,7 @@ struct PtrBox
     void* p;
     void* Modelloader_GetReferencedThis();
 };
-struct FUN_004f0040_shell
+struct BSBipNode
 {
     void UpdateControls(float a);
 };
@@ -2293,7 +2300,7 @@ struct F497c10
 };
 extern "C" unsigned int __cdecl FUN_0044ddc0();
 
-struct FUN_0047b470_This
+struct bhkCollisionObject
 {
     bool bhkCollisionObject_GetUseVelocity();
 };
@@ -2487,9 +2494,9 @@ void __thiscall AnimSelf::Load(BGSLoadFormBuffer* apBuffer)
         }
     }
     Animation_UpdateBipOnly(m_d0, &m_1c, 1);
-    ((FUN_004f0040_shell*)m_08.Modelloader_GetReferencedThis())->UpdateControls(m_d0);
+    ((BSBipNode*)m_08.Modelloader_GetReferencedThis())->UpdateControls(m_d0);
     MyNode* node9 = bhkUtilFunctions_FindNextCollisionObject((MyNode*)m_08.Modelloader_GetReferencedThis());
-    unsigned char valid6 = node9 != 0 ? ((FUN_0047b470_This*)node9)->bhkCollisionObject_GetUseVelocity() : false;
+    unsigned char valid6 = node9 != 0 ? ((bhkCollisionObject*)node9)->bhkCollisionObject_GetUseVelocity() : false;
     if (valid6)
         SetFlagRecursive(0, m_08.Modelloader_GetReferencedThis());
     ((ThisStub*)this)->Animation_UpdateSceneGraphNoController();
@@ -2598,7 +2605,7 @@ void __thiscall AnimSelf::Load(BGSLoadFormBuffer* apBuffer)
         }
     }
     Animation_UpdateBipOnly(m_d0, &m_1c, 1);
-    ((FUN_004f0040_shell*)m_08.Modelloader_GetReferencedThis())->UpdateControls(m_d0);
+    ((BSBipNode*)m_08.Modelloader_GetReferencedThis())->UpdateControls(m_d0);
 }
 
 struct ArrElem12
@@ -2752,12 +2759,13 @@ struct AnimDataN
     int unk12c, unk130;
     ListN m_kList;
 
-    void SaveAnimData(BGSSaveFormBuffer* pBuffer);
+    void Animation_Save(BGSSaveFormBuffer* pBuffer);
 };
 
 // Serializes animation data fields, the list of items, the current sequence and per-slot group state into the save buffer.
 // @fnv 0x0049ab40
-void AnimDataN::SaveAnimData(BGSSaveFormBuffer* pBuffer)
+// src: COMMUNITY 0x0049ab40
+void AnimDataN::Animation_Save(BGSSaveFormBuffer* pBuffer)
 {
     Actor* pObject = pBuffer->GetActor();
     pBuffer->SaveData(&m_10c, 4, 0);
@@ -2892,13 +2900,13 @@ class FUN_00439260
     ~FUN_00439260();
     unsigned int unk[6];
 };
-class FUN_0049ec80 : public FUN_00439260
+class NiStencilProperty : public FUN_00439260
 {
   public:
     unsigned short m_usFlags;
     unsigned int m_uiCount;
     int m_iIndex;
-    FUN_0049ec80();
+    NiStencilProperty();
     void NiAlphaProperty_SetAlphaBlending(int a);
     void NiStencilProperty_SetStencilFunction(int a);
     void NiStencilProperty_SetStencilFailAction(int a);
@@ -2908,7 +2916,8 @@ class FUN_0049ec80 : public FUN_00439260
 };
 // Constructor that sets the vtable, initialises m_usFlags, m_uiCount and m_iIndex, then calls the member initialisers.
 // @fnv 0x0049ec80
-FUN_0049ec80::FUN_0049ec80()
+// src: EXE 0x0049ec80
+NiStencilProperty::NiStencilProperty()
 {
     *(void**)this = &DAT_0101e07c;
     m_usFlags = 0;
@@ -3123,7 +3132,8 @@ extern "C" void __cdecl FUN_00489670();
 
 // Reads a chunk from pFile, allocates m_ppElementArray, and loads texture archive entries for each FileEntryList from pOwner's model list.
 // @fnv 0x0048a0d0
-void FileEntryListCollection::LoadFromTESFile(TESModelList* pOwner, TESFile* pFile)
+// src: COMMUNITY 0x0048a0d0
+void FileEntryListCollection::TESTextureListArray_Load(TESModelList* pOwner, TESFile* pFile)
 {
     unsigned int uiElapsedMilliseconds;
     {
@@ -3132,7 +3142,7 @@ void FileEntryListCollection::LoadFromTESFile(TESModelList* pOwner, TESFile* pFi
             char* pBuffer;
             {
                 unsigned int uiSize;
-                ClearAndDeleteArray();
+                TESTextureListArray_ClearData();
                 uiSize = pFile->GetChunkSize();
                 pBuffer = (char*)_alloca(uiSize);
                 pFile->GetChunkData(pBuffer, uiSize);

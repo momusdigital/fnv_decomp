@@ -48,7 +48,7 @@ extern MemoryManager g_memoryManager;
 struct FakeHeap
 {
     void FUN_00aa7930();
-    void* FUN_00aa7e20(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 void __fastcall MemoryHeap_DoNothing(void* this_ptr);
 struct FUN_00b02710_Cls

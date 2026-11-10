@@ -52,7 +52,7 @@ class NiQuaternion
     // float __cdecl NiQuaternion::*(float)
     // float __cdecl NiQuaternion::*(float, float, float)
     // float __cdecl NiQuaternion::*(float, float)
-    void GetAngleAxis(float&, NiPoint3&);
+    void ToAngleAxis(float&, NiPoint3&);
 };
 #pragma pack(pop)
 FNV_STATIC_ASSERT(sizeof(NiQuaternion) == 16);

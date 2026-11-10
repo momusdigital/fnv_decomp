@@ -922,7 +922,7 @@ bool __cdecl IsTargetInCone(Actor* pkShooter, Actor* pkTarget, float* pfAngleOut
             fAimDirectionOffset = fX_2;
     }
     float fAngleA =
-        fabsf_00408860(pkShooter->GetCurrentTargetDistance(0) + fAimDirectionOffset - fHeadingLoc) * 57.2957763671875f;
+        fabsf_00408860(pkShooter->GetHeading(0) + fAimDirectionOffset - fHeadingLoc) * 57.2957763671875f;
     if (fAngleA > 180.0)
         fAngleA = FUN_00408840(fAngleA - 360.0);
     float fConeTmp = 0.0f;
@@ -1107,7 +1107,7 @@ float __cdecl GetScaleOrHeightDelta(TESObjectREFR* apRefr, int aiFlag)
         }
         else
         {
-            fValue8 = selfX->GetActorHeight();
+            fValue8 = selfX->Actor_GetHeight();
         }
         fBase = fValue8;
         fScaled5 = fBase * DAT_0101de30;
@@ -1152,7 +1152,7 @@ S_009a82b0_Point3 GetAdjustedPosition(Actor* apRef)
     {
         Actor* pWho = apRef;
         S_009a82b0_Point3 kStart = *(S_009a82b0_Point3*)static_cast<const TESObjectREFR*>(pWho)->GetPos();
-        float fFacing = pWho->GetCurrentTargetDistance(0);
+        float fFacing = pWho->GetHeading(0);
         float fSinYaw = 0.0f;
         float fYawCos = 0.0f;
         NiSinCos_004169a0(fFacing + DAT_01030f38, fSinYaw, fYawCos);
@@ -1188,7 +1188,7 @@ float __cdecl CombatUtilities_GetTargetFiringZOffset(Actor* actor, int type, boo
     {
         act = actor;
         b = act->FUN_004997b0() && !flag;
-        f = b ? act->Actor_GetSneakHeight(0) : act->GetActorHeight();
+        f = b ? act->Actor_GetSneakHeight(0) : act->Actor_GetHeight();
 
         if (act->GetHasKnockedState() || act->Actor_IsSleeping() || act->HasHealth(false))
         {
@@ -1506,7 +1506,7 @@ struct S_009a9180_Data
     float GetFloatAt120();
     float GetField124Float();
     bool IsFlag20Set();
-    BGSProjectile* GetOrFallback(int key);
+    BGSProjectile* TESObjectWEAP_GetProjectile(int key);
 };
 
 struct S_009a9180_Setting
@@ -1534,7 +1534,7 @@ void CombatUtilities_ComputeOptimalWeaponRanges(Actor* pActor, S_009a9180_Data* 
             *pfMax = pWeapon->GetFieldAtOffset44() * *pfMax;
         }
         *pfDerived = *pfMax * *DAT_011ce87c.Setting_Float_00403e20();
-        BGSProjectile* pObj = pData->GetOrFallback(pActor->GetFieldBC());
+        BGSProjectile* pObj = pData->TESObjectWEAP_GetProjectile(pActor->GetFieldBC());
         if (pObj)
         {
             float fValue = CombatUtilities_GetProjectileMaximumRange(pObj, 0.0f);

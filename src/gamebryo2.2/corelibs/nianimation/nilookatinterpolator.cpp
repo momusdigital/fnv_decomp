@@ -24,7 +24,8 @@ extern "C" void __cdecl FUN_00a4be20();
 extern "C" void __cdecl __Dummy_00b6fef0(void* p, unsigned int flags);
 
 // @fnv 0x00a4c5c0
-void* __thiscall NiLookAtInterpolator::FUN_00a4c5c0(unsigned int flags)
+// src: EXE 0x00a4c5c0
+void* __thiscall NiLookAtInterpolator::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00a4be20();
     if (flags & 1)

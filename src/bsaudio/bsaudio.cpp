@@ -293,13 +293,13 @@ void __fastcall BSAudio_Shutdown(BSAudio* audio)
 extern NiPoint3 _NiPoint3_ZERO;
 // BSAudio.h currently declares this operation with weapon_audio::NiPoint3,
 // rather than the NiPoint3 value returned by this unit.
-struct FUN_00ad78e0_cls : public BSAudio
+struct BSWin32Audio : public BSAudio
 {
     NiPoint3 BSAudio_GetListenerPosition();
 };
 // @fnv 0x00ad78e0
 // src: COMMUNITY 0x00ad78e0
-NiPoint3 FUN_00ad78e0_cls::BSAudio_GetListenerPosition()
+NiPoint3 BSWin32Audio::BSAudio_GetListenerPosition()
 {
     const NiPoint3* p = pListener ? &pListener->GetPosition_00aeaad0() : &_NiPoint3_ZERO;
     return *p;
@@ -739,7 +739,8 @@ inline bool BSAudio::IsAudioEnabled() const
 }
 
 // @fnv 0x00ad7230
-void BSAudio::SetUseMultipleThreads(bool abUseMultipleThreads)
+// src: COMMUNITY 0x00ad7230
+void BSAudio::SetMultiThreaded(bool abUseMultipleThreads)
 {
     MemContextScope tempMemContext(11);
     if (!IsAudioEnabled())

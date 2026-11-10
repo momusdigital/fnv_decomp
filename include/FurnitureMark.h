@@ -17,7 +17,7 @@ public:
     void SetNumber(unsigned int);
     void* QPosition();
     void SetPosition(void*);
-    float GetCurrentTargetDistance();
+    float GetHeading();
     NiPoint3* FUN_006815c0();   // 0x006815c0 (returns the position)
     void SetFurnitureHeading(float);
     void LoadBinary(NiStream*);

@@ -33,7 +33,7 @@ class BGSLoadFormBuffer : public BGSLoadGameBuffer
 {
   public:
     FormChangeMask GetChangeFlags(unsigned int mask);
-    int ReadElementCount();
+    int LoadVariableSizedValue();
 };
 
 TESForm* __cdecl GetFormByID(unsigned int formID);

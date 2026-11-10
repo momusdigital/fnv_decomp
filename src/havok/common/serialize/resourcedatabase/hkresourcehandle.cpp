@@ -100,13 +100,13 @@ int __thiscall FUN_00e2df60_class::hkMemoryResourceContainer_getName(int)
 
 extern int DAT_010eb19c;
 void __cdecl Deallocate(void*);
-struct FUN_00e2def0_class
+struct hkResourceMap
 {
     void* m_p;
     int __thiscall InitAndMaybeFree(int flags);
 };
 // @fnv 0x00e2def0
-int __thiscall FUN_00e2def0_class::InitAndMaybeFree(int flags)
+int __thiscall hkResourceMap::InitAndMaybeFree(int flags)
 {
     m_p = &DAT_010eb19c;
     if (flags & 1)
@@ -252,12 +252,13 @@ hkMemoryRouter* _D1A0E0GetMemoryRouter();
 struct FUN_00e2f210_class : public FUN_00e2ea40_class
 {
     unsigned short m_handle;
-    void* __thiscall FUN_00e2f210(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Runs the base constructor, and if flags has bit 0 set, releases m_handle through the memory router's manager, then returns this.
 // @fnv 0x00e2f210
-void* FUN_00e2f210_class::FUN_00e2f210(unsigned int flags)
+// src: EXE 0x00e2f210
+void* FUN_00e2f210_class::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00e2ea40_class::FUN_00e2ea40();
 
@@ -580,18 +581,19 @@ template <typename V> class hkStringMapE2F0
     }
 };
 
-class FUN_00e2f090
+class hkContainerResourceMap
 {
   public:
     hkStringMapE2F0<hkNamedTypeE2F0*> m_typeFromName;
 
-    FUN_00e2f090(const hkTypeSourceE2F0* pkSource) throw();
+    hkContainerResourceMap(const hkTypeSourceE2F0* pkSource) throw();
     virtual void V0() throw();
 };
 
 // Collects the named types from pkSource and inserts each type into m_typeFromName keyed by its name.
 // @fnv 0x00e2f090
-FUN_00e2f090::FUN_00e2f090(const hkTypeSourceE2F0* pkSource) throw()
+// src: EXE 0x00e2f090
+hkContainerResourceMap::hkContainerResourceMap(const hkTypeSourceE2F0* pkSource) throw()
 {
     hkArray<hkNamedTypeE2F0*> kTypes;
     pkSource->hkResourceContainer_findAllResourceRecursively(kTypes);
@@ -1109,10 +1111,10 @@ hkMemoryResourceHandle::~hkMemoryResourceHandle() throw()
 namespace fnv_00e2eae0 {
 struct FUN_00e2eae0_Result
 {
-    void __thiscall UpdateFields_00e2eae0(int* param);
+    void __thiscall hkResourceContainer_getPath(int* param);
 };
 
-struct FUN_00e2eae0_class
+struct hkResourceContainer
 {
     virtual void* vf00();
     virtual void* vf04();
@@ -1124,7 +1126,7 @@ struct FUN_00e2eae0_class
     virtual void* vf1c();
     virtual void* vf20();
     virtual FUN_00e2eae0_Result* vf24();
-    void __thiscall UpdateFields_00e2eae0(int* param);
+    void __thiscall hkResourceContainer_getPath(int* param);
 };
 
 struct FUN_00d61df0_Obj
@@ -1147,13 +1149,13 @@ hkMemoryRouter* __cdecl hkMemoryRouter_getInstance();
 
 // Calls vf24 and vf10, sends two values to the object at param, then conditionally calls allocator->vf10.
 // @fnv 0x00e2eae0
-// src: GUESS 0x00e2eae0 (confidence: low)
-void __thiscall FUN_00e2eae0_class::UpdateFields_00e2eae0(int* apTarget)
+// src: COMMUNITY 0x00e2eae0
+void __thiscall hkResourceContainer::hkResourceContainer_getPath(int* apTarget)
 {
     FUN_00e2eae0_Result* result = vf24();
     if (result != 0)
     {
-        result->UpdateFields_00e2eae0(apTarget);
+        result->hkResourceContainer_getPath(apTarget);
     }
 
     // The original uses the out-of-line initializer and explicit cleanup here.
@@ -1226,7 +1228,7 @@ struct ObjQ_e2e9e0
     unsigned short m_usMemSizeAndFlags;
     void* Ctor();
 };
-struct FUN_00e2ed00_class
+struct hkMemoryResourceContainer
 {
     int unk00;
     int unk04;
@@ -1238,7 +1240,7 @@ struct FUN_00e2ed00_class
 // Allocates an ObjQ_e2e9e0, initializes it with p0, p1, p2, and appends it to the hkArray<ObjQ_e2e9e0*> array at unk10.
 // @fnv 0x00e2ed00
 // src: HAVOK_SRC 0x00e2ed00
-ObjQ_e2e9e0* FUN_00e2ed00_class::hkMemoryResourceContainer_createResource(void* p0, void* apArg1, void* apArg2)
+ObjQ_e2e9e0* hkMemoryResourceContainer::hkMemoryResourceContainer_createResource(void* p0, void* apArg1, void* apArg2)
 {
     ObjQ_e2e9e0* obj = (ObjQ_e2e9e0*)ResourceHeap(*hkMemoryRouter_getInstance()).AllocateMemoryBlock(0x1c);
     obj->m_usMemSizeAndFlags = 0x1c;

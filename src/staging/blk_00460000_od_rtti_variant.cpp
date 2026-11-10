@@ -45,7 +45,7 @@ struct FUN_00460fd0_class
 };
 struct FUN_004610f0_Class
 {
-    void* GetOffset70Ptr();
+    void* ProcessLists_GetProjectilePostProcessList();
 };
 struct FUN_00462e60_Class
 {
@@ -143,10 +143,10 @@ struct FUN_008c6060_shell
 {
     void FUN_008c6060();
 };
-struct FUN_004748f0 : BFC_s
+struct BGSAmmoForm : BFC_s
 {
     void* vtbl;
-    FUN_004748f0();
+    BGSAmmoForm();
 };
 struct FUN_00475a90_cls
 {
@@ -174,11 +174,11 @@ struct MersenneTwister
 {
     unsigned int GetRandomUInt(unsigned int);
 };
-struct FUN_00476be0_Class
+struct BSRandom
 {
     unsigned int BSRandom_UnsignedInt();
 };
-struct FUN_00476c70_Class
+struct Explosion
 {
     void Explosion_SetSourceWeapon(int value);
 };
@@ -239,7 +239,7 @@ struct FUN_004792c0_Class : NiTPointerMap<int, int>
 struct FUN_0045d930_class
 {
     void __thiscall SetVtableAndProcessState_0046ffd0();
-    void* __thiscall FUN_00470320(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 struct FUN_0045d950_Class
 {
@@ -320,7 +320,7 @@ struct TlsBlock462480
 };
 extern __declspec(thread) TlsBlock462480 g_tls462480;
 extern int __tls_index;
-struct FUN_00462480_Class
+struct BGSSaveLoadGame
 {
     unsigned char __thiscall BGSSaveLoadGame_GetThreadAllowChanges();
 };
@@ -386,7 +386,7 @@ struct FUN_00471e60_shell
     char _pad258[0x41];
     bool bFlag;
     void SetFlag40(bool);
-    void LoadFormAndUpdateFlag();
+    void TESFile_InitEndian();
 };
 void __cdecl _Deallocate(void*);
 struct FUN_00474500_Class
@@ -475,7 +475,7 @@ struct FUN_004791f0_holder2
 {
     void* __thiscall InitArrayHolder(int a);
 };
-struct FUN_0047b470_This
+struct bhkCollisionObject
 {
     bool __thiscall bhkCollisionObject_GetUseVelocity();
 };
@@ -484,7 +484,7 @@ struct LH
 {
     bool IsInList(Actor*&);
 };
-struct FUN_0047ba80_This
+struct BGSRepairItemList
 {
     int _0;
     Script* m4;
@@ -509,7 +509,7 @@ struct FUN_00474a40
 };
 struct FUN_00474920_shell
 {
-    TESForm* GetFormOrScriptForm();
+    TESForm* BGSAmmoForm_GetAmmoHelper();
 };
 struct GlobalObject_00a7b610;
 struct FUN_00476ec0_Class
@@ -520,7 +520,7 @@ bool __cdecl NiObject_IsKindOf(GlobalObject_00a7b610*, NiAVObject*);
 extern GlobalObject_00a7b610 g_01202e8c;
 void __cdecl BGSDestructibleObjectForm_UpdateDamageStageNodes(NiAVObject*, int);
 void __cdecl BGSDestructibleObjectForm_UpdateDamageStageNodes(NiAVObject* object, int flag);
-struct FUN_00478130_class
+struct SAVE_DESTRUCTIBLE_OBJECT_STAGE
 {
     void __thiscall SAVE_DESTRUCTIBLE_OBJECT_STAGE_Endian();
 };
@@ -561,7 +561,7 @@ struct FUN_0047bac0_ARMO : TESForm
     unsigned char m_armor[0xbc];
     void* biped;
 };
-void* GetBipedPointer(TESForm* form);
+void* BGSRepairItemList_GetFormAsRepairItemList(TESForm* form);
 struct FUN_0046eb20_Class
 {
     unsigned int GetElementAt2();
@@ -570,7 +570,7 @@ struct FUN_0046ebd0_Class
 {
     unsigned int NiTexturingProperty_GetDecalMapCount();
 };
-struct FUN_0046fdd0_Class
+struct TESObjectANIO
 {
     char m_iWordAt00[0x38];
     int m_38;
@@ -589,12 +589,12 @@ struct FUN_004750e0 : Date
 };
 struct FUN_0047bcf0_class
 {
-    bool IsFlag80Clear();
+    bool TESObjectWEAP_GetIsPlayable();
 };
 struct FUN_0047eb90_Class
 {
     void FUN_005fc970(int, char);
-    void ForwardCall_0047eb90(int value);
+    void TESFaction_SetPCAnEnemy(int value);
 };
 class FUN_00462dc0_cls
 {
@@ -700,7 +700,7 @@ bool __cdecl NiObject_IsKindOf(const void*, CollectionItem*);
 void __cdecl CreateProjectileRef(int, OutputRenderer*, OutputRenderer*, unsigned int, InstanceData12, InstanceData36);
 struct ActorProcessor
 {
-    int ProcessCollectionTree(CollectionItem*, int, unsigned int, OutputRenderer*);
+    int BGSDestructibleObjectForm_SpawnExplosionsAtBlastNodes(CollectionItem*, int, unsigned int, OutputRenderer*);
 };
 extern unsigned char DAT_01202e84;
 struct NodeChildren;
@@ -1025,7 +1025,7 @@ struct FUN_0047ead0_cls
     FUN_0047ead0_cls* FUN_00726070();
     void TESFaction_SetPCAttack(int v);
     void TESFaction_SetPCMurder(int v);
-    void ForwardCall_0047eb90(int v);
+    void TESFaction_SetPCAnEnemy(int v);
     void TESActorBaseData_SetPCFactionFlags(int mode);
 };
 extern FUN_0047ead0_cls* DAT_011dea3c;
@@ -1250,7 +1250,7 @@ struct Ref_47ab40
     Cell_47ab40* GetParentCell();
 };
 bool BGSOpenCloseForm_HandleAnimEndHavok(Ref_47ab40* ref, NamedObject_47ab40* obj);
-FUN_0047b470_This* __cdecl bhkUtilFunctions_FindNextCollisionObject(NiNode*);
+bhkCollisionObject* __cdecl bhkUtilFunctions_FindNextCollisionObject(NiNode*);
 void __cdecl SetFlagRecursive(int, void*);
 struct RefWithGetNiNode
 {
@@ -1420,7 +1420,7 @@ struct ScriptOwnerStub
 {
     bool IsActorInList(ActorStub* actor);
 };
-ScriptOwnerStub* GetBipedPointer(ItemForm* form);
+ScriptOwnerStub* BGSRepairItemList_GetFormAsRepairItemList(ItemForm* form);
 struct WeapStub : ItemForm
 {
     bool HasModsCheck();
@@ -1531,7 +1531,7 @@ struct PlayerStub;
 extern PlayerStub* g_thePlayer;
 void __cdecl ApplyPerkModifiers(int id, PlayerStub* actor, ...);
 extern double _gModifierZero;
-bool __cdecl IsItemEquivalent(ItemForm* a, ItemForm* b);
+bool __cdecl BGSRepairItemList_CanItemRepairForm(ItemForm* a, ItemForm* b);
 
 // FUN_00461cf0 (0x00461cf0, 1340 bytes) -- TESFile record scan.
 // Vtable-free; member of the file-list holder (count at +0x218, array at +0x21c).
@@ -1572,12 +1572,12 @@ class DialogueResponse
 
 struct FUN_00585940_shell
 {
-    bool FindCellByEditorID(char*, int*, int*);
+    bool TESWorldSpace_GetExtCellDataFromFileByEditorID(char*, int*, int*);
 };
 
 
 TESForm* TESForm_GetFormByNumericID(unsigned int);
-int FindFormEnumIndex(unsigned int);
+int TESForm_GetFormTypeFromFormString(unsigned int);
 int __cdecl BSstricmp(const char*, const char*);
 void __cdecl FormHeapFreeAndLog_00401030(void*);
 
@@ -1621,7 +1621,7 @@ int TESFileArray::TESDataHandler_GetExtCellDataFromFileByEditorID(char* name, in
             {
                 void* v = *p->FUN_006815c0();
                 p = p->FUN_00726070();
-                if (((FUN_00585940_shell*)v)->FindCellByEditorID(name, out1, out2))
+                if (((FUN_00585940_shell*)v)->TESWorldSpace_GetExtCellDataFromFileByEditorID(name, out1, out2))
                 {
                     result = (int)v;
                     break;
@@ -1672,7 +1672,7 @@ int TESFileArray::TESDataHandler_GetExtCellDataFromFileByEditorID(char* name, in
                             {
                                 unsigned int id = hdr->fC;
                                 unsigned int hi = id >> 24;
-                                TESFile* w = f->GetFileByIndex(hi + 1);
+                                TESFile* w = f->GetIndexFile(hi + 1);
                                 if (!w)
                                     w = f;
                                 id &= 0xffffff;
@@ -1734,7 +1734,7 @@ int TESFileArray::TESDataHandler_GetExtCellDataFromFileByEditorID(char* name, in
                                         }
                                         else
                                         {
-                                            unsigned char c = (unsigned char)FindFormEnumIndex(hdr->f8);
+                                            unsigned char c = (unsigned char)TESForm_GetFormTypeFromFormString(hdr->f8);
                                             if (c > 0x41)
                                             {
                                                 read2 = false;

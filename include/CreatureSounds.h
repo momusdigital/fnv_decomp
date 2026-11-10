@@ -20,9 +20,9 @@ public:
     void ClearSounds();
     void FreeAllCreatureSoundLists();
     void* DeleteThis(unsigned int);
-    void AddSoundForType(SoundListEntry*, CREATURE_SOUND_TYPE);
+    void AddCreatureSound(SoundListEntry*, CREATURE_SOUND_TYPE);
     BSSimpleList<SoundListEntry*>* GetSoundListForType(CREATURE_SOUND_TYPE);
-    bool LoadSoundsFromFile(TESFile*, CREATURE_SOUND_TYPE, TESCreature*);
+    bool LoadCreatureSound(TESFile*, CREATURE_SOUND_TYPE, TESCreature*);
     SoundOps* GetRandomCreatureSound(int);
     void Copy(CreatureSounds*);
     bool IsDifferentFrom(CreatureSounds* other);

@@ -28,7 +28,7 @@ class NiLODNode : public NiSwitchNode
     bool __thiscall NiBSPNode_RegisterStreamables(NiStream* stream);
     bool __thiscall RegisterStreamables_00a992e0(NiStream* stream);
     void __thiscall FUN_00a99470();
-    NiLODNode* __thiscall FUN_00a99670(unsigned int flags);
+    NiLODNode* __thiscall ScalarDeletingDestructor(unsigned int flags);
     void __thiscall UpdateWorldData_00a99110(NiUpdateData& data);
     void __thiscall SaveBinary_00a99310(NiStream& stream);
     void __thiscall CopyMembers_00a99390(NiSwitchNode* destination, CloningProcess& process);

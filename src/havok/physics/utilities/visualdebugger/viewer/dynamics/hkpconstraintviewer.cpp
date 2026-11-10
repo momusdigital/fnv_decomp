@@ -88,17 +88,18 @@ class D698B0Base : public D698B0BaseA, public D698B0BaseB, public D698B0BaseC
     D698B0World* m_pOwningWorld;
 };
 
-class FUN_00d698b0 : public D698B0Base, public D698B0Listener
+class hkpConstraintViewer : public D698B0Base, public D698B0Listener
 {
   public:
-    FUN_00d698b0(void* info);
+    hkpConstraintViewer(void* info);
 
     D698B0ListenerArray m_entries;
 };
 
 // Base constructor then, if a world is set, registers this listener with every island in that world.
 // @fnv 0x00d698b0
-FUN_00d698b0::FUN_00d698b0(void* info) : D698B0Base(info)
+// src: EXE 0x00d698b0
+hkpConstraintViewer::hkpConstraintViewer(void* info) : D698B0Base(info)
 {
     if (m_pOwningWorld)
     {
@@ -374,7 +375,7 @@ void* __cdecl hkpConstraintViewer_Create(void* apSource)
     return 0;
 }
 
-// FUN_00d69a40 (0x00d69a40, 56 bytes): the constructor of the display-geometry
+// hkpRagdollLimitsDrawer (0x00d69a40, 56 bytes): the constructor of the display-geometry
 // object.  It builds the base transform at +0x00, three hkDisplayCone members
 // at +0xd0 / +0x160 / +0x1f0 and one hkDisplayPlane member at +0x280, then
 // hands `this` back in EAX (the MSVC constructor convention).
@@ -401,7 +402,7 @@ struct FUN_00d69a40_plane
     FUN_00d69a40_plane();
 };
 
-struct FUN_00d69a40
+struct hkpRagdollLimitsDrawer
 {
     FUN_00d69a40_base m00;
     FUN_00d69a40_cone m0d0;
@@ -409,12 +410,13 @@ struct FUN_00d69a40
     FUN_00d69a40_cone m1f0;
     FUN_00d69a40_plane m280;
 
-    FUN_00d69a40();
+    hkpRagdollLimitsDrawer();
 };
 
 // Constructs the bundle by default-constructing its base, three cone members and one plane member.
 // @fnv 0x00d69a40
-FUN_00d69a40::FUN_00d69a40() : m00(), m0d0(), m160(), m1f0(), m280()
+// src: COMMUNITY 0x00d69a40
+hkpRagdollLimitsDrawer::hkpRagdollLimitsDrawer() : m00(), m0d0(), m160(), m1f0(), m280()
 {}
 
 typedef unsigned long unsigned32;
@@ -935,7 +937,7 @@ struct __declspec(align(16)) Renderer
     void FireMotionEvent(Collidable*, void*, void*, void*);
     void UpdateFields_00de7f20(Collidable*, void*, void*, void*);
     void ComputeValues_00de7730(Collidable*, void*, void*, void*);
-    void UpdateFields_00de7580(Collidable*, void*, void*, void*);
+    void drawConstraint(Collidable*, void*, void*, void*);
     void ComputeValues_00de71d0(Collidable*, void*, void*, void*);
     void UpdateViewerAndDrawPointLines(Collidable*, void*, void*, void*);
     void ProcessEntries_00de6d80(Collidable*, void*, void*, void*);
@@ -1146,7 +1148,7 @@ struct __declspec(align(16)) Complex : Renderer
     int unk314;
     int unk318;
     int unk31c;
-    void FUN_00d69a40();
+    void hkpRagdollLimitsDrawer();
     void UpdateState_00de6730(Collidable*, void*, void*, void*);
     void ComputeValues_00de59f0(Collidable*, void*, void*, void*);
     void FUN_00d69a80();
@@ -1213,7 +1215,7 @@ void ConstraintDrawDetail::Viewer::hkpConstraintViewer_draw(int aiCollidable, En
     case 8: {
         renderer.InitializeDefaults();
         renderer.hkpConstraintDrawer_setScale(DAT_011b6168);
-        renderer.UpdateFields_00de7580(object, context, position, DAT_0126901c);
+        renderer.drawConstraint(object, context, position, DAT_0126901c);
         break;
     }
     case 9: {
@@ -1235,7 +1237,7 @@ void ConstraintDrawDetail::Viewer::hkpConstraintViewer_draw(int aiCollidable, En
         break;
     }
     case 7: {
-        complexRenderer.FUN_00d69a40();
+        complexRenderer.hkpRagdollLimitsDrawer();
         complexRenderer.hkpConstraintDrawer_setScale(DAT_011b6168);
         complexRenderer.UpdateState_00de6730(object, context, position, DAT_0126901c);
         complexRenderer.FUN_00d69a80();
@@ -1278,7 +1280,7 @@ void ConstraintDrawDetail::Viewer::hkpConstraintViewer_draw(int aiCollidable, En
         break;
     }
     case 19: {
-        complexRenderer.FUN_00d69a40();
+        complexRenderer.hkpRagdollLimitsDrawer();
         complexRenderer.hkpConstraintDrawer_setScale(DAT_011b6168);
         complexRenderer.ComputeValues_00de59f0(object, context, position, DAT_0126901c);
         ((ComplexCleanup*)&complexRenderer)->FUN_00d69a80();

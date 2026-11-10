@@ -247,13 +247,13 @@ void __cdecl WriteTypedValue(void* apDest, unsigned int value, unsigned int size
     }
 }
 
-struct FUN_00846330_shell
+struct BGSSaveLoadFile
 {
     void WriteToFile(int a, int b);
 };
 
 // @fnv 0x00845d00
-void ForwardToShell(FUN_00846330_shell* apShell, int aiArg1, int aiArg2)
+void ForwardToShell(BGSSaveLoadFile* apShell, int aiArg1, int aiArg2)
 {
     apShell->WriteToFile(aiArg1, aiArg2);
 }
@@ -310,13 +310,13 @@ unsigned int ReadValueBySizeType(const void* source, unsigned int* value, unsign
 }
 
 namespace fnv_00845d80 {
-struct FUN_00846330_shell
+struct BGSSaveLoadFile
 {
     void WriteToFile(int, int);
 };
 
 // @fnv 0x00845d80
-void WriteValueByType(FUN_00846330_shell* self, unsigned short ausValue, int type)
+void WriteValueByType(BGSSaveLoadFile* self, unsigned short ausValue, int type)
 {
     switch (type)
     {

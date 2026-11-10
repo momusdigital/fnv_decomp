@@ -183,7 +183,8 @@ struct FUN_00a95cc0_shell
 };
 
 // @fnv 0x00a95f20
-void* AllocateAndConstruct()
+// src: EXE 0x00a95f20
+void* NiScreenLODData_CreateObject()
 {
     void* p = A51BF0Base::operator new(0x30);
     return p ? reinterpret_cast<FUN_00a95cc0_shell*>(p)->InitializeScreenLODData() : 0;

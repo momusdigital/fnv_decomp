@@ -35,7 +35,8 @@ extern int DAT_011a943c;
 extern int DAT_0109a58c;
 
 // @fnv 0x00a55ff0
-NiBlendColorInterpolator* __cdecl CreateBlendColorInterpolator()
+// src: EXE 0x00a55ff0
+NiBlendColorInterpolator* __cdecl NiBlendColorInterpolator_CreateObject()
 {
     NiBlendColorInterpolator* pInterpolator = (NiBlendColorInterpolator*)BSFadeNode::operator new(0x44);
     if (pInterpolator)

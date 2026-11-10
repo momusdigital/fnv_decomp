@@ -23,11 +23,11 @@ struct FUN_00dee620
 };
 extern "C" void __cdecl hkVector4_ProcessEntries_00dedf10(void*, void*, void*, void*, int, int);
 void __cdecl hkGeometryProcessing_generateRandomDistribution(void* first, void* second, void* third, void* fourth);
-struct FUN_00dee6b0_Class
+struct ConstFunction
 {
     int unk00;
     float unk04;
-    float GetUnk04(int testFlag);
+    float getValue(int testFlag);
 };
 extern int DAT_010cd664;
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
@@ -35,7 +35,7 @@ struct FUN_00dee6c0_cls
 {
     int m_vptr;
 
-    FUN_00dee6c0_cls* FUN_00dee6c0(unsigned char acFlags);
+    FUN_00dee6c0_cls* ScalarDeletingDestructor(unsigned char acFlags);
 };
 #include <xmmintrin.h>
 #include <math.h>

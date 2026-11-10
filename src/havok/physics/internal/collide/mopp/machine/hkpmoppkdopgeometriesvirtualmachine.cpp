@@ -215,7 +215,7 @@ S_00e65e70* S_00e65e70::Reset()
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 
-struct FUN_00e65ea0_cls
+struct hkArray
 {
     int unk00;
     int unk04;
@@ -239,7 +239,7 @@ struct FUN_00e65ea0_cls
 
 // Frees the data array through the audio allocator when the high flag bit is clear, then resets the pointer, count and flag.
 // @fnv 0x00e65ea0
-void FUN_00e65ea0_cls::ClearArray()
+void hkArray::ClearArray()
 {
     hkMemoryRouter* pHolder = hkMemoryRouter_getInstance();
     hkMemoryAllocator* pAllocator = reinterpret_cast<hkMemoryAllocator*>(pHolder->m_heap);

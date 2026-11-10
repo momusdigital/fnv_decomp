@@ -45,7 +45,7 @@ extern float DAT_01016248;
 extern float DAT_0101622c;
 extern float DAT_0101e2bc;
 
-struct FUN_00b3f310
+struct CBranchInfo
 {
     int unk00;
     int unk04;
@@ -78,12 +78,13 @@ struct FUN_00b3f310
     S_00b3f310_Item* unk68;
     S_00b3f310_Item* unk6c;
     int unk70;
-    FUN_00b3f310();
+    CBranchInfo();
 };
 
 // Initialises the object's fields to default values and allocates six S_00b3f310_Item instances into the pointer fields.
 // @fnv 0x00b3f310
-FUN_00b3f310::FUN_00b3f310()
+// src: GUESS 0x00b3f310 (confidence: medium)
+CBranchInfo::CBranchInfo()
 {
     unk00 = 6;
     unk04 = 3;

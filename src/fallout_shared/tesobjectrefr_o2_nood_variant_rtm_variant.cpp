@@ -1258,7 +1258,7 @@ struct ScaleParams
     float unk10;
 };
 
-struct FUN_00cb30d0_cls
+struct bhkRigidBodyT
 {
     virtual void VSlot00();
     virtual void VSlot01();
@@ -1320,7 +1320,7 @@ struct FUN_00cb30d0_cls
 
 // @fnv 0x00cb30d0
 // src: XBOX_PDB 0x00cb30d0
-void FUN_00cb30d0_cls::bhkRigidBodyT_CopyMembers(void* a1, ScaleParams* a2)
+void bhkRigidBodyT::bhkRigidBodyT_CopyMembers(void* a1, ScaleParams* a2)
 {
     unsigned char flag;
     char* obj = static_cast<char*>(VSlot45(&flag));

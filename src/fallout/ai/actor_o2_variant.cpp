@@ -63,14 +63,14 @@ void* __thiscall FUN_00c7fa70_Class::FUN_00c7fa70(int flags)
 extern "C" void __cdecl FUN_0062d4b0();
 extern int DAT_01084e54;
 
-struct FUN_00cb9900_cls
+struct bhkFilteredCdBodyCollector
 {
     void __thiscall UpdateFields_00cb9900();
 };
 
 // @fnv 0x00cb9900
 // src: GUESS 0x00cb9900 (confidence: low)
-void __thiscall FUN_00cb9900_cls::UpdateFields_00cb9900()
+void __thiscall bhkFilteredCdBodyCollector::UpdateFields_00cb9900()
 {
     *(int*)this = (int)&DAT_01084e54;
     FUN_0062d4b0();
@@ -79,14 +79,14 @@ void __thiscall FUN_00cb9900_cls::UpdateFields_00cb9900()
 void __cdecl hkaPose_syncModelSpace();
 void __cdecl FUN_00cd9fe0();
 
-struct FUN_00cda4b0_cls
+struct hkaPose
 {
     void __thiscall hkaPose_accessSyncedPoseModelSpace();
 };
 
 // @fnv 0x00cda4b0
 // src: COMMUNITY 0x00cda4b0
-void __thiscall FUN_00cda4b0_cls::hkaPose_accessSyncedPoseModelSpace()
+void __thiscall hkaPose::hkaPose_accessSyncedPoseModelSpace()
 {
     hkaPose_syncModelSpace();
     ((void(__thiscall*)(void*))FUN_00cd9fe0)(this);
@@ -135,10 +135,11 @@ struct Outer
     int _0;
     unsigned short _4;
     void __thiscall FUN_00c7dc40();
-    Outer* __thiscall FUN_00c7e970(unsigned int);
+    Outer* __thiscall ScalarDeletingDestructor(unsigned int);
 };
 // @fnv 0x00c7e970
-Outer* __thiscall Outer::FUN_00c7e970(unsigned int a)
+// src: EXE 0x00c7e970
+Outer* __thiscall Outer::ScalarDeletingDestructor(unsigned int a)
 {
     FUN_00c7dc40();
     if (a & 1)
@@ -594,12 +595,12 @@ struct FUN_00c7d890_cls
     void* _0;
     int _4;
     unsigned int _8;
-    void ProcessEntries_00c7d890();
+    void hkArray_clearAndDeallocate();
 };
 
 // @fnv 0x00c7d890
-// src: GUESS 0x00c7d890 (confidence: low)
-void FUN_00c7d890_cls::ProcessEntries_00c7d890()
+// src: GUESS 0x00c7d890 (confidence: medium)
+void FUN_00c7d890_cls::hkArray_clearAndDeallocate()
 {
     VObjExt* p = (VObjExt*)_FUN_00c85750()->p;
     int count = _4;
@@ -909,12 +910,12 @@ struct FUN_00c7d5c0_cls
     int m_iArrayLength;
     unsigned int m_uCap;
 
-    void ProcessEntries_00c7d5c0();
+    void hkArray_clearAndDeallocate();
 };
 
 // @fnv 0x00c7d5c0
-// src: GUESS 0x00c7d5c0 (confidence: low)
-void FUN_00c7d5c0_cls::ProcessEntries_00c7d5c0()
+// src: GUESS 0x00c7d5c0 (confidence: medium)
+void FUN_00c7d5c0_cls::hkArray_clearAndDeallocate()
 {
     hkMemoryRouter* pHolder = hkMemoryRouter_getInstance();
     hkMemoryAllocator* pAllocator = reinterpret_cast<hkMemoryAllocator*>(pHolder->m_heap);
@@ -962,14 +963,15 @@ struct MiddleObject : BaseObject
     ~MiddleObject();
 };
 
-struct FUN_00c7f9e0 : MiddleObject
+struct bhkStiffSpringConstraint : MiddleObject
 {
-    FUN_00c7f9e0(void* context);
+    bhkStiffSpringConstraint(void* context);
     void SpawnAndAttach(void* context);
 };
 
 // @fnv 0x00c7f9e0
-FUN_00c7f9e0::FUN_00c7f9e0(void* context) : MiddleObject()
+// src: EXE 0x00c7f9e0
+bhkStiffSpringConstraint::bhkStiffSpringConstraint(void* context) : MiddleObject()
 {
     classTable = DAT_010c52bc;
     SpawnAndAttach(context ? (char*)context + 4 : 0);

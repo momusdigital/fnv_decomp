@@ -41,10 +41,10 @@ class MoonTextureCoordinate
     MoonTextureCoordinate();
     MoonTextureCoordinate(float, float);
 };
-class FUN_00baf3c0
+class BSShaderData
 {
   public:
-    FUN_00baf3c0();
+    BSShaderData();
     unsigned int shaderType;
     unsigned int unk04;
     unsigned int unk08;
@@ -178,7 +178,7 @@ void Moon::Initialize(NiNode* root, const char* name)
         ((NiTriShape*)m_pMoonShape)->AttachProperty(alpha);
         alpha = 0;
     }
-    FUN_00baf3c0 kB;
+    BSShaderData kB;
     kB.shaderType = 6;
     kB.shadowType = 6;
     kB.AddProperties(m_pMoonShape, 1);

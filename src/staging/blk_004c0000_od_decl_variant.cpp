@@ -52,7 +52,7 @@ struct BlkOffset08View
 {
     unsigned int GetFlags();
 };
-struct FUN_004d7d50_StandIn
+struct NiParticleSystem
 {
     unsigned int __thiscall NiParticleSystem_GetModifierCount();
 };
@@ -109,7 +109,7 @@ struct FUN_004d9190_Class
     void __thiscall FUN_004d91b0();
     void __thiscall ForwardCall_004d9190();
 };
-struct FUN_004dc020_Class
+struct NiDX9Renderer
 {
     unsigned int m_p288;
     unsigned int NiXenonRenderer_GetD3DDevice();
@@ -163,7 +163,7 @@ struct FUN_004def90_Class
 {
     void NiNode_RemoveAllChildren();
 };
-struct FUN_004dfe80_Class
+struct BSShaderBloodSplatterProperty
 {
     GO m_p[12];
     void SetSlotValue(int index, void* value);
@@ -225,7 +225,7 @@ struct FUN_004d4e40_Class
 void __cdecl _Deallocate(void*);
 struct FUN_004d4f40_StandIn
 {
-    void* __thiscall FUN_004d4f40(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 struct FUN_004d5c20_Base
 {
@@ -478,14 +478,14 @@ struct FUN_004de550_StandIn
 };
 extern NiPointer<NiTexture> DAT_011c7804[];
 bool __cdecl Runtime_EvaluateValue_004deed0(char const* a, unsigned char b);
-struct FUN_004d4f70
+struct LipSynchAnim
 {
     unsigned int m_uiCount;
     int m_iParam;
     float** m_ppfA;
     float** m_ppfB;
 
-    FUN_004d4f70(unsigned int ItemUpdateArray, int iParam);
+    LipSynchAnim(unsigned int ItemUpdateArray, int iParam);
 };
 extern "C" void __cdecl FormHeapFreeAndLog_00401030(void*);
 struct FUN_004d5080_Class
@@ -530,11 +530,11 @@ struct FUN_0040c150
     int value8;
     FUN_0040c150(char* text, int index);
 };
-struct FUN_004d5b60
+struct MiscStat
 {
     FUN_0040c150* object;
     int value;
-    FUN_004d5b60(int index, int number, int extra);
+    MiscStat(int index, int number, int extra);
 };
 extern void* DAT_011c6d50[43];
 extern "C" void* __cdecl memset(void* dest, int value, unsigned int count);
@@ -547,7 +547,7 @@ struct FUN_004d9070
 {
     ~FUN_004d9070();
 };
-struct FUN_004d62a0_Class
+struct NiTreeCtrl
 {
     int m_00;
     int m_04;
@@ -565,7 +565,7 @@ struct FUN_004d62a0_Class
     void __thiscall NiTreeCtrl_DestroyTree();
     void __thiscall NiTreeCtrl_DestroyImageList();
     void __thiscall NiTreeCtrl_DestroyWindows();
-    ~FUN_004d62a0_Class();
+    ~NiTreeCtrl();
 };
 struct InitCommonControls4d63
 {
@@ -759,9 +759,9 @@ struct MsgStruct
     int unk3C;
 };
 void __cdecl BSstrncpy(char* dst, const char* src, unsigned int count);
-struct ObjClass : public FUN_004d7d50_StandIn
+struct ObjClass : public NiParticleSystem
 {
-    ItemClass* __thiscall GetByIndex(unsigned int);
+    ItemClass* __thiscall NiParticleSystem_GetModifierAt(unsigned int);
 };
 typedef int(__stdcall* DAT_00fdf28c_fn)(void*, int, int, void*);
 struct HostClass
@@ -1334,7 +1334,7 @@ void __cdecl C4DF040UpdateProperties(C4DF040TriShape* pkShape, int iArg1, int iA
 C4DF040Node* __cdecl CreateDebrisNode(unsigned int ItemUpdateArray, float fWidthScale, float fHeightScale);
 extern double DAT_010229b8;
 extern double DAT_01012070;
-struct FUN_004dfec0_Class
+struct BSRandom
 {
     unsigned int BSRandom_UnsignedInt();
     float BSRandom_FloatNeg1To1();

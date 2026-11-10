@@ -56,7 +56,8 @@ NiNode* BSTreeNode::GetLeavesNode()
 void __cdecl __Dummy_00b6fef0(void*, unsigned int);
 
 // @fnv 0x0066b680
-void* BSTreeNode::FUN_0066b680(unsigned int flags)
+// src: EXE 0x0066b680
+void* BSTreeNode::ScalarDeletingDestructor(unsigned int flags)
 {
     this->BSTreeNode::~BSTreeNode();
     if (flags & 1)
@@ -65,7 +66,8 @@ void* BSTreeNode::FUN_0066b680(unsigned int flags)
 }
 
 // @fnv 0x0066be30
-bool BSTreeNode::SetLeafTextureVariant(unsigned char acTest)
+// src: COMMUNITY 0x0066be30
+bool BSTreeNode::SetVisibilityOnBillboard(unsigned char acTest)
 {
     if (!static_cast<NiTriBasedGeom*>(m_spLeafMesh))
     {
@@ -276,20 +278,20 @@ bool __thiscall BSTreeNode::SetFrondVisible(bool abVisible)
     return true;
 }
 
-struct FUN_0066d3d0_shell
+struct bhkPCollisionObject
 {
     void __thiscall bhkPCollisionObject_bhkPCollisionObject(void*);
 };
 extern int DAT_01066acc;
-struct FUN_0066d3a0_shell
+struct bhkSPCollisionObject
 {
     void* __thiscall bhkSPCollisionObject_bhkSPCollisionObject(void*);
 };
 // @fnv 0x0066d3a0
 // src: EXE 0x0066d3a0
-void* __thiscall FUN_0066d3a0_shell::bhkSPCollisionObject_bhkSPCollisionObject(void* arg)
+void* __thiscall bhkSPCollisionObject::bhkSPCollisionObject_bhkSPCollisionObject(void* arg)
 {
-    reinterpret_cast<FUN_0066d3d0_shell*>(this)->bhkPCollisionObject_bhkPCollisionObject(arg);
+    reinterpret_cast<bhkPCollisionObject*>(this)->bhkPCollisionObject_bhkPCollisionObject(arg);
     *reinterpret_cast<void**>(this) = &DAT_01066acc;
     return this;
 }
@@ -301,7 +303,7 @@ struct FUN_00c6b950_shell
 };
 extern void* DAT_01066b94;
 
-struct FUN_0066d3d0_shell
+struct bhkPCollisionObject
 {
     void* m0;
     void* __thiscall bhkPCollisionObject_bhkPCollisionObject(unsigned int a);
@@ -310,7 +312,7 @@ struct FUN_0066d3d0_shell
 // Calls FUN_00c6b950 with a, then sets m0 to point at DAT_01066b94 and returns this.
 // @fnv 0x0066d3d0
 // src: EXE 0x0066d3d0
-void* __thiscall FUN_0066d3d0_shell::bhkPCollisionObject_bhkPCollisionObject(unsigned int a)
+void* __thiscall bhkPCollisionObject::bhkPCollisionObject_bhkPCollisionObject(unsigned int a)
 {
     ((FUN_00c6b950_shell*)this)->FUN_00c6b950(a);
     m0 = &DAT_01066b94;
@@ -324,12 +326,12 @@ struct FUN_0056e120_shell
 {
     void __thiscall bhkTransform_setIdentity();
 };
-struct FUN_0066d550_shell
+struct hkTransformShapeCinfo
 {
     void* Initialize();
 };
 // @fnv 0x0066d550
-void* FUN_0066d550_shell::Initialize()
+void* hkTransformShapeCinfo::Initialize()
 {
     ((void(__thiscall*)(void*))hkActionCinfo_hkActionCinfo)(this);
     ((unsigned int*)this)[1] = 0;
@@ -598,16 +600,17 @@ struct FUN_0066d490_base
     ~FUN_0066d490_base();
 };
 
-struct FUN_0066d490_cls : FUN_0066d490_base
+struct bhkMultiSphereShape : FUN_0066d490_base
 {
     void* m_vptr;
     void bhkMultiSphereShape_Init(unsigned int a1);
-    FUN_0066d490_cls(unsigned int a1);
+    bhkMultiSphereShape(unsigned int a1);
 };
 
 // Sets the vtable pointer, calls FUN_00cb7b80 with a1, and increments DAT_012683dc.
 // @fnv 0x0066d490
-FUN_0066d490_cls::FUN_0066d490_cls(unsigned int a1)
+// src: EXE 0x0066d490
+bhkMultiSphereShape::bhkMultiSphereShape(unsigned int a1)
 {
     *(void* volatile*)&m_vptr = &DAT_01066c5c;
     this->bhkMultiSphereShape_Init(a1);

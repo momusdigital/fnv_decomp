@@ -616,12 +616,13 @@ FUN_00e7dc60_struct* FUN_00e7dc60_struct::Initialize()
 struct Dummy00e7dc40
 {
     void ReleaseStorage_00e7dbc0();
-    void* FUN_00e7dc40(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 void __cdecl _delete(void*, unsigned int);
 // Calls FUN_00e7dbc0, then if bit 0 of flags is set frees this with _delete, and returns this.
 // @fnv 0x00e7dc40
-void* Dummy00e7dc40::FUN_00e7dc40(unsigned int flags)
+// src: EXE 0x00e7dc40
+void* Dummy00e7dc40::ScalarDeletingDestructor(unsigned int flags)
 {
     ReleaseStorage_00e7dbc0();
     if (flags & 1)

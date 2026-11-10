@@ -142,7 +142,7 @@ struct C3
     float r, g, b;
 };
 
-struct FUN_004bc280_S
+struct NiLight
 {
     char pad[0xc8];
     C3 c;
@@ -151,7 +151,7 @@ struct FUN_004bc280_S
 // Copies the C3 value pointed to by k into c, then calls IncRevisionID.
 // @fnv 0x004bc280
 // src: COMMUNITY 0x004bc280
-void FUN_004bc280_S::NiLight_SetAmbientColor(const C3* apColor)
+void NiLight::NiLight_SetAmbientColor(const C3* apColor)
 {
     c = *apColor;
     reinterpret_cast<NiDynamicEffect*>(this)->IncRevisionID();
@@ -181,7 +181,7 @@ struct C3
 {
     float r, g, b;
 };
-struct FUN_004bc450_S
+struct NiMaterialProperty
 {
     char pad[0x28];
     C3 c;
@@ -191,7 +191,7 @@ struct FUN_004bc450_S
 // Copies the C3 value pointed to by k into the c member and calls FUN_004bc480 with 1.
 // @fnv 0x004bc450
 // src: XBOX_PDB 0x004bc450
-void FUN_004bc450_S::NiMaterialProperty_SetEmittance(const C3* apColor)
+void NiMaterialProperty::NiMaterialProperty_SetEmittance(const C3* apColor)
 {
     c = *apColor;
     NiMaterialProperty_SetChanged(1);
@@ -357,9 +357,9 @@ void GridCellArray::SwapCells(unsigned int aiX1, unsigned int aiY1, unsigned int
 
 struct FUN_00552970_Call
 {
-    void UpdateCellScene(NiNode* apRoot);
+    void TESObjectCELL_AttachToWorld(NiNode* apRoot);
 };
-// Gets the grid cell at (aiX, aiY) and, if it has a cell, forwards apRoot to that cell's UpdateCellScene.
+// Gets the grid cell at (aiX, aiY) and, if it has a cell, forwards apRoot to that cell's TESObjectCELL_AttachToWorld.
 // @fnv 0x004ba960
 // src: COMMUNITY 0x004ba960
 void GridCellArray::AttachToWorld(NiNode* apRoot, unsigned int aiX, unsigned int aiY)
@@ -367,7 +367,7 @@ void GridCellArray::AttachToWorld(NiNode* apRoot, unsigned int aiX, unsigned int
     GridCell* pgridcell;
     pgridcell = Get(aiX, aiY);
     if (pgridcell->pCell)
-        ((FUN_00552970_Call*)pgridcell->pCell)->UpdateCellScene(apRoot);
+        ((FUN_00552970_Call*)pgridcell->pCell)->TESObjectCELL_AttachToWorld(apRoot);
 }
 
 struct Arr
@@ -476,9 +476,9 @@ void GridCellArray::RunAnimations_004baba0()
 
 struct CellOwner
 {
-    void PlayCellSoundEffects();
+    void TESObjectCELL_UpdateRefSounds();
 };
-// Iterates every grid cell and calls PlayCellSoundEffects on each cell's pCell when both the cell and its pCell are non-null.
+// Iterates every grid cell and calls TESObjectCELL_UpdateRefSounds on each cell's pCell when both the cell and its pCell are non-null.
 // @fnv 0x004bac20
 // src: COMMUNITY 0x004bac20
 void GridCellArray::UpdateRefSounds_004bac20()
@@ -489,7 +489,7 @@ void GridCellArray::UpdateRefSounds_004bac20()
         {
             GridCell* cell = Get(x, y);
             if (cell && cell->pCell)
-                ((CellOwner*)cell->pCell)->PlayCellSoundEffects();
+                ((CellOwner*)cell->pCell)->TESObjectCELL_UpdateRefSounds();
         }
     }
 }
@@ -756,7 +756,7 @@ float BSMIN(float a, float b);
 extern const float g_011c7294_arg1;
 extern const float DAT_01012054;
 extern double DAT_01017a40;
-struct FUN_004bcdb0_shell
+struct ItemChange
 {
     HealthList4bcdb0* m_pkExtendData;
     int m_iArrayLength;
@@ -766,7 +766,7 @@ struct FUN_004bcdb0_shell
 };
 // @fnv 0x004bcdb0
 // src: XBOX_PDB 0x004bcdb0
-float FUN_004bcdb0_shell::ItemChange_GetItemHealth(bool bPercent)
+float ItemChange::ItemChange_GetItemHealth(bool bPercent)
 {
     HealthForm4bcdb0* pkHealth = GetHealthForm(m_pkForm);
     if (pkHealth)

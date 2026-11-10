@@ -67,7 +67,7 @@ class TESGlobalValueReader
   public:
     float GetValue();
 };
-ScriptFunctionInfo* GetFunctionByOpcode(SCRIPT_OUTPUT output);
+ScriptFunctionInfo* ScriptCompiler_GetFunctionDef(SCRIPT_OUTPUT output);
 
 #include "../../include/MEM_CONTEXT.h"
 

@@ -341,20 +341,20 @@ class WaterFormCallees
 class FUN_004fc7b0_cls : public BGSPlaceableWater
 {
   public:
-    void BeginFormRecord();
-    void FinishFormRecord();
+    void TESForm_StartForm();
+    void TESForm_CloseForm();
     void BGSPlaceableWater_SaveAlt();
 };
 
 bool __cdecl TESForm_QEndianSwapOnSave();
 void __cdecl FUN_00401460(void* dst, void* src, unsigned int size);
-void __cdecl AppendChunk(unsigned int chunkId, void* data, unsigned int size);
+void __cdecl TESForm___AddChunkData(unsigned int chunkId, void* data, unsigned int size);
 
 // @fnv 0x004fc7b0
 // src: COMMUNITY 0x004fc7b0
 void FUN_004fc7b0_cls::BGSPlaceableWater_SaveAlt()
 {
-    BeginFormRecord();
+    TESForm_StartForm();
     ((ModelCallees*)((char*)this + 0x30))->WriteToBuffer(0x4c444f4d, 0x54444f4d);
     PlaceableWaterData waterFormData;
     waterFormData.FUN_004019f0();
@@ -365,12 +365,12 @@ void FUN_004fc7b0_cls::BGSPlaceableWater_SaveAlt()
     {
         waterFormData.TwoValues_Endian();
     }
-    AppendChunk(0x4d414e44, &waterFormData, 8);
+    TESForm___AddChunkData(0x4d414e44, &waterFormData, 8);
     if (TESForm_QEndianSwapOnSave())
     {
         waterFormData.TwoValues_Endian();
     }
-    FinishFormRecord();
+    TESForm_CloseForm();
 }
 
 // @fnv 0x004fc240

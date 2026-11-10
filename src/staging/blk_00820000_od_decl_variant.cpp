@@ -86,7 +86,7 @@ struct FUN_00831e00_class
 extern "C" void __stdcall ReceiveConnection(int, int, int);
 struct FUN_00831f40_Class
 {
-    void ReceiveConnection_Thunk(int a, int b);
+    void CAsyncReader_ReceiveConnection(int a, int b);
 };
 struct FUN_008321c0_Class
 {
@@ -162,7 +162,7 @@ struct FUN_00831f80_class
 extern int DAT_0107cd54;
 extern int DAT_0107cd6c;
 extern int DAT_0107cdac;
-extern "C" void __fastcall FUN_009fdc10(void*);
+extern "C" void __fastcall CAsyncReader(void*);
 struct FUN_00831fb0_class
 {
     void* vtbl;
@@ -172,12 +172,12 @@ struct FUN_00831fb0_class
     int d;
     void __thiscall SetVtableAndProcessState_00831fb0();
 };
-struct FUN_00836600_class
+struct FalloutRadio_FORadioStation
 {
     void __thiscall RadioEntry_Save(BGSLoadFormBuffer* buffer);
     void __thiscall RadioEntry_Data_Save(BGSLoadFormBuffer* buffer);
 };
-struct FUN_00837280_Class
+struct QueuedFileEntry
 {
     char RadioConvTask_GetFileIndex();
 };
@@ -348,22 +348,22 @@ struct BCaster_S
 extern int DAT_0107be2c;
 extern int DAT_0107be80;
 extern int _data_011c16bc;
-struct FUN_00825a10 : BE
+struct NonActorMagicCaster : BE
 {
     BCaster_S m_caster;
     int m_18;
     int m_1c;
     int m_20;
 
-    FUN_00825a10();
+    NonActorMagicCaster();
 };
 extern int DAT_0107bf1c;
 struct MagicCaster;
 struct MagicItem;
 struct EffectItem;
-struct FUN_008260b0 : ActiveEffect
+struct OpenEffect : ActiveEffect
 {
-    FUN_008260b0(MagicCaster* caster, MagicItem* item, EffectItem* effect);
+    OpenEffect(MagicCaster* caster, MagicItem* item, EffectItem* effect);
 };
 struct FUN_0082b370
 {
@@ -371,16 +371,16 @@ struct FUN_0082b370
     FUN_0082b370(int a, int b, int c);
 };
 FUN_0082b370* CreateFUN0082b370(int a, int b, int c);
-struct FUN_0082cf80
+struct VampirismEffect
 {
     unsigned char m_data[0x48];
-    __fastcall FUN_0082cf80(int, int, int);
+    __fastcall VampirismEffect(int, int, int);
 };
 void* __cdecl CreateFUN0082cf80(int a, int b, int c);
 struct GlobalObject_0082ee80
 {
     ~GlobalObject_0082ee80();
-    GlobalObject_0082ee80* __thiscall FUN_0082eeb0(unsigned int flags);
+    GlobalObject_0082ee80* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 struct FUN_0082efb0_Ext : FUN_0082efb0
 {
@@ -427,7 +427,7 @@ struct Str6a70
 };
 TESForm* __cdecl _ref_004839c0(unsigned int formID);
 extern void* _DAT_01183028;
-struct FUN_0083fbe0_Class
+struct MenuTopic
 {
     void __thiscall ExtraInfoGeneralTopic_Data_LoadGame(BGSLoadGameBuffer* buffer);
 };
@@ -545,12 +545,12 @@ struct S_00825ea0_P
     int unk04;
     S_00825ea0_P();
 };
-struct FUN_00825ea0 : S_00825ea0_A, S_00825ea0_B
+struct NonActorMagicTarget : S_00825ea0_A, S_00825ea0_B
 {
     int unk1c;
     S_00825ea0_P unk20;
-    FUN_00825ea0();
-    virtual ~FUN_00825ea0();
+    NonActorMagicTarget();
+    virtual ~NonActorMagicTarget();
 };
 struct DataHandler
 {

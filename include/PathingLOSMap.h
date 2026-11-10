@@ -37,7 +37,7 @@ public:
     virtual ~PathingLOSMap();
 
     void* DestroyAndFree(unsigned int flags);
-    bool BuildNavMeshMap(NavMeshCollection* pNavMeshArray);
+    bool Setup(NavMeshCollection* pNavMeshArray);
     char* GetTriangleScore(unsigned int aNavMeshID);
     void GetMapValue(unsigned int uiKey, unsigned int& ruiValue);
     char GetLOSValue(unsigned int aiOffset, unsigned short aOffset);

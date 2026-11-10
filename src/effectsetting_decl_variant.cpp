@@ -26,14 +26,14 @@ enum
     CHUNK_ESCE = 0x45435345
 };
 bool __cdecl TESForm_QEndianSwapOnSave();
-void __cdecl AppendChunk(unsigned int, void*, unsigned int);
+void __cdecl TESForm___AddChunkData(unsigned int, void*, unsigned int);
 void __cdecl TESForm_AddChunk_00485910(unsigned int, unsigned int);
 
 // @fnv 0x00407300
 // src: COMMUNITY 0x00407300
 void EffectSetting::SaveAlt()
 {
-    BeginFormRecord();
+    TESForm_StartForm();
     TESFullName::Save_00487010();
     TESDescription::Save_00482cb0();
     TESIcon::Save(CHUNK_ICON);
@@ -59,7 +59,7 @@ void EffectSetting::SaveAlt()
 
     if (TESForm_QEndianSwapOnSave())
         data.Endian();
-    AppendChunk(CHUNK_DATA, &data, sizeof(data));
+    TESForm___AddChunkData(CHUNK_DATA, &data, sizeof(data));
     if (TESForm_QEndianSwapOnSave())
         data.Endian();
 
@@ -77,5 +77,5 @@ void EffectSetting::SaveAlt()
          pkIter = pkIter->GetNext())
         TESForm_AddChunk_00485910(CHUNK_ESCE, static_cast<const TESForm*>(savedPkEffect)->GetFormID());
 
-    FinishFormRecord();
+    TESForm_CloseForm();
 }

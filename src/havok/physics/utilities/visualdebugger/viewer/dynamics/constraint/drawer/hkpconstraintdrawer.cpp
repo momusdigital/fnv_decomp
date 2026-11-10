@@ -239,7 +239,7 @@ struct Struct00e10d50
                       int arg7);
 };
 
-struct FUN_00de4530Owner
+struct hkpConstraintDrawer
 {
     int unk00;
     int unk04;
@@ -267,7 +267,7 @@ struct FUN_00de4530Owner
 // Draws two triangles as six lines through unkc0.FUN_00e10d50, with width unk1c * unk0c * 0.2 and fixed or PackColorBigEndian colors.
 // @fnv 0x00de4530
 // src: COMMUNITY 0x00de4530
-void FUN_00de4530Owner::hkpConstraintDrawer_drawBodyFrames(int arg1, int arg2)
+void hkpConstraintDrawer::hkpConstraintDrawer_drawBodyFrames(int arg1, int arg2)
 {
     unsigned int color1 = PackColorBigEndian(1.0f, 1.0f, 0.0f, 1.0f);
     unsigned int color2 = PackColorBigEndian(1.0f, DAT_01016248, 0.0f, 1.0f);

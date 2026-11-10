@@ -4,11 +4,11 @@
 
 struct FUN_00b30060_shell
 {
-    int GetIndexedValue_00b30060(float* p);
+    int PackColor(float* p);
 };
 // @fnv 0x00b30060
-// src: GUESS 0x00b30060 (confidence: low)
-int FUN_00b30060_shell::GetIndexedValue_00b30060(float* p)
+// src: GUESS 0x00b30060 (confidence: medium)
+int FUN_00b30060_shell::PackColor(float* p)
 {
     return (int)(p[0] * 255.0) + ((int)(p[1] * 255.0) << 8) + ((int)(p[2] * 255.0) << 16) - 0x1000000;
 }
@@ -120,7 +120,7 @@ struct FUN_00b300c0_cls
     char m_pad89[0x17];
     FloatVec m_veca0;
 
-    void UpdateFields_00b300c0(const float* p);
+    void CIndexedGeometry_AddVertexCoord(const float* p);
 };
 
 struct FrameBuf
@@ -129,8 +129,8 @@ struct FrameBuf
 };
 
 // @fnv 0x00b300c0
-// src: GUESS 0x00b300c0 (confidence: low)
-void FUN_00b300c0_cls::UpdateFields_00b300c0(const float* p)
+// src: GUESS 0x00b300c0 (confidence: medium)
+void FUN_00b300c0_cls::CIndexedGeometry_AddVertexCoord(const float* p)
 {
     float v[3];
     v[0] = p[0];
@@ -301,12 +301,12 @@ class FUN_00b32c60_cls
     int m_last;
     int m_kRayEnd;
     void DestroyRange(int first, int last);
-    void UpdateFields_00b32c60();
+    void vector__Tidy();
 };
 
 // @fnv 0x00b32c60
-// src: GUESS 0x00b32c60 (confidence: low)
-void FUN_00b32c60_cls::UpdateFields_00b32c60()
+// src: GUESS 0x00b32c60 (confidence: high)
+void FUN_00b32c60_cls::vector__Tidy()
 {
     unsigned int unkPad[12];
     if (m_pHeadNode != 0)
@@ -507,7 +507,7 @@ struct FUN_00b32210_Class
 {
     void __thiscall UpdateState_00b32210(void* p);
 };
-struct FUN_00b30020_Class
+struct CIndexedGeometry
 {
     int unk00;
     int unk04;
@@ -538,13 +538,13 @@ struct FUN_00b30020_Class
     int unk68;
     int unk6C;
     FUN_00b32210_Class sub;
-    int __thiscall GetIndexedValue_00b30060(float* p);
-    void __thiscall UpdateFields_00b30020(float* a);
+    int __thiscall PackColor(float* p);
+    void __thiscall AddColor(float* a);
 };
 // Calls FUN_00b30060 with a, then passes the address of the result to sub.FUN_00b32210.
 // @fnv 0x00b30020
-// src: GUESS 0x00b30020 (confidence: low)
-void __thiscall FUN_00b30020_Class::UpdateFields_00b30020(float* a)
+// src: GUESS 0x00b30020 (confidence: medium)
+void __thiscall CIndexedGeometry::AddColor(float* a)
 {
     int iResult;
     int CNVal;
@@ -579,7 +579,7 @@ void __thiscall FUN_00b30020_Class::UpdateFields_00b30020(float* a)
     int _draw;
     int _eb;
     int _equip;
-    iResult = GetIndexedValue_00b30060(a);
+    iResult = PackColor(a);
     sub.UpdateState_00b32210((void*)&iResult);
 }
 

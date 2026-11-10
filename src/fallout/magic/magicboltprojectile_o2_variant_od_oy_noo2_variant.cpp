@@ -92,7 +92,7 @@ struct xRefList
 };
 struct xDH
 {
-    xRefList* GetOffset70Ptr();
+    xRefList* ProcessLists_GetProjectilePostProcessList();
 };
 extern xDH xg_11e0e80;
 void xFUN_0080fae0(float);
@@ -226,7 +226,7 @@ xProj::xProj(xActorV* apA, int b, int c, int d, xP3 kP1, xP3 kP2)
         xFUN_0080fae0(*xg_11d1758.Setting_Float_00403e20());
     else
     {
-        xRefList* LIST = xg_11e0e80.GetOffset70Ptr();
+        xRefList* LIST = xg_11e0e80.ProcessLists_GetProjectilePostProcessList();
         if (LIST)
             LIST->FUN_005ae3d0(this);
     }

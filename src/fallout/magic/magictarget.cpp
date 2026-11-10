@@ -271,7 +271,7 @@ bool MagicTarget::AddActiveEffect(MagicCaster* caster, MagicItem* spell, ActiveE
                      ((TESSoundFile*)spell)->GetSoundFile(), EFFECT_ITEM(effect)->GetEffectName().String());
         return false;
     }
-    EffectItem* usageMonitor = ((EffectItemList*)((char*)spell + sizeof(TESFullName)))->GetScriptEffect();
+    EffectItem* usageMonitor = ((EffectItemList*)((char*)spell + sizeof(TESFullName)))->GetUsageMonitorEffect();
     if (EFFECT_ITEM(effect) == usageMonitor)
     {
         if (!ContainsSpell(spell, true))
@@ -479,7 +479,7 @@ void MagicTarget::UpdateActiveEffects(float delta)
                         if (potion && potion->CombatController_GetTarget())
                         {
                             TESImageSpaceModifier* modifier = dynamic_cast<TESImageSpaceModifier*>(
-                                BGSDefaultObjectManager::GetDefaultObjectByIndex(20));
+                                BGSDefaultObjectManager::GetDefaultObject(20));
                             if (modifier)
                                 ImageSpaceModifierInstanceForm::ApplyImageSpaceModifier(modifier, 1.0f, 0);
                         }
@@ -634,7 +634,7 @@ bool MagicTarget::HasRecoverableActorValueEffect(ActorValue::Index aeActorValue)
     while (node && !b && !((BSSimpleList<PerkButtonEntry*>*)node)->IsEmpty())
     {
         ActiveEffect* effect = (ActiveEffect*)((BSSimpleList<BGSPerkEntry*>*)node)->GetItem();
-        if (effect && EFFECT_ITEM(effect)->GetAffectedActorValue() == aeActorValue)
+        if (effect && EFFECT_ITEM(effect)->GetActorValueIndex() == aeActorValue)
         {
             bool permanent = (int)((LocationDescriptor*)effect)->SetLocRef() == 4 && !effect->HasConditions() ? 1 : 0;
             if (a->IsPlayerRef() && permanent &&
@@ -658,7 +658,7 @@ bool MagicTarget::HasSpell(MagicItem* spell, bool includeInactive)
     {
         ActiveEffect* effect = (ActiveEffect*)((BSSimpleList<BGSPerkEntry*>*)node)->GetItem();
         if (effect && EFFECT_SPELL(effect) == spell && (includeInactive || effect->ActiveEffect_IsActive()) &&
-            !EFFECT_ITEM(effect)->IsScriptBasedEffect())
+            !EFFECT_ITEM(effect)->IsUsageMonitorEffect())
             found = true;
         node = (BSSimpleList<ActiveEffect*>*)((BSSimpleList<BGSPerkEntry*>*)node)->GetNext();
     }
@@ -872,7 +872,7 @@ struct FUN_00822eb0_shell : MagicTarget
 float FUN_00822eb0_shell::MagicTarget_GetUsageMonitorEffectMagnitude(MagicItem* apSpell)
 {
     float fresult = 0.0f;
-    EffectItem* pmonitorEffect = apSpell ? ((EffectItemList*)((char*)apSpell + 0xc))->GetScriptEffect() : 0;
+    EffectItem* pmonitorEffect = apSpell ? ((EffectItemList*)((char*)apSpell + 0xc))->GetUsageMonitorEffect() : 0;
     if (pmonitorEffect && HasSpell(apSpell, true))
     {
         EffectListNode* pEffectNode = (EffectListNode*)GetActiveEffectList();
@@ -910,7 +910,7 @@ bool FUN_00822e00_shell::MagicTarget_HasDamageHealthEffect()
         ActiveEffect* effect = list->GetItem();
 
         if (effect != 0 && reinterpret_cast<S3c60*>(effect->GetEffectSetting())->HasFlag2() &&
-            reinterpret_cast<EffectItem*>(reinterpret_cast<TESForm*>(effect)->GetFormID())->GetAffectedActorValue() ==
+            reinterpret_cast<EffectItem*>(reinterpret_cast<TESForm*>(effect)->GetFormID())->GetActorValueIndex() ==
                 0x10 &&
             effect->GetEffectSetting()->IsFlagSet_00403e60(4))
         {
@@ -928,7 +928,7 @@ bool FUN_00822e00_shell::MagicTarget_HasDamageHealthEffect()
 // src: COMMUNITY 0x00822c30
 bool MagicTarget::IsLastEffect(MagicItem* iType, ActiveEffect* pkForm)
 {
-    if (pkForm->GetHavokWorldObjectCountInSceneGraph_0084e3a0()->IsScriptBasedEffect())
+    if (pkForm->GetHavokWorldObjectCountInSceneGraph_0084e3a0()->IsUsageMonitorEffect())
         return false;
 
     BSSimpleList<ActiveEffect*>* pkNode = GetActiveEffectList();
@@ -937,7 +937,7 @@ bool MagicTarget::IsLastEffect(MagicItem* iType, ActiveEffect* pkForm)
     while (pkNode)
     {
         ActiveEffect* pkItem6 = pkNode->GetItem();
-        if (pkItem6 && pkItem6->FUN_0044ddc0() == iType && pkItem6->ActiveEffect_IsActive() && !pkItem6->GetHavokWorldObjectCountInSceneGraph_0084e3a0()->IsScriptBasedEffect() &&
+        if (pkItem6 && pkItem6->FUN_0044ddc0() == iType && pkItem6->ActiveEffect_IsActive() && !pkItem6->GetHavokWorldObjectCountInSceneGraph_0084e3a0()->IsUsageMonitorEffect() &&
             pkItem6 != pkForm)
             iCount6++;
         pkNode = pkNode->GetNext();
@@ -1379,7 +1379,7 @@ bool FUN_00824e70_shell::ApplyAddiction(AlchemyItem* apItem)
     {
         return false;
     }
-    EffectItem* pEffectItem = apItem->GetScriptEffect();
+    EffectItem* pEffectItem = apItem->GetUsageMonitorEffect();
     if (pEffectItem)
     {
         float fResistance = MagicTarget_GetUsageMonitorEffectMagnitude(apItem);

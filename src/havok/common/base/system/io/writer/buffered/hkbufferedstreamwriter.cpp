@@ -13,7 +13,7 @@
 
 // The +0x10 allocator and getter at 0x00c85750 match the shared hkMemoryRouter.
 
-struct FUN_00d27260_standin
+struct hkBufferedStreamWriter
 {
     void* m_unknown00;
     void* m_unknown04;
@@ -30,7 +30,7 @@ void _FUN_00cb1260(void* destination, const void* source, unsigned int size);
 
 // @fnv 0x00d27260
 // src: HAVOK_LIB 0x00d27260
-int __thiscall FUN_00d27260_standin::hkBufferedStreamWriter_write(const void* data, int size)
+int __thiscall hkBufferedStreamWriter::hkBufferedStreamWriter_write(const void* data, int size)
 {
     int remaining = size;
     const char* bytes = static_cast<const char*>(data);
@@ -143,8 +143,8 @@ void* FUN_00d27570Writer::DestroyWriter(unsigned char deletingFlag)
 extern int DAT_012689e4;
 
 // @fnv 0x00d27560
-// src: GUESS 0x00d27560 (confidence: low)
-void* __cdecl Object_GetGlobalObjectAddress_00d27560()
+// src: EXE 0x00d27560
+void* __cdecl hkBufferedStreamWriter_getClassType()
 {
     return &DAT_012689e4;
 }
@@ -213,7 +213,7 @@ struct FUN_00d272e0_class
 // src: HAVOK_LIB 0x00d272e0
 void FUN_00d272e0_class::hkBufferedStreamWriter_flush()
 {
-    reinterpret_cast<FUN_00d27260_standin*>(this)->FlushToDestination();
+    reinterpret_cast<hkBufferedStreamWriter*>(this)->FlushToDestination();
 
     if (unk08 != 0)
     {

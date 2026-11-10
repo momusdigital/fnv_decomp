@@ -191,8 +191,8 @@ bool __stdcall NiD3DGeometryGroupManager_RemoveSkinPartitionFromGroup(FUN_P* p)
 // @fnv 0x00e88c30
 bool __fastcall RemoveElement(NiD3DGeometryGroupManager* manager, int, NiGeometryGroup* pElement)
 {
-    typedef bool (__thiscall* CheckGroup)(NiD3DGeometryGroupManager*, NiGeometryGroup*);
-    if (pElement != 0 && ((CheckGroup)(*(void***)manager)[3])(manager, pElement))
+    typedef bool (__thiscall* CombatGroupStrategyFlank_Update)(NiD3DGeometryGroupManager*, NiGeometryGroup*);
+    if (pElement != 0 && ((CombatGroupStrategyFlank_Update)(*(void***)manager)[3])(manager, pElement))
     {
         unsigned int uiIndex = 0;
         unsigned int n = manager->m_0c;

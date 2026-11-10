@@ -127,7 +127,7 @@ struct FloraFile
     int TESFile_GetTESChunk();
     bool FUN_004726f0();
     void FUN_00472890(void* pvBuffer, unsigned int uiSize);
-    void ReadChunkInt(unsigned int* puiFormID);
+    void TESFile_Read32(unsigned int* puiFormID);
     unsigned short FUN_00403570();
 };
 
@@ -296,14 +296,14 @@ bool FloraFull::TESFlora_Load(FloraFile* pkFile)
         }
         case 0x49524353: {
             unsigned int uiScript = 0;
-            pkFile->ReadChunkInt(&uiScript);
+            pkFile->TESFile_Read32(&uiScript);
             FloraScript::FUN_006ecd40(uiScript);
             FloraScript::FUN_0048cd90(this);
             break;
         }
         case 0x47494650: {
             unsigned int uiIngredient = 0;
-            pkFile->ReadChunkInt(&uiIngredient);
+            pkFile->TESFile_Read32(&uiIngredient);
             FloraProduce::FUN_006ecd40(uiIngredient);
             break;
         }

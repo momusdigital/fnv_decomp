@@ -147,7 +147,7 @@ void FUN_00d9e450_class::AppendRecord(void* first, void* second, void* third)
     slot->third = third;
 }
 
-struct FUN_00d9e860 : hkReferencedObject, hkpWorldPostSimulationListener
+struct hkpEndOfStepCallbackUtil : hkReferencedObject, hkpWorldPostSimulationListener
 {
     volatile int unk0C;
     volatile unsigned char unk10;
@@ -160,11 +160,12 @@ struct FUN_00d9e860 : hkReferencedObject, hkpWorldPostSimulationListener
     volatile int unk2C;
     volatile int unk30;
     volatile int unk34;
-    virtual ~FUN_00d9e860() throw() = 0;
-    FUN_00d9e860();
+    virtual ~hkpEndOfStepCallbackUtil() throw() = 0;
+    hkpEndOfStepCallbackUtil();
 };
 // @fnv 0x00d9e860
-FUN_00d9e860::FUN_00d9e860()
+// src: EXE 0x00d9e860
+hkpEndOfStepCallbackUtil::hkpEndOfStepCallbackUtil()
 {
     unk0C = 0;
     unk10 = 0;

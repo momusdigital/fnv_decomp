@@ -130,7 +130,7 @@ __declspec(align(16)) class FUN_00d6aec0_obj
     int unkE8;
     int unkEC;
 };
-int Object_ProcessAndReturnValue_00d6aec0() throw();
+int getVtable_hkpWorldCinfo() throw();
 #include <xmmintrin.h>
 #include <math.h>
 #include "../../include/Vec4.h"

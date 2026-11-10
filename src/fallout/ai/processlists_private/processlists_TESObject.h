@@ -19,7 +19,7 @@ class TESObject : public TESForm
     virtual void SetPlayable(bool value);
     virtual NiNode* Get3DObject(TESObjectREFR* requester, bool abFirstPerson);
     virtual void Destroy3DModel(TESObjectREFR* requester);
-    virtual bool HasLoaded3D() const;
+    virtual bool IsMarker() const;
     virtual bool IsModelValid() const;
     virtual void UpdateModel3D();
     virtual bool IsBoundItem();

@@ -102,16 +102,16 @@ float BSMAX_00404010(float, float);
 float BSMIN(float, float);
 namespace ActorValue {
 bool GetFlag(Index, unsigned int);
-float ClampValue(Index, float);
+float ClampActorValue(Index, float);
 }
 
 namespace ActorValue {
 
-Index GetActorValueForSectionIndex(Section, char);
+Index ToActorValue(Section, char);
 unsigned int GetCountForSection(Section);
 const char* GetActorValueName(Index);
-bool TryGetActorValue(ActorValueOwner*, Index, float&);
-void NotifyActorValueChanged(ActorValueOwner*, Index, float, float, ActorValueOwner*);
+bool ActorValueOwner_GetDerivedActorValue(ActorValueOwner*, Index, float&);
+void CheckCallModifiedCallback(ActorValueOwner*, Index, float, float, ActorValueOwner*);
 Index* GetDependentActorValueIndices(Index, int&);
 bool HasActorValueChangedCallback(Index);
 }

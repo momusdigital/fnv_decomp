@@ -24,10 +24,10 @@ struct FUN_00e12140_cls
 };
 extern "C" void __cdecl Deallocate(void*);
 extern int DAT_010eadfc;
-struct FUN_00e22450
+struct hkGskShape
 {
     void* m_p;
-    FUN_00e22450(char f);
+    hkGskShape(char f);
 };
 struct FUN_00e234e0_
 {
@@ -39,7 +39,7 @@ struct FUN_00e238e0_
 };
 void __cdecl ProcessEntries();
 void __cdecl hkgpAbstractMeshDefinitions_List_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Triangle_struct_hkgpAbstractMeshDefinitions_List_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Vertex_struct_hkgpTriangulatorBase_VertexBase_struct_hkGeometryProcessing_PoolAllocator_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Vertex_32_struct_hkContainerHeapAllocator_Item_struct_hkGeometryProcessing_PoolAllocator_struct_hkgpTriangulatorType_struct_hkgpTriangulatorBase_VertexBase_struct_hkgpTriangulatorBase_TriangleBase_struct_hkgpTriangulatorBase_DefaultEdgeData_struct_hkContainerHeapAllocator_struct_hkContainerHeapAllocator_1_Triangle_32_struct_hkContainerHeapAllocator_reset();
-struct FUN_00e24a80_Class
+struct hkgpAbstractMesh
 {
     void __thiscall hkgpAbstractMesh_hkgpTriangulatorType_hkgpTriangulatorBase_VertexBase_hkgpTriangulatorBase_TriangleBase_hkgpTriangulatorBase_DefaultEdgeData_hkContainerHeapAllocator_hkContainerHeapAllocator_1_Edge_hkgpTriangulatorType_hkgpTriangulatorBase_VertexBase_hkgpTriangulatorBase_TriangleBase_hkgpTriangulatorBase_DefaultEdgeData_hkContainerHeapAllocator_hkContainerHeapAllocator_1_Vertex_hkgpTriangulatorType_hkgpTriangulatorBase_VertexBase_hkgpTriangulatorBase_TriangleBase_hkgpTriangulatorBase_();
 };
@@ -958,7 +958,7 @@ struct Triple
     Components first, second, third;
 };
 int __cdecl hkGeometryProcessing_checkTrianglesIntersection(void*, const Triple*);
-struct FUN_00e22270_Class
+struct TriangleOverlap
 {
     int unk00;
     unsigned int flags;
@@ -971,7 +971,7 @@ struct Target
     virtual void v01();
     virtual void Forward(int a);
 };
-struct FUN_00e22470_cls
+struct ShapeBridge
 {
     int unk00;
     Target* m_04;
@@ -2080,7 +2080,7 @@ struct FUN_00e227f0_cls
 {
     unsigned int unk00;
     SceneSet* m_04;
-    void* ComputeValues_00e227f0(BufferAddress138 bufferAddress);
+    void* PrismShape_getAabb(BufferAddress138 bufferAddress);
 };
 struct __declspec(align(16)) S_Vec
 {
@@ -2331,7 +2331,7 @@ struct FUN_00e221e0_Input
 };
 float __cdecl hkGeometryProcessing_squaredDistanceFromPointToTriangle(const Vec4* point, const Vec4* a, const Vec4* b, const Vec4* c, Float4* closest,
                            Float4* weights);
-struct FUN_00e221e0_Collector
+struct NearestFeaturePolicy
 {
     int unk00;
     int unk04;
@@ -3061,11 +3061,11 @@ class FUN_00e21fc0_cls
 
     AabbE21F hkgpMesh_TriangleShape_getBoundingBox() const;
 };
-struct FUN_00e226b0_cls
+struct PrismShape
 {
     unsigned int unk00;
     SceneSet* m_04;
-    void FindSupportingBoneCandidate(SceneVec* v, SceneVec* out);
+    void getSupportingVertex(SceneVec* v, SceneVec* out);
 };
 static __forceinline float SceneDot3(const SceneVec* a, const SceneVec* b)
 {
@@ -3446,7 +3446,7 @@ struct FUN_00e21e60_pair
     __m128 m_v10;
     unsigned int m_u20;
 };
-struct FUN_00e21e60_cls
+struct WeldingPolicy
 {
     float unk00;
     float unk04;
@@ -3818,19 +3818,19 @@ struct S_00e21e30_Alloc
     virtual void unk4();
     virtual void ReleaseBlock(void* p, int n);
 };
-struct FUN_00e21e30
+struct TriangleShape
 {
     int unk4;
-    FUN_00e21e30();
+    TriangleShape();
 // @fnv 0x00e21e30
-    virtual ~FUN_00e21e30()
+    virtual ~TriangleShape()
     {}
     void operator delete(void* p, unsigned int nbytes)
     {
         (*reinterpret_cast<S_00e21e30_Alloc*>(hkMemoryRouter::getInstance().m_heap)).ReleaseBlock(p, static_cast<int>(nbytes));
     }
 };
-FUN_00e21e30::FUN_00e21e30()
+TriangleShape::TriangleShape()
 {}
 extern "C" void __cdecl Deallocate(void*);
 struct FUN_00e22500_cls

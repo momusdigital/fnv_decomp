@@ -82,17 +82,18 @@ struct FUN_006815c0
     int unk08;
     FUN_006815c0();
 };
-struct FUN_006f48b0
+struct TeleportPath
 {
     FUN_006f4b10 first;
     FUN_006f4b60 second;
     FUN_006815c0 third;
     FUN_006815c0 fourth;
-    FUN_006f48b0();
+    TeleportPath();
 };
 // Default constructor: initialises the first, second, third and fourth members in order.
 // @fnv 0x006f48b0
-FUN_006f48b0::FUN_006f48b0() : first(), second(), third(), fourth()
+// src: GUESS 0x006f48b0 (confidence: high)
+TeleportPath::TeleportPath() : first(), second(), third(), fourth()
 {}
 
 #include <windows.h>

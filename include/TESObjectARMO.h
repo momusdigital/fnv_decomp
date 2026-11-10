@@ -42,10 +42,10 @@ public:
 
     void ResetFormData();
     bool Load(TESFile* file);
-    unsigned char GetArmorType();
+    unsigned char GetArmorWeight();
     float GetArmorRating();
     float GetDamageThreshold();
-    bool IsFlag80Clear();
+    bool TESObjectWEAP_GetIsPlayable();
 
     ArmorData data;       // 0x178
     unsigned int flags;   // 0x184

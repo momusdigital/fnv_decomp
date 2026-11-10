@@ -43,11 +43,12 @@ void __cdecl _delete(void*, unsigned int);
 
 struct FUN_00c220a0_shell
 {
-    void* __thiscall FUN_00c220a0(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 
 // @fnv 0x00c220a0
-void* __thiscall FUN_00c220a0_shell::FUN_00c220a0(unsigned int flags)
+// src: EXE 0x00c220a0
+void* __thiscall FUN_00c220a0_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00c31750();
     if (flags & 1)

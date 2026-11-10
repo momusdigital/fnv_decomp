@@ -29,7 +29,7 @@ public:
     bool Load(TESFile* file);
     SoundPlaybackParameters CopyBig();
     unsigned char GetHighByteOfField4E();
-    unsigned char GetField45();
+    unsigned char GetMaxDistance();
     char GetByteAtOffset44();
     unsigned short GetShortAt(int index);
     unsigned short GetShortAtOffset5A();

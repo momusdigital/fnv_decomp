@@ -17,7 +17,7 @@ extern "C" unsigned char DAT_011c54ba;
 unsigned char TESForm_QEndianSwapOnSave();
 
 extern int DAT_011c5490;
-void __cdecl WriteDescChunk(void*, int);
+void __cdecl TESDescription_SaveDescriptionData(void*, int);
 
 // Adjustor thunk: the secondary-base (+0x3c) vtable entry for an override defined on the derived class.
 

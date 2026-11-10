@@ -3,7 +3,8 @@
 #include "nimemobject_decls.h"
 
 // @fnv 0x004393c0
-void Flag512Receiver::SetFlag512(bool enabled)
+// src: COMMUNITY 0x004393c0
+void Flag512Receiver::NiAlphaProperty_SetAlphaTesting(bool enabled)
 {
     NiAlphaProperty_SetBit(enabled, 0x200);
 }

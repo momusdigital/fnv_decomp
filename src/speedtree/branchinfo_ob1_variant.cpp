@@ -48,7 +48,7 @@ extern float DAT_01017b78;
 extern float DAT_01016248;
 extern float DAT_0101622c;
 extern float DAT_0101e2bc;
-struct FUN_00b3f310
+struct CBranchInfo
 {
     int unk00;
     int unk04;
@@ -81,7 +81,7 @@ struct FUN_00b3f310
     S_00b3f310_Item* unk68;
     S_00b3f310_Item* unk6c;
     int unk70;
-    FUN_00b3f310();
+    CBranchInfo();
 };
 
 struct S_00b3f310_Item_WithDtor : S_00b3f310_Item
@@ -89,14 +89,14 @@ struct S_00b3f310_Item_WithDtor : S_00b3f310_Item
     ~S_00b3f310_Item_WithDtor();
 };
 
-struct FUN_00b3f310_Host : FUN_00b3f310
+struct FUN_00b3f310_Host : CBranchInfo
 {
-    void DeleteOwnedItems();
+    void CBranchInfo_Clear();
 };
 
 // @fnv 0x00b3f620
 // src: GUESS 0x00b3f620 (confidence: medium)
-void FUN_00b3f310_Host::DeleteOwnedItems()
+void FUN_00b3f310_Host::CBranchInfo_Clear()
 {
     delete (S_00b3f310_Item_WithDtor*)unk58;
     delete (S_00b3f310_Item_WithDtor*)unk5c;

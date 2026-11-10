@@ -283,7 +283,7 @@ struct __declspec(align(16)) S00d5c060_Result
     unsigned int unk0C;
 };
 
-char* __cdecl AllocateWithHeader(D5C110Allocator* alloc, int size);
+char* __cdecl hkMemoryRouter_easyAlloc(D5C110Allocator* alloc, int size);
 char* __cdecl hkMemoryRouter_easyFree(D5C110Allocator* owner, char* data);
 void __cdecl Hkgeometryutility_ProcessEntries_00d5beb0(S00d5c060_Result* self, char* data, int count, int flags, float scale);
 
@@ -294,7 +294,7 @@ S00d5c060_Result hkGeometryUtility_createMinBoundingSphere(const S00d5c060_Src* 
 {
     S00d5c060_Result result;
     int count = src->m_uiItemCount;
-    char* data = AllocateWithHeader(&hkMemoryRouter_getInstance().heap(), count * 16);
+    char* data = hkMemoryRouter_easyAlloc(&hkMemoryRouter_getInstance().heap(), count * 16);
     int quad = src->m_iElementIndex / 4;
     Vec4* d = (Vec4*)data;
     for (int i = 0; i < src->m_uiItemCount; ++i)

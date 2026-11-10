@@ -108,8 +108,8 @@ public:
     float DotProduct(const LocalVec3* other) const;
     float Length() const;
     float LengthSquared() const;
-    float GetSquaredXYLength();
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength();
+    float NiPoint3_SqrXYLength() const;
     Elem16& expand(Allocator& allocator);
 
     void SetComponents(float x, float y, float z);
@@ -387,7 +387,7 @@ struct S_00eae9e0_P2
 extern char DAT_010f1aa0;
 extern float DAT_010f1a98;
 
-struct FUN_00eae9e0_cls
+struct NiCapsuleSphereIntersector
 {
     void* unk00;
     float unk04;
@@ -409,11 +409,11 @@ struct FUN_00eae9e0_cls
     float unk44;
 
     void FUN_00eae720(float a1, float a2, float a3, int a4);
-    FUN_00eae9e0_cls* InitFromParams(S_00eae9e0_P1* a1, S_00eae9e0_P2* a2, float a3, float a4, float a5, int a6);
+    NiCapsuleSphereIntersector* InitFromParams(S_00eae9e0_P1* a1, S_00eae9e0_P2* a2, float a3, float a4, float a5, int a6);
 };
 
 // @fnv 0x00eae9e0
-FUN_00eae9e0_cls* FUN_00eae9e0_cls::InitFromParams(S_00eae9e0_P1* a1, S_00eae9e0_P2* a2, float a3, float a4, float a5,
+NiCapsuleSphereIntersector* NiCapsuleSphereIntersector::InitFromParams(S_00eae9e0_P1* a1, S_00eae9e0_P2* a2, float a3, float a4, float a5,
                                                    int a6)
 {
     FUN_00eae720(a3, a4, a5, a6);
@@ -580,7 +580,7 @@ struct S_00eb5e30_Base
     int unk34;
     S_00eb5e30_Base(float a, float b, float c, int d);
 };
-struct FUN_00eb5e30 : S_00eb5e30_Base
+struct NiSphereTriIntersector : S_00eb5e30_Base
 {
     S_00eb5e30_Obj* unk38;
     NiPoint3 unk3c;
@@ -589,12 +589,13 @@ struct FUN_00eb5e30 : S_00eb5e30_Base
     float unk60;
     float unk64;
     float unk68;
-    FUN_00eb5e30(S_00eb5e30_Obj* o, const NiPoint3* p0, const NiPoint3* p1, const NiPoint3* p2, float a,
+    NiSphereTriIntersector(S_00eb5e30_Obj* o, const NiPoint3* p0, const NiPoint3* p1, const NiPoint3* p2, float a,
                  float b, float c, int d);
 };
 static float DAT_010f1b24 = 3.4028234663852886e+38f;
 // @fnv 0x00eb5e30
-FUN_00eb5e30::FUN_00eb5e30(S_00eb5e30_Obj* pObj, const NiPoint3* pOrigin, const NiPoint3* pPoint1,
+// src: EXE 0x00eb5e30
+NiSphereTriIntersector::NiSphereTriIntersector(S_00eb5e30_Obj* pObj, const NiPoint3* pOrigin, const NiPoint3* pPoint1,
                            const NiPoint3* pPoint2, float a, float b, float c, int d)
     : S_00eb5e30_Base(a, b, c, d)
 {
@@ -621,15 +622,16 @@ struct FUN_00aa4060_Class
 
 extern FUN_00aa4060_Class DAT_011f6238;
 
-struct FUN_00eb6b50_Class
+struct NiOBBNode
 {
     void __thiscall FUN_00eb8ab0();
-    int __thiscall FUN_00eb6b50(unsigned char flags);
+    int __thiscall ScalarDeletingDestructor(unsigned char flags);
 };
 
 // Calls FUN_00eb8ab0, and if bit 0 of flags is set passes this to DAT_011f6238.FUN_00aa4060; returns this as int.
 // @fnv 0x00eb6b50
-int __thiscall FUN_00eb6b50_Class::FUN_00eb6b50(unsigned char flags)
+// src: EXE 0x00eb6b50
+int __thiscall NiOBBNode::ScalarDeletingDestructor(unsigned char flags)
 {
     this->FUN_00eb8ab0();
     if ((flags & 1) != 0)
@@ -935,7 +937,7 @@ struct FUN_00eb5f10_Tail
 };
 struct FUN_00eb5f10_Small
 {
-    FUN_00eb5f10_Small* FUN_00eb6b90(void*, int, int, int, int);
+    FUN_00eb5f10_Small* NiOBBLeaf(void*, int, int, int, int);
 };
 struct FUN_00eb5f10_Large
 {
@@ -949,7 +951,7 @@ extern int _DAT_011f426c;
 extern int _DAT_011f4270;
 extern int _DAT_011f4274;
 extern char UNK_010f1b44;
-struct FUN_00eb5f10_Class
+struct NiOBBRoot
 {
     void** vtable;
     float unk04;
@@ -960,11 +962,11 @@ struct FUN_00eb5f10_Class
     int unk18;
     FUN_00eb5f10_Tail unk1c;
     int unk50;
-    FUN_00eb5f10_Class* InitFromKind(unsigned short kind, int arg2, int arg3, int arg4, int arg5);
+    NiOBBRoot* InitFromKind(unsigned short kind, int arg2, int arg3, int arg4, int arg5);
 };
 // Allocates an object sized by kind, stores it in unk08, initialises unk04/unk10/unk14/unk18/unk0c/unk50 and calls unk1c.FUN_00a86bf0.
 // @fnv 0x00eb5f10
-FUN_00eb5f10_Class* FUN_00eb5f10_Class::InitFromKind(unsigned short kind, int arg2, int arg3, int arg4, int arg5)
+NiOBBRoot* NiOBBRoot::InitFromKind(unsigned short kind, int arg2, int arg3, int arg4, int arg5)
 {
     vtable = (void**)&UNK_010f1b44;
     FUN_00eb5f10_Manager* manager = (FUN_00eb5f10_Manager*)&_g_memoryManager;
@@ -977,7 +979,7 @@ FUN_00eb5f10_Class* FUN_00eb5f10_Class::InitFromKind(unsigned short kind, int ar
     else
     {
         object = manager->Game_DoHeapAlloc(0x98);
-        object = object ? ((FUN_00eb5f10_Small*)object)->FUN_00eb6b90(this, arg2, arg3, arg4, 0) : 0;
+        object = object ? ((FUN_00eb5f10_Small*)object)->NiOBBLeaf(this, arg2, arg3, arg4, 0) : 0;
     }
     unk08 = object;
     unk04 = 0.0f;
@@ -1056,8 +1058,8 @@ class Node
 
 // Allocates a new Node object on the heap and returns its pointer.
 // @fnv 0x00ead090
-// src: GUESS 0x00ead090 (confidence: high)
-Node* Runtime_CreateNode()
+// src: EXE 0x00ead090
+Node* NiCollisionData_CreateObject()
 {
     return new Node;
 }
@@ -4087,7 +4089,7 @@ class SpawnedBase
     SpawnedBase(float a, float b, float c, void* d);
 };
 
-class FUN_00eb3750 : public SpawnedBase
+class NiCapsuleTriIntersector : public SpawnedBase
 {
   public:
     float* m_38;
@@ -4097,13 +4099,14 @@ class FUN_00eb3750 : public SpawnedBase
     float m_60;
     float m_64;
     float m_68;
-    FUN_00eb3750(float* a1, FloatVec3Local* a2, FloatVec3Local* a3, FloatVec3Local* a4, float a5, float a6, float a7,
+    NiCapsuleTriIntersector(float* a1, FloatVec3Local* a2, FloatVec3Local* a3, FloatVec3Local* a4, float a5, float a6, float a7,
                  void* a8);
 };
 
 // Stores a1 and *a2, stores a3-a2 and a4-a2, sets m_60 to 1/(a1[14]*a1[14]) and sets m_64 and m_68 to the float max constant.
 // @fnv 0x00eb3750
-FUN_00eb3750::FUN_00eb3750(float* apFloats, FloatVec3Local* apVecA, FloatVec3Local* apVecB, FloatVec3Local* apVecC,
+// src: EXE 0x00eb3750
+NiCapsuleTriIntersector::NiCapsuleTriIntersector(float* apFloats, FloatVec3Local* apVecA, FloatVec3Local* apVecB, FloatVec3Local* apVecC,
                            float a5, float a6, float a7, void* a8)
     : SpawnedBase(a5, a6, a7, a8)
 {

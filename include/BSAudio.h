@@ -70,7 +70,7 @@ class BSAudio
     void SetListenerPosition(NiPoint3);
     void SetAudioProperty(unsigned int, unsigned int, unsigned int);
     void Update(bool);
-    void SetUseMultipleThreads(bool);
+    void SetMultiThreaded(bool);
     bool IsAudioEnabled() const;
     bool IsEnabled();
     bool IsPatrolling();

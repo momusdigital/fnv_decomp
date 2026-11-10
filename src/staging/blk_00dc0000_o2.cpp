@@ -171,7 +171,7 @@ void __thiscall FUN_00dd4b70_class::hkpMoppCompiler_enableInterleavedBuilding(un
 
 extern int DAT_0102e388;
 
-struct FUN_00dd51d0_class
+struct hkBaseObject
 {
     int m_00;
     int m_04;
@@ -181,22 +181,22 @@ struct FUN_00dd51d0_class
 
 // @fnv 0x00dd51d0
 // src: GUESS 0x00dd51d0 (confidence: low)
-void FUN_00dd51d0_class::InitializeFields_00dd51d0()
+void hkBaseObject::InitializeFields_00dd51d0()
 {
     m_08 = 0;
     m_00 = (int)&DAT_0102e388;
 }
 
-struct FUN_00ddfb70_cls
+struct hkpShapeDisplayBuilderEnvironment
 {
     int m_00;
     int m_04;
-    FUN_00ddfb70_cls* hkpShapeDisplayBuilder_hkpShapeDisplayBuilderEnvironment_hkpShapeDisplayBuilderEnvironment();
+    hkpShapeDisplayBuilderEnvironment* hkpShapeDisplayBuilder_hkpShapeDisplayBuilderEnvironment_hkpShapeDisplayBuilderEnvironment();
 };
 
 // @fnv 0x00ddfb70
 // src: HAVOK_LIB 0x00ddfb70
-FUN_00ddfb70_cls* FUN_00ddfb70_cls::hkpShapeDisplayBuilder_hkpShapeDisplayBuilderEnvironment_hkpShapeDisplayBuilderEnvironment()
+hkpShapeDisplayBuilderEnvironment* hkpShapeDisplayBuilderEnvironment::hkpShapeDisplayBuilder_hkpShapeDisplayBuilderEnvironment_hkpShapeDisplayBuilderEnvironment()
 {
     m_00 = 8;
     m_04 = 8;
@@ -787,14 +787,14 @@ struct FnvCpu_FUN_00dcd480_CpuObject
 {
     unsigned int unk00;
     unsigned short size;
-    void FUN_00d4bd60();
+    void hkpMeshShape();
     FnvCpu_FUN_00dcd480_CpuObject* hkpMeshShape_Destroy(unsigned int flags);
 };
 // @fnv 0x00dcd480
 // src: COMMUNITY 0x00dcd480
 FnvCpu_FUN_00dcd480_CpuObject* FnvCpu_FUN_00dcd480_CpuObject::hkpMeshShape_Destroy(unsigned int flags)
 {
-    FUN_00d4bd60();
+    hkpMeshShape();
     if (flags & 1)
     {
         hkMemoryRouter* holder = hkMemoryRouter_getInstance();
@@ -810,8 +810,8 @@ struct FUN_00dced30_cls
 };
 
 // @fnv 0x00dced30
-// src: GUESS 0x00dced30 (confidence: low)
-void __cdecl Object_ForwardCall_00dced30(FUN_00dced30_cls* pObject)
+// src: COMMUNITY 0x00dced30
+void __cdecl cleanupLoadedObject_hkpBreakableConstraintData(FUN_00dced30_cls* pObject)
 {
     pObject->m_v00(0);
 }
@@ -831,8 +831,8 @@ struct FUN_00d4dfc0_class
 };
 
 // @fnv 0x00dced50
-// src: GUESS 0x00dced50 (confidence: low)
-void __cdecl Runtime_ProcessState_00dced50(FUN_00d4dfc0_class* object, unsigned int value)
+// src: COMMUNITY 0x00dced50
+void __cdecl finishLoadedObject_hkpBreakableConstraintData(FUN_00d4dfc0_class* object, unsigned int value)
 {
     if (object)
         object->FUN_00d4dfc0(value);
@@ -930,19 +930,20 @@ struct FUN_00dd5150_component
     void hkpMoppCostFunction_hkpMoppSplitCostParams_hkpMoppSplitCostParams(int value);
 };
 
-struct FUN_00dd51a0
+struct hkpMoppCostFunction
 {
     void** vftable;
     short unk04;
     short enabled06;
     FUN_00dd5150_component component08;
 
-    FUN_00dd51a0(const int* data);
+    hkpMoppCostFunction(const int* data);
     void CopySixInts(const int* data);
 };
 
 // @fnv 0x00dd51a0
-FUN_00dd51a0::FUN_00dd51a0(const int* data)
+// src: EXE 0x00dd51a0
+hkpMoppCostFunction::hkpMoppCostFunction(const int* data)
 {
     enabled06 = 1;
     vftable = &DAT_010d7ba8;
@@ -1312,20 +1313,20 @@ struct FUN_00dd9160_Global
 extern "C" FUN_00dd9160_Global* DAT_01268364;  // game global (0x01268364)
 extern "C" int UNK_010d7c80;                   // game constant (0x010d7c80)
 
-struct FUN_00dd9160_Class
+struct hkIArchive
 {
     void* unk00;           // +0x00: vtable pointer stand-in
     unsigned short unk04;  // +0x04
     unsigned short unk06;  // +0x06: state, set to 1
     unsigned int unk08;    // +0x08: result of the virtual call
     unsigned char unk0c;   // +0x0c: flag copied from the second parameter
-    FUN_00dd9160_Class* hkIArchive_hkIArchive(unsigned int arg, unsigned char flag);
+    hkIArchive* hkIArchive_hkIArchive(unsigned int arg, unsigned char flag);
 };
 
 // Sets unk06 to 1, unk00 to &UNK_010d7c80, stores flag in unk0c and the result of DAT_01268364->vfn3(arg) in unk08, then returns this.
 // @fnv 0x00dd9160
 // src: HAVOK_LIB 0x00dd9160
-FUN_00dd9160_Class* FUN_00dd9160_Class::hkIArchive_hkIArchive(unsigned int arg, unsigned char flag)
+hkIArchive* hkIArchive::hkIArchive_hkIArchive(unsigned int arg, unsigned char flag)
 {
     unk06 = 1;
     unk00 = &UNK_010d7c80;
@@ -1485,7 +1486,7 @@ void FUN_00ddfbb0_cls::ClearField10()
 
 void __cdecl FUN_00c90510();
 
-struct FUN_00dcc130_Class
+struct hkIstream
 {
     int* m_vtbl;
     unsigned short unk04;
@@ -1497,7 +1498,7 @@ struct FUN_00dcc130_Class
 // Sets enabled06 to 1, installs the vtable, stores value in unk08, calls FUN_00c90510, and returns this.
 // @fnv 0x00dcc130
 // src: HAVOK_LIB 0x00dcc130
-int* FUN_00dcc130_Class::hkIstream_hkIstream(int* value)
+int* hkIstream::hkIstream_hkIstream(int* value)
 {
     enabled06 = 1;
     m_vtbl = &DAT_010d7540;
@@ -1585,18 +1586,19 @@ struct Bool1
 struct Base_00d60b40
 {
     void* vft;
-    void __thiscall FUN_00d60b40(int a, Bool1 b);
+    void __thiscall hkOArchive(int a, Bool1 b);
 };
 
-struct FUN_00dda690 : Base_00d60b40
+struct hkDisplaySerializeOStream : Base_00d60b40
 {
-    FUN_00dda690(int a);
+    hkDisplaySerializeOStream(int a);
 };
 
 // @fnv 0x00dda690
-FUN_00dda690::FUN_00dda690(int a)
+// src: EXE 0x00dda690
+hkDisplaySerializeOStream::hkDisplaySerializeOStream(int a)
 {
-    FUN_00d60b40(a, 0);
+    hkOArchive(a, 0);
     vft = &DAT_010d7db8;
 }
 
@@ -2914,7 +2916,7 @@ struct FUN_00dd9d20_Target
     virtual void vf08(void* a, int b);
 };
 
-struct FUN_00dd9d20_Object
+struct hkServerDebugDisplayHandler
 {
     void* unk00;
     int unk04;
@@ -2928,7 +2930,7 @@ struct FUN_00dd9d20_Object
 // Sets unk00 and unk08 to data pointers, and if unk10 is set deletes that critical section and frees it via vf08 of the object at offset 0x10 of FUN_00c85750().
 // @fnv 0x00dd9d20
 // src: GUESS 0x00dd9d20 (confidence: low)
-void __thiscall FUN_00dd9d20_Object::UpdateFields_00dd9d20()
+void __thiscall hkServerDebugDisplayHandler::UpdateFields_00dd9d20()
 {
     void* criticalSection = unk10;
 

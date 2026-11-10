@@ -155,13 +155,14 @@ struct S_00cb17b0_RefObj
         hkMemoryRouter_getInstance()->heap().ReleaseBlock(p, b->m_usMemSizeAndFlags);
     }
 };
-struct FUN_00cb17b0 : S_00cb17b0_RefObj
+struct hkOstream : S_00cb17b0_RefObj
 {
-    FUN_00cb17b0();
-    virtual ~FUN_00cb17b0();
+    hkOstream();
+    virtual ~hkOstream();
 };
 // @fnv 0x00cb17b0
-FUN_00cb17b0::FUN_00cb17b0()
+// src: EXE 0x00cb17b0
+hkOstream::hkOstream()
 {}
 
 struct DiagBuffer

@@ -23,7 +23,7 @@ NiPoint3* MobileObject::GetPos() const
     {
         MobileObjectWaterPositionHeight heights;
         heights.waterHeight = GetRelevantWaterHeight() - DAT_01020998;
-        heights.heightOffset = GetActorHeight() * DAT_0101de30;
+        heights.heightOffset = Actor_GetHeight() * DAT_0101de30;
         if (heights.waterHeight > DAT_011df7a0[DAT_011df880].z + heights.heightOffset)
             DAT_011df7a0[DAT_011df880].z += heights.heightOffset;
         else

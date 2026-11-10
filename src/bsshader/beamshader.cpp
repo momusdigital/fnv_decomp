@@ -58,7 +58,7 @@ BSShader* BloodSplatterBeamShader::CreateShader()
     pShader->InitializeVertexShader();
     pShader->InitializePixelShader();
     pShader->InitShaderConstants();
-    pShader->UseShaderDeclaration(declaration);
+    pShader->NiD3DShader_SetShaderDecl(declaration);
     return pShader;
 }
 

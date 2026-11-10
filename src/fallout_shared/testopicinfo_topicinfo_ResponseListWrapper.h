@@ -8,7 +8,7 @@ class TESResponseList
     TESResponse* pHead;  // +0x0
     void ClearResponses();
     TESResponse* QResponseList();
-    void SetResponseList(TESResponse* head);
+    void ResponseListWrapper_CopyResponseList(TESResponse* head);
     void AddTail(TESResponse* response);
 };
 FNV_STATIC_ASSERT(sizeof(TESResponseList) == 0x4);

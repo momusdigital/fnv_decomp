@@ -41,14 +41,14 @@ struct FUN_00d21ce0_cls
 };
 int __cdecl hkpModifierConstraintAtom_addAllModifierDataToConstraintInfo(void* pNode, void* a, void* b);
 void __stdcall nullsub_31(int, int, int, int, int, int);
-struct FUN_00d21de0_cls
+struct hkpSimpleContactConstraintAtom
 {
     int unk00;
     int unk04;
     unsigned char unk08;
     unsigned char unk09;
     unsigned char unk0A;
-    FUN_00d21de0_cls* __thiscall hkpSimpleContactConstraintAtom_hkpSimpleContactConstraintAtom(int a);
+    hkpSimpleContactConstraintAtom* __thiscall hkpSimpleContactConstraintAtom_hkpSimpleContactConstraintAtom(int a);
 };
 #include "../../../../../../include/hkMatrix3.h"
 

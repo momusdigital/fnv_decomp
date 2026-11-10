@@ -228,13 +228,13 @@ struct Unk6b
 
 struct FUN_0096a540_class
 {
-    void ReleaseStorage_0096a540(void* arg);
+    void NiTMap_DeleteItem(void* arg);
 };
 
 // Clears the byte at offset 8 of arg, then calls FreeMemory on the object at this+0xc with arg.
 // @fnv 0x0096a540
 // src: GUESS 0x0096a540 (confidence: medium)
-void FUN_0096a540_class::ReleaseStorage_0096a540(void* arg)
+void FUN_0096a540_class::NiTMap_DeleteItem(void* arg)
 {
     *(unsigned char*)((char*)arg + 8) = 0;
     ((Unk6b*)((char*)this + 0xc))->FreeMemory(arg);
@@ -910,14 +910,14 @@ void* __thiscall FUN_00978e40_Class::FUN_00978e40(unsigned int flags)
 }
 
 void __cdecl Deallocate(void*);
-struct FUN_00978f40_Class
+struct BeamProjectile
 {
     void __thiscall FUN_00978f70();
     void* __thiscall FUN_00978f40(unsigned int flags);
 };
 // Calls FUN_00978f70, then frees this with Deallocate when flags has bit 0 set, and returns this.
 // @fnv 0x00978f40
-void* __thiscall FUN_00978f40_Class::FUN_00978f40(unsigned int flags)
+void* __thiscall BeamProjectile::FUN_00978f40(unsigned int flags)
 {
     FUN_00978f70();
     if (flags & 1)
@@ -1627,7 +1627,7 @@ struct FUN_0096a400_Node
     unsigned char m_08;
 };
 
-class FUN_0096a400_cls
+class NiTMap
 {
   public:
     virtual void v00();
@@ -1638,7 +1638,7 @@ class FUN_0096a400_cls
 };
 
 // @fnv 0x0096a400
-void FUN_0096a400_cls::GetNextEntry(FUN_0096a400_Node** cursor, unsigned int* outKey, unsigned char* outFlag)
+void NiTMap::GetNextEntry(FUN_0096a400_Node** cursor, unsigned int* outKey, unsigned char* outFlag)
 {
     FUN_0096a400_Node* cur = *cursor;
     *outKey = cur->m_04;
@@ -2239,20 +2239,20 @@ struct Triple12
 };
 extern "C" Triple12 DAT_011f426c;
 
-struct FUN_0097ede0_cls
+struct BGSWorldLocation
 {
     unsigned int m_00;
     unsigned int m_04;
     unsigned int m_08;
     unsigned int m_0c;
 
-    FUN_0097ede0_cls* BGSWorldLocation_BGSWorldLocation();
+    BGSWorldLocation* BGSWorldLocation_BGSWorldLocation();
 };
 
 // Copies the global Triple12 into this object, clears m_0c, and returns this.
 // @fnv 0x0097ede0
 // src: XBOX_PDB 0x0097ede0
-FUN_0097ede0_cls* FUN_0097ede0_cls::BGSWorldLocation_BGSWorldLocation()
+BGSWorldLocation* BGSWorldLocation::BGSWorldLocation_BGSWorldLocation()
 {
     *(Triple12*)this = DAT_011f426c;
     m_0c = 0;
@@ -2395,17 +2395,18 @@ void FUN_0097f270_cls::InitFromArg(FUN_0097f270_arg* arg)
 }
 
 namespace fnv_0097fa90 {
-struct FUN_0097fa90_Class
+struct CombatTimeStamp
 {
     float value;
-    float GetClampedDifference();
+    float CombatTimeStamp_DisplayElapsedTime();
 };
 extern double __cdecl CombatTimer_GetTimer();
 extern double _DAT_01017b70;
 
 // Returns the difference between FUN_00435dd0() and value, clamped to at most _DAT_01017b70.
 // @fnv 0x0097fa90
-float FUN_0097fa90_Class::GetClampedDifference()
+// src: COMMUNITY 0x0097fa90
+float CombatTimeStamp::CombatTimeStamp_DisplayElapsedTime()
 {
     return (float)(CombatTimer_GetTimer() - value > _DAT_01017b70 ? _DAT_01017b70 : CombatTimer_GetTimer() - value);
 }
@@ -7387,7 +7388,7 @@ struct MoveTarget
     bool CombatLocation_GetFlag(int);
     void CombatLocation_SetTarget(void*);
     MovePoint* ref_006815c0();
-    void AssignV4(MovePoint*);
+    void CombatLocation_SetWorldLocation(MovePoint*);
 };
 struct MoveActor
 {
@@ -7713,7 +7714,7 @@ void CombatMove::CombatController_UpdateLow()
                     MovePoint current3 = actor->TESObjectREFR_GetWorldLocation();
                     if (current3.BGSWorldLocation_GetDistanceSquared(&position7) > 100.0)
                     {
-                        goal.AssignV4(&position7);
+                        goal.CombatLocation_SetWorldLocation(&position7);
                         SetMovementProcedure(new TravelAction(&goal, DAT_011a5654, 15));
                         next = 3;
                     }
@@ -7743,12 +7744,12 @@ using ::memset;
 
 extern void(__stdcall* DAT_00fdf0a4)(_RTL_CRITICAL_SECTION*);
 
-struct FUN_0096a850
+struct ProcessArray
 {
     int unk00, unk04, unk08, unk0c, unk10, unk14, unk18, unk1c;
     int unk20, unk24, unk28, unk2c, unk30, unk34, unk38, unk3c;
-    FUN_0096a850();
-    ~FUN_0096a850();
+    ProcessArray();
+    ~ProcessArray();
 };
 struct GlobalObject_004ee810
 {
@@ -7771,7 +7772,7 @@ struct Pool96
     unsigned int count;
     PoolEntry96 entries[4096];
 };
-struct FUN_008c9330
+struct AITaskManager
 {
     int unk000, unk004, unk008, unk00c, unk010, unk014, unk018, unk01c;
     int unk020, unk024, unk028, unk02c, unk030, unk034, unk038, unk03c;
@@ -7787,8 +7788,8 @@ struct FUN_008c9330
     int unk160, unk164, unk168, unk16c, unk170;
     Pool96 pool;
     bool unk10180;
-    FUN_008c9330();
-    ~FUN_008c9330();
+    AITaskManager();
+    ~AITaskManager();
 };
 struct GlobalObject_0096a2d0
 {
@@ -7819,10 +7820,10 @@ struct SettingFloatHelper
 extern SettingFloatHelper originalRuntimeFloatSetting1024;
 extern __int64 DAT_011e0e20;
 
-struct FUN_0096d020
+struct ProcessLists
 {
     int unk00000;
-    FUN_0096a850 map;
+    ProcessArray map;
     BSSimpleList<TESForm*>* lists[5];
     GlobalObject_004ee810 list58;
     GlobalObject_004ee810 list60;
@@ -7831,7 +7832,7 @@ struct FUN_0096d020
     int unk00150;
     float unk00154, unk00158;
     bool unk0015c, unk0015d;
-    FUN_008c9330 pool;
+    AITaskManager pool;
     BSSimpleList<TESForm*> list102e4;
     int unk102ec, unk102f0, unk102f4, unk102f8, unk102fc;
     GlobalObject_0096a2d0 lock;
@@ -7849,12 +7850,13 @@ struct FUN_0096d020
     int unk103b8;
     float unk103bc;
     FUN_0086c6a0 semaphore;
-    FUN_0096d020();
+    ProcessLists();
 };
 
 // Constructor: sets flag bytes, zeroes lists and entries under lock, copies a float setting into unk103bc, and calls DAT_00fdf0a4 on DAT_011e0e20.
 // @fnv 0x0096d020
-FUN_0096d020::FUN_0096d020() : semaphore(0, 40)
+// src: COMMUNITY 0x0096d020
+ProcessLists::ProcessLists() : semaphore(0, 40)
 {
     unk103a1 = true;
     unk103a0 = true;

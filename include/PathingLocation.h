@@ -112,8 +112,8 @@ public:
     void WriteDebugString(char*, int);
     bool IsDistanceBelowThreshold(float);
     bool IsCloseTo(void*, float);
-    void SetLocationData(void*, TESObjectCELL*, TESWorldSpace*);
-    void SetLocationData(const NiPoint3&, TESObjectCELL*, TESWorldSpace*);
+    void SetupData(void*, TESObjectCELL*, TESWorldSpace*);
+    void SetupData(const NiPoint3&, TESObjectCELL*, TESWorldSpace*);
     bool QAllMeshesReachable();
     void SetAllMeshesReachable(int);
     void SetAllMeshesReachable(bool);

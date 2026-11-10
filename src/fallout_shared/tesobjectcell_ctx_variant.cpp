@@ -13,7 +13,7 @@ NiAVObject* TESMain_GetWeatherRoot();
 
 class Cell_Sub;
 
-class FUN_00544f60
+class LOADED_CELL_DATA
 {
   public:
     int unk00, unk04, unk08, unk0c, unk10, unk14, unk18, unk1c;
@@ -23,7 +23,7 @@ class FUN_00544f60
     BSSimpleList<TESObjectREFR*> list54;
     int unk5c, unk60;
 
-    FUN_00544f60();
+    LOADED_CELL_DATA();
 };
 
 struct CellC4Holder
@@ -35,7 +35,7 @@ struct CellC4Holder
     int f80, f84, f88, f8c, f90, f94, f98, f9c;
     int fa0, fa4, fa8, fac, fb0, fb4, fb8, fbc;
     int fc0;
-    FUN_00544f60* unkC4;
+    LOADED_CELL_DATA* unkC4;
 };
 
 extern BGSSaveLoadGame* g_BGSSaveLoadGame;
@@ -163,7 +163,7 @@ void Cell_Sub::TESObjectCELL_CreateLoadedData()
 {
     if (((CellC4Holder*)this)->unkC4 == 0)
     {
-        ((CellC4Holder*)this)->unkC4 = new FUN_00544f60();
+        ((CellC4Holder*)this)->unkC4 = new LOADED_CELL_DATA();
     }
     CellRefLockEnter();
     BSSimpleList<TESObjectREFR*> localList9;

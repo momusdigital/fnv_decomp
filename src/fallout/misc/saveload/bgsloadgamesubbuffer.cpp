@@ -48,7 +48,7 @@ void BGSLoadGameSubBuffer::LoadGame(BGSLoadGameBuffer* buffer)
     {
         unsigned int size;
         {
-            unsigned int value = reinterpret_cast<BGSLoadFormBuffer*>(buffer)->ReadElementCount();
+            unsigned int value = reinterpret_cast<BGSLoadFormBuffer*>(buffer)->LoadVariableSizedValue();
             if (value == 0)
                 return;
             {

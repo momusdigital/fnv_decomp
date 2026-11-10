@@ -239,7 +239,7 @@ class S00d2c960_Motion
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40();
     virtual void vf44();
@@ -329,7 +329,7 @@ class S00d2c960_Body
     N::LocalM128 m_kPathOffset;
 };
 
-class FUN_00d2c960_cls
+class hkLiquidAction
 {
   public:
     unsigned int unk00;
@@ -347,7 +347,7 @@ class FUN_00d2c960_cls
 
 // @fnv 0x00d2c960
 // src: XBOX_PDB 0x00d2c960
-void FUN_00d2c960_cls::hkLiquidAction_applyAction(const S00d2c960_Info* pkInfo)
+void hkLiquidAction::hkLiquidAction_applyAction(const S00d2c960_Info* pkInfo)
 {
     float fTime = pkInfo->m_fTime;
     S00d2c960_Body* pkBody = m_pkBody;

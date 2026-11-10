@@ -91,13 +91,13 @@ struct FUN_00e42fe0_impl
     FUN_00e42fe0_vehicle** vehicles;
     int count;
 
-    int __thiscall GetTotalVehicleCount();
+    int __thiscall hkpVehicleLinearCastBatchingManager_getTotalNumWheels();
 };
 
 // Sums GetCount() over all vehicles in the array and returns the total.
 // @fnv 0x00e42fe0
 // src: GUESS 0x00e42fe0 (confidence: medium)
-int FUN_00e42fe0_impl::GetTotalVehicleCount()
+int FUN_00e42fe0_impl::hkpVehicleLinearCastBatchingManager_getTotalNumWheels()
 {
     int total = 0;
     for (int i = 0; i < count; ++i)

@@ -71,7 +71,7 @@ struct FUN_00b27660_class
     int c2c;
     FUN_00b27660_class(int a);
 };
-struct FUN_00b373c0_class
+struct CWindEngine
 {
     float f0;
     float f4;
@@ -90,7 +90,7 @@ struct FUN_00b373c0_class
     int i38;
     float f3C;
     float f40;
-    FUN_00b373c0_class();
+    CWindEngine();
 };
 struct FUN_00b3c550_class
 {
@@ -132,10 +132,10 @@ struct FUN_00b3c470_class
     int i14;
     FUN_00b3c470_class();
 };
-struct FUN_00b3f030_Class
+struct CIdvCamera
 {
     int* vtbl;
-    FUN_00b3f030_Class();
+    CIdvCamera();
 };
 extern const int vftable_Random[];
 void _Deallocate(void*);
@@ -263,7 +263,7 @@ struct FUN_00b335c0_cls
     unsigned int unk08;
     unsigned int m_0c;
     unsigned int m_10;
-    ProbePair ProcessAndReturnValue_00b335c0(unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5);
+    ProbePair vector_erase(unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5);
 };
 struct FUN_00b33af0_pair
 {
@@ -296,7 +296,7 @@ struct FUN_00b33af0_cls
     unsigned int m_0c;
     unsigned int m_10;
     unsigned int m_14;
-    FUN_00b33af0_pair* UpdateState_00b33af0(FUN_00b33af0_pair* out, unsigned int unk0c, unsigned int a, unsigned int unk14,
+    FUN_00b33af0_pair* vector_erase(FUN_00b33af0_pair* out, unsigned int unk0c, unsigned int a, unsigned int unk14,
                                     unsigned int b);
 };
 extern "C" unsigned int __cdecl Runtime_EvaluateValue_00b35c30(unsigned int, unsigned int, unsigned int);
@@ -737,7 +737,7 @@ struct ItemArrayStorage
     Item32780* m_0c;
     Item32780* m_10;
     bool UpdateState_00b1f590(int n);
-    void UpdateFields_00b32c60();
+    void vector__Tidy();
     void InitializeFilledElements_00b32780(int n, const Item32780* value);
 };
 extern void __cdecl Object_ProcessEntries_00b360a0(Item32780*, int, const Item32780*, void*, unsigned char, unsigned char);

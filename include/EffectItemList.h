@@ -19,18 +19,18 @@ public:
 
     int m_iEffectCount;
 
-    EffectItem* GetScriptEffect();
+    EffectItem* GetUsageMonitorEffect();
     void AddItem(EffectItem* item);
-    EffectItem* FindCostliestEffectItem(int aeRange, bool abAreaOnly);
-    EffectItem* FindCostliestEffectItem(int m_eRange, int iUnk);
+    EffectItem* GetCostliestEffect(int aeRange, bool abAreaOnly);
+    EffectItem* GetCostliestEffect(int m_eRange, int iUnk);
     void Load(TESFile* file, const char* modelName);
     bool Compare(EffectItemList* other);
-    void CopyItemsFromList(EffectItemList* other);
+    void EffectItemList_Copy(EffectItemList* other);
     void RemoveAllEffectItems();
     bool HasNonDetrimentalEffect();
     bool HasNonDetrimentalEffectWithFlag(unsigned int flag);
     bool HasDetrimentalEffect();
-    EffectItem* GetEffectItemAtIndex(unsigned char index);
+    EffectItem* GetEffectItemByIndex(unsigned char index);
     bool IsHostile_00405d80();
     bool CanBePoison();
     bool HasTouchEffect();

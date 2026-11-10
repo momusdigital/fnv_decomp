@@ -17,12 +17,13 @@ class SELF
   public:
     int pad;
     unsigned short w;
-    SELF* FUN_00dfbd80(unsigned char flag);
+    SELF* ScalarDeletingDestructor(unsigned char flag);
 };
 
 // Calls FUN_00e36b80, and if bit 0 of flag is set, calls PV2 on the object at offset 0x10 of FUN_00c85750's result with this and w, then returns this.
 // @fnv 0x00dfbd80
-SELF* SELF::FUN_00dfbd80(unsigned char flag)
+// src: EXE 0x00dfbd80
+SELF* SELF::ScalarDeletingDestructor(unsigned char flag)
 {
     FUN_00e36b80();
     if (flag & 1)

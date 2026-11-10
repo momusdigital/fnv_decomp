@@ -144,11 +144,12 @@ struct FUN_006699d0_shell
     void* m_auiShapeKeys;
     void* m_pAuxiliaryObject;
     CSpeedTreeRT* m_pTreeRuntime;
-    unsigned short GetUnsignedShort();
+    unsigned short BSTreeModel_GetNumLeafLODLevels();
 };
 
 // @fnv 0x006699d0
-unsigned short FUN_006699d0_shell::GetUnsignedShort()
+// src: COMMUNITY 0x006699d0
+unsigned short FUN_006699d0_shell::BSTreeModel_GetNumLeafLODLevels()
 {
     return m_pTreeRuntime ? m_pTreeRuntime->GetUnsignedShortValue() : 0;
 }
@@ -213,7 +214,7 @@ NiAlphaProperty* BSTreeModel_CreateAlphaProperty()
 {
     NiAlphaProperty* pAlphaProperty = new NiAlphaProperty;
     pAlphaProperty->NiAlphaProperty_SetAlphaBlending(false);
-    pAlphaProperty->SetFlag512(true);
+    pAlphaProperty->NiAlphaProperty_SetAlphaTesting(true);
     pAlphaProperty->SetFlags(4);
     pAlphaProperty->NiAlphaProperty_SetTestRef(0x54);
     return pAlphaProperty;
@@ -283,7 +284,7 @@ struct StripsDataX : public MemObjX
     StripsDataX(unsigned int a1, NiPoint3* a2, NiPoint3* a3, unsigned int a4, NiPoint2* a5, unsigned int a6,
                 unsigned int a7, unsigned int a8, unsigned int a9, unsigned short* a10, unsigned short* a11);
     void FUN_00a67050(unsigned int auiFlags);
-    void SetByteAtOffset38(unsigned char aucFlags);
+    void SetKeepFlags(unsigned char aucFlags);
     void SetCompressFlags(unsigned char aucFlags);
 };
 struct LeafShapeX : public MemObjX
@@ -510,7 +511,7 @@ void TreeModelX::BSTreeModel_CreateBranchGeometry()
         pLeafGeometry[qsSDDgz] = new StripsDataX(qEMUOs.GetSize(), qArJcY, qIpA, 0, qYTC, 1, qdKdHaf ? 0x1000 : 0,
                                                  *qpqRa.pStripCount - 2, 1, qCihG, qDpUK);
         ((StripsDataX*)pLeafGeometry[qsSDDgz])->FUN_00a67050(0x4000);
-        ((StripsDataX*)pLeafGeometry[qsSDDgz])->SetByteAtOffset38(0x11);
+        ((StripsDataX*)pLeafGeometry[qsSDDgz])->SetKeepFlags(0x11);
         ((StripsDataX*)pLeafGeometry[qsSDDgz])->SetCompressFlags(1);
         pLeafShapes[qsSDDgz] = new LeafShapeX(qCFhl);
     }
@@ -1003,7 +1004,7 @@ void TreeModelX::BSTreeModel_CreateBillboardGeometry(LoaderX* loader)
 struct GlobalObject_0044fae0
 {
     void BSCriticalSection_Enter(int);
-    void WaitForTasksDuringRendering();
+    void BSCriticalSection_Leave();
 };
 extern GlobalObject_0044fae0 g_011d5df8;
 extern unsigned char treeCloneActive;
@@ -1049,23 +1050,24 @@ struct TreeCloneView
     bool CombatProcedure_GetFinished();
     unsigned short GetNumBranchLODLevels();
     unsigned short FUN_006699d0();
-    bool CloneFromModel(TreeCloneView*);
+    bool BSTreeModel_InitAsInstance(TreeCloneView*);
 };
 // @fnv 0x0066a650
-bool TreeCloneView::CloneFromModel(TreeCloneView* model)
+// src: COMMUNITY 0x0066a650
+bool TreeCloneView::BSTreeModel_InitAsInstance(TreeCloneView* model)
 {
     g_011d5df8.BSCriticalSection_Enter(0);
     AutoMemContext context_2(
         31, true, "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout Shared\\SpeedTree\\BSTreeModel.cpp", 1041);
     if (!model || !model->runtime || model->CombatProcedure_GetFinished() || initialized)
     {
-        g_011d5df8.WaitForTasksDuringRendering();
+        g_011d5df8.BSCriticalSection_Leave();
         return false;
     }
     runtime = model->runtime->CSpeedTreeRT_MakeInstance();
     if (!runtime)
     {
-        g_011d5df8.WaitForTasksDuringRendering();
+        g_011d5df8.BSCriticalSection_Leave();
         return false;
     }
     source = model;
@@ -1120,7 +1122,7 @@ bool TreeCloneView::CloneFromModel(TreeCloneView* model)
         billboard = static_cast<NiNode*>(model->billboard)->Clone();
         treeCloneActive = 0;
     }
-    g_011d5df8.WaitForTasksDuringRendering();
+    g_011d5df8.BSCriticalSection_Leave();
     return true;
 }
 
@@ -1132,13 +1134,13 @@ void Warning_005b5e40(const char*, ...);
 float BSTreeManager_GetSizeConversion();
 float fTreeFarDistanceBase_Get();
 float fTreeNearDistance_Get();
-struct FUN_00b02e20
+struct CSpeedTreeRT_STextures
 {
     unsigned int unk00;
     unsigned int leafMaps;
     unsigned int unk08, unk0c, unk10, unk14, unk18;
-    FUN_00b02e20();
-    ~FUN_00b02e20();
+    CSpeedTreeRT_STextures();
+    ~CSpeedTreeRT_STextures();
 };
 struct CSpeedTreeRT_Load
 {
@@ -1186,7 +1188,7 @@ struct CSpeedTreeRT_Load
     static void* operator new(unsigned int);
     ~CSpeedTreeRT_Load();
     bool CSpeedTreeRT_LoadTree(const char*);
-    void GetTextures_00b0d040(FUN_00b02e20*);
+    void GetTextures_00b0d040(CSpeedTreeRT_STextures*);
     void CSpeedTreeRT_SetLeafRockingState(int);
     void SetField14(bool);
     void CSpeedTreeRT_GetTreeSize(float*, float*);
@@ -1267,7 +1269,7 @@ bool TreeModelLoader::BSTreeModel_InitFromBase(TreeModelInput* model, int seed)
         CSpeedTreeRT_Load* pTree = new CSpeedTreeRT_Load;
         if (pTree->CSpeedTreeRT_LoadTree(szPath))
         {
-            FUN_00b02e20 treeInfo;
+            CSpeedTreeRT_STextures treeInfo;
             pTree->GetTextures_00b0d040(&treeInfo);
             if (treeInfo.leafMaps <= 3)
                 pTree->CSpeedTreeRT_SetLeafRockingState(2);
@@ -1429,9 +1431,9 @@ void FUN_00667190_shell::LoadTreeCollision(TESObjectTREE* apTree)
     CopyTreeString(acPath, 0x104, "Data\\Meshes\\Trees");
     AppendTreeString(acPath, 0x104, kModelName.acName);
     AppendTreeString(acPath, 0x104, ".NIF");
-    if (FileFinder::Exist(acPath, 0, 6, 1) && kStream.BSStream_Load(acPath, false) && kStream.NiStream::GetRefAt21C() == 1)
+    if (FileFinder::Exist(acPath, 0, 6, 1) && kStream.BSStream_Load(acPath, false) && kStream.NiStream::NiStream_GetObjectCount() == 1)
     {
-        NiAVObject* pObject = kStream.NiStream::GetStringAt(0);
+        NiAVObject* pObject = kStream.NiStream::NiStream_GetObjectAt(0);
         NiNode* kNode = (NiNode*)NiDynamicCast(&DAT_011f4280, pObject);
         bhkCollisionObject* pCollisionObjectCur = bhkNiCollisionObject_GetbhkNiCollisionObject(kNode);
         bhkWorldObject* pWorldObject = pCollisionObjectCur ? pCollisionObjectCur->bhkNiCollisionObject_GetWorldObject() : 0;
@@ -1936,7 +1938,7 @@ Tree* Model::CreateTree(float scale)
 }
 }
 
-struct FUN_00b02e20
+struct CSpeedTreeRT_STextures
 {
     const char* branchMaps[2];
     const char** leafMaps;
@@ -1944,8 +1946,8 @@ struct FUN_00b02e20
     const char** billboardMaps;
     const char* compositeMap;
     const char* shadowMap;
-    FUN_00b02e20();
-    ~FUN_00b02e20();
+    CSpeedTreeRT_STextures();
+    ~CSpeedTreeRT_STextures();
 };
 struct TexturePtr
 {
@@ -2093,7 +2095,7 @@ struct TreeInput
     int unk40;
     int unk44;
     FullNameComponent leafName;
-    void BuildBillboardTexturePath(char*);
+    void TESObjectTREE_GetBillboardTextureFilename(char*);
 };
 struct TreeRuntime
 {
@@ -2101,7 +2103,7 @@ struct TreeRuntime
     void SetField98(float);
     void FUN_00b07490(float);
     void SetFieldD0(float);
-    void GetTextures_00b0d040(FUN_00b02e20*);
+    void GetTextures_00b0d040(CSpeedTreeRT_STextures*);
 };
 struct TreeTarget
 {
@@ -2162,7 +2164,7 @@ void TreeTarget::ApplyInput(TreeInput* input)
                            "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout Shared\\SpeedTree\\BSTreeModel.cpp", 145);
     if (!branches.Modelloader_GetReferencedThis())
     {
-        FUN_00b02e20 mapBank5;
+        CSpeedTreeRT_STextures mapBank5;
         char branchPath[260];
         char normalPathA[260];
         unsigned int length2 = 0;
@@ -2188,7 +2190,7 @@ void TreeTarget::ApplyInput(TreeInput* input)
     if (!billboards.Modelloader_GetReferencedThis())
     {
         char billboardPath[260];
-        input->BuildBillboardTexturePath(billboardPath);
+        input->TESObjectTREE_GetBillboardTextureFilename(billboardPath);
         billboards.FUN_0066b0d0(new BSShaderTextureSet);
         billboards.Modelloader_GetReferencedThis()->SetTexture(BSShaderProperty::TEXTYPE_DIFFUSE, billboardPath);
     }
@@ -2322,12 +2324,12 @@ struct FUN_0063f790_shell
 {
     void FUN_0063f790(float fValue);
 };
-struct FUN_00621b20_Class
+struct hkpConvexShape
 {
     void NiTimeController_SetPhase(float fValue);
 };
 
-struct FUN_00b029f0
+struct CSpeedTreeRT_SGeometry
 {
     int m_aiPad00[0x84 / 4];
     unsigned short m_usNumLeaves;
@@ -2343,24 +2345,24 @@ struct FUN_00b029f0
     float* m_pfWidths;
     unsigned char* m_pucSizes;
     int m_aiPadB4[(0x130 - 0xb4) / 4];
-    FUN_00b029f0();
-    ~FUN_00b029f0();
+    CSpeedTreeRT_SGeometry();
+    ~CSpeedTreeRT_SGeometry();
 };
-struct FUN_00b02e20
+struct CSpeedTreeRT_STextures
 {
     int m_iPad00;
     unsigned short m_usValue;
     unsigned short m_usPad06;
     const char** m_ppTextures;
     int m_aiPad0C[4];
-    FUN_00b02e20();
-    ~FUN_00b02e20();
+    CSpeedTreeRT_STextures();
+    ~CSpeedTreeRT_STextures();
 };
 struct SpeedTreeRT
 {
     float* CSpeedTreeRT_GetLeafLodSizeAdjustments();
-    void GetTextures_00b0d040(FUN_00b02e20* pTextures);
-    void CSpeedTreeRT_GetGeometry(FUN_00b029f0* m_pShaderGeometry, unsigned int uiBits, short sBranch, short sFrond, short sLeaf);
+    void GetTextures_00b0d040(CSpeedTreeRT_STextures* pTextures);
+    void CSpeedTreeRT_GetGeometry(CSpeedTreeRT_SGeometry* m_pShaderGeometry, unsigned int uiBits, short sBranch, short sFrond, short sLeaf);
     void FreeLeafLODDataArrays();
 };
 struct FUN_00bb3950 : public NiMemObject
@@ -2530,14 +2532,14 @@ class TreeLeafModel
 void TreeLeafModel::BSTreeModel_CreateLeafGeometry(TreeLeafRef* pRef)
 {
     unsigned short usJ;
-    FUN_00b029f0 kLeafGeom;
+    CSpeedTreeRT_SGeometry kLeafGeom;
     unsigned short* pusTris;
     unsigned short usVertCount;
     unsigned short usLeafCount;
     unsigned short usLevels;
     unsigned short* pusIndex;
     unsigned short usTex;
-    FUN_00b02e20 kTexData;
+    CSpeedTreeRT_STextures kTexData;
     NiPoint3* pkSrcPos = 0;
     NiPoint3* pkCardNormals = 0;
     float* pfCoords = 0;
@@ -2600,7 +2602,7 @@ void TreeLeafModel::BSTreeModel_CreateLeafGeometry(TreeLeafRef* pRef)
     ((FUN_0063f790_shell*)(NiAVObject*)m_spLeafMaterial)->FUN_0063f790(m_fLeafScale);
     if (m_pLeafTreeRuntime && TESMain_GetThread(m_pLeafTreeRuntime))
     {
-        ((FUN_00621b20_Class*)(NiAVObject*)m_spLeafMaterial)
+        ((hkpConvexShape*)(NiAVObject*)m_spLeafMaterial)
             ->NiTimeController_SetPhase(((TESObjectREFR*)TESMain_GetThread(m_pLeafTreeRuntime))->GetScale());
         ((FUN_006694c0_shell*)(NiAVObject*)m_spLeafMaterial)
             ->SetPad5(((FUN_00792760_shell*)TESMain_GetThread(m_pLeafTreeRuntime))->QueuedModel_GetOverriddenVisualDistance());
@@ -2678,7 +2680,7 @@ void TreeLeafModel::BSTreeModel_CreateLeafGeometry(TreeLeafRef* pRef)
         ((LeafShaderProperty*)m_pspLeafShaders[usI].operator->())->SetMaterial(m_spLeafTexture);
         ((NiGPUProgramOwner*)(NiAVObject*)m_pspLeafGeometry[usI])->SetProgram(((LeafShaderProperty*)m_pspLeafShaders[usI].operator->())->GetProgram(0));
         ((NiAVObject*)m_pspLeafGeometry[usI])->FUN_00a67050(0x4000);
-        ((NiAVObject*)m_pspLeafGeometry[usI])->SetByteAtOffset38(0x11);
+        ((NiAVObject*)m_pspLeafGeometry[usI])->SetKeepFlags(0x11);
         ((NiAVObject*)m_pspLeafGeometry[usI])->FUN_004410f0(1);
     }
 
@@ -2690,13 +2692,13 @@ struct TreeEval
 {
     TreeEval()
     {
-        FUN_00b029f0();
+        CSpeedTreeRT_SGeometry();
     }
     ~TreeEval()
     {
         FUN_00b02ac0();
     }
-    void FUN_00b029f0();
+    void CSpeedTreeRT_SGeometry();
     void FUN_00b02ac0();
     unsigned int unk00;
     unsigned int unk04;

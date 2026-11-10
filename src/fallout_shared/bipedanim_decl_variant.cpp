@@ -48,5 +48,5 @@ void BipedAnim::QueueBipedParts(IO_TASK_PRIORITY priority, NiPointer<QueuedHelme
         }
     }
     queuedHelmet = pHelmetQueueEntry;
-    QueueBipedObjectLoads(modelFlags, priority, file);
+    QueueSkinTextures(modelFlags, priority, file);
 }

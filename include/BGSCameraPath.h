@@ -40,7 +40,7 @@ public:
     void AssignParentPath(BGSCameraPath* parent);
     BGSCameraPath* GetPrevPath();
     BGSCameraPath* GetCameraPathAt(unsigned int);
-    void SetPathArray(NiFormArray* paths);
+    void FixNextPaths(NiFormArray* paths);
     int HasNameForWarning();
     BSSimpleList<BGSCameraShot*>* GetShotList();
     PerkEntryConditionSet* GetConditions();

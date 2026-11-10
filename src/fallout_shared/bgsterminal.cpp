@@ -351,7 +351,7 @@ struct TerminalExtraDataAccess
     unsigned char __thiscall ExtraDataList_GetTerminalState();
     void __thiscall ExtraDataList_SetTerminalLockState(int state);
     char __thiscall ExtraDataList_GetTerminalLockState();
-    void __thiscall SetExtraState(unsigned char state);
+    void __thiscall ExtraDataList_SetTerminalState(unsigned char state);
 };
 
 // State operations absent from BGSTerminal.h.  This extension has no data
@@ -421,11 +421,12 @@ unsigned int TerminalStateAccess::BGSTerminal_GetHackMiniGameValue(TESObjectREFR
 struct TermHack
 {
     float __thiscall BGSTerminal_GetMinSkillRequiredToHack(TESObjectREFR* apItemActivated);
-    bool __thiscall IsSkillSufficient(TESObjectREFR* apItemActivated, float afSkill);
+    bool __thiscall BGSTerminal_IsHackEligible(TESObjectREFR* apItemActivated, float afSkill);
 };
 // Returns whether the skill value returned by FUN_005017a0 for the activated reference is less than or equal to afSkill.
 // @fnv 0x00501760
-bool __thiscall TermHack::IsSkillSufficient(TESObjectREFR* apItemActivated, float afSkill)
+// src: COMMUNITY 0x00501760
+bool __thiscall TermHack::BGSTerminal_IsHackEligible(TESObjectREFR* apItemActivated, float afSkill)
 {
     return BGSTerminal_GetMinSkillRequiredToHack(apItemActivated) <= afSkill;
 }
@@ -571,7 +572,8 @@ bool __cdecl BGSTerminal_IsLockedOut(Script* apScript)
 }
 
 // @fnv 0x00501930
-void __cdecl SetScriptLockState(Script* apRef, bool abLock)
+// src: COMMUNITY 0x00501930
+void __cdecl BGSTerminal_LockOut(Script* apRef, bool abLock)
 {
     unsigned char cstate;
     if (apRef)
@@ -581,7 +583,7 @@ void __cdecl SetScriptLockState(Script* apRef, bool abLock)
             cstate++;
         else
             cstate = 0;
-        ((TerminalExtraDataAccess*)apRef->GetReferencedObjectList())->SetExtraState(cstate);
+        ((TerminalExtraDataAccess*)apRef->GetReferencedObjectList())->ExtraDataList_SetTerminalState(cstate);
         apRef->MarkAsModified(0x80000000);
     }
 }
@@ -616,7 +618,7 @@ void BGSTerminal_SetHacked(Script* apRef, bool abVal)
             cstate = cstate & 0xffffff7f;
             ucNewState = cstate;
         }
-        ((TerminalExtraDataAccess*)apRef->GetReferencedObjectList())->SetExtraState(cstate);
+        ((TerminalExtraDataAccess*)apRef->GetReferencedObjectList())->ExtraDataList_SetTerminalState(cstate);
         apRef->MarkAsModified(0x80000000);
     }
 }
@@ -682,7 +684,7 @@ void BGSTerminal::CopyFrom(const TESForm* apForm)
         pItem->m_pNote = pSrc->m_pNote;
         pItem->m_pTerminal = pSrc->m_pTerminal;
         pItem->cFlags = pSrc->cFlags;
-        pItem->m_kScript.CopyScriptContents(&pSrc->m_kScript);
+        pItem->m_kScript.CopyResultScript(&pSrc->m_kScript);
         ((ConditionCopy*)&pItem->Conditions)->CopyFrom(&pSrc->Conditions, false);
         AddMenuItem(pItem);
     }
@@ -784,12 +786,12 @@ unsigned int __cdecl BSStringLength(const char*);
 void __cdecl TESForm_AddChunkArray(unsigned int, const void*, unsigned int);
 void __cdecl TESForm_AddChunk_3(unsigned int, unsigned char);
 void __cdecl TESForm_AddChunk_00485910(unsigned int, unsigned int);
-void __cdecl AppendChunk(unsigned int, void*, unsigned int);
+void __cdecl TESForm___AddChunkData(unsigned int, void*, unsigned int);
 
 // @fnv 0x00500a40
 void BGSTerminal::SaveForm()
 {
-    BeginFormRecord();
+    TESForm_StartForm();
     TESFullName::Save_00487010();
     reinterpret_cast<SaveModel*>(reinterpret_cast<char*>(this) +
         offsetof(BGSTerminal, m_kModelFilePath) - offsetof(TESModelTextureSwap, m_kModelFilePath))->ProcessAndFreeData(0x4c444f4d, 0x54444f4d, 0x53444f4d);
@@ -809,7 +811,7 @@ void BGSTerminal::SaveForm()
     }
     if (TESForm_QEndianSwapOnSave())
         reinterpret_cast<TerminalCleanup*>(&Data)->FUN_00483710();
-    AppendChunk(0x4d414e44, &Data, 4);
+    TESForm___AddChunkData(0x4d414e44, &Data, 4);
     if (TESForm_QEndianSwapOnSave())
         reinterpret_cast<TerminalCleanup*>(&Data)->FUN_00483710();
     BSSimpleList<TerminalMenuItem*>* pMenuNode = FUN_00461150();
@@ -843,7 +845,7 @@ void BGSTerminal::SaveForm()
         reinterpret_cast<SaveScript*>(&item->m_kScript)->FUN_005abe00();
         reinterpret_cast<TESConditionSave_bgsterminal*>(&item->Conditions)->ProcessItems();
     }
-    FinishFormRecord();
+    TESForm_CloseForm();
 }
 
 struct Ref;

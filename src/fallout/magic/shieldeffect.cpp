@@ -83,7 +83,7 @@ ActiveEffect* ShieldEffect::Copy()
 // @fnv 0x00827f20
 ShieldEffect::ShieldEffect(void* a, void* b, void* apItem) : ValueModifierEffect(a, b, apItem)
 {
-    ValueModifierEffect::SetActorValue((ActorValue::Index)((EffectItem*)apItem)->GetAffectedActorValue());
+    ValueModifierEffect::SetActorValue((ActorValue::Index)((EffectItem*)apItem)->GetActorValueIndex());
 }
 
 // Starts the modifier and applies its initial magnitude when required.

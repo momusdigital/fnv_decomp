@@ -5,7 +5,7 @@
 #include "bgsexplosion_types_BGSExplosion.h"
 #include "bgsexplosion_decls.h"
 
-// sub ecx,0x3c; jmp FUN_004facf0  ==  MSVC adjustor thunk (multiple inheritance, primary base size 0x3c)
+// sub ecx,0x3c; jmp ScalarDeletingDestructor  ==  MSVC adjustor thunk (multiple inheritance, primary base size 0x3c)
 struct PrimaryBase
 {
     virtual void FUN_004fb9f0();

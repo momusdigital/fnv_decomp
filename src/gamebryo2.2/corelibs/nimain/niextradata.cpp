@@ -185,7 +185,8 @@ __fastcall NiExtraData::NiExtraData()
 
 // The shared header does not declare this comparison override.
 // @fnv 0x00a7b3d0
-unsigned char __fastcall IsExtraDataEqual(NiExtraData* self, void*, NiExtraData* object)
+// src: EXE 0x00a7b3d0
+unsigned char __fastcall NiExtraData_IsEqual(NiExtraData* self, void*, NiExtraData* object)
 {
     if (!self->NiObject::IsSameAs(object))
         return 0;

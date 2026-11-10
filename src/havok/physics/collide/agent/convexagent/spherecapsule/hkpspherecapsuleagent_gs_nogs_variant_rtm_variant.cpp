@@ -83,7 +83,7 @@ inline void InnerCls::v5(unsigned short a, int b)
     a;
     b;
 }
-class FUN_00d3e2b0_cls
+class hkpSphereCapsuleAgent
 {
   public:
     virtual void v0(int a);

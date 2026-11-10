@@ -306,7 +306,7 @@ struct FUN_00c4afa0_class
     void __thiscall CopyStateTo(int a, int b);
     void __thiscall BSDamageStage_CopyMembers(int a, int b);
 };
-struct FUN_00c4b000_class
+struct BSDamageStage
 {
     void __thiscall BSRangeNode_LoadBinary(int);
     void __thiscall BSDamageStage_LoadBinary(int a);
@@ -396,9 +396,9 @@ struct FUN_00a744a0
 };
 FUN_00a744a0::FUN_00a744a0()
 {}
-struct FUN_00c5ceb0 : public FUN_00a744a0
+struct BSScissorTriShape : public FUN_00a744a0
 {
-    FUN_00c5ceb0();
+    BSScissorTriShape();
 };
 extern "C" void __fastcall FUN_00a89760(void*);
 extern int DAT_010c2e7c;
@@ -412,7 +412,7 @@ struct StrArr;
 struct Caller74690
 {
     void FUN_00a74690(StrArr*);
-    void ForwardTo74690(StrArr* p);
+    void BSScissorTriShape_GetViewerStrings(StrArr* p);
 };
 extern "C" void* g_01203348;
 struct FUN_00c5d2a0_Class
@@ -471,7 +471,7 @@ void __cdecl FUN_00c3f8c0();
 struct FUN_00c40930_Class
 {
     void __thiscall FUN_00c3f8c0();
-    void* __thiscall FUN_00c40930(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 void __cdecl SetVtableAndProcessState_00c43070(void*);
 struct FUN_00c43620_Class
@@ -489,7 +489,7 @@ extern "C" char* __cdecl _strchr(const char*, int);
 extern "C" int __cdecl _strcpy_s(char*, unsigned int, const char*);
 void __cdecl CopyMainNameFromPath(int param_1, char* param_2);
 void __cdecl EnsureArenaAllocated(void*);
-struct FUN_00c448f0_Class
+struct BSParallelTaskThread
 {
     char pad[0x50];
     int m50;
@@ -539,12 +539,12 @@ struct FUN_00c4a640_class
 };
 extern "C" void* g_01202e7c;
 extern "C" void* __cdecl NiViewerStrings_NiGetViewerString_Title(void*);
-struct FUN_00c4ab00_Class
+struct BSBlastNode
 {
     void __thiscall BSRangeNode_GetViewerStrings(int);
     void __thiscall BSBlastNode_GetViewerStrings(int a);
 };
-struct FUN_00c4f2d0_class
+struct BSCullingProcess
 {
     void __thiscall BSCullingProcess_PopCullMode();
 };
@@ -567,7 +567,7 @@ struct FUN_00c50f30_class
 };
 extern int DAT_0106c814;
 extern int DAT_010c256c;
-struct FUN_00c51640_Class
+struct UpdateMasterPsysTaskletData
 {
     const char* s;
     int i;
@@ -582,7 +582,7 @@ struct FUN_00878690_shell
     void __thiscall FUN_00c51df0();
 };
 void __cdecl operator delete(void* ptr, unsigned int size);
-struct FUN_00c52830_class
+struct BSSceneGraph
 {
     void* __thiscall FUN_00c52830(unsigned int flags);
 };
@@ -1136,7 +1136,7 @@ struct FUN_00c4ab80_class
     char BSBlastNode_RegisterStreamables(int a);
 };
 unsigned int __cdecl _FUN_00a7d330(int a);
-struct FUN_00c4ad60_class : public FUN_00c4ab00_Class
+struct FUN_00c4ad60_class : public BSBlastNode
 {
     void __thiscall AddFirstEmptyFromGlobal(int a);
 };
@@ -1689,7 +1689,7 @@ struct NewObject_b9649
         return Object_DispatchCommandFour(size);
     }
 };
-NewObject_b9649* CreateNewObject();
+NewObject_b9649* BSMultiBoundNode_CreateObject();
 struct UpdateContext
 {
     int unk00, unk04, unk08, unk0c, unk10, unk14, unk18, unk1c;
@@ -2199,7 +2199,7 @@ class FUN_00c47980_vec3
     int y;
     int z;
 };
-class FUN_00c47980_cls
+class BSCompoundFrustum
 {
   public:
     void InitFromArg(FUN_00c47980_arg* a1);
@@ -2991,10 +2991,10 @@ struct FNV_Base
     virtual void vfn();
     ~FNV_Base();
 };
-struct FUN_00c53fa0_Class : public FNV_Base
+struct BSFurnitureMarker : public FNV_Base
 {
     FNV_SubObject m_sub;  // +0x0c
-    ~FUN_00c53fa0_Class();
+    ~BSFurnitureMarker();
 };
 struct SpawnedSubObject
 {
@@ -3805,7 +3805,7 @@ struct SwitchChild
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40();
     virtual void vf44();
@@ -3902,7 +3902,7 @@ struct FUN_00c5ed60 : FUN_00a7b300
     FUN_007530a0 m_00c;
     virtual ~FUN_00c5ed60();
 };
-NiObject* __cdecl CreateShaderAccumulator(void);
+NiObject* __cdecl BSTextureData_CreateObject(void);
 struct FUN_00a7b4a0_cls
 {
     void __thiscall FUN_00a7b4a0(int a);
@@ -4043,7 +4043,7 @@ struct PositionModifierInstance
         return Object_DispatchCommandFour(amount);
     }
 };
-FUN_00c5fd30* __cdecl CreatePositionModifierInstance();
+FUN_00c5fd30* __cdecl BSPSysStripUpdateModifier_CreateObject();
 struct MyStream;
 void NiStreamLoadBinary_float(MyStream* stream, void* value);
 struct ParticlePositionModifier
@@ -4727,7 +4727,7 @@ struct Semaphore42B
     }
     ~Semaphore42B();
 };
-struct FUN_00c42dd0
+struct BSTaskThread
 {
     virtual void vfn();
     HANDLE thread;
@@ -4737,7 +4737,7 @@ struct FUN_00c42dd0
     int unk24;
     int unk28;
     unsigned long unk2c;
-    FUN_00c42dd0(int, const char* name);
+    BSTaskThread(int, const char* name);
 };
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(volatile long*);
@@ -5995,9 +5995,9 @@ struct FUN_00c5f680
             m_ucFlags &= ~ucMask;
     }
 };
-struct FUN_00c436a0 : FUN_00c5f680
+struct BSValueNode : FUN_00c5f680
 {
-    FUN_00c436a0(AVX* pkObj);
+    BSValueNode(AVX* pkObj);
 };
 struct ElemX
 {
@@ -7290,9 +7290,9 @@ struct IntData_c42ff0 : IntMid_c42ff0
     {}
     ~IntData_c42ff0();
 };
-struct FUN_00c42ff0 : IntData_c42ff0
+struct BSXFlags : IntData_c42ff0
 {
-    FUN_00c42ff0(int v);
+    BSXFlags(int v);
     void BSXFlags_Init();
 };
 extern void* DAT_01202de8;
@@ -7810,7 +7810,7 @@ struct FUN_00a699d0
     float distance;
     FUN_00a699d0();
     FUN_00a699d0(const GeometryPoint*, const GeometryPoint*, const GeometryPoint*);
-    int ClassifyPoint(const GeometryPoint* point)
+    int NiPlane_WhichSide(const GeometryPoint* point)
     {
         float value = normal.x * point->x + normal.y * point->y + normal.z * point->z - distance;
         if (value < 0.0)
@@ -9195,9 +9195,9 @@ struct ScopeBase_c5
 {
     virtual ~ScopeBase_c5();
 };
-struct FUN_00c504e0 : ScopeBase_c5
+struct BSParticleSystemManager : ScopeBase_c5
 {
-    virtual ~FUN_00c504e0();
+    virtual ~BSParticleSystemManager();
     int unk04;
     int unk08;
     int unk0C;
@@ -9244,7 +9244,7 @@ struct FUN_00c504e0 : ScopeBase_c5
     int m_b0;
     FUN_00c504e0_task* m_b4;
 };
-FUN_00c504e0::~FUN_00c504e0()
+BSParticleSystemManager::~BSParticleSystemManager()
 {
     void* old = m_ac;
     ((FUN_00c504e0_pool*)&DAT_011f6238)->MemoryManager_Deallocate(old);
@@ -10886,7 +10886,7 @@ struct ArrQ : ArrBaseQ
         *(void**)this = &DAT_010c2fa8;
     }
 };
-struct FUN_00c5da70 : NodeBaseQ
+struct BSMasterParticleSystem : NodeBaseQ
 {
     virtual void v0();
     ListQ m_kNode;
@@ -10895,7 +10895,7 @@ struct FUN_00c5da70 : NodeBaseQ
     int m_c4, m_c8;
     ArrQ m_aiIndexedValues;
     float m_dc;
-    FUN_00c5da70();
+    BSMasterParticleSystem();
 };
 struct EB90Sub
 {
@@ -11687,7 +11687,7 @@ struct WorkerQueue
     }
 };
 // src: COMMUNITY 0x00c40e70
-inline bool WorkerQueue::LockFreeMap_int64_NiPointer_BSTask_int64_GetNext(WorkerEvent* event, unsigned __int64* output, WorkerJobRef* job, bool wait)
+inline bool WorkerQueue::LockFreeMap_int64_NiPointer_BSTask_int64_GetNext(WorkerEvent* event, unsigned __int64* output, WorkerJobRef* job, bool hkSemaphore_release)
 {
     lock.Lock(0);
     bool found = false;
@@ -11716,7 +11716,7 @@ inline bool WorkerQueue::LockFreeMap_int64_NiPointer_BSTask_int64_GetNext(Worker
                 {
                     event->SetFlag(2, true);
                 }
-                else if (wait)
+                else if (hkSemaphore_release)
                 {
                     event->SetFlag(1, false);
                     continue;
@@ -12340,7 +12340,7 @@ struct C5Base
             collision->SetOwner(this);
     }
     bool NiObject_IsKindOf_006532c0(const void* pkRTTI);
-    void ForwardToSubobject(int iValue)
+    void NiAVObject_DetachProperty(int iValue)
     {
         NiPointer<C5RefObj> property(reinterpret_cast<C5RefObj*>(iValue));
         C5List& propertyList = properties;
@@ -12423,7 +12423,7 @@ FUN_00c5f680::FUN_00c5f680(C5Src* pkSource, bool bCopy) : C5Base(0)
         {
             void* pkProperty = pkSource->properties.GetHead();
             AttachProperty(pkProperty);
-            pkSource->ForwardToSubobject((int)pkProperty);
+            pkSource->NiAVObject_DetachProperty((int)pkProperty);
         }
 
         translation = pkSource->translation;

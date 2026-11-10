@@ -21,7 +21,7 @@ public:
     bool FUN_00a954f0(NiStream&);
     void LinkTexturingProperty(NiStream&);
     void __thiscall ReleaseReference_00a95590();
-    void* __thiscall FUN_00a95740(unsigned int);
+    void* __thiscall ScalarDeletingDestructor(unsigned int);
 
     RendererDataRecord* m_pBase;
     unsigned int m_uiElementCount;

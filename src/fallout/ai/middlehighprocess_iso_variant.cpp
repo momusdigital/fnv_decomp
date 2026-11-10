@@ -1774,7 +1774,7 @@ struct Package
     void RemoveInvalidAvoidedReferences(Process*);
     Target* FUN_00671d10();
     float GetField90Float();
-    ::Actor* FindNearestRef(::Actor*);
+    ::Actor* GetClosestAvoidedRef(::Actor*);
     void bhkCharacterControllerCinfo_SetAvoidBox(int);
     void FleePackage_ModFleeTimer(float);
     ::Actor* FUN_005e3fc0();
@@ -2414,7 +2414,7 @@ void FleeUpdate::Process::MiddleHighProcess_ProcessFlee(::Actor* actor)
     if (targetTmp)
     {
         float elapsed4 = packageTmp->GetField90Float();
-        ::Actor* destinationTmp = packageTmp->FindNearestRef(actor);
+        ::Actor* destinationTmp = packageTmp->GetClosestAvoidedRef(actor);
         if (!destinationTmp)
         {
             packageTmp->bhkCharacterControllerCinfo_SetAvoidBox(1);
@@ -2454,7 +2454,7 @@ void FleeUpdate::Process::MiddleHighProcess_ProcessFlee(::Actor* actor)
                     packageTmp->FindTeleportDoor(actor, destinationTmp);
                     PathingRequestFlee request;
                     request.InitFromActor(actor);
-                    request.SetInitialPathHeading(actor->GetCurrentTargetDistance(false));
+                    request.SetInitialPathHeading(actor->GetHeading(false));
                     if (actor->IsCreature())
                         request.SetCantOpenDoors(reinterpret_cast<ActorData*>(actor->FUN_004181e0())->race.v028());
                     request.FUN_006d3b00((float)packageTmp->FUN_00676280(actor));

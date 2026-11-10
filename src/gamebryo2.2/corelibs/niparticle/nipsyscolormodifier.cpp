@@ -173,7 +173,8 @@ inline NiPSysColorModifier::NiPSysColorModifier() throw()
 
 // Allocates and returns a new color modifier instance.
 // @fnv 0x00c2d180
-void* __cdecl CreateColorModifier()
+// src: EXE 0x00c2d180
+void* __cdecl NiPSysColorModifier_CreateObject()
 {
     return new NiPSysColorModifier;
 }

@@ -166,7 +166,7 @@ struct S00b3d1b0_Src
         return GetNextElement();
     }
     float CTreeFileAccess_ParseFloat();
-    char ProcessAndTransformResult_00b06180();
+    char CTreeFileAccess_ParseBool();
     LeafPoint GetVector3();
     S00b3d1b0_Str CTreeFileAccess_ParseString();
 };
@@ -231,13 +231,13 @@ void S00b3d1b0_Obj::SIdvLeafInfo_Parse(S00b3d1b0_Src* src)
             m_30 = src->CTreeFileAccess_ParseFloat();
             break;
         case 3003:
-            src->ProcessAndTransformResult_00b06180();
+            src->CTreeFileAccess_ParseBool();
             break;
         case 3004:
             src->CTreeFileAccess_ParseFloat();
             break;
         case 3009:
-            m_iWordAt00 = src->ProcessAndTransformResult_00b06180();
+            m_iWordAt00 = src->CTreeFileAccess_ParseBool();
             break;
         case 3010:
             m_iWordAt04 = src->CTreeFileAccess_ParseFloat();
@@ -246,7 +246,7 @@ void S00b3d1b0_Obj::SIdvLeafInfo_Parse(S00b3d1b0_Src* src)
             src->CTreeFileAccess_ParseFloat();
             break;
         case 3006:
-            src->ProcessAndTransformResult_00b06180();
+            src->CTreeFileAccess_ParseBool();
             break;
         case 3007:
             m_28 = src->CTreeFileAccess_ParseFloat();
@@ -269,7 +269,7 @@ void S00b3d1b0_Obj::SIdvLeafInfo_Parse(S00b3d1b0_Src* src)
                     switch (aTag)
                     {
                     case 4000:
-                        leaf.m_iWordAt00 = src->ProcessAndTransformResult_00b06180();
+                        leaf.m_iWordAt00 = src->CTreeFileAccess_ParseBool();
                         break;
                     case 4001:
                         leaf.m_iWordAt04 = src->GetVector3();

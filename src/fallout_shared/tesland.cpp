@@ -118,14 +118,14 @@ CellMopp* __fastcall GetCellMopp(char* pThis)
 
 extern int DAT_0102e388;
 
-struct FUN_00538e30_class
+struct hkBaseObject
 {
     int vtable;
     void SetVtable();
 };
 
 // @fnv 0x00538e30
-void __fastcall SetVtable(FUN_00538e30_class* this_ptr)
+void __fastcall SetVtable(hkBaseObject* this_ptr)
 {
     this_ptr->vtable = (int)&DAT_0102e388;
 }

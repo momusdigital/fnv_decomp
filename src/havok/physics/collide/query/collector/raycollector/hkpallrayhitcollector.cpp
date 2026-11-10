@@ -100,7 +100,7 @@ struct EntryListNode
     unsigned int m_uCapFlags;
 };
 
-struct FUN_00c85520_cls
+struct hkpAllRayHitCollector
 {
     int unk00;
     int unk04;
@@ -113,7 +113,7 @@ struct FUN_00c85520_cls
 
 // Grows the SpawnedEntry list if full, appends a new entry copying fields from apSource, and links it to the last ChainNode in apOwner.
 // @fnv 0x00c85520
-void FUN_00c85520_cls::AddEntry(ChainOwner* apOwner, SourceEntry* apSource)
+void hkpAllRayHitCollector::AddEntry(ChainOwner* apOwner, SourceEntry* apSource)
 {
     EntryListNode* pList = &m_kNode;
     hkMemoryRouter* pHolder = hkMemoryRouter_getInstance();

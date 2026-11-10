@@ -14,14 +14,14 @@ extern "C" void* __cdecl memset(void* dest, int c, size_t count);
 
 extern ScriptVariableInfo* DAT_011cb0fc;
 
-class FUN_00500910
+class SCRIPT_REFERENCED_OBJECT
 {
   public:
     BSStringT<char> name;
     unsigned int formID;
     unsigned int variableOrIndex;
 
-    FUN_00500910();
+    SCRIPT_REFERENCED_OBJECT();
 };
 
 class FUN_00472840_impl
@@ -50,9 +50,9 @@ bool ActivateChoice::BGSEntryPointFunctionDataActivateChoice_Load(TESFile* file)
     unsigned int scdaSize4;
     void* scdaData;
     unsigned int scroRefID2;
-    FUN_00500910* scroObjVal;
+    SCRIPT_REFERENCED_OBJECT* scroObjVal;
     unsigned int scrvRefID3;
-    FUN_00500910* _scrvObj;
+    SCRIPT_REFERENCED_OBJECT* _scrvObj;
     void* epf2BufTmp;
 
     switch (static_cast<int>(file->GetChunkID()))
@@ -90,7 +90,7 @@ bool ActivateChoice::BGSEntryPointFunctionDataActivateChoice_Load(TESFile* file)
         break;
 
     case 0x4f524353:  // 'SCRO'
-        scroObjVal = new FUN_00500910();
+        scroObjVal = new SCRIPT_REFERENCED_OBJECT();
         file->GetChunkData(&scroRefID2);
         scroObjVal->formID = scroRefID2;
         (&resultScript)->GetReferencedObjectList()
@@ -98,7 +98,7 @@ bool ActivateChoice::BGSEntryPointFunctionDataActivateChoice_Load(TESFile* file)
         break;
 
     case 0x56524353:  // 'SCRV'
-        _scrvObj = new FUN_00500910();
+        _scrvObj = new SCRIPT_REFERENCED_OBJECT();
         file->GetChunkData(&scrvRefID3);
         _scrvObj->variableOrIndex = scrvRefID3;
         (&resultScript)->GetReferencedObjectList()

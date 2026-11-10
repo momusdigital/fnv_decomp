@@ -111,7 +111,8 @@ void TESCreature::ResetFormData()
 }
 
 // @fnv 0x005F9210
-CreatureSounds* TESCreature::GetMutableCreatureSounds()
+// src: COMMUNITY 0x005f9210
+CreatureSounds* TESCreature::CreateCreatureSounds()
 {
     if (!((TESActorBaseData*)((char*)this + 0x30))->GetFlag(0x100) || !m_pCreatureSounds)
     {
@@ -134,7 +135,8 @@ void TESCreature::LoadGame(BGSLoadFormBuffer* buffer)
 }
 
 // @fnv 0x005F9140
-void TESCreature::SetCreatureSoundsFrom(TESCreature* soundCreature)
+// src: COMMUNITY 0x005f9140
+void TESCreature::SetSoundCreature(TESCreature* soundCreature)
 {
     if (((TESActorBaseData*)((char*)this + 0x30))->GetFlag(0x100))
     {
@@ -275,10 +277,10 @@ struct IdleAnimationManager
     NiFormArray* GetRootIdleArray(char*);
     NiFormArray* GetIdleArray(TESForm*);
     NiFormArray* GetIdleArray(char*);
-    static void BuildIdlePath(char*, char*);
+    static void TESIdleManager_GetIdleDirName(char*, char*);
     void* FindIdleArrayEntry(char*, int);
     void ClearIdleData();
-    static TESObject* GetCurrentUsedItem();
+    static TESObject* TESIdleManager_GetUsedItem();
     static void SetUsedItem(TESObject*);
     static void SetUsedItemLevel(int);
     static int GetUsedItemLevel();
@@ -421,18 +423,20 @@ extern int DAT_01000000;
 
 struct CreatureFlagQueries
 {
-    bool HasFlag01000000();
-    bool HasFlag02000000();
+    bool TESCreature_GetTiltFrontBack();
+    bool TESCreature_GetTiltLeftRight();
 };
 
 // @fnv 0x005f90c0
-bool CreatureFlagQueries::HasFlag01000000()
+// src: COMMUNITY 0x005f90c0
+bool CreatureFlagQueries::TESCreature_GetTiltFrontBack()
 {
     return ((TESActorBaseData*)((char*)this + 0x30))->GetFlag((unsigned int)&DAT_01000000);
 }
 
 // @fnv 0x005f90e0
-bool CreatureFlagQueries::HasFlag02000000()
+// src: COMMUNITY 0x005f90e0
+bool CreatureFlagQueries::TESCreature_GetTiltLeftRight()
 {
     return ((TESActorBaseData*)((char*)this + 0x30))->GetFlag(0x2000000);
 }
@@ -538,11 +542,12 @@ struct FUN_005f7420_shell
     virtual void _v4();
     virtual void _v5();
     virtual double _v6(int);
-    float GetSumOfVirtualValues(int);
+    float ActorValueOwner_GetPermanentActorValue(int);
 };
 // Returns the sum of the two virtual calls _v1 and _v6 for the given index, cast to float.
 // @fnv 0x005f7420
-float FUN_005f7420_shell::GetSumOfVirtualValues(int aiWhich)
+// src: COMMUNITY 0x005f7420
+float FUN_005f7420_shell::ActorValueOwner_GetPermanentActorValue(int aiWhich)
 {
     return (float)(_v1(aiWhich) + _v6(aiWhich));
 }
@@ -862,7 +867,7 @@ void FUN_005f12d0_shell::ApplyCommand(int command, int value)
         ((TESActorBaseData*)((char*)this + 0x30))->SetSpeedMult((unsigned short)value);
         break;
     case 23:
-        ((TESActorBaseData*)((char*)this + 0x30))->SetKarmaValue((float)value);
+        ((TESActorBaseData*)((char*)this + 0x30))->SetKarma((float)value);
         break;
     default:
         break;
@@ -1019,7 +1024,7 @@ void __cdecl TESForm_AddChunk_00485910(unsigned int, int);
 // @fnv 0x005f7c20
 void TESCreature::SaveForm()
 {
-    BeginFormRecord();
+    TESForm_StartForm();
     TESFullName::Save_00487010();
     TESModel::WriteToBuffer(0x4c444f4d, 0x54444f4d);
     TESSpellList::TESSpellList_SaveSubRecord();
@@ -1081,7 +1086,7 @@ void TESCreature::SaveForm()
         unsigned int weaponId = ((TESForm*)m_pCreatureListForm)->GetHavokWorldObjectCountInSceneGraph_0084e3a0();
         TESForm_AddChunk_00485910(0x4d414e4c, weaponId);
     }
-    FinishFormRecord();
+    TESForm_CloseForm();
 }
 
 extern "C" void* _alloca(unsigned int);
@@ -1097,7 +1102,7 @@ struct CreatureRecordFile
     bool FUN_00401680();
     unsigned short FUN_00403570();
     void FUN_00472890(void*, unsigned int);
-    void ReadChunkInt(void*);
+    void TESFile_Read32(void*);
     void ReadChunkData(void*);
 };
 struct CreatureContainerEntry
@@ -1180,7 +1185,7 @@ bool TESCreature::LoadForm(TESFile* file)
             break;
         case 0x49524353: {
             unsigned int scriptID = 0;
-            ((CreatureRecordFile*)file)->ReadChunkInt(&scriptID);
+            ((CreatureRecordFile*)file)->TESFile_Read32(&scriptID);
             TESScriptableForm::Initialize(scriptID);
             TESScriptableForm::InitItem((TESForm*)this);
             break;
@@ -1210,13 +1215,13 @@ bool TESCreature::LoadForm(TESFile* file)
             break;
         case 0x4f4c5053: {
             unsigned int spellID = 0;
-            ((CreatureRecordFile*)file)->ReadChunkInt(&spellID);
+            ((CreatureRecordFile*)file)->TESFile_Read32(&spellID);
             TESSpellList::TESSpellList_AddSpell_0048d290(spellID);
             break;
         }
         case 0x4d544945: {
             unsigned int touchID = 0;
-            ((CreatureRecordFile*)file)->ReadChunkInt(&touchID);
+            ((CreatureRecordFile*)file)->TESFile_Read32(&touchID);
             BGSTouchSpellForm::Initialize(touchID);
             break;
         }
@@ -1270,7 +1275,7 @@ bool TESCreature::LoadForm(TESFile* file)
         }
         case 0x44494b50: {
             unsigned int packageID = 0;
-            ((CreatureRecordFile*)file)->ReadChunkInt(&packageID);
+            ((CreatureRecordFile*)file)->TESFile_Read32(&packageID);
             TESAIForm::AddPackage((TESPackage*)packageID);
             break;
         }
@@ -1285,26 +1290,26 @@ bool TESCreature::LoadForm(TESFile* file)
         }
         case 0x4d414e49: {
             unsigned int deathID = 0;
-            ((CreatureRecordFile*)file)->ReadChunkInt(&deathID);
+            ((CreatureRecordFile*)file)->TESFile_Read32(&deathID);
             m_pBaseTemplateForm = (TESLevItem*)deathID;
             break;
         }
         case 0x4b435456: {
             unsigned int voiceID;
-            ((CreatureRecordFile*)file)->ReadChunkInt(&voiceID);
+            ((CreatureRecordFile*)file)->TESFile_Read32(&voiceID);
             m_kFactionList = (BGSVoiceType*)voiceID;
             break;
         }
         case 0x544c5054: {
             unsigned int templateID;
-            ((CreatureRecordFile*)file)->ReadChunkInt(&templateID);
+            ((CreatureRecordFile*)file)->TESFile_Read32(&templateID);
             m_ppTemplateForms = (TESForm*)templateID;
             break;
         }
         case 0x53424341:
             ((CreatureRecordFile*)file)->FUN_00472890(&actorData, 24);
             if (((CreatureRecordFile*)file)->FUN_00401680())
-                actorData.SwapEndianness();
+                actorData.ACTOR_BASE_DATA_Endian();
             if (((CreatureRecordFile*)file)->FUN_00403570() < 8)
                 actorData.m_usField16 = 0;
             actorData.m_usField06 = 0;
@@ -1314,7 +1319,7 @@ bool TESCreature::LoadForm(TESFile* file)
             break;
         case 0x5a46494e:
         case 0x5446494e:
-            TESModelList::LoadStringChunk(this, file);
+            TESModelList::LoadModelListChunk(this, file);
             break;
         case 0x54534544:
         case 0x44545344:
@@ -1340,23 +1345,23 @@ bool TESCreature::LoadForm(TESFile* file)
             break;
         }
         case 0x4d414e42:
-            ((CreatureRecordFile*)file)->ReadChunkInt(&m_fThirdCreatureStatCur);
+            ((CreatureRecordFile*)file)->TESFile_Read32(&m_fThirdCreatureStatCur);
             break;
         case 0x4d414e57:
-            ((CreatureRecordFile*)file)->ReadChunkInt(&m_fSecondCreatureStat);
+            ((CreatureRecordFile*)file)->TESFile_Read32(&m_fSecondCreatureStat);
             break;
         case 0x4d414e54:
-            ((CreatureRecordFile*)file)->ReadChunkInt(&m_fFirstCreatureStat);
+            ((CreatureRecordFile*)file)->TESFile_Read32(&m_fFirstCreatureStat);
             break;
         case 0x344d414e: {
             unsigned int material;
-            ((CreatureRecordFile*)file)->ReadChunkInt(&material);
+            ((CreatureRecordFile*)file)->TESFile_Read32(&material);
             m_eImpactMaterial = (BGSImpactDataSet__IMPACT_MATERIAL_TYPE)material;
             break;
         }
         case 0x354d414e: {
             unsigned int level;
-            ((CreatureRecordFile*)file)->ReadChunkInt(&level);
+            ((CreatureRecordFile*)file)->TESFile_Read32(&level);
             if (level > 3)
                 m_eSoundLevel = (SOUND_LEVEL)1;
             else
@@ -1367,7 +1372,7 @@ bool TESCreature::LoadForm(TESFile* file)
             if (((CreatureRecordFile*)file)->GetField25C() == 4)
             {
                 unsigned int oldReach = 0;
-                ((CreatureRecordFile*)file)->ReadChunkInt(&oldReach);
+                ((CreatureRecordFile*)file)->TESFile_Read32(&oldReach);
                 m_ucCreatureType = (unsigned char)oldReach;
             }
             else
@@ -1376,44 +1381,44 @@ bool TESCreature::LoadForm(TESFile* file)
         }
         case 0x52435343: {
             unsigned int soundCreature = 0;
-            ((CreatureRecordFile*)file)->ReadChunkInt(&soundCreature);
-            SetCreatureSoundsFrom((TESCreature*)soundCreature);
+            ((CreatureRecordFile*)file)->TESFile_Read32(&soundCreature);
+            SetSoundCreature((TESCreature*)soundCreature);
             break;
         }
         case 0x54445343: {
             int newSoundType;
-            ((CreatureRecordFile*)file)->ReadChunkInt(&newSoundType);
+            ((CreatureRecordFile*)file)->TESFile_Read32(&newSoundType);
             soundType = newSoundType;
             break;
         }
         case 0x49445343:
         case 0x46445343: {
-            CreatureSounds* loadedSounds = GetMutableCreatureSounds();
-            if (!loadedSounds->LoadSoundsFromFile(file, (CREATURE_SOUND_TYPE)soundType, this))
+            CreatureSounds* loadedSounds = CreateCreatureSounds();
+            if (!loadedSounds->LoadCreatureSound(file, (CREATURE_SOUND_TYPE)soundType, this))
                 consumed5 = true;
             break;
         }
         case 0x4d414e5a: {
             unsigned int combat;
-            ((CreatureRecordFile*)file)->ReadChunkInt(&combat);
+            ((CreatureRecordFile*)file)->TESFile_Read32(&combat);
             SetCombatStyle((TESCombatStyle*)combat);
             break;
         }
         case 0x4d414e50: {
             unsigned int parts;
-            ((CreatureRecordFile*)file)->ReadChunkInt(&parts);
+            ((CreatureRecordFile*)file)->TESFile_Read32(&parts);
             m_pBodyPartDataCur = (BGSBodyPartData*)parts;
             break;
         }
         case 0x4d414e43: {
             unsigned int impact = 0;
-            ((CreatureRecordFile*)file)->ReadChunkInt(&impact);
+            ((CreatureRecordFile*)file)->TESFile_Read32(&impact);
             SetImpactDataSet((BGSImpactDataSet*)impact);
             break;
         }
         case 0x4d414e4c: {
             unsigned int weapons = 0;
-            ((CreatureRecordFile*)file)->ReadChunkInt(&weapons);
+            ((CreatureRecordFile*)file)->TESFile_Read32(&weapons);
             FUN_005f8bd0((BGSListForm*)weapons);
             break;
         }
@@ -1534,7 +1539,7 @@ void TESCreature::UpdateModel3D(TESObjectREFR* reference, bool unused, bool equi
     InventoryEntryData* aWeapon = 0;
     float value = 0.0f;
     if (equip && entry)
-        weapon = entry->SelectBestWeapon(this, &value, 6, true);
+        weapon = entry->InventoryChanges_GetBestWeapon(this, &value, 6, true);
     if (weapon && ((CreatureWeaponEligibility*)this)->CanEquipWeapon(weapon->FUN_0044ddc0()) && !reference->TESObjectREFR_WearingObject(weapon->FUN_0044ddc0()))
     {
         reference->EquipItem(weapon->FUN_0044ddc0(), 1, 0, false);
@@ -1578,7 +1583,7 @@ struct Part
     bool IsFlag40Set();
     bool BGSBodyPart_IsExplodablePart();
     unsigned char GetByte65();
-    signed char GetByte63();
+    signed char BGSBodyPart_GetActorValue();
     bool BGSBodyPart_IsSeverablePart();
 };
 struct BaseView
@@ -1780,7 +1785,7 @@ void Actor::ApplyEffectToBodyParts(Effect* effect, int type, int part, void* sou
             ba = part;
         l = reinterpret_cast<BaseView*>(GetActorBase())->GetBody();
         c = l ? reinterpret_cast<Part*>(l->GetValueByIndex(ba)) : 0;
-        if (!c || c->GetByte63() != type)
+        if (!c || c->BGSBodyPart_GetActorValue() != type)
             continue;
         k = reinterpret_cast<Node*>(m_pBaseProcess->GetNodeByType(static_cast<LIMB_TYPE>(ba)));
         if (!k || k->GetAppCulled_00456610())
@@ -1876,12 +1881,12 @@ void TESCreature::CopyFrom(const TESForm* apSource)
     ((Spells*)((char*)this + 0x30))->v23(((Spells*)((char*)src2 + 0x30))->v22());
     if (src2->GetCreatureSounds())
     {
-        ptr = GetMutableCreatureSounds();
+        ptr = CreateCreatureSounds();
         ptr->Copy(src2->GetCreatureSounds());
     }
     else
     {
-        SetCreatureSoundsFrom(src2->GetSoundCreature());
+        SetSoundCreature(src2->GetSoundCreature());
     }
     *(unsigned int*)((char*)this + 0x154) = src2->FUN_009c0070();
     SetImpactDataSet(src2->GetImpactDataSet());

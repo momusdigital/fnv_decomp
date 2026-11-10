@@ -110,7 +110,7 @@ struct ObjD
 extern "C" int __cdecl BSstrlen(int v);
 extern "C" int __cdecl FUN_00401460(int a, int b, int c);
 
-struct FUN_00700110_cls
+struct AnimatingText
 {
     int unk00;
     int unk04;
@@ -133,7 +133,7 @@ struct FUN_00700110_cls
 
 // @fnv 0x00700110
 // src: XBOX_PDB 0x00700110
-void FUN_00700110_cls::AnimatingText_ForceFinish()
+void AnimatingText::AnimatingText_ForceFinish()
 {
     if (AnimatingText_GetDisplayMode())
     {

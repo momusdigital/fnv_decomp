@@ -70,7 +70,7 @@ public:
     Owner* BuildPlan(void*, int);
     Owner* CreatePlan_0(void*, int);
     Owner* CreatePlan_0(void*, bool);
-    void* FUN_0097e460(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     void FUN_0097e3e0();
     void CleanUp_00995830();
     int CombatPlanner_GetNodeKey(CombatPlanNode** ppkState);

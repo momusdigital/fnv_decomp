@@ -99,16 +99,16 @@ void FUN_00e01f70_cls::Destroy()
 namespace fnv_00e02090 {
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance();
 
-struct FUN_00e02090
+struct hkxMeshSection
 {
     unsigned short m_u04;
     unsigned short m_u06;
-    FUN_00e02090();
-    virtual ~FUN_00e02090();
+    hkxMeshSection();
+    virtual ~hkxMeshSection();
     static void operator delete(void* apMemory)
     {
         hkMemoryRouter* pHolder = hkMemoryRouter_getInstance();
-        unsigned int uiSize = ((FUN_00e02090*)apMemory)->m_u04;
+        unsigned int uiSize = ((hkxMeshSection*)apMemory)->m_u04;
         hkMemoryAllocator* pAllocator = reinterpret_cast<hkMemoryAllocator*>(pHolder->m_heap);
         // Preserve the allocator's original virtual Free slot.
         reinterpret_cast<void (__thiscall*)(hkMemoryAllocator*, void*, unsigned int)>(
@@ -118,7 +118,8 @@ struct FUN_00e02090
 
 // Constructor that zeroes m_u04 and m_u06.
 // @fnv 0x00e02090
-FUN_00e02090::FUN_00e02090()
+// src: EXE 0x00e02090
+hkxMeshSection::hkxMeshSection()
 {
     m_u04 = 0;
     m_u06 = 0;

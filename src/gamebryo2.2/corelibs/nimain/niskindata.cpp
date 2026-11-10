@@ -65,7 +65,8 @@ extern int g_011f5b24;
 
 // Returns the address of the global variable g_011f5b24.
 // @fnv 0x00a84d20
-int __cdecl GetGlobalAddress()
+// src: EXE 0x00a84d20
+int __cdecl NiSkinData_GetRTTI()
 {
     return (int)&g_011f5b24;
 }
@@ -405,11 +406,12 @@ struct FUN_00a84ef0_cls
 
     void BaseCleanupA();
     void BaseCleanupB();
-    FUN_00a84ef0_cls* FUN_00a84ef0(unsigned char acFlags);
+    FUN_00a84ef0_cls* ScalarDeletingDestructor(unsigned char acFlags);
 };
 
 // @fnv 0x00a84ef0
-FUN_00a84ef0_cls* FUN_00a84ef0_cls::FUN_00a84ef0(unsigned char acFlags)
+// src: EXE 0x00a84ef0
+FUN_00a84ef0_cls* FUN_00a84ef0_cls::ScalarDeletingDestructor(unsigned char acFlags)
 {
     m_vptr = (int)&DAT_0109e574;
     BaseCleanupA();

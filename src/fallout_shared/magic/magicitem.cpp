@@ -113,7 +113,7 @@ bool MagicItem::IsLoaded()
         {
             EffectItem* pItem = pIter->GetItem();
             EffectSetting* pEffect = pItem ? pItem->GetEffectSetting() : 0;
-            if (pEffect && pEffect->IsAssociatedFormUsed() && !pEffect->HasEffectID())
+            if (pEffect && pEffect->IsAssociatedFormUsed() && !pEffect->IsAssociatedItemLoaded())
                 return false;
             pIter = (EffectItemList*)pIter->GetNext();
         }
@@ -180,10 +180,10 @@ bool MagicItem::IsLoading()
             {
                 EffectItem* pItem = pIter->GetItem();
                 EffectSetting* pEffect = pItem ? pItem->GetEffectSetting() : 0;
-                if (pEffect && pEffect->IsAssociatedFormUsed() && !pEffect->HasEffectID())
+                if (pEffect && pEffect->IsAssociatedFormUsed() && !pEffect->IsAssociatedItemLoaded())
                 {
                     m_bHeaderParsed = false;
-                    if (!pEffect->UsesAssociatedActorValue())
+                    if (!pEffect->IsAssociatedItemQueued())
                         return false;
                 }
                 pIter = (EffectItemList*)pIter->GetNext();
@@ -326,7 +326,7 @@ void MagicItem::Preload(bool immediate)
                                 files->RemoveAll();
                                 delete files;
                             }
-                            if (creature->TESAnimation::HasSpecialAnimations())
+                            if (creature->TESAnimation::HasKFFiles())
                             {
                                 modelPaths.slash[1] = 0;
                                 AppendModelPath(path, 260, "SpecialAnims");
@@ -348,7 +348,7 @@ void MagicItem::Preload(bool immediate)
                         }
                     }
                 }
-                if (!current.effect->HasEffectID() && !current.effect->UsesAssociatedActorValue() &&
+                if (!current.effect->IsAssociatedItemLoaded() && !current.effect->IsAssociatedItemQueued() &&
                     current.effect->IsFlagSet_00403e60(0x40000))
                     MagicItem_IncrementGlobalCounter();
                 current.effect->UpdateCounter();
@@ -476,7 +476,7 @@ void __fastcall PreloadModels(MagicItem* magicItem)
             EffectSetting* pes = pitem->GetEffectSetting();
             TESForm* pform = pes->FUN_005f5f80();
             int icount = 0;
-            if (pes->UsesAssociatedActorValue())
+            if (pes->IsAssociatedItemQueued())
                 icount = pes->FUN_004087e0();
             if (icount)
             {
@@ -586,7 +586,7 @@ void __fastcall PreloadModels(MagicItem* magicItem)
                                 pkfList->RemoveAll();
                                 delete pkfList;
                             }
-                            if (pcreature->TESAnimation::HasSpecialAnimations())
+                            if (pcreature->TESAnimation::HasKFFiles())
                             {
                                 plastSlash[1] = 0;
                                 AppendModelPath(path, 260, "SpecialAnims");
@@ -625,7 +625,8 @@ void DecrementGlobalCounter()
 }
 
 // @fnv 0x0040b580
-bool __fastcall IsMagicItemReady(MagicItem* magicItem)
+// src: COMMUNITY 0x0040b580
+bool __fastcall MagicItem_IsLoadingOrLoaded(MagicItem* magicItem)
 {
     EffectSetting* current = magicItem->GetEffectSettingForRange(MagicSystem::SELF);
     if (current && current->TESModel::GetModelLength() > 0 && !current->IsModelLoaded() && !current->HasNoAssociatedActorValue())
@@ -637,8 +638,8 @@ bool __fastcall IsMagicItemReady(MagicItem* magicItem)
         {
             EffectItem* item = primary->GetItem();
             EffectSetting* setting = item ? item->GetEffectSetting() : 0;
-            if (setting && setting->IsAssociatedFormUsed() && !setting->HasEffectID() &&
-                !setting->UsesAssociatedActorValue())
+            if (setting && setting->IsAssociatedFormUsed() && !setting->IsAssociatedItemLoaded() &&
+                !setting->IsAssociatedItemQueued())
                 return false;
             primary = static_cast<EffectItemList*>(primary->GetNext());
         }
@@ -648,7 +649,8 @@ bool __fastcall IsMagicItemReady(MagicItem* magicItem)
 
 // Casts this MagicItem to MagicItemForm or MagicItemObject and calls TESSound::Deallocate on it, returning 0 if neither cast succeeds.
 // @fnv 0x0040a1e0
-int __fastcall MagicItemDeallocate(MagicItem* magicItem)
+// src: COMMUNITY 0x0040a1e0
+int __fastcall MagicItem_GetMagicItemFormID(MagicItem* magicItem)
 {
     MagicItemForm* form = dynamic_cast<MagicItemForm*>(magicItem);
     MagicItemObject* object = dynamic_cast<MagicItemObject*>(magicItem);
@@ -674,7 +676,7 @@ int FUN_00406d30(char*, unsigned int, const char*);
 // @fnv 0x0040b800
 void MagicItem::Unload(bool immediate)
 {
-    if (!IsMagicItemReady(this))
+    if (!MagicItem_IsLoadingOrLoaded(this))
         return;
     EffectSetting* primary = GetEffectSettingForRange(MagicSystem::SELF);
     bool queued = false;
@@ -772,7 +774,7 @@ void MagicItem::Unload(bool immediate)
                                 files->RemoveAll();
                                 delete files;
                             }
-                            if (creature11->TESAnimation::HasSpecialAnimations())
+                            if (creature11->TESAnimation::HasKFFiles())
                             {
                                 separator10[1] = 0;
                                 AppendModelPath(buffer4, 260, "SpecialAnims");
@@ -795,7 +797,7 @@ void MagicItem::Unload(bool immediate)
                     }
                 }
                 ClampEffectCounterTowardZero(effect);
-                if (!effect->HasEffectID() && !effect->UsesAssociatedActorValue() && effect->IsFlagSet_00403e60(0x40000))
+                if (!effect->IsAssociatedItemLoaded() && !effect->IsAssociatedItemQueued() && effect->IsFlagSet_00403e60(0x40000))
                     DecrementGlobalCounter();
             }
             effects = (EffectItemList*)effects->GetNext();

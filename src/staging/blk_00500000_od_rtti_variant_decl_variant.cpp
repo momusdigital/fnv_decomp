@@ -82,7 +82,7 @@ struct FUN_00509890_class
     void __thiscall _ref_006815c0();
     void* __thiscall UpdateState_00509890(bool);
 };
-struct FUN_0050d1d0_class
+struct TESObjectLIGH
 {
     bool IsFlag8Set() const;
 };
@@ -115,7 +115,7 @@ extern "C" int __cdecl _BSStringLength(const char*);
 struct FUN_005103a0_class
 {
     void __thiscall FindSubstring(const char* a, const char* b, int c);
-    void __thiscall ProcessState_005103a0(const char* a, const char* b);
+    void __thiscall string_find(const char* a, const char* b);
 };
 extern "C" int __cdecl _memcmp(const void* s1, const void* s2, unsigned int n);
 void __cdecl std_char_traits_char_compare(const void* s1, const void* s2, unsigned int n);
@@ -129,7 +129,7 @@ struct BlkOffset08View
 };
 struct FUN_00519020_Class
 {
-    void SetField688(int value);
+    void PlayerCharacter_SetForceActivateRef(int value);
 };
 struct FUN_008256d0_list
 {
@@ -178,10 +178,10 @@ struct FUN_00519c50_class
     void __thiscall ReleaseStorage_00519c50();
 };
 extern "C" void __cdecl _Deallocate(void*);
-void __cdecl FUN_005010f0();
+void __cdecl TERMINAL_MENU_ITEM();
 struct FUN_005010c0_class
 {
-    void __thiscall FUN_005010f0();
+    void __thiscall TERMINAL_MENU_ITEM();
     void* __thiscall FUN_005010c0(unsigned int flags);
 };
 struct FUN_00507660_class
@@ -192,7 +192,7 @@ void __cdecl Deallocate(void*);
 struct FUN_00519b50_class
 {
     void __thiscall FUN_00519bf0();
-    void* __thiscall FUN_00519b50(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 struct FUN_00519c50_class;
 void __cdecl _Deallocate(void* p);
@@ -267,7 +267,7 @@ struct FUN_00508090_shell
     void UpdateEnvelope(float, float, float, unsigned char, float, float, float, float, float);
     void TESEffectShader_AnimateFillEffectAlpha(float a, float b, float c, unsigned char d);
 };
-struct FUN_0050e640_Holder
+struct SettingT
 {
     char _0[4];
     unsigned char _4;
@@ -277,9 +277,9 @@ float __cdecl NiSqrt_004579e0(float);
 float __fastcall NiNPShortPoint3_Length(short* p);
 struct AVH
 {
-    static int __cdecl GetActorValueForSectionIndex(int, unsigned char);
+    static int __cdecl ToActorValue(int, unsigned char);
 };
-struct FUN_00514fd0_class
+struct TESObjectBOOK
 {
     int __thiscall TESObjectBOOK_GetTeaches();
 };
@@ -358,10 +358,10 @@ struct TESGrassModel
     ~TESGrassModel();
     void* vft;
 };
-struct FUN_00509a10 : TESGrassBase
+struct TESGrass : TESGrassBase
 {
     TESGrassModel m_30;
-    FUN_00509a10();
+    TESGrass();
     void ResetFormData();
 };
 extern int DAT_01028364;
@@ -389,7 +389,7 @@ struct TESObjectREFR_Flags
     unsigned int GetFlags();
     void SetFlags(unsigned int flags);
     void MarkAsModified(int change);
-    void __thiscall SetRefFlag40000000(bool set);
+    void __thiscall TESObjectACTI_SetContinuousBroadcast(bool set);
 };
 struct S_004ed780
 {
@@ -426,9 +426,9 @@ struct P01RefA
 };
 extern Actor* g_thePlayer;
 extern TESBoundObject* g_pLockpickItem;
-struct FUN_00516cd0_class
+struct TESObjectCONT
 {
-    bool __thiscall CanUseLockedRef(TESObjectREFR* ref, Actor* actor, bool useLockpick);
+    bool __thiscall TESObjectCONT_CanActivate(TESObjectREFR* ref, Actor* actor, bool useLockpick);
 };
 extern int DAT_011c6200;
 int FixedStrings_GetArrowQuiver();
@@ -639,10 +639,10 @@ class ActorStateSub
     int m_28;
     int m_2c;
 };
-class FUN_00508450_cls : public ActorStateBase
+class TESFlora : public ActorStateBase
 {
   public:
-    FUN_00508450_cls();
+    TESFlora();
     ActorStateSub m_0c;
     void* m_3c;
     int m_40;
@@ -726,11 +726,11 @@ class B0B8F0Component
     B0B8F0Component();
     virtual ~B0B8F0Component();
 };
-class FUN_0050b8f0 : public B0B8F0Form, public B0B8F0Component
+class TESLevSpell : public B0B8F0Form, public B0B8F0Component
 {
   public:
-    FUN_0050b8f0();
-    virtual ~FUN_0050b8f0();
+    TESLevSpell();
+    virtual ~TESLevSpell();
 };
 class Obj50DDB0
 {
@@ -1206,7 +1206,7 @@ struct SelectionMap
 struct Selector
 {
     Node* List();
-    void* FindRandomSelection(Reference*, int);
+    void* TESObjectDOOR_FindRandomTeleportTarget(Reference*, int);
 };
 struct PlayerSelection
 {

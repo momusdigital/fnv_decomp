@@ -365,7 +365,7 @@ bool NavMeshInfoMap::LoadNavMeshInfoMap(TESFile* apFile)
             }
             apFile->GetChunkData(pchunkdata, ichunksize);
             NavMeshInfo* pnewInfo = new NavMeshInfo;
-            pnewInfo->LoadNavMeshInfo((char*)pchunkdata, apFile, ifileVersionNumber);
+            pnewInfo->NavMeshInfo_SetFromInfoChunk((char*)pchunkdata, apFile, ifileVersionNumber);
             NavMeshInfo* poldInfo = FUN_00693d70(pnewInfo->GetNavMeshID());
             if (poldInfo)
             {
@@ -575,7 +575,7 @@ TESObjectCELL* NavMeshInfo::GetCell()
     if (worldSpace)
     {
         return worldSpace
-            ->GetCellByKey(static_cast<unsigned int>(m_uiPathingFlags));
+            ->GetCellFromKey(static_cast<unsigned int>(m_uiPathingFlags));
     }
     else
     {

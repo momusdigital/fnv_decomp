@@ -196,12 +196,12 @@ class ModelLoader
     bool GetModel(char*, NiPointer<Model>&);
     void LoadModel(const char*, NiPointer<Model>&);
     void ProcessModelRequest(TESModel*, int, Task43E*, int, bool, int, int);
-    void QueueFileList(BSSimpleList<const char*>*, IO_TASK_PRIORITY, QueuedFile*, const char*);
+    void QueueKFList(BSSimpleList<const char*>*, IO_TASK_PRIORITY, QueuedFile*, const char*);
     void ProcessQueuedFile();
     static void UpdateLoadingStatusCallback();
     void UpdateLoadingStatus();
     void DispatchAnimIdle(QueuedFile*);
-    void UpdateReferenceNode(TESObjectREFR*, NiNode*);
+    void LoadAddonNodes(TESObjectREFR*, NiNode*);
     void UpdateModelNode(NiNode*);
     void ForwardCall_004431d0();
     void ForwardCall_00443220();
@@ -418,7 +418,8 @@ unsigned char BGSTerrainChunkLoadTask::GetFileIndex()
 }
 
 // @fnv 0x00446500
-void ModelLoader::QueueFileList(BSSimpleList<const char*>* pFileList, IO_TASK_PRIORITY priority, QueuedFile* queuedFile,
+// src: COMMUNITY 0x00446500
+void ModelLoader::QueueKFList(BSSimpleList<const char*>* pFileList, IO_TASK_PRIORITY priority, QueuedFile* queuedFile,
                                 const char* prefix)
 {
     BSSimpleList<const char*>* current = pFileList;
@@ -544,7 +545,8 @@ void QueuedAnimIdle::ProcessLoadedAnimIdle()
 }
 
 // @fnv 0x004489b0
-void ModelLoader::UpdateReferenceNode(TESObjectREFR* reference, NiNode* node)
+// src: COMMUNITY 0x004489b0
+void ModelLoader::LoadAddonNodes(TESObjectREFR* reference, NiNode* node)
 {
     if (node)
     {
@@ -749,14 +751,16 @@ NiFixedString::operator const char*() const
 int __fastcall _ref_0084e3a0(const void*);
 
 // @fnv 0x0043b1e0
-unsigned int BSStream::GetRefAt21C()
+// src: COMMUNITY 0x0043b1e0
+unsigned int BSStream::NiStream_GetObjectCount()
 {
     return _ref_0084e3a0(reinterpret_cast<const char*>(this) + 0x21c);
 }
 
 // Returns the string stored at index i in the arr array.
 // @fnv 0x0043b200
-NiNode* BSStream::GetStringAt(unsigned int auiIndex)
+// src: COMMUNITY 0x0043b200
+NiNode* BSStream::NiStream_GetObjectAt(unsigned int auiIndex)
 {
     return reinterpret_cast<NiNode*>(const_cast<char*>(
         static_cast<const char*>(reinterpret_cast<BSSimpleArray<BSStringT<char>, 1024>*>(reinterpret_cast<char*>(this) + 0x21c)->GetAt(auiIndex))));
@@ -932,7 +936,7 @@ struct ML_0043c050
 };
 struct Q_0043c050 : public QueuedTexture
 {
-    bool ForwardByteToMember(bool);
+    bool QueuedTexture_SetLoadDegraded(bool);
     void QueuedTexture_SetInQueuedTextureMap(bool);
     void QueuedTexture_QueueMe();
 };
@@ -946,7 +950,7 @@ void Q_0043c050::QueuedTexture_QueueMe()
         QueuedTexture_SetInQueuedTextureMap(bresult);
     }
     if (reinterpret_cast<ML_0043c050*>(g_modelLoader)->IsLoadTexturesDegraded())
-        ForwardByteToMember(true);
+        QueuedTexture_SetLoadDegraded(true);
     DAT_01202d98->AddTask(reinterpret_cast<QIOTask*>(this));
 }
 
@@ -1294,12 +1298,13 @@ bool FUN_0043d4b0_shell::QueuedModel_GetCachedModel()
 
 struct FUN_0043dbb0_shell : public IOTask
 {
-    void SetRequestParams(char, unsigned int, unsigned char, unsigned short);
+    void IOTask_SetKey(char, unsigned int, unsigned char, unsigned short);
 };
 
 // Packs file index, offset, priority and counter into a 64-bit value stored at offset 0x10 of this object.
 // @fnv 0x0043dbb0
-void FUN_0043dbb0_shell::SetRequestParams(char acFileIndex, unsigned int aiOffset, unsigned char acPriority,
+// src: COMMUNITY 0x0043dbb0
+void FUN_0043dbb0_shell::IOTask_SetKey(char acFileIndex, unsigned int aiOffset, unsigned char acPriority,
                                           unsigned short asCounter)
 {
     *reinterpret_cast<__int64*>(reinterpret_cast<char*>(this) + 0x10) =
@@ -1667,9 +1672,9 @@ struct TESAttackDamageForm_1
     virtual void Free(void);
 };
 
-void __fastcall AttachHeadAndFaceParts(void* pThis);
+void __fastcall QueuedCharacter_AttachHeadParts(void* pThis);
 
-// Frees the object under a memory context, then calls AttachHeadAndFaceParts if FUN_005d8710 returns null.
+// Frees the object under a memory context, then calls QueuedCharacter_AttachHeadParts if FUN_005d8710 returns null.
 // @fnv 0x00441820
 // src: XBOX_PDB 0x00441820
 void __fastcall QueuedCharacter_FinishAttach(char* apObject)
@@ -1679,7 +1684,7 @@ void __fastcall QueuedCharacter_FinishAttach(char* apObject)
     ((TESAttackDamageForm_1*)apObject)->TESAttackDamageForm_1::Free();
     if (!((VATS*)apObject)->VATS_GetVATSLight())
     {
-        AttachHeadAndFaceParts(apObject);
+        QueuedCharacter_AttachHeadParts(apObject);
     }
 }
 
@@ -1763,7 +1768,7 @@ struct blob12
 };
 struct FUN_004418b0_shell : public QueuedCharacter
 {
-    void AttachHeadAndFaceParts();
+    void QueuedCharacter_AttachHeadParts();
 };
 
 struct Biped;
@@ -1788,7 +1793,8 @@ void __fastcall QueuedHead_Attach(const char* pHead, int unused, TESObjectREFR* 
 void __fastcall ApplyQueuedModels(const char* pFace);
 
 // @fnv 0x004418b0
-void FUN_004418b0_shell::AttachHeadAndFaceParts()
+// src: COMMUNITY 0x004418b0
+void FUN_004418b0_shell::QueuedCharacter_AttachHeadParts()
 {
     TESObjectREFR* pcharacter = *reinterpret_cast<TESObjectREFR**>(reinterpret_cast<char*>(this) + 0x28);
     Biped* pbiped = reinterpret_cast<TESObjectREFR_Helper*>(pcharacter)->GetBipedComponent();
@@ -1888,7 +1894,7 @@ void __fastcall SignalAtOffset18(char* this_ptr)
 
 struct FUN_00442550_shell : public CountingSemaphore
 {
-    int ReleaseAndInitScriptRunLock();
+    int BSSemaphore_Signal();
 };
 
 int __cdecl InitScriptRunLock(void*);
@@ -1896,7 +1902,8 @@ __declspec(dllimport) int __stdcall ReleaseSemaphore(void* hSemaphore, long lRel
 
 // Releases the semaphore stored at this+4 by one count, then calls InitScriptRunLock with this and returns its result.
 // @fnv 0x00442550
-int FUN_00442550_shell::ReleaseAndInitScriptRunLock()
+// src: COMMUNITY 0x00442550
+int FUN_00442550_shell::BSSemaphore_Signal()
 {
     ReleaseSemaphore(*(void**)((char*)this + 4), 1, 0);
     return InitScriptRunLock(this);
@@ -4212,7 +4219,7 @@ void FUN_0043ecb0_shell::QueuedHead_Run()
     if (GetHavokWorldObjectCountInSceneGraph_0084e3a0(((HeadLayout*)this)->npc) == 7)
     {
         TESRace* prace = (TESRace*)FUN_00726070((char*)((HeadLayout*)this)->npc + 0x10c);
-        prace->ClearFaceGenUndo();
+        prace->KillEGTData();
     }
     BSFaceGenManager_UnlockFaceGenAccess();
 }
@@ -4527,7 +4534,7 @@ struct KFModel
 typedef char _sizecheck_KFModel[sizeof(KFModel) == 28 ? 1 : -1];
 struct FUN_004471c0_shell : public ModelLoader
 {
-    KFModel* LoadKFModel(char*);
+    KFModel* ModelLoader_LoadKF(char*);
 };
 
 void __cdecl _FNV_Warning(const char*, ...);
@@ -4545,7 +4552,8 @@ struct KFMap
 };
 int __fastcall KFModel_GetRefCount(KFModel*);
 // @fnv 0x004471c0
-KFModel* FUN_004471c0_shell::LoadKFModel(char* apFilename)
+// src: COMMUNITY 0x004471c0
+KFModel* FUN_004471c0_shell::ModelLoader_LoadKF(char* apFilename)
 {
     Flt autoEvent3;
     KFModel* pkfModel2 = 0;
@@ -5211,14 +5219,14 @@ void KFModel::ReleaseKFModelReference()
 
 int __cdecl InitScriptRunLock(void*);
 
-struct FUN_0044b2a0_Class
+struct BSFaceGenModelMeshData
 {
     void __thiscall InitScriptRunLock_Thunk();
 };
 
 // @fnv 0x0044b2a0
 // src: GUESS 0x0044b2a0 (confidence: medium)
-void __thiscall FUN_0044b2a0_Class::InitScriptRunLock_Thunk()
+void __thiscall BSFaceGenModelMeshData::InitScriptRunLock_Thunk()
 {
     InitScriptRunLock((char*)this + 0x20);
 }
@@ -5513,13 +5521,13 @@ struct FUN_00449c50_class
     int __thiscall FUN_00449c50();
 };
 
-struct FUN_00449c30_class : FUN_00449c50_class
+struct LockFreeCaseInsensitiveStringMap : FUN_00449c50_class
 {
     int __thiscall CallBaseMethod();
 };
 
 // @fnv 0x00449c30
-int __thiscall FUN_00449c30_class::CallBaseMethod()
+int __thiscall LockFreeCaseInsensitiveStringMap::CallBaseMethod()
 {
     return FUN_00449c50();
 }
@@ -5553,7 +5561,7 @@ char Object_IsMask0x20Set(unsigned char param_1)
 }  // namespace fnv_0044afa0
 
 namespace fnv_0044b270 {
-struct FUN_0044b2a0_Class
+struct BSFaceGenModelMeshData
 {
     void InitScriptRunLock_Thunk(void);
 };
@@ -5561,14 +5569,14 @@ struct FUN_0044b2a0_Class
 class FUN_0044b270_Class
 {
   public:
-    FUN_0044b2a0_Class* m_pData;
-    FUN_0044b270_Class* SetDataAndNotify(FUN_0044b2a0_Class* a);
+    BSFaceGenModelMeshData* m_pData;
+    FUN_0044b270_Class* SetDataAndNotify(BSFaceGenModelMeshData* a);
 };
 
 // Stores the given object in m_pData and, if it is non-null, calls its FUN_0044b2a0 method; returns this.
 // @fnv 0x0044b270
 // src: GUESS 0x0044b270 (confidence: medium)
-FUN_0044b270_Class* FUN_0044b270_Class::SetDataAndNotify(FUN_0044b2a0_Class* apData)
+FUN_0044b270_Class* FUN_0044b270_Class::SetDataAndNotify(BSFaceGenModelMeshData* apData)
 {
     m_pData = apData;
     if (m_pData != 0)
@@ -5621,11 +5629,12 @@ void __thiscall FUN_0044df00Class::ClearLowBit_Thunk()
 void __cdecl MLSetFlag_2(unsigned char, void*);
 struct FUN_0043c0d0_class
 {
-    void __thiscall ForwardByteToMember(unsigned char);
+    void __thiscall QueuedTexture_SetLoadDegraded(unsigned char);
 };
 // Passes a to FUN_0044ae60 together with the pointer at this+0x34.
 // @fnv 0x0043c0d0
-void __thiscall FUN_0043c0d0_class::ForwardByteToMember(unsigned char aByte)
+// src: COMMUNITY 0x0043c0d0
+void __thiscall FUN_0043c0d0_class::QueuedTexture_SetLoadDegraded(unsigned char aByte)
 {
     MLSetFlag_2(aByte, reinterpret_cast<char*>(this) + 0x34);
 }
@@ -5738,13 +5747,14 @@ struct FUN_004411d0
     int m_kPointB;
     FUN_004411d0(int a, int b);
 };
-struct FUN_00441920 : FUN_004411d0
+struct QueuedCreature : FUN_004411d0
 {
-    FUN_00441920(int a, int b);
+    QueuedCreature(int a, int b);
 };
 // Constructs the object by forwarding a and b to the base constructor and setting m_vft to DAT_01016d34.
 // @fnv 0x00441920
-FUN_00441920::FUN_00441920(int a, int b) : FUN_004411d0(a, b)
+// src: EXE 0x00441920
+QueuedCreature::QueuedCreature(int a, int b) : FUN_004411d0(a, b)
 {
     m_vft = &DAT_01016d34;
 }
@@ -5926,13 +5936,13 @@ struct FUN_00905330
 {
     void __thiscall Remove(void*);
 };
-struct FUN_0044f870
+struct SettingCollectionList
 {
     void __thiscall Remove_Thunk(void* ap);
 };
 // @fnv 0x0044f870
 // src: GUESS 0x0044f870 (confidence: medium)
-void __thiscall FUN_0044f870::Remove_Thunk(void* ap)
+void __thiscall SettingCollectionList::Remove_Thunk(void* ap)
 {
     ((FUN_00905330*)((char*)this + 0x10c))->Remove(&ap);
 }
@@ -6068,7 +6078,7 @@ void FUN_0043cb50_shell::QueueTextureFiles(FileEntryList* apTextureList)
             {
                 DistantTreeTextureInfo* pswap = *pSwapNode->_ref_006815c0();
                 if (pswap && pswap->m_pTextureSet)
-                    pswap->m_pTextureSet->LoadTextures(IOTask_GetIOTaskPriority(), this, false);
+                    pswap->m_pTextureSet->QueueTextureSet(IOTask_GetIOTaskPriority(), this, false);
                 pSwapNode = pSwapNode->_ref_00726070();
             }
         }
@@ -6389,7 +6399,7 @@ void FUN_0043fed0_shell::QueuedReference_QueueMe()
             if (pdata->m_pHitReference && reinterpret_cast<TESObjectREFR*>(pdata->m_pHitReference)->GetObjectReference()->GetFormType() == 4)
             {
                 BGSTextureSet* ptexset = (BGSTextureSet*)reinterpret_cast<TESObjectREFR*>(pdata->m_pHitReference)->GetObjectReference();
-                ptexset->LoadTextures(((FUN_0043cc80_shell*)this)->IOTask_GetPriority(), this, false);
+                ptexset->QueueTextureSet(((FUN_0043cc80_shell*)this)->IOTask_GetPriority(), this, false);
             }
         }
     }
@@ -6636,7 +6646,7 @@ void FUN_00440780_shell::QueuedReference_CheckFinished()
                 ->FUN_0044aed0(((CtlV*)(unsigned int)*(Flt*)((char*)this + 0x2c))->GetNext());
         bool bbackgroundClone = false;
         if (*(Flt*)((char*)this + 0x30) && *(TESObjectREFR**)((char*)this + 0x28) != g_thePlayer &&
-            g_TES->IsCellBuffered(((::TESObjectREFR*)*(TESObjectREFR**)((char*)this + 0x28))->GetParentCell(), false) &&
+            g_TES->IsCellLoaded(((::TESObjectREFR*)*(TESObjectREFR**)((char*)this + 0x28))->GetParentCell(), false) &&
             g_TES->IsRefUsable((TESObjectREFR*)*(TESObjectREFR**)((char*)this + 0x28)) &&
             !((RefA*)*(TESObjectREFR**)((char*)this + 0x28))->GetReferenceType())
             bbackgroundClone = true;
@@ -6806,7 +6816,7 @@ bool FUN_00440a90_shell::QueuedReference_BackgroundClone()
     bool bresult = false;
     AutoMemHelper tempMemContext(((QRView*)this)->iMemCtx, true,
                                  "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout Shared\\ModelLoader.cpp", 0x7ea);
-    if (g_TES->IsCellBuffered(((::TESObjectREFR*)((QRView*)this)->pRef)->GetParentCell(), false))
+    if (g_TES->IsCellLoaded(((::TESObjectREFR*)((QRView*)this)->pRef)->GetParentCell(), false))
     {
         if (g_TES->IsRefUsable((TESObjectREFR*)((QRView*)this)->pRef))
         {
@@ -6869,11 +6879,11 @@ void FUN_00440ba0_shell::QueuedReference_Attach()
         ((TESObjectCELL*)((BSOcclusionPlane*)*(TESObjectREFR**)((char*)this + 0x28))->GetCullResult())
             ->CellRefLockEnter();
     if (!bdisabled &&
-        g_TES->IsCellBuffered(
+        g_TES->IsCellLoaded(
             (TESObjectCELL*)((BSOcclusionPlane*)*(TESObjectREFR**)((char*)this + 0x28))->GetCullResult(), false))
     {
         if ((unsigned int)*(Flt*)((char*)this + 0x30))
-            g_modelLoader->UpdateReferenceNode(
+            g_modelLoader->LoadAddonNodes(
                 *(TESObjectREFR**)((char*)this + 0x28),
                 (NiNode*)((BSFaceGenModelExtraData*)(unsigned int)*(Flt*)((char*)this + 0x30))->GetModelFilePath());
         g_TES->AttachModel(
@@ -6948,24 +6958,24 @@ struct BipedAnim
     void InitRoot(NiNode*);
     NiNode* GetRoot();
     void RemoveClothingAndArmor();
-    void CompleteModelLoadTask();
+    void RemoveAllParts();
     static void SetNodeTranslation(NiAVObject*);
     void RemovePart(TESForm*);
     void RemovePart(int, bool, int);
     void RemovePart(BipedAnimObject*, bool, int);
     void RecursivelyRemoveAllDecalPlacementVectorDataFromWeaponBone(NiAVObject*);
-    NiNode* GetBoneNode(int);
+    NiNode* GetParentBone(int);
     TESForm* GetParent(int);
     TESForm* FindPart(NiAVObject*);
     bool FindObject(TESForm*);
     BipedAnimObject* FindBipObject(TESForm*);
     BipedAnimObject* GetBipObject(int);
     void UpdateRaceSex(TESRace*, int);
-    void SetBipedObject(TESForm*, TESModel*, int);
+    void SetBipedPart(TESForm*, TESModel*, int);
     void SetBipedVisibility(bool);
     void ProcessQueuedHelmet(int, void*, QueuedFile*);
-    void QueueBipedObjectLoads(unsigned int, int, QueuedFile*);
-    void LoadBipedObject(TESNPC*, int, int, QueuedFile*);
+    void QueueSkinTextures(unsigned int, int, QueuedFile*);
+    void QueueSkinTexture(TESNPC*, int, int, QueuedFile*);
     BipedAnimObject* QBufferedObjects();
     void AddBipedWeapon(TESObjectWEAP*, unsigned char);
     void UpdateBipedWeapon(TESObjectWEAP*, unsigned char);
@@ -6998,14 +7008,14 @@ struct BipedAnim
     static void ApplyReferenceExtraData(NiNode*, NiNode*, int, TESObjectREFR*);
     TESObjectREFR* GetRequester();
     bool IsSlotHidden(int);
-    static BSShaderPPLightingProperty* FindLightingShaderProperty(NiAVObject*);
-    static int GetBipedObjectFromShaderProperty(NiAVObject*, BSShaderPPLightingProperty*);
+    static BSShaderPPLightingProperty* GetLightingProperty(NiAVObject*);
+    static int GetSkinBipedObject(NiAVObject*, BSShaderPPLightingProperty*);
     static unsigned int GetSkinModelFlags(NiAVObject*);
-    NiAVObject* PrepareBipedModel(NiNode*, int, bool, bool, BSFaceGenModel*);
+    NiAVObject* ApplySkinnedObjects(NiNode*, int, bool, bool, BSFaceGenModel*);
     NiAVObject* AttachBipedModel(NiNode*, NiNode*, int, bool, bool, BSFaceGenModel*);
     void UpdateSkinInstance(NiAVObject*, bool);
     bool GetSlotHidden(int);
-    bool IsModelPathMatch(TESModel*, char*);
+    bool Get1stPersonModelFileName(TESModel*, char*);
     TESModel* Store1stPersonModel(int, char*);
     TESModel* GetModelForSlot(int, TESModel*);
     void* __vecDelDtor(unsigned int);
@@ -7058,7 +7068,7 @@ struct FUN_00444fe0_shell
 };
 struct FUN_00445a10_shell
 {
-    void QueueModelAnimations(TESModel*, int, void*, TESObjectREFR*, int, int);
+    void ModelLoader_QueueAnimations(TESModel*, int, void*, TESObjectREFR*, int, int);
 };
 struct RefVtbl
 {
@@ -7212,7 +7222,7 @@ void FUN_00441560_shell::LoadBipedModel()
     }
     pmodel = reinterpret_cast<TESModel*>(static_cast<TESModel*>(pnpc));
     ((FUN_00445a10_shell*)g_modelLoader)
-        ->QueueModelAnimations(pmodel, ((IOTask*)this)->IOTask_GetIOTaskPriority(), this, *(TESObjectREFR**)((char*)this + 0x28), 0,
+        ->ModelLoader_QueueAnimations(pmodel, ((IOTask*)this)->IOTask_GetIOTaskPriority(), this, *(TESObjectREFR**)((char*)this + 0x28), 0,
                                0);
     reinterpret_cast<QueuedActor*>(this)->QueueDismemberedLimbLoads();
 }
@@ -7394,7 +7404,7 @@ struct MLa
 };
 struct Q_0043c050
 {
-    bool ForwardByteToMember(bool);
+    bool QueuedTexture_SetLoadDegraded(bool);
 };
 struct S_00c3c7e0
 {
@@ -7424,7 +7434,7 @@ bool FUN_00443540_shell::ModelLoader_ReuseQueuedTexture(BSFileEntry* apTextureFi
         {
             if (((FUN_0043c3d0_shell*)(unsigned int)spexistingQueuedTexture)->QueuedTexture_GetLoadDegraded() &&
                 !((MLa*)this)->IsLoadTexturesDegraded())
-                ((Q_0043c050*)(unsigned int)spexistingQueuedTexture)->ForwardByteToMember(false);
+                ((Q_0043c050*)(unsigned int)spexistingQueuedTexture)->QueuedTexture_SetLoadDegraded(false);
             if (apParent)
                 ((S_00c3c7e0*)(unsigned int)spexistingQueuedTexture)->QueuedFile_AddAdditionalParent(apParent);
             if (((FUN_00449190_cls*)(unsigned int)spexistingQueuedTexture)->SetState(2, estate))
@@ -8303,19 +8313,19 @@ FUN_00449ec0::~FUN_00449ec0()
 }  // namespace fnv_00449ec0
 
 namespace fnv_0044b300 {
-struct FUN_0044b2a0_Class
+struct BSFaceGenModelMeshData
 {
     void InitScriptRunLock_Thunk();
 };
 void __fastcall FUN_0044b2e0(void*);
 struct FUN_0044b300_Class
 {
-    FUN_0044b2a0_Class* m_pObject;
-    FUN_0044b300_Class* ProcessAndReturnValue_0044b300(FUN_0044b2a0_Class* value);
+    BSFaceGenModelMeshData* m_pObject;
+    FUN_0044b300_Class* ProcessAndReturnValue_0044b300(BSFaceGenModelMeshData* value);
 };
 // @fnv 0x0044b300
 // src: GUESS 0x0044b300 (confidence: low)
-FUN_0044b300_Class* FUN_0044b300_Class::ProcessAndReturnValue_0044b300(FUN_0044b2a0_Class* apObject)
+FUN_0044b300_Class* FUN_0044b300_Class::ProcessAndReturnValue_0044b300(BSFaceGenModelMeshData* apObject)
 {
     if (m_pObject != apObject)
     {
@@ -8545,7 +8555,7 @@ namespace fnv_0043fb80 {
 
 struct FUN_004aeb20_holder
 {
-    void AttachFaceGenModel(BSFaceGenModel*, NiNode*, BIPED_OBJECT);
+    void BipedAnim_AttachHelmet(BSFaceGenModel*, NiNode*, BIPED_OBJECT);
 };
 
 struct BipedAnim : public FUN_004aeb20_holder
@@ -9747,7 +9757,7 @@ struct Node0
 };
 struct Node1
 {
-    Node2* CreateBillboardSceneObject(int);
+    Node2* TESObjectTREE_BuildDistant3D(int);
 };
 struct Node2
 {
@@ -9761,7 +9771,7 @@ struct Node3
 struct Node4
 {
     void FUN_00a67050(int);
-    void SetByteAtOffset38(int);
+    void SetKeepFlags(int);
     void FUN_004410f0(int);
 };
 struct Node5
@@ -9803,13 +9813,13 @@ struct Owner
 void Owner::QueuedTree_UseDistant3D()
 {
     Node1* node1 = unk28->BGSSaveFormBuffer_GetForm();
-    Node2* node2 = node1->CreateBillboardSceneObject(0);
+    Node2* node2 = node1->TESObjectTREE_BuildDistant3D(0);
     if (node2)
     {
         Node3* node3 = node2->FUN_0043b4a0(0);
         Node4* status = node3->NiGeometry_GetModelData();
         status->FUN_00a67050(0x4000);
-        status->SetByteAtOffset38(0x11);
+        status->SetKeepFlags(0x11);
         status->FUN_004410f0(1);
         FUN_00b57e30(node3, 0, 0);
         Node5* action = (node3->FUN_00a59d30(3) == 0 ? false : node3->FUN_00a59d30(3)->FUN_00441110() == 0xb)
@@ -10483,7 +10493,7 @@ struct ItemEntry
 
 struct ModelLoaderHelper445
 {
-    void QueueKFPathsFromList(int a, int b, int c, int d, char* path);
+    void ModelLoader_QueueModelList(int a, int b, int c, int d, char* path);
     void ModelLoader_QueueBoundObject(int v);
     void ModelLoader_QueueCreatureParts(TESModel* model, int a, int b, void* ref);
 };
@@ -10503,18 +10513,18 @@ void ModelLoaderHelper445::ModelLoader_QueueCreatureParts(TESModel* model, int a
         {
             slash[1] = 0;
         }
-        QueueKFPathsFromList(node, reinterpret_cast<CreatureData114*>(reinterpret_cast<char*>(&creature->m_kModelPaths) - sizeof(void*))->GetOffsetC(), aiArg1, aiArg2, path);
+        ModelLoader_QueueModelList(node, reinterpret_cast<CreatureData114*>(reinterpret_cast<char*>(&creature->m_kModelPaths) - sizeof(void*))->GetOffsetC(), aiArg1, aiArg2, path);
         if (ref)
         {
             InventoryChanges* changes = InventoryChanges::GetOrAddInventoryChanges(ref);
             int count;
-            ItemEntry* entry = changes->SelectBestWeapon(creature, &count, 6, 0);
+            ItemEntry* entry = changes->InventoryChanges_GetBestWeapon(creature, &count, 6, 0);
             if (entry)
             {
                 ModelLoader_QueueBoundObject(entry->FUN_0044ddc0(aiArg1, aiArg2, ref));
                 delete entry;
             }
-            entry = changes->FindBestAmmoChange(creature, 0);
+            entry = changes->InventoryChanges_GetBestAmmo(creature, 0);
             if (entry)
             {
                 ModelLoader_QueueBoundObject(entry->FUN_0044ddc0(aiArg1, aiArg2, ref));
@@ -10536,13 +10546,14 @@ struct ModelLoaderKFList : public ModelLoader
 {
     void QueueKFPath(const char* path, void* task, int priority, void* queued, int a, int b, int c, int d);
     void QueueKFPathDirect(const char* path, int priority, void* queued, int a, bool b, bool c, bool d);
-    void QueueKFPathsFromList(BSSimpleList<const char*>* list, KFQueueOwner* owner, int priority, void* queued,
+    void ModelLoader_QueueModelList(BSSimpleList<const char*>* list, KFQueueOwner* owner, int priority, void* queued,
                               const char* prefix);
 };
 
 // Walks a list of names, optionally prefixes each into a path buffer, and queues each KF path either via owner tasks or directly.
 // @fnv 0x004463b0
-void ModelLoaderKFList::QueueKFPathsFromList(BSSimpleList<const char*>* apNames, KFQueueOwner* owner, int priority,
+// src: COMMUNITY 0x004463b0
+void ModelLoaderKFList::ModelLoader_QueueModelList(BSSimpleList<const char*>* apNames, KFQueueOwner* owner, int priority,
                                              void* queued, const char* prefix)
 {
     BSSimpleList<const char*>* iter = apNames;
@@ -10905,7 +10916,7 @@ class LoaderNode
     LoaderNode* Next();
 };
 
-class FUN_004f05c0_cls
+class BSBipNode
 {
   public:
     LoaderNode* First();
@@ -10914,7 +10925,7 @@ class FUN_004f05c0_cls
 
 // Iterates the node list from First(), looks up two entries per node via FUN_00653270 and calls Method(flags) on each non-null entry.
 // @fnv 0x004f05c0
-void FUN_004f05c0_cls::ApplyFlagsToEntries(unsigned int flags)
+void BSBipNode::ApplyFlagsToEntries(unsigned int flags)
 {
     for (LoaderNode* node = First(); node != 0; node = node->Next())
     {
@@ -10955,7 +10966,7 @@ class QueueSubmitter
     void Submit(void* item);
 };
 
-class FUN_00527fc0_cls
+class ExteriorCellLoader
 {
   public:
     bool Step(QueueCursor* cursor, int* index, QueueSlot* slot, int mode);
@@ -10964,7 +10975,7 @@ class FUN_00527fc0_cls
 
 // Iterates the cursor until it reaches the end, calling Step on each slot and submitting the taken item through the submitter at DAT_01202d98 when Step succeeds.
 // @fnv 0x00527fc0
-void FUN_00527fc0_cls::SubmitQueuedItems()
+void ExteriorCellLoader::SubmitQueuedItems()
 {
     unsigned int pad[3];
     {
@@ -11054,7 +11065,7 @@ struct Local_00626c50
     void CFilter_SetGroup(unsigned int a);
 };
 
-struct FUN_00626c50_cls
+struct HitCaster
 {
     unsigned int unk000;
     unsigned int unk004;
@@ -11296,7 +11307,7 @@ struct FUN_00626c50_cls
 // Stores a1 in m_3a8, passes it to local.FUN_0059ce80, and calls FUN_0043b4f0/FUN_00626cb0 on objects obtained from m_3a0.FUN_00559450.
 // @fnv 0x00626c50
 // src: XBOX_PDB 0x00626c50
-void FUN_00626c50_cls::HitCaster_SetShapeGroup(unsigned int auiValue)
+void HitCaster::HitCaster_SetShapeGroup(unsigned int auiValue)
 {
     Local_00626c50 local;
     reinterpret_cast<Z_00626c50*>(m_3a0.Modelloader_GetReferencedThis((unsigned int)&local))->bhkWorldObject_GetCollisionFilter();
@@ -11853,7 +11864,7 @@ void ThisS::Model_InitModel(const char* apName, BSStream* apSource, unsigned cha
                                                                     c = (char*)FormHeap_Allocate(count);
                                                                     m_buf = c;
                                                                     FUN_00406d30(m_buf, count, apName);
-                                                                    if (apSource->GetRefAt21C() == 0)
+                                                                    if (apSource->NiStream_GetObjectCount() == 0)
                                                                     {
                                                                         BSStream_FreeAllObjects(apSource);
                                                                         if (!((Arg1V*)apSource)->v60(DAT_0101667c, 0))
@@ -11862,7 +11873,7 @@ void ThisS::Model_InitModel(const char* apName, BSStream* apSource, unsigned cha
                                                                             return;
                                                                         }
                                                                     }
-                                                                    elem = (ElemV*)apSource->GetStringAt(0);
+                                                                    elem = (ElemV*)apSource->NiStream_GetObjectAt(0);
                                                                     q = false;
                                                                     if (elem != 0 && elem->v0c() != 0)
                                                                     {
@@ -11885,10 +11896,10 @@ void ThisS::Model_InitModel(const char* apName, BSStream* apSource, unsigned cha
                                                                     {
                                                                         iDynIndex = 0;
                                                                         for (iElemIndex = 0;
-                                                                             iElemIndex < (unsigned int)apSource->GetRefAt21C();
+                                                                             iElemIndex < (unsigned int)apSource->NiStream_GetObjectCount();
                                                                              ++iElemIndex)
                                                                         {
-                                                                            elem = (ElemV*)apSource->GetStringAt(
+                                                                            elem = (ElemV*)apSource->NiStream_GetObjectAt(
                                                                                 iElemIndex);
                                                                             if (elem != 0)
                                                                             {
@@ -12159,8 +12170,8 @@ struct Entry
 struct Manager
 {
     void ModelLoader_QueueModel(Model*, void*, Main*, void*, int, int, int);
-    void QueueKFPathsFromList(List*, int, void*, Main*, int);
-    void QueueModelAnimations(Model*, void*, Main*, int, int, int);
+    void ModelLoader_QueueModelList(List*, int, void*, Main*, int);
+    void ModelLoader_QueueAnimations(Model*, void*, Main*, int, int, int);
 };
 extern Manager* DAT_011c3b3c;
 void* TES_GetLODMult(Form*);
@@ -12242,14 +12253,14 @@ void Main::UpdateModels()
                         {
                             Misc* miscSlot0 = (Misc*)form;
                             List* listSlot0 = miscSlot0->CollectModelPaths(1, 1);
-                            DAT_011c3b3c->QueueKFPathsFromList(listSlot0, 0, IOTask_GetIOTaskPriority(), this, 0);
+                            DAT_011c3b3c->ModelLoader_QueueModelList(listSlot0, 0, IOTask_GetIOTaskPriority(), this, 0);
                             listSlot0->FUN_00470470();
                             delete listSlot0;
                         }
                         else if (form->FUN_00401170() == 43)
                         {
                             TESCreature* creature = reinterpret_cast<TESCreature*>(form);
-                            DAT_011c3b3c->QueueModelAnimations(reinterpret_cast<Model*>(static_cast<TESModel*>(creature)), IOTask_GetIOTaskPriority(), this, 0,
+                            DAT_011c3b3c->ModelLoader_QueueAnimations(reinterpret_cast<Model*>(static_cast<TESModel*>(creature)), IOTask_GetIOTaskPriority(), this, 0,
                                                                1, 1);
                             DAT_011c3b3c->ModelLoader_QueueModel(reinterpret_cast<Model*>(static_cast<TESModel*>(creature)), IOTask_GetIOTaskPriority(), this,
                                                        TES_GetLODMult(reinterpret_cast<Form*>(creature)), 1, 0, 0);
@@ -12628,7 +12639,7 @@ struct FnvSceneNode
     virtual void vfnE4(void*);
     void SetRotate_0043fa80(const NiMatrix3&);  // NiAVObject: set local rotation
     FnvSceneNode* NiAVObject_GetRotate_006a9540(void*, void*);
-    bool ApplyMorphs(void*, FnvSceneNode*, int);
+    bool BSFaceGenModel_ApplyCoordinateToExistingMesh(void*, FnvSceneNode*, int);
     void FUN_00603ad0(void*);
 };
 struct FnvRenderSelector
@@ -12803,7 +12814,7 @@ void FnvRoot::QueuedHelmet_CheckFinished()
                                             h.FUN_0066b0d0(current.Modelloader_GetReferencedThis());
                                             geometry->vfnE4(h.Modelloader_GetReferencedThis());
                                             a->FUN_00603ad0(p);
-                                            if (!BSFaceGenManager_GetUseFaceGenHeads() || fallback->ApplyMorphs(p, geometry, 0))
+                                            if (!BSFaceGenManager_GetUseFaceGenHeads() || fallback->BSFaceGenModel_ApplyCoordinateToExistingMesh(p, geometry, 0))
                                             {
                                                 NiMatrix3 matForward;
                                                 matForward.MakeYRotation(DAT_01016b78);
@@ -13374,7 +13385,7 @@ struct MLLoadTask;
 
 struct MLModelLoader
 {
-    void QueueModelAnimations(MLAttachTarget* apTarget, int aiPriority, MLLoadTask* apTask, MLActor* apActor,
+    void ModelLoader_QueueAnimations(MLAttachTarget* apTarget, int aiPriority, MLLoadTask* apTask, MLActor* apActor,
                               bool abFlag1, bool abFlag2);
     void ModelLoader_QueueCreatureParts(MLAttachTarget* apTarget, int aiPriority, MLLoadTask* apTask, MLActor* apActor);
 };
@@ -13419,7 +13430,7 @@ void MLLoadTask::ProcessLoadTask()
         pCell4->FUN_005f9e00(pActor, true, bUnequipB, false);
 
     MLAttachTarget* pTarget5 = pCell4;
-    g_pMLModelLoader->QueueModelAnimations(pTarget5, GetPriority(), this, pActor, true, false);
+    g_pMLModelLoader->ModelLoader_QueueAnimations(pTarget5, GetPriority(), this, pActor, true, false);
     g_pMLModelLoader->ModelLoader_QueueCreatureParts(pTarget5, GetPriority(), this, pActor);
     QueueDismemberedLimbLoads();
 }
@@ -14069,10 +14080,11 @@ struct AnimLoader445
     AnimList* MakeList(char*, char*, int);
     AnimList* MakeRaceList(char*, int, int, void*);
     void QueueList(AnimList*, int, int, char*);
-    void QueueModelAnimations(TESModel*, int, int, Actor*, bool, bool);
+    void ModelLoader_QueueAnimations(TESModel*, int, int, Actor*, bool, bool);
 };
 // @fnv 0x00445a10
-void AnimLoader445::QueueModelAnimations(TESModel* model, int priority, int queued, Actor* actor, bool useSkeleton,
+// src: COMMUNITY 0x00445a10
+void AnimLoader445::ModelLoader_QueueAnimations(TESModel* model, int priority, int queued, Actor* actor, bool useSkeleton,
                                          bool forceSkeleton)
 {
     char idleSlash[260];
@@ -14158,7 +14170,7 @@ void AnimLoader445::QueueModelAnimations(TESModel* model, int priority, int queu
                 delete idleAnimations;
             }
             n = dynamic_cast<TESAnimation*>(model);
-            if (n && n->HasSpecialAnimations())
+            if (n && n->HasKFFiles())
             {
                 AnimList* pObj;
                 pObj = new AnimList;
@@ -14283,10 +14295,11 @@ struct Loader
     int unk0c;
     int unk10;
     GroupMap* groups;
-    void LoadFiles(Paths*, Owner*, int, Task*, const char*);
+    void ModelLoader_QueueReplacementKFList(Paths*, Owner*, int, Task*, const char*);
 };
 // @fnv 0x004465f0
-void Loader::LoadFiles(Paths* apPaths, Owner* owner, int priority, Task* parent, const char* prefix)
+// src: COMMUNITY 0x004465f0
+void Loader::ModelLoader_QueueReplacementKFList(Paths* apPaths, Owner* owner, int priority, Task* parent, const char* prefix)
 {
     if (!apPaths || !owner)
         return;
@@ -14505,7 +14518,7 @@ struct MeshCache
     bool LookupModelAndGetFlags(const char*, NodeHandle*, DataHandle*);
 };
 MeshCache* FUN_00652110();
-void BuildEgmFilename(MeshName*, const char*, int);
+void BSFaceGenManager_GetAsEGMFile(MeshName*, const char*, int);
 struct MeshTask
 {
     virtual void v0();
@@ -14567,7 +14580,7 @@ void MeshLoader::LoadMesh(MeshSource* source, int priority, void* parent, int ki
         for (int index = 0; index < 2; index++)
         {
             MeshName name;
-            BuildEgmFilename(&name, path2, index);
+            BSFaceGenManager_GetAsEGMFile(&name, path2, index);
             if (FUN_00652110() && FUN_00652110()->LookupModelAndGetFlags(name, &node2, &data7) && node2 && data7 &&
                 ((ModelLoaderCacheData*)data7)->ready)
             {
@@ -14585,7 +14598,7 @@ void MeshLoader::LoadMesh(MeshSource* source, int priority, void* parent, int ki
     else
     {
         MeshName other5;
-        BuildEgmFilename(&other5, path2, -1);
+        BSFaceGenManager_GetAsEGMFile(&other5, path2, -1);
         if (FUN_00652110() && FUN_00652110()->LookupModelAndGetFlags(other5, &node2, &data7) && node2 && data7 &&
             ((ModelLoaderCacheData*)data7)->ready)
         {
@@ -14644,12 +14657,13 @@ struct RecursiveModelLoader
 {
     ModelMapStub* models;
     Model* Load(const char* path, bool a, bool b, int c, int d, int e);
-    void LoadModelTree(RecursiveModelNode* node);
+    void ModelLoader_LoadAddons(RecursiveModelNode* node);
 };
 
 // Recursively loads models for a node and its children: looks up the node's form, loads its model path if missing, then recurses into child nodes.
 // @fnv 0x00448a90
-void RecursiveModelLoader::LoadModelTree(RecursiveModelNode* node)
+// src: COMMUNITY 0x00448a90
+void RecursiveModelLoader::ModelLoader_LoadAddons(RecursiveModelNode* node)
 {
     if (!node)
         return;
@@ -14677,7 +14691,7 @@ void RecursiveModelLoader::LoadModelTree(RecursiveModelNode* node)
         {
             RecursiveModelNode* nested = child->GetNode();
             if (nested)
-                LoadModelTree(nested);
+                ModelLoader_LoadAddons(nested);
         }
     }
 }
@@ -16830,11 +16844,12 @@ class TextureLoader
   public:
     bool IsLoadTexturesDegraded();
     bool ModelLoader_ReuseQueuedTexture(BSFileEntry*, int, QueuedFile*);
-    bool QueueTextureLoad(BSFileEntry*, int, QueuedFile*);
+    bool ModelLoader_QueueTexture(BSFileEntry*, int, QueuedFile*);
 };
 // Loads the file's node; if it is a usable model it queues a TextureTask for the node, otherwise falls back to FUN_00443540 or queues a TextureTask for the file.
 // @fnv 0x00443af0
-bool TextureLoader::QueueTextureLoad(BSFileEntry* file, int priority, QueuedFile* parent)
+// src: COMMUNITY 0x00443af0
+bool TextureLoader::ModelLoader_QueueTexture(BSFileEntry* file, int priority, QueuedFile* parent)
 {
     NodePointer node(0);
     GetNodePointer(file, node);
@@ -17012,8 +17027,8 @@ struct Manager448
 Manager448* FUN_00652110();
 int FUN_00406d30(char*, unsigned int, const char*);
 int FUN_00406d50(char*, unsigned int, const char*);
-void BuildEgmFilename(String448*, char*, int);
-void BuildTriPathAndSet(String448*, char*, int);
+void BSFaceGenManager_GetAsEGMFile(String448*, char*, int);
+void BSFaceGenManager_GetAsTRIFile(String448*, char*, int);
 struct Owner448
 {
     void ModelLoader_QueueFaceGenFile(void*, int, void*, int);
@@ -17028,7 +17043,7 @@ void Owner448::LoadTaskFromPath(Task448* pTask, int x, void* parent, int unused)
     FUN_00406d30(pathX, 260, &DAT_01016fac);
     FUN_00406d50(pathX, 260, pTask->v5());
     String448 s3;
-    BuildEgmFilename(&s3, pathX, -1);
+    BSFaceGenManager_GetAsEGMFile(&s3, pathX, -1);
     if (FUN_00652110() && FUN_00652110()->LookupModelAndGetFlags(s3.Modelloader_GetReferencedThis(), &a, &b) && a.Modelloader_GetReferencedThis() &&
         b.Modelloader_GetReferencedThis())
     {
@@ -17041,7 +17056,7 @@ void Owner448::LoadTaskFromPath(Task448* pTask, int x, void* parent, int unused)
         return;
     }
     String448 t2;
-    BuildTriPathAndSet(&t2, pathX, -1);
+    BSFaceGenManager_GetAsTRIFile(&t2, pathX, -1);
     ModelLoader_QueueFaceGenFile(t2.Modelloader_GetReferencedThis(), x, parent, 1);
 }
 }  // namespace fnv_00448080
@@ -17858,7 +17873,7 @@ struct CloneObjectAccessor
 {
     void* VATS_GetVATSLight();
 };
-void __fastcall AttachHeadAndFaceParts(void*);
+void __fastcall QueuedCharacter_AttachHeadParts(void*);
 struct Helper_00440a90
 {
     bool QueuedReference_BackgroundClone();
@@ -17877,7 +17892,7 @@ bool CharacterClone::QueuedCharacter_BackgroundClone()
     if (bresult && ((CloneObjectAccessor*)this)->VATS_GetVATSLight())
     {
         TESObjectREFR_SetBackgroundLoadingRef(cloneTarget, ((CloneObjectAccessor*)this)->VATS_GetVATSLight());
-        AttachHeadAndFaceParts(this);
+        QueuedCharacter_AttachHeadParts(this);
         TESObjectREFR_ClearBackgroundLoadingRef();
     }
     return bresult;
@@ -18086,7 +18101,7 @@ void QueuedTreeModel::Run_0043da00()
     AutoMemHelper tempMemContext(0x1e, true, "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout Shared\\ModelLoader.cpp",
                                   0x476);
 
-    ptreeNode = fnv_0043da00::DAT_011d5c48->CreateTreeInstance(reinterpret_cast<int>(pRef), reinterpret_cast<int>(pTree));
+    ptreeNode = fnv_0043da00::DAT_011d5c48->BSTreeManager_CreateTreeForReference(reinterpret_cast<int>(pRef), reinterpret_cast<int>(pTree));
     reinterpret_cast<fnv_0043da00::ModelLoaderTreeOperations*>(fnv_0043da00::DAT_011d5c48)
         ->BSTreeManager_AddBackgroundLoadedTree(reinterpret_cast<int>(pRef), ptreeNode);
 }
@@ -18123,7 +18138,7 @@ void QueuedHelmet::ApplyQueuedModels()
     {
         if (m_kQueuedModelsSecondary[n].operator unsigned int() != 0)
         {
-            reinterpret_cast<fnv_0043fb80::BipedAnim*>(pExistingBipedAnim)->AttachFaceGenModel(
+            reinterpret_cast<fnv_0043fb80::BipedAnim*>(pExistingBipedAnim)->BipedAnim_AttachHelmet(
                 reinterpret_cast<BSFaceGenModel*>(m_kQueuedModels[n].operator unsigned int()),
                 reinterpret_cast<NiNode*>(m_kQueuedModelsSecondary[n].operator unsigned int()),
                 static_cast<BIPED_OBJECT>(n));

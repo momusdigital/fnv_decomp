@@ -46,13 +46,13 @@ struct GlobalObjectO2_00d472a0
     int x;
 };
 extern GlobalObjectO2_00d472a0 g_0126e600;
-void __stdcall FindResourceWithExpectedName(int, GlobalObjectO2_00d472a0*);
+void __stdcall hkxAttributeGroup_findAttributeObjectByName(int, GlobalObjectO2_00d472a0*);
 void __stdcall Runtime_ForwardCall_00e5c5b0(int a);
-extern "C" void __stdcall FindResourceWithExpectedName(int, int);
+extern "C" void __stdcall hkxAttributeGroup_findAttributeObjectByName(int, int);
 struct GlobalObjectO2_00d472a0;
 extern GlobalObjectO2_00d472a0 g_0126c5f0;
 void __stdcall Runtime_ForwardCall_00e5c5f0(int a);
-struct FUN_00e459c0_class
+struct hkpGroupFilter
 {
     void SetBitMaskFlags(int a, int b);
 };
@@ -73,7 +73,7 @@ extern const float runtimeFloatSettingDefault132;
 extern const float runtimeFloatSettingDefault255;
 extern const float g_011c7344_arg1;
 extern int DAT_010e62a4;
-struct FUN_00e44280_struct
+struct hkpVehicleDefaultEngine
 {
     int* m_00;
     unsigned short m_06;
@@ -87,13 +87,13 @@ struct FUN_00e44280_struct
     float m_24;
     float m_28;
     float m_2c;
-    FUN_00e44280_struct* InitializeDefaults();
+    hkpVehicleDefaultEngine* InitializeDefaults();
 };
 struct FUN_00e407d0_class
 {
     void SetSlotValue(int idx, char b);
 };
-struct FUN_00e426f0_class
+struct hkpVehicleCastBatchingManager
 {
     unsigned short m_00;
     unsigned short m_02;
@@ -126,14 +126,14 @@ struct FUN_00cb0a70
 {
     void m(int);
 };
-struct FUN_00e4af80
+struct hkAlignSceneToNodeOptions
 {
     int vtbl;
     int m_04;
     int m_08;
     int m_0c;
     int m_10;
-    FUN_00e4af80* Set(int arg);
+    hkAlignSceneToNodeOptions* Set(int arg);
 };
 struct FUN_00e58b10_class
 {
@@ -142,15 +142,15 @@ struct FUN_00e58b10_class
     void hkaSparseLSQMatrix_float_Multiply(int a, int b, int c);
 };
 extern const char* const g_0126c5f0_arg1;
-void __stdcall FindResourceWithExpectedName(int, int);
+void __stdcall hkxAttributeGroup_findAttributeObjectByName(int, int);
 void __stdcall Runtime_ForwardCall_00e5c5d0(int a);
 struct GlobalObjectO2_00d472a0;
 extern GlobalObjectO2_00d472a0 g_0126eb10;
-void __stdcall FindResourceWithExpectedName(int a, GlobalObjectO2_00d472a0* b);
+void __stdcall hkxAttributeGroup_findAttributeObjectByName(int a, GlobalObjectO2_00d472a0* b);
 void __stdcall Runtime_ForwardCall_00e5c630(int a);
 struct GlobalObjectO2_00d472a0;
 extern GlobalObjectO2_00d472a0 g_0126eac8;
-void __stdcall FindResourceWithExpectedName(int, GlobalObjectO2_00d472a0*);
+void __stdcall hkxAttributeGroup_findAttributeObjectByName(int, GlobalObjectO2_00d472a0*);
 void __stdcall CallWithGlobalObject(int a);
 struct FUN_00e406d0_cls
 {
@@ -210,11 +210,11 @@ template <class T> struct BE41DF0Array
     int m_iElementCount;
     int m_iCapacityState;
 };
-class FUN_00e41df0_cls : public BE41DF0ReferencedObject
+class hkaAnimationPreviewColorContainer : public BE41DF0ReferencedObject
 {
   public:
-    FUN_00e41df0_cls() throw();
-    virtual ~FUN_00e41df0_cls();
+    hkaAnimationPreviewColorContainer() throw();
+    virtual ~hkaAnimationPreviewColorContainer();
 
     BE41DF0Array<void*> m_kEntries;
 };
@@ -265,7 +265,7 @@ struct FUN_00e42680_cls
     void CallItemsVirtual();
 };
 extern "C" int DAT_010e5e9c;
-struct FUN_00e43ac0_cls
+struct hkpVehicleDefaultVelocityDamper
 {
     void* m_00;
     unsigned short m_04;
@@ -273,7 +273,7 @@ struct FUN_00e43ac0_cls
     float m_08;
     float m_0c;
     float m_10;
-    FUN_00e43ac0_cls();
+    hkpVehicleDefaultVelocityDamper();
 };
 extern double DAT_010ebf20;
 extern double DAT_010ebf18;
@@ -281,7 +281,7 @@ extern double DAT_01012638;
 extern double DAT_0101ff48;
 float __cdecl ComputeScaledRatio(float param_1, float param_2, float param_3, float param_4);
 extern "C" int DAT_010e5ff4;
-struct FUN_00e43f30_cls
+struct hkpVehicleDefaultTransmission
 {
     void* volatile m_00;
     unsigned short m_04;
@@ -297,7 +297,7 @@ struct FUN_00e43f30_cls
     volatile int m_28;
     volatile int m_2c;
     volatile unsigned int m_30;
-    FUN_00e43f30_cls();
+    hkpVehicleDefaultTransmission();
 };
 class BE468B0Base
 {
@@ -358,11 +358,11 @@ template <class T> class BE468B0Array
     int m_iElementCount;
     int m_iCapacityState;
 };
-class FUN_00e468b0_cls : public BE468B0Shape, public BE468B0Listener
+class hkpDisableEntityCollisionFilter : public BE468B0Shape, public BE468B0Listener
 {
   public:
-    FUN_00e468b0_cls();
-    virtual ~FUN_00e468b0_cls();
+    hkpDisableEntityCollisionFilter();
+    virtual ~hkpDisableEntityCollisionFilter();
     virtual void OnA();
     virtual void OnB();
     virtual void OnC();
@@ -404,7 +404,7 @@ struct S_e49fe0_Arr
     S_e49fe0_Arr() : m_data(0), m_iElementCount(0), m_cap(0x80000000)
     {}
 };
-struct FUN_00e49fe0 : FUN_00cbfba0
+struct hkpCollisionFilterList : FUN_00cbfba0
 {
     int unk18;
     int unk1c;
@@ -413,7 +413,7 @@ struct FUN_00e49fe0 : FUN_00cbfba0
     int unk28;
     int unk2c;
     S_e49fe0_Arr arr;
-    FUN_00e49fe0();
+    hkpCollisionFilterList();
     virtual void d0();
     virtual void d8();
     virtual void dc();
@@ -841,7 +841,7 @@ class FUN_00e5c6b0_cls
   public:
     AttrEntry_b5103* FindPrimary(const char* name) throw();
     AttrEntry_b5103* FindSecondary(const char* name) throw();
-    int GetBoolAttribute(const char* name, bool required, unsigned char* out);
+    int hkxAttributeGroup_getBoolValue(const char* name, bool required, unsigned char* out);
 };
 struct ConfigValue
 {
@@ -1131,7 +1131,7 @@ float __cdecl hkaFootstepAnalysisInfo_getMax(FloatArray_e404b0* arr);
 extern float _DAT_0104da48;
 float __cdecl FindMinFloat(int* param_1);
 extern int DAT_010e60c4;
-struct FUN_00e44070
+struct hkpVehicleDefaultSteering
 {
     int* volatile m_00;
     unsigned short unk04;
@@ -1142,7 +1142,7 @@ struct FUN_00e44070
     volatile int m_14;
     volatile unsigned int m_18;
 
-    FUN_00e44070();
+    hkpVehicleDefaultSteering();
 };
 class PrimaryE45
 {
@@ -1235,11 +1235,11 @@ class SlotTableE45
     void* m_pv78;
     void* m_pv7C;
 };
-class FUN_00e45530_Manager : public BaseE45
+class hkpGroupCollisionFilter : public BaseE45
 {
   public:
-    FUN_00e45530_Manager();
-    virtual ~FUN_00e45530_Manager();
+    hkpGroupCollisionFilter();
+    virtual ~hkpGroupCollisionFilter();
 
     EnabledFlagE45 m_kEnabled;
     SlotTableE45 m_kSlots;
@@ -1588,13 +1588,13 @@ struct Base
         refs = 1;
     }
 };
-struct FUN_00e4a1d0 : Base
+struct hkMemoryMeshShape : Base
 {
     Arr<Entry> entries;
     Arr<unsigned short> shorts;
     Arr<unsigned int> ints;
     String label;
-    FUN_00e4a1d0(const Entry* source, int count);
+    hkMemoryMeshShape(const Entry* source, int count);
     virtual void dummy();
 };
 struct E51F00Format
@@ -1749,9 +1749,9 @@ struct FUN_00e46b30_Layout
     void* volatile listenerVtable;
     FUN_00c90510_Reference* reference;
 };
-struct FUN_00e46b30_Class : FUN_00e46b30_Layout
+struct hkpConstrainedSystemFilter : FUN_00e46b30_Layout
 {
-    FUN_00e46b30_Class* InitializeWithReference(FUN_00c90510_Reference* value);
+    hkpConstrainedSystemFilter* InitializeWithReference(FUN_00c90510_Reference* value);
 };
 struct FUN_00c905b0_class
 {
@@ -1810,7 +1810,7 @@ struct E473C0Owner
     unsigned short unk04;
 
     void __thiscall FUN_00e47020();
-    E473C0Owner* __thiscall FUN_00e473c0(unsigned char flags);
+    E473C0Owner* __thiscall ScalarDeletingDestructor(unsigned char flags);
 };
 struct FnvCpu_FUN_00e473f0_CpuObject
 {
@@ -1821,13 +1821,13 @@ struct FnvCpu_FUN_00e473f0_CpuObject
     void SetValue(unsigned char arg0);
 };
 extern int DAT_010e81a4;
-struct FUN_00e48240
+struct hkpDefaultWorldMemoryWatchDog
 {
     void* m_vTable;
     short m_flags;
     short m_sState;
     int m_uiFilterValue;
-    FUN_00e48240(int value);
+    hkpDefaultWorldMemoryWatchDog(int value);
 };
 extern int DAT_010cb76c;
 extern int DAT_010cb780;
@@ -1897,14 +1897,14 @@ struct FUN_00e48db0_holder
 {
     void FUN_00dcd310(float f, void* p);
 };
-struct FUN_00e48db0_class
+struct hkpFastMeshShape
 {
     void* m_00;
     int m_04;
     int m_08;
     int m_0c;
     int m_10;
-    FUN_00e48db0_class* __thiscall InitFromFloatAndPointer(float f, void* p);
+    hkpFastMeshShape* __thiscall InitFromFloatAndPointer(float f, void* p);
 };
 int CompareStringsCaseInsensitive(const char* a, const char* b);
 struct Node4a5
@@ -1999,11 +1999,11 @@ class TypedObjectE483 : public RefObjectE483
     }
     unsigned char m_type;
 };
-class FUN_00e48390 : public TypedObjectE483
+class hkpCallbackConstraintMotor : public TypedObjectE483
 {
   public:
-    FUN_00e48390(int a, int b);
-    virtual ~FUN_00e48390();
+    hkpCallbackConstraintMotor(int a, int b);
+    virtual ~hkpCallbackConstraintMotor();
     volatile float m_fCoefficientA;
     float m_fB;
     int m_iB;

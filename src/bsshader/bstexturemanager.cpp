@@ -28,7 +28,7 @@ void SetWaterTintRecord(int index, WaterTintRecord_bstexturemanager tint)
 }
 
 // FUN_004a0dd0: thiscall, one stack arg; calls a flag lookup, then virtual slot 100 with the arg.
-class FUN_004a0dd0_cls
+class NiDX9Renderer
 {
   public:
     virtual void vfn_0();
@@ -139,7 +139,7 @@ class FUN_004a0dd0_cls
 // If the "SetScreenSpaceCameraData" flag is set, forwards a1 to vfn_100; otherwise does nothing.
 // @fnv 0x004a0dd0
 // src: COMMUNITY 0x004a0dd0
-void FUN_004a0dd0_cls::NiRenderer_SetScreenSpaceCameraData(int a1)
+void NiDX9Renderer::NiRenderer_SetScreenSpaceCameraData(int a1)
 {
     if (LookupFlag("SetScreenSpaceCameraData", 1) == 0)
     {

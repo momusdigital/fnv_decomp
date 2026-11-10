@@ -13,7 +13,7 @@ public:
     virtual void InitLoadGame(BGSLoadFormBuffer*);
 
     int TES_QPlaceableWaterCount();
-    void* FUN_006e5fd0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
     void __thiscall CopyTo_006e6080(PathingRequest* apDest);
     void __thiscall SetTarget_006e60c0(int a1);
     void __thiscall SaveToBuffer(BGSSaveFormBuffer* apSaveGameBuffer);

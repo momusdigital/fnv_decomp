@@ -402,7 +402,7 @@ extern RepairHud* DAT_011dea3c;
 extern const double DAT_01017a40;
 extern const double DAT_01012060;
 extern const char DAT_01047008[];
-extern float __cdecl GetWeaponDamage(RepairForm*, float, int, int);
+extern float __cdecl CombatFormulas_CalcWeaponDamageForDisplay(RepairForm*, float, int, int);
 extern float __cdecl FUN_004bd510(float, float);
 extern float __cdecl FUN_00646360(int, float);
 extern void __cdecl FUN_00406d30(char*, int, const char*);
@@ -435,7 +435,7 @@ void __cdecl RepairMenu_InitRepairMenu(int target)
             reinterpret_cast<RepairTile*>(DAT_011da75c->m_pTiles[5])
                 ->Tile_Set_00a01350(DAT_011da74c, DAT_011d2c7c.FUN_00403df0(1));
             reinterpret_cast<RepairTile*>(DAT_011da75c->m_pTiles[5])
-                ->FUN_00700320(DAT_011da754, (int)FUN_004bd510(GetWeaponDamage(form, percent, target, 0), 1.0f));
+                ->FUN_00700320(DAT_011da754, (int)FUN_004bd510(CombatFormulas_CalcWeaponDamageForDisplay(form, percent, target, 0), 1.0f));
         }
         else if (type == 0x18)
         {
@@ -529,8 +529,8 @@ extern int DAT_011da748;
 int CompareSortEntries(SortEntry_7b* apA, SortEntry_7b* apB)
 {
     int iResult = 0;
-    bool bHasA6 = apA->pItem->IsTraitNonZero(DAT_011da748);
-    bool bHasB = apB->pItem->IsTraitNonZero(DAT_011da748);
+    bool bHasA6 = apA->pItem->Tile_IsTrue(DAT_011da748);
+    bool bHasB = apB->pItem->Tile_IsTrue(DAT_011da748);
     bool bLowA = (*((ValueList_7b*)((char*)apA->pItem + 4))->Find(0xfa9))->GetValue() < 255.0;
     bool bLowB4 = (*((ValueList_7b*)((char*)apB->pItem + 4))->Find(0xfa9))->GetValue() < 255.0;
     if (bHasA6 && !bHasB)

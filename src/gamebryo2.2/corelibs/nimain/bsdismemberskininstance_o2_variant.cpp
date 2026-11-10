@@ -17,8 +17,8 @@ struct DismemberOperations : BSDismemberSkinInstance
 {
     void CopyPartitions(BSDismemberSkinInstance* dest, CloningProcess& cloning);
     BSDismemberSkinInstance* Clone(CloningProcess& cloning);
-    void LoadPartitions(A6C900Stream& stream);
-    void SavePartitions(OutputStream& stream);
+    void BSDismemberSkinInstance_LoadBinary(A6C900Stream& stream);
+    void BSDismemberSkinInstance_SaveBinary(OutputStream& stream);
     void AppendViewerStrings(NiTPrimitiveArray<char*>* strings);
 };
 
@@ -330,7 +330,8 @@ inline void A6C900BinaryStreamLoad(A6C900BinaryStream& kIstr, T* pValue, unsigne
 }
 
 // @fnv 0x00a6c900
-void DismemberOperations::LoadPartitions(A6C900Stream& kStream)
+// src: EXE 0x00a6c900
+void DismemberOperations::BSDismemberSkinInstance_LoadBinary(A6C900Stream& kStream)
 {
     NiSkinInstance::LoadBinary((NiStream&)kStream);
     A6C900LoadBinary(kStream, unk34);
@@ -589,7 +590,8 @@ static inline void Swap32(BSDismemberSkinInstance::Partition& value)
     *p = _byteswap_ulong(in);
 }
 // @fnv 0x00a6c9c0
-void DismemberOperations::SavePartitions(OutputStream& stream)
+// src: EXE 0x00a6c9c0
+void DismemberOperations::BSDismemberSkinInstance_SaveBinary(OutputStream& stream)
 {
     NiSkinInstance::SaveBinary((NiStream&)stream);
     {

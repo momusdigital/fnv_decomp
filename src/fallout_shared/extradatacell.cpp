@@ -20,19 +20,20 @@ struct BE
     BE(unsigned char);
 };
 
-struct FUN_0040ef00_shell : BE
+struct ExtraRegionList : BE
 {
     void* pad1;
     void* pad2;
     void* pField;
-    FUN_0040ef00_shell(void* aField);
+    ExtraRegionList(void* aField);
 };
 
 extern void* DAT_01014228;
 
 // Sets the vftable pointer to DAT_01014228 and stores aField in pField.
 // @fnv 0x0040ef00
-FUN_0040ef00_shell::FUN_0040ef00_shell(void* aField) : BE(4)
+// src: EXE 0x0040ef00
+ExtraRegionList::ExtraRegionList(void* aField) : BE(4)
 {
     *reinterpret_cast<void**>(this) = &DAT_01014228;
     pField = aField;
@@ -46,16 +47,17 @@ ExtraCellAcousticSpace::ExtraCellAcousticSpace(BGSAcousticSpace* aField) : BSExt
 
 extern void* DAT_0101424c;
 
-struct FUN_0040f070_shell : BE
+struct ExtraCellClimate : BE
 {
     void* pad1;
     void* pad2;
     void* pField;
-    FUN_0040f070_shell(void* aField);
+    ExtraCellClimate(void* aField);
 };
 
 // @fnv 0x0040f070
-FUN_0040f070_shell::FUN_0040f070_shell(void* aField) : BE(8)
+// src: EXE 0x0040f070
+ExtraCellClimate::ExtraCellClimate(void* aField) : BE(8)
 {
     pVftable = &DAT_0101424c;
     pField = aField;
@@ -85,17 +87,18 @@ void* FUN_0040f4d0_shell::FUN_0040f4d0(unsigned int flags)
 
 extern void* DAT_01014294;
 
-struct FUN_0040f590_shell : BE
+struct ExtraSeenData : BE
 {
     void* pad1;
     void* pad2;
     void* pField;
-    FUN_0040f590_shell();
+    ExtraSeenData();
 };
 
 // Initialises the object with base value 5, sets its vftable pointer to DAT_01014294 and clears pField.
 // @fnv 0x0040f590
-FUN_0040f590_shell::FUN_0040f590_shell() : BE(5)
+// src: EXE 0x0040f590
+ExtraSeenData::ExtraSeenData() : BE(5)
 {
     pVftable = &DAT_01014294;
     pField = 0;
@@ -114,22 +117,24 @@ void* ExtraHavok::FUN_0040ee40(unsigned int flags)
 struct BGSMusicType;
 
 extern int DAT_01014234;
-struct FUN_0040ef30 : BE
+struct ExtraCellMusicType : BE
 {
     void* pad1;
     void* pad2;
     void* pField;
-    FUN_0040ef30(BGSMusicType* aMusic);
+    ExtraCellMusicType(BGSMusicType* aMusic);
 };
 // @fnv 0x0040ef30
-FUN_0040ef30::FUN_0040ef30(BGSMusicType* aMusic) : BE(7)
+// src: EXE 0x0040ef30
+ExtraCellMusicType::ExtraCellMusicType(BGSMusicType* aMusic) : BE(7)
 {
     pVftable = &DAT_01014234;
     pField = aMusic;
 }
 
 // @fnv 0x0040f1e0
-void* ExtraCellImpactSwap::FUN_0040f1e0(unsigned int flags)
+// src: EXE 0x0040f1e0
+void* ExtraCellImpactSwap::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0040f210();
     if (flags & 1)
@@ -138,30 +143,32 @@ void* ExtraCellImpactSwap::FUN_0040f1e0(unsigned int flags)
 }
 
 extern int DAT_01014270;
-struct FUN_0040f370 : BE
+struct ExtraCellWaterType : BE
 {
     void* pad1;
     void* pad2;
     void* pField;
-    FUN_0040f370();
+    ExtraCellWaterType();
 };
 // @fnv 0x0040f370
-FUN_0040f370::FUN_0040f370() : BE(3)
+// src: EXE 0x0040f370
+ExtraCellWaterType::ExtraCellWaterType() : BE(3)
 {
     pVftable = (void*)&DAT_01014270;
     pField = 0;
 }
 
 extern int DAT_0101427c;
-struct FUN_0040f410 : BE
+struct ExtraProcessMiddleLow : BE
 {
     void* pad1;
     void* pad2;
     void* pField;
-    FUN_0040f410();
+    ExtraProcessMiddleLow();
 };
 // @fnv 0x0040f410
-FUN_0040f410::FUN_0040f410() : BE(9)
+// src: EXE 0x0040f410
+ExtraProcessMiddleLow::ExtraProcessMiddleLow() : BE(9)
 {
     BE::pVftable = (void*)&DAT_0101427c;
     pField = 0;
@@ -367,11 +374,11 @@ class Handle40F
     int unk04;
 };
 
-class FUN_0040f440 : public ExtraData40F
+class ExtraCellCanopyShadowMask : public ExtraData40F
 {
   public:
-    FUN_0040f440(int iValue, void* pvObject);
-    virtual ~FUN_0040f440();
+    ExtraCellCanopyShadowMask(int iValue, void* pvObject);
+    virtual ~ExtraCellCanopyShadowMask();
 
     int m_iValue;
     Handle40F m_kHandle;
@@ -380,7 +387,8 @@ class FUN_0040f440 : public ExtraData40F
 
 // Initializes an ExtraData40F of type 0xa, storing iValue, resetting m_kHandle to pvObject, and zeroing the trailing field.
 // @fnv 0x0040f440
-FUN_0040f440::FUN_0040f440(int iValue, void* pvObject) : ExtraData40F(0xa), m_kHandle(0)
+// src: EXE 0x0040f440
+ExtraCellCanopyShadowMask::ExtraCellCanopyShadowMask(int iValue, void* pvObject) : ExtraData40F(0xa), m_kHandle(0)
 {
     m_iValue = iValue;
     m_kHandle.Reset(pvObject);

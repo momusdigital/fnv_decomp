@@ -947,7 +947,7 @@ Derived::Derived()
 
 struct S_0059bf90_Base1
 {
-    virtual void FUN_0059bf90();
+    virtual void SaveGame();
     int unk04;
     int unk08;
     int unk0c;
@@ -981,14 +981,15 @@ struct S_0059bf90_Base1
 
 struct S_0059bf90_Base2
 {
-    virtual void FUN_0059bf90();
+    virtual void SaveGame();
 };
 
 struct S_0059bf90_Derived : S_0059bf90_Base1, S_0059bf90_Base2
 {
     S_0059bf90_Derived();
 // @fnv 0x0059bf90
-    virtual void FUN_0059bf90();
+// src: GUESS 0x0059bf90 (confidence: medium)
+    virtual void SaveGame();
 };
 
 S_0059bf90_Derived::S_0059bf90_Derived()

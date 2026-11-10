@@ -47,7 +47,7 @@ class NiNode;
 class BSShaderRenderUtility_actor_magic
 {
 public:
-    bool IsRenderTargetId(unsigned int value);
+    bool TESDataHandler_IsFormIDCreated(unsigned int value);
     static void InitializeMultiBounds();
     static void SetRenderCamera(NiCamera* camera, BSShaderAccumulator* accumulator, bool unused);
     static void SetRenderCamera(AnimIdle* camera, AnimIdle* accumulator, bool unused);
@@ -704,7 +704,7 @@ void Actor::AddDefaultSpells()
             enchantable->Preload(false);
         delete item;
     }
-    TESForm* spells = BGSDefaultObjectManager::GetDefaultObjectByIndex(19);
+    TESForm* spells = BGSDefaultObjectManager::GetDefaultObject(19);
     if (spells)
     {
         SpellItem* defaultSpell = dynamic_cast<SpellItem*>(spells);
@@ -1203,7 +1203,7 @@ void FUN_009b28a0_t::Explosion_CheckRefDeleted(unsigned int c)
     }
 }
 
-extern "C" void* __cdecl CreatePackageByType(unsigned int size);
+extern "C" void* __cdecl TESPackage_CreatePackage(unsigned int size);
 
 class MagicProcVt
 {
@@ -1403,7 +1403,7 @@ class MagicProcVt
 
 struct FUN_006777b0_class
 {
-    void ComputePackageFlags(int arg);
+    void TESPackage_CalculateProcedureType(int arg);
     void FUN_00826b90(int arg);
 };
 
@@ -1420,8 +1420,8 @@ class FUN_008985d0_shell : public MagicProcVt
 void FUN_008985d0_shell::Actor_InitiateMovementBlockedPackage()
 {
     Actor_EndMovement();
-    FUN_006777b0_class* p = (FUN_006777b0_class*)CreatePackageByType(0x24);
-    p->ComputePackageFlags(0);
+    FUN_006777b0_class* p = (FUN_006777b0_class*)TESPackage_CreatePackage(0x24);
+    p->TESPackage_CalculateProcedureType(0);
     if (FUN_00931850() <= 1)
     {
         vfn_2f4(p, 1, 1);
@@ -4369,7 +4369,7 @@ void FUN_008a75a0_shell::EnsurePackage26()
         return;
     }
     TESPackage* pNewPkg3 = CreatePackageStandIn((PTYPE)26);
-    pNewPkg3->SetPackageType(26);
+    pNewPkg3->SetPackType(26);
     pNewPkg3->SetMustReachLocation(false);
     pNewPkg3->SetMustComplete(true);
     FUN_00670b30* pLoc = new FUN_00670b30();
@@ -4894,11 +4894,12 @@ struct FUN_008c2b60_vtbl
 struct FUN_008c2b60_shell : public Actor
 {
     TESRace* FUN_008c2b60_race();
-    void ApplyActorSpells();
+    void Actor_DispelPermanentMagic();
 };
 
 // @fnv 0x008c2b60
-void FUN_008c2b60_shell::ApplyActorSpells()
+// src: COMMUNITY 0x008c2b60
+void FUN_008c2b60_shell::Actor_DispelPermanentMagic()
 {
     FUN_008c2b60_node* pNode2 = FUN_00717e50((char*)GetActorBase() + offsetof(TESActorBase, spellList) - offsetof(TESSpellList, spellList));
     while (pNode2)
@@ -4929,7 +4930,7 @@ void FUN_008c2b60_shell::ApplyActorSpells()
         delete pItemCur;
     }
 
-    TESForm* pFormCur = BGSDefaultObjectManager::GetDefaultObjectByIndex(0x13);
+    TESForm* pFormCur = BGSDefaultObjectManager::GetDefaultObject(0x13);
     if (pFormCur)
     {
         SpellItem* pAddiction = dynamic_cast<SpellItem*>(pFormCur);
@@ -5004,7 +5005,7 @@ void PermanentMagicMethods::UnloadPermanentMagic()
             pkEnchForm->FUN_0040b800(true);
         delete pkWorn;
     }
-    TESForm* pkForm = BGSDefaultObjectManager::GetDefaultObjectByIndex(0x13);
+    TESForm* pkForm = BGSDefaultObjectManager::GetDefaultObject(0x13);
     if (pkForm)
     {
         SpellItem* pkDefaultSpell = (SpellItem*)dynamic_cast<SpellItem*>(pkForm);
@@ -6703,13 +6704,13 @@ struct SightActor
     bool Actor_IsInCombat();
     double TESObjectREFR_GetDistanceFromReference(SightActor*, int, int);
     SightVec* GetAddTopicList();
-    bool IsPointInConeFOV(SightVec*, float);
+    bool Actor_IsPointInViewCone(SightVec*, float);
     void* GetCullResult();
     SightBase* GetActorBase();
     bool IsSneaking();
     float Actor_GetSneakHeight(bool);
     float Actor_GetEyeLevel();
-    float GetActorHeight();
+    float Actor_GetHeight();
     void FUN_00931ed0(SightFilterBits*);
     float GetScale();
     SightProcess* GetCurrentAIProcess();
@@ -6751,7 +6752,7 @@ bool SightActor::Actor_LineOfSight(bool force, SightActor* other, bool mode, int
         if (other)
         {
             if (skipAngle ||
-                IsPointInConeFOV(other->GetAddTopicList(),
+                Actor_IsPointInViewCone(other->GetAddTopicList(),
                                  (float)(*originalRuntimeFloatSetting103.Setting_Float_00403e20() * 0.01745329238474369)))
             {
                 if (DAT_011df678)
@@ -6778,7 +6779,7 @@ bool SightActor::Actor_LineOfSight(bool force, SightActor* other, bool mode, int
                 if (IsSneaking())
                     height = Actor_GetSneakHeight(mode);
                 else
-                    height = mode ? Actor_GetEyeLevel() : GetActorHeight() * 0.75;
+                    height = mode ? Actor_GetEyeLevel() : Actor_GetHeight() * 0.75;
                 if (!source)
                     start.z += height;
                 if (g_TES->FUN_004511e0(cell, 1))

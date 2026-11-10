@@ -27,8 +27,8 @@ class Tile3D : public Tile
     void LoadTile();
     void RemovePropertyRecursive(char* target);
     void RemovePropertyRecursive(NiAVObject* object);
-    void ConvertShadersToTileShader(NiNode* node);
-    void ConvertShadersToTileShader(NiAVObject* object);
+    void Tile3D_SetupShaderPropertiesRecurse(NiNode* node);
+    void Tile3D_SetupShaderPropertiesRecurse(NiAVObject* object);
     bool UpdateAnimation(float value, bool force);
     void UpdateAnimation(float value, int force);
     const char* __thiscall GetTypeName_00a0bdd0();

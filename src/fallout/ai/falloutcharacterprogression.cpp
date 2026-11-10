@@ -93,7 +93,7 @@ bool FUN_008d55e0_shell::CharacterProgressionData_CheckCanLevelUp(int aiToLevel)
     return bresult;
 }
 
-struct FUN_008d54e0_shell
+struct CharacterProgressionData
 {
     unsigned short GetSaveSizeFive(unsigned int);
 };
@@ -101,7 +101,7 @@ struct FUN_008d54e0_shell
 // Returns the sum of the constants 1 and 4 as an unsigned short.
 // @fnv 0x008d54e0
 // src: GUESS 0x008d54e0 (confidence: medium)
-unsigned short FUN_008d54e0_shell::GetSaveSizeFive(unsigned int)
+unsigned short CharacterProgressionData::GetSaveSizeFive(unsigned int)
 {
     unsigned short usTotal = 0;
     usTotal = usTotal + 1;
@@ -250,7 +250,7 @@ void NiNodeBooleanState_falloutcharacterprogression::CharacterProgression_Finish
         }
         if (g_011e0a30.GetBoolValue())
         {
-            _g_thePlayer->WriteProgressData(0);
+            _g_thePlayer->PlayerCharacter_ExportProgressData(0);
         }
     }
 }
@@ -265,11 +265,12 @@ extern PlayerCharacter* _g_thePlayer;
 
 struct FUN_008d5300_shell
 {
-    void SetPlayerLevel(int aLevel);
+    void CharacterProgression_ForceLevel(int aLevel);
 };
 
 // @fnv 0x008d5300
-void FUN_008d5300_shell::SetPlayerLevel(int aLevel)
+// src: COMMUNITY 0x008d5300
+void FUN_008d5300_shell::CharacterProgression_ForceLevel(int aLevel)
 {
     if (aLevel == _g_thePlayer->Actor::GetLevel())
         return;

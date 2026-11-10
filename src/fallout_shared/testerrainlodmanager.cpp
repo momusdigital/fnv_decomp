@@ -421,7 +421,7 @@ struct Tmp53a510
     int unk00, unk04, unk08, unk0c, unk10, unk14, unk18, unk1c;
     int unk20, unk24, unk28, unk2c, unk30, unk34, unk38, unk3c;
     int unk40, unk44, unk48, unk4c;
-    void FUN_0053a510();
+    void COORD_DATA();
 };
 NiRenderer* NiXenonRenderer_GetRenderer();
 struct CamNode
@@ -463,7 +463,7 @@ struct Mgr
     float TESObjectCELL_GetWaterHeight();
     int FUN_00544c30();
     int FUN_00544c60();
-    CellObj* GetCellNodeAt(unsigned int);
+    CellObj* TESObjectCELL_GetLandNode(unsigned int);
     NiNodeHelper* FUN_00456fc0(int, unsigned int);
 };
 extern unsigned char DAT_011ca534;
@@ -489,7 +489,7 @@ void __cdecl TESTerrainLODManager_UpdateGrassForCell(Mgr* apMgr, int aiParam, Ni
     BSSimpleList<const char*> kModelList;
     CellForm* pBase = 0;
     Tmp53a510 kHelper;
-    kHelper.FUN_0053a510();
+    kHelper.COORD_DATA();
     unsigned short usW = 0;
     unsigned char bFlagA6 = 0;
     unsigned char bFlagB = 0;
@@ -528,7 +528,7 @@ void __cdecl TESTerrainLODManager_UpdateGrassForCell(Mgr* apMgr, int aiParam, Ni
     kTester.SetFromFrustum(&kFrust, ((CamNode*)Main_GetWorldSceneGraph()->FUN_006629f0())->NiAVObject_GetWorldRotate());
     for (iQuad = 0; iQuad < 4; iQuad++)
     {
-        CellObj* pCell = apMgr->GetCellNodeAt(iQuad);
+        CellObj* pCell = apMgr->TESObjectCELL_GetLandNode(iQuad);
         if (pCell)
         {
             NiPoint3 kStartPt = pData30->TESObjectLAND_GetVertexLocation(0, 0, 0, 0);

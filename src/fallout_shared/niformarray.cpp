@@ -24,7 +24,8 @@ void NiFormArray::SetFormAtIndex(unsigned int index, TESForm* form)
 }
 
 // @fnv 0x004d6100
-unsigned int NiFormArray::GetIndexOfForm(TESForm* form)
+// src: COMMUNITY 0x004d6100
+unsigned int NiFormArray::GetIndexForForm(TESForm* form)
 {
     unsigned int foundIndex = 0xffffffff;
     if (form)

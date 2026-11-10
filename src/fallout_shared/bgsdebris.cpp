@@ -77,7 +77,8 @@ void BGSDebris::QueueResourceLoad(IO_TASK_PRIORITY priority, QueuedFile* file)
 }
 
 // @fnv 0x004fa500
-DebrisModelEntry* BGSDebris::AddDebrisModel(char chance, const char* path, char flags)
+// src: COMMUNITY 0x004fa500
+DebrisModelEntry* BGSDebris::AddDebrisData(char chance, const char* path, char flags)
 {
     if (!path || !chance)
         return 0;
@@ -139,7 +140,7 @@ bool BGSDebris::LoadForm(TESFile* file)
                     v8 = *v4;
                     v4++;
                 }
-                v1 = AddDebrisModel(v10, v9, v8);
+                v1 = AddDebrisData(v10, v9, v8);
             }
             delete[] v6;
             break;
@@ -235,7 +236,7 @@ bool __fastcall InsertDebrisIfValid(char* self, DArg aDebrisArg)
     return true;
 }
 
-struct FUN_004fa670_shell : public DebrisModelEntry
+struct BGSDebrisData : public DebrisModelEntry
 {
     void BGSDebrisData_SetFileName(char*);
 };
@@ -251,7 +252,7 @@ class TaskQueueInterface
 
 // @fnv 0x004fa670
 // src: COMMUNITY 0x004fa670
-void FUN_004fa670_shell::BGSDebrisData_SetFileName(char* apFileName)
+void BGSDebrisData::BGSDebrisData_SetFileName(char* apFileName)
 {
     if (*(char**)((char*)this + 4))
     {
@@ -298,7 +299,7 @@ void BGSDebris::CopyFrom(const TESForm* source)
     {
         DebrisModelEntry* data = list->GetItem();
         if (data)
-            AddDebrisModel(data->chance, data->path, data->flags);
+            AddDebrisData(data->chance, data->path, data->flags);
         list = list->GetNext();
     }
 }
@@ -393,7 +394,7 @@ void __cdecl TESForm_AddChunkArray(unsigned int uiType, void* pvData, unsigned i
 // @fnv 0x004fa1a0
 void BGSDebris::WriteDebrisEntries()
 {
-    BeginFormRecord();
+    TESForm_StartForm();
     DNode* pkNode = (DNode*)GetDataList();
     while (pkNode)
     {
@@ -415,7 +416,7 @@ void BGSDebris::WriteDebrisEntries()
         }
         pkNode = pkNode->FUN_00726070();
     }
-    FinishFormRecord();
+    TESForm_CloseForm();
 }
 
 int __cdecl BSstrcmp(char const*, char const*);

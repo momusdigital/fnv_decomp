@@ -117,7 +117,7 @@ class MagicCaster
     virtual TESObjectREFR* GetCasterReference();
     virtual NiNode* GetMagicNode();
     virtual MagicItem* GetSelectedMagicItem();
-    virtual bool HasActiveEffect(ActiveEffect* pEffect);
+    virtual bool TargetSelf(ActiveEffect* pEffect);
     virtual float GetCasterEffectiveness(bool bFlag, float fValue);
     virtual void SetSelectedMagicItem(MagicItem* pItem);
     virtual MagicTarget* GetCurrentMagicTarget();

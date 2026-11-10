@@ -22,9 +22,9 @@ public:
     __declspec(noinline) hkpVehicleRayCastWheelCollide();
     virtual ~hkpVehicleRayCastWheelCollide() throw();
 
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void GetWheelAabb(const hkpVehicleInstance*, hkAabbQ*);
-    virtual void CastWheelRay(const hkpVehicleInstanceWheelInfo&, hkpWorldRayCastOutput&);
+    virtual void castSingleWheel(const hkpVehicleInstanceWheelInfo&, hkpWorldRayCastOutput&);
     virtual void ProcessWheelRayCastResult(const hkpVehicleInstance*, unsigned char,
                                          const hkpWorldRayCastOutput&, WheelCollideResult&);
     virtual void FinalizeWheelCollisionOutput(const hkpVehicleInstance*, unsigned char,

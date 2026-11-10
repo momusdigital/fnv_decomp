@@ -141,7 +141,8 @@ FNV_ASSERT(DateSize, sizeof(Date) == 4);
 FNV_ASSERT(ScriptLocalsSize, sizeof(ScriptLocals) == 0x14);
 
 // @fnv 0x0060d700
-unsigned int TESQuest::GetStageMask()
+// src: COMMUNITY 0x0060d700
+unsigned int TESQuest::GetCurrentStage()
 {
     return m_ucEnabled;
 }
@@ -167,7 +168,8 @@ void TESQuest::RemoveAllStages()
 
 // Walks the quest's stage list and returns whether the stage with the given index is marked done, or false if not found.
 // @fnv 0x0060d600
-bool TESQuest::HasStage(unsigned char ucStageIndex)
+// src: COMMUNITY 0x0060d600
+bool TESQuest::IsStageDone(unsigned char ucStageIndex)
 {
     BSSimpleList<QuestStage*>* stages = GetStageList();
     while (stages && !stages->IsEmpty())
@@ -306,7 +308,7 @@ void TESQuest::InitItem()
         m_pScriptLocals = TESScriptableForm::GetScript()->GetOrCreateScriptLocals();
         TESScriptableForm::GetScript()->SetOwnerQuest(this);
         if (m_pScriptLocals)
-            SetFormFlags(0x40000000);
+            ForceChange(0x40000000);
         if (bActivateAllQuestScripts.Bool()[0])
             SetEnabled(true);
     }
@@ -424,7 +426,7 @@ void TESQuest::LoadGame(BGSLoadFormBuffer* buffer)
         static_cast<BGSLoadFormBuffer*>(buffer)->ReadTypedData(static_cast<void*>(&data.fQuestDelayTime), 4U);
     if (static_cast<QuestLoadChangeFlags*>(buffer)->GetChangeFlags(0x80000000U).operator bool())
     {
-        unsigned int stageCount = static_cast<BGSLoadFormBuffer*>(buffer)->ReadElementCount();
+        unsigned int stageCount = static_cast<BGSLoadFormBuffer*>(buffer)->LoadVariableSizedValue();
         for (unsigned int i = 0; i < stageCount; ++i)
         {
             unsigned char stageIndex = 0;
@@ -438,7 +440,7 @@ void TESQuest::LoadGame(BGSLoadFormBuffer* buffer)
                 else
                     LogWarning("SAVELOAD: Could not find stage %i in quest %s during load.", stageIndex,
                                GetEditorName());
-                unsigned int itemCount = static_cast<BGSLoadFormBuffer*>(buffer)->ReadElementCount();
+                unsigned int itemCount = static_cast<BGSLoadFormBuffer*>(buffer)->LoadVariableSizedValue();
                 for (unsigned int j = 0; j < itemCount; ++j)
                 {
                     unsigned char itemIndex = 0;
@@ -472,7 +474,7 @@ void TESQuest::LoadGame(BGSLoadFormBuffer* buffer)
     }
     if (static_cast<QuestLoadChangeFlags*>(buffer)->GetChangeFlags(0x20000000U).operator bool())
     {
-        unsigned int objectiveCount = static_cast<BGSLoadFormBuffer*>(buffer)->ReadElementCount();
+        unsigned int objectiveCount = static_cast<BGSLoadFormBuffer*>(buffer)->LoadVariableSizedValue();
         for (unsigned int k = 0; k < objectiveCount; ++k)
         {
             struct SavedObjectiveState
@@ -687,14 +689,14 @@ void* FUN_0060da90_shell::GetOffsetPointer()
     return reinterpret_cast<char*>(this) + 0x6B0;
 }
 
-struct FUN_00737e30_shell
+struct TESCasino
 {
     unsigned int m_210;
     unsigned int GetFieldAt210();
 };
 
 // @fnv 0x00737e30
-unsigned int FUN_00737e30_shell::GetFieldAt210()
+unsigned int TESCasino::GetFieldAt210()
 {
     return ((unsigned int*)this)[0x210 / 4];
 }
@@ -715,11 +717,12 @@ FUN_004b0fa0_shell::FUN_004b0fa0_shell()
 
 struct FUN_0060d8d0_shell : TESRecipe
 {
-    bool HasFlag0x10();
+    bool TESQuest_GetStartsEnabled();
 };
 
 // @fnv 0x0060d8d0
-bool FUN_0060d8d0_shell::HasFlag0x10()
+// src: COMMUNITY 0x0060d8d0
+bool FUN_0060d8d0_shell::TESQuest_GetStartsEnabled()
 {
     return (*reinterpret_cast<unsigned char*>(this->GetIngredientList()) & 0x10) != 0;
 }
@@ -886,7 +889,7 @@ extern "C" bool __cdecl TESForm_QEndianSwapOnSave();
 // src: XBOX_PDB 0x0060cd60
 void TESQuest::Save_0060cd60()
 {
-    BeginFormRecord();
+    TESForm_StartForm();
     TESScriptableForm::Save_0048cca0();
     TESFullName::Save_00487010();
     TESIcon::Save(0x4e4f4349);
@@ -915,7 +918,7 @@ void TESQuest::Save_0060cd60()
         pOtherNode->FUN_006815c0()->object->FUN_005ec280();
         pOtherNode = pOtherNode->FUN_00726070();
     }
-    FinishFormRecord();
+    TESForm_CloseForm();
 }
 
 struct QuestEntryStandIn
@@ -1283,7 +1286,7 @@ struct QuestInput
 struct StageSave
 {
     void PackageSchedule_SetStartDayOfWeek(unsigned char);
-    void* FindItemByDoneFlag(unsigned char);
+    void* TESQuestStage_GetStageItem(unsigned char);
 };
 struct StageEntry
 {
@@ -1372,7 +1375,7 @@ void TESQuest::LoadQuestData(unsigned int flags, unsigned int extra)
                         ((StreamReader*)DAT_011de45c)->TESSaveLoadGame_LoadGameDataOLD(&dateValue, 4);
                         if (questStage)
                         {
-                            StageEntry* item = (StageEntry*)questStage->FindItemByDoneFlag(itemId);
+                            StageEntry* item = (StageEntry*)questStage->TESQuestStage_GetStageItem(itemId);
                             if (item)
                             {
 
@@ -1637,8 +1640,8 @@ struct ObjNode
 void __cdecl TESTopic_ClearAllSaidOnceInfosForQuest(TESQuest*);
 
 // @fnv 0x0060d720
-// src: GUESS 0x0060d720 (confidence: low)
-void TESQuest::ProcessEntries_0060d720()
+// src: COMMUNITY 0x0060d720
+void TESQuest::ResetQuest()
 {
     StageNode* aStageNode;
     ObjNode* objNode;
@@ -1688,7 +1691,7 @@ void TESQuest::ProcessEntries_0060d720()
     }
 
     TESTopic_ClearAllSaidOnceInfosForQuest(this);
-    FUN_0060c9c0(HasFlag0x10());
+    FUN_0060c9c0(TESQuest_GetStartsEnabled());
     SetCompleted(false);
     SetFailed(false);
     SetFlag20(false);

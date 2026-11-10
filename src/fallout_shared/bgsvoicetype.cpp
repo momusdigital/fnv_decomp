@@ -37,18 +37,18 @@ bool BGSVoiceType::Load(TESFile* file)
 }
 
 bool __cdecl TESForm_QEndianSwapOnSave();
-void __cdecl AppendChunk(unsigned int, void*, unsigned int);
+void __cdecl TESForm___AddChunkData(unsigned int, void*, unsigned int);
 // @fnv 0x005f0140
 // src: XBOX_PDB 0x005f0140
 void BGSVoiceType::Save_005f0140()
 {
-    BeginFormRecord();
+    TESForm_StartForm();
     if (TESForm_QEndianSwapOnSave())
         reinterpret_cast<TESForm*>(&Data)->TESForm::ClearData();
-    AppendChunk(0x4d414e44, &Data, 1);
+    TESForm___AddChunkData(0x4d414e44, &Data, 1);
     if (TESForm_QEndianSwapOnSave())
         reinterpret_cast<TESForm*>(&Data)->TESForm::ClearData();
-    FinishFormRecord();
+    TESForm_CloseForm();
 }
 
 // @fnv 0x005f00d0

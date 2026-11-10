@@ -69,7 +69,7 @@ class NiObject : public NiRefObject
 
     NiObject* Clone();
     NiObject* CloneObject(CloningProcess&);
-    void ResolveObjectPointer(NiPointer<NiObject>&);
+    void CreateDeepCopy(NiPointer<NiObject>&);
     NiObject* DynamicCast(const NiRTTI*);
     NiObject* DynamicCast(const NiRTTI*) const;
     NiObject* DynamicCast(const void*);

@@ -244,7 +244,7 @@ void MessageHandler_IncDisableWarningCount(int);
 void MessageHandler_SetWarningCount(int);
 unsigned int FUN_00ec6130(const char*);
 void Warning_005b5e40(const char*, ...);
-void ResolveFormID(unsigned int*, int);
+void TESForm_AddCompileIndex(unsigned int*, int);
 TESForm* TESForm_GetFormByNumericID(unsigned int);
 extern "C" void* __cdecl __RTDynamicCast(void*, int, void*, void*, int);
 
@@ -312,7 +312,7 @@ void Cell::TESObjectCELL_InitItem()
         if (GetLightingTemplate())
         {
             unsigned int handle = GetLightingTemplate();
-            ResolveFormID(&handle, FUN_00484e60(-1));
+            TESForm_AddCompileIndex(&handle, FUN_00484e60(-1));
             BGSLightingTemplate* resolved = dynamic_cast<BGSLightingTemplate*>(TESForm_GetFormByNumericID(handle));
             SetLightingTemplate_00558b60(resolved);
             if (!resolved && handle)

@@ -143,7 +143,8 @@ struct ColorInterpolatorBaseConstruction
 extern int DAT_01099c34;
 // Allocates and returns a compressed color interpolator with default scalar values.
 // @fnv 0x00a518f0
-void* CreateSplineCompColorInterpolator()
+// src: EXE 0x00a518f0
+void* NiBSplineCompColorInterpolator_CreateObject()
 {
     NiBSplineCompColorInterpolator* result = (NiBSplineCompColorInterpolator*)NiMemObject::operator new(0x3c);
     if (result)

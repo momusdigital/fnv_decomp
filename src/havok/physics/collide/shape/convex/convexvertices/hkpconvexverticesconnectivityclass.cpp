@@ -25,22 +25,23 @@ struct E00E40MemoryRouter
 
 extern "C" E00E40MemoryRouter& __cdecl hkMemoryRouter_getInstance();
 
-struct FUN_00e00e40
+struct hkpConvexVerticesConnectivity
 {
     unsigned short m_usMemSizeAndFlags;
     short m_sReferenceCount;
 
-    FUN_00e00e40();
-    virtual ~FUN_00e00e40();
+    hkpConvexVerticesConnectivity();
+    virtual ~hkpConvexVerticesConnectivity();
 
     static void operator delete(void* p, unsigned int nbytes)
     {
-        FUN_00e00e40* b = static_cast<FUN_00e00e40*>(p);
+        hkpConvexVerticesConnectivity* b = static_cast<hkpConvexVerticesConnectivity*>(p);
         hkMemoryRouter_getInstance().heap().ReleaseBlock(p, b->m_usMemSizeAndFlags);
     }
 };
 
 // Constructor with an empty body; the class has a vtable, m_usMemSizeAndFlags and m_sReferenceCount.
 // @fnv 0x00e00e40
-FUN_00e00e40::FUN_00e00e40()
+// src: EXE 0x00e00e40
+hkpConvexVerticesConnectivity::hkpConvexVerticesConnectivity()
 {}

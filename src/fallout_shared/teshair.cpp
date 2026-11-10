@@ -73,11 +73,12 @@ bool FUN_005fdf60_shell::TESHair_CanBeMale()
 typedef char _sizecheck_TESRaceForm[sizeof(TESRaceForm) == 8 ? 1 : -1];
 struct FUN_005fdfa0_shell : public TESHair
 {
-    bool IsHairValidForNPC(TESNPC*);
+    bool TESHair_CanBeHairForNPC(TESNPC*);
 };
 
 // @fnv 0x005fdfa0
-bool FUN_005fdfa0_shell::IsHairValidForNPC(TESNPC* apNPC)
+// src: COMMUNITY 0x005fdfa0
+bool FUN_005fdfa0_shell::TESHair_CanBeHairForNPC(TESNPC* apNPC)
 {
     bool bretval = false;
     BGSQuestObjective* hair;

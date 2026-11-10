@@ -14,9 +14,9 @@ struct PlayerCharacterMovingStateView
     unsigned char padding[0x20c];
     unsigned char movingIntoNewSpace;
 };
-bool __cdecl GetEssentialConditionFunction(TESObjectREFR* reference, void* arg1, void* arg2, double& result);
-bool __cdecl IsPlayerEnteringSpaceConditionFunction(TESObjectREFR* reference, void* arg1, void* arg2, double& result);
-bool GetLastHitLocationConditionFunction(TESObjectREFR* reference, void* arg1, void* arg2, double& result);
+bool __cdecl Cmd_IsEssential_Eval(TESObjectREFR* reference, void* arg1, void* arg2, double& result);
+bool __cdecl Cmd_IsPlayerMovingIntoNewSpace_Eval(TESObjectREFR* reference, void* arg1, void* arg2, double& result);
+bool Cmd_GetHitLocation_Eval(TESObjectREFR* reference, void* arg1, void* arg2, double& result);
 
 extern __declspec(thread) bool g_bShowConditionDebug;
 void __cdecl DebugLog(char const*, ...);

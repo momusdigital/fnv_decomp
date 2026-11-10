@@ -43,7 +43,7 @@ struct FUN_00a32290_Elem
     char m_0f;
 };
 
-struct FUN_00a32290_Cls
+struct NiControllerSequence
 {
     int m_00;
     int m_04;
@@ -58,7 +58,7 @@ struct FUN_00a32290_Cls
 // For each element, writes a3 (and a1/a2) into the node's child slot or its m_20, and resets the node's m_24/m_28/m_2c to DAT_01015f5c.
 // @fnv 0x00a32290
 // src: XBOX_PDB 0x00a32290
-void FUN_00a32290_Cls::NiControllerSequence_SetInterpsWeightAndTime(float afValue1, float afValue2, float afValue3)
+void NiControllerSequence::NiControllerSequence_SetInterpsWeightAndTime(float afValue1, float afValue2, float afValue3)
 {
     for (unsigned int uiIndex = 0; uiIndex < m_0c; ++uiIndex)
     {

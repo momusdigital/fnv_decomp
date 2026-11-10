@@ -18,7 +18,7 @@ class TESDataHandlerSaveLoad
   public:
     bool FormIDExists(unsigned int);
     unsigned int GetNextID();
-    TESFile* GetCompiledFileByIndex(int);
+    TESFile* GetCompiledFile(int);
     unsigned char GetCompiledFileCount();
 };
 extern TESDataHandler* g_dataHandler;

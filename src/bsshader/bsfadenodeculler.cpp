@@ -15,14 +15,14 @@ GlobalObjectO2_00a7b610* __cdecl BSOrderedNode_GetRTTI()
     return &g_01201f84;
 }
 
-struct FUN_00bc2b20_shell
+struct BSFadeNodeCuller
 {
     void __thiscall BSFadeNodeCuller_Process(int a, int b, int c);
 };
 
 // @fnv 0x00bc2b20
 // src: XBOX_PDB 0x00bc2b20
-void __thiscall FUN_00bc2b20_shell::BSFadeNodeCuller_Process(int a, int b, int c)
+void __thiscall BSFadeNodeCuller::BSFadeNodeCuller_Process(int a, int b, int c)
 {
     *(int*)((char*)this + 0xc) = a;
 }

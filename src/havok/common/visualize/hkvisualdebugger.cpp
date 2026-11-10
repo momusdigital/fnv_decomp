@@ -56,7 +56,8 @@ BSFadeNode* bhkConvexListShape_CreateObject()
 }
 
 // @fnv 0x00cd1e40
-hkVisualDebugger* hkVisualDebugger::FUN_00cd1e40(unsigned int flags)
+// src: EXE 0x00cd1e40
+hkVisualDebugger* hkVisualDebugger::ScalarDeletingDestructor(unsigned int flags)
 {
     this->hkVisualDebugger::~hkVisualDebugger();
 

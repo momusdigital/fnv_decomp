@@ -72,11 +72,11 @@ class PathingAvoidPointerView
 };
 
 int Warning(const char*, ...);
-class FUN_006e4080 : public PathingRequest
+class PathingRequestCover : public PathingRequest
 {
   public:
     char extra[60];
-    FUN_006e4080();
+    PathingRequestCover();
 };
 class FUN_006e4a50 : public PathingRequest
 {

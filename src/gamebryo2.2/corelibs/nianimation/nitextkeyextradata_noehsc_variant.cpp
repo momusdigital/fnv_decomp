@@ -71,7 +71,8 @@ struct BsStream
 };
 
 // @fnv 0x00a46e00
-void __fastcall LoadTextKeys(NiTextKeyExtraData* self, void*, NiStream& stream)
+// src: EXE 0x00a46e00
+void __fastcall NiTextKeyExtraData_LoadBinary(NiTextKeyExtraData* self, void*, NiStream& stream)
 {
     self->NiExtraData::LoadBinary(stream);
 

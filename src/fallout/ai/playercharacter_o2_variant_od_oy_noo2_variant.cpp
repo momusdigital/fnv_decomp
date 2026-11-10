@@ -46,7 +46,7 @@ struct GrabMatrix
 struct GrabPosition
 {
     GrabVector value;
-    void SetFromScaledVector3(const GrabPoint&);
+    void bhkVector4_NI2HK(const GrabPoint&);
     void SetQuaternionComponentsFromVector(const GrabVector*);
     GrabVector* ApplyToAction(GrabVector*);
 };
@@ -59,7 +59,7 @@ struct GrabConstraintData
     GrabPosition angular;
     GrabPosition position;
     float f30, f34, f38, f3c;
-    void FUN_004b4f40();
+    void hkMouseSpringActionCinfo();
 };
 struct GrabRay
 {
@@ -87,7 +87,7 @@ struct GrabFilter
 };
 struct GrabController
 {
-    float GetSettingFloat();
+    float bhkCharacterController_GetRadius();
 };
 struct GrabCell;
 struct GrabRef;
@@ -978,7 +978,7 @@ void GrabHost::PlayerCharacter_CreateMouseSpring(GrabRef* ref, int newMode, floa
             mode = newMode;
             distance = range;
             GrabConstraintData data;
-            data.FUN_004b4f40();
+            data.hkMouseSpringActionCinfo();
             float ignored = 0.0f;
             GrabVector center;
             center.FUN_006815c0();
@@ -1023,7 +1023,7 @@ void GrabHost::PlayerCharacter_CreateMouseSpring(GrabRef* ref, int newMode, floa
                             data.body = hit;
                             distance *= ray.hitFraction;
                             GrabPoint destination = origin + direction * distance;
-                            data.position.SetFromScaledVector3(destination);
+                            data.position.bhkVector4_NI2HK(destination);
                         }
                     }
                 }
@@ -1033,7 +1033,7 @@ void GrabHost::PlayerCharacter_CreateMouseSpring(GrabRef* ref, int newMode, floa
                     Interface_GetActivatePickLocation(&picked);
                     if (!DAT_011ddf38->BGSSaveLoadGame_GetSaveGameLoading())
                         distance = (picked - origin).FUN_00457990();
-                    data.position.SetFromScaledVector3(picked);
+                    data.position.bhkVector4_NI2HK(picked);
                     GrabPhysics* pickedPhysics = ViewCaster_GetFuzzyBody();
                     data.body = pickedPhysics->Bipedanim_GetReferenceFlagsOrZero();
                     selected = true;
@@ -1075,7 +1075,7 @@ void GrabHost::PlayerCharacter_CreateMouseSpring(GrabRef* ref, int newMode, floa
             GrabController* controller = FUN_009306d0();
             if (controller)
             {
-                float minDistance = HK2NI(controller->GetSettingFloat()) + DAT_01020998;
+                float minDistance = HK2NI(controller->bhkCharacterController_GetRadius()) + DAT_01020998;
                 if (distance < minDistance)
                     distance = minDistance;
             }

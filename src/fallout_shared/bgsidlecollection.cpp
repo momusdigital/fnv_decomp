@@ -30,7 +30,7 @@ void BGSIdleCollection::InitItem(TESForm* form)
         idle = dynamic_cast<TESObjectANIO*>(TESFormInitFlag::GetFormByID(formID));
         if (idle)
         {
-            if (reinterpret_cast<TESIdleForm*>(idle)->IsIdleFile())
+            if (reinterpret_cast<TESIdleForm*>(idle)->CheckIdleFile())
             {
                 m_ppIdleForms[index] = reinterpret_cast<TESIdleForm*>(idle);
             }
@@ -38,14 +38,14 @@ void BGSIdleCollection::InitItem(TESForm* form)
             {
                 Warning(kBGSIdleCollectionMissingAnim, reinterpret_cast<TESIdleForm*>(idle)->GetName(), form->GetName(),
                         form->GetFormID());
-                RemoveIdleEntry(index);
+                RemoveIdleAtIndex(index);
                 --index;
             }
         }
         else
         {
             Warning(kBGSIdleCollectionMissingIdle, formID, form->GetName(), form->GetFormID());
-            RemoveIdleEntry(index);
+            RemoveIdleAtIndex(index);
             --index;
         }
     }
@@ -100,7 +100,8 @@ void BGSIdleCollection::Load(TESFile* file)
 }
 
 // @fnv 0x0047a030
-unsigned int BGSIdleCollection::GetAvailableIdles(Actor* actor, TESObjectREFR* target,
+// src: COMMUNITY 0x0047a030
+unsigned int BGSIdleCollection::GetIdlesForActor(Actor* actor, TESObjectREFR* target,
                                                   BSSimpleArray<TESIdleForm*, 1024>* idles)
 {
     unsigned int count = 0;
@@ -112,8 +113,8 @@ unsigned int BGSIdleCollection::GetAvailableIdles(Actor* actor, TESObjectREFR* t
         for (int i = 0; i < m_ucPickType; ++i)
         {
             TESIdleForm* idle = m_ppIdleForms[i];
-            if (idle && actor->HasIdleInFormArray(idle) &&
-                idle->IsValidForReferences(reinterpret_cast<TESObjectREFR*>(actor), target, true))
+            if (idle && actor->Actor_CanUseIdle(idle) &&
+                idle->CheckConditions(reinterpret_cast<TESObjectREFR*>(actor), target, true))
             {
                 if (idles)
                 {
@@ -252,7 +253,8 @@ void __cdecl _FUN_00485710(unsigned int, unsigned int*, unsigned int);
 extern "C" void* __cdecl _alloca(unsigned int);
 
 // @fnv 0x004799f0
-void __fastcall SaveIdleCollection(BGSIdleCollection* self)
+// src: COMMUNITY 0x004799f0
+void __fastcall BGSIdleCollection_Save(BGSIdleCollection* self)
 {
     unsigned int isize3;
     unsigned int* parray;
@@ -283,7 +285,8 @@ void* __memcpy(void* dst, const void* src, unsigned int size);
 
 // Removes the element at index from the array, shrinking the count and reallocating the array without that element.
 // @fnv 0x00479ea0
-void BGSIdleCollection::RemoveIdleEntry(unsigned int index)
+// src: COMMUNITY 0x00479ea0
+void BGSIdleCollection::RemoveIdleAtIndex(unsigned int index)
 {
     if (index < m_ucPickType)
     {

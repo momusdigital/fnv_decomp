@@ -258,11 +258,12 @@ struct GeometryEquality : NiGeometryData
 // the const overload. This helper adds its method without duplicating the layout.
 struct ParticlesEquality : NiParticlesData
 {
-    bool IsParticleDataEqual(NiObject*);
+    bool NiParticlesData_IsEqual(NiObject*);
 };
 
 // @fnv 0x00a96a30
-bool ParticlesEquality::IsParticleDataEqual(NiObject* apOther)
+// src: EXE 0x00a96a30
+bool ParticlesEquality::NiParticlesData_IsEqual(NiObject* apOther)
 {
     if (!static_cast<GeometryEquality*>(static_cast<NiGeometryData*>(this))->NiGeometryData_IsEqual(apOther))
         return false;

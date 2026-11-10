@@ -53,7 +53,8 @@ void __cdecl BSEndian(float*, EndianSizeTag<4>);
 
 // Looks up the form with ref ID 0x276; if missing, creates a BGSImpactDataSet, sets its ref ID and editor ID, and adds it to the data handler.
 // @fnv 0x0058ea10
-void BGSImpactDataSet::CacheImpactDataSet()
+// src: COMMUNITY 0x0058ea10
+void BGSImpactDataSet::CreateDefaultImpactDataSet()
 {
     ms_pImpactDataSet = dynamic_cast<BGSImpactDataSet*>(TESForm::GetFormByID(0x276));
     if (!ms_pImpactDataSet)
@@ -138,7 +139,7 @@ void BGSImpactDataSet::QueueResourceLoad(IO_TASK_PRIORITY priority, QueuedFile* 
                 g_modelLoader->ProcessModelRequest(data, priority, pQueuedFile, true, true, false, false);
             BGSTextureSet* textureSet = data->GetDecalTextureSet();
             if (textureSet)
-                textureSet->LoadTextures(priority, pQueuedFile, false);
+                textureSet->QueueTextureSet(priority, pQueuedFile, false);
         }
     }
 }
@@ -153,7 +154,8 @@ BGSImpactData* BGSImpactDataSet::GetImpactDataForMaterial(int material)
 
 // Stores swap in DAT_011ca834, then for each of 10 indices passes the swap's alt footstep material name (or 0) to SetGlobalPointerAtOffset and calls FUN_00837500.
 // @fnv 0x0058eeb0
-void BGSImpactDataSet::RefreshImpactData(ImpactSwap* swap)
+// src: COMMUNITY 0x0058eeb0
+void BGSImpactDataSet::ApplyImpactSwap(ImpactSwap* swap)
 {
     DAT_011ca834 = swap;
     for (int i = 0; i < 10; ++i)
@@ -191,7 +193,7 @@ void BGSImpactDataSet::Save()
 {
     int iIndex;
     unsigned int auiFormIDs[12];
-    TESForm::BeginFormRecord();
+    TESForm::TESForm_StartForm();
     for (iIndex = 0; iIndex < 12; iIndex++)
     {
         if (m_apImpactData[iIndex])
@@ -200,7 +202,7 @@ void BGSImpactDataSet::Save()
             auiFormIDs[iIndex] = 0;
     }
     TESForm_AddChunkArray_00485710(0x41544144, auiFormIDs, 12);
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_CloseForm();
 }
 
 struct FUN_0058efd0
@@ -240,7 +242,7 @@ struct ImpactDataSwapExtraData : ContainerItemExtraFileData
     BGSImpactData* repl;
 };
 bool __cdecl TESForm_QEndianSwapOnSave();
-void __cdecl AppendChunk(unsigned int, void*, unsigned int);
+void __cdecl TESForm___AddChunkData(unsigned int, void*, unsigned int);
 void __cdecl TESForm_AddChunkArray(unsigned int, void*, unsigned int);
 struct FUN_0058f080
 {
@@ -268,7 +270,7 @@ void FUN_0058f080::Save()
                     data.repl = (BGSImpactData*)data.repl->GetFormID();
                 if (TESForm_QEndianSwapOnSave())
                     data.Endian();
-                AppendChunk(0x53504d49, &data, 12);
+                TESForm___AddChunkData(0x53504d49, &data, 12);
                 if (TESForm_QEndianSwapOnSave())
                     data.Endian();
             }
@@ -445,7 +447,7 @@ void __cdecl operator delete(void*);
 struct SomeClass
 {
     FUN_0058f820* m_pData[12];
-    void RemapImpactData(TESForm* apForm);
+    void ImpactSwap_InitItem(TESForm* apForm);
 };
 
 struct Entry
@@ -455,12 +457,13 @@ struct Entry
     BGSImpactData* newImpact;
 };
 
-void __cdecl ResolveFormID(unsigned int*, TESFile*);
+void __cdecl TESForm_AddCompileIndex(unsigned int*, TESFile*);
 TESForm* __cdecl TESForm_GetFormByNumericID(unsigned int);
 
 // For each of the 12 maps, collects old/new impact pairs, resolves their form IDs against apForm's file, warns on missing impacts, and reinserts them.
 // @fnv 0x0058f210
-void SomeClass::RemapImpactData(TESForm* apForm)
+// src: COMMUNITY 0x0058f210
+void SomeClass::ImpactSwap_InitItem(TESForm* apForm)
 {
     int i6;
     void* posVal;
@@ -493,7 +496,7 @@ void SomeClass::RemapImpactData(TESForm* apForm)
                 if (entries3[j_].oldImpact)
                 {
                     oldFormID = (unsigned int)entries3[j_].oldImpact;
-                    ResolveFormID(&oldFormID, apForm->GetFile(-1));
+                    TESForm_AddCompileIndex(&oldFormID, apForm->GetFile(-1));
                     oldImpact6 = dynamic_cast<BGSImpactData*>(TESForm_GetFormByNumericID(oldFormID));
                     if (!oldImpact6)
                     {
@@ -506,7 +509,7 @@ void SomeClass::RemapImpactData(TESForm* apForm)
                 if (entries3[j_].newImpact)
                 {
                     newFormID4 = (unsigned int)entries3[j_].newImpact;
-                    ResolveFormID(&newFormID4, apForm->GetFile(-1));
+                    TESForm_AddCompileIndex(&newFormID4, apForm->GetFile(-1));
                     newImpact = dynamic_cast<BGSImpactData*>(TESForm_GetFormByNumericID(newFormID4));
                     if (!newImpact)
                     {

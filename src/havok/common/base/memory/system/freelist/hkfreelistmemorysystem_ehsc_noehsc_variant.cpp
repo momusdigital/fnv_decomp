@@ -13,10 +13,10 @@ struct FUN_00cd06c0_t
     void __thiscall hkFreeListMemorySystem_setAllocator(int v);
 };
 extern int DAT_010cacd0;
-struct FUN_00cd06a0
+struct hkThreadMemory
 {
     void* m_p00;
-    FUN_00cd06a0(int aiArg);
+    hkThreadMemory(int aiArg);
     void hkThreadMemory_releaseCachedMemory();
     void UpdateFields_00cbf1a0();
 };
@@ -230,10 +230,10 @@ struct S_00cd0a60_sub8
     int unk08;
     int unk0c;
     int unk10;
-    void FUN_00d60500(int a1, int a2);
+    void hkSystemMemoryBlockServer(int a1, int a2);
     __forceinline S_00cd0a60_sub8()
     {
-        FUN_00d60500(0, 0);
+        hkSystemMemoryBlockServer(0, 0);
     }
 };
 struct S_00cd0a60_sub1c
@@ -1178,7 +1178,7 @@ struct S_00cd0a60_arr
         }
     }
 };
-struct FUN_00cd0a60
+struct hkFreeListMemorySystem
 {
     virtual void v0();
     int unk04;
@@ -1191,7 +1191,7 @@ struct FUN_00cd0a60
     S_00cd0a60_sub0b30 m0b30;
     S_00cd0a60_arr arr;
     S_00cd0a60_sub0ad0 m336c;
-    FUN_00cd0a60();
+    hkFreeListMemorySystem();
 };
 struct Helper
 {

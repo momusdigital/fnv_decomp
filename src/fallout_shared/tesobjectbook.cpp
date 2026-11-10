@@ -29,7 +29,7 @@ struct BookLegacyFormIO : public TESForm
 #include "../../include/ActorValue.h"
 #include "../../include/TESSaveLoadGame.h"
 namespace ActorValue {
-Index __cdecl GetActorValueForSectionIndex(Section section, unsigned char index);
+Index __cdecl ToActorValue(Section section, unsigned char index);
 }
 extern "C" void* __cdecl memset(void*, int, unsigned int);
 class TESFileFormVersion
@@ -70,7 +70,7 @@ void TESObjectBOOK::InitItem()
 
     if (static_cast<signed char>(Data.m_cCharacterAfterFlags) != -1)
     {
-        int actorValue = static_cast<int>(ActorValue::GetActorValueForSectionIndex(
+        int actorValue = static_cast<int>(ActorValue::ToActorValue(
             ActorValue::SKILL, Data.m_cCharacterAfterFlags));
         if (actorValue < 0x20 || actorValue > 0x2e)
             Data.m_cCharacterAfterFlags = 0xff;
@@ -290,7 +290,7 @@ struct S_00477f20
 };
 struct FUN_0047b560_holder
 {
-    void LogFormIDs();
+    void BGSPickupPutdownSounds_Save();
 };
 struct Date
 {
@@ -301,7 +301,7 @@ bool __cdecl TESForm_QEndianSwapOnSave();
 // @fnv 0x00514de0
 void TESObjectBOOK::Destroy()
 {
-    TESForm::BeginFormRecord();
+    TESForm::TESForm_StartForm();
     ((S_00487010*)((char*)this + 0x30))->Save_00487010();
     ((S_0048a520*)((char*)this + 0x3c))->ProcessAndFreeData(0x4c444f4d, 0x54444f4d, 0x53444f4d);
     ((FUN_0048e370_obj*)((char*)this + 0x5c))->TESTexture_Save(0x4e4f4349);
@@ -310,13 +310,13 @@ void TESObjectBOOK::Destroy()
     ((FUN_0047bd70_shell*)((char*)this + 0x74))->FUN_0047bd70();
     ((FUN_00482cb0_shell*)((char*)this + 0x94))->Save_00482cb0();
     ((S_00477f20*)((char*)this + 0x9c))->FUN_00477f20();
-    ((FUN_0047b560_holder*)((char*)this + 0xb4))->LogFormIDs();
+    ((FUN_0047b560_holder*)((char*)this + 0xb4))->BGSPickupPutdownSounds_Save();
     if (TESForm_QEndianSwapOnSave())
         ((Date*)((char*)this + 0xc0))->Date::~Date();
     TESForm::TESForm___SaveData((Date*)((char*)this + 0xc0), 2);
     if (TESForm_QEndianSwapOnSave())
         ((Date*)((char*)this + 0xc0))->Date::~Date();
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_CloseForm();
 }
 
 // Destructor of the object; the body is empty.

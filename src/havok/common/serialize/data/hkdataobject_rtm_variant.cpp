@@ -81,7 +81,7 @@ struct HkdataobjectInterfaceView
 struct FUN_00dba730_cls
 {
     HkdataobjectInterfaceView* ptr;
-    void ForwardCall_00dba730();
+    void hkDataClass_getNumMembers();
 };
 struct FUN_00dba740_Target
 {
@@ -258,7 +258,7 @@ struct FUN_00dbab70_obj
     int m_iRefCount;
     virtual ~FUN_00dbab70_obj();
 };
-struct FUN_00dbab70_cls
+struct hkDataArray
 {
     FUN_00dbab70_obj* m_pEntryObject;
     void ReleaseStorage_00dbab70();
@@ -315,7 +315,7 @@ struct FUN_00dbac70_cls
 {
     dbac70_Target* m_p;
     int m_f;
-    void __thiscall ForwardCall_00dbac70();
+    void __thiscall hkDataArray_Value_asString();
 };
 struct S_00dbac90_Obj
 {
@@ -333,7 +333,7 @@ struct S_00dbac90_Obj
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40(void* arg);
 };
@@ -519,15 +519,15 @@ struct DBAFB0Handle
 
     DBAFB0Result GetResult();
 };
-struct FUN_00dba650_cls
+struct hkDataClass
 {
     unsigned int m_00;
-    FUN_00dba650_cls* SetField00(unsigned int value);
+    hkDataClass* SetField00(unsigned int value);
 };
 struct CpuObject
 {
     int value;
-    bool TestValue();
+    bool hkDataClass_isNull();
 };
 struct VirtualTarget
 {
@@ -597,11 +597,11 @@ struct RefObj
     unsigned short m_w06;
     int m_i08;
 };
-struct FUN_00dba780_cls
+struct hkDataObject
 {
     RefObj* m_pReference;
 
-    FUN_00dba780_cls* AssignRef(FUN_00dba780_cls* apOther);
+    hkDataObject* AssignRef(hkDataObject* apOther);
 };
 struct RefCountedObj
 {
@@ -799,11 +799,11 @@ struct InnerObj
     virtual void* v12();
     virtual void* v13(void* a);
 };
-struct FUN_00dba9d0_cls
+struct hkDataObject_Value
 {
     InnerObj* m_00;
     void* m_04;
-    void* __thiscall GetWrappedDataObject(FUN_00dba760_cls* arg);
+    void* __thiscall asObject(FUN_00dba760_cls* arg);
 };
 struct FUN_00dbaa30_target
 {
@@ -1309,7 +1309,7 @@ struct S_00dbaed0_Target
 struct S_00dbaed0_Obj
 {
     S_00dbaed0_Target* m_target;
-    int ForwardCall_00dba730();
+    int hkDataClass_getNumMembers();
     void DispatchItems(S_00dbaed0_Elem** items);
 };
 struct S_Alloc
@@ -1428,7 +1428,7 @@ struct Fnv299VTarget
     virtual void unk1C();
     virtual void unk20(int arg);
 };
-struct FUN_00dbac50_cls
+struct hkDataArray_Value
 {
     Fnv299VTarget* m_00;
     int m_04;
@@ -1770,7 +1770,7 @@ struct DataObjectHandle
     RefObj* object;
     DataObjectHandle* __thiscall hkDataObject_hkDataObject(RefObj* p);
 };
-struct DataClassResult : FUN_00dba650_cls
+struct DataClassResult : hkDataClass
 {
     DataClassResult* SetField00(unsigned int value);
     DataClassResult(unsigned int value)

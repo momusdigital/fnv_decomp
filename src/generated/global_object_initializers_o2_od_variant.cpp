@@ -66,7 +66,7 @@ void FUN_00869a20_class::NiTObjectArray_TESObjectREFR_Free()
     UpdateFields_00869a40();
 }
 
-struct FUN_00869b70_Class
+struct NiTObjectArray
 {
     void __thiscall InitializeAndReleaseNext();
     void __thiscall NiTObjectArray_BipedAnim_Free();
@@ -74,7 +74,7 @@ struct FUN_00869b70_Class
 
 // @fnv 0x00869b70
 // src: COMMUNITY 0x00869b70
-void __thiscall FUN_00869b70_Class::NiTObjectArray_BipedAnim_Free()
+void __thiscall NiTObjectArray::NiTObjectArray_BipedAnim_Free()
 {
     InitializeAndReleaseNext();
 }
@@ -229,14 +229,14 @@ SettingT<INIPrefSettingCollection>::~SettingT()
 }
 
 #include <windows.h>
-struct FUN_0044fb00_Shim
+struct BSCriticalSection
 {
     void DeleteCriticalSection_Thunk();
 };
 
 // @fnv 0x0044fb00
 // src: GUESS 0x0044fb00 (confidence: high)
-void FUN_0044fb00_Shim::DeleteCriticalSection_Thunk()
+void BSCriticalSection::DeleteCriticalSection_Thunk()
 {
     DeleteCriticalSection(reinterpret_cast<CRITICAL_SECTION*>(this));
 }

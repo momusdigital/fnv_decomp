@@ -3,7 +3,7 @@
 
 void* __cdecl _NiMalloc_00aa1070(unsigned int size);
 
-class FUN_00a8f010_cls
+class NiPixelData
 {
   public:
     unsigned int unk00;
@@ -36,7 +36,7 @@ class FUN_00a8f010_cls
 
 // Allocates one block sized from a1, a2 and a3, then sets m_50..m_5C to offsets within it.
 // @fnv 0x00a8f010
-void FUN_00a8f010_cls::AllocateBuffers(int aiCount, volatile int aiRows, int aiStride)
+void NiPixelData::AllocateBuffers(int aiCount, volatile int aiRows, int aiStride)
 {
     unsigned int stride = (unsigned int)(aiStride + 3) & 0xfffffffcu;
     int rows = aiRows * (int)stride;

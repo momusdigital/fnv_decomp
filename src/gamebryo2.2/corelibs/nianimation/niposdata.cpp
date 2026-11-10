@@ -79,7 +79,7 @@ class NiPosDataOperations : public NiPosData
     void SaveToStream(NiStream&);
     void nullsub_3(NiStream&);
     void AppendCameraPathEntries(FUN_0096ad30_param*);
-    void AddViewerEntries(FUN_0096ad30_param*);
+    void NiPosData_GetViewerStrings(FUN_0096ad30_param*);
     void FUN_00a5d510(NiPosDataOperations**);
     void CopyKeyRange(float, float, NiPosDataOperations**);
 
@@ -258,7 +258,8 @@ struct FUN_0096ad30_param
 
 
 // @fnv 0x00a49380
-void NiPosDataOperations::AddViewerEntries(FUN_0096ad30_param* param)
+// src: EXE 0x00a49380
+void NiPosDataOperations::NiPosData_GetViewerStrings(FUN_0096ad30_param* param)
 {
     unsigned int value;
     unsigned int index;

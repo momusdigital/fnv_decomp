@@ -155,17 +155,18 @@ struct E42740ObjectArrayPolicy
     static __forceinline void destroy(hkArrayBase<E42740ReferencedObject*>& self) { E42740ObjectArray_destroy(self); }
 };
 
-class FUN_00e42740 : public E42740ReferencedObject
+class hkpVehicleManager : public E42740ReferencedObject
 {
   public:
-    virtual ~FUN_00e42740() throw();
+    virtual ~hkpVehicleManager() throw();
 
     hkArray<E42740ReferencedObject*, E42740ObjectArrayPolicy> m_kTrackedObjects;
 };
 
 // Destructor releases the reference held on each object in the array before the array is destroyed.
 // @fnv 0x00e42740
-FUN_00e42740::~FUN_00e42740() throw()
+// src: EXE 0x00e42740
+hkpVehicleManager::~hkpVehicleManager() throw()
 {
     int numObjects = m_kTrackedObjects.m_iElementCount;
     for (int i = 0; i < numObjects; i++)

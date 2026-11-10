@@ -93,7 +93,7 @@ class bhkCharacterController;
 // @fnv 0x00931d30
 void MobileObject::AdvanceMovement(float delta)
 {
-    SetFurnitureHeading(GetCurrentTargetDistance(false) + delta);
+    SetFurnitureHeading(GetHeading(false) + delta);
 }
 
 // @fnv 0x00931d70
@@ -222,7 +222,8 @@ void Actor::SetCurrentSitSleepState(SIT_SLEEP_STATE state)
 }
 // Checks the reference's ExtraDismemberedLimbs extra data and returns whether the given limb is dismembered.
 // @fnv 0x00573090
-bool TESObjectREFR::IsLimbMissing(int limb)
+// src: COMMUNITY 0x00573090
+bool TESObjectREFR::GetDismembered(int limb)
 {
     ExtraDismemberedLimbs* extra = GetExtraData()->GetDismemberedLimbs();
     if (!extra)
@@ -802,7 +803,7 @@ void VTableHelper::MobileObject_SetRotation(float afAngle)
 
 struct FUN_00931d90_shell : public MobileObject
 {
-    void ClampLookAngle(float);
+    void MobileObject_SetLooking(float);
 };
 
 extern SettingT_GameSettingCollection_ originalRuntimeFloatSetting231;
@@ -816,7 +817,8 @@ struct ST_00931d90
 };
 // Clamps afAngle between a lower limit and a per-actor-type maximum derived from a game setting, then applies it via FUN_00575770.
 // @fnv 0x00931d90
-void FUN_00931d90_shell::ClampLookAngle(float afAngle)
+// src: COMMUNITY 0x00931d90
+void FUN_00931d90_shell::MobileObject_SetLooking(float afAngle)
 {
     float fMaxAngle = DAT_0108a7f8;
     if (IsActor())
@@ -843,18 +845,19 @@ void FUN_00931d90_shell::ClampLookAngle(float afAngle)
 
 struct FUN_00931e50_shell : public MobileObject
 {
-    void AddModAngle(float);
+    void MobileObject_ModLooking(float);
 };
 
 struct ST_00931e50
 {
-    void ClampLookAngle(float);
+    void MobileObject_SetLooking(float);
 };
-// Adds afModAngle to the object's looking angle and passes the result to ClampLookAngle.
+// Adds afModAngle to the object's looking angle and passes the result to MobileObject_SetLooking.
 // @fnv 0x00931e50
-void FUN_00931e50_shell::AddModAngle(float afModAngle)
+// src: COMMUNITY 0x00931e50
+void FUN_00931e50_shell::MobileObject_ModLooking(float afModAngle)
 {
-    ((ST_00931e50*)this)->ClampLookAngle(GetLooking() + afModAngle);
+    ((ST_00931e50*)this)->MobileObject_SetLooking(GetLooking() + afModAngle);
 }
 
 struct FUN_00931e80_shell : public MobileObject
@@ -1133,7 +1136,7 @@ void FUN_00931620_shell::MobileObject_SetPos(NiPoint3* arVel)
 namespace fnv_009334b0 {
 struct FUN_009334b0_shell : public MobileObject
 {
-    int GetCellLoadState();
+    int MobileObject_GetDesiredProcessLevel();
 };
 
 extern BGSSaveLoadGame* g_BGSSaveLoadGame;
@@ -1149,7 +1152,7 @@ struct MobileStandIn
 };
 struct CellStandIn
 {
-    bool HasCellExtraData();
+    bool GetLowestProcessMiddleLow();
 };
 extern TESSaveLoadGame* g_TESSaveLoadGame;
 extern PlayerCharacter* g_thePlayer;
@@ -1157,7 +1160,8 @@ extern TES* g_TES;
 extern ModelLoader* g_modelLoader;
 // Returns a state code based on save-loading, sleeping/resting, the target cell, model loading and cell checks.
 // @fnv 0x009334b0
-int FUN_009334b0_shell::GetCellLoadState()
+// src: COMMUNITY 0x009334b0
+int FUN_009334b0_shell::MobileObject_GetDesiredProcessLevel()
 {
     TESObjectCELL* pTargetCell;
     if (!g_TESSaveLoadGame->GetLoading() && g_thePlayer->IsSleepingOrResting())
@@ -1166,12 +1170,12 @@ int FUN_009334b0_shell::GetCellLoadState()
     if (g_BGSSaveLoadGame->BGSSaveLoadGame_GetSaveGameLoading() || ((MobileStandIn*)this)->GetReferenceType() ||
         g_modelLoader->ModelLoader_IsReferenceQueued(this))
     {
-        if (g_TES->IsCellBuffered(pTargetCell, true))
+        if (g_TES->IsCellLoaded(pTargetCell, true))
             return 0;
-        else if (g_TES->IsCellBuffered(pTargetCell, false))
+        else if (g_TES->IsCellLoaded(pTargetCell, false))
             return 1;
     }
-    if ((pTargetCell && ((CellStandIn*)pTargetCell)->HasCellExtraData()) || g_TES->IsCellBuffered(pTargetCell, false))
+    if ((pTargetCell && ((CellStandIn*)pTargetCell)->GetLowestProcessMiddleLow()) || g_TES->IsCellLoaded(pTargetCell, false))
         return 2;
     return 3;
 }
@@ -1223,7 +1227,8 @@ struct TaskQueueInterface
 char* __cdecl strrchr_0040ab30(char*, int);
 
 // @fnv 0x004d5ad0
-bool BuildLipPath(BSStringT<char>& path)
+// src: COMMUNITY 0x004d5ad0
+bool LipSynchAnim_ChangeFilenameToLipSynch(BSStringT<char>& path)
 {
     char fileName[260];
     TaskQueueInterface::CopyStringToBuffer(fileName, 260, path.String());
@@ -1237,14 +1242,14 @@ bool BuildLipPath(BSStringT<char>& path)
     return true;
 }
 
-struct FUN_00810f90_shell
+struct CFilter
 {
     void SetFlag4000(bool flag);
 };
 
 // Sets or clears bit 0x4000 in the first int of this object based on flag.
 // @fnv 0x00810f90
-void FUN_00810f90_shell::SetFlag4000(bool abSet)
+void CFilter::SetFlag4000(bool abSet)
 {
     if (abSet)
         ((int*)this)[0] |= 0x4000;
@@ -2187,7 +2192,7 @@ bool FUN_00931880_shell::MobileObject_UpdateProcessLevel()
 
     if (((Vtable_Shell*)this)->VirtualMethod_1d0())
     {
-        if (g_TES->IsCellBuffered(reinterpret_cast< ::TESObjectCELL*>(((LowProcess*)this)->LowProcess::GetTarget()), true))
+        if (g_TES->IsCellLoaded(reinterpret_cast< ::TESObjectCELL*>(((LowProcess*)this)->LowProcess::GetTarget()), true))
         {
             if (((TESResponse*)m_pBaseProcess)->GetNext())
             {
@@ -2379,7 +2384,7 @@ bool FUN_00931920_shell::CheckTargetAndDelete(bool bCheck)
 
     if (((Vtable_Shell*)this)->VirtualMethod_1d0())
     {
-        if (g_TES->IsCellBuffered(reinterpret_cast< ::TESObjectCELL*>(((LowProcess*)this)->LowProcess::GetTarget()), bCheck))
+        if (g_TES->IsCellLoaded(reinterpret_cast< ::TESObjectCELL*>(((LowProcess*)this)->LowProcess::GetTarget()), bCheck))
         {
             if (((Getter28View*)m_pBaseProcess)->GetNext())
             {
@@ -4960,11 +4965,11 @@ bool FUN_009c45d0_t::Projectile_ChangeProcessLevel()
     TESObjectCELL* cellVal = (TESObjectCELL*)((LowProcess*)this)->LowProcess::GetTarget();
     if (((MobileVtbl*)this)->V1D0() || g_modelLoader->ModelLoader_IsReferenceQueued(this))
     {
-        if (g_TES->IsCellBuffered(cellVal, true))
+        if (g_TES->IsCellLoaded(cellVal, true))
         {
             iNewLevel = 0;
         }
-        else if (bLoadedTmp && g_TES->IsCellBuffered(cellVal, false))
+        else if (bLoadedTmp && g_TES->IsCellLoaded(cellVal, false))
         {
             iNewLevel = 1;
         }
@@ -5121,7 +5126,7 @@ FUN_00561730_S* __fastcall bhkCharacterController_GetSupportNormal(bhkCharacterC
 bool __fastcall Actor_IsUnConscious(Actor*);
 bool __fastcall DoesFly_0087f390(MobileObject*);
 int __fastcall bhkCharacterController_GetState(bhkCharacterController*);
-float __fastcall GetSettingFloat(bhkCharacterController*);
+float __fastcall bhkCharacterController_GetRadius(bhkCharacterController*);
 float __cdecl HK2NI(float);
 unsigned int __cdecl Main_QFrameCount();
 bool __cdecl Pathing_GetNavMeshZForLocation(NiPoint3*, TESObjectCELL*, TESWorldSpace*, float*);
@@ -5744,7 +5749,7 @@ bhkCharacterController* FUN_0092f260_shell::MobileObject_Move(float afDeltaTime,
             {
                 NiPoint3 newPos;
                 ((bhkCharControllerVT*)pcon)->bhkCharacterController_GetPosition(&newPos);
-                float flift = HK2NI(GetSettingFloat(pcon)) * 2.0f;
+                float flift = HK2NI(bhkCharacterController_GetRadius(pcon)) * 2.0f;
                 newPos.z += flift;
                 ((MobileObjectVT*)this)->vfn_2A8(&newPos);
             }
@@ -8222,7 +8227,7 @@ BSSoundHandle VoiceHost::PlayVoiceTopic(VoiceTopic* topic, void* listener, bool 
                     VoiceFile* file = 0;
                     BSStringT<char> name;
                     name.Set(path, 512);
-                    if (BuildLipPath(name))
+                    if (LipSynchAnim_ChangeFilenameToLipSynch(name))
                     {
                         file = FUN_004d52d0(name);
                         if (file)
@@ -8250,7 +8255,7 @@ BSSoundHandle VoiceHost::PlayVoiceTopic(VoiceTopic* topic, void* listener, bool 
                 {
                     NiPoint3 position = GetNode()->NiAVObject_GetWorldTranslate();
                     pItem.SetPosition(position.x, position.y, position.z);
-                    pItem.SetMinMax(BSAudio_GetMinDialogDist(), BSAudio_GetMaxDialogDist());
+                    pItem.SetMinMaxDistance(BSAudio_GetMinDialogDist(), BSAudio_GetMaxDialogDist());
                     pItem.SetObjectToFollow((NiAVObject*)GetNode());
                 }
                 pItem.Play(false);
@@ -8524,9 +8529,9 @@ bool ProcessLevelReferenceView::UpdateProcessLevel()
     }
     if (IsPersistentStandIn() || g_modelLoader->IsQueued(this))
     {
-        if (((TES*)g_TES)->IsCellBuffered(pCell4, true))
+        if (((TES*)g_TES)->IsCellLoaded(pCell4, true))
             iWantLevel = 0;
-        else if (((TES*)g_TES)->IsCellBuffered(pCell4, false))
+        else if (((TES*)g_TES)->IsCellLoaded(pCell4, false))
             iWantLevel = 1;
     }
     if (unk8C == 0)
@@ -8809,7 +8814,7 @@ struct FUN_00670b30
 struct PackageMethods
 {
     void CopyAllFlags(TESPackage*);
-    void SetPackageType(int);
+    void SetPackType(int);
     void FUN_00826b40(bool);
     void FUN_00826b90(bool);
     void SetPackageLocation(FUN_00670b30*);
@@ -8915,7 +8920,7 @@ bool DialogueHost::MobileObject_StartConversation(MobileObject* target, int aiUn
         location->iUnk8C = (int)topic;
         if (context)
             ((PackageMethods*)location)->CopyAllFlags(context);
-        ((PackageMethods*)location)->SetPackageType(28);
+        ((PackageMethods*)location)->SetPackType(28);
         ((PackageMethods*)location)->FUN_00826b40(true);
         ((PackageMethods*)location)->FUN_00826b90(true);
         FUN_00670b30* package = (FUN_00670b30*)new FUN_0067f030;
@@ -8947,7 +8952,7 @@ struct B9B1450ModelLoader
 };
 extern B9B1450ModelLoader* g_pModelLoader;
 
-class FUN_009b1450_Mobile : public MobileObject
+class Explosion : public MobileObject
 {
   public:
     bool Explosion_ChangeProcessLevel();
@@ -8955,13 +8960,13 @@ class FUN_009b1450_Mobile : public MobileObject
 
 // @fnv 0x009b1450
 // src: COMMUNITY 0x009b1450
-bool FUN_009b1450_Mobile::Explosion_ChangeProcessLevel()
+bool Explosion::Explosion_ChangeProcessLevel()
 {
     bool bResult = true;
     int eCurrent = m_pBaseProcess->GetProcessLevel();
     int eDesired2 = 3;
     TESObjectCELL* pkCell = GetParentCell();
-    if ((GetNiNode() || g_pModelLoader->ModelLoader_IsReferenceQueued(this)) && g_TES->IsCellBuffered(pkCell, true))
+    if ((GetNiNode() || g_pModelLoader->ModelLoader_IsReferenceQueued(this)) && g_TES->IsCellLoaded(pkCell, true))
         eDesired2 = 0;
     if (eCurrent != eDesired2)
     {
@@ -11070,7 +11075,7 @@ class MagicProjectileRef
     virtual void vf2c();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3c();
     virtual void vf40();
     virtual void vf44();
@@ -11079,7 +11084,7 @@ class MagicProjectileRef
     virtual void vf50();
     virtual void vf54();
     virtual void vf58();
-    virtual void vf5c();
+    virtual void applyForce();
     virtual void vf60();
     virtual void vf64();
     virtual void vf68();
@@ -12275,7 +12280,7 @@ extern double DAT_0101db88, DAT_01017b70, DAT_01012060, DAT_01017a40;
 extern float g_011c56fc_arg1;
 extern char str_01084d70;
 int __cdecl FUN_00406d30(char*, unsigned int, const char*);
-bool __cdecl BuildLipPath(FUN_0040c0e0&);
+bool __cdecl LipSynchAnim_ChangeFilenameToLipSynch(FUN_0040c0e0&);
 Item* __cdecl FUN_004d52d0(const FUN_0040c0e0&);
 void __cdecl SetFormAccumulate(void*, unsigned int);
 Audio* __cdecl BSAudio_QInstance();
@@ -12322,7 +12327,7 @@ float ActorObject::MobileObject_DoSpeechLoadLipFiles(const char* apSoundName, So
             {
                 if (arg12 && !GetProcess()->v222())
                 {
-                    if (BuildLipPath(callState2))
+                    if (LipSynchAnim_ChangeFilenameToLipSynch(callState2))
                     {
                         if (arg11)
                         {

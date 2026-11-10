@@ -357,7 +357,7 @@ void FUN_00bca0d0_shell::CreateTileVertexShaders()
     {
         if (kDefs[i].pFile)
         {
-            BSShader::GetShaderPath(kDefs[i].pFile, acPath);
+            BSShader::MakePath(kDefs[i].pFile, acPath);
             _sprintf_s(acName, 260, "TILE1%03i.vso", i);
             m_spVertexShaders[i] = CompileVertexShader(acPath, kDefs[i].kMacros, "vs_1_1", acName);
         }
@@ -670,7 +670,7 @@ void FUN_00bca240_shell::CreateTilePixelShaders()
         {
             char acPath[260];
             char acName[260];
-            GetShaderPath(kDefs[i].pFile, acPath);
+            MakePath(kDefs[i].pFile, acPath);
             _sprintf_s(acName, 260, "TILE1%03i.pso", i);
             m_spPixelShaders[i] = CompilePixelShader(acPath, kDefs[i].kMacros, pPixelShaderProfile, acName);
         }
@@ -1117,7 +1117,7 @@ struct Renderer
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40();
     virtual void vf44();
@@ -1157,7 +1157,7 @@ struct ShaderProgram
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40();
     virtual void vf44();
@@ -1300,7 +1300,7 @@ struct PassShader
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40();
     virtual void vf44();

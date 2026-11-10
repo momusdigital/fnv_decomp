@@ -66,7 +66,8 @@ struct GlobalObjectO2_00a7b610;
 extern GlobalObjectO2_00a7b610 g_012026c8;
 
 // @fnv 0x00c299d0
-void* __fastcall GetPlanarColliderRTTI(NiPSysPlanarCollider*, void*)
+// src: EXE 0x00c299d0
+void* __fastcall NiPSysPlanarCollider_GetRTTI(NiPSysPlanarCollider*, void*)
 {
     return &g_012026c8;
 }
@@ -169,13 +170,14 @@ void __fastcall ApplyPlanarCollision(NiPSysPlanarCollider* self, void*, float ti
 }
 
 // The shared base header does not declare its SaveBinary override yet.
-extern "C" void SaveColliderBinary();
+extern "C" void NiPSysCollider_SaveBinary();
 typedef void (__thiscall* SaveColliderBinaryFunction)(NiPSysCollider*, NiStream&);
 
 // @fnv 0x00c297f0
-void __fastcall SavePlanarColliderBinary(NiPSysPlanarCollider* self, void*, NiStream& stream)
+// src: EXE 0x00c297f0
+void __fastcall NiPSysPlanarCollider_SaveBinary(NiPSysPlanarCollider* self, void*, NiStream& stream)
 {
-    reinterpret_cast<SaveColliderBinaryFunction>(&SaveColliderBinary)(self, stream);
+    reinterpret_cast<SaveColliderBinaryFunction>(&NiPSysCollider_SaveBinary)(self, stream);
     stream.SaveLinkID(self->m_pkColliderObject);
     NiBinaryStream* io = stream.m_pkOstr;
     {
@@ -221,7 +223,8 @@ NiPSysPlanarCollider* __fastcall CreatePlanarColliderClone(NiPSysPlanarCollider*
 }
 
 // @fnv 0x00c29af0
-int __cdecl CreatePlanarCollider()
+// src: EXE 0x00c29af0
+int __cdecl NiPSysPlanarCollider_CreateObject()
 {
     void* helper = Object_DispatchCommandFour(0x100);
     if (helper)
@@ -278,7 +281,8 @@ struct PlanarColliderViewerStrings
 
 // Appends the base collider strings plus collider object name, width, height and X/Y axis strings to pkStrings.
 // @fnv 0x00c29b70
-void __fastcall GetPlanarColliderViewerStrings(NiPSysPlanarCollider* self, void*, PlanarColliderViewerStrings* pkStrings)
+// src: EXE 0x00c29b70
+void __fastcall NiPSysPlanarCollider_GetViewerStrings(NiPSysPlanarCollider* self, void*, PlanarColliderViewerStrings* pkStrings)
 {
     self->NiPSysCollider::GetViewerStrings(reinterpret_cast<NiViewerStringsArray*>(pkStrings));
     pkStrings->Add(NiViewerStrings_NiGetViewerString_Title(g_012026c8.m_pcName));
@@ -299,7 +303,8 @@ extern "C" void AreCollidersEqual();
 typedef bool (__thiscall* AreCollidersEqualFunction)(NiPSysCollider*, NiPSysCollider*);
 
 // @fnv 0x00c29870
-bool __fastcall ArePlanarCollidersEqual(NiPSysPlanarCollider* self, void*, NiPSysPlanarCollider* other)
+// src: EXE 0x00c29870
+bool __fastcall NiPSysPlanarCollider_IsEqual(NiPSysPlanarCollider* self, void*, NiPSysPlanarCollider* other)
 {
     if (!reinterpret_cast<AreCollidersEqualFunction>(&AreCollidersEqual)(self, other))
         return false;
@@ -315,13 +320,13 @@ bool __fastcall ArePlanarCollidersEqual(NiPSysPlanarCollider* self, void*, NiPSy
     return true;
 }
 
-extern "C" void RegisterColliderStreamables();
+extern "C" void NiPSysCollider_RegisterStreamables();
 typedef bool (__thiscall* RegisterColliderStreamablesFunction)(NiPSysCollider*, NiStream&);
 
 // @fnv 0x00c28d00
 bool __fastcall RegisterPlanarColliderStreamables(NiPSysPlanarCollider* self, void*, NiStream& stream)
 {
-    return reinterpret_cast<RegisterColliderStreamablesFunction>(&RegisterColliderStreamables)(self, stream);
+    return reinterpret_cast<RegisterColliderStreamablesFunction>(&NiPSysCollider_RegisterStreamables)(self, stream);
 }
 
 extern "C" double __cdecl fabs(double);
@@ -430,10 +435,11 @@ typedef NiPSysCollider* (__thiscall* ResolveColliderTailFunction)(NiPSysCollider
 // Local method declarations for collision entry points absent from the shared header.
 struct PlanarColliderFunctions : NiPSysPlanarCollider
 {
-    NiPSysCollider* TestCollision(float time, float* collisionTime, BoundDataBlock* data, unsigned short particleId);
+    NiPSysCollider* NiPSysPlanarCollider_Resolve(float time, float* collisionTime, BoundDataBlock* data, unsigned short particleId);
 };
 
-NiPSysCollider* PlanarColliderFunctions::TestCollision(float time, float* collisionTime, BoundDataBlock* data, unsigned short particleId)
+// src: EXE 0x00c28d10
+NiPSysCollider* PlanarColliderFunctions::NiPSysPlanarCollider_Resolve(float time, float* collisionTime, BoundDataBlock* data, unsigned short particleId)
 {
     bool bCollided = false;
     const PlaneVector& particle = reinterpret_cast<const PlaneVector*>(data->unk20)[particleId];

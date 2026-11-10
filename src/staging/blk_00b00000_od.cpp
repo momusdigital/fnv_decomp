@@ -79,14 +79,14 @@ bool __thiscall FUN_00b01be0_Class::IsFlag4Clear(unsigned int flags, unsigned in
 
 extern int DAT_010a48e8;
 
-struct FUN_00b029a0_class
+struct BSTaskletGroupData
 {
     void __thiscall SetVirtualTable_00b029a0();
 };
 
 // @fnv 0x00b029a0
 // src: GUESS 0x00b029a0 (confidence: low)
-void __thiscall FUN_00b029a0_class::SetVirtualTable_00b029a0()
+void __thiscall BSTaskletGroupData::SetVirtualTable_00b029a0()
 {
     *(int**)(this) = &DAT_010a48e8;
 }
@@ -191,19 +191,20 @@ struct FUN_00afeac0_shell
     int __thiscall OpenFile(int arg);
 };
 
-struct FUN_00b00900
+struct BSSystemFile
 {
     int m0;
     int m4;
     int m8;
     char mc;
     int OpenFile(int arg);
-    FUN_00b00900(int a, int b, int c, char d);
+    BSSystemFile(int a, int b, int c, char d);
 };
 
 // Initialises the object: stores b, c and d into m4, m8 and mc, then sets m0 from OpenFile(a).
 // @fnv 0x00b00900
-FUN_00b00900::FUN_00b00900(int aiValue, int aiSecond, int aiThird, char d)
+// src: COMMUNITY 0x00b00900
+BSSystemFile::BSSystemFile(int aiValue, int aiSecond, int aiThird, char d)
 {
     m0 = 0;
     m4 = aiSecond;
@@ -313,12 +314,13 @@ struct FUN_00b01020
 {
     virtual ~FUN_00b01020();
 };
-struct FUN_00b01c20 : public FUN_00b01020
+struct BSWin32FileCache : public FUN_00b01020
 {
-    virtual ~FUN_00b01c20();
+    virtual ~BSWin32FileCache();
 };
 // @fnv 0x00b01c20
-FUN_00b01c20::~FUN_00b01c20()
+// src: EXE 0x00b01c20
+BSWin32FileCache::~BSWin32FileCache()
 {}
 
 extern int DAT_010a4880;
@@ -537,11 +539,12 @@ class FUN_00b00b40_cls
     virtual void v14();
     virtual bool v18(void* a, void* b, bool c);
     bool m_04;
-    bool TryProcessPair(void** a, void** b, bool c);
+    bool BSTaskletManager_AttachTask(void** a, void** b, bool c);
 };
 
 // @fnv 0x00b00b40
-bool FUN_00b00b40_cls::TryProcessPair(void** apFirst, void** b, bool abFlag)
+// src: COMMUNITY 0x00b00b40
+bool FUN_00b00b40_cls::BSTaskletManager_AttachTask(void** apFirst, void** b, bool abFlag)
 {
     bool flagTmp = m_04;
     void* p4;
@@ -640,7 +643,7 @@ extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long milliseconds
 extern int DAT_0106c800;
 extern int DAT_0106c814;
 
-struct FUN_00b00ec0
+struct BSWin32TaskletData
 {
     int unk00;
     int unk04;
@@ -648,11 +651,12 @@ struct FUN_00b00ec0
     int unk0c;
     long m_10;
 
-    ~FUN_00b00ec0() throw();
+    ~BSWin32TaskletData() throw();
 };
 
 // @fnv 0x00b00ec0
-FUN_00b00ec0::~FUN_00b00ec0() throw()
+// src: GUESS 0x00b00ec0 (confidence: high)
+BSWin32TaskletData::~BSWin32TaskletData() throw()
 {
     *(void* volatile*)this = (void*)&DAT_0106c800;
     while (InterlockedCompareExchange(&m_10, 1, 0) != 0)
@@ -792,13 +796,13 @@ class FUN_00b0e510_cls
     unsigned int m_0c;
     unsigned int m_10;
 
-    FUN_00b0e510_pair* ProcessEntries_00b0e510(FUN_00b0e510_pair* out, unsigned int a0, unsigned int a1, unsigned int a2,
+    FUN_00b0e510_pair* vector_erase(FUN_00b0e510_pair* out, unsigned int a0, unsigned int a1, unsigned int a2,
                                     unsigned int a3);
 };
 
 // @fnv 0x00b0e510
 // src: GUESS 0x00b0e510 (confidence: low)
-FUN_00b0e510_pair* FUN_00b0e510_cls::ProcessEntries_00b0e510(FUN_00b0e510_pair* out, unsigned int a0, unsigned int a1,
+FUN_00b0e510_pair* FUN_00b0e510_cls::vector_erase(FUN_00b0e510_pair* out, unsigned int a0, unsigned int a1,
                                                   unsigned int a2, unsigned int a3)
 {
     FUN_00b0e510_pair lo;
@@ -1209,7 +1213,7 @@ struct BufferPos
     char* pcData;
     unsigned int uiElapsedMilliseconds;
 };
-struct FUN_00b01800_shell
+struct ArchiveFile
 {
     char pad00[0x10];
     unsigned int m_uiBufferSize;
@@ -1223,7 +1227,7 @@ struct FUN_00b01800_shell
 
 // @fnv 0x00b01800
 // src: COMMUNITY 0x00b01800
-unsigned int FUN_00b01800_shell::ArchiveFile_ReadFromBuffer(void* pDst, unsigned int uiSize)
+unsigned int ArchiveFile::ArchiveFile_ReadFromBuffer(void* pDst, unsigned int uiSize)
 {
     unsigned int uiDone = 0;
     unsigned int uiAvail = m_uiBufferFill - m_uiBufferPos;
@@ -1703,12 +1707,12 @@ void* __thiscall FUN_00b02720_shell::Init()
 }
 
 extern int DAT_010a48d8;
-struct FUN_00b027c0
+struct BSWin32TaskletGroupData
 {
     void* vtable;
     char bActive;
     void* pGroup;
-    FUN_00b027c0();
+    BSWin32TaskletGroupData();
 };
 struct CSFields
 {
@@ -1718,7 +1722,8 @@ struct CSFields
 };
 // Constructor that sets the vtable and bActive, creates a semaphore (max count 1) and a critical section, and zeroes several fields.
 // @fnv 0x00b027c0
-FUN_00b027c0::FUN_00b027c0()
+// src: EXE 0x00b027c0
+BSWin32TaskletGroupData::BSWin32TaskletGroupData()
 {
     vtable = &DAT_010a48e8;
     bActive = 1;
@@ -1827,7 +1832,7 @@ struct FUN_00b15600_cls
     int m_0c;
     int m_10;
     int m_14;
-    void ReleaseEntries_00b15600();
+    void vector__Tidy();
 };
 
 struct Rng
@@ -1838,7 +1843,7 @@ struct Rng
 // If m_0c is set, passes it to FUN_00401030; then zeroes m_0c, m_10 and m_14.
 // @fnv 0x00b15600
 // src: GUESS 0x00b15600 (confidence: medium)
-void FUN_00b15600_cls::ReleaseEntries_00b15600()
+void FUN_00b15600_cls::vector__Tidy()
 {
     if (!!m_0c)
     {

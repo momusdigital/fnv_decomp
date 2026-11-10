@@ -72,11 +72,12 @@ struct FUN_0081b6d0_s
 {
     void FUN_0081b7b0();
     static void __Dummy_00b6fef0(void* p, unsigned int size);
-    void* FUN_0081b6d0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };
 
 // @fnv 0x0081b6d0
-void* FUN_0081b6d0_s::FUN_0081b6d0(unsigned int flags)
+// src: EXE 0x0081b6d0
+void* FUN_0081b6d0_s::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_0081b7b0();
     if (flags & 1)
@@ -245,7 +246,7 @@ struct FUN_0081b860_vt
     virtual void vf09();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -271,7 +272,7 @@ struct FUN_0081b860_vt
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();

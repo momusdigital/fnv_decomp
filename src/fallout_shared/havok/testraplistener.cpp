@@ -73,13 +73,13 @@ void FUN_0062d740_shell::UpdateFields_0062d740()
 struct FUN_0062dee0_shell
 {
     CombatWorldStateListNode* m_kNode;
-    bool ProcessEntries_0062dee0(int arg);
+    bool TESTrapListener_HasEntryForRef(int arg);
 };
 
 // Walks the linked list at this+0x20 and returns true if any node's _ref_0084e3a0() equals arg.
 // @fnv 0x0062dee0
-// src: GUESS 0x0062dee0 (confidence: low)
-bool __thiscall FUN_0062dee0_shell::ProcessEntries_0062dee0(int arg)
+// src: GUESS 0x0062dee0 (confidence: medium)
+bool __thiscall FUN_0062dee0_shell::TESTrapListener_HasEntryForRef(int arg)
 {
     CombatWorldStateListNode* p = *(CombatWorldStateListNode**)((char*)this + 0x20);
     while (p)
@@ -105,7 +105,7 @@ void FUN_0062e040_shell::SetVirtualTable_0062e040()
     *(int*)this = (int)&DAT_0104e3f4;
 }
 
-struct FUN_0062c700_shell
+struct BSList
 {
     void ForwardCall_0062c700();
 };
@@ -117,7 +117,7 @@ struct FUN_0062dfe0_shell
 
 // @fnv 0x0062c700
 // src: GUESS 0x0062c700 (confidence: low)
-void FUN_0062c700_shell::ForwardCall_0062c700()
+void BSList::ForwardCall_0062c700()
 {
     ((FUN_0062dfe0_shell*)this)->FUN_0062dfe0();
 }
@@ -203,12 +203,13 @@ TrapEventList* TrapEventList::bhkTTNode_RemoveFromList(TrapEventList* pHead)
     return pHead;
 }
 
-struct FUN_0062c720_shell : FUN_0062c700_shell
+struct FUN_0062c720_shell : BSList
 {
-    void* FUN_0062c720(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };
 // @fnv 0x0062c720
-void* FUN_0062c720_shell::FUN_0062c720(unsigned int flags)
+// src: EXE 0x0062c720
+void* FUN_0062c720_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     ForwardCall_0062c700();
     if (flags & 1)
@@ -217,11 +218,11 @@ void* FUN_0062c720_shell::FUN_0062c720(unsigned int flags)
 }
 
 extern int DAT_0104e308;
-struct FUN_0062dfa0_shell
+struct BSListBase
 {
     void BSListBase_TriggerEntry_TriggerEvent_BSListBase_TriggerEntry_TriggerEvent();
 };
-struct FUN_0062c750_shell : FUN_0062dfa0_shell
+struct FUN_0062c750_shell : BSListBase
 {
     void* vtbl;
     FUN_0062c750_shell();
@@ -397,7 +398,7 @@ struct FUN_0062d550_shell
 };
 struct FUN_0062df60_shell
 {
-    FUN_0062d550_shell* BhkTTNode_TESObjectREFR_GetEntry_Thunk(int);
+    FUN_0062d550_shell* TESTrapListener_GetEntryForRef(int);
 };
 struct FUN_0062df20_shell
 {
@@ -410,7 +411,7 @@ struct FUN_0062df20_shell
 // src: COMMUNITY 0x0062df20
 bool FUN_0062df20_shell::TESTrapListener_IsRefInTrigger(int a1, int a2)
 {
-    FUN_0062d550_shell* t = m_32->BhkTTNode_TESObjectREFR_GetEntry_Thunk(a2);
+    FUN_0062d550_shell* t = m_32->TESTrapListener_GetEntryForRef(a2);
     if (!t)
         return false;
     return t->ForwardToMember(a1);
@@ -423,17 +424,17 @@ struct FUN_0057c400_shell
 };
 struct FUN_0062df60_shell
 {
-    void __thiscall BhkTTNode_TESObjectREFR_GetEntry_Thunk(unsigned int a);
+    void __thiscall TESTrapListener_GetEntryForRef(unsigned int a);
 };
 // @fnv 0x0062df60
 // src: GUESS 0x0062df60 (confidence: medium)
-void __thiscall FUN_0062df60_shell::BhkTTNode_TESObjectREFR_GetEntry_Thunk(unsigned int a)
+void __thiscall FUN_0062df60_shell::TESTrapListener_GetEntryForRef(unsigned int a)
 {
     ((FUN_0057c400_shell*)this)->bhkTTNode_TESObjectREFR_GetEntry(a);
 }
 }  // namespace fnv_0062df60
 
-struct FUN_0062df80_shell
+struct hkArray
 {
     void ForwardCall_0062df80();
 };
@@ -445,7 +446,7 @@ struct FUN_0062e170_shell
 
 // @fnv 0x0062df80
 // src: GUESS 0x0062df80 (confidence: low)
-void FUN_0062df80_shell::ForwardCall_0062df80()
+void hkArray::ForwardCall_0062df80()
 {
     reinterpret_cast<FUN_0062e170_shell*>(this)->FUN_0062e170();
 }
@@ -524,7 +525,7 @@ struct FUN_0062e290_Node
 {
     FUN_0062e290_Node* m_next;
 };
-struct FUN_0062e290_shell
+struct BSPointerListBase
 {
     virtual void vf0();
     virtual void vf1();
@@ -535,7 +536,7 @@ struct FUN_0062e290_shell
     void ClearList();
 };
 // @fnv 0x0062e290
-void FUN_0062e290_shell::ClearList()
+void BSPointerListBase::ClearList()
 {
     FUN_0062e290_Node* pNode = m_iWordAt04;
     while (pNode)
@@ -794,7 +795,7 @@ void FUN_0062db40_shell::TriggerEntry_GetTriggerEntry(int aiValue)
 }
 
 namespace fnv_0062dfa0 {
-struct FUN_0062dfa0_shell
+struct BSListBase
 {
     void* BSListBase_TriggerEntry_TriggerEvent_BSListBase_TriggerEntry_TriggerEvent();
 };
@@ -802,7 +803,7 @@ struct FUN_0062dfa0_shell
 // Sets the vtable pointer and clears the three pointer fields at offsets 4, 8 and 12, then returns this.
 // @fnv 0x0062dfa0
 // src: COMMUNITY 0x0062dfa0
-void* __thiscall FUN_0062dfa0_shell::BSListBase_TriggerEntry_TriggerEvent_BSListBase_TriggerEntry_TriggerEvent()
+void* __thiscall BSListBase::BSListBase_TriggerEntry_TriggerEvent_BSListBase_TriggerEntry_TriggerEvent()
 {
     *(void**)this = &DAT_0104e3f4;
     *(int**)((char*)this + 0xc) = 0;
@@ -865,21 +866,21 @@ void FUN_0062de90_shell::TESTrapListener_ClearCurrentRefs(CombatWorldStateListNo
     }
 }
 
-struct FUN_0062d840_shell
+struct TrapEntry
 {
     char _pad[24];
-    FUN_0062d840_shell(unsigned int, unsigned int);
+    TrapEntry(unsigned int, unsigned int);
 };
 struct FUN_0062d7c0_shell
 {
-    FUN_0062d840_shell* TESTrapListener_CreateZoneEntry(unsigned int a, unsigned int b);
+    TrapEntry* TESTrapListener_CreateZoneEntry(unsigned int a, unsigned int b);
 };
-// Allocates and constructs a FUN_0062d840_shell with the two given unsigned int arguments and returns the new object.
+// Allocates and constructs a TrapEntry with the two given unsigned int arguments and returns the new object.
 // @fnv 0x0062d7c0
 // src: XBOX_PDB 0x0062d7c0
-FUN_0062d840_shell* FUN_0062d7c0_shell::TESTrapListener_CreateZoneEntry(unsigned int a, unsigned int b)
+TrapEntry* FUN_0062d7c0_shell::TESTrapListener_CreateZoneEntry(unsigned int a, unsigned int b)
 {
-    return new FUN_0062d840_shell(a, b);
+    return new TrapEntry(a, b);
 }
 
 TESObjectREFR* __cdecl TESHavokUtilities_FindCollidableRef(void*);
@@ -1037,9 +1038,9 @@ struct FUN_00620720_shell
 };
 struct FUN_0062c640_shell
 {
-    void FUN_0062c640();
+    void TriggerEntry_RefList();
 };
-struct FUN_0062dc50_shell
+struct TriggerEntry
 {
     void* m_iWordAt00;
     void* m_iWordAt04;
@@ -1047,13 +1048,13 @@ struct FUN_0062dc50_shell
     void* m_iThirdValue;
     void* TriggerEntry_TriggerEntry(unsigned int a, unsigned int b);
 };
-// Calls FUN_00620720 with a and b, then FUN_0062c640 on the object at offset 0x10, and returns this.
+// Calls FUN_00620720 with a and b, then TriggerEntry_RefList on the object at offset 0x10, and returns this.
 // @fnv 0x0062dc50
 // src: COMMUNITY 0x0062dc50
-void* FUN_0062dc50_shell::TriggerEntry_TriggerEntry(unsigned int auiArg1, unsigned int auiArg2)
+void* TriggerEntry::TriggerEntry_TriggerEntry(unsigned int auiArg1, unsigned int auiArg2)
 {
     ((FUN_00620720_shell*)this)->bhkTTNode_TESObjectREFR_bhkTTNode_TESObjectREFR(auiArg1, auiArg2);
-    ((FUN_0062c640_shell*)((char*)this + 0x10))->FUN_0062c640();
+    ((FUN_0062c640_shell*)((char*)this + 0x10))->TriggerEntry_RefList();
     return this;
 }
 
@@ -1098,17 +1099,18 @@ struct FX62c640_Member : FUN_0062c6e0_shell
     ~FX62c640_Member();
 };
 
-struct FUN_0062c640
+struct TriggerEntry_RefList
 {
     TrigEntry* m_aiIndexedValues;
     int unk4;
     int m_uiItemCount;
     FX62c640_Member m_kMemberDescriptor;
-    FUN_0062c640();
+    TriggerEntry_RefList();
 };
 
 // @fnv 0x0062c640
-FUN_0062c640::FUN_0062c640()
+// src: COMMUNITY 0x0062c640
+TriggerEntry_RefList::TriggerEntry_RefList()
 {
     m_uiItemCount = 20;
     unk4 = 0;
@@ -1245,7 +1247,7 @@ class FUN_0062dfe0 : public FUN_0062e040_base
 // @fnv 0x0062dfe0
 FUN_0062dfe0::~FUN_0062dfe0()
 {
-    ((FUN_0062e290_shell*)this)->ClearList();
+    ((BSPointerListBase*)this)->ClearList();
 }
 
 // FUN_0062e150 : thiscall, one stack argument (index), returns a pointer.

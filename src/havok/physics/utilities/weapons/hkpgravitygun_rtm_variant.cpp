@@ -52,7 +52,7 @@ void hkpGravityGun::gravityGunPull(hkTransform* a4, hkpRigidBody* a3, hkpWorld* 
     int argC = (int)a3;
     int arg10 = (int)world;
     hkpGravityGun* gun = this;
-    hkpRigidBody* target = gun->FindVisibleRigidBodyToGrab((int)direction, argC, arg10);
+    hkpRigidBody* target = gun->pickBody((int)direction, argC, arg10);
 
     if (target != 0)
     {

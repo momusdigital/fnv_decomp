@@ -738,7 +738,7 @@ struct FUN_00905c50_Class
     void InitTerrainManager();
 };
 
-BGSTerrainManager* __cdecl ReadAnimationFromStream(void* apFile);
+BGSTerrainManager* __cdecl LipSynchAnim_LoadFromFile(void* apFile);
 
 // @fnv 0x00905c50
 void FUN_00905c50_Class::InitTerrainManager()
@@ -753,5 +753,5 @@ void FUN_00905c50_Class::InitTerrainManager()
         unk30->FUN_008d8520()->v221(1);
     }
 
-    unk34 = ReadAnimationFromStream(file);
+    unk34 = LipSynchAnim_LoadFromFile(file);
 }

@@ -7,14 +7,14 @@
 #include "../../../../../../include/hkStringPtr.h"
 
 int __cdecl hkString_strLen(const char* s);
-char* __cdecl AllocateWithHeader(void* alloc, int size);
+char* __cdecl hkMemoryRouter_easyAlloc(void* alloc, int size);
 void __cdecl hkString_strCpy(char* dst, const char* src);
 
 // @fnv 0x00cb1160
 // src: HAVOK_LIB 0x00cb1160
 char* __cdecl hkString_strDup(const char* aString, void* apAllocator)
 {
-    char* p = AllocateWithHeader(apAllocator, hkString_strLen(aString) + 1);
+    char* p = hkMemoryRouter_easyAlloc(apAllocator, hkString_strLen(aString) + 1);
     hkString_strCpy(p, aString);
     return p;
 }
@@ -72,7 +72,7 @@ namespace fnv_00cb11b0 {
 extern "C"
 {
     void* __cdecl hkString_strLen(void* p);
-    void* __cdecl AllocateWithHeader(void* p, int n);
+    void* __cdecl hkMemoryRouter_easyAlloc(void* p, int n);
     void* __cdecl CopyIfNonEmpty(void* p, void* q, int n);
 }
 
@@ -85,7 +85,7 @@ void* __cdecl hkString_strNdup(void* apSrc, int anMaxLen, void* p3)
     if (len > anMaxLen)
         len = anMaxLen;
 
-    void* buf = AllocateWithHeader(p3, len + 1);
+    void* buf = hkMemoryRouter_easyAlloc(p3, len + 1);
     CopyIfNonEmpty(buf, apSrc, len);
     ((char*)buf)[len] = 0;
     return buf;

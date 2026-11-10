@@ -103,7 +103,7 @@ struct __declspec(align(16)) ObjA
 struct S36
 {
     float matrix[9];
-    void GetRowFloats(unsigned int, float*, float*, float*);
+    void NiMatrix3_GetRow(unsigned int, float*, float*, float*);
 };
 struct MatrixS
 {
@@ -421,7 +421,7 @@ struct ObjX
 };
 struct DataHandlerS
 {
-    ObjX* PlaceObjectReference(void*, NiPoint3*, void*, void*, void*);
+    ObjX* TESDataHandler_CreateReferenceAtLocation(void*, NiPoint3*, void*, void*, void*);
 };
 struct PlayerS
 {
@@ -584,11 +584,11 @@ bool Cmd_PlaceAtReticle_Execute(const ScriptParameter* a0, const char* a1, TESOb
     MatrixS p134;
     p134.FUN_006815c0();
     NiPoint3 p140;
-    s36.GetRowFloats(0, &p140.y, &p140.z, &p140.x);
+    s36.NiMatrix3_GetRow(0, &p140.y, &p140.z, &p140.x);
     p134.FUN_005df510(0, &p140);
-    s36.GetRowFloats(1, &p140.y, &p140.z, &p140.x);
+    s36.NiMatrix3_GetRow(1, &p140.y, &p140.z, &p140.x);
     p134.FUN_005df510(1, &p140);
-    s36.GetRowFloats(2, &p140.y, &p140.z, &p140.x);
+    s36.NiMatrix3_GetRow(2, &p140.y, &p140.z, &p140.x);
     p134.FUN_005df510(2, &p140);
     reinterpret_cast<NiPoint3&>(posStorage) = *PlayerCharacter_GetCameraPosition(g_thePlayer);
     pt = p134.FUN_004b4500(&pt) + reinterpret_cast<NiPoint3&>(posStorage);
@@ -616,7 +616,7 @@ bool Cmd_PlaceAtReticle_Execute(const ScriptParameter* a0, const char* a1, TESOb
             reinterpret_cast<NiPoint3&>(pos180Storage) = pt174;
             result = 1.0;
             ObjX* objX =
-                g_dataHandler->PlaceObjectReference(form2, &reinterpret_cast<NiPoint3&>(pos180Storage), g_thePlayer->FUN_00430830(),
+                g_dataHandler->TESDataHandler_CreateReferenceAtLocation(form2, &reinterpret_cast<NiPoint3&>(pos180Storage), g_thePlayer->FUN_00430830(),
                                                     g_thePlayer->GetParentCell(), g_thePlayer->TESObjectREFR_GetWorldSpace(0, 0, 0));
             if (!objX)
                 return false;
@@ -771,11 +771,11 @@ bool Cmd_PlaceAtReticle_Execute(const ScriptParameter* a0, const char* a1, TESOb
     MatrixS p134;
     p134.FUN_006815c0();
     NiPoint3 p140;
-    s36.GetRowFloats(0, &p140.y, &p140.z, &p140.x);
+    s36.NiMatrix3_GetRow(0, &p140.y, &p140.z, &p140.x);
     p134.FUN_005df510(0, &p140);
-    s36.GetRowFloats(1, &p140.y, &p140.z, &p140.x);
+    s36.NiMatrix3_GetRow(1, &p140.y, &p140.z, &p140.x);
     p134.FUN_005df510(1, &p140);
-    s36.GetRowFloats(2, &p140.y, &p140.z, &p140.x);
+    s36.NiMatrix3_GetRow(2, &p140.y, &p140.z, &p140.x);
     p134.FUN_005df510(2, &p140);
     reinterpret_cast<NiPoint3&>(posStorage) = *PlayerCharacter_GetCameraPosition(g_thePlayer);
     pt = p134.FUN_004b4500(&pt) + reinterpret_cast<NiPoint3&>(posStorage);
@@ -803,7 +803,7 @@ bool Cmd_PlaceAtReticle_Execute(const ScriptParameter* a0, const char* a1, TESOb
             reinterpret_cast<NiPoint3&>(pos180Storage) = pt174;
             result = 1.0;
             ObjX* objX =
-                g_dataHandler->PlaceObjectReference(form2, &reinterpret_cast<NiPoint3&>(pos180Storage), g_thePlayer->FUN_00430830(),
+                g_dataHandler->TESDataHandler_CreateReferenceAtLocation(form2, &reinterpret_cast<NiPoint3&>(pos180Storage), g_thePlayer->FUN_00430830(),
                                                     g_thePlayer->GetParentCell(), g_thePlayer->TESObjectREFR_GetWorldSpace(0, 0, 0));
             if (!objX)
                 return false;

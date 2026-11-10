@@ -53,7 +53,7 @@ public:
     void PlayerCharacter_RewardKarma(int);
     float TESObjectREFR_GetScale_00567400();
     void PlayActorSound(TESBoundObject* o, int a1, int a2);
-    void SyncHolderValue();
+    void PlayerCharacter_Setup3rdPersonCameraCaster();
 };
 #include "../../../include/bhkFilter.h"
 #include "../../../include/NiAVObject.h"
@@ -786,7 +786,7 @@ void WaitForTasksAndClearScripts()
     {
         delete reinterpret_cast<NiRefObject*>(g_011d8b2c.RemoveHead());
     }
-    g_011d8c18.WaitForTasksDuringRendering();
+    g_011d8c18.BSCriticalSection_Leave();
 }
 
 class NavMesh;
@@ -1643,7 +1643,7 @@ namespace fnv_007157b0 {
 struct MenuValueDescriptor;
 struct FUN_007157b0_shell : public InterfaceManager
 {
-    void ClearMenuTargets(bool);
+    void InterfaceManager_ClearOverTileTarget(bool);
 };
 
 namespace fnv_00717ef0 {
@@ -1655,7 +1655,8 @@ struct FUN_00717ef0_shell
 
 // If leaving and both pointers are set, clears two tile values and calls FUN_00717ef0, then nulls the pointers at offsets 0xcc and 0xd0.
 // @fnv 0x007157b0
-void FUN_007157b0_shell::ClearMenuTargets(bool abDoLeave)
+// src: COMMUNITY 0x007157b0
+void FUN_007157b0_shell::InterfaceManager_ClearOverTileTarget(bool abDoLeave)
 {
     if (abDoLeave && *(void**)((char*)this + 0xd0) && *(void**)((char*)this + 0xcc))
     {
@@ -1933,7 +1934,7 @@ struct Controls : public GamepadManager
 typedef char _sizecheck_Controls[sizeof(Controls) == 1136 ? 1 : -1];
 struct FUN_0070c4a0_shell : public InterfaceManager
 {
-    void UpdateInterface();
+    void InterfaceManager_Idle();
 };
 
 struct MenuH;
@@ -2313,7 +2314,7 @@ struct IMX
     void InterfaceManager_DoEnter(MenuH*, int, Tile*);
     void* GetActiveRenderedMenu();
     void UpdatePickObjects();
-    void DrawDebugInfo();
+    void InterfaceManager_DisplayCurrentPickRef();
     int GetInterval();
     int GetEffectID();
     int InterfaceManager_GetMouseWheel();
@@ -2323,12 +2324,12 @@ struct IMX
     int HandleKeyEvent(int, int);
     int GetShouldKeyBeRepeated(float);
     bool IsFlag4Set();
-    void PushMenuStackEntry(int);
+    void InterfaceManager_AddToEnterStack(int);
     int AddMenuStackEntry(int, bool);
     void QueueHudCallback(int, int);
     void HandleCallbackOrStore(int);
     Tile* CombatController_GetCombatState();
-    void UpdatePipboyWaiver();
+    void InterfaceManager_UpdatePipboy();
 };
 int __stdcall XInputGetState_009f996e(int, void*);
 float GetRatio();
@@ -2387,7 +2388,8 @@ struct PCS
 
 Tile* __fastcall _ref_00726070(MenuH*);
 // @fnv 0x0070c4a0
-void FUN_0070c4a0_shell::UpdateInterface()
+// src: COMMUNITY 0x0070c4a0
+void FUN_0070c4a0_shell::InterfaceManager_Idle()
 {
     AMC imenuType(0xd, true, "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout\\Interface\\InterfaceManager.cpp", 0x47a);
     DAT_011d8a54 = DAT_011d8a6c;
@@ -2849,7 +2851,7 @@ void FUN_0070c4a0_shell::UpdateInterface()
             else if (ConsoleManager::Instance(true)->IsConsoleActive())
             {
                 ((IMX*)this)->UpdatePickObjects();
-                ((IMX*)this)->DrawDebugInfo();
+                ((IMX*)this)->InterfaceManager_DisplayCurrentPickRef();
             }
         }
         if (imouse_held)
@@ -2897,7 +2899,7 @@ void FUN_0070c4a0_shell::UpdateInterface()
                 {
                     ((IMX*)this)->i78 = -1;
                 }
-                ((IMX*)this)->DrawDebugInfo();
+                ((IMX*)this)->InterfaceManager_DisplayCurrentPickRef();
             }
         }
         if (InterfaceManager_Has360Controller() && !((IMX*)this)->b7d)
@@ -3066,7 +3068,7 @@ void FUN_0070c4a0_shell::UpdateInterface()
         pcontrols->Controls_ClearKeystrokes();
         if (((MCH*)pCurrentConsoleManager)->MenuConsole_ToggleVisible())
         {
-            ((IMX*)this)->PushMenuStackEntry(3);
+            ((IMX*)this)->InterfaceManager_AddToEnterStack(3);
         }
         else
         {
@@ -3203,7 +3205,7 @@ void FUN_0070c4a0_shell::UpdateInterface()
     }
     if (!GetTopEnterStackEntry() || InterfaceManager::IsInterfaceMenuActive())
     {
-        ((IMX*)this)->UpdatePipboyWaiver();
+        ((IMX*)this)->InterfaceManager_UpdatePipboy();
     }
     ((IMX*)this)->o4d4.InterfaceManager_TutorialManager_Update();
 }
@@ -3225,7 +3227,7 @@ struct UIRoot
     bool flagB;
     char pad2[0x580 - 0x22];
     UIRoot();
-    void InitInterface(bool);
+    void InterfaceManager_Init(bool);
     void InterfaceManager_InitSecond();
 };
 extern UIRoot* DAT_011d8a80;
@@ -3239,7 +3241,7 @@ void __cdecl InitUIRoot(unsigned int uiStage, bool abInitialLoad)
     if (!DAT_011d8a80)
         DAT_011d8a80 = new UIRoot;
     if (uiStage == 1)
-        DAT_011d8a80->InitInterface(abInitialLoad);
+        DAT_011d8a80->InterfaceManager_Init(abInitialLoad);
     else if (uiStage == 2)
         DAT_011d8a80->InterfaceManager_InitSecond();
     DAT_011d8a80->flagA = false;
@@ -3524,7 +3526,7 @@ typedef char _sizecheck_AutoMemContext[sizeof(AutoMemContext) == 4 ? 1 : -1];
 typedef char _sizecheck_NiUpdateData[sizeof(NiUpdateData) == 12 ? 1 : -1];
 struct FUN_0070adb0_shell : public InterfaceManager
 {
-    void InitInterface(bool);
+    void InterfaceManager_Init(bool);
 };
 
 
@@ -3600,7 +3602,8 @@ Dummy_00718c90* __cdecl SystemColorManager_GetInstance();
 void __fastcall BSFogProperty_SetDistance(BSFogProperty*, float, float);
 
 // @fnv 0x0070adb0
-void FUN_0070adb0_shell::InitInterface(bool abInitialLoad)
+// src: COMMUNITY 0x0070adb0
+void FUN_0070adb0_shell::InterfaceManager_Init(bool abInitialLoad)
 {
     float faspect;
     AutoMemContext tempMemContext(
@@ -3805,7 +3808,7 @@ struct CFilter
 typedef char _sizecheck_CFilter[sizeof(CFilter) == 4 ? 1 : -1];
 struct FUN_0070bc20_shell : public InterfaceManager
 {
-    void UpdateActivatePick();
+    void InterfaceManager_RefreshActivateREFR();
 };
 
 
@@ -3849,7 +3852,8 @@ extern Setting g_011ca394;
 extern Setting g_011d8b78;
 
 // @fnv 0x0070bc20
-void FUN_0070bc20_shell::UpdateActivatePick()
+// src: COMMUNITY 0x0070bc20
+void FUN_0070bc20_shell::InterfaceManager_RefreshActivateREFR()
 {
     if (InterfaceManager_IsDebugTextVisible(this))
         return;
@@ -3875,7 +3879,7 @@ void FUN_0070bc20_shell::UpdateActivatePick()
     if (((InterfacePlayerAccess*)g_thePlayer)->PlayerCharacter_IsActually3rdPerson())
         origin += g_thePlayer->GetPosition();
 
-    ((InterfaceMatrixAccess&)dir2).FUN_004a0c90(((::MobileObject*)g_thePlayer)->GetCurrentTargetDistance(false));
+    ((InterfaceMatrixAccess&)dir2).FUN_004a0c90(((::MobileObject*)g_thePlayer)->GetHeading(false));
     ((InterfaceMatrixAccess&)rot).FUN_00524ac0(g_thePlayer->GetLooking());
     dir2 = dir2 * rot;
     ((InterfaceMatrixAccess&)dir2).NiMatrix3_GetCol(1, dir);
@@ -3953,7 +3957,7 @@ void FUN_0070bc20_shell::UpdateActivatePick()
                         bcheckwater = false;
                         break;
                     default:
-                        bcheckwater = !TESContainer::IsValidContainerType(etype);
+                        bcheckwater = !TESContainer::ContainerCanHoldType(etype);
                         break;
                     }
                 }
@@ -4148,8 +4152,8 @@ struct Animation
     void SetEquipModifier(float);
     float GetReloadModifier();
     float GetEquipModifier();
-    BSAnimGroupSequence* GetAnimationSequence(BSAnimGroupSequence*, unsigned short, int);
-    BSAnimGroupSequence* GetAnimationSequence(unsigned short, int);
+    BSAnimGroupSequence* StartGroup(BSAnimGroupSequence*, unsigned short, int);
+    BSAnimGroupSequence* StartGroup(unsigned short, int);
     void AssignControllerManager(void*);
     static void FindHighestPriorityCallback(NiAVObject*, FindData*);
     BSAnimGroupSequence* GetHighestPriority(NiAVObject*);
@@ -4200,7 +4204,7 @@ typedef char _sizecheck_Animation[sizeof(Animation) == 316 ? 1 : -1];
 typedef char _sizecheck_BaseFormComponent[sizeof(BaseFormComponent) == 4 ? 1 : -1];
 struct FUN_0070ee80_shell : public InterfaceManager
 {
-    void UpdatePipboyWaiver();
+    void InterfaceManager_UpdatePipboy();
 };
 
 
@@ -4230,7 +4234,7 @@ struct Im7181
 };
 struct FUN_00714d90_struct
 {
-    void PushMenuStackEntry(int);
+    void InterfaceManager_AddToEnterStack(int);
 };
 struct InterfaceManager_PopFromEnterStack_helper
 {
@@ -4260,7 +4264,8 @@ extern bool DAT_011cab24;
 
 // Steps the pipboy waiver state machine (0x4bc): closes menus, plays the access animation, updates the pipboy and restores anim groups.
 // @fnv 0x0070ee80
-void FUN_0070ee80_shell::UpdatePipboyWaiver()
+// src: COMMUNITY 0x0070ee80
+void FUN_0070ee80_shell::InterfaceManager_UpdatePipboy()
 {
     static const char sMissingWaiverIdle[] =
         "ANIMATION: Missing dynamic idle for the pipboy waiver in the idle manager.";
@@ -4312,7 +4317,7 @@ void FUN_0070ee80_shell::UpdatePipboyWaiver()
                     ++((unsigned char*)InterfaceManager_GetSingleton())[0x20];
                     ((InterfaceAudioAccess*)BSAudio::GetSingleton())->BSAudio_PauseAnimationSounds();
                     ((InterfacePlayerAccess*)g_thePlayer)->PlayerCharacter_EnteringMenuMode();
-                    ((FUN_00714d90_struct*)this)->PushMenuStackEntry(1);
+                    ((FUN_00714d90_struct*)this)->InterfaceManager_AddToEnterStack(1);
                     HandleMenuKeyInput();
                     *(int*)((char*)this + 0x4bc) = 2;
                 }
@@ -4571,7 +4576,7 @@ void* __cdecl FindMenuById(int);
 struct ATM
 {
     void QueryPerformanceCounter(int);
-    void WaitForTasksDuringRendering();
+    void BSCriticalSection_Leave();
 };
 struct ArrHelper
 {
@@ -4625,7 +4630,7 @@ void FUN_00713c70_shell::InterfaceManager_LastMinuteUpdate()
     {
         Tile_GetTileUpdateAllCriticalSectionLock()->QueryPerformanceCounter(0);
         ((Updater*)this)->InterfaceManager_UpdateTileModels();
-        Tile_GetTileUpdateAllCriticalSectionLock()->WaitForTasksDuringRendering();
+        Tile_GetTileUpdateAllCriticalSectionLock()->BSCriticalSection_Leave();
     }
     DAT_011d8908 = false;
 }
@@ -5360,7 +5365,7 @@ void FUN_00714d70::SetField(int value)
 namespace fnv_00714d90 {
 struct FUN_00714d90_shell : public InterfaceManager
 {
-    int PushMenuStackEntry(int);
+    int InterfaceManager_AddToEnterStack(int);
 };
 
 
@@ -5371,7 +5376,8 @@ struct S4
 void _FNV_Warning(const char*);
 
 // @fnv 0x00714d90
-int FUN_00714d90_shell::PushMenuStackEntry(int aiID)
+// src: COMMUNITY 0x00714d90
+int FUN_00714d90_shell::InterfaceManager_AddToEnterStack(int aiID)
 {
     int a;
     if (aiID == 3)
@@ -5500,11 +5506,12 @@ struct FUN_00716320_List
 };
 struct FUN_00716320_shell
 {
-    void UpdateNodeTimers();
+    void InterfaceManager_UpdateAllTimers();
 };
 
 // @fnv 0x00716320
-void FUN_00716320_shell::UpdateNodeTimers()
+// src: COMMUNITY 0x00716320
+void FUN_00716320_shell::InterfaceManager_UpdateAllTimers()
 {
     FUN_00716320_Node* pNode = (*(FUN_00716320_List**)((char*)this + 0x164))->pTail;
     while (pNode)
@@ -5799,14 +5806,15 @@ struct GlobalObject_0045cfe0
 };
 extern GlobalObject_0045cfe0 g_011d8cfc;
 
-struct FUN_0071d380_t
+struct MenuConsole
 {
-    void ClampIndexByDelta(int aiDelta);
+    void MenuConsole_ScrollBy(int aiDelta);
 };
 
 // Adds aiDelta to the value at offset 0x24, clamps it to the array's flags and to the global int, then stores it back.
 // @fnv 0x0071d380
-void FUN_0071d380_t::ClampIndexByDelta(int aiDelta)
+// src: COMMUNITY 0x0071d380
+void MenuConsole::MenuConsole_ScrollBy(int aiDelta)
 {
     int iIndex = *(int*)((char*)this + 0x24) + aiDelta;
     if (iIndex > (int)((InterfacemanagerOffset08View*)((char*)this + 4))->GetFlags())
@@ -5830,7 +5838,7 @@ struct FUN_007e6620_Button
 };
 struct FUN_007e6620_t : public Menu
 {
-    void ProcessState_007e6700();
+    void TextEditMenu_UpdateDisplayText();
     bool HandleTileClick(int aiTileID);
 };
 
@@ -5852,7 +5860,7 @@ bool FUN_007e6620_t::HandleTileClick(int aiTileID)
         if (((FUN_007e6620_Button*)((char*)this + 0x34))->GetByteAtOffset33())
         {
             ((FUN_007e6620_Button*)((char*)this + 0x34))->TextEditMenu_Data_HandleKey(aiTileID);
-            ProcessState_007e6700();
+            TextEditMenu_UpdateDisplayText();
             return true;
         }
         else
@@ -5952,7 +5960,7 @@ void FUN_007123d0_class::SetByteAtOffset60(unsigned char aucValue)
     *reinterpret_cast<unsigned char*>((char*)this + 0x60) = aucValue;
 }
 
-struct FUN_007185e0_class
+struct InterfaceManager_TutorialManager
 {
     int m_data[0x29];
     int& operator[](int index)
@@ -5964,7 +5972,7 @@ struct FUN_007185e0_class
 
 // If index is within 0x29, clears bit 0 and sets bit 1 of m_data[index] and returns true; otherwise returns false.
 // @fnv 0x007185e0
-bool FUN_007185e0_class::SetFlag2(int index)
+bool InterfaceManager_TutorialManager::SetFlag2(int index)
 {
     if (index >= 0 && index < 0x29)
     {
@@ -5978,7 +5986,7 @@ bool FUN_007185e0_class::SetFlag2(int index)
 
 char __fastcall GetByteAtOffset33(char*);
 void __fastcall ToggleFlagOnInterval(char*);
-void __fastcall ProcessState_007e6700(void*);
+void __fastcall TextEditMenu_UpdateDisplayText(void*);
 
 
 // @fnv 0x007e65f0
@@ -5988,7 +5996,7 @@ void InterfaceTextEditAccess::TextEditMenu_Update()
     if ((unsigned char)GetByteAtOffset33((char*)this + 0x34))
     {
         ToggleFlagOnInterval((char*)this + 0x34);
-        ::ProcessState_007e6700(this);
+        ::TextEditMenu_UpdateDisplayText(this);
     }
 }
 
@@ -6078,7 +6086,7 @@ struct M788
 struct ATM
 {
     void QueryPerformanceCounter(int);
-    void WaitForTasksDuringRendering();
+    void BSCriticalSection_Leave();
 };
 struct GlobalObject_0048f200 : M788
 {
@@ -6092,7 +6100,7 @@ void QueueRenderedMenuDelete(void* p)
 {
     g_011d8c18.QueryPerformanceCounter(0);
     g_011d8b2c.NiTPointerListBase_NiTPointerAllocator_unsigned_int_BSMultiBoundRoom_AddTail(&p);
-    g_011d8c18.WaitForTasksDuringRendering();
+    g_011d8c18.BSCriticalSection_Leave();
 }
 }  // namespace fnv_007182b0
 
@@ -6179,7 +6187,7 @@ struct InterfaceAudioForwardAccess : BSAudio
 };
 void __fastcall BSAudio_UnPauseAnimationSounds(BSAudioManager*);
 bool __fastcall InterfaceManager_IsDebugTextVisible(void*);
-void __fastcall UpdateNodeTimers(InterfaceManager*);
+void __fastcall InterfaceManager_UpdateAllTimers(InterfaceManager*);
 struct FUN_0070b8f0_shell
 {
     unsigned int unk00;
@@ -6258,7 +6266,7 @@ void FUN_0070b8f0_shell::UpdateStartMenuState()
     AutoMemHelper autoMem(0xd, true, "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout\\Interface\\InterfaceManager.cpp",
                           0x33a);
     InputManager* pInputManager = g_osGlobals->Main_GetControls();
-    UpdateNodeTimers((InterfaceManager*)this);
+    InterfaceManager_UpdateAllTimers((InterfaceManager*)this);
     if (m_uiContentCount == 3 && !m_11)
     {
         ((FUN_00a237b0_cls*)pInputManager)->Controls_ClearKeystrokes();
@@ -7269,7 +7277,7 @@ struct BoundObj
 {
     unsigned char FUN_00509450(int);
     void FUN_00509920(float*, unsigned int, float);
-    float GetFurnitureHeading(int);
+    float TESFurniture_GetMarkerHeadingOffset(int);
 };
 struct CellA
 {
@@ -7465,11 +7473,12 @@ struct FUN_00710ad0_shell
     char padde[0x12];
     Refr* m_pReference;
     void FUN_00714d70(int);
-    void DrawDebugInfo();
+    void InterfaceManager_DisplayCurrentPickRef();
 };
 // Draws debug text lines for the selected reference (name, script, furniture, owner, count, markers, lock, teleport, action flags) and clears remaining lines.
 // @fnv 0x00710ad0
-void FUN_00710ad0_shell::DrawDebugInfo()
+// src: COMMUNITY 0x00710ad0
+void FUN_00710ad0_shell::InterfaceManager_DisplayCurrentPickRef()
 {
     static const char kStr0[] = "\"%s\" (%08x)";
     static const char kStr1[] = "Script name '%s' (%08x)";
@@ -7605,7 +7614,7 @@ void FUN_00710ad0_shell::DrawDebugInfo()
                     {
                         cy->FUN_00509920(dr, co.FUN_005094b0(), DAT_011dea3c->TESObjectREFR_GetScale_00567400());
                         BSStringT_char_SPrintF(&aai, kStr8, FUN_00509510(dn) ? kStr9 : kStr10, dn, (double)dr[0], (double)dr[1],
-                                     (double)dr[2], (int)(cy->GetFurnitureHeading(dn) * DAT_0102f248),
+                                     (double)dr[2], (int)(cy->TESFurniture_GetMarkerHeadingOffset(dn) * DAT_0102f248),
                                      m_pReference->TESObjectREFR_GetMarkerUsed(ce, 1) ? kStr11 : kStr12);
                         DebugText_Instance(true)->Print(aai.Modelloader_GetReferencedThis(), DAT_0103a1c4, (float)lineH, 2, -1,
                                                          DAT_01012054, 0, 0);
@@ -7921,19 +7930,19 @@ struct FUN_00717230_bsobj
 
 FUN_00717230_bsobj* __stdcall FUN_005bd5b0(float* out, int arg, void* holder, float scale, int zero);
 
-class FUN_00717230_cls
+class EditableTextField
 {
   public:
     char unk00[0x14];
     int m_14;
     void* m_18;
 
-    unsigned char EvaluateValue_00717230(int arg);
+    unsigned char DoesTextFit(int arg);
 };
 
 // @fnv 0x00717230
-// src: GUESS 0x00717230 (confidence: low)
-unsigned char FUN_00717230_cls::EvaluateValue_00717230(int arg)
+// src: GUESS 0x00717230 (confidence: medium)
+unsigned char EditableTextField::DoesTextFit(int arg)
 {
     struct
     {
@@ -7993,7 +8002,7 @@ struct FUN_00719340_value_obj
     int* GetValuePtr();
 };
 
-struct FUN_00719340_cls
+struct SoftSystemColor
 {
     char unk00[0x0c];
     FUN_00719340_value_obj* m_pValueObj;
@@ -8001,7 +8010,7 @@ struct FUN_00719340_cls
 };
 
 // @fnv 0x00719340
-void FUN_00719340_cls::SetValue(int value)
+void SoftSystemColor::SetValue(int value)
 {
     *m_pValueObj->GetValuePtr() = value;
 }
@@ -8066,13 +8075,13 @@ struct FUN_007e6700_Class
     char padding38[0x58 - 0x38];
     FUN_007e6700_Callback callback;
 
-    void __thiscall ProcessState_007e6700();
+    void __thiscall TextEditMenu_UpdateDisplayText();
 };
 
 // Calls object28 with 0xFC4 and a helper result, then if callback is set calls object2C with 0xFAF and the callback's result.
 // @fnv 0x007e6700
-// src: GUESS 0x007e6700 (confidence: low)
-void __thiscall FUN_007e6700_Class::ProcessState_007e6700()
+// src: GUESS 0x007e6700 (confidence: medium)
+void __thiscall FUN_007e6700_Class::TextEditMenu_UpdateDisplayText()
 {
     object28->Set(0xFC4, (const char*)helper.GetDisplayText(1));
 
@@ -9739,7 +9748,7 @@ void AlphaInterface::SetNodeAlpha(AlphaNode* node, float value, float inheritedA
     float scale = inheritedAlpha;
     if (current)
     {
-        if (current->IsTraitNonZero(4011))
+        if (current->Tile_IsTrue(4011))
         {
             if (std::abs(value) < 1.0)
                 current->FUN_00700320(4003, false);
@@ -9792,11 +9801,12 @@ struct FUN_007151b0_shell
     char pad7e[0xed - 0x7e];
     bool m_bDecalsEnabled;
     char InterfaceManager_GetMenuMode();
-    __declspec(dllexport) inline void UpdateTilePosition(float afX, float afY);
+    __declspec(dllexport) inline void InterfaceManager_SetCursorPos(float afX, float afY);
 };
 
 // @fnv 0x007151b0
-__declspec(dllexport) inline void FUN_007151b0_shell::UpdateTilePosition(float afX, float afY)
+// src: COMMUNITY 0x007151b0
+__declspec(dllexport) inline void FUN_007151b0_shell::InterfaceManager_SetCursorPos(float afX, float afY)
 {
     static NiPoint3 kLast;
 
@@ -10130,7 +10140,7 @@ Tile* InterfaceManager::ScanForMaxFocus(int* priority, Tile* tile)
                 tile->GetMenu()->GetVisibilityState() != 8)
                 return 0;
         }
-        if (!tile->IsTraitNonZero(0xfa3))
+        if (!tile->Tile_IsTrue(0xfa3))
             return 0;
         childPos = ((InterfaceFocusChildListAccess*)&tile->m_kChildTileList)->GetHeadPos();
         while (childPos)
@@ -10157,7 +10167,7 @@ Tile* InterfaceManager::ScanForMaxFocus(int* priority, Tile* tile)
                 }
             }
         }
-        if (tile->IsTraitNonZero(0xfaf) && tile->IsTraitNonZero(0xfa3))
+        if (tile->Tile_IsTrue(0xfaf) && tile->Tile_IsTrue(0xfa3))
         {
             InterfaceTraitFloatAccess* value = (InterfaceTraitFloatAccess*)tile->GetValue(0xfd6);
             if (value)
@@ -11705,7 +11715,7 @@ Tile* IMView::InterfaceManager_PickMenus(bool bAny)
             {
                 if (!InterfaceManager_TileIsAcceptingEvents(pkTileTmp))
                     continue;
-                if (pkTileTmp->IsTraitNonZero(0xfae) && pkTileTmp->GetModel_0056c7f0())
+                if (pkTileTmp->Tile_IsTrue(0xfae) && pkTileTmp->GetModel_0056c7f0())
                 {
                     bool bScaled = ((InterfacePickMenuAccess*)pkTileTmp)->GetMenuValueView(0xfaa)->FUN_00726070()->FUN_00a011b0() == 112.0f ? 1 : 0;
                     ((PickNode*)pkTileTmp->GetModel_0056c7f0())->NiNode_CompactChildArray();
@@ -11741,7 +11751,7 @@ Tile* IMView::InterfaceManager_PickMenus(bool bAny)
             }
             if (pkTileTmp && !pkTileTmp->Unk_05(fX, fYFinal))
                 continue;
-            if (pkTileTmp && pkTileTmp->IsTraitNonZero(0xfaf))
+            if (pkTileTmp && pkTileTmp->Tile_IsTrue(0xfaf))
             {
                 if (!bAny && !((InterfaceFocusTraitAccess*)pkTileTmp)->FindTraitValue(0xfaa))
                 {
@@ -11870,7 +11880,7 @@ struct TextInputField
     int BSStringT_char_Length();
     const char* Modelloader_GetReferencedThis();
     void FUN_00438390(const char* text);
-    bool EvaluateValue_00717230(const char* text);
+    bool DoesTextFit(const char* text);
     void TextEditMenu_Data_HandleKey(int key);
 };
 
@@ -11981,7 +11991,7 @@ void TextInputField::TextEditMenu_Data_HandleKey(int key)
             abuf[iM] = abuf[iM - 1];
         abuf[iM] = (char)key;
         abuf[len + 1] = 0;
-        if (iMaxWidth == -1 || EvaluateValue_00717230(abuf))
+        if (iMaxWidth == -1 || DoesTextFit(abuf))
         {
             len++;
             iCursor++;
@@ -12254,7 +12264,7 @@ namespace fnv_007118d0 {
 
 struct InputMgrX
 {
-    int GetAxisState(int a, int b);
+    int OSInputGlobals_GetControllerValue(int a, int b);
     int Controls_GetMouseAxis(int a);
     float GetSettingValue();
     float GetGlobalFloat();
@@ -12381,8 +12391,8 @@ void CursorX::InterfaceManager_UpdateCursor()
         int iY = 0;
         if (InterfaceManager_Has360Controller() && !b7d)
         {
-            iX = pInput2->GetAxisState(0, 7);
-            iY = pInput2->GetAxisState(0, 8);
+            iX = pInput2->OSInputGlobals_GetControllerValue(0, 7);
+            iY = pInput2->OSInputGlobals_GetControllerValue(0, 8);
             iX = (int)(iX * *DAT_011d8c5c.Setting_Float_00403e20());
             iY = (int)(-(float)iY * *DAT_011d8c5c.Setting_Float_00403e20());
         }

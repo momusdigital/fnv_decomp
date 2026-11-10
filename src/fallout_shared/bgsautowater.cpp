@@ -186,7 +186,7 @@ struct FUN_00a69990
 {
     float x, y, z, w;
     FUN_00a69990(const MeshPoint&, const MeshPoint&);
-    int ClassifyPoint(const MeshPoint*);
+    int NiPlane_WhichSide(const MeshPoint*);
 };
 struct FUN_0049f1c0
 {
@@ -394,7 +394,7 @@ void BuildMeshBoundaryGeometry(MeshInput* pMeshInput)
                     }
                     if (_bound == 9)
                     {
-                        if (_created.ClassifyPoint(&_cross) == 2)
+                        if (_created.NiPlane_WhichSide(&_cross) == 2)
                         {
                             _cross.z = height;
                             if (!_list1.GetElementAddress16(0).ContainsPlane(_cross))
@@ -405,7 +405,7 @@ void BuildMeshBoundaryGeometry(MeshInput* pMeshInput)
                     }
                     else if (_bound == 10)
                     {
-                        if (_created.ClassifyPoint(&_cross) == 2)
+                        if (_created.NiPlane_WhichSide(&_cross) == 2)
                         {
                             _cross.z = height;
                             if (!_list1.GetElementAddress16(1).ContainsPlane(_cross))
@@ -416,7 +416,7 @@ void BuildMeshBoundaryGeometry(MeshInput* pMeshInput)
                     }
                     else if (_bound == 5)
                     {
-                        if (_created.ClassifyPoint(&_cross) == 2)
+                        if (_created.NiPlane_WhichSide(&_cross) == 2)
                         {
                             _cross.z = height;
                             if (!_list1.GetElementAddress16(0).ContainsPlane(_cross))
@@ -427,7 +427,7 @@ void BuildMeshBoundaryGeometry(MeshInput* pMeshInput)
                     }
                     else if (_bound == 6)
                     {
-                        if (_created.ClassifyPoint(&_cross) == 2)
+                        if (_created.NiPlane_WhichSide(&_cross) == 2)
                         {
                             _cross.z = height;
                             if (!_list1.GetElementAddress16(1).ContainsPlane(_cross))
@@ -438,7 +438,7 @@ void BuildMeshBoundaryGeometry(MeshInput* pMeshInput)
                     }
                     if (aCount2 == 9)
                     {
-                        if (_created.ClassifyPoint(&_delta) == 2)
+                        if (_created.NiPlane_WhichSide(&_delta) == 2)
                         {
                             _delta.z = height;
                             if (!_list1.GetElementAddress16(0).ContainsPlane(_delta))
@@ -449,7 +449,7 @@ void BuildMeshBoundaryGeometry(MeshInput* pMeshInput)
                     }
                     else if (aCount2 == 10)
                     {
-                        if (_created.ClassifyPoint(&_delta) == 2)
+                        if (_created.NiPlane_WhichSide(&_delta) == 2)
                         {
                             _delta.z = height;
                             if (!_list1.GetElementAddress16(1).ContainsPlane(_delta))
@@ -460,7 +460,7 @@ void BuildMeshBoundaryGeometry(MeshInput* pMeshInput)
                     }
                     else if (aCount2 == 5)
                     {
-                        if (_created.ClassifyPoint(&_delta) == 2)
+                        if (_created.NiPlane_WhichSide(&_delta) == 2)
                         {
                             _delta.z = height;
                             if (!_list1.GetElementAddress16(0).ContainsPlane(_delta))
@@ -471,7 +471,7 @@ void BuildMeshBoundaryGeometry(MeshInput* pMeshInput)
                     }
                     else if (aCount2 == 6)
                     {
-                        if (_created.ClassifyPoint(&_delta) == 2)
+                        if (_created.NiPlane_WhichSide(&_delta) == 2)
                         {
                             _delta.z = height;
                             if (!_list1.GetElementAddress16(1).ContainsPlane(_delta))
@@ -482,7 +482,7 @@ void BuildMeshBoundaryGeometry(MeshInput* pMeshInput)
                     }
                     if (_current == 9)
                     {
-                        if (_created.ClassifyPoint(&_point) == 2)
+                        if (_created.NiPlane_WhichSide(&_point) == 2)
                         {
                             _point.z = height;
                             if (!_list1.GetElementAddress16(0).ContainsPlane(_point))
@@ -493,7 +493,7 @@ void BuildMeshBoundaryGeometry(MeshInput* pMeshInput)
                     }
                     else if (_current == 10)
                     {
-                        if (_created.ClassifyPoint(&_point) == 2)
+                        if (_created.NiPlane_WhichSide(&_point) == 2)
                         {
                             _point.z = height;
                             if (!_list1.GetElementAddress16(1).ContainsPlane(_point))
@@ -504,7 +504,7 @@ void BuildMeshBoundaryGeometry(MeshInput* pMeshInput)
                     }
                     else if (_current == 5)
                     {
-                        if (_created.ClassifyPoint(&_point) == 2)
+                        if (_created.NiPlane_WhichSide(&_point) == 2)
                         {
                             _point.z = height;
                             if (!_list1.GetElementAddress16(0).ContainsPlane(_point))
@@ -515,7 +515,7 @@ void BuildMeshBoundaryGeometry(MeshInput* pMeshInput)
                     }
                     else if (_current == 6)
                     {
-                        if (_created.ClassifyPoint(&_point) == 2)
+                        if (_created.NiPlane_WhichSide(&_point) == 2)
                         {
                             _point.z = height;
                             if (!_list1.GetElementAddress16(1).ContainsPlane(_point))

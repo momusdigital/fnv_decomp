@@ -140,14 +140,14 @@ struct FUN_0060f3a0_node
     bool _ref_008256d0();
     void _ref_0063f7b0();
 };
-struct FUN_0060f3a0_shell
+struct TESQuestStage
 {
     FUN_0060f3a0_node* GetPosition();
-    void ProcessEntries_0060f3a0();
+    void ClearItems();
 };
 // @fnv 0x0060f3a0
-// src: GUESS 0x0060f3a0 (confidence: low)
-void FUN_0060f3a0_shell::ProcessEntries_0060f3a0()
+// src: GUESS 0x0060f3a0 (confidence: medium)
+void TESQuestStage::ClearItems()
 {
     FUN_0060f3a0_node* node = GetPosition();
     while (node && !node->_ref_008256d0())
@@ -214,11 +214,12 @@ struct FUN_006138b0_node
 struct FUN_006138b0_shell
 {
     FUN_006138b0_node* GetBGSRecipeCategoryList();
-    TESForm* FindRecipeCategoryById(int id);
+    TESForm* TESRace_GetRaceEyeColor(int id);
 };
 // Walks the recipe category list and returns the item whose referenced id equals id, or null if none matches.
 // @fnv 0x006138b0
-TESForm* FUN_006138b0_shell::FindRecipeCategoryById(int id)
+// src: COMMUNITY 0x006138b0
+TESForm* FUN_006138b0_shell::TESRace_GetRaceEyeColor(int id)
 {
     FUN_006138b0_node* node = GetBGSRecipeCategoryList();
     while (node && *node->_ref_006815c0())
@@ -237,17 +238,17 @@ struct SoundListView
 };
 struct FUN_00613910_shell
 {
-    int FindRecipeCategoryById(int);
+    int TESRace_GetRaceEyeColor(int);
     void TESRace_AddEyeColor(char* item);
 };
 SoundListView* __fastcall GetBackTexture(FUN_00613910_shell*);
 
-// Adds item to the list returned by FUN_00503650 unless item is null or FindRecipeCategoryById on its FUN_0084e3a0 result is nonzero.
+// Adds item to the list returned by FUN_00503650 unless item is null or TESRace_GetRaceEyeColor on its FUN_0084e3a0 result is nonzero.
 // @fnv 0x00613910
 // src: COMMUNITY 0x00613910
 void FUN_00613910_shell::TESRace_AddEyeColor(char* item)
 {
-    if (item == 0 || FindRecipeCategoryById(((TESForm*)item)->GetHavokWorldObjectCountInSceneGraph_0084e3a0()))
+    if (item == 0 || TESRace_GetRaceEyeColor(((TESForm*)item)->GetHavokWorldObjectCountInSceneGraph_0084e3a0()))
         return;
     GetBackTexture(this)->AddTail(item);
 }
@@ -260,16 +261,17 @@ struct FUN_006234b0
     ~FUN_006234b0();
     virtual void Run();
 };
-struct FUN_00623430 : FUN_006234b0
+struct FOCollisionListener : FUN_006234b0
 {
     SL list;
-    FUN_00623430();
+    FOCollisionListener();
     virtual void Run();
 };
-extern FUN_00623430* DAT_011cc224;
+extern FOCollisionListener* DAT_011cc224;
 // Sets DAT_011cc224 to this and clears the list by calling RemoveAll.
 // @fnv 0x00623430
-FUN_00623430::FUN_00623430()
+// src: EXE 0x00623430
+FOCollisionListener::FOCollisionListener()
 {
     DAT_011cc224 = this;
     list.RemoveAll();
@@ -336,16 +338,17 @@ struct FUN_0083e110_node
     int** _ref_006815c0();
     FUN_0083e110_node* FUN_00726070();
 };
-struct FUN_0083e110_shell
+struct MenuTopic
 {
     char pad[0x20];
     FUN_0083e110_node* cur;
-    bool AdvanceAndCheckNode();
+    bool MenuTopic_NextResponse();
 };
 
 // Advances cur to cur->FUN_00726070() when set, then returns whether cur is non-null and its referenced value is non-zero.
 // @fnv 0x0083e110
-bool FUN_0083e110_shell::AdvanceAndCheckNode()
+// src: COMMUNITY 0x0083e110
+bool MenuTopic::MenuTopic_NextResponse()
 {
     if (cur)
         cur = cur->FUN_00726070();
@@ -444,14 +447,14 @@ struct FUN_00964100_node
     FUN_00964100_item** _ref_006815c0();
     FUN_00964100_node* FUN_00726070();
 };
-struct FUN_00964100_shell
+struct PlayerCharacter
 {
     FUN_00964100_item* PlayerCharacter_GetPlayerAction(int id);
 };
 // Walks the node list starting at this+0x60c and returns the first item whose id matches, or null if none is found.
 // @fnv 0x00964100
 // src: XBOX_PDB 0x00964100
-FUN_00964100_item* FUN_00964100_shell::PlayerCharacter_GetPlayerAction(int id)
+FUN_00964100_item* PlayerCharacter::PlayerCharacter_GetPlayerAction(int id)
 {
     FUN_00964100_item* item = 0;
     if (!*(FUN_00964100_node**)((char*)this + 0x60c))
@@ -667,7 +670,7 @@ struct Standin_ListBase
     Standin_ListBase* FUN_00726070();
 };
 
-struct FUN_007d8040_shell : public Standin_ListBase
+struct ListBox : public Standin_ListBase
 {
     virtual void Dummy();
     bool RemoveItemNode(Standin_ListBase* cur, Standin_ListBase* prev);
@@ -676,7 +679,7 @@ struct FUN_007d8040_shell : public Standin_ListBase
 
 // Searches the list for the node whose item key equals param1 and removes it via RemoveItemNode, returning false if param1 is null or the list is empty.
 // @fnv 0x007d8040
-bool FUN_007d8040_shell::RemoveByKey(void* pKey)
+bool ListBox::RemoveByKey(void* pKey)
 {
     if (!pKey || _ref_008256d0())
         return false;
@@ -1132,12 +1135,13 @@ struct FUN_00591a40_class
     int unk24;
     FUN_005ae380_node m_kNode;
     int m_lastIndex;
-    void* GetRandomItem();
+    void* BGSMusicType_GetRandomEntry();
 };
 
 // Returns a random item from the list, avoiding repeating the last index, or falls back to m_fallback when the list is empty or the pick is null.
 // @fnv 0x00591a40
-void* FUN_00591a40_class::GetRandomItem()
+// src: COMMUNITY 0x00591a40
+void* FUN_00591a40_class::BGSMusicType_GetRandomEntry()
 {
     int count = m_kNode.FUN_005ae380();
     if (m_kNode.IsEmpty() && count == 0)

@@ -1963,8 +1963,8 @@ struct RingBuilder
     void CIndexedGeometry_AddVertexTexCoord0(const RingUV* uv, int index);
     void UpdateState_00b305f0(const RingPoint* point);
     void UpdateFields_00b30660(const float* point);
-    void UpdateFields_00b300c0(const PlainPoint* point);
-    void UpdateFields_00b30020(const RingColor* color);
+    void CIndexedGeometry_AddVertexCoord(const PlainPoint* point);
+    void AddColor(const RingColor* color);
     void AppendInvertedValueAndDispatchIndex(float value, bool flag);
     bool isEnabled() const
     {
@@ -2049,8 +2049,8 @@ void RingOwner::ProcessEntries_00b14450(RingGeometry* geometry, float amount, fl
             direction3 = kIntersectionOffset;
             FUN_00ec44d0(&kPosition, &delta4, sizeof(kPosition));
         }
-        builder->UpdateFields_00b300c0(&kPosition);
-        builder->UpdateFields_00b30020(&color);
+        builder->CIndexedGeometry_AddVertexCoord(&kPosition);
+        builder->AddColor(&color);
         if (builder->isEnabled())
             builder->AppendInvertedValueAndDispatchIndex(value, flag);
         ++builder->count;

@@ -202,11 +202,12 @@ struct FUN_00d5a4e0_StandIn : public FUN_00d5a4e0_Base {
     unsigned char m_auiShapeKeys[4];
     unsigned short m_iElementCount;
 
-    FUN_00d5a4e0_StandIn* FUN_00d5a4e0(unsigned char deleting);
+    FUN_00d5a4e0_StandIn* ScalarDeletingDestructor(unsigned char deleting);
 };
 
 // @fnv 0x00d5a4e0
-FUN_00d5a4e0_StandIn* FUN_00d5a4e0_StandIn::FUN_00d5a4e0(unsigned char deleting) {
+// src: EXE 0x00d5a4e0
+FUN_00d5a4e0_StandIn* FUN_00d5a4e0_StandIn::ScalarDeletingDestructor(unsigned char deleting) {
     this->FUN_00d59870();
 
     if (deleting & 1) {

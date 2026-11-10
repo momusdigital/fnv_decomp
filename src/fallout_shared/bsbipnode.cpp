@@ -82,13 +82,13 @@ void FUN_004f00e0_shell::NiAVObject_SetWorldTranslate(void* kTrn)
 
 extern int DAT_011f36bc;
 extern int g_011f36e4;
-struct FUN_004f0040_shell
+struct BSBipNode
 {
     void UpdateControls(float afTime);
 };
 
 // @fnv 0x004f0040
-void FUN_004f0040_shell::UpdateControls(float afTime)
+void BSBipNode::UpdateControls(float afTime)
 {
     NiTimeController* pkControl;
     for (pkControl = ((NiObjectNET*)this)->GetControllers(); pkControl; pkControl = pkControl->GetNext())

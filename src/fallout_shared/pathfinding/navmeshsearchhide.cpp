@@ -131,7 +131,7 @@ bool NavMeshSearchHide::ExpandNeighbors(NavSearchNodeInfo* pkInfo, NavSearchNode
                         bool bResultZ;
                         if (!kCheck_2.FUN_00502450(pSource_2, pForm2, &bResultZ))
                             continue;
-                        if (static_cast<TESObjectDOOR*>(static_cast<TESObjectREFR*>(pForm2)->GetObjectReference())->IsTeleportDoor())
+                        if (static_cast<TESObjectDOOR*>(static_cast<TESObjectREFR*>(pForm2)->GetObjectReference())->IsMinimalUse())
                             fMultY = 100.0f;
                     }
                 }

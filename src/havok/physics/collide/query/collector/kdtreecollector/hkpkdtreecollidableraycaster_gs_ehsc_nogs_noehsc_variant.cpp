@@ -106,24 +106,24 @@ struct SpawnedBase
     virtual ~SpawnedBase()
     {}
 };
-struct FUN_00d979f0_cls : SpawnedBase
+struct hkKdTreeCollidableRayBundleCaster : SpawnedBase
 {
     int m_i04;
     int m_i08;
     int m_i0C;
     int m_i10;
 
-    FUN_00d979f0_cls* ResetFields() throw();
+    hkKdTreeCollidableRayBundleCaster* ResetFields() throw();
 };
 // Scalar deleting destructor of a small polymorphic Havok helper with an empty destructor.
 void __cdecl operator delete(void* pvMem);
-class FUN_00d979a0
+class hkKdTreeBundleCastCollector
 {
 // @fnv 0x00d979a0
   public:
-    FUN_00d979a0()
+    hkKdTreeBundleCastCollector()
     {}
-    virtual ~FUN_00d979a0()
+    virtual ~hkKdTreeBundleCastCollector()
     {}
 
     static void* operator new(unsigned int, void* p)
@@ -137,7 +137,7 @@ class FUN_00d979a0
 };
 void* D979A0Make(void* pvMem)
 {
-    return new (pvMem) FUN_00d979a0;
+    return new (pvMem) hkKdTreeBundleCastCollector;
 }
 extern "C" unsigned __int64 __rdtsc(void);
 extern "C" void _ReadWriteBarrier(void);

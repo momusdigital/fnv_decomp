@@ -702,16 +702,16 @@ struct FaceGenArrayIndex
 {
     int value;
 };
-void __fastcall SetFaceGenArrayElement(BSFaceGenKeyframeMultiple*, FaceGenArrayIndex, float);
+void __fastcall BSFaceGenKeyframeMultiple_SetQuantityNoTest(BSFaceGenKeyframeMultiple*, FaceGenArrayIndex, float);
 
 // If the modifier index is below 0x11, forwards the index and value to the object at offset 0x38.
 // @fnv 0x00649c10
-// src: GUESS 0x00649c10 (confidence: medium)
-void BSFaceGenAnimationData::SetModifierKeyframeValue(BS_FACEGEN_MODIFIER aeModifier, float afValue)
+// src: COMMUNITY 0x00649c10
+void BSFaceGenAnimationData::SetAnimModifierValue(BS_FACEGEN_MODIFIER aeModifier, float afValue)
 {
     if (aeModifier.m < 0x11)
     {
-        SetFaceGenArrayElement(reinterpret_cast<BSFaceGenKeyframeMultiple*>(reinterpret_cast<char*>(this) + 0x38), *reinterpret_cast<FaceGenArrayIndex*>(&aeModifier.m), afValue);
+        BSFaceGenKeyframeMultiple_SetQuantityNoTest(reinterpret_cast<BSFaceGenKeyframeMultiple*>(reinterpret_cast<char*>(this) + 0x38), *reinterpret_cast<FaceGenArrayIndex*>(&aeModifier.m), afValue);
     }
 }
 
@@ -721,7 +721,7 @@ void BSFaceGenAnimationData::SetModifierKeyframeValue(BS_FACEGEN_MODIFIER aeModi
 void BSFaceGenAnimationData::SetExpressionValue(int aeExpression, float afValue)
 {
     if (aeExpression < 15)
-        SetFaceGenArrayElement(&kf10, *reinterpret_cast<FaceGenArrayIndex*>(&aeExpression), afValue);
+        BSFaceGenKeyframeMultiple_SetQuantityNoTest(&kf10, *reinterpret_cast<FaceGenArrayIndex*>(&aeExpression), afValue);
 }
 
 // Forwards aeModifier and afValue to the SetArrayElement handler at offset 0x94 when aeModifier is below 0x11.
@@ -730,7 +730,7 @@ void BSFaceGenAnimationData::SetExpressionValue(int aeExpression, float afValue)
 void BSFaceGenAnimationData::SetModifierValue(int aeModifier, float afValue)
 {
     if (aeModifier < 0x11)
-        SetFaceGenArrayElement(reinterpret_cast<BSFaceGenKeyframeMultiple*>(reinterpret_cast<char*>(this) + 0x94), *reinterpret_cast<FaceGenArrayIndex*>(&aeModifier), afValue);
+        BSFaceGenKeyframeMultiple_SetQuantityNoTest(reinterpret_cast<BSFaceGenKeyframeMultiple*>(reinterpret_cast<char*>(this) + 0x94), *reinterpret_cast<FaceGenArrayIndex*>(&aeModifier), afValue);
 }
 
 // If aePhoneme is below 0x10, forwards aePhoneme and afValue to m.SetArrayElement.
@@ -740,7 +740,7 @@ void BSFaceGenAnimationData::SetPhonemeValue(int aePhoneme, float afValue)
 {
     if (aePhoneme < 0x10)
     {
-        SetFaceGenArrayElement(&kfc8, *reinterpret_cast<FaceGenArrayIndex*>(&aePhoneme), afValue);
+        BSFaceGenKeyframeMultiple_SetQuantityNoTest(&kfc8, *reinterpret_cast<FaceGenArrayIndex*>(&aePhoneme), afValue);
     }
 }
 
@@ -751,36 +751,36 @@ void BSFaceGenAnimationData::SetPhonemeValue(int aePhoneme, float afValue)
 void BSFaceGenAnimationData::SetCustomMorphValue(BS_FACEGEN_CUSTOM_MORPH aeCustomMorph, float afValue)
 {
     if (aeCustomMorph < 1)
-        SetFaceGenArrayElement(reinterpret_cast<BSFaceGenKeyframeMultiple*>(reinterpret_cast<char*>(this) + 0xfc), *reinterpret_cast<FaceGenArrayIndex*>(&aeCustomMorph), afValue);
+        BSFaceGenKeyframeMultiple_SetQuantityNoTest(reinterpret_cast<BSFaceGenKeyframeMultiple*>(reinterpret_cast<char*>(this) + 0xfc), *reinterpret_cast<FaceGenArrayIndex*>(&aeCustomMorph), afValue);
 }
 
 // If aeExpression is below 15, forwards aeExpression and afValue to SetArrayElement on the member object.
 // @fnv 0x00649be0
-// src: GUESS 0x00649be0 (confidence: medium)
-void BSFaceGenAnimationData::SetExpressionValue_00649be0(int aeExpression, float afValue)
+// src: COMMUNITY 0x00649be0
+void BSFaceGenAnimationData::SetAnimExpressionValue(int aeExpression, float afValue)
 {
     if (aeExpression < 15)
-        SetFaceGenArrayElement(&kf24, *reinterpret_cast<FaceGenArrayIndex*>(&aeExpression), afValue);
+        BSFaceGenKeyframeMultiple_SetQuantityNoTest(&kf24, *reinterpret_cast<FaceGenArrayIndex*>(&aeExpression), afValue);
 }
 
 // If aePhoneme is below 0x10, forwards the phoneme index and value to the SetArrayElement object at offset 0x4C.
 // @fnv 0x00649c40
-// src: GUESS 0x00649c40 (confidence: medium)
-void BSFaceGenAnimationData::SetPhonemeValue_00649c40(int aePhoneme, float afValue)
+// src: COMMUNITY 0x00649c40
+void BSFaceGenAnimationData::SetAnimPhonemeValue(int aePhoneme, float afValue)
 {
     if (aePhoneme < 0x10)
     {
-        SetFaceGenArrayElement(reinterpret_cast<BSFaceGenKeyframeMultiple*>(reinterpret_cast<char*>(this) + 0x4C), *reinterpret_cast<FaceGenArrayIndex*>(&aePhoneme), afValue);
+        BSFaceGenKeyframeMultiple_SetQuantityNoTest(reinterpret_cast<BSFaceGenKeyframeMultiple*>(reinterpret_cast<char*>(this) + 0x4C), *reinterpret_cast<FaceGenArrayIndex*>(&aePhoneme), afValue);
     }
 }
 
 // If aeCustomMorph is less than 1, forwards aeCustomMorph and afValue to m.SetArrayElement.
 // @fnv 0x00649c70
-// src: GUESS 0x00649c70 (confidence: medium)
-void BSFaceGenAnimationData::SetCustomMorphKeyframeValue(int aeCustomMorph, float afValue)
+// src: COMMUNITY 0x00649c70
+void BSFaceGenAnimationData::SetAnimCustomMorphValue(int aeCustomMorph, float afValue)
 {
     if (aeCustomMorph < 1)
-        SetFaceGenArrayElement(&kf60, *reinterpret_cast<FaceGenArrayIndex*>(&aeCustomMorph), afValue);
+        BSFaceGenKeyframeMultiple_SetQuantityNoTest(&kf60, *reinterpret_cast<FaceGenArrayIndex*>(&aeCustomMorph), afValue);
 }
 
 void __cdecl _delete(void*, unsigned int);
@@ -813,7 +813,8 @@ const NiRTTI* BSFaceGenAnimationData::GetRTTI() const
 }
 
 // @fnv 0x00649a50
-void __fastcall SetFaceGenArrayElement(BSFaceGenKeyframeMultiple* frame, FaceGenArrayIndex aiIndex, float afValue)
+// src: COMMUNITY 0x00649a50
+void __fastcall BSFaceGenKeyframeMultiple_SetQuantityNoTest(BSFaceGenKeyframeMultiple* frame, FaceGenArrayIndex aiIndex, float afValue)
 {
     frame->m_pfFaceGenValues[aiIndex.value] = afValue;
 }
@@ -1047,12 +1048,13 @@ class BSFaceGenEyeData
     int unk13c;
     float eyeHeading;
     float eyePitch;
-    void SetEyeHeadingAndPitch(float heading, float pitch);
+    void BSFaceGenAnimationData_SetEyePosition(float heading, float pitch);
 };
 
 // Clamps heading and pitch to the eye limits, writes the normalized values into modifier slots 8-11, and stores eyeHeading and eyePitch.
 // @fnv 0x0064c410
-void BSFaceGenEyeData::SetEyeHeadingAndPitch(float heading, float pitch)
+// src: COMMUNITY 0x0064c410
+void BSFaceGenEyeData::BSFaceGenAnimationData_SetEyePosition(float heading, float pitch)
 {
     float maxPitch6;
     float maxHeading9;

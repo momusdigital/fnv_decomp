@@ -50,7 +50,8 @@ void BGSNote::ResetFormData()
 
 // Returns the note's TESDescription when GetNoteType reports 1, otherwise returns null.
 // @fnv 0x005e91d0
-TESDescription* BGSNote::GetNoteDescription()
+// src: COMMUNITY 0x005e91d0
+TESDescription* BGSNote::GetNoteText()
 {
     if (GetNoteType() == 1)
         return (TESDescription*)m_pText;
@@ -66,7 +67,8 @@ BGSNote::BGSNote()
 
 // If type differs from cType, deletes the current TESDescription or TESTexture, stores the new type, and allocates the matching object.
 // @fnv 0x005e8f90
-void BGSNote::ChangeNoteType(NOTE_TYPE type)
+// src: COMMUNITY 0x005e8f90
+void BGSNote::SetNoteType(NOTE_TYPE type)
 {
     if (type != cType)
     {
@@ -209,7 +211,7 @@ bool BGSNote::Load(TESFile* file)
         case 0x41544144: {
             unsigned char type = 0;
             file->GetChunkData(&type, 1);
-            ChangeNoteType((NOTE_TYPE)type);
+            SetNoteType((NOTE_TYPE)type);
             break;
         }
         case 0x4d414e4f: {
@@ -224,8 +226,8 @@ bool BGSNote::Load(TESFile* file)
             {
                 char* name = (char*)_alloca(size);
                 file->GetChunkData(name, size);
-                if (GetNoteTexture())
-                    GetNoteTexture()->AssignTextureName(name);
+                if (GetNoteImage())
+                    GetNoteImage()->AssignTextureName(name);
             }
             break;
         }
@@ -243,7 +245,7 @@ bool BGSNote::Load(TESFile* file)
             case 1:
                 if (chunk == 0x4d414e54)
                 {
-                    TESDescription* description = GetNoteDescription();
+                    TESDescription* description = GetNoteText();
                     if (description)
                         TESDescription::ReadDescriptionFromFile(description, file);
                 }
@@ -251,7 +253,7 @@ bool BGSNote::Load(TESFile* file)
             case 2:
                 if (IsChunkTypeIcon(chunk))
                 {
-                    TESTexture* texture = GetNoteTexture();
+                    TESTexture* texture = GetNoteImage();
                     if (texture)
                         TESTexture::ReadTextureData(texture, file);
                 }
@@ -298,7 +300,8 @@ TESSound* BGSNote::GetNoteSound()
 
 // Returns the note texture if the note type is NT_IMAGE, otherwise returns null.
 // @fnv 0x005e9160
-TESTexture* BGSNote::GetNoteTexture()
+// src: COMMUNITY 0x005e9160
+TESTexture* BGSNote::GetNoteImage()
 {
     if (GetNoteType() == NT_IMAGE)
         return (TESTexture*)m_pText;
@@ -363,7 +366,8 @@ void* BGSNote::Release(unsigned int flags)
 }
 
 // @fnv 0x005e9190
-void BGSNote::SetNoteTexture(TESTexture* texture)
+// src: COMMUNITY 0x005e9190
+void BGSNote::SetNoteImage(TESTexture* texture)
 {
     if (GetNoteType() == 2)
         ((TESTexture*)m_pText)->CopyFromBase((BaseFormComponent*)texture);
@@ -393,7 +397,8 @@ void BGSNote::Revert(BGSLoadFormBuffer* apLoadGameBuffer)
 }
 
 // @fnv 0x005e9300
-void BGSNote::SetSoundNotePlayed(bool abRead)
+// src: COMMUNITY 0x005e9300
+void BGSNote::SetHasBeenRead(bool abRead)
 {
     if (m_bIsRead == abRead)
         return;
@@ -435,7 +440,7 @@ void SaveDescriptionChunk(void*, unsigned int);
 // @fnv 0x005e8300
 void BGSNote::SaveNote()
 {
-    TESForm::BeginFormRecord();
+    TESForm::TESForm_StartForm();
     TESFullName::Save_00487010();
     TESModel::WriteToBuffer(0x4c444f4d, 0x54444f4d);
     TESTexture::Save(0x4e4f4349);
@@ -461,13 +466,13 @@ void BGSNote::SaveNote()
         break;
     }
     case 1: {
-        void* pText = GetNoteDescription();
+        void* pText = GetNoteText();
         if (pText)
             SaveDescriptionChunk(pText, 0x4d414e54);
         break;
     }
     case 2: {
-        TESTexture* pNoteTexture = GetNoteTexture();
+        TESTexture* pNoteTexture = GetNoteImage();
         if (pNoteTexture)
             SaveDataChunk(0x4d414e58, pNoteTexture->GetTextureResourceName(), pNoteTexture->GetTextureNameLength() + 1);
         break;
@@ -488,7 +493,7 @@ void BGSNote::SaveNote()
         break;
     }
     }
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_CloseForm();
 }
 
 // Copies generic components, flags, speaker, type-specific data and owner quests from another BGSNote into this one.
@@ -501,7 +506,7 @@ void BGSNote::CopyFrom(const TESForm* apForm)
 
     TESForm::CopyFrom(apForm);
     BSSimpleList<TESQuest*>* pIter = 0;
-    ChangeNoteType((NOTE_TYPE)pSource->GetNoteType());
+    SetNoteType((NOTE_TYPE)pSource->GetNoteType());
     SetNoteSpeaker(pSource->GetNoteSpeaker());
     switch (cType)
     {
@@ -509,10 +514,10 @@ void BGSNote::CopyFrom(const TESForm* apForm)
         SetNoteSound(pSource->GetNoteSound());
         break;
     case 1:
-        SetNoteText(pSource->GetNoteDescription());
+        SetNoteText(pSource->GetNoteText());
         break;
     case 2:
-        SetNoteTexture(pSource->GetNoteTexture());
+        SetNoteImage(pSource->GetNoteImage());
         break;
     case 3:
         SetNoteTopic(pSource->GetNoteTopic());
@@ -548,8 +553,8 @@ bool BGSNote::Compare(TESForm* apForm)
             return true;
         break;
     case 1: {
-        TESDescription* pMine = GetNoteDescription();
-        TESDescription* pTheirs = pNote->GetNoteDescription();
+        TESDescription* pMine = GetNoteText();
+        TESDescription* pTheirs = pNote->GetNoteText();
         if (pMine && pTheirs)
         {
             if (pMine->CompareWithBase((BaseFormComponent*)pTheirs))
@@ -560,8 +565,8 @@ bool BGSNote::Compare(TESForm* apForm)
         break;
     }
     case 2: {
-        TESTexture* pMine = GetNoteTexture();
-        TESTexture* pTheirs = pNote->GetNoteTexture();
+        TESTexture* pMine = GetNoteImage();
+        TESTexture* pTheirs = pNote->GetNoteImage();
         if (pMine && pTheirs)
         {
             if (pMine->CompareWithBase((BaseFormComponent*)pTheirs))

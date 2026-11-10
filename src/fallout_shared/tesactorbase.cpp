@@ -72,7 +72,7 @@ void TESActorBase::LoadGame(BGSLoadFormBuffer* buffer)
     reinterpret_cast<TESForm*>(this)->TESForm::LoadGame(buffer);
     reinterpret_cast<TESActorBaseData*>(reinterpret_cast<char*>(this) + 0x30)->LoadGame_0047ea70(buffer);
     reinterpret_cast<Crime*>(reinterpret_cast<char*>(this) + 0x7c)->LoadGame(buffer);
-    reinterpret_cast<TESAttributes*>(reinterpret_cast<char*>(this) + 0xb8)->LoadDataIfChanged(buffer);
+    reinterpret_cast<TESAttributes*>(reinterpret_cast<char*>(this) + 0xb8)->TESAttributes_LoadGame(buffer);
     reinterpret_cast<TESAIForm*>(reinterpret_cast<char*>(this) + 0x90)->LoadGame(buffer);
     if (buffer->GetChangeFlags(0x20u).operator bool())
     {
@@ -99,9 +99,9 @@ void TESActorBase::Reset3DForLoadedActors(bool reset)
     mobIter.base = this;
     mobIter.reset = reset;
     mobIter.FUN_006ecd40(0);
-    g_kProcessLists.ProcessMobileObjects(&mobIter);
+    g_kProcessLists.ProcessLists_IterateMobs(&mobIter);
     mobIter.FUN_006ecd40(1);
-    g_kProcessLists.ProcessMobileObjects(&mobIter);
+    g_kProcessLists.ProcessLists_IterateMobs(&mobIter);
     if (g_thePlayer->GetActorBase() == this)
     {
         if (g_thePlayer->GetProcess())

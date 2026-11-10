@@ -217,12 +217,12 @@ struct FUN_00a8add0_blob
     unsigned int unk40;
 };
 
-class FUN_00a8add0_cls
+class NiNIFImageReader
 {
   public:
     virtual void v0();
     virtual void v1();
-    virtual FUN_00a8add0_cls* v2(const char* pcFileExtension, int iFlag);
+    virtual NiNIFImageReader* v2(const char* pcFileExtension, int iFlag);
 
     bool NiNIFImageReader_ReadHeader(const char* pcFileExtension, unsigned int* pOut0, unsigned int* pOut1, FUN_00a8add0_blob* pBlob,
                       bool* pFlag, unsigned int* pOut2);
@@ -243,10 +243,10 @@ class FUN_00a8add0_cls
 // Calls v2 with pcFileExtension, then copies fields from the returned object to the output parameters.
 // @fnv 0x00a8add0
 // src: GAMEBRYO_LIB 0x00a8add0
-bool FUN_00a8add0_cls::NiNIFImageReader_ReadHeader(const char* pcFileExtension, unsigned int* pOut0, unsigned int* pOut1,
+bool NiNIFImageReader::NiNIFImageReader_ReadHeader(const char* pcFileExtension, unsigned int* pOut0, unsigned int* pOut1,
                                     FUN_00a8add0_blob* pBlob, bool* pFlag, unsigned int* pOut2)
 {
-    FUN_00a8add0_cls* obj = this->v2(pcFileExtension, 0);
+    NiNIFImageReader* obj = this->v2(pcFileExtension, 0);
     if (obj != 0)
     {
         InterlockedIncrement(&obj->m_04);
@@ -343,12 +343,13 @@ struct FUN_00a8ae80_cls
     int unkFC;
     FUN_00a8ae80_member m_100;
 
-    FUN_00a8ae80_cls* FUN_00a8ae80(unsigned char acFlags);
+    FUN_00a8ae80_cls* ScalarDeletingDestructor(unsigned char acFlags);
 };
 
 // Calls Cleanup, updates m_vptr twice, deletes m_cs, and passes this to DAT_011f6238.Free when acFlags bit 0 is set.
 // @fnv 0x00a8ae80
-FUN_00a8ae80_cls* FUN_00a8ae80_cls::FUN_00a8ae80(unsigned char acFlags)
+// src: EXE 0x00a8ae80
+FUN_00a8ae80_cls* FUN_00a8ae80_cls::ScalarDeletingDestructor(unsigned char acFlags)
 {
     FUN_00a8ae80_member* pMember = &m_100;
     m_vptr = (int)&DAT_0109f3e4;

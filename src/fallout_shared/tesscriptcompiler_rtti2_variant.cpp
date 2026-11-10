@@ -4,7 +4,7 @@
 
 #include "../../include/TESForm.h"
 #include "tesscriptcompiler_packet_decls.h"
-ScriptFunctionInfo* GetFunctionByOpcode(SCRIPT_OUTPUT output);
+ScriptFunctionInfo* ScriptCompiler_GetFunctionDef(SCRIPT_OUTPUT output);
 
 #include <stdlib.h>
 #include <ctype.h>

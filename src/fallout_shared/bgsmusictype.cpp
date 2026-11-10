@@ -85,12 +85,13 @@ void BGSMusicType::InitItem()
 
 struct MusicTypeDeletion : public BGSMusicType
 {
-    void* FUN_005912a0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };
 
 // Calls the BGSMusicType destructor and frees the object with operator delete when the low bit of flags is set.
 // @fnv 0x005912a0
-void* MusicTypeDeletion::FUN_005912a0(unsigned int flags)
+// src: EXE 0x005912a0
+void* MusicTypeDeletion::ScalarDeletingDestructor(unsigned int flags)
 {
     this->BGSMusicType::~BGSMusicType();
     if (flags & 1)
@@ -142,8 +143,8 @@ void TESForm_AddChunk_00485910(int chunk, float value);
 
 struct MusicTypeWriter : BGSMusicType
 {
-    void BeginFormRecord();
-    void FinishFormRecord();
+    void TESForm_StartForm();
+    void TESForm_CloseForm();
     void BGSMusicType_Save();
 };
 
@@ -152,10 +153,10 @@ struct MusicTypeWriter : BGSMusicType
 // src: XBOX_PDB 0x005916b0
 void MusicTypeWriter::BGSMusicType_Save()
 {
-    BeginFormRecord();
+    TESForm_StartForm();
     reinterpret_cast<MusicSaveComponents*>(this)->soundFile.FUN_0048cea0();
     TESForm_AddChunk_00485910(0x4d414e41, fVolumeScale);
-    FinishFormRecord();
+    TESForm_CloseForm();
 }
 
 class MusicTypeCopyEntry : public BGSMusicType

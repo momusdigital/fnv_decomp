@@ -94,7 +94,7 @@ public:
     void Update();
     void SwapBackfacingTextures();
     void SwapFrontfacingTextures();
-    void SelectSpinResults();
+    void SpinReels();
     int InterpretSpin();
     bool AdjustReels(int);
     void UpdateTileText();

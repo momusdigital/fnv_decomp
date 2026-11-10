@@ -45,7 +45,7 @@ public:
     void InitItem(TESForm* parent);
     int GetLimb();
     const char* GetPartName();
-    char GetByte63();
+    char BGSBodyPart_GetActorValue();
     unsigned int FUN_005e3fc0();
     void FUN_00994ef0(BGSImpactDataSet* impactDataSet);
     void InitializeData_005e3d20();

@@ -39,7 +39,7 @@ class InventoryStackRecord
     static float GetConditionPercent(float);
     static float RoundToNearestStep(float, float);
     void InitLoadGame(BGSLoadFormBuffer*);
-    bool HasPerkEntry();
+    bool ItemChange_HasLeveledExtra();
     bool HasApplicablePerkEntry();
 };
 #pragma pack(pop)

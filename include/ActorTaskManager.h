@@ -45,7 +45,7 @@ public:
     BSTStaticFreeList<MobileObjectTaskletContext, 4096> kMessagePool;
     bool m_bTrailingManagerFlag;
 
-    void WaitForTasksDuringRendering();
+    void BSCriticalSection_Leave();
     void QueryPerformanceCounter(int);
     void TES_LockHavokUpdateMT(bool);
 };

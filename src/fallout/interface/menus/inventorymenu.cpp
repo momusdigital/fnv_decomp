@@ -679,7 +679,7 @@ void __cdecl UpdateCurrentValue()
     int tab;
     int idx;
     int res5;
-    if (InventoryMenu::ms_pInventoryMenu->FUN_00726070()->IsTraitNonZero(DAT_011d9eb8))
+    if (InventoryMenu::ms_pInventoryMenu->FUN_00726070()->Tile_IsTrue(DAT_011d9eb8))
     {
         tab = 5;
     }
@@ -890,7 +890,7 @@ struct EntryListNode
 };
 struct Changes
 {
-    void FilterInventoryChanges(Form*, EntryListNode*);
+    void InventoryChanges_GetRepairItemGroup(Form*, EntryListNode*);
 };
 Changes* __cdecl FUN_004bf220(void*);
 extern void* player;
@@ -918,7 +918,7 @@ bool InventoryCheck::InventoryMenu_IsItemRepairable(Entry* entry)
             Changes* changes = FUN_004bf220(player);
             Extra* originalExtra = entry->Modelloader_GetReferencedThis() ? *entry->Modelloader_GetReferencedThis()->FUN_006815c0() : 0;
             EntryListNode* cleanup = &list6;
-            changes->FilterInventoryChanges(form4, &list6);
+            changes->InventoryChanges_GetRepairItemGroup(form4, &list6);
             for (EntryListNode* node9 = &list6; node9 && *node9->FUN_006815c0(); node9 = node9->FUN_00726070())
             {
                 Form* otherForm2 = (*node9->FUN_006815c0())->FUN_0044ddc0();
@@ -1042,7 +1042,7 @@ void __fastcall RefreshInventorySelection(InventoryMenu* menu)
     void* a = (void*)FUN_0044ddc0(DAT_011d9ea8);
     void* b = Modelloader_GetReferencedThis(DAT_011d9ea8) ? (void*)*((Sh006815c0*)Modelloader_GetReferencedThis(DAT_011d9ea8))->FUN_006815c0() : 0;
 
-    if (static_cast<Menu*>(menu)->FUN_00726070()->IsTraitNonZero(DAT_011d9ebc))
+    if (static_cast<Menu*>(menu)->FUN_00726070()->Tile_IsTrue(DAT_011d9ebc))
     {
         menu->m_kItemList.ListBox_ItemChange_Traverse(InventoryMenu_AddToChangedItemsListIfWorn, 0, 0x7fffffff);
     }
@@ -1610,7 +1610,7 @@ void InventoryMenu::Select(int m_uiSoundID, int pkTile)
         if (m_iCurrentTab != m_uiSoundID - 0x18)
         {
             int iOldMode = m_iCurrentTab;
-            if (FUN_00726070()->IsTraitNonZero(DAT_011d9eb8))
+            if (FUN_00726070()->Tile_IsTrue(DAT_011d9eb8))
                 FUN_00726070()->FUN_00700320(DAT_011d9eb8, 0);
             ClearActionPointSource();
             UpdateCurrentValue();
@@ -1662,7 +1662,7 @@ void InventoryMenu::Select(int m_uiSoundID, int pkTile)
         }
         break;
     case 29:
-        if (fnv_00780140::DAT_011d9ea8 && !FUN_00726070()->IsTraitNonZero(DAT_011d9eb8) &&
+        if (fnv_00780140::DAT_011d9ea8 && !FUN_00726070()->Tile_IsTrue(DAT_011d9eb8) &&
             fnv_00780140::DAT_011d9ea8->FUN_0044ddc0()->FUN_00401170() != 0x29)
         {
             bool bResume = false;
@@ -1673,7 +1673,7 @@ void InventoryMenu::Select(int m_uiSoundID, int pkTile)
                     if (fnv_00780140::DAT_011d9ea8 && fnv_00780140::DAT_011d9ea8->ItemChange_GetItemHealth(1) == 0.0)
                         DispatchMessageToSink(((VTSetting*)&DAT_011d3810)->FUN_00403df0(), 2, 0, "UIVATSInsufficientAP",
                                               2.0f, 0);
-                    else if (!FUN_00726070()->IsTraitNonZero(fnv_00780140::DAT_011d9ebc) ||
+                    else if (!FUN_00726070()->Tile_IsTrue(fnv_00780140::DAT_011d9ebc) ||
                              fnv_00780140::DAT_011d9ea8->FUN_0044ddc0()->FUN_00401170() == 0x19)
                         DispatchMessageToSink(((VTSetting*)&DAT_011d1e18)->FUN_00403df0(), 2, 0, "UIVATSInsufficientAP",
                                               2.0f, 0);
@@ -1700,7 +1700,7 @@ void InventoryMenu::Select(int m_uiSoundID, int pkTile)
         else if (fnv_00780140::DAT_011d9ea8->FUN_0044ddc0()->FUN_00401170() == 0x29)
         {
             VTForm* pkTargetNum = fnv_00780140::DAT_011d9ea8->FUN_0044ddc0();
-            if (!pkTargetNum || !FUN_00726070()->IsTraitNonZero(fnv_00780140::DAT_011d9ebc))
+            if (!pkTargetNum || !FUN_00726070()->Tile_IsTrue(fnv_00780140::DAT_011d9ebc))
                 break;
             VTAction* pkAction = new VTAction(fnv_00780140::DAT_011d9ea8->FUN_0044ddc0(), fnv_00780140::DAT_011d9ea8->FUN_00726070());
             VTProcess* pkProcess = reinterpret_cast<VTProcess*>(((PlayerCharacter*)DAT_011dea3c)->FUN_008d8520());
@@ -1744,7 +1744,7 @@ void InventoryMenu::Select(int m_uiSoundID, int pkTile)
             VTPoint3 kPos = DAT_011f426c;
             VTForm* pkRefOut = fnv_00780140::DAT_011d9ea8->FUN_0044ddc0();
             VTItemData* pkItem = fnv_00780140::DAT_011d9ea8->Modelloader_GetReferencedThis() ? *fnv_00780140::DAT_011d9ea8->Modelloader_GetReferencedThis()->FUN_006815c0() : 0;
-            if (FUN_00726070()->IsTraitNonZero(DAT_011d9eb8))
+            if (FUN_00726070()->Tile_IsTrue(DAT_011d9eb8))
                 VTAudio::BSAudio_QInstance()->BSAudio_GetSoundHandleByEditorName("UIVATSInsufficientAP", 0x121).FUN_00ad8830(false);
             else if (pkRefOut->IsDeleted())
                 DispatchMessageToSink(DAT_011d47a4.FUN_00403df0(), 2, 0, 0, 2.0f, 0);
@@ -1817,7 +1817,7 @@ bool __cdecl TESContainer_IsGold(FilterForm*);
 unsigned char __fastcall GetInventoryFilterFlag(PlayerCharacter*);
 struct FilterList
 {
-    int GetConditionIndex(FilterForm*);
+    int GetItemIndex(FilterForm*);
 };
 extern int DAT_010722f4;
 FilterList* __cdecl FUN_00483a00(int*);
@@ -1855,7 +1855,7 @@ bool __cdecl InventoryMenu_FilterFunc(Entry* entry)
             {
                 FilterList* list = FUN_00483a00(&DAT_010722f4);
                 FilterForm* item = form4;
-                if (list && list->GetConditionIndex(item) >= 0)
+                if (list && list->GetItemIndex(item) >= 0)
                     return true;
                 return false;
             }

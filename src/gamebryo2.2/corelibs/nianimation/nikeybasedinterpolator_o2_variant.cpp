@@ -51,7 +51,8 @@ extern const char* _DAT_011f3740;
 
 // The StrArr viewer-string overload is not declared by the shared class.
 // @fnv 0x00a3cbf0
-void __fastcall GetKeyBasedViewerStrings(NiKeyBasedInterpolator* self, void*, StrArr* pkStrings)
+// src: EXE 0x00a3cbf0
+void __fastcall NiKeyBasedInterpolator_GetViewerStrings(NiKeyBasedInterpolator* self, void*, StrArr* pkStrings)
 {
     typedef void(__thiscall * GetBaseViewerStrings)(NiInterpolator*, StrArr*);
     reinterpret_cast<GetBaseViewerStrings>(NiInterpolator_GetViewerStrings)(self, pkStrings);

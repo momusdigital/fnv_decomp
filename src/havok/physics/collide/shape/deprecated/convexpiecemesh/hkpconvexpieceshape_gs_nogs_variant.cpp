@@ -45,12 +45,12 @@ struct FNV_Owner
     hkpShapeCollection* p20;
     int* p24;
     int n28;
-    void ProcessEntries_00e608d0(hkVector4* pA, hkVector4* pOut);
+    void hkpConvexPieceShape_getSupportingVertexImpl(hkVector4* pA, hkVector4* pOut);
 };
 
 // @fnv 0x00e608d0
-// src: GUESS 0x00e608d0 (confidence: low)
-void FNV_Owner::ProcessEntries_00e608d0(hkVector4* pA, hkVector4* pOut)
+// src: COMMUNITY 0x00e608d0
+void FNV_Owner::hkpConvexPieceShape_getSupportingVertexImpl(hkVector4* pA, hkVector4* pOut)
 {
     ShapeBuffer338 big;
     hkVector4 buf;

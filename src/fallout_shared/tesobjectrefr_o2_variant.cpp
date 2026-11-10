@@ -53,16 +53,17 @@ struct FUN_0056e2d0
     virtual ~FUN_0056e2d0();
 };
 extern const void* vftable_FUN_0056e2d0;
-struct FUN_00c6d190
+struct bhkSimpleShapePhantom
 {
     bhkRefObject base;
     int fc;
     int f10;
     unsigned char f14;
-    FUN_00c6d190();
+    bhkSimpleShapePhantom();
 };
 // @fnv 0x00c6d190
-FUN_00c6d190::FUN_00c6d190()
+// src: EXE 0x00c6d190
+bhkSimpleShapePhantom::bhkSimpleShapePhantom()
 {
     *(const void**)this = &DAT_01030394;
     fc = 0;
@@ -309,14 +310,15 @@ void S_00cb3070::bhkRigidBodyT_LoadBinary(int a)
 struct MM
 {
     void Deallocate(void* p);
-    void FUN_00cb2ff0();
-    void* FUN_00cb30a0(unsigned int);
+    void bhkRigidBodyT();
+    void* ScalarDeletingDestructor(unsigned int);
 };
 extern MM _g_memoryManager;
 // @fnv 0x00cb30a0
-void* MM::FUN_00cb30a0(unsigned int f)
+// src: EXE 0x00cb30a0
+void* MM::ScalarDeletingDestructor(unsigned int f)
 {
-    FUN_00cb2ff0();
+    bhkRigidBodyT();
     if (f & 1)
     {
         if (this)
@@ -808,15 +810,16 @@ class FUN_00c8bed0_base_cls
     int unk04;
 };
 
-class FUN_00c8bed0_cls : public FUN_00c8bed0_base_cls
+class bhkTransformShape : public FUN_00c8bed0_base_cls
 {
   public:
-    virtual ~FUN_00c8bed0_cls();
+    virtual ~bhkTransformShape();
     void unk08();
 };
 
 // @fnv 0x00c8bed0
-FUN_00c8bed0_cls::~FUN_00c8bed0_cls()
+// src: EXE 0x00c8bed0
+bhkTransformShape::~bhkTransformShape()
 {
     this->unk08();
     DAT_012681b0--;
@@ -1060,7 +1063,7 @@ inline void* operator new(unsigned int n)
 
 struct FUN_00c9efa0_cls
 {
-    void bhkWorldObject_CopyMembers(FUN_00c6d190* p, unsigned int flag);
+    void bhkWorldObject_CopyMembers(bhkSimpleShapePhantom* p, unsigned int flag);
     bhkRefObject* bhkSimpleShapePhantom_CreateClone(unsigned int flag);
 };
 
@@ -1070,7 +1073,7 @@ bhkRefObject* FUN_00c9efa0_cls::bhkSimpleShapePhantom_CreateClone(unsigned int f
 {
     TlsGuard_t guard;
     bhkSerializable_CloneCritLock();
-    FUN_00c6d190* p = new FUN_00c6d190;
+    bhkSimpleShapePhantom* p = new bhkSimpleShapePhantom;
     this->bhkWorldObject_CopyMembers(p, flag);
     bhkSerializable_CloneCritUnlock();
     return &p->base;
@@ -1929,15 +1932,16 @@ void SphereShape::bhkConvexShape_GetViewerStrings(ViewerStringArray* apViewerStr
 
 extern int DAT_0126825c;
 
-class FUN_00c9fd70_cls : public FUN_00c9fb00
+class bhkBoxShape : public FUN_00c9fb00
 {
   public:
-    virtual ~FUN_00c9fd70_cls();
+    virtual ~bhkBoxShape();
     void bhkSerializable_Kill();
 };
 
 // @fnv 0x00c9fd70
-FUN_00c9fd70_cls::~FUN_00c9fd70_cls()
+// src: EXE 0x00c9fd70
+bhkBoxShape::~bhkBoxShape()
 {
     bhkSerializable_Kill();
     --DAT_0126825c;
@@ -2649,14 +2653,15 @@ FUN_00cc2350::~FUN_00cc2350()
 
 extern int DAT_01268660;
 
-struct FUN_00cca8d0 : FUN_00c9fb00
+struct bhkTriangleShape : FUN_00c9fb00
 {
-    virtual ~FUN_00cca8d0();
+    virtual ~bhkTriangleShape();
     void bhkSerializable_Kill();
 };
 
 // @fnv 0x00cca8d0
-FUN_00cca8d0::~FUN_00cca8d0()
+// src: EXE 0x00cca8d0
+bhkTriangleShape::~bhkTriangleShape()
 {
     bhkSerializable_Kill();
     --DAT_01268660;
@@ -2664,14 +2669,15 @@ FUN_00cca8d0::~FUN_00cca8d0()
 
 extern int DAT_0126868c;
 
-struct FUN_00ccd080 : FUN_00c9fb00
+struct bhkCylinderShape : FUN_00c9fb00
 {
     int unk04;
-    virtual ~FUN_00ccd080();
+    virtual ~bhkCylinderShape();
 };
 
 // @fnv 0x00ccd080
-FUN_00ccd080::~FUN_00ccd080()
+// src: EXE 0x00ccd080
+bhkCylinderShape::~bhkCylinderShape()
 {
     reinterpret_cast<ProjectileListener*>(this)->bhkSerializable_Kill();
     DAT_0126868c--;
@@ -2700,44 +2706,47 @@ class CCE900Base
 
 extern int g_iCCE900Count;
 
-class FUN_00cce900 : public CCE900Base
+class bhkConvexTransformShape : public CCE900Base
 {
   public:
     void Release();
 
-    virtual ~FUN_00cce900();
+    virtual ~bhkConvexTransformShape();
 };
 
 // @fnv 0x00cce900
-FUN_00cce900::~FUN_00cce900()
+// src: EXE 0x00cce900
+bhkConvexTransformShape::~bhkConvexTransformShape()
 {
     Release();
     --g_iCCE900Count;
 }
 
-struct FUN_00ccf4f0_cls : FUN_00c9fb00
+struct bhkConvexSweepShape : FUN_00c9fb00
 {
     int unk04;
-    virtual ~FUN_00ccf4f0_cls();
+    virtual ~bhkConvexSweepShape();
 };
 
 // @fnv 0x00ccf4f0
-FUN_00ccf4f0_cls::~FUN_00ccf4f0_cls()
+// src: EXE 0x00ccf4f0
+bhkConvexSweepShape::~bhkConvexSweepShape()
 {
     reinterpret_cast<ProjectileListener*>(this)->bhkSerializable_Kill();
 }
 
 extern int DAT_012686c0;
 
-class FUN_00ccf740_cls : public FUN_00c9fb00
+class bhkConvexListShape : public FUN_00c9fb00
 {
   public:
-    virtual ~FUN_00ccf740_cls();
+    virtual ~bhkConvexListShape();
     void bhkSerializable_Kill();
 };
 
 // @fnv 0x00ccf740
-FUN_00ccf740_cls::~FUN_00ccf740_cls()
+// src: EXE 0x00ccf740
+bhkConvexListShape::~bhkConvexListShape()
 {
     bhkSerializable_Kill();
     --DAT_012686c0;
@@ -5080,7 +5089,7 @@ struct CA0780Owner
     virtual void vf09();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -5106,7 +5115,7 @@ struct CA0780Owner
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();
@@ -5280,7 +5289,7 @@ struct FUN_00c9d4f0_obj
     unsigned char m_1e5;
 };
 
-struct FUN_00c9d4f0_cls
+struct bhkEntity
 {
     virtual void v00();
     virtual void v01();
@@ -5334,7 +5343,7 @@ struct FUN_00c9d4f0_cls
 
 // @fnv 0x00c9d4f0
 // src: XBOX_PDB 0x00c9d4f0
-void FUN_00c9d4f0_cls::bhkEntity_LoadBinary(FUN_00c9d4f0_obj* p)
+void bhkEntity::bhkEntity_LoadBinary(FUN_00c9d4f0_obj* p)
 {
     bhkWorldObject_LoadBinary(p);
     if (p->m_1e5 != 1)
@@ -6109,7 +6118,7 @@ struct C9FFD0Owner
     virtual void vf09();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -6135,7 +6144,7 @@ struct C9FFD0Owner
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();

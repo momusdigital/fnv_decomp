@@ -17,6 +17,6 @@ public:
     void ClearWeatherSounds();
     void CopyWeatherList(const TESWeatherList*, bool);
     bool IsDifferentFrom(TESWeatherList*);
-    void WriteWeatherList(unsigned int);
-    static void LoadWeatherEntries(TESWeatherList* weatherList, TESFile* file, TESForm* form);
+    void TESWeatherList_Save(unsigned int);
+    static void LoadWeatherListChunk(TESWeatherList* weatherList, TESFile* file, TESForm* form);
 };

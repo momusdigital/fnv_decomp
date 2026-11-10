@@ -14,8 +14,8 @@ class AnimGroup
 {
   public:
     bool AnimatingText_IsDisplayFinished();
-    bool GetMaxOfTwoBytes();
-    bool GetMaxByte();
+    bool TESAnimGroup_GetBlendIn();
+    bool TESAnimGroup_GetBlendOut();
 };
 
 
@@ -122,8 +122,8 @@ void LockCtx::NiTreeCtrl_AddControllerSequence(int arg1, NiControllerSequence* a
         if (cf)
         {
             h = reinterpret_cast<AnimGroup*>(cf->GetAnimGroup())->AnimatingText_IsDisplayFinished();
-            a = reinterpret_cast<AnimGroup*>(cf->GetAnimGroup())->GetMaxOfTwoBytes();
-            p = reinterpret_cast<AnimGroup*>(cf->GetAnimGroup())->GetMaxByte();
+            a = reinterpret_cast<AnimGroup*>(cf->GetAnimGroup())->TESAnimGroup_GetBlendIn();
+            p = reinterpret_cast<AnimGroup*>(cf->GetAnimGroup())->TESAnimGroup_GetBlendOut();
         }
         char eb[0x100];
         if (h)
@@ -171,7 +171,7 @@ struct CellFile
     int TESFile_GetTESChunk();
     unsigned int GetField25C();
     void FUN_00472890(void*, unsigned int);
-    void ReadChunkInt(void*);
+    void TESFile_Read32(void*);
     bool FUN_00401680();
     bool FUN_004726f0();
 };
@@ -426,7 +426,7 @@ struct CellLoader : CellForm, CellFullName
     void CallWithThis(CellFile*);
     CellExtra* GetExtraDataList();
     void TESObjectCELL_SetWaterHeight(float);
-    void ResetCellData();
+    void CreateCellData();
     bool FUN_00425fd0();
     void SetInteriorDataValue(void*);
     CellExterior* GetExteriorData_005445d0();
@@ -549,7 +549,7 @@ bool CellLoader::TESObjectCELL_Load(CellFile* file)
         }
         case 0x574c4358:  // XCLW
         {
-            file->ReadChunkInt(&waterHeight);
+            file->TESFile_Read32(&waterHeight);
             break;
         }
         case 0x46504d49:  // IMPF
@@ -567,7 +567,7 @@ bool CellLoader::TESObjectCELL_Load(CellFile* file)
         case 0x504d544c:  // LTMP
         {
             unsigned int templateId = 0;
-            file->ReadChunkInt(&templateId);
+            file->TESFile_Read32(&templateId);
             lightingTemplate = templateId;
             break;
         }
@@ -584,7 +584,7 @@ bool CellLoader::TESObjectCELL_Load(CellFile* file)
         }
         case 0x4d414e4c:  // LNAM
         {
-            file->ReadChunkInt(&lightingInheritance);
+            file->TESFile_Read32(&lightingInheritance);
             break;
         }
         case 0x41544144:  // DATA
@@ -592,7 +592,7 @@ bool CellLoader::TESObjectCELL_Load(CellFile* file)
             if (file->GetField25C() == 4)
             {
                 unsigned int oldFlags = 0;
-                file->ReadChunkInt(&oldFlags);
+                file->TESFile_Read32(&oldFlags);
                 flags = (unsigned char)oldFlags;
             }
             else
@@ -603,7 +603,7 @@ bool CellLoader::TESObjectCELL_Load(CellFile* file)
                 TESObjectCELL_SetWaterHeight(DAT_01016970);
             if (!DAT_011c3f2c->TESDataHandler_GetSaveLoadGame())
                 flags &= ~0x40;
-            ResetCellData();
+            CreateCellData();
             if (FUN_00425fd0() && savedSourceSlot15)
                 SetInteriorDataValue(savedSourceSlot15);
             break;

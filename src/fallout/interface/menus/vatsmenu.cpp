@@ -391,7 +391,8 @@ char __thiscall FUN_007f4810_shell::GetByteAtOffset()
 }
 
 // @fnv 0x007f5190
-bool __fastcall IsWeaponFlag800Set(const TESObjectWEAP* weapon)
+// src: COMMUNITY 0x007f5190
+bool __fastcall TESObjectWEAP_GetLongVATSBurst(const TESObjectWEAP* weapon)
 {
     return (weapon->data.WeaponAttackData & 0x800) ? true : false;
 }
@@ -889,7 +890,7 @@ unsigned char __cdecl GetBurstShotCount(ActionPoints::Action aeAction, bool abAl
     if (aeAction == 0 || (pweapon && !pweapon->GetIsAutomaticWeapon()))
         return cshots;
 
-    fburstTime = abAllowLongBurst && pweapon && IsWeaponFlag800Set(pweapon)
+    fburstTime = abAllowLongBurst && pweapon && TESObjectWEAP_GetLongVATSBurst(pweapon)
                      ? *originalRuntimeFloatSetting539.Float()
                      : *originalRuntimeFloatSetting538.Float();
 
@@ -912,7 +913,7 @@ struct WeaponX;
 
 struct ElemX
 {
-    char GetByte63();
+    char BGSBodyPart_GetActorValue();
 };
 struct RaceX
 {
@@ -1274,7 +1275,7 @@ struct ActorX
     ProcessX* FUN_008d8520();
     DetectX* PlayerCharacter_IsActorPerceived(ActorX* apTarget);
     void PlayerCharacter_UpdateHeadingAndLooking(float afDelta, int a2, int a3, int a4);
-    void UpdateFaceAnimation(float afDelta);
+    void Character_Update(float afDelta);
     void UpdateAnimationMovement(void* apAnim, float afDelta);
     void UpdateCamera(bool a1, bool a2);
     void UpdateCameraMode();
@@ -1335,7 +1336,7 @@ struct VATS
 
 struct InputX
 {
-    int GetAxisState(int a1, int a2);
+    int OSInputGlobals_GetControllerValue(int a1, int a2);
     int Controls_GetKeybind(int a1);
     int Controls_GetUserAction(int a1, int a2);
     int Controls_GetMouseButton(int a1, int a2);
@@ -1478,10 +1479,10 @@ void VATSMenu::Update()
     if (xFUN_004b7210()->InterfaceManager_Has360Controller())
     {
         int iDeadZoneCur = xDAT_011f2250.GetFlags() == 1 ? 0x1ea9 : 0x21f1;
-        int iLeftXTwo54 = pInputA->GetAxisState(0, 7);
-        int iLeftYZ = pInputA->GetAxisState(0, 8);
-        int iRightXNum = pInputA->GetAxisState(0, 9);
-        int iRightYTmp = pInputA->GetAxisState(0, 10);
+        int iLeftXTwo54 = pInputA->OSInputGlobals_GetControllerValue(0, 7);
+        int iLeftYZ = pInputA->OSInputGlobals_GetControllerValue(0, 8);
+        int iRightXNum = pInputA->OSInputGlobals_GetControllerValue(0, 9);
+        int iRightYTmp = pInputA->OSInputGlobals_GetControllerValue(0, 10);
         iLeftYZ = -iLeftYZ;
         iRightYTmp = -iRightYTmp;
         if (iRightXNum > 0x21f1)
@@ -1639,7 +1640,7 @@ void VATSMenu::Update()
     {
         xDAT_011dea34 = 0;
         xFUN_00964260(xDAT_011dea3c);
-        xDAT_011dea3c->UpdateFaceAnimation(xDAT_011f6394.FUN_0084d030());
+        xDAT_011dea3c->Character_Update(xDAT_011f6394.FUN_0084d030());
         xDAT_011dea3c->UpdateAnimationMovement(xDAT_011dea3c->GetAnimation(), 0.0f);
         xDAT_011dea3c->UpdateCamera(0, 0);
         xDAT_011dea3c->UpdateCameraMode();
@@ -1918,7 +1919,7 @@ void VATSMenu::Update()
                                         {
                                             if (ppElemsB2[iNew])
                                             {
-                                                pCommandA55->m_iActionValue = ppElemsB2[iNew]->GetByte63();
+                                                pCommandA55->m_iActionValue = ppElemsB2[iNew]->BGSBodyPart_GetActorValue();
                                                 bFound96 = true;
                                             }
                                         }
@@ -2646,7 +2647,7 @@ struct WeaponPrompt
     float FUN_007ebd30();
     int GetUnk15C();
     const char* TESObjectWEAP_GetVATSAttackName();
-    float GetField378();
+    float HighProcess_GetPackageEndTimerValue();
 };
 struct AVPrompt
 {
@@ -2920,7 +2921,7 @@ void __cdecl VATSMenu_SetupSpecialAttackButtons(WeaponPrompt* weapon)
         DAT_011db0cf = true;
         ((PromptMenu*)DAT_011db0d4)->secondary->SetInt(0xfa3, 0);
         DAT_011db0d8 = false;
-        DAT_011db0bc = weapon->GetField378();
+        DAT_011db0bc = weapon->HighProcess_GetPackageEndTimerValue();
         DAT_011db0b8 = weapon->FUN_007ebd10();
         ApplyPerkModifiers(0x28, DAT_011dea3c, weapon ? weapon : DAT_011ca278, &DAT_011db0b8);
     }
@@ -2989,7 +2990,7 @@ struct List
 // Exe 0x007ebd50: unit-local Interface view; declarations and layout are preserved.
 struct VatsmenuInterfaceView
 {
-    void UpdateActivatePick();
+    void InterfaceManager_RefreshActivateREFR();
 };
 VatsmenuInterfaceView* InterfaceManager_GetSingleton();
 struct State
@@ -3060,7 +3061,7 @@ void ShutdownVats()
     {
         if (!V::DAT_011db124.FUN_008256d0())
             V::DAT_011db124.FUN_00470470();
-        V::InterfaceManager_GetSingleton()->UpdateActivatePick();
+        V::InterfaceManager_GetSingleton()->InterfaceManager_RefreshActivateREFR();
         V::BSAudio_QInstance()->FUN_00ad8780(256);
         if (!V::DAT_011ddf38->BGSSaveLoadGame_GetSaveGameLoading())
         {
@@ -3073,7 +3074,7 @@ void ShutdownVats()
             soundSlot0.Play(0);
         }
         tile->FUN_00700320(6002, 1);
-        V::DAT_011db0d4->LoadMenuData();
+        V::DAT_011db0d4->StartFadeOut();
     }
     if (V::DAT_011f2250.FUN_005ae380())
     {
@@ -4253,7 +4254,7 @@ struct SortRef
     virtual void v172();
     virtual void v173();
     virtual void v174();
-    virtual float GetCurrentTargetDistance(int);
+    virtual float GetHeading(int);
 };
 extern Actor* _g_thePlayer;
 
@@ -4262,7 +4263,7 @@ extern Actor* _g_thePlayer;
 int __cdecl CompareByHeadingToPlayer(const void* apRefA, const void* apRefB)
 {
     NiPoint3 kPlayerPosition = *reinterpret_cast<NiPoint3*>(((SortRef*)_g_thePlayer)->GetPos());
-    float fPlayerRot = ((SortRef*)_g_thePlayer)->GetCurrentTargetDistance(0) * 57.2957763671875;
+    float fPlayerRot = ((SortRef*)_g_thePlayer)->GetHeading(0) * 57.2957763671875;
     float fHeadingToA = GetAngleBetweenPoints(reinterpret_cast<const NiPoint3&>(kPlayerPosition), *(*(SortRef**)apRefA)->GetPos());
     float fHeadingToB = GetAngleBetweenPoints(reinterpret_cast<const NiPoint3&>(kPlayerPosition), *(*(SortRef**)apRefB)->GetPos());
     float fDifference = std::abs(fPlayerRot - fHeadingToA);
@@ -4865,7 +4866,7 @@ struct Effect1290
 };
 float __cdecl CombatUtilities_GetDistanceBetweenFacingActors(ActorX*, ActorX*, int);
 float __cdecl GetActorReach(ActorX*, WeaponX*);
-float __cdecl GetHitChance(ActorValueOwner*, ActorX*, WeaponX*, float, float, float, int, int, float, float, float,
+float __cdecl CombatFormulas_GetVATSChanceToHit(ActorValueOwner*, ActorX*, WeaponX*, float, float, float, int, int, float, float, float,
                            int);
 bool __cdecl Pathing_ComputeApproximatePathingDistance(FUN_006dcd70*, FUN_006dcd70*, int, float*, int);
 void __cdecl SetContextInfo(TempSound1290*, VATSMenu::TargetCommand*);
@@ -4907,7 +4908,7 @@ float VATSMenu::CalculateVATSChance(LimbListM* targetNode)
     }
     if (boundX < fnv_007f1290::DAT_01012070)
         boundX = fnv_007f1290::DAT_0101e704;
-    kResult = fnv_007f1290::GetHitChance(
+    kResult = fnv_007f1290::CombatFormulas_GetVATSChanceToHit(
         xDAT_011dea3c ? &xDAT_011dea3c->kAVOwner : 0, xDAT_011f21cc, otherA, kScale,
         fnv_007f1290::GetActorReach(xDAT_011dea3c, otherA), otherA ? ((fnv_007f1290::Actor1290*)xDAT_011dea3c)->GetCachedSpeed(3) : 1.0f,
         ((fnv_007f1290::TargetMode1290*)targetX)->mode != 2 ? (int)entry : 0,
@@ -4931,7 +4932,7 @@ float VATSMenu::CalculateVATSChance(LimbListM* targetNode)
     float effectsB = 0.0f;
     m_bStateFlag7 = true;
     m_acTargetText.VATS_COMMAND_Initialize();
-    m_acTargetText.m_iActionValue = entry ? entry->GetByte63() : -1;
+    m_acTargetText.m_iActionValue = entry ? entry->BGSBodyPart_GetActorValue() : -1;
     m_acTargetText.pTarget = reinterpret_cast<TESObjectREFR*>(xDAT_011f21cc);
     m_acTargetText.bSuccess = true;
     reinterpret_cast<fnv_007f1290::TempSound1290*>(m_acTargetText.m_pActionObject)->FUN_00407e00(0x800, true);
@@ -6411,7 +6412,7 @@ void TargetSelectHelper::SelectTarget(bool abReverse)
     soundHandle2.Play(false);
 
     TargetEntryList* iter = reinterpret_cast<TargetEntryList*>(&g_011db150);
-    float playerAngleDeg3 = reinterpret_cast<MobileObject*>(_g_thePlayer)->GetCurrentTargetDistance(false) * 57.2957763671875;
+    float playerAngleDeg3 = reinterpret_cast<MobileObject*>(_g_thePlayer)->GetHeading(false) * 57.2957763671875;
     NiPoint3 playerPos7 = *reinterpret_cast<NiPoint3*>(static_cast<const TESObjectREFR*>(_g_thePlayer)->GetPos());
     float bestAngle2 = (float)(abReverse ? -360 : 360);
 
@@ -7417,10 +7418,10 @@ struct AimCamera
 };
 struct AimTile
 {
-    void RemoveFadeItemsForTile(int);
+    void Tile_EndGradualSetFloat(int);
     float FUN_00a011b0(int);
     void StartFade(int, float, float, float, int);
-    bool IsTraitNonZero(int);
+    bool Tile_IsTrue(int);
 };
 struct AimLimb
 {
@@ -7681,7 +7682,7 @@ struct AimTargets
 };
 struct AimInput
 {
-    int GetAxisState(int, int);
+    int OSInputGlobals_GetControllerValue(int, int);
     int Controls_GetKeyboardButton(int, int);
 };
 struct AimInputOwner
@@ -7810,8 +7811,8 @@ void AimMenu::VATSMenu_SetTargetLimb()
     else if ((InterfaceManager_GetSingleton(), InterfaceManager_Has360Controller()))
     {
         int horizontal8 = 0, vertical3 = 0;
-        horizontal8 = input5->GetAxisState(0, 7);
-        vertical3 = input5->GetAxisState(0, 8);
+        horizontal8 = input5->OSInputGlobals_GetControllerValue(0, 7);
+        vertical3 = input5->OSInputGlobals_GetControllerValue(0, 8);
         int maximum26 = 32767;
         if (FUN_00ec7d40(vertical3) < maximum26 / 4 && FUN_00ec7d40(horizontal8) < maximum26 / 4)
             stickReset = true;
@@ -7856,7 +7857,7 @@ void AimMenu::VATSMenu_SetTargetLimb()
                     bestAngle50 = angle3;
                     selection8 = VATSMenu_GetActorValueFromBodyPart((*limb9->FUN_006815c0())->id);
                     stickReset = false;
-                    current->tile->RemoveFadeItemsForTile(4009);
+                    current->tile->Tile_EndGradualSetFloat(4009);
                     current->tile->StartFade(4009, current->tile->FUN_00a011b0(4009), DAT_01023cd8, DAT_0101df44, 0);
                     current = *limb9->FUN_006815c0();
                 }
@@ -7882,7 +7883,7 @@ void AimMenu::VATSMenu_SetTargetLimb()
                         bestAngle50 = (*limb9->FUN_006815c0())->angle;
                         selection8 = VATSMenu_GetActorValueFromBodyPart((*limb9->FUN_006815c0())->id);
                         stickReset = false;
-                        current->tile->RemoveFadeItemsForTile(4009);
+                        current->tile->Tile_EndGradualSetFloat(4009);
                         current->tile->StartFade(4009, current->tile->FUN_00a011b0(4009), DAT_01023cd8, DAT_0101df44,
                                                     0);
                         current = *limb9->FUN_006815c0();
@@ -7910,7 +7911,7 @@ void AimMenu::VATSMenu_SetTargetLimb()
                 cursor = cursor->FUN_00726070();
             }
             DAT_011a59f0 = VATSMenu_GetActorValueFromBodyPart(current->id);
-            if (current->tile->IsTraitNonZero(4003))
+            if (current->tile->Tile_IsTrue(4003))
                 break;
         }
         UpdateVatsTargetHighlight(0);
@@ -7932,7 +7933,7 @@ void AimMenu::VATSMenu_SetTargetLimb()
                 cursorB = cursorB->FUN_00726070();
             }
             DAT_011a59f0 = VATSMenu_GetActorValueFromBodyPart(current->id);
-            if (current->tile->IsTraitNonZero(4003))
+            if (current->tile->Tile_IsTrue(4003))
                 break;
         }
         UpdateVatsTargetHighlight(0);
@@ -8167,7 +8168,7 @@ struct Mgr
 };
 struct WS
 {
-    void ProcessCellsInRadius(int a1, float a2, int a3, float a4);
+    void TESWorldSpace_EnumReferencesCloseToPoint(int a1, float a2, int a3, float a4);
 };
 
 extern Mgr DAT_011d45b8;
@@ -8539,7 +8540,7 @@ bool VATSMenu_BuildTargetList()
     if (((GlobC*)DAT_011dea3c)->TESObjectREFR_GetWorldSpace())
     {
         ((WS*)((GlobC*)DAT_011dea3c)->TESObjectREFR_GetWorldSpace())
-            ->ProcessCellsInRadius(
+            ->TESWorldSpace_EnumReferencesCloseToPoint(
                 ((Refr*)DAT_011dea3c)->V1f4(), *DAT_011cdcbc.Setting_Float_00403e20() * *DAT_011cd7d8.Setting_Float_00403e20(),
                 ((Refr*)DAT_011dea3c)->V1f4(),
                 *DAT_011cdcbc.Setting_Float_00403e20((void*)(bool(__cdecl*)(FUN_00452370_shell*)) & VATSMenu_FilterDestructibleObjects, DAT_011dea3c) *
@@ -8706,7 +8707,7 @@ bool VATSMenu_BuildTargetList()
 
 struct Comp2
 {
-    char GetByte63();
+    char BGSBodyPart_GetActorValue();
 };
 struct Comp
 {
@@ -8722,7 +8723,7 @@ struct Comp
     virtual void vf9();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -8748,7 +8749,7 @@ struct Comp
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();
@@ -8823,7 +8824,7 @@ struct ActorView7
     virtual void vf9();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -8849,7 +8850,7 @@ struct ActorView7
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();
@@ -8896,7 +8897,7 @@ int FUN_007f3bf0_cls::VATSMenu_GetActorValueFromBodyPart(int a1)
     {
         Comp2* r = pComp->GetValueByIndex(a1);
         if (r != 0)
-            return r->GetByte63();
+            return r->BGSBodyPart_GetActorValue();
     }
     if (a1 == 0xe)
         return -1;

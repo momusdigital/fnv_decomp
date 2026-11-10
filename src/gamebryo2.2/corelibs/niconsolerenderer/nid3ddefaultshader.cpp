@@ -102,7 +102,8 @@ struct RendererFake
 };
 // Restores the saved lighting render state, then finishes the shader pass.
 // @fnv 0x00e7c580
-unsigned int __fastcall RestoreDefaultShaderState(
+// src: EXE 0x00e7c580
+unsigned int __fastcall NiD3DDefaultShader_PostProcessPipeline(
     NiD3DDefaultShader* shader, void*, void* a1, void* a2, void* a3, void* a4, void* a5, void* a6, void* a7)
 {
     reinterpret_cast<RendererFake*>(shader->m_pkD3DRenderState)->Set(0x89, shader->m_uiOldLightingValue, 0, 0);
@@ -739,7 +740,8 @@ struct S_00e7c720_State
 };
 // Applies render modes, begins the shader pass, and saves its lighting render state.
 // @fnv 0x00e7c720
-unsigned int __fastcall BeginDefaultShaderPass(
+// src: EXE 0x00e7c720
+unsigned int __fastcall NiD3DDefaultShader_PreProcessPipeline(
     NiD3DDefaultShader* shader, void*, void* apArg1, void* apArg2, void* apArg3, S_00e7c720_State* apState,
     void* apArg5, void* apArg6, void* apArg7)
 {

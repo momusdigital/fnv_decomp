@@ -116,12 +116,12 @@ struct FUN_0066d400_shell
 {
     const char* const* GetArg1Ptr();
 };
-struct FUN_0066d3d0_shell
+struct bhkPCollisionObject
 {
     void __thiscall bhkPCollisionObject_bhkPCollisionObject(void*);
 };
 extern int DAT_01066acc;
-struct FUN_0066d3a0_shell
+struct bhkSPCollisionObject
 {
     void* __thiscall bhkSPCollisionObject_bhkSPCollisionObject(void*);
 };
@@ -131,7 +131,7 @@ struct FUN_0056e120_shell
 {
     void __thiscall bhkTransform_setIdentity();
 };
-struct FUN_0066d550_shell
+struct hkTransformShapeCinfo
 {
     void* Initialize();
 };
@@ -286,11 +286,11 @@ struct FUN_0066d490_base
     FUN_0066d490_base();
     ~FUN_0066d490_base();
 };
-struct FUN_0066d490_cls : FUN_0066d490_base
+struct bhkMultiSphereShape : FUN_0066d490_base
 {
     void* m_vptr;
     void bhkMultiSphereShape_Init(unsigned int a1);
-    FUN_0066d490_cls(unsigned int a1);
+    bhkMultiSphereShape(unsigned int a1);
 };
 extern char DAT_01066d44;
 extern unsigned int DAT_012681b0;

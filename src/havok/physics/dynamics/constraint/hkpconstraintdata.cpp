@@ -9,14 +9,14 @@
 
 extern "C" void __cdecl hkString_memSet(void* dst, int n, int len);
 
-struct FUN_00d21a30_class
+struct hkpConstraintData
 {
     void __thiscall hkpConstraintData_addInstance(int a, int b, int c);
 };
 
 // @fnv 0x00d21a30
 // src: HAVOK_LIB 0x00d21a30
-void __thiscall FUN_00d21a30_class::hkpConstraintData_addInstance(int a, int pBuffer, int uiLength)
+void __thiscall hkpConstraintData::hkpConstraintData_addInstance(int a, int pBuffer, int uiLength)
 {
     if (pBuffer)
         hkString_memSet((void*)pBuffer, 0, uiLength);

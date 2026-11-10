@@ -73,7 +73,7 @@ public:
     void ApplyTerminalDamage(TESObjectREFR*);
     void FindModelSwapNodes(NiAVObject*, void*);
     void FindModelSwapNodes(NiAVObject*, BSSimpleArray<NiNode*, 1024>&);
-    static void UpdateDestructionMap();
+    static void UpdateDestructibleObjects();
     static void UpdateTargetHealthBar(TESObjectREFR*);
     static int GetDestructionStageIndex(TESObjectREFR*);
     static bool IsDestructionStageNode(NiAVObject*);

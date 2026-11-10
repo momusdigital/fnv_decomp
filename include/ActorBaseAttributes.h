@@ -14,5 +14,5 @@ public:
     unsigned short m_usField14;
     unsigned short m_usField16;
 
-    void SwapEndianness();
+    void ACTOR_BASE_DATA_Endian();
 };

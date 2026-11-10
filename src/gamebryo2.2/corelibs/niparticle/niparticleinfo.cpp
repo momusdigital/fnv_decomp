@@ -31,7 +31,7 @@ bool __thiscall Point3ParameterData::Equals(const Point3ParameterData& kData)
 // float fields are cleared and the two generation/code counters are zeroed.
 extern NiPoint3 DAT_011f426c;
 
-struct FUN_00c31e50_cls
+struct NiParticleInfo
 {
     NiPoint3 m_kValue;
     float m_fXValue;
@@ -40,12 +40,13 @@ struct FUN_00c31e50_cls
     unsigned short m_usFirstValue;
     unsigned short m_usSecondValue;
 
-    FUN_00c31e50_cls();
+    NiParticleInfo();
 };
 
 // Initializes the point from DAT_011f426c and sets the three floats and two shorts to zero.
 // @fnv 0x00c31e50
-FUN_00c31e50_cls::FUN_00c31e50_cls()
+// src: GUESS 0x00c31e50 (confidence: high)
+NiParticleInfo::NiParticleInfo()
 {
     m_kValue = DAT_011f426c;
     m_fXValue = 0.0f;

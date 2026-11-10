@@ -424,7 +424,7 @@ struct Callee
 {
     void FUN_0045cec0();
 };
-struct FUN_006f9080_owner : BGSDistantTreeBlockLoadTask
+struct TreeType : BGSDistantTreeBlockLoadTask
 {
     char unk1b[0x1c];
     Callee callee;

@@ -201,7 +201,7 @@ struct Node_b9969
     Inner_b9969** Slot();
 };
 
-struct FUN_00725aa0_cls
+struct ListBox
 {
     int unk00;
     int unk04;
@@ -221,7 +221,7 @@ struct FUN_00725aa0_cls
 
 // Resets m_1c and m_20, iterates the node list calling Set(0xfac, m_1c++) and Log on each slot with m_08 == 0, then calls Finish1 and Finish2.
 // @fnv 0x00725aa0
-void FUN_00725aa0_cls::ProcessSlots()
+void ListBox::ProcessSlots()
 {
     m_1c = 0;
     m_20 = 0.0f;
@@ -253,12 +253,12 @@ struct FUN_00725f40_shell
     int unk1c;
     float unk20;
     int GetUnfilteredItemCount();
-    void UpdateScrollTraits();
+    void ListBox_UpdateScrollBar();
 };
 // Reads a float from unk0c, computes a scroll delta from unk20 versus that value, and writes it plus an item count to unk0c and unk14.
 // @fnv 0x00725f40
 // src: GUESS 0x00725f40 (confidence: medium)
-void FUN_00725f40_shell::UpdateScrollTraits()
+void FUN_00725f40_shell::ListBox_UpdateScrollBar()
 {
     if (unk0c != 0)
     {
@@ -366,14 +366,14 @@ struct FUN_0072c700_cls
     float m_20;
 
     void AccumulateTileHeight(Tile* o);
-    void UpdateScrollTraits_0072cba0();
+    void ListBox_UpdateScrollBar();
     void UpdateHighlightTraits();
-    void UpdateEntryMetrics_0072c700();
+    void ListBox_UpdateTileIndices();
 };
 
 // @fnv 0x0072c700
-// src: GUESS 0x0072c700 (confidence: low)
-void FUN_0072c700_cls::UpdateEntryMetrics_0072c700()
+// src: GUESS 0x0072c700 (confidence: medium)
+void FUN_0072c700_cls::ListBox_UpdateTileIndices()
 {
     m_1c = 0;
     m_20 = 0.0f;
@@ -386,7 +386,7 @@ void FUN_0072c700_cls::UpdateEntryMetrics_0072c700()
             AccumulateTileHeight((*cur->FUN_006815c0())->m_00);
         }
     }
-    UpdateScrollTraits_0072cba0();
+    ListBox_UpdateScrollBar();
     UpdateHighlightTraits();
 }
 
@@ -408,13 +408,13 @@ struct FUN_0072cba0_cls
     float m_20;
 
     unsigned int GetVisibleCount();
-    void UpdateScrollTraits_0072cba0();
+    void ListBox_UpdateScrollBar();
 };
 
 // Computes a scroll item count from the tile's float at 0xfb0 versus m_20 and stores _scroll_delta and _number_of_items on the tiles.
 // @fnv 0x0072cba0
 // src: GUESS 0x0072cba0 (confidence: medium)
-void FUN_0072cba0_cls::UpdateScrollTraits_0072cba0()
+void FUN_0072cba0_cls::ListBox_UpdateScrollBar()
 {
     if (unk0c)
     {

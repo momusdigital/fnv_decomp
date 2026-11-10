@@ -72,7 +72,7 @@ void __fastcall FUN_00a71f60(void*);
 extern int DAT_0109dd0c;
 extern "C" int __cdecl tolower(int);
 unsigned int BSTexturePalette_GetContainerNumber(const char* str);
-struct FUN_00a755f0_Class : NiCullingProperty
+struct NiMaterialProperty : NiCullingProperty
 {
     void __thiscall CopyCullingData(void* dst, CloningProcess& proc);
 };
@@ -89,12 +89,12 @@ extern void _NiFree(void*);
 extern int DAT_0109bc84;
 extern int DAT_0109bca4;
 extern int DAT_0109bcc4;
-struct FUN_00a699d0_Class
+struct NiPlane
 {
     NiPoint3 normal;
     float distance;
 
-    FUN_00a699d0_Class* __thiscall SetPlaneFromThreePoints(NiPoint3 const* point0, NiPoint3 const* point1, NiPoint3 const* point2);
+    NiPlane* __thiscall SetPlaneFromThreePoints(NiPoint3 const* point0, NiPoint3 const* point1, NiPoint3 const* point2);
 };
 struct FUN_00a6ea00_Class : NiTFixedStringMap_NiAVObject___
 {
@@ -105,15 +105,15 @@ extern int DAT_0109ca08;
 extern MemoryManager _g_memoryManager;
 void _NiFree(void* p);
 extern int DAT_0109cd44;
-void* CreateNiTriStrips();
+void* NiTriStrips_CreateObject();
 struct FUN_00a72ca0_Class
 {
     void SetSize_Thunk(unsigned int size);
 };
-struct FUN_00a7f810
+struct NiGeometryGroupManager
 {
     int m_p;
-    FUN_00a7f810();
+    NiGeometryGroupManager();
 };
 struct HashValue_00a61670
 {
@@ -229,7 +229,7 @@ struct FUN_00a61920_Node
     short unk0c;
     short unk0e;
 };
-class FUN_00a61920_Class
+class BSTexturePalette
 {
   public:
     FUN_00a61920_Node* m_pBuckets[1];
@@ -529,7 +529,7 @@ struct FUN_00a6dbd0_cls
 
     void Negate(float* __restrict out);
 };
-class FUN_00a71b80_cls
+class NiFrustum
 {
   public:
     float m_00;
@@ -540,7 +540,7 @@ class FUN_00a71b80_cls
     float m_14;
     unsigned char m_18;
 
-    FUN_00a71b80_cls* Init(float a1, float a2, float a3, float a4, float a5, float a6, unsigned char flag);
+    NiFrustum* Init(float a1, float a2, float a3, float a4, float a5, float a6, unsigned char flag);
 };
 struct FUN_00a75dc0_cls
 {
@@ -670,7 +670,7 @@ struct SceneFactoryObject
     void* m_vtbl;
     void Initialize();
 };
-SceneFactoryObject* CreateSceneFactoryObject();
+SceneFactoryObject* NiLines_CreateObject();
 extern int DAT_011aa04c;
 void __cdecl NiProcessorSpecificCode_SetVectorTransformFunction(int param_1);
 // FUN_00a74d90 - installs a callback pointer into the global slot at 0x011aa050.
@@ -1200,7 +1200,7 @@ struct A5FC10Stub
     A5FC10Stub* __thiscall NiSourceTexture_NiSourceTexture();
 };
 void* __cdecl Object_DispatchCommandFour(unsigned int size);
-A5FC10Stub* __cdecl CreateA5FC10Stub();
+A5FC10Stub* __cdecl NiSourceTexture_CreateObject();
 struct This;
 struct T
 {
@@ -1611,7 +1611,7 @@ void __cdecl NiPSysData_LinkObject();
 void __cdecl AddScaledPoints(NiPoint3* dest, float scale, const NiPoint3* src, unsigned int count);
 extern int DAT_0109b944;
 extern int DAT_0109df8c;
-struct FUN_00a7fb80_Class
+struct NiRenderedTexture
 {
     void* m_ppVirtualMethodTable;
     int m_04;

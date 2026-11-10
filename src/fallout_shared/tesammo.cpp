@@ -212,14 +212,14 @@ template <int N> struct EndianSizeTag
 
 void __cdecl BSEndian(int*, EndianSizeTag<4>);
 
-struct FUN_00503240_shell
+struct AMMO_DATA_NV
 {
     void SwapEndianFields();
 };
 
 // Byte-swaps the 4-byte values at offsets 8 and 0x10 of this object via BSEndian.
 // @fnv 0x00503240
-void FUN_00503240_shell::SwapEndianFields()
+void AMMO_DATA_NV::SwapEndianFields()
 {
     BSEndian(reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 8), EndianSizeTag<4>());
     BSEndian(reinterpret_cast<int*>(reinterpret_cast<char*>(this) + 0x10), EndianSizeTag<4>());
@@ -518,19 +518,19 @@ bool AmmoMethods::TESAmmo_Compare(TESForm* form)
 
 bool __cdecl TESForm_QEndianSwapOnSave();
 void __cdecl TESForm_AddChunkArray(unsigned int, const void*, unsigned int);
-void __cdecl AppendChunk(unsigned int, void*, unsigned int);
+void __cdecl TESForm___AddChunkData(unsigned int, void*, unsigned int);
 void __cdecl TESForm_AddChunk_00485910(unsigned int, unsigned int);
 struct AmmoSaveCalls
 {
-    void BeginFormRecord();
-    void FinishFormRecord();
+    void TESForm_StartForm();
+    void TESForm_CloseForm();
     void Save_00487010();
     void ProcessAndFreeData(unsigned int, unsigned int, unsigned int);
     void TESTexture_Save(unsigned int);
     void FUN_0047a240(unsigned int);
     void Save_0048cca0();
     void FUN_00477f20();
-    void LogFormIDs();
+    void BGSPickupPutdownSounds_Save();
     void QuestPerkEntryData_Endian();
     void TESForm___SaveData(void*, unsigned int);
     unsigned int BSStringT_char_Length();
@@ -557,14 +557,14 @@ struct AmmoSave
 // @fnv 0x00503280
 void AmmoSave::Save()
 {
-    reinterpret_cast<AmmoSaveCalls*>(this)->BeginFormRecord();
+    reinterpret_cast<AmmoSaveCalls*>(this)->TESForm_StartForm();
     reinterpret_cast<AmmoSaveCalls&>(fullName).Save_00487010();
     reinterpret_cast<AmmoSaveCalls&>(model).ProcessAndFreeData(0x4c444f4d, 0x54444f4d, 0x53444f4d);
     reinterpret_cast<AmmoSaveCalls&>(icon).TESTexture_Save(0x4e4f4349);
     reinterpret_cast<AmmoSaveCalls&>(messageIcon).FUN_0047a240(0x4f43494d);
     reinterpret_cast<AmmoSaveCalls&>(script).Save_0048cca0();
     reinterpret_cast<AmmoSaveCalls&>(destructible).FUN_00477f20();
-    reinterpret_cast<AmmoSaveCalls&>(sounds).LogFormIDs();
+    reinterpret_cast<AmmoSaveCalls&>(sounds).BGSPickupPutdownSounds_Save();
     if (TESForm_QEndianSwapOnSave())
         reinterpret_cast<AmmoSaveCalls&>(data).QuestPerkEntryData_Endian();
     reinterpret_cast<AmmoSaveCalls*>(this)->TESForm___SaveData(&data, 8);
@@ -580,7 +580,7 @@ void AmmoSave::Save()
                                            : 0;
     if (TESForm_QEndianSwapOnSave())
         reinterpret_cast<TESAmmoNVEndian&>(m_kProjectileData).SwapEndianFields();
-    AppendChunk(0x32544144, &m_kProjectileData, 20);
+    TESForm___AddChunkData(0x32544144, &m_kProjectileData, 20);
     if (TESForm_QEndianSwapOnSave())
         reinterpret_cast<TESAmmoNVEndian&>(m_kProjectileData).SwapEndianFields();
     m_kProjectileData.m_pProjectile = node;
@@ -601,7 +601,7 @@ void AmmoSave::Save()
         unsigned int formID = consumed->GetFormID();
         TESForm_AddChunk_00485910(0x4c494352, formID);
     }
-    reinterpret_cast<AmmoSaveCalls*>(this)->FinishFormRecord();
+    reinterpret_cast<AmmoSaveCalls*>(this)->TESForm_CloseForm();
 }
 
 int __fastcall FNV_GetFormType(TESForm* pkForm);

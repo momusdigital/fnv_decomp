@@ -6,16 +6,16 @@
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance();
 
-struct FUN_00e02230
+struct hkxMaterialShader
 {
     unsigned short m_u04;
     unsigned short m_u06;
-    FUN_00e02230();
-    virtual ~FUN_00e02230();
+    hkxMaterialShader();
+    virtual ~hkxMaterialShader();
     static void operator delete(void* apMemory)
     {
         hkMemoryRouter* pHolder = hkMemoryRouter_getInstance();
-        unsigned int uiSize = ((FUN_00e02230*)apMemory)->m_u04;
+        unsigned int uiSize = ((hkxMaterialShader*)apMemory)->m_u04;
         hkMemoryAllocator* pAllocator = reinterpret_cast<hkMemoryAllocator*>(pHolder->m_heap);
         typedef void (__thiscall* FreeFunction)(hkMemoryAllocator*, void*, unsigned int);
         (*(FreeFunction**)pAllocator)[2](pAllocator, apMemory, uiSize);
@@ -24,7 +24,8 @@ struct FUN_00e02230
 
 // Initializes m_u04 and m_u06 to zero.
 // @fnv 0x00e02230
-FUN_00e02230::FUN_00e02230()
+// src: EXE 0x00e02230
+hkxMaterialShader::hkxMaterialShader()
 {
     m_u04 = 0;
     m_u06 = 0;

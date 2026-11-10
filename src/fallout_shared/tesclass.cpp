@@ -25,7 +25,7 @@ class LegacyActorBaseData
     char flags;
     int services;
     unsigned char trainingSkill, trainingLevel;
-    void SwapEndianData();
+    void OLD_CLASS_DATA_Endian();
 };
 extern "C" void* __cdecl memset(void*, int, unsigned int);
 
@@ -39,7 +39,8 @@ public:
 };
 // Stores skill into data.m_aeTaggedSkills[index] and marks the class modified when skill is a skill or ActorValue__Index_VALUE_NONE.
 // @fnv 0x005f6e80
-void TESClass::SetClassSkillAtIndex(int index, ActorValue::Index skill)
+// src: COMMUNITY 0x005f6e80
+void TESClass::SetTagSkill(int index, ActorValue::Index skill)
 {
     if (ActorValue::IsSkill(skill) || skill == ActorValue::ActorValue__Index_VALUE_NONE)
     {
@@ -53,7 +54,7 @@ void TESClass::ResetFormData()
 {
     memset(&data, 0, 28);
     for (int i = 0; i < 4; ++i)
-        SetClassSkillAtIndex(i, ActorValue::ActorValue__Index_VALUE_NONE);
+        SetTagSkill(i, ActorValue::ActorValue__Index_VALUE_NONE);
 }
 // Loads the base form data, then reads four skill values from the buffer when change flag 2 is set.
 // @fnv 0x005f71c0
@@ -111,7 +112,7 @@ bool TESClass::Load(TESFile* file)
                 else
                     file->GetChunkData(&oldData, 24);
                 if (file->IsEndianConversionRequired())
-                    oldData.SwapEndianData();
+                    oldData.OLD_CLASS_DATA_Endian();
                 data.m_ucClassFlags = oldData.flags;
                 data.m_uiField08 = oldData.services;
                 data.m_ucField0D = oldData.trainingLevel;
@@ -178,14 +179,15 @@ template <int N> class EndianSizeTag
 
 void __cdecl BSEndian(int*, EndianSizeTag<3>);
 
-struct FUN_005f6c90_shell
+struct OLD_CLASS_DATA
 {
     int m_data[4];
-    void SwapEndianData();
+    void OLD_CLASS_DATA_Endian();
 };
 
 // @fnv 0x005f6c90
-void FUN_005f6c90_shell::SwapEndianData()
+// src: COMMUNITY 0x005f6c90
+void OLD_CLASS_DATA::OLD_CLASS_DATA_Endian()
 {
     BSEndian(&m_data[4], EndianSizeTag<3>());
     for (int i = 0; i < 3; ++i)
@@ -238,7 +240,7 @@ void __cdecl _FUN_00485990(unsigned int, void*, unsigned int);
 void __thiscall TESClass::SaveForm(void)
 {
     char cAttribData[7];
-    TESForm::BeginFormRecord();
+    TESForm::TESForm_StartForm();
     TESFullName::Save_00487010();
     TESDescription::Save_00482cb0();
     TESTexture::Save(0x4e4f4349);
@@ -253,7 +255,7 @@ void __thiscall TESClass::SaveForm(void)
     }
     TESAttributes::Save(cAttribData);
     TESForm_AddChunkArray(0x52545441, cAttribData, 7);
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_CloseForm();
 }
 
 void __cdecl _Deallocate(void*);

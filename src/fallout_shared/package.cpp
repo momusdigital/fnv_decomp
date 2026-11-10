@@ -80,7 +80,8 @@ float TESPackage::GetPackageDefaultFloat()
     return gPackageLocationRadius;
 }
 // @fnv 0x00670f90
-bool TESPackage::IsMustReachLocation()
+// src: COMMUNITY 0x00670f90
+bool TESPackage::GetOncePerDay()
 {
     if (packageFlags & 0x400)
     {
@@ -117,7 +118,8 @@ bool TESPackage::IsFlag10000Set()
 }
 // Returns data as a TESPatrolPackageData pointer when GetPackType() equals 13, otherwise returns null.
 // @fnv 0x00675920
-const TESPatrolPackageData* TESPackage::GetPackagePatrolData()
+// src: COMMUNITY 0x00675920
+const TESPatrolPackageData* TESPackage::GetPatrolPackageData()
 {
     if (GetPackType() == 13)
         return reinterpret_cast<TESPatrolPackageData*>(packageData);
@@ -135,7 +137,8 @@ void ImageSpaceModifierInstanceDOF::ImageSpaceModifierInstance_SetPermanent(bool
 }
 // Returns true when GetPackType() is one of the package types 18-25, 27-29 or 31-36, otherwise false.
 // @fnv 0x00678610
-bool TESPackage::IsPackageBlockingGreeting()
+// src: COMMUNITY 0x00678610
+bool TESPackage::IsInterruptPackage()
 {
     bool result = false;
     switch (GetPackType())
@@ -182,7 +185,8 @@ TESObjectREFR* TESPackage::GetResolvedTargetReference(MobileObject* actor)
 }
 // Copies the schedule from source into this package's schedule, or copies an empty schedule when source is null.
 // @fnv 0x00673180
-void TESPackage::CopyScheduleFrom(DurationData* source)
+// src: COMMUNITY 0x00673180
+void TESPackage::SetPackageSchedule(DurationData* source)
 {
     if (source)
         reinterpret_cast<DurationData*>(&time)->Copy(source);
@@ -203,7 +207,7 @@ void TESPackage::ResetFormData()
     unk034 = 0;
     unk048 = 0;
     packageData = 0;
-    CopyScheduleFrom(0);
+    SetPackageSchedule(0);
     procedureArrayIndex = ~0u;
     type = 255;
     SetTrespassEnabled(false);
@@ -302,7 +306,8 @@ bool TESPackage::GetUnlockDoorsAtLocation()
     }
 }
 // @fnv 0x00674d40
-bool TESPackage::IsMustComplete()
+// src: COMMUNITY 0x00674d40
+bool TESPackage::GetIsCreated()
 {
     if (packageFlags & 0x800)
     {
@@ -661,7 +666,7 @@ struct LocationDescriptor
     void SetRadius(unsigned int);
     TESObjectREFR* GetLocationReference();
     TESObjectCELL* GetLocationCellReference();
-    TESForm* GetLocationObject();
+    TESForm* PackageLocation_GetLocObject();
     int GetSearchRadius();
     void SetLocRef(TESObjectREFR*);
     void SetLocCell(TESObjectCELL*);
@@ -916,13 +921,14 @@ float TESPackage::GetPackageLocationRadius(MobileObject* apMobileObject, bool ab
 
 
 
-struct FUN_00678cc0_shell : public DurationData
+struct PackageSchedule : public DurationData
 {
-    int GetSecondByte();
+    int PackageSchedule_GetStartDayOfWeek();
 };
 
 // @fnv 0x00678cc0
-int FUN_00678cc0_shell::GetSecondByte()
+// src: COMMUNITY 0x00678cc0
+int PackageSchedule::PackageSchedule_GetStartDayOfWeek()
 {
     return *((signed char*)this + 1);
 }
@@ -984,13 +990,14 @@ extern Calendar g_calendar;
 
 struct PackageSchedule_Caller : public DurationData
 {
-    int GetSecondByte();
+    int PackageSchedule_GetStartDayOfWeek();
 };
 
 // @fnv 0x00678d40
 } // namespace fnv_00678d40
 
-bool TESPackage::IsScheduledForDay(bool bTestPreviousDay)
+// src: COMMUNITY 0x00678d40
+bool TESPackage::IsitDayofTheWeek(bool bTestPreviousDay)
 {
     using namespace fnv_00678d40;
     DurationData* pSchedule = (DurationData*)((TESDataHandler*)this)->GetEnchantmentItemList();
@@ -1001,7 +1008,7 @@ bool TESPackage::IsScheduledForDay(bool bTestPreviousDay)
         if (cDayToCheck < 0)
             cDayToCheck = 6;
     }
-    int ecurrentday = ((fnv_00678d40::PackageSchedule_Caller*)pSchedule)->GetSecondByte();
+    int ecurrentday = ((fnv_00678d40::PackageSchedule_Caller*)pSchedule)->PackageSchedule_GetStartDayOfWeek();
     bool abflag = false;
     switch (ecurrentday)
     {
@@ -1315,7 +1322,8 @@ void FUN_0067a3a0_shell::TESPackage_SetSelectiveFalloutBehavior(bool enabled)
 
 
 // @fnv 0x0067a3f0
-bool TESPackage::HasFlag400000()
+// src: COMMUNITY 0x0067a3f0
+bool TESPackage::GetDefensive()
 {
     return (packageFlags & 0x400000) ? true : false;
 }
@@ -1377,11 +1385,12 @@ bool FUN_0067a700_shell::TESPackage_GetContinueDuringCombat()
 
 struct FUN_0067a720_shell : public TESPackage
 {
-    void SetFlag4000000(bool);
+    void TESPackage_SetContinueDuringCombat(bool);
 };
 
 // @fnv 0x0067a720
-void FUN_0067a720_shell::SetFlag4000000(bool abVal)
+// src: COMMUNITY 0x0067a720
+void FUN_0067a720_shell::TESPackage_SetContinueDuringCombat(bool abVal)
 {
     abVal ? *reinterpret_cast<unsigned int*>(reinterpret_cast<char*>(this) + 0x1c) |= 0x4000000
           : *reinterpret_cast<unsigned int*>(reinterpret_cast<char*>(this) + 0x1c) &= ~0x4000000;
@@ -1541,7 +1550,7 @@ void* DelStandIn::FUN_00670b30(unsigned int flags)
 }
 
 
-struct FUN_006801a0_shell
+struct PackageTarget
 {
     void PackageTarget_Copy(PackageTargetRecord*);
 };
@@ -1554,7 +1563,7 @@ void TESPackage::SetPackageTarget(PackageTargetRecord* apPackTarg)
     {
         if (!*(PackageTargetRecord**)((char*)this + 0x30))
             *(PackageTargetRecord**)((char*)this + 0x30) = new PackageTargetRecord;
-        ((FUN_006801a0_shell*)*(PackageTargetRecord**)((char*)this + 0x30))->PackageTarget_Copy(apPackTarg);
+        ((PackageTarget*)*(PackageTargetRecord**)((char*)this + 0x30))->PackageTarget_Copy(apPackTarg);
     }
     else
     {
@@ -2045,7 +2054,7 @@ bool TESPackage::IsActorWithinPackageRadius(Actor* apMobileObject, bool bignored
     frame.pLoc = (fnv_006768d0::LocationDescriptor*)((Script*)this)->GetText();
     if (frame.pLoc && ((fnv_006768d0::BoundHolder*)frame.pLoc)->GetBoundingRadius() == 3 && !((VT*)apMobileObject)->f290())
         return true;
-    frame.plocworld = (::TESWorldSpace*)this->GetPackageWorldSpace(apMobileObject);
+    frame.plocworld = (::TESWorldSpace*)this->GetLocationWorld(apMobileObject);
     frame.plocintcell = this->GetPackageLocationCell(apMobileObject);
     if (frame.plocintcell && !frame.plocintcell->IsInterior())
         frame.plocintcell = 0;
@@ -2187,8 +2196,8 @@ struct LocationDescriptor
     void SetRadius(unsigned int);
     TESObjectREFR* GetLocationReference();
     TESObjectCELL* GetLocationCellReference();
-    TESForm* GetLocationObject();  // 0x0067f430
-    int GetObjectType();          // 0x0067f480
+    TESForm* PackageLocation_GetLocObject();  // 0x0067f430
+    int PackageLocation_GetLocObjectType();          // 0x0067f480
     int GetSearchRadius();
     void SetLocRef(TESObjectREFR*);
     void SetLocCell(TESObjectCELL*);
@@ -2220,7 +2229,7 @@ struct LocationDescriptor
 typedef char _sizecheck_PackageLocation[sizeof(LocationDescriptor) == 12 ? 1 : -1];
 struct FUN_006777b0_shell : public TESPackage
 {
-    void ComputePackageFlags(TESObjectREFR*);
+    void TESPackage_CalculateProcedureType(TESObjectREFR*);
 };
 
 int __fastcall _FNV_GetFormType(TESForm*);
@@ -2321,7 +2330,8 @@ const char* __cdecl PrepareScriptMessage(const char*, bool);
 int __cdecl sprintf(char*, const char*, ...);
 
 // @fnv 0x006777b0
-void FUN_006777b0_shell::ComputePackageFlags(TESObjectREFR* apLinkedRef)
+// src: COMMUNITY 0x006777b0
+void FUN_006777b0_shell::TESPackage_CalculateProcedureType(TESObjectREFR* apLinkedRef)
 {
     switch (GetPackType())
     {
@@ -2448,7 +2458,7 @@ void FUN_006777b0_shell::ComputePackageFlags(TESObjectREFR* apLinkedRef)
         {
             LocationDescriptor* ploc = reinterpret_cast<LocationDescriptor*>(TESPackage::GetPackageSecondLocation());
             if (ploc && (((BoundHolder*)ploc)->GetBoundingRadius() == 6 || ploc->GetLocationReference() ||
-                         ploc->GetLocationObject() || ploc->GetObjectType()))
+                         ploc->PackageLocation_GetLocObject() || ploc->PackageLocation_GetLocObjectType()))
                 procedureArrayIndex = 7;
             else
                 procedureArrayIndex = 0x2d;
@@ -2582,7 +2592,7 @@ void FUN_006777b0_shell::ComputePackageFlags(TESObjectREFR* apLinkedRef)
         sprintf(message, "Package '%s' is not a valid package because it is missing necessary Target Or Location Info.",
                 PrepareScriptMessage(((TESPackageVt*)this)->GetEditorID(), false));
         procedureArrayIndex = 0;
-        SetPackageType(6);
+        SetPackType(6);
     }
 }
 }  // namespace fnv_006777b0
@@ -2710,11 +2720,12 @@ class FUN_00676e40_Package : public TESPackage
 {
   public:
     float GetPackageLocationRadius(MobileObject* apMobileObject, bool abUseDefault);
-    bool IsActorInPackageRadius(MobileObject* apMobileObject, int aiExtraRadius);
+    bool TESPackage_IsActorAtRefTarget(MobileObject* apMobileObject, int aiExtraRadius);
 };
 
 // @fnv 0x00676e40
-bool FUN_00676e40_Package::IsActorInPackageRadius(MobileObject* apMobileObject, int aiExtraRadius)
+// src: COMMUNITY 0x00676e40
+bool FUN_00676e40_Package::TESPackage_IsActorAtRefTarget(MobileObject* apMobileObject, int aiExtraRadius)
 {
     Actor* apActor;
     int m_iSearchRadius;
@@ -2845,7 +2856,7 @@ struct LocationDescriptor
     void SetRadius(unsigned int);
     TESObjectREFR* GetLocationReference();
     TESObjectCELL* GetLocationCellReference();
-    TESForm* GetLocationObject();
+    TESForm* PackageLocation_GetLocObject();
     int GetSearchRadius();
     void SetLocRef(TESObjectREFR*);
     void SetLocCell(TESObjectCELL*);
@@ -3240,11 +3251,12 @@ struct FUN_0067a640_shell
     int m_0014;
     int m_0018;
     int m_001c;
-    void SetFlag200000(bool param_2);
+    void TESPackage_SetForceUnequipWeapon(bool param_2);
 };
 
 // @fnv 0x0067a640
-void FUN_0067a640_shell::SetFlag200000(bool abSet)
+// src: COMMUNITY 0x0067a640
+void FUN_0067a640_shell::TESPackage_SetForceUnequipWeapon(bool abSet)
 {
     abSet ? m_001c |= 0x200000 : m_001c &= ~0x200000;
 }
@@ -3354,7 +3366,7 @@ struct LocationDescriptor
     void SetRadius(unsigned int);
     TESObjectREFR* GetLocationReference();
     TESObjectCELL* GetLocationCellReference();
-    TESForm* GetLocationObject();
+    TESForm* PackageLocation_GetLocObject();
     int GetSearchRadius();
     void SetLocRef(TESObjectREFR*);
     void SetLocCell(TESObjectCELL*);
@@ -3718,7 +3730,7 @@ FUN_0067c770::FUN_0067c770()
 
 struct FUN_0085a290_t
 {
-    void __thiscall DeleteFormById(unsigned int);
+    void __thiscall TESSaveLoadGame_ClearFormID(unsigned int);
     TESPackage* __thiscall TESSaveLoadGame_CreatePackage(unsigned int, unsigned char);
 };
 TESPackage* __cdecl CreatePackageStandIn(PTYPE);
@@ -3800,12 +3812,12 @@ struct Helper
     virtual void f73();
     virtual void f74(unsigned int, int);
 };
-// Calls DeleteFormById with a1, creates a package from a2, sets its field via f74(a1, 1), and returns the package.
+// Calls TESSaveLoadGame_ClearFormID with a1, creates a package from a2, sets its field via f74(a1, 1), and returns the package.
 // @fnv 0x0085a240
 // src: XBOX_PDB 0x0085a240
 TESPackage* __thiscall FUN_0085a290_t::TESSaveLoadGame_CreatePackage(unsigned int a1, unsigned char ucPackageType)
 {
-    DeleteFormById(a1);
+    TESSaveLoadGame_ClearFormID(a1);
     TESPackage* p = CreatePackageStandIn((PTYPE)ucPackageType);
     ((Helper*)p)->f74(a1, 1);
     return p;
@@ -4461,7 +4473,8 @@ struct FUN_0056ad30_shell
 // @fnv 0x00675a50
 } // namespace fnv_00675a50
 
-TESWorldSpace* TESPackage::GetPackageWorldSpace(MobileObject* apActor)
+// src: COMMUNITY 0x00675a50
+TESWorldSpace* TESPackage::GetLocationWorld(MobileObject* apActor)
 {
     using namespace fnv_00675a50;
     ::TESWorldSpace* pretworld = 0;
@@ -4529,7 +4542,7 @@ struct LocationDescriptor
     void SetRadius(unsigned int);
     TESObjectREFR* GetLocationReference();
     TESObjectCELL* GetLocationCellReference();
-    TESForm* GetLocationObject();
+    TESForm* PackageLocation_GetLocObject();
     int GetSearchRadius();
     void SetLocRef(TESObjectREFR*);
     void SetLocCell(TESObjectCELL*);
@@ -4974,10 +4987,11 @@ struct FUN_00674f30_shell
     virtual void vfn_48(unsigned int);
     virtual void vfn_4c(unsigned int);
     unsigned int GetHavokWorldObjectCountInSceneGraph_0084e3a0();
-    void SetFlag10000(bool b);
+    void TESPackage_SetWaiting(bool b);
 };
 // @fnv 0x00674f30
-void FUN_00674f30_shell::SetFlag10000(bool abSet)
+// src: COMMUNITY 0x00674f30
+void FUN_00674f30_shell::TESPackage_SetWaiting(bool abSet)
 {
     if (abSet)
     {
@@ -5094,7 +5108,7 @@ struct FUN_00441b00_shell
 };
 struct FUN_0067a640_shell
 {
-    void SetFlag200000(bool);
+    void TESPackage_SetForceUnequipWeapon(bool);
 };
 struct Struct_067A4A0
 {
@@ -5119,7 +5133,7 @@ struct FUN_0067a700_shell
 };
 struct FUN_0067a720_shell
 {
-    void SetFlag4000000(bool);
+    void TESPackage_SetContinueDuringCombat(bool);
 };
 struct FUN_0067a5d0_class
 {
@@ -5162,13 +5176,13 @@ void TESPackage::CopyAllFlags(TESPackage* apCopy)
     ((fnv_0067a1b0::FUN_0067ac70_shell*)this)->SetFlag100(((fnv_0067a1b0::FUN_0067ac50_shell*)apCopy)->TESPackage_GetFOEnableAvoidRadiationBehavior());
     ((TESPackage*)this)->SetDrawWeaponFlag(((fnv_0067a1b0::FUN_0067a460_shell*)apCopy)->TESPackage_GetDrawWeaponFlag());
     ((fnv_0067a1b0::FUN_0067a6b0_shell*)this)->SetFlag100000(((fnv_0067a1b0::FUN_0067a690_shell*)apCopy)->HasFlag100000());
-    ((fnv_0067a1b0::FUN_0067a640_shell*)this)->SetFlag200000(((fnv_0067a1b0::FUN_00441b00_shell*)apCopy)->GetForceUnequipWeapon());
+    ((fnv_0067a1b0::FUN_0067a640_shell*)this)->TESPackage_SetForceUnequipWeapon(((fnv_0067a1b0::FUN_00441b00_shell*)apCopy)->GetForceUnequipWeapon());
     ((fnv_0067a1b0::Struct_067A4A0*)this)->TESPackage_SetAlwaysRun(((TESPackage*)apCopy)->GetAlwaysRun());
     ((fnv_0067a1b0::FUN_0067a510_shell*)this)->SetFlag20000(((fnv_0067a1b0::FUN_0067a4f0_shell*)apCopy)->TESPackage_GetAlwaysSneak());
     ((fnv_0067a1b0::Fake067a790*)this)->TESPackage_SetCombatAlert(((TESPackage*)apCopy)->IsNotFlag8000000());
     ((BGSAcousticSpace*)this)->SetRegion((::TESRegion*)((TESTopicInfo*)apCopy)->GetParentQuest());
-    ((fnv_0067a1b0::FUN_0067a720_shell*)this)->SetFlag4000000(((fnv_0067a1b0::FUN_0067a700_shell*)apCopy)->TESPackage_GetContinueDuringCombat());
-    ((TESPackage*)this)->SetFlag400000(((TESPackage*)apCopy)->HasFlag400000());
+    ((fnv_0067a1b0::FUN_0067a720_shell*)this)->TESPackage_SetContinueDuringCombat(((fnv_0067a1b0::FUN_0067a700_shell*)apCopy)->TESPackage_GetContinueDuringCombat());
+    ((TESPackage*)this)->SetFlag400000(((TESPackage*)apCopy)->GetDefensive());
     ((fnv_0067a1b0::FUN_0067a5f0_shell*)this)->SetFlag80000(((fnv_0067a1b0::FUN_0067a5d0_class*)apCopy)->TESPackage_GetAllowFalls());
     ((fnv_0067a1b0::FUN_0067a580_shell*)this)->SetFlag40000(fnv_0067a1b0::TESPackage_GetAllowsSwim((int)apCopy));
     ((fnv_0067a1b0::FUN_0067a800_shell*)this)->TESPackage_SetNoWarnAttackBehavior(((fnv_0067a1b0::FUN_0067a7e0_shell*)apCopy)->IsFlag28Clear());
@@ -5194,11 +5208,12 @@ struct _ref_006815c0
 extern XActor* g_thePlayer;
 struct FUN_00962720_shell
 {
-    bool HasExtraFollowerForm(char* apForm);
+    bool PlayerCharacter_IsPlayerFollower(char* apForm);
 };
 // Checks whether the player's extra follower list contains the given form pointer, walking the linked list and returning true on a match.
 // @fnv 0x00962720
-bool FUN_00962720_shell::HasExtraFollowerForm(char* apForm)
+// src: COMMUNITY 0x00962720
+bool FUN_00962720_shell::PlayerCharacter_IsPlayerFollower(char* apForm)
 {
     ExtraFollower* pkFollower = ((FUN_00422700_shell*)g_thePlayer->GetExtra())->ExtraDataList_GetFollowerExtra();
     if (pkFollower && *(char**)((char*)pkFollower + 0xc))
@@ -5254,12 +5269,13 @@ struct FUN_006730a0_shell
     unsigned char m_auiShapeKeys[0x34];
     FUN_00670b60* m_object;
 
-    void CallOrResetObject(void* value);
+    void TESPackage_SetPackageIdles(void* value);
 };
 
 // If value is non-null, lazily creates m_object and calls its Call method with value; otherwise deletes m_object and sets it to null.
 // @fnv 0x006730a0
-void FUN_006730a0_shell::CallOrResetObject(void* value)
+// src: COMMUNITY 0x006730a0
+void FUN_006730a0_shell::TESPackage_SetPackageIdles(void* value)
 {
     if (value)
     {
@@ -5289,7 +5305,7 @@ struct CondS
 
 struct FUN_00680a70_shell
 {
-    void CopyConditions(PerkEntryConditionSet*, PerkEntryConditionSet*);
+    void TESCondition_Copy(PerkEntryConditionSet*, PerkEntryConditionSet*);
 };
 
 struct FUN_00673200_shell
@@ -5300,26 +5316,26 @@ struct FUN_00673200_shell
     void TESPackage_SetConditions(BGSIdleCollection*);
 };
 
-// If apIdles is non-null, passes it to CopyConditions with null; otherwise passes a default-constructed CondS and null.
+// If apIdles is non-null, passes it to TESCondition_Copy with null; otherwise passes a default-constructed CondS and null.
 // @fnv 0x00673200
 // src: COMMUNITY 0x00673200
 void FUN_00673200_shell::TESPackage_SetConditions(BGSIdleCollection* apIdles)
 {
     if (apIdles)
     {
-        member.CopyConditions(reinterpret_cast<PerkEntryConditionSet*>(apIdles), 0);
+        member.TESCondition_Copy(reinterpret_cast<PerkEntryConditionSet*>(apIdles), 0);
     }
     else
     {
         CondS condition;
-        member.CopyConditions(reinterpret_cast<PerkEntryConditionSet*>(&condition), 0);
+        member.TESCondition_Copy(reinterpret_cast<PerkEntryConditionSet*>(&condition), 0);
     }
 }
 }  // namespace fnv_00673200
 
 namespace fnv_006738b0 {
-void __fastcall BeginFormRecord(TESForm*);
-void __fastcall FinishFormRecord(TESForm*);
+void __fastcall TESForm_StartForm(TESForm*);
+void __fastcall TESForm_CloseForm(TESForm*);
 
 class LocationDescriptor
 {
@@ -5404,7 +5420,7 @@ struct FUN_006738b0_shell
 // src: XBOX_PDB 0x006738b0
 void FUN_006738b0_shell::TESPackage_Save()
 {
-    BeginFormRecord(reinterpret_cast<TESForm*>(this));
+    TESForm_StartForm(reinterpret_cast<TESForm*>(this));
 
     if (_FUN_00401500())
         reinterpret_cast<S*>(reinterpret_cast<char*>(this) + 0x1C)->PACKAGE_DATA_Endian();
@@ -5444,7 +5460,7 @@ void FUN_006738b0_shell::TESPackage_Save()
     reinterpret_cast<FUN_0067dc80*>(reinterpret_cast<char*>(this) + 0x5C)->Save(0x41454F50);
     reinterpret_cast<FUN_0067dc80*>(reinterpret_cast<char*>(this) + 0x6C)->Save(0x41434F50);
 
-    FinishFormRecord(reinterpret_cast<TESForm*>(this));
+    TESForm_CloseForm(reinterpret_cast<TESForm*>(this));
 }
 }  // namespace fnv_006738b0
 
@@ -5754,7 +5770,8 @@ struct PackageDefault : public TESPackage
 
 // Allocates a package object matching the given type via a switch, initializes it with the type, and returns it.
 // @fnv 0x00670b90
-TESPackage* CreatePackageByType(int type)
+// src: COMMUNITY 0x00670b90
+TESPackage* TESPackage_CreatePackage(int type)
 {
     TESPackage* package = 0;
     switch (type)
@@ -5795,7 +5812,7 @@ TESPackage* CreatePackageByType(int type)
         break;
     }
     if (package)
-        package->SetPackageType(type);
+        package->SetPackType(type);
     return package;
 }
 
@@ -6430,7 +6447,8 @@ struct TargetResetOps
     void FUN_006800b0(int);
 };
 // @fnv 0x00670fc0
-void TESPackage::SetPackageType(int newType)
+// src: COMMUNITY 0x00670fc0
+void TESPackage::SetPackType(int newType)
 {
     if (newType == 17)
         newType = 0;
@@ -6578,9 +6596,9 @@ struct PackageCopy : TESPackage
     void FUN_00673180(int);
     void FUN_0050f9a0(int);
     void TESPackage_SetConditions(int);
-    void CallOrResetObject(int);
+    void TESPackage_SetPackageIdles(int);
     void FUN_00673400(int);
-    void SetPackageType(::PTYPE);
+    void SetPackType(::PTYPE);
     void CopyFromPackage(TESForm*);
 };
 // Copies package data from another TESPackage into this one, including accessor values, fields, data, items and flags.
@@ -6597,9 +6615,9 @@ void PackageCopy::CopyFromPackage(TESForm* form)
     FUN_0050f9a0(((PackageAccessor*)p)->FUN_00441110());
     behaviorFlags = p->behaviorFlags;
     TESPackage_SetConditions(((PackageAccessor*)p)->FUN_0087eaa0());
-    CallOrResetObject(((PackageAccessor*)p)->FUN_005f36f0());
+    TESPackage_SetPackageIdles(((PackageAccessor*)p)->FUN_005f36f0());
     FUN_00673400(((PackageAccessor*)p)->FUN_006733e0());
-    SetPackageType(static_cast<::PTYPE>(p->GetPackType()));
+    SetPackType(static_cast<::PTYPE>(p->GetPackType()));
     *reinterpret_cast<unsigned short*>(&specificFlags) = *reinterpret_cast<unsigned short*>(&p->specificFlags);
     if (packageData)
         packageData->Copy(reinterpret_cast<TESPatrolPackageData*>(p->packageData));
@@ -6619,7 +6637,7 @@ struct PkgFile
     bool FUN_00401680();
     void FUN_00472890(void*, unsigned int);
     bool FUN_004726f0();
-    void ReadChunkInt(unsigned int*);
+    void TESFile_Read32(unsigned int*);
 };
 struct PkgGeneral
 {
@@ -6842,7 +6860,7 @@ struct PkgLoad
     int unk38, unk3c, unk40, unk44, unk48;
     PkgEvent onBegin, onEnd, onChange;
     void CallWithThis(PkgFile*);
-    void SetPackageType(int);
+    void SetPackType(int);
     void SetPackageLocation(const PkgLocation&);
     int FUN_0041ca90();
     void TESPackage_SetPackageSecondLocation(const PkgLocation&);
@@ -6878,7 +6896,7 @@ bool PkgLoad::LoadFromFile(PkgFile* file)
             file->FUN_00472890(&record, 12);
             if (file->FUN_00401680())
                 record.PACKAGE_DATA_Endian();
-            SetPackageType(record.type);
+            SetPackType(record.type);
             general = record;
             break;
         }
@@ -7020,7 +7038,7 @@ bool PkgLoad::LoadFromFile(PkgFile* file)
         }
         case 0x4d414e43: {
             unsigned int combat = 0;
-            file->ReadChunkInt(&combat);
+            file->TESFile_Read32(&combat);
             FUN_00673400(combat);
             break;
         }
@@ -9576,7 +9594,7 @@ bool IsValidPickTarget(PickForm* form, PickContext* pContext)
 
 struct Location679120
 {
-    void SaveTargetReference();
+    void PackageLocation_SaveGameOld();
 };
 struct Target679120
 {
@@ -9625,7 +9643,7 @@ void Package679120::SavePackage()
         presence |= 2;
     TESForm_SaveGameDataOLD(&presence, 1);
     if (location)
-        ((Location679120*)location)->SaveTargetReference();
+        ((Location679120*)location)->PackageLocation_SaveGameOld();
     if (target)
         ((Target679120*)target)->SaveLoad();
     DAT_011de45c->TESSaveLoadGame_SaveGameDataOLD(&procedureArrayIndex, 4);
@@ -9814,7 +9832,8 @@ struct ConsumableForm
 };
 // Returns true when the form's type code maps to the given object type, with extra checks for armor, clothing, weapons and consumables.
 // @fnv 0x00679e00
-bool __cdecl MatchesObjectType(TESForm* form, int objectType)
+// src: COMMUNITY 0x00679e00
+bool __cdecl TESPackage_FormMatchesPackageObjectType(TESForm* form, int objectType)
 {
     bool matches = false;
     if (form && objectType)
@@ -9986,7 +10005,7 @@ struct A90Mgr
 extern A90Mgr* DAT_011c3f2c;
 struct A90Sub1
 {
-    void __thiscall ResolveObject(int a);
+    void __thiscall PackageLocation_InitLoadGame(int a);
 };
 struct A90Sub2
 {
@@ -10020,7 +10039,7 @@ void A90Cls::DispatchToSubobjects(int aiValue)
     if (!DAT_011c3f2c->FUN_00469860(GetHavokWorldObjectCountInSceneGraph_0084e3a0()))
         return;
     if (m_2c)
-        m_2c->ResolveObject(aiValue);
+        m_2c->PackageLocation_InitLoadGame(aiValue);
     if (m_30)
         m_30->FUN_00680830(aiValue);
     if (m_28)
@@ -11301,7 +11320,7 @@ class V
     V* BSFile_GetDevice();
     V* ExtraDataList_GetReferencePointer();
     V* TESObjectREFR_GetLinkedRef();
-    bool HasExtraFollowerForm(V*);
+    bool PlayerCharacter_IsPlayerFollower(V*);
     int PlayerCharacter_GetNumberOfFollowers();
     V* GetAcousticSpace();
     int Actor_AddFollower(V*);
@@ -11425,7 +11444,7 @@ V* TESPackageExt::TESPackage_GetEscortTargetForPackage(V* targetObj, bool option
         {
             if (secondary7 == _g_thePlayer &&
                 reinterpret_cast<V*>(((BSShaderNoLightingProperty*)targetObj)->GetBaseTexture())->f14b() != (unsigned int)_g_thePlayer &&
-                !_g_thePlayer->HasExtraFollowerForm(targetObj) &&
+                !_g_thePlayer->PlayerCharacter_IsPlayerFollower(targetObj) &&
                 _g_thePlayer->PlayerCharacter_GetNumberOfFollowers() > *DAT_011cdad0.Setting_Int())
             {
                 reinterpret_cast<V*>(((BSShaderNoLightingProperty*)targetObj)->GetBaseTexture())->f0a2(targetObj, -1);
@@ -12471,7 +12490,7 @@ struct PackageTargetComparison
 };
 struct PackageListComparison
 {
-    bool EvaluateValue_0067fe10(PackageListComparison*);
+    bool PackageSchedule_Compare(PackageListComparison*);
 };
 struct PackageSpellComparison
 {
@@ -12632,7 +12651,7 @@ bool PackageComparison::TESPackage_Compare(TESForm* form)
     }
     if (TESPackage_GetPackageSchedule())
     {
-        if (TESPackage_GetPackageSchedule()->EvaluateValue_0067fe10(other->TESPackage_GetPackageSchedule()))
+        if (TESPackage_GetPackageSchedule()->PackageSchedule_Compare(other->TESPackage_GetPackageSchedule()))
             return true;
     }
     else if (other->TESPackage_GetPackageSchedule())

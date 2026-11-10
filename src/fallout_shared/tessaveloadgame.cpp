@@ -110,7 +110,7 @@ public:
     void* table;
     char pad[0x2c];
     void* manager;
-    void FUN_00c42dd0(unsigned int, const char*);
+    void BSTaskThread(unsigned int, const char*);
     BSTaskManagerThread(void*, unsigned int);
 };
 extern void* DAT_010c1740[];
@@ -142,11 +142,11 @@ void TESSaveLoadGame::FinalizeForm(TESForm* form)
     if (m_kDeferredDeletionList.IsInList(form))
         m_kDeferredDeletionList.Remove(form);
 }
-// Initializes the task manager thread: calls FUN_00c42dd0 with arg and DAT_010c1748, then stores DAT_010c1740 in table and owner in manager.
+// Initializes the task manager thread: calls BSTaskThread with arg and DAT_010c1748, then stores DAT_010c1740 in table and owner in manager.
 // @fnv 0x00c3ee70
 BSTaskManagerThread::BSTaskManagerThread(void* owner, unsigned int arg)
 {
-    FUN_00c42dd0(arg, DAT_010c1748);
+    BSTaskThread(arg, DAT_010c1748);
     table = DAT_010c1740;
     manager = owner;
 }
@@ -373,7 +373,8 @@ void _Deallocate(void* p);
 
 // Calls FUN_00855310, then frees this with _Deallocate when flags has bit 0 set, and returns this.
 // @fnv 0x008552e0
-void* InteriorCellNewReferencesMap::FUN_008552e0(unsigned int flags)
+// src: EXE 0x008552e0
+void* InteriorCellNewReferencesMap::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_00855310();
     if (flags & 1)
@@ -623,12 +624,13 @@ void __thiscall FUN_00484d00_shell::TESForm_LoadGameDataOLD(void* buffer, unsign
 struct FUN_008586a0_class
 {
     void TESSaveLoadGame_WriteFile(int, int, int);
-    void ForwardToFUN_00857b50(int a, int b, int c);
+    void TESSaveLoadGame_SaveBuffer(int a, int b, int c);
 };
 
 // Calls FUN_00857b50 with the three integer arguments a, b and c.
 // @fnv 0x008586a0
-void FUN_008586a0_class::ForwardToFUN_00857b50(int a, int b, int c)
+// src: COMMUNITY 0x008586a0
+void FUN_008586a0_class::TESSaveLoadGame_SaveBuffer(int a, int b, int c)
 {
     TESSaveLoadGame_WriteFile(a, b, c);
 }
@@ -796,12 +798,12 @@ void FUN_008636a0::Init()
 
 struct FUN_00863cb0_Class
 {
-    void __thiscall SetFields04And08(int a, char b, int c);
+    void __thiscall NiTMapBase_SetValue(int a, char b, int c);
 };
 
 // @fnv 0x00863cb0
-// src: GUESS 0x00863cb0 (confidence: medium)
-void __thiscall FUN_00863cb0_Class::SetFields04And08(int a, char b, int aiValue)
+// src: GUESS 0x00863cb0 (confidence: high)
+void __thiscall FUN_00863cb0_Class::NiTMapBase_SetValue(int a, char b, int aiValue)
 {
     ((char*)a)[4] = b;
     ((int*)a)[2] = aiValue;
@@ -853,7 +855,7 @@ struct FUN_008579e0_shell
 struct ATM
 {
     void QueryPerformanceCounter(int);
-    void WaitForTasksDuringRendering();
+    void BSCriticalSection_Leave();
 };
 struct GlobalObject_0044fae0;
 extern ATM g_011de494;
@@ -978,7 +980,7 @@ bool FUN_00858730_shell::TESSaveLoadGame_LoadForm(TESForm* apForm)
                     apForm->GetFormID(), DAT_01187004[formHeader.type].pName, ((Fake440e30*)apForm)->TESForm_GetFormTypeString());
                 m_pChangesMap->HasFormChanges(apForm, true);
                 *(void**)((char*)this + 0x14) = 0;
-                g_011de494.WaitForTasksDuringRendering();
+                g_011de494.BSCriticalSection_Leave();
                 return false;
             }
             isize = formHeader.size;
@@ -1007,7 +1009,7 @@ bool FUN_00858730_shell::TESSaveLoadGame_LoadForm(TESForm* apForm)
                 ((SaveLoadChangesMap*)m_pChangesMap)->ChangesMap_RemoveChange(apForm, *(unsigned int*)((char*)this + 0x54));
                 *(unsigned int*)((char*)this + 0x54) = 0;
             }
-            g_011de494.WaitForTasksDuringRendering();
+            g_011de494.BSCriticalSection_Leave();
             return true;
         }
     }
@@ -1138,12 +1140,12 @@ struct G2
     void AddHead(int*);
 };
 unsigned int BSStringLength(const char*);
-struct FUN_008558a0
+struct SaveStats
 {
     void SetExtraDataString(int iExtraID, const char* pString);
 };
 // @fnv 0x008558a0
-void FUN_008558a0::SetExtraDataString(int iExtraID, const char* pString)
+void SaveStats::SetExtraDataString(int iExtraID, const char* pString)
 {
     AutoMemHelper kHelper4(17, true, "D:\\_Fallout3\\Platforms\\Common\\Code\\Fallout Shared\\TESSaveLoadGame.cpp",
                            615);
@@ -1191,12 +1193,12 @@ bool FUN_00857aa0::ValidateFormIDArray(unsigned int* apFormID, unsigned int aiSi
 namespace fnv_00858570 {
 struct FUN_008558a0_class
 {
-    void FUN_008558a0(void*, const char*);
+    void SaveStats(void*, const char*);
 };
 struct FUN_008586a0_class
 {
     void TESSaveLoadGame_WriteFile(int, void**, int);
-    void ForwardToFUN_00857b50(int, void*, int);
+    void TESSaveLoadGame_SaveBuffer(int, void*, int);
 };
 struct FUN_00858600_class
 {
@@ -1227,10 +1229,10 @@ void FUN_00858570_class::LoadTempEffectsList(int apFile)
     if (ptempBuffer)
     {
         if (*(void**)((char*)this + 0x44))
-            ((FUN_008558a0_class*)*(void**)((char*)this + 0x44))->FUN_008558a0(ptempBuffer, "Temp Effects List");
+            ((FUN_008558a0_class*)*(void**)((char*)this + 0x44))->SaveStats(ptempBuffer, "Temp Effects List");
         void* ptempBuffer2 = ((FUN_00858600_class*)this)->TESSaveLoadGame_CreateBuffer(ptempBuffer);
         ((FUN_009756c0_class*)&DAT_011e0e80)->SaveTempEffects();
-        ((FUN_008586a0_class*)this)->ForwardToFUN_00857b50(apFile, ptempBuffer2, (int)ptempBuffer);
+        ((FUN_008586a0_class*)this)->TESSaveLoadGame_SaveBuffer(apFile, ptempBuffer2, (int)ptempBuffer);
         ((FUN_00858700_class*)this)->FUN_00858700(ptempBuffer2);
     }
 }
@@ -1393,13 +1395,13 @@ namespace fnv_00861cd0 {
 
 struct FUN_00861cd0Class
 {
-    unsigned int GetArrayValueChecked(unsigned short index);
+    unsigned int TESSaveLoadGame_GetFormIDFromIndex(unsigned short index);
 };
 
 // Returns 0 if index exceeds the form ID at this+0x7c, otherwise returns the element at index from the array at this+0x7c.
 // @fnv 0x00861cd0
 // src: GUESS 0x00861cd0 (confidence: medium)
-unsigned int FUN_00861cd0Class::GetArrayValueChecked(unsigned short index)
+unsigned int FUN_00861cd0Class::TESSaveLoadGame_GetFormIDFromIndex(unsigned short index)
 {
     if (index > ((TESForm*)(*(unsigned int*)((char*)this + 0x7c)))->GetFormID())
         return 0;
@@ -1741,7 +1743,7 @@ class EmptyClass
 {
 };
 
-class FUN_008558a0
+class SaveStats
 {
   public:
     void SetExtraDataString(int, char const*);
@@ -1750,7 +1752,7 @@ class FUN_008558a0
 class FUN_008586a0_class
 {
   public:
-    void ForwardToFUN_00857b50(int, int, int);
+    void TESSaveLoadGame_SaveBuffer(int, int, int);
 };
 
 extern TESDataHandler* g_dataHandler;
@@ -1792,14 +1794,14 @@ void ::TESSaveLoadGame::SaveGlobals(BSFile* apFile)
         pglobals4 = pglobals4->_ref_00726070();
     }
 
-    reinterpret_cast<fnv_anon_00858480::FUN_008586a0_class*>(this)->ForwardToFUN_00857b50(reinterpret_cast<int>(apFile),
+    reinterpret_cast<fnv_anon_00858480::FUN_008586a0_class*>(this)->TESSaveLoadGame_SaveBuffer(reinterpret_cast<int>(apFile),
                                                                        reinterpret_cast<int>(ptempBuffer2), isize9);
 
     this->FUN_00858700(ptempBuffer2);
 
     if (*reinterpret_cast<EmptyClass**>(reinterpret_cast<unsigned char*>(this) + 0x44))
     {
-        reinterpret_cast<fnv_anon_00858480::FUN_008558a0*>(*reinterpret_cast<EmptyClass**>(reinterpret_cast<unsigned char*>(this) + 0x44))
+        reinterpret_cast<fnv_anon_00858480::SaveStats*>(*reinterpret_cast<EmptyClass**>(reinterpret_cast<unsigned char*>(this) + 0x44))
             ->SetExtraDataString(isize9, "Global Variables");
     }
 }
@@ -1827,7 +1829,7 @@ class SaveLoadFormArrayAccess : public TESForm
     unsigned int* GetAt(int);
 };
 
-class FUN_008558a0
+class SaveStats
 {
   public:
     void SetExtraDataString(int, char const*);
@@ -1891,10 +1893,10 @@ void SaveLoadNumericIDArrays::WriteFormIDArrays(BSFile* apFile)
         if (m_pSaveGameEntry)
         {
             (_sprintf_s)(acBuffer, 0x104, "Numeric ID Array(%i)", isize);
-            ((FUN_008558a0*)m_pSaveGameEntry)->SetExtraDataString(isize * 4 + 4, acBuffer);
+            ((SaveStats*)m_pSaveGameEntry)->SetExtraDataString(isize * 4 + 4, acBuffer);
 
             (_sprintf_s)(acBuffer, 0x104, "WorldSpace ID Array(%i)", uiCount2);
-            ((FUN_008558a0*)m_pSaveGameEntry)->SetExtraDataString(uiCount2 * 4 + 4, acBuffer);
+            ((SaveStats*)m_pSaveGameEntry)->SetExtraDataString(uiCount2 * 4 + 4, acBuffer);
         }
     }
 }
@@ -2031,7 +2033,7 @@ struct FUN_00c41330_holder
     void LockFreeQueue_NiPointer_IOTask_RemoveAll_00c41330(int);
 };
 
-struct FUN_00c3ea10_holder
+struct LockFreePriorityQueue
 {
     void LockFreePriorityQueue_Clear();
 };
@@ -2039,7 +2041,7 @@ struct FUN_00c3ea10_holder
 // Sets the count at offset 0xc to 0, then calls FUN_00c41330(0) on each of the first count elements of the array at offset 4.
 // @fnv 0x00c3ea10
 // src: COMMUNITY 0x00c3ea10
-void FUN_00c3ea10_holder::LockFreePriorityQueue_Clear()
+void LockFreePriorityQueue::LockFreePriorityQueue_Clear()
 {
     unsigned int i;
     *(int*)((char*)this + 0xc) = 0;
@@ -2240,14 +2242,14 @@ class C8578b0
 class C857950
 {
   public:
-    void __thiscall UpdateState_00857950(int* a, int b);
+    void __thiscall TESSaveLoadGame_DeleteSaveGame(int* a, int b);
 };
 
 void __cdecl BSSystemFile_DeleteFileA(int);
 
 // @fnv 0x00857950
-// src: GUESS 0x00857950 (confidence: low)
-void __thiscall C857950::UpdateState_00857950(int* pObject, int b)
+// src: COMMUNITY 0x00857950
+void __thiscall C857950::TESSaveLoadGame_DeleteSaveGame(int* pObject, int b)
 {
     int* p;
     if (pObject == 0)
@@ -2333,11 +2335,12 @@ struct FUN_0085b240_cls
     unsigned int m_00, m_04, m_08, m_0c, m_10, m_14, m_18, m_1c, m_20, m_24, m_28, m_2c, m_30, m_34, m_38, m_3c, m_40;
     int m_44;
     void TESSaveLoadGame_WriteFile(void* a, void* b, int c);
-    void WritePluginList(FUN_0085b240_ref* a1);
+    void TESSaveLoadGame_SavePluginList(FUN_0085b240_ref* a1);
 };
 
 // @fnv 0x0085b240
-void FUN_0085b240_cls::WritePluginList(FUN_0085b240_ref* a1)
+// src: COMMUNITY 0x0085b240
+void FUN_0085b240_cls::TESSaveLoadGame_SavePluginList(FUN_0085b240_ref* a1)
 {
     unsigned char i;
     unsigned char flag9 = DAT_011c3f2c->FUN_0051f550();
@@ -2405,11 +2408,11 @@ struct FUN_00861c60_shell
     unsigned int unknown_74;
     unsigned int unknown_78;
     Collection_00861c60* collection;
-    unsigned short ProcessEntries_00861c60(unsigned int value);
+    unsigned short TESSaveLoadGame_GetOrAddNumericID16(unsigned int value);
 };
 // @fnv 0x00861c60
-// src: GUESS 0x00861c60 (confidence: low)
-unsigned short FUN_00861c60_shell::ProcessEntries_00861c60(unsigned int value)
+// src: GUESS 0x00861c60 (confidence: medium)
+unsigned short FUN_00861c60_shell::TESSaveLoadGame_GetOrAddNumericID16(unsigned int value)
 {
     unsigned int count = collection->GetHavokWorldObjectCountInSceneGraph_0084e3a0();
     for (unsigned int index = 0; index < count; ++index)
@@ -2642,7 +2645,7 @@ struct FUN_00863a60_Class
     FUN_00863a60_Node** nodes;
     int count;
 
-    void __thiscall ProcessEntries_00863a60(unsigned char key, int value);
+    void __thiscall NiTMapBase_SetAt(unsigned char key, int value);
 };
 
 // Empty inline virtual stub; the class's first vtable slot, defined with no body.
@@ -2666,8 +2669,8 @@ inline void* FUN_00863a60_Class::vf14()
     return 0;
 }
 
-// src: GUESS 0x00863a60 (confidence: low)
-void __thiscall FUN_00863a60_Class::ProcessEntries_00863a60(unsigned char key, int value)
+// src: GUESS 0x00863a60 (confidence: medium)
+void __thiscall FUN_00863a60_Class::NiTMapBase_SetAt(unsigned char key, int value)
 {
     int counter = this->vf04(key);
     FUN_00863a60_Node* node = this->nodes[counter];
@@ -2709,7 +2712,7 @@ struct FUN_00863b40_Class
     int unk04;
     FUN_00863b40_Node** nodes;
 
-    bool __thiscall FindValueByKey_00863b40(unsigned char key, int* result);
+    bool __thiscall NiTMapBase_GetAt(unsigned char key, int* result);
 };
 
 // @fnv 0x00863b40
@@ -2725,7 +2728,7 @@ inline bool FUN_00863b40_Class::vf08(unsigned char, unsigned char)
 }
 
 // src: GUESS 0x00863b40 (confidence: medium)
-bool __thiscall FUN_00863b40_Class::FindValueByKey_00863b40(unsigned char key, int* result)
+bool __thiscall FUN_00863b40_Class::NiTMapBase_GetAt(unsigned char key, int* result)
 {
     int counter = this->vf04(key);
     FUN_00863b40_Node* node = this->nodes[counter];
@@ -3078,8 +3081,8 @@ struct FUN_0096a2d0
 
 struct ReferenceMap
 {
-    bool FindValueByKey_00863b40(unsigned char id, FUN_0096a2d0** out);
-    void ProcessEntries_00863a60(unsigned char id, FUN_0096a2d0* entry);
+    bool NiTMapBase_GetAt(unsigned char id, FUN_0096a2d0** out);
+    void NiTMapBase_SetAt(unsigned char id, FUN_0096a2d0* entry);
 };
 
 struct FUN_00855a20_This
@@ -3096,11 +3099,11 @@ void FUN_00855a20_This::AddReferenceRecord(const FUN_006815c0* apRecord)
     *record = *apRecord;
     unsigned char id8 = (unsigned char)record->flags;
     FUN_0096a2d0* bucket6;
-    bool found4 = references->FindValueByKey_00863b40(id8, &bucket6);
+    bool found4 = references->NiTMapBase_GetAt(id8, &bucket6);
     if (!found4)
     {
         bucket6 = new FUN_0096a2d0;
-        references->ProcessEntries_00863a60(id8, bucket6);
+        references->NiTMapBase_SetAt(id8, bucket6);
     }
     bucket6->BSSimpleList_ActiveEffect_Insert(record, CompareByIndex5);
 }
@@ -3598,7 +3601,7 @@ extern "C" __declspec(dllimport) int __stdcall DeleteFileA(const char*);
 struct SaveOwner
 {
     void BuildSaveFilename(char*);
-    void UpdateState_00857950(SaveFile*, int);
+    void TESSaveLoadGame_DeleteSaveGame(SaveFile*, int);
     SaveFile* OpenSaveFile(SaveFile*, const char*, unsigned int);
 };
 // Builds the save file path from the name and settings, rotates .bak backups, then opens or seeks a SaveFile according to mode.
@@ -3663,7 +3666,7 @@ SaveFile* SaveOwner::OpenSaveFile(SaveFile* file, const char* name, unsigned int
             lengthX = BSStringLength(shortName);
             if (lengthX > 4 && !_strnicmp(shortName + lengthX - 4, ".ess", 4))
                 shortName[lengthX - 4] = 0;
-            UpdateState_00857950(file, 0);
+            TESSaveLoadGame_DeleteSaveGame(file, 0);
             if (!_strnicmp(shortName, "Save ", 5) || FUN_004812f0(shortName, "autosave"))
                 result2 = OpenSaveFile(0, 0, 0);
             else
@@ -5509,7 +5512,7 @@ Texture* NiSourceTexture_Create(PixelData*, const char*, const Preferences&);
 struct Reader
 {
     void* TESSaveLoadGame_CreateBuffer(unsigned int);
-    void ReadFromStream_Thunk(File*, void*, unsigned int);
+    void TESSaveLoadGame_ReadBuffer(File*, void*, unsigned int);
     void FUN_00858700(void*);
     void TESSaveLoadGame_LoadGameDataOLD(void*, unsigned int);
     void FUN_00857bd0(unsigned int);
@@ -5523,7 +5526,7 @@ Texture* Reader::ReadTexture(File* file, unsigned int size, unsigned int* puiFla
                              unsigned int* puiNumber, unsigned int* puiImageSize)
 {
     void* buffer5 = TESSaveLoadGame_CreateBuffer(size);
-    ReadFromStream_Thunk(file, buffer5, size);
+    TESSaveLoadGame_ReadBuffer(file, buffer5, size);
     if (DAT_011de45c->FUN_008df040() >= 56)
     {
         unsigned int flagsValue;
@@ -6426,7 +6429,7 @@ struct ExpiredSaveLoadGame
     void ExtraDismemberedLimbs_SetEaten(bool);
     void TESSaveLoadGame_LoadGameDataOLD(void*, unsigned int);
     void TESSaveLoadGame_SaveGameDataOLD(void*, unsigned int);
-    unsigned int GetArrayValueChecked(unsigned short);
+    unsigned int TESSaveLoadGame_GetFormIDFromIndex(unsigned short);
     unsigned int FUN_00861c00(unsigned int);
     void* TESSaveLoadGame_CreateBuffer(unsigned int);
     void FUN_00857d10(ExpiredReference*, bool);
@@ -6464,7 +6467,7 @@ void ExpiredSaveLoadGame::PurgeExpiredCellChanges()
                     {
                         ExpiredCellSmall cell;
                         ((ExpiredSaveLoadGame*)g_TESSaveLoadGame)->TESSaveLoadGame_LoadGameDataOLD(&cell, 4);
-                        e = GetArrayValueChecked(cell.world);
+                        e = TESSaveLoadGame_GetFormIDFromIndex(cell.world);
                         p.x = cell.x;
                         p.y = cell.y;
                     }
@@ -6472,7 +6475,7 @@ void ExpiredSaveLoadGame::PurgeExpiredCellChanges()
                     {
                         ExpiredCellLarge cell;
                         ((ExpiredSaveLoadGame*)g_TESSaveLoadGame)->TESSaveLoadGame_LoadGameDataOLD(&cell, 6);
-                        e = GetArrayValueChecked(cell.world);
+                        e = TESSaveLoadGame_GetFormIDFromIndex(cell.world);
                         p.x = cell.x;
                         p.y = cell.y;
                     }
@@ -7381,7 +7384,7 @@ unsigned short __cdecl TESDataHandler_RegionList_GetSaveSize();
 void __cdecl Object_ProcessEntries_004f1300();
 struct Field58030
 {
-    void __thiscall FUN_008558a0(int id, const char* name);
+    void __thiscall SaveStats(int id, const char* name);
 };
 struct Host58030
 {
@@ -7390,7 +7393,7 @@ struct Host58030
     void __thiscall TESSaveLoadGame_WriteFile(int a, void* p, int n);
     void __thiscall SaveGlobals(int a);
     int __thiscall TESSaveLoadGame_CreateBuffer(int id);
-    void __thiscall ForwardToFUN_00857b50(int a, int x, int id);
+    void __thiscall TESSaveLoadGame_SaveBuffer(int a, int x, int id);
     void __thiscall FUN_00858700(int x);
     void __thiscall TESSaveLoadGame_SaveCreatedBaseObjects(int a);
     void __thiscall TESSaveLoadGame_SaveGlobalData(int aParam);
@@ -7447,10 +7450,10 @@ void __thiscall Host58030::TESSaveLoadGame_SaveGlobalData(int aParam)
     if (w4 != 0)
     {
         if (f44 != 0)
-            f44->FUN_008558a0(w4, "TES Class");
+            f44->SaveStats(w4, "TES Class");
         v34 = TESSaveLoadGame_CreateBuffer(w4);
         DAT_011dea10->SaveGame();
-        ForwardToFUN_00857b50(aParam, v34, w4);
+        TESSaveLoadGame_SaveBuffer(aParam, v34, w4);
         FUN_00858700(v34);
     }
 
@@ -7459,10 +7462,10 @@ void __thiscall Host58030::TESSaveLoadGame_SaveGlobalData(int aParam)
     if (w4 != 0)
     {
         if (f44 != 0)
-            f44->FUN_008558a0(w4, "Process Lists Class");
+            f44->SaveStats(w4, "Process Lists Class");
         v38 = TESSaveLoadGame_CreateBuffer(w4);
         DAT_011e0e80.ProcessLists_SaveGame_Crimes();
-        ForwardToFUN_00857b50(aParam, v38, w4);
+        TESSaveLoadGame_SaveBuffer(aParam, v38, w4);
         FUN_00858700(v38);
     }
 
@@ -7471,10 +7474,10 @@ void __thiscall Host58030::TESSaveLoadGame_SaveGlobalData(int aParam)
     if (w4 != 0)
     {
         if (f44 != 0)
-            f44->FUN_008558a0(w4, "Sky/Weather");
+            f44->SaveStats(w4, "Sky/Weather");
         v3c4 = TESSaveLoadGame_CreateBuffer(w4);
         FUN_0046dd00()->Sky_SaveGameTES();
-        ForwardToFUN_00857b50(aParam, v3c4, w4);
+        TESSaveLoadGame_SaveBuffer(aParam, v3c4, w4);
         FUN_00858700(v3c4);
     }
 
@@ -7486,9 +7489,9 @@ void __thiscall Host58030::TESSaveLoadGame_SaveGlobalData(int aParam)
     if (w4 != 0)
     {
         if (f44 != 0)
-            f44->FUN_008558a0(w4, "HUD Reticle");
+            f44->SaveStats(w4, "HUD Reticle");
         v405 = TESSaveLoadGame_CreateBuffer(w4);
-        ForwardToFUN_00857b50(aParam, v405, w4);
+        TESSaveLoadGame_SaveBuffer(aParam, v405, w4);
         FUN_00858700(v405);
     }
 
@@ -7497,10 +7500,10 @@ void __thiscall Host58030::TESSaveLoadGame_SaveGlobalData(int aParam)
     if (w4 != 0)
     {
         if (f44 != 0)
-            f44->FUN_008558a0(w4, "Interface");
+            f44->SaveStats(w4, "Interface");
         v444 = TESSaveLoadGame_CreateBuffer(w4);
         SaveMenuTabStates();
-        ForwardToFUN_00857b50(aParam, v444, w4);
+        TESSaveLoadGame_SaveBuffer(aParam, v444, w4);
         FUN_00858700(v444);
     }
 
@@ -7509,10 +7512,10 @@ void __thiscall Host58030::TESSaveLoadGame_SaveGlobalData(int aParam)
     if (w4 != 0)
     {
         if (f44 != 0)
-            f44->FUN_008558a0(w4, "Regions");
+            f44->SaveStats(w4, "Regions");
         v48 = TESSaveLoadGame_CreateBuffer(w4);
         Object_ProcessEntries_004f1300();
-        ForwardToFUN_00857b50(aParam, v48, w4);
+        TESSaveLoadGame_SaveBuffer(aParam, v48, w4);
         FUN_00858700(v48);
     }
 }
@@ -8166,7 +8169,7 @@ bool Cls56::TESSaveLoadGame_SaveGame(int aiFileHandle, int apSavePath, unsigned 
     ((::FUN_008620f0*)this)->Init();
     ::CopyByteToOffset80((char*)this);
     ((::SaveHeader*)this)->WriteSaveHeader(pForm, (const char*)apSavePath);
-    ((::FUN_0085b240_cls*)this)->WritePluginList((::FUN_0085b240_ref*)pForm);
+    ((::FUN_0085b240_cls*)this)->TESSaveLoadGame_SavePluginList((::FUN_0085b240_ref*)pForm);
     seekPos = 0;
     if (!((FUN_00485d50_slg*)this)->GetLoading())
     {
@@ -8229,7 +8232,7 @@ bool Cls56::TESSaveLoadGame_SaveGame(int aiFileHandle, int apSavePath, unsigned 
                         void* tempObj = TESSaveLoadGame_CreateBuffer(soundVal);
                         TESSaveLoadGame_SaveInitialData(obj, *(int*)&recData.c0);
                         obj->Vw(*(int*)&recData.c0);
-                        ((::FUN_008586a0_class*)this)->ForwardToFUN_00857b50((int)pForm, (int)tempObj, soundVal);
+                        ((::FUN_008586a0_class*)this)->TESSaveLoadGame_SaveBuffer((int)pForm, (int)tempObj, soundVal);
                         FUN_00858700(tempObj);
                     }
                     ((EffectSetting*)this)->SetHitSound(0);
@@ -8355,7 +8358,7 @@ void __cdecl Warning_005b5e40(const char*, ...);
 }
 struct SaveHandler85A520
 {
-    unsigned short ProcessEntries_00861c60(unsigned int);
+    unsigned short TESSaveLoadGame_GetOrAddNumericID16(unsigned int);
     unsigned int FindOrAddValue(unsigned int);
     void TESSaveLoadGame_SaveInitialData(SaveForm85A520*, unsigned int);
 };
@@ -8373,7 +8376,7 @@ void SaveHandler85A520::TESSaveLoadGame_SaveInitialData(SaveForm85A520* form, un
             if (flags & 0)
             {
                 SmallCellRecord85A520 small;
-                small.id = ProcessEntries_00861c60(((SaveForm85A520*)cell->GetParentWorldSpace())->GetHavokWorldObjectCountInSceneGraph_0084e3a0());
+                small.id = TESSaveLoadGame_GetOrAddNumericID16(((SaveForm85A520*)cell->GetParentWorldSpace())->GetHavokWorldObjectCountInSceneGraph_0084e3a0());
                 small.x = (unsigned char)cell->GetCellGridX();
                 small.y = (unsigned char)cell->GetCellGridY();
                 ((SaveStream85A520*)::DAT_011de45c)->TESSaveLoadGame_SaveGameDataOLD(&small, 4);
@@ -8381,7 +8384,7 @@ void SaveHandler85A520::TESSaveLoadGame_SaveInitialData(SaveForm85A520* form, un
             else if (flags & 0)
             {
                 LargeCellRecord85A520 large;
-                large.id = ProcessEntries_00861c60(((SaveForm85A520*)cell->GetParentWorldSpace())->GetHavokWorldObjectCountInSceneGraph_0084e3a0());
+                large.id = TESSaveLoadGame_GetOrAddNumericID16(((SaveForm85A520*)cell->GetParentWorldSpace())->GetHavokWorldObjectCountInSceneGraph_0084e3a0());
                 large.x = cell->GetCellGridX();
                 large.y = cell->GetCellGridY();
                 ((SaveStream85A520*)::DAT_011de45c)->TESSaveLoadGame_SaveGameDataOLD(&large, 6);

@@ -25,7 +25,7 @@ public:
     void Load(TESFile* file);
     BGSPerkEntry*& GetItem();
     void ProcessItems();
-    void CopyConditions(PerkEntryConditionSet* source, PerkEntryConditionSet* other);
+    void TESCondition_Copy(PerkEntryConditionSet* source, PerkEntryConditionSet* other);
     TESConditionItem* GetItemByIndex(int index);
     void Destroy();
     void* DeleteConditions(unsigned int flags);

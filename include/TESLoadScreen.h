@@ -20,7 +20,7 @@ public:
 
     bool Load(TESFile* file);
     void ClearLoadScreenData();
-    bool MatchesFormLocation(TESForm* form);
+    bool CanDisplayForForm(TESForm* form);
     bool IsRefFlag400Set();
     bool IsDefaultLoadScreen();
     int GetLoadScreenTypeDataType();

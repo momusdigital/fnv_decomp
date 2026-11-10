@@ -43,8 +43,8 @@ public:
                      int*, char*, bool);
     LayoutString Font_CollectTo(const char*, int*, unsigned int, unsigned int,
                              unsigned int*, char*, bool);
-    RunNode* ParseLayout(SStr*, Info_*);
-    LayoutBlock* ParseLayout(LayoutString&, LayoutResult*);
+    RunNode* FontManager_PrepHypertext(SStr*, Info_*);
+    LayoutBlock* FontManager_PrepHypertext(LayoutString&, LayoutResult*);
     void* PrepareFontText(void*, void*);
     void* BuildFontTextData(void*, void*);
     bool AddTextToNode(TextString, void*, NiNode*);

@@ -267,11 +267,12 @@ struct FUN_009cab30_TextOutput
 // The shared class has no debug-print declaration; this extension uses its layout.
 struct ActivateObjectDebugView : CombatProcedureActivateObject
 {
-    void PrintDebug(FUN_009cab30_TextOutput* apOutput, int aiX, int aiY);
+    void CombatProcedureActivateObject_DisplayDebugText(FUN_009cab30_TextOutput* apOutput, int aiX, int aiY);
 };
 // Prints the current animation state and, if m_pReference is set, its name, form ID, and position to apOutput at aiX, aiY.
 // @fnv 0x009cab30
-void ActivateObjectDebugView::PrintDebug(FUN_009cab30_TextOutput* apOutput, int aiX, int aiY)
+// src: EXE 0x009cab30
+void ActivateObjectDebugView::CombatProcedureActivateObject_DisplayDebugText(FUN_009cab30_TextOutput* apOutput, int aiX, int aiY)
 {
     switch (cAnimState)
     {

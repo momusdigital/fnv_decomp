@@ -134,7 +134,8 @@ void __fastcall AppendString(NiTriStrips* self, void*, StrArr* pkStrings)
 }
 
 // @fnv 0x00a71d30
-void __fastcall RenderTriStripsAlt(NiTriStrips* self, void*, NiRenderer* apkRenderer)
+// src: EXE 0x00a71d30
+void __fastcall NiTriStrips_RenderImmediate(NiTriStrips* self, void*, NiRenderer* apkRenderer)
 {
     NiDX9Renderer* pkRenderer = (NiDX9Renderer*)apkRenderer;
     self->NiGeometry::RenderImmediate(apkRenderer);

@@ -110,25 +110,26 @@ found:
     }
 }
 
-struct FUN_00a8f950;
+struct NiMaterial;
 
 struct ObjectRegistry
 {
-    void Register(NiFixedString* name, FUN_00a8f950* object) throw();
+    void Register(NiFixedString* name, NiMaterial* object) throw();
 };
 
 extern ObjectRegistry* g_pObjectRegistry;
 
-struct FUN_00a8f950 : NiRefObject
+struct NiMaterial : NiRefObject
 {
     NiFixedString m_name;
-    FUN_00a8f950(const NiFixedString& name);
-    virtual ~FUN_00a8f950();
+    NiMaterial(const NiFixedString& name);
+    virtual ~NiMaterial();
 };
 
 // Constructs a NiRefObject-derived object holding a copy of name and registers it with g_pObjectRegistry.
 // @fnv 0x00a8f950
-FUN_00a8f950::FUN_00a8f950(const NiFixedString& name) : m_name(name)
+// src: EXE 0x00a8f950
+NiMaterial::NiMaterial(const NiFixedString& name) : m_name(name)
 {
     g_pObjectRegistry->Register(&m_name, this);
 }
@@ -153,12 +154,13 @@ class NamedA8F9 : public NiRefObject
 
     NiFixedString m_kName;
 
-    NamedA8F9* FUN_00a8f9b0(unsigned int uiFlags);
+    NamedA8F9* ScalarDeletingDestructor(unsigned int uiFlags);
 };
 
 // Calls the destructor and, when uiFlags has bit 0 set, frees the object via operator delete, then returns this.
 // @fnv 0x00a8f9b0
-NamedA8F9* NamedA8F9::FUN_00a8f9b0(unsigned int uiFlags)
+// src: EXE 0x00a8f9b0
+NamedA8F9* NamedA8F9::ScalarDeletingDestructor(unsigned int uiFlags)
 {
     this->NamedA8F9::~NamedA8F9();
     if (uiFlags & 1)

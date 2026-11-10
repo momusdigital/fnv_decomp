@@ -157,7 +157,8 @@ void* __cdecl NiBlendAccumTransformInterpolator_CreateObject()
 void __fastcall SaveBlendInterpolator(NiBlendInterpolator*, int, NiStream*);
 
 // @fnv 0x00a39720
-void __fastcall SaveAccumulatedTransform(NiBlendAccumTransformInterpolator* self, int, NiStream* kStream)
+// src: EXE 0x00a39720
+void __fastcall NiBlendAccumTransformInterpolator_SaveBinary(NiBlendAccumTransformInterpolator* self, int, NiStream* kStream)
 {
     reinterpret_cast<void (__thiscall*)(NiBlendInterpolator*, NiStream*)>(&SaveBlendInterpolator)(self, kStream);
     unsigned char uc;
@@ -172,7 +173,8 @@ void __fastcall SaveAccumulatedTransform(NiBlendAccumTransformInterpolator* self
 }
 
 // @fnv 0x00a39780
-bool __fastcall IsAccumulatedTransformEqual(NiBlendAccumTransformInterpolator* self, int, NiObject* pkObject)
+// src: EXE 0x00a39780
+bool __fastcall NiBlendAccumTransformInterpolator_IsEqual(NiBlendAccumTransformInterpolator* self, int, NiObject* pkObject)
 {
     if (!self->NiBlendInterpolator::IsEqual(pkObject))
         return false;
@@ -275,7 +277,8 @@ bool __fastcall UpdateAccumulationInterpolators(NiBlendAccumTransformInterpolato
 }
 
 // @fnv 0x00a3a660
-NiBlendAccumTransformInterpolator* __fastcall CloneAccumulatedTransform(NiBlendAccumTransformInterpolator* self,
+// src: EXE 0x00a3a660
+NiBlendAccumTransformInterpolator* __fastcall NiBlendAccumTransformInterpolator_CreateClone(NiBlendAccumTransformInterpolator* self,
                                                                       int, void* process)
 {
     void* storage = BSFadeNode::operator new(sizeof(NiBlendAccumTransformInterpolator));
@@ -362,7 +365,8 @@ __forceinline void InvalidateAccumulatedValue(AccumItem& item)
 
 // Invalidates the selected slot and, with two interpolators, may combine and invalidate the old slot.
 // @fnv 0x00a392b0
-unsigned char __fastcall AddAccumulationInterpolator(NiBlendAccumTransformInterpolator* self, int,
+// src: COMMUNITY 0x00a392b0
+unsigned char __fastcall NiBlendAccumTransformInterpolator_AddInterpInfo(NiBlendAccumTransformInterpolator* self, int,
                                                       NiInterpolator* interpolator, float weight, unsigned char priority,
                                                       float ease)
 {
@@ -494,7 +498,7 @@ struct Inner_00a6db50
     float w, x, y, z;
     void Set(float w, float x, float y, float z);
     Inner_00a6db50 Negate() const;
-    Inner_00a6db50 ScaleFourComponents(float factor) const;
+    Inner_00a6db50 NiQuaternion_Scale(float factor) const;
     Inner_00a6db50& operator+=(const Inner_00a6db50& other)
     {
         w = other.w + w;
@@ -588,7 +592,7 @@ bool __fastcall BlendAccumulatedValues(NiBlendAccumTransformInterpolator* self, 
             {
                 bFirstRotation = false;
             }
-            kSourceRotation = kSourceRotation.ScaleFourComponents(temp);
+            kSourceRotation = kSourceRotation.NiQuaternion_Scale(temp);
             firstRotation += kSourceRotation;
             hasRotation = true;
         }

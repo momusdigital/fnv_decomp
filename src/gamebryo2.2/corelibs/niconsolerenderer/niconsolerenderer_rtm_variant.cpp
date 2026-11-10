@@ -261,7 +261,7 @@ struct FUN_00e75840_shell {
 extern "C" void* g_01270900;
 void* __cdecl NiShaderDeclaration_GetRTTI();
 struct FUN_00e758f0_shell {
-    void PackColorToUInt(float* floats);
+    void NiDX9Renderer_SetBackgroundColorAlpha(float* floats);
 };
 extern int DAT_0126f580[];
 void __cdecl NiDX92DBufferData_ClearRenderTarget(int* pObject, int iIndex);
@@ -2667,7 +2667,7 @@ struct GeomData_e6da60
     virtual void vf09();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -2693,7 +2693,7 @@ struct GeomData_e6da60
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual unsigned int GetStreamValue(unsigned int uiIndex);
     virtual void vf41();
@@ -12699,7 +12699,7 @@ struct Geo108 {unsigned int unk00,unk04,unk08,unk0c,unk10,unk14,revision;};
 struct VB108 { unsigned int FUN_00e8bf90(); void* NiDX9VertexBufferManager_PackUntransformedVB(NiAVObject*,Geo108*,unsigned short,void*,int);};
 struct IB108 { void* FUN_00e8f200(void*,unsigned int,unsigned int,void*,unsigned int*,unsigned int,unsigned int);};
 extern bool DAT_0126f0d0;
-__declspec(noreturn) void __cdecl AddGeometryToBatch();
+__declspec(noreturn) void __cdecl NiDX9Renderer_AddToBatch();
 void __cdecl NiDX9Renderer_BatchRenderShape();
 extern "C" void* __cdecl FUN_00ec61c0(void*, int, unsigned int);
 struct StridedDataTransfer {
@@ -17396,7 +17396,7 @@ struct Dev74 { virtual void v0(); virtual void v1(); virtual void v2(); virtual 
 struct Sub74 { void FUN_00e8b560(); };
 class Rend74 { public:
     char pad0[0x288]; Dev74* m_pDirect3DDevice; char pad1[0x8c8-0x28c]; Sub74* m_8c8; char pad2[0x900-0x8cc]; List74 m_kList;
-    bool HandleDeviceLost(); void NiDX9Renderer_PerformPrecache();
+    bool NiDX9Renderer_LostDeviceRestore(); void NiDX9Renderer_PerformPrecache();
     bool NiDX9Renderer_BeginScene();
 };
 struct S00e75340_Group {
@@ -21652,8 +21652,8 @@ struct LineShader {
     virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17();
     virtual void v18(); virtual void v19(); virtual void v1a(); virtual void v1b();
     virtual void v1c(); virtual void v1d();
-    virtual void SetupGeometryShader(unsigned int);
-    virtual void UpdateGeometryEffects(unsigned int);
+    virtual void NiD3DShader_PreProcessPipeline(unsigned int);
+    virtual void NiD3DShader_PostProcessPipeline(unsigned int);
     virtual void RenderPartitionedSkinGeometry(unsigned int);
     virtual void RenderPartitionedGeometry(unsigned int);
     virtual void RenderLineGeometry(unsigned int, bool);

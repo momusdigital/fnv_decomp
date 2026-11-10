@@ -298,7 +298,7 @@ class EffectItem
 {
   public:
     EffectSetting* GetEffectSetting();
-    int GetAffectedActorValue();
+    int GetActorValueIndex();
     bool IsHostile();
 };
 class PlayerCharacter;

@@ -14,7 +14,8 @@ const NiRTTI* bhkCollisionObject::GetRTTI() const
 }
 
 // @fnv 0x0043b610
-bhkCollisionObject* bhkCollisionObject::GetFromNiAVObject(NiAVObject* object)
+// src: COMMUNITY 0x0043b610
+bhkCollisionObject* bhkCollisionObject::GetbhkCollisionObject(NiAVObject* object)
 {
     const char* collision = reinterpret_cast<BGSBodyPart*>(object)->GetPartName();
     return reinterpret_cast<bhkCollisionObject*>(

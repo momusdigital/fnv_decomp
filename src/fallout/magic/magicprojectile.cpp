@@ -68,13 +68,14 @@ struct Call741e0
 extern int DAT_010795b8;
 extern int DAT_010795d4;
 extern int DAT_010795e4;
-struct FUN_00806eb0
+struct bhkCharacterListenerSpell
 {
-    FUN_00806eb0(int a1, int a2);
+    bhkCharacterListenerSpell(int a1, int a2);
 };
 // Calls FUN_00c741e0 with a1, installs three vtable pointers at offsets 0x0, 0x3E0 and 0x410, and stores a2 at offset 0x650.
 // @fnv 0x00806eb0
-FUN_00806eb0::FUN_00806eb0(int aiArg, int aiValue)
+// src: EXE 0x00806eb0
+bhkCharacterListenerSpell::bhkCharacterListenerSpell(int aiArg, int aiValue)
 {
     ((Call741e0*)this)->FUN_00c741e0(aiArg);
     *(void**)this = (void*)&DAT_010795e4;
@@ -405,7 +406,7 @@ void MagicProjectile::ResolveMagicReferences(unsigned int aiFlags, unsigned int 
     ispellID = reinterpret_cast<unsigned int>(m_magicItem);
     m_magicItem = MagicItem::GetMagicItemByID(ispellID);
 
-    m_effectItem = m_magicItem->FindCostliestEffectItem(2, 0);
+    m_effectItem = m_magicItem->GetCostliestEffect(2, 0);
     m_avEffect = m_magicItem->GetEffectSettingForRange(MagicSystem::SELF);
 
     this->GenerateNiNode(false);
@@ -752,11 +753,11 @@ struct FUN_00819360
     FUN_00819360(void* a, int b, GameTimerRecord* c, unsigned int d, NiPoint3 e, NiPoint3 f, unsigned int g, unsigned int h);
 };
 
-struct FUN_00822920
+struct MagicSprayProjectile
 {
     unsigned char m_data[0xa8];
 
-    FUN_00822920(void* a, int b, GameTimerRecord* c, unsigned int d, NiPoint3 e, NiPoint3 f);
+    MagicSprayProjectile(void* a, int b, GameTimerRecord* c, unsigned int d, NiPoint3 e, NiPoint3 f);
 };
 
 FUN_0080f810::FUN_0080f810(void*, int, GameTimerRecord*, unsigned int, NiPoint3, NiPoint3, unsigned int, unsigned int)
@@ -768,7 +769,7 @@ FUN_00811980::FUN_00811980(void*, int, GameTimerRecord*, unsigned int, NiPoint3,
 FUN_00819360::FUN_00819360(void*, int, GameTimerRecord*, unsigned int, NiPoint3, NiPoint3, unsigned int, unsigned int)
 {}
 
-FUN_00822920::FUN_00822920(void*, int, GameTimerRecord*, unsigned int, NiPoint3, NiPoint3)
+MagicSprayProjectile::MagicSprayProjectile(void*, int, GameTimerRecord*, unsigned int, NiPoint3, NiPoint3)
 {}
 
 // Constructs one of four class instances based on projectile->FUN_004086a0() and passes it to DAT_011e0e80.
@@ -797,7 +798,7 @@ void __cdecl MagicProjectile_Launch(void* a, unsigned int b, unsigned int c, int
         break;
 
     case 2:
-        result = new FUN_00822920(a, d, timer, currentTime, first, second);
+        result = new MagicSprayProjectile(a, d, timer, currentTime, first, second);
         break;
     }
 

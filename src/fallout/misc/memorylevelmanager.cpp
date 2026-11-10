@@ -58,9 +58,9 @@ void MemoryLevelManager::SetupActorReferences()
     ActorReferenceSetupData data;
     TESObjectCELL::InitializeTESResources(data, true, true, true);
     MemoryLevelManager_FreeReleasedObjects(data.c);
-    if (g_thePlayer->GetAllowEGMCacheClear() && BSFaceGenManager::GetModelMap() &&
-        BSFaceGenManager::GetModelMap()->HasModels() && !Tile::FindMenuById(0x40c))
-        BSFaceGenManager::GetModelMap()->PurgeUnusedModels(false);
+    if (g_thePlayer->GetAllowEGMCacheClear() && BSFaceGenManager::GetModelCache() &&
+        BSFaceGenManager::GetModelCache()->HasModels() && !Tile::FindMenuById(0x40c))
+        BSFaceGenManager::GetModelCache()->PurgeUnusedModels(false);
     MemoryLevelManager_EndMemoryFree(data);
 }
 // @fnv 0x009777a0

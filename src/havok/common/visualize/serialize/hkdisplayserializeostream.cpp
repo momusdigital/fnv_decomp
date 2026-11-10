@@ -125,11 +125,12 @@ struct FUN_00ddabb0_shell
     void* unk00;
     unsigned short size;
     void ReleaseReference_00d60590();
-    FUN_00ddabb0_shell* FUN_00ddabb0(unsigned int flags);
+    FUN_00ddabb0_shell* ScalarDeletingDestructor(unsigned int flags);
 };
 // Calls FUN_00d60590, then if bit 0 of flags is set frees this through the hkMemoryRouter heap allocator, and returns this.
 // @fnv 0x00ddabb0
-FUN_00ddabb0_shell* FUN_00ddabb0_shell::FUN_00ddabb0(unsigned int flags)
+// src: EXE 0x00ddabb0
+FUN_00ddabb0_shell* FUN_00ddabb0_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     ReleaseReference_00d60590();
     if (flags & 1)

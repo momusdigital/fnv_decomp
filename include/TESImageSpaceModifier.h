@@ -26,16 +26,16 @@ public:
     void Save();
     void Copy(TESForm* form);
     void ResetFormData();
-    bool GetAnimatable();
+    bool TESGlobal_GetType();
     float GetDuration();
     void SetAnimatable(bool animatable);
     void SetDuration(float duration);
     static void SetEnable(bool enable);
     static bool GetEnable();
     void Apply(float startTime, float strength, NiAVObject* target);
-    void EvaluateInterpolators(float startTime, float strength);
+    void ApplyWeather(float startTime, float strength);
     bool IsExpired(float startTime);
-    static void BlendModifiers(float blendWeight, TESImageSpaceModifier* lastModifier,
+    static void BlendApply(float blendWeight, TESImageSpaceModifier* lastModifier,
                                TESImageSpaceModifier* modifier, float modifierBlendWeight,
                                float time, NiAVObject* coordinate, NiAVObject* target);
     bool RemoveFloatKey(NiFloatInterpolator* interpolator);
@@ -53,7 +53,7 @@ public:
     void InitializeModifierData();
     static void AllowGetHit(bool allow);
     static TESImageSpaceModifier* GetGetHit();
-    static TESImageSpaceModifier* GetConcussionModifier();
+    static TESImageSpaceModifier* GetConcussion();
     static TESImageSpaceModifier* GetExplosionInFace();
     static TESImageSpaceModifier* QDefault();
 

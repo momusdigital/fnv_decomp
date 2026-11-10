@@ -94,8 +94,8 @@ public:
     float DotProduct(const LocalVec3* other) const;
     float Length() const;
     float LengthSquared() const;
-    float GetSquaredXYLength();
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength();
+    float NiPoint3_SqrXYLength() const;
     Elem16& expand(Allocator& allocator);
 
     void SetComponents(float x, float y, float z);
@@ -219,7 +219,8 @@ NiObject* NiPSysGravityFieldModifier::MakeClone(CloningProcess& kCloning)
 }
 
 // @fnv 0x00c2aa50
-NiPSysGravityFieldModifier* __cdecl CreateGravityFieldModifier()
+// src: EXE 0x00c2aa50
+NiPSysGravityFieldModifier* __cdecl NiPSysGravityFieldModifier_CreateObject()
 {
     void* memory = BSFadeNode::operator new(0x48);
     if (memory != 0)
@@ -292,13 +293,13 @@ struct FUN_00c2af80_Array
 void* __cdecl NiViewerStrings_NiGetViewerString_Title(void* value);
 
 // NiPSysFieldModifier's shared declaration does not expose its viewer-string override.
-void __fastcall GetFieldModifierViewerStrings(NiPSysFieldModifier*, void*, NiViewerStringsArray*);
+void __fastcall NiPSysFieldModifier_GetViewerStrings(NiPSysFieldModifier*, void*, NiViewerStringsArray*);
 
 // @fnv 0x00c2af80
 void NiPSysGravityFieldModifier::GetViewerStrings(NiViewerStringsArray* stream)
 {
     typedef void (__thiscall *GetFieldStrings)(NiPSysFieldModifier*, NiViewerStringsArray*);
-    reinterpret_cast<GetFieldStrings>(&GetFieldModifierViewerStrings)(this, stream);
+    reinterpret_cast<GetFieldStrings>(&NiPSysFieldModifier_GetViewerStrings)(this, stream);
 
     FUN_00c2af80_Array* array = reinterpret_cast<FUN_00c2af80_Array*>(stream);
 

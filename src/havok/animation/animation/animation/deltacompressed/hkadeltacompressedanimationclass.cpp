@@ -8,7 +8,7 @@
 
 hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 
-struct FUN_00dfbb80_cls
+struct hkaDeltaCompressedAnimation
 {
     int unk00;
     unsigned short m_uSize;
@@ -44,13 +44,13 @@ struct FUN_00dfbb80_cls
 
     void BaseRelease();
 
-    FUN_00dfbb80_cls* ReleaseBuffer(unsigned char acFlags);
+    hkaDeltaCompressedAnimation* ReleaseBuffer(unsigned char acFlags);
     static void operator delete(void* apMemory) throw();
 };
 
 // Frees the data buffer through the allocator, resets the data pointer and capacity, calls BaseRelease, and optionally frees the object itself.
 // @fnv 0x00dfbb80
-FUN_00dfbb80_cls* FUN_00dfbb80_cls::ReleaseBuffer(unsigned char acFlags)
+hkaDeltaCompressedAnimation* hkaDeltaCompressedAnimation::ReleaseBuffer(unsigned char acFlags)
 {
     hkMemoryRouter* pAudioHolder = hkMemoryRouter_getInstance();
     hkMemoryAllocator* pAllocator = reinterpret_cast<hkMemoryAllocator*>(pAudioHolder->m_heap);

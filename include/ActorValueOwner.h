@@ -28,6 +28,6 @@ public:
     Actor* GetActorOwner();
     float GetActorValueFloatByIndex(ActorValue::Index index);
     float GetActorValueFloatByIndex(int index);
-    int GetActorValueAsInteger(ActorValue::Index index);
-    int GetActorValueAsInteger(int index);
+    int GetClampedActorValueI(ActorValue::Index index);
+    int GetClampedActorValueI(int index);
 };

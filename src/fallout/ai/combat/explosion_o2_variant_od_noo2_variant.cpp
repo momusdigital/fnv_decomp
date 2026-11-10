@@ -68,7 +68,7 @@ void __cdecl FUN_00cbc740();
 struct FUN_00cbd4e0_shell
 {
     char m_auiShapeKeys[0x14];
-    void* FUN_00cbd4e0(unsigned char flag);
+    void* ScalarDeletingDestructor(unsigned char flag);
 };
 extern "C" unsigned long __cdecl _byteswap_ulong(unsigned long);
 struct FUN_00cbc650_obj
@@ -271,7 +271,7 @@ struct FUN_00cbc6a0_Class
     virtual void vf09();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -297,7 +297,7 @@ struct FUN_00cbc6a0_Class
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();
@@ -375,7 +375,7 @@ struct TargetClass
     virtual void vf0f();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();

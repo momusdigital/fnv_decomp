@@ -64,15 +64,16 @@ struct S_00e01900_Base
     {}
 };
 
-struct __declspec(novtable) FUN_00e01900 : S_00e01900_Base
+struct __declspec(novtable) hkxSparselyAnimatedString : S_00e01900_Base
 {
     hkArray<S_00e01900_Ref> m_refs;
     hkArray<int> m_auiHeaderValues;
-    ~FUN_00e01900() throw();
+    ~hkxSparselyAnimatedString() throw();
 };
 
 // @fnv 0x00e01900
-FUN_00e01900::~FUN_00e01900() throw()
+// src: GUESS 0x00e01900 (confidence: high)
+hkxSparselyAnimatedString::~hkxSparselyAnimatedString() throw()
 {}
 
 struct CpuAllocator
@@ -94,14 +95,14 @@ struct CpuObject
 {
     unsigned int unk00;
     unsigned short size;
-    void FUN_00e01900();
+    void hkxSparselyAnimatedString();
     CpuObject* FUN_00e019a0(unsigned int flags);
 };
-// Calls FUN_00e01900, then if bit 0 of flags is set, invokes the allocator's virtual method on this with size, and returns this.
+// Calls hkxSparselyAnimatedString, then if bit 0 of flags is set, invokes the allocator's virtual method on this with size, and returns this.
 // @fnv 0x00e019a0
 CpuObject* CpuObject::FUN_00e019a0(unsigned int flags)
 {
-    FUN_00e01900();
+    hkxSparselyAnimatedString();
     if (flags & 1)
     {
         CpuAllocatorHolder* holder = hkMemoryRouter_getInstance();

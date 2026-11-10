@@ -20,8 +20,8 @@ extern "C" LocalM128 _mm_shuffle_ps(LocalM128, LocalM128, unsigned int);
 #include "../../../../../../../include/MemoryManager.h"
 
 // @fnv 0x00c9db70
-// src: GUESS 0x00c9db70 (confidence: high)
-int __cdecl hkpBoxShape_ReturnConstant_8()
+// src: COMMUNITY 0x00c9db70
+int __cdecl hkpBoxShape_getNumCollisionSpheresImpl()
 {
     return 8;
 }

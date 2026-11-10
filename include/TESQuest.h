@@ -46,9 +46,9 @@ public:
     void ResetFormData();
     void RemoveAllStages();
     void ClearObjectives();
-    unsigned int GetStageMask();
+    unsigned int GetCurrentStage();
     void UpdateStageMask();
-    bool HasStage(unsigned char index);
+    bool IsStageDone(unsigned char index);
     bool IsStageComplete(unsigned char index);
     BGSQuestObjective* GetObjective(unsigned int index);
     void GetTargetsAndObjectives(BSSimpleList<RegionObjectEntry*>* targets,
@@ -78,7 +78,7 @@ public:
     void SetQuestCompleted(bool failed);
     bool HasFlag40();
     bool HasFlag20();
-    bool HasFlag0x10();
+    bool TESQuest_GetStartsEnabled();
     void SetFlag20(bool set);
     void WriteToBuffer(BGSSaveFormBuffer* buffer);
     void SaveIfChanged(BGSSaveFormBuffer* buffer);
@@ -87,7 +87,7 @@ public:
     void FUN_0060c9c0(bool set);
     void SetCompleted(bool set);
     void SetFailed(bool set);
-    void ProcessEntries_0060d720();
+    void ResetQuest();
     void Save_0060cd60();
     unsigned short GetSaveSize_0060dba0(unsigned int changedFlags);
     void SaveGame_0060dd50(unsigned int flags);

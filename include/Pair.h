@@ -29,7 +29,7 @@ public:
     __declspec(nothrow) Wrap GetMemberArrayValue();
     __declspec(nothrow) StringHandle CreateValueInto();
     __declspec(nothrow) Node50* DispatchToVTableSlot8(int mode);
-    __declspec(nothrow) int ForwardCall_00dbac70();
+    __declspec(nothrow) int hkDataArray_Value_asString();
     __declspec(nothrow) float ApplyValue();
     __declspec(nothrow) int CallVirtualWithArg();
 };

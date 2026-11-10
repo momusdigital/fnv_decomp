@@ -805,7 +805,7 @@ void __cdecl bhkStream_SwapHKArray(void* buffer, int bytes, NiPoint3* vector)
     *vector = *saved;
 }
 
-struct FUN_00c88210_cls
+struct bhkPCollisionObject
 {
     void __thiscall bhkNiCollisionObject_CopyMembers(CollisionNodeStub* node, unsigned int flags);
     CollisionNodeStub* bhkPCollisionObject_CreateClone(unsigned int flags);
@@ -813,7 +813,7 @@ struct FUN_00c88210_cls
 
 // @fnv 0x00c88210
 // src: XBOX_PDB 0x00c88210
-CollisionNodeStub* FUN_00c88210_cls::bhkPCollisionObject_CreateClone(unsigned int flags)
+CollisionNodeStub* bhkPCollisionObject::bhkPCollisionObject_CreateClone(unsigned int flags)
 {
     AutoMemContext guard(0x10);
     CollisionNodeStub* node = new CollisionNodeStub;
@@ -1233,7 +1233,7 @@ struct SpawnedFade
     }
 };
 
-struct FUN_00cb76a0_cls
+struct bhkSPCollisionObject
 {
     void __thiscall bhkPCollisionObject_CopyMembers(void* obj, unsigned int arg);
     void* bhkSPCollisionObject_CreateClone(unsigned int arg);
@@ -1241,7 +1241,7 @@ struct FUN_00cb76a0_cls
 
 // @fnv 0x00cb76a0
 // src: XBOX_PDB 0x00cb76a0
-void* FUN_00cb76a0_cls::bhkSPCollisionObject_CreateClone(unsigned int arg)
+void* bhkSPCollisionObject::bhkSPCollisionObject_CreateClone(unsigned int arg)
 {
     AutoMemContext guard(0x10);
     SpawnedFade* obj = new SpawnedFade;
@@ -2264,7 +2264,7 @@ struct FUN_00c8c1e0_rec
 
 extern "C" void __cdecl bhkStream_Endian(void* p);
 
-struct FUN_00c8c1e0_cls
+struct bhkTransformShape
 {
     virtual void v00()
     {}
@@ -2363,7 +2363,7 @@ struct FUN_00c8c1e0_cls
 
 // @fnv 0x00c8c1e0
 // src: XBOX_PDB 0x00c8c1e0
-void FUN_00c8c1e0_cls::bhkTransformShape_LoadBinary(FUN_00c8c1e0_arg* a1)
+void bhkTransformShape::bhkTransformShape_LoadBinary(FUN_00c8c1e0_arg* a1)
 {
     FUN_00c8c1e0_rec* r;
     FUN_00c8c1e0_arg* volatile* pa = &a1;

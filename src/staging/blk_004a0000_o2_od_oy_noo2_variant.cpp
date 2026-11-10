@@ -72,7 +72,7 @@ struct FUN_008c71b0
     void CFilter_SetLayer(int);
     unsigned int CFilter_GetGroup();
 };
-struct FUN_004a37b0
+struct DECAL_CREATION_DATA
 {
     NiPoint3 position, normal, tangent;
     int unk24;
@@ -89,7 +89,7 @@ struct FUN_004a37b0
     int unk6c;
     unsigned char rotation, unk71, unk72, flag73, flag74, flag75, flag76, unk77;
     int unk78, unk7c;
-    FUN_004a37b0();
+    DECAL_CREATION_DATA();
 };
 struct World
 {
@@ -115,7 +115,7 @@ struct Ref
     float ActorPackage_GetPackageStartTime();
     float FUN_00488d50();
     Ref* NiAVObject_GetParent();
-    void TESObjectCELL_AddDecal(FUN_004a37b0*, int, char);
+    void TESObjectCELL_AddDecal(DECAL_CREATION_DATA*, int, char);
 };
 struct RefHandle
 {
@@ -138,12 +138,12 @@ struct ImpactData
     bool BGSImpactData_GetIsParallax();
     float FUN_004a41c0();
     bool BGSImpactData_GetParallaxPasses();
-    bool CallMemberAtOffset54();
+    bool BGSImpactData_GetAlphaTesting();
     bool BGSImpactData_GetIsAlphaBlend();
     float FUN_004a40e0();
     float TESCombatStyle_GetWeaponMinRangeMult();
     float FUN_00598040();
-    unsigned int GetNextFromSubobject();
+    unsigned int BGSImpactData_GetDecalColor();
 };
 struct Gate
 {
@@ -184,7 +184,7 @@ NiPoint3 __cdecl FUN_004a3760(float, const NiPoint3&);
 NiPoint3& __cdecl HK2NINS(NiPoint3&, const ImpactVector4&);
 Ref* __cdecl bhkUtilFunctions_GetNiAVObject(HitBody*);
 void* __cdecl TESObjectREFR_FindReferenceFor3D(Ref*);
-bool __cdecl IsAcousticSpaceFormTypeAllowed(void*, bool);
+bool __cdecl BGSDecalManager_IsValidDecalImpact(void*, bool);
 float __cdecl RandomFloatTwoPi();
 float __cdecl FUN_00406cc0(float);
 struct ImpactTask
@@ -283,10 +283,10 @@ void ImpactTask::BGSDecalEmitter_Update()
                     else
                         target = bhkUtilFunctions_GetNiAVObject(body);
                     void* object = TESObjectREFR_FindReferenceFor3D(target);
-                    if (!landscape && (!object || !IsAcousticSpaceFormTypeAllowed(object, true)))
+                    if (!landscape && (!object || !BGSDecalManager_IsValidDecalImpact(object, true)))
                         continue;
                     Ref* owner = g_TES->TES_GetCellForPoint(position);
-                    FUN_004a37b0 decal;
+                    DECAL_CREATION_DATA decal;
                     decal.position = position;
                     decal.normal = normal;
                     decal.width = radius;
@@ -299,15 +299,15 @@ void ImpactTask::BGSDecalEmitter_Update()
                     decal.flag73 = impact->BGSImpactData_GetIsParallax();
                     decal.radius = impact->FUN_004a41c0();
                     decal.flag76 = impact->BGSImpactData_GetParallaxPasses();
-                    decal.flag74 = impact->CallMemberAtOffset54();
+                    decal.flag74 = impact->BGSImpactData_GetAlphaTesting();
                     decal.flag75 = impact->BGSImpactData_GetIsAlphaBlend();
                     decal.parallax = impact->FUN_004a40e0();
                     decal.shininess = impact->TESCombatStyle_GetWeaponMinRangeMult();
                     decal.scale = impact->FUN_00598040();
                     decal.color =
-                        NiPoint3((unsigned char)(impact->GetNextFromSubobject() & 255) / 255.0,
-                                 (unsigned char)(((unsigned short)impact->GetNextFromSubobject() >> 8) & 255) / 255.0,
-                                 (unsigned char)((impact->GetNextFromSubobject() >> 16) & 255) / 255.0);
+                        NiPoint3((unsigned char)(impact->BGSImpactData_GetDecalColor() & 255) / 255.0,
+                                 (unsigned char)(((unsigned short)impact->BGSImpactData_GetDecalColor() >> 8) & 255) / 255.0,
+                                 (unsigned char)((impact->BGSImpactData_GetDecalColor() >> 16) & 255) / 255.0);
                     owner->TESObjectCELL_AddDecal(&decal, 1, 0);
                     placed = true;
                 }

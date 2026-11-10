@@ -165,8 +165,8 @@ extern void* DAT_01269024;
 void hkpMidphaseViewer_Create();
 
 // @fnv 0x00d6a850
-// src: GUESS 0x00d6a850 (confidence: low)
-void hkpMidphaseViewer_Create_SetDAT01269024()
+// src: COMMUNITY 0x00d6a850
+void hkpMidphaseViewer_registerViewer()
 {
     DAT_01269024 = DAT_01269cd0->Register(DAT_010d22e0, hkpMidphaseViewer_Create);
 }
@@ -259,7 +259,7 @@ int __cdecl hkpMidphaseViewer_GetDAT01269024()
 }  // namespace fnv_00d6a870
 
 namespace fnv_00d6a8b0 {
-// FUN_00d6a8b0 - hkpMidphaseViewer: tears the viewer down and, when the
+// ScalarDeletingDestructor - hkpMidphaseViewer: tears the viewer down and, when the
 // deleting flag is set, unregisters it from the physics world.
 struct hkpWorldViewerRegistry
 {
@@ -283,7 +283,8 @@ extern hkpPhysicsWorld* hkMemoryRouter_getInstance();
 
 // Calls FUN_00d6a750, then if flags & 1 removes this viewer from the physics world registry, and returns this.
 // @fnv 0x00d6a8b0
-void* hkpMidphaseViewer::FUN_00d6a8b0(int flags)
+// src: EXE 0x00d6a8b0
+void* hkpMidphaseViewer::ScalarDeletingDestructor(int flags)
 {
     FUN_00d6a750();
     if (flags & 1)

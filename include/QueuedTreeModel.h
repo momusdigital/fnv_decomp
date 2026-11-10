@@ -20,7 +20,7 @@ public:
     virtual void HandleChildCompletion(QueuedFile* apChild) override;
     virtual void OnChildCompletion() override;
     virtual unsigned char GetFileIndex() override;
-    virtual void vf12() override;
+    virtual void SetMapName() override;
 
     bool QueuedFileEntry_GetDescription(char* apDescription, unsigned int aiBufferSize, const char* apName);
     bool GetTreeModelDescription(char* apDescription, unsigned int aiBufferSize);

@@ -280,7 +280,7 @@ void __cdecl TESForm_AddChunkArray(unsigned int, const char*, unsigned int);
 // @fnv 0x00590bc0
 void BGSMessage::WriteToStream()
 {
-    BeginFormRecord();
+    TESForm_StartForm();
     TESDescription::Save_00482cb0();
     TESFullName::Save_00487010();
     unsigned int id = GetIcon() ? GetIcon()->GetHavokWorldObjectCountInSceneGraph_0084e3a0() : 0;
@@ -299,7 +299,7 @@ void BGSMessage::WriteToStream()
             TESForm_AddChunk_00485910(0x54585449, 0);
         button->conditions.ProcessItems();
     }
-    FinishFormRecord();
+    TESForm_CloseForm();
 }
 
 struct ButtonConditionView

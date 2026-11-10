@@ -193,13 +193,13 @@ void FUN_008b3b10_class::ActorMover_ResumeMoving()
     *(char*)((char*)this + 0x72) = 0;
 }
 
-struct FUN_008b4cd0_class
+struct BGSBodyPart
 {
     bool IsFlag40Set();
 };
 
 // @fnv 0x008b4cd0
-bool FUN_008b4cd0_class::IsFlag40Set()
+bool BGSBodyPart::IsFlag40Set()
 {
     return ((unsigned char*)this)[0x60] & 0x40;
 }
@@ -1295,14 +1295,14 @@ struct PkgTarget
 };
 struct Pkg
 {
-    void SetPackageType(int);
+    void SetPackType(int);
     void SetMustReachLocation(bool);
     void SetMustComplete(bool);
     void SetPackageLocation(PkgLoc*);
     void SetPackageTarget(PkgTarget*);
     void FUN_00984f60(unsigned int);
     PkgData* GetData();
-    void SetFlag200000(bool);
+    void TESPackage_SetForceUnequipWeapon(bool);
 };
 Pkg* CreatePackageStandIn(int);
 struct Me;
@@ -2143,7 +2143,7 @@ void Me::Actor_InitiatePickPocketWarning(void* arg)
     if (GetCurrentPackage() && GetCurrentPackage()->FUN_00678610())
         v162();
     Pkg* pNewPkg = CreatePackageStandIn(0x23);
-    pNewPkg->SetPackageType(0x23);
+    pNewPkg->SetPackType(0x23);
     pNewPkg->SetMustReachLocation(true);
     pNewPkg->SetMustComplete(true);
     PkgLoc* pLocation = new PkgLoc;
@@ -2158,7 +2158,7 @@ void Me::Actor_InitiatePickPocketWarning(void* arg)
     pNewPkg->GetData()->FUN_00680110(arg);
     pNewPkg->GetData()->FUN_00403550(0);
     if (pCurPkg)
-        pNewPkg->SetFlag200000(pCurPkg->FUN_00441b00());
+        pNewPkg->TESPackage_SetForceUnequipWeapon(pCurPkg->FUN_00441b00());
     FUN_008d8520()->v10();
     FUN_008d8520()->v452(this);
     v189(pNewPkg, 0, 1);
@@ -2553,7 +2553,7 @@ struct FloatSetting
 struct ProcV;
 struct ExtraList
 {
-    void AddOrCreateExtraItem(void* p, float f);
+    void ExtraDataList_AddToPlayerCrimeList(void* p, float f);
 };
 struct Sub4
 {
@@ -3256,7 +3256,7 @@ void Actor::StealAlarm(TESObjectREFR* apSource, int a2, int aiArg3, int aiArg4, 
             k = new NewObj(0, reinterpret_cast<RefObj*>(apSource), this, a2, aiArg3, apForm);
         else
             k = new NewObj(0, reinterpret_cast<RefObj*>(apSource), this, a2, aiArg4, apForm);
-        p->GetExtraData()->AddOrCreateExtraItem(k, ((G67*)&DAT_011de7b8)->FUN_00867da0());
+        p->GetExtraData()->ExtraDataList_AddToPlayerCrimeList(k, ((G67*)&DAT_011de7b8)->FUN_00867da0());
         p->Actor_IncrementMinorCrimes();
         p->Actor_AddFactionMinorCrime(1, 1);
         ((Z*)&DAT_011e0e80)->AddObjectToList(k);

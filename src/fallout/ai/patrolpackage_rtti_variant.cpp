@@ -77,7 +77,7 @@ void PatrolLoadShell::PatrolActorPackageData_LoadGame(BGSLoadFormBuffer* apBuffe
     apBuffer->ReadDataBlock(&bFlag2C, 1);
     apBuffer->ReadDataBlock(&unk30, 4);
     pPackage = dynamic_cast<TESPackage*>(TESForm::GetFormByID(apBuffer->ReadFormIdentifier()));
-    unsigned int ItemUpdateArray = apBuffer->ReadElementCount();
+    unsigned int ItemUpdateArray = apBuffer->LoadVariableSizedValue();
     kArray.SetSize(ItemUpdateArray, true);
     for (unsigned int i = 0; i < ItemUpdateArray; i++)
     {

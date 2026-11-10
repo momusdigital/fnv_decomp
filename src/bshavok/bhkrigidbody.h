@@ -52,10 +52,11 @@ void bhkRigidBody::SetRotation(const NiQuaternion& p)
 
 #pragma optimize("", off)
 // @fnv 0x0062ab20
-float bhkRigidBody::GetBodyMass()
+// src: COMMUNITY 0x0062ab20
+float bhkRigidBody::GetDynamicMass()
 {
     hkpMotion* motion = hkpRigidBody_getStoredDynamicMotion();
-    return motion ? motion->GetMassValue() : bhkRigidBody_GetMass();
+    return motion ? motion->getMass() : bhkRigidBody_GetMass();
 }
 #pragma optimize("", on)
 __forceinline const __m128& bhkRigidBody::PositionVector()

@@ -22,7 +22,7 @@ public:
     InventoryStackRecord(TESBoundObject* apType, int aiCount);
     ~InventoryStackRecord();
 
-    float GetArmorDamageThreshold(Actor* actor);
+    float ItemChange_GetModifiedDamageThreshold(Actor* actor);
     float GetConditionPercent(bool percentage);
     static float GetConditionPercent(float health);
     bool SetEquipmentState(int effect, float& value);
@@ -43,19 +43,19 @@ public:
     bool ItemChange_GetWorn(bool abUnk);
     BSSimpleList<ExtraDataList*>* Modelloader_GetReferencedThis();
     int FUN_00726070();
-    void ClearExtraDataList();
-    int CountAndPruneEntries();
+    void ItemChange_DeleteAllExtra();
+    int ItemChange_GetAmountNonDefaultExtra();
     int ItemChange_GetExtraTotalCount(bool abWornIgnore);
     int ItemChange_GetExtraTotalDefaultCount();
     void InitLoadGame(BGSLoadFormBuffer* buffer);
-    bool HasPerkEntry();
+    bool ItemChange_HasLeveledExtra();
     bool HasApplicablePerkEntry();
     ScriptLocals* GetScriptLocalData();
 
-    void SetPerkExtra(void* extra);
-    void SavePerkList(BGSSaveFormBuffer* buffer);
+    void ItemChange_SetPoison(void* extra);
+    void ItemChange_SaveGame(BGSSaveFormBuffer* buffer);
     InventoryStackRecord* CopyFrom(InventoryStackRecord* other);
-    void SetExtraListFlag(bool abNew, bool abFlag, bool abDelete);
+    void ItemChange_SetWorn(bool abNew, bool abFlag, bool abDelete);
     void CopyFirstExtraList(void* extra);
     const char* GetIconFilename(TESObjectREFR* reference);
 };

@@ -14,7 +14,8 @@
 
 // Deletes every entry in the list by taking the head item, removing it, and freeing it, until the list is empty.
 // @fnv 0x0048ade0
-void TESModelTextureSwap::ClearTextureSwaps()
+// src: COMMUNITY 0x0048ade0
+void TESModelTextureSwap::ClearTexSwapList()
 {
     void* pDelete;
     BGSPerkEntry* pItem;
@@ -137,7 +138,8 @@ bool TESModelTextureSwap::ApplyTextureSwapToNode(NiAVObject* object, BSMap<int, 
 }
 
 // @fnv 0x0048afe0
-void TESModelTextureSwap::ApplyTextureSwaps(NiAVObject* object)
+// src: COMMUNITY 0x0048afe0
+void TESModelTextureSwap::SwapTextures(NiAVObject* object)
 {
     int warningCount;
     if (object)
@@ -327,7 +329,7 @@ bool FUN_0048af90_shell::Equals(const char* apOther)
     return _NiStricmp(m_str, apOther) == 0;
 }
 
-struct FUN_00409aa0_shell
+struct IngredientItem
 {
     void IngredientItem_SetFlag(unsigned int flags, bool set);
 };
@@ -335,7 +337,7 @@ struct FUN_00409aa0_shell
 // Sets or clears the given flag bits in the byte at offset 0xa0 of this object.
 // @fnv 0x00409aa0
 // src: COMMUNITY 0x00409aa0
-void FUN_00409aa0_shell::IngredientItem_SetFlag(unsigned int flags, bool set)
+void IngredientItem::IngredientItem_SetFlag(unsigned int flags, bool set)
 {
     set ? ((unsigned char*)this)[0xa0] |= flags : ((unsigned char*)this)[0xa0] &= ~flags;
 }
@@ -370,7 +372,7 @@ void TESModelTextureSwap::InitializeComponent()
 // @fnv 0x0048a500
 void TESModelTextureSwap::Free()
 {
-    ClearTextureSwaps();
+    ClearTexSwapList();
     TESModel::Free();
 }
 
@@ -453,19 +455,20 @@ bool TESModelTextureSwap::ParseTextureSwapData(void* apData, unsigned int aiData
     return true;
 }
 
-void __cdecl AppendChunk(unsigned int, unsigned int, unsigned int);
+void __cdecl TESForm___AddChunkData(unsigned int, unsigned int, unsigned int);
 void __cdecl Deallocate(void*);
 
-// Calls WriteToBuffer with a and b, then if SerializeList yields a data pointer and size, passes them with c to AppendChunk and deallocates the pointer.
+// Calls WriteToBuffer with a and b, then if BuildTextureSwapChunkData yields a data pointer and size, passes them with c to TESForm___AddChunkData and deallocates the pointer.
 // @fnv 0x0048a520
 void TESModelTextureSwap::ProcessAndFreeData(unsigned int uiFirst, unsigned int uiSecond, unsigned int uiThird)
 {
     WriteToBuffer(uiFirst, uiSecond);
     unsigned int pdata = 0;
     unsigned int idatasize = 0;
-    if (SerializeList(reinterpret_cast<char**>(&pdata), &idatasize))
+    // src: COMMUNITY 0x0048a590
+    if (BuildTextureSwapChunkData(reinterpret_cast<char**>(&pdata), &idatasize))
     {
-        AppendChunk(uiThird, pdata, idatasize);
+        TESForm___AddChunkData(uiThird, pdata, idatasize);
         Deallocate((void*)pdata);
     }
 }
@@ -505,7 +508,7 @@ void TESModelTextureSwap::ApplyTextureSwapOverrides(unsigned int formID)
         static_cast<struct TextureSwapNodeAccessor*>(FUN_00ec43fb(formID, 0, &DAT_01183040, &DAT_011831c4, 0));
     if (!list)
         return;
-    ClearTextureSwaps();
+    ClearTexSwapList();
     TextureSwapNode* node = list->FUN_00500940();
     while (node && !node->FUN_008256d0())
     {
@@ -576,7 +579,7 @@ void __cdecl BSEndian_00401080(int*, FUN_00401080_tag);
 void __cdecl FUN_00401460(char*, unsigned int, unsigned int);
 
 // @fnv 0x0048a590
-bool TESModelTextureSwap::SerializeList(char** apBuffer, unsigned int* auiSize)
+bool TESModelTextureSwap::BuildTextureSwapChunkData(char** apBuffer, unsigned int* auiSize)
 {
     *apBuffer = 0;
     *auiSize = 0;

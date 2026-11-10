@@ -182,11 +182,12 @@ void __fastcall ClearField44(int param_1)
 
 struct FUN_00524b60_shell
 {
-    unsigned char __thiscall GetByteAt102();
+    unsigned char __thiscall TESObjectWEAP_GetAmmoPerShot();
 };
 
 // @fnv 0x00524b60
-unsigned char __thiscall FUN_00524b60_shell::GetByteAt102()
+// src: COMMUNITY 0x00524b60
+unsigned char __thiscall FUN_00524b60_shell::TESObjectWEAP_GetAmmoPerShot()
 {
     return *(unsigned char*)((char*)this + 0x102);
 }
@@ -214,7 +215,8 @@ bool BaseProcess::StartIdleAnimation(Actor* apMobile, TESIdleForm* apIdle, ANIM_
 
 
 // @fnv 0x008d0350
-void BaseProcess::AddDetectionEvent(Actor*, NiPoint3, SOUND_LEVEL, int, TESObjectREFR*)
+// src: EXE 0x008d0350
+void BaseProcess::CreateDetectionEvent(Actor*, NiPoint3, SOUND_LEVEL, int, TESObjectREFR*)
 {}
 
 struct ActiveEffect;
@@ -449,7 +451,8 @@ DetectionViewData* FUN_008d0340_s::BaseProcess_InsertIntoDetectionList(Actor* ap
 }
 
 // @fnv 0x008d0380
-void BaseProcess::ProcessEquipmentRequest(Actor* apActor, bool abEquip, TESBoundObject* apObject, int aiNumber,
+// src: EXE 0x008d0380
+void BaseProcess::AddQueuedItem(Actor* apActor, bool abEquip, TESBoundObject* apObject, int aiNumber,
                                   ExtraDataList* apExtra, bool abNow, bool abForceEquip, bool abFromMenus,
                                   bool abForceUnequip, bool abEquipCalling, bool abPlayPickUpSounds)
 {}

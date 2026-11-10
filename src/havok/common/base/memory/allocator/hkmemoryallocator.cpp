@@ -124,7 +124,7 @@ void* CFun00cbf280Owner::hkMemoryAllocator_bufRealloc(void* src, int size, SFun0
 
 extern int DAT_010c3b30;
 
-struct FUN_00cbf1a0_cls
+struct hkMemoryAllocator
 {
     int m_vptr00;
 
@@ -133,7 +133,7 @@ struct FUN_00cbf1a0_cls
 
 // @fnv 0x00cbf1a0
 // src: GUESS 0x00cbf1a0 (confidence: low)
-void FUN_00cbf1a0_cls::UpdateFields_00cbf1a0()
+void hkMemoryAllocator::UpdateFields_00cbf1a0()
 {
     m_vptr00 = (int)&DAT_010c3b30;
 }

@@ -48,7 +48,7 @@ class NiGeometryGroupManager
 class NiD3DGeometryGroupManager : public NiMemObject
 {
   public:
-    void FUN_00a7f810();
+    void NiGeometryGroupManager();
     void** vtable;
     NiStreamLinkIDSet groups;
     Direct3DDeviceInterface* device;

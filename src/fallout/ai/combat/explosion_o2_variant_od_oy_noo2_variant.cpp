@@ -76,7 +76,7 @@ void __cdecl FUN_00cbc740();
 struct FUN_00cbd4e0_shell
 {
     char m_auiShapeKeys[0x14];
-    void* FUN_00cbd4e0(unsigned char flag);
+    void* ScalarDeletingDestructor(unsigned char flag);
 };
 extern "C" unsigned long __cdecl _byteswap_ulong(unsigned long);
 struct FUN_00cbc650_obj
@@ -279,7 +279,7 @@ struct FUN_00cbc6a0_Class
     virtual void vf09();
     virtual void vf10();
     virtual void vf11();
-    virtual void vf12();
+    virtual void SetMapName();
     virtual void vf13();
     virtual void vf14();
     virtual void vf15();
@@ -305,7 +305,7 @@ struct FUN_00cbc6a0_Class
     virtual void vf35();
     virtual void vf36();
     virtual void vf37();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf39();
     virtual void vf40();
     virtual void vf41();
@@ -660,7 +660,7 @@ struct Position810
 };
 struct Object810
 {
-    bool HasAnyFlags(int);
+    bool BGSExplosion_IsFlagSet(int);
 };
 struct Body810
 {
@@ -816,7 +816,7 @@ extern Debug810* DAT_011dea10;
 bool Host810::Explosion_RunLOSPick(NiPoint3 pos, Actor* actor)
 {
     Object810* base = FUN_004181e0();
-    if (base->HasAnyFlags(16))
+    if (base->BGSExplosion_IsFlagSet(16))
         return true;
     Body810* body = actor ? (Body810*)actor->GetNiNode() : 0;
     if (actor == pPlayer)
@@ -1258,13 +1258,13 @@ struct Weap
     float BGSImpactData_GetDecalMinWidth();
     float GetNestedValue();
     char BGSImpactData_GetIsAlphaBlend();
-    char CallMemberAtOffset54();
+    char BGSImpactData_GetAlphaTesting();
     char BGSImpactData_GetIsParallax();
     float FUN_004a41c0();
     char BGSImpactData_GetParallaxPasses();
     float FUN_004a40e0();
     float TESCombatStyle_GetWeaponMinRangeMult();
-    unsigned int GetNextFromSubobject();
+    unsigned int BGSImpactData_GetDecalColor();
     int FUN_005f36f0();
     float GetEndKeyTime_00508100();
     struct SndSrc* GetField4C();
@@ -1595,7 +1595,7 @@ extern "C" float __cdecl FUN_00406cc0(float a);
 extern "C" void* __cdecl hkpGetRigidBody(RefObj* r);
 extern "C" Sub* __cdecl bhkWorldObject_GetProperty(Hand8* out, void* a, void* b);
 extern "C" Sub* __cdecl bhkUtilFunctions_GetNiAVObject(RefObj* r);
-extern "C" bool __cdecl IsAcousticSpaceFormTypeAllowed(Proc* p, int a);
+extern "C" bool __cdecl BGSDecalManager_IsValidDecalImpact(Proc* p, int a);
 extern "C" void __cdecl BSTempEffectParticle_Spawn(void* a, float f, char* name, NiPoint3 d, NiPoint3 p, float s, int b, int c);
 extern "C" AudioMgr_BSAudio* __cdecl BSAudio_QInstance();
 extern double g_maxLen;
@@ -2143,7 +2143,7 @@ void ProjCls::Explosion_ApplyImpactDecals()
                                                     node = bhkUtilFunctions_GetNiAVObject(ref);
                                                 }
                                                 Proc* u3 = TESObjectREFR_FindReferenceFor3D(node);
-                                                if (!isActor && (!u3 || !IsAcousticSpaceFormTypeAllowed(u3, 1)))
+                                                if (!isActor && (!u3 || !BGSDecalManager_IsValidDecalImpact(u3, 1)))
                                                     continue;
                                                 Mgr* mg = g_drawer->TES_GetCellForPoint(pos);
                                                 Params prm;
@@ -2157,7 +2157,7 @@ void ProjCls::Explosion_ApplyImpactDecals()
                                                 prm.unk44 = fade;
                                                 prm.unk70 = cc;
                                                 prm.unk75 = wt->BGSImpactData_GetIsAlphaBlend();
-                                                prm.unk74 = wt->CallMemberAtOffset54();
+                                                prm.unk74 = wt->BGSImpactData_GetAlphaTesting();
                                                 prm.unk73 = wt->BGSImpactData_GetIsParallax();
                                                 prm.unk4C = wt->FUN_004a41c0();
                                                 prm.unk76 = wt->BGSImpactData_GetParallaxPasses();
@@ -2165,12 +2165,12 @@ void ProjCls::Explosion_ApplyImpactDecals()
                                                 prm.unk58 = wt->TESCombatStyle_GetWeaponMinRangeMult();
                                                 Color3 col;
                                                 prm.unk60 = *col.SetComponents(
-                                                    (float)(((unsigned char)((wt->GetNextFromSubobject()) & 0xff)) / g_d255),
-                                                    (float)(((unsigned char)((((unsigned short)(wt->GetNextFromSubobject())) >>
+                                                    (float)(((unsigned char)((wt->BGSImpactData_GetDecalColor()) & 0xff)) / g_d255),
+                                                    (float)(((unsigned char)((((unsigned short)(wt->BGSImpactData_GetDecalColor())) >>
                                                                               8) &
                                                                              0xff)) /
                                                             g_d255),
-                                                    (float)(((unsigned char)(((wt->GetNextFromSubobject()) >> 16) & 0xff)) /
+                                                    (float)(((unsigned char)(((wt->BGSImpactData_GetDecalColor()) >> 16) & 0xff)) /
                                                             g_d255));
                                                 mg->TESObjectCELL_AddDecal(&prm, 1, 0);
                                             }

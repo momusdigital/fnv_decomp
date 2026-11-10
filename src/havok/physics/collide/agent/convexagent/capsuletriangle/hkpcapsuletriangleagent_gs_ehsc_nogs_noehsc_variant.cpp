@@ -32,7 +32,7 @@
 // src/havok/physics/collide/agent/convexagent/capsuletriangle/hkpcapsuletriangleagent.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/projects/fallout/code/havok/source/physics/collide/agent/convexagent/capsuletriangle/hkpcapsuletriangleagent.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 void CreateObjectFromFactory();
-void Object_CollectPenetratingBodyPair();
+void hkpCapsuleTriangleAgent_staticGetPenetrations();
 void staticGetClosestPoints();
 void Object_ProcessEntries_00daf8e0();
 void Object_InitializeAgentFunctionTable_00d3ab60(void* apObject);
@@ -47,7 +47,7 @@ void __cdecl hkpMultiSphereTriangleAgent_UpdateState_00d38ed0();
 void __cdecl Object_UpdateFields_00d3ac80();
 void __cdecl CreateTriAgent();
 void __cdecl hkpMultiSphereTriangleAgent_staticGetPenetrations();
-void __cdecl Object_ProcessEntries_00d386c0();
+void __cdecl hkpMultiSphereTriangleAgent_staticGetClosestPoints();
 void __cdecl Object_ProcessEntries_00daf8e0();
 
 void __cdecl hkpMultiSphereTriangleAgent_staticGetPenetrations_UpdateState_00d389f0(hkpCollisionDispatcher* dispatcher);
@@ -515,7 +515,7 @@ __forceinline hkpConvexShape::WeldResult hkpConvexShape::weldContactPoint(hkpVer
     hkVector4& contactPointWs, const hkTransform* thisObjTransform,
     const hkpConvexShape* collidingShape, const hkTransform* collidingTransform, hkVector4& separatingNormalInOut) const
 {
-    return (WeldResult)this->WeldContactPoint(featurePoints, numFeaturePoints,
+    return (WeldResult)this->hkpTriangleShape_weldContactPointImpl(featurePoints, numFeaturePoints,
         contactPointWs, thisObjTransform, collidingShape, collidingTransform, separatingNormalInOut);
 }
 inline const hkVector4* hkpCapsuleShape::GetIndexedVertices() const { return &m_kVertexA; }

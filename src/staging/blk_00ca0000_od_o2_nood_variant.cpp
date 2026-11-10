@@ -227,7 +227,7 @@ addRadius:
 
 extern unsigned int DAT_010c74ec;
 
-class FUN_00ca39a0
+class hkNormalTriangleShape
 {
   public:
     unsigned int m_vtbl;   // 0x00
@@ -241,11 +241,12 @@ class FUN_00ca39a0
     unsigned char m_b17;   // 0x17
     unsigned int unk18, unk1C, unk20, unk24, unk28, unk2C, unk30, unk34, unk38, unk3C, unk40, unk44, unk48, unk4C;
     __m128 m_quad50;  // 0x50
-    FUN_00ca39a0(float x);
+    hkNormalTriangleShape(float x);
 };
 
 // @fnv 0x00ca39a0
-FUN_00ca39a0::FUN_00ca39a0(float x)
+// src: EXE 0x00ca39a0
+hkNormalTriangleShape::hkNormalTriangleShape(float x)
 {
     m_f10 = x;
     m_w06 = 1;
@@ -348,7 +349,7 @@ struct Ca39f0Base : Ca39f0BaseA, Ca39f0BaseB
     int unk5c;
 };
 
-struct FUN_00ca39f0 : Ca39f0Base
+struct hkPackedNiTriStripsShape : Ca39f0Base
 {
     // Raw SIMD storage preserves the original uninitialized construction.
     __m128 m_kBounds[2];
@@ -359,13 +360,14 @@ struct FUN_00ca39f0 : Ca39f0Base
     __m128 m_offset;
     float m_fSphereRadius;
 
-    FUN_00ca39f0(const Ca39f0Cinfo& info);
-    virtual ~FUN_00ca39f0();
+    hkPackedNiTriStripsShape(const Ca39f0Cinfo& info);
+    virtual ~hkPackedNiTriStripsShape();
     virtual void vb00();
 };
 
 // @fnv 0x00ca39f0
-FUN_00ca39f0::FUN_00ca39f0(const Ca39f0Cinfo& info) : Ca39f0Base(0x1f, 3)
+// src: EXE 0x00ca39f0
+hkPackedNiTriStripsShape::hkPackedNiTriStripsShape(const Ca39f0Cinfo& info) : Ca39f0Base(0x1f, 3)
 {
     m_pReferencedObject = info.m_object;
     m_fSphereRadius = info.m_fSphereRadius;
@@ -525,7 +527,7 @@ struct TriShape
     Vec4 vertex0;
     Vec4 vertex1;
     Vec4 vertex2;
-    TriShape* FUN_00ca39a0(float radius);
+    TriShape* hkNormalTriangleShape(float radius);
 };
 
 struct TriMeshShape
@@ -580,7 +582,7 @@ TriShape* TriMeshShape::hkPackedNiTriStripsShape_getChildShape(unsigned int key,
     if (index >= data->numTriangles)
         return 0;
     TriIndices* tri = &data->triangles[index];
-    TriShape* shape = buffer ? buffer->FUN_00ca39a0(radius) : 0;
+    TriShape* shape = buffer ? buffer->hkNormalTriangleShape(radius) : 0;
     SetVertex(shape->vertex0, data->GetVertex(tri->a));
     SetVertex(shape->vertex1, data->GetVertex(tri->b));
     SetVertex(shape->vertex2, data->GetVertex(tri->c));
@@ -666,11 +668,11 @@ struct ShapeInfoCA4B
     float m_fVectorX;
 };
 
-class FUN_00ca4bc0 : public ShapeBaseCA4B, public ShapeIfaceCA4B
+class hkNiTriStripsShape : public ShapeBaseCA4B, public ShapeIfaceCA4B
 {
   public:
-    FUN_00ca4bc0(const ShapeInfoCA4B* pkInfo);
-    virtual ~FUN_00ca4bc0();
+    hkNiTriStripsShape(const ShapeInfoCA4B* pkInfo);
+    virtual ~hkNiTriStripsShape();
 
     bool m_bValueAt0C;
     int unk18;
@@ -698,7 +700,8 @@ class FUN_00ca4bc0 : public ShapeBaseCA4B, public ShapeIfaceCA4B
 };
 
 // @fnv 0x00ca4bc0
-FUN_00ca4bc0::FUN_00ca4bc0(const ShapeInfoCA4B* pkInfo) : ShapeBaseCA4B(0x1e, 3), m_fBoundRadius(pkInfo->m_fBoundRadius)
+// src: EXE 0x00ca4bc0
+hkNiTriStripsShape::hkNiTriStripsShape(const ShapeInfoCA4B* pkInfo) : ShapeBaseCA4B(0x1e, 3), m_fBoundRadius(pkInfo->m_fBoundRadius)
 {
     m_fBoundRadius = pkInfo->m_fBoundRadius;
     m_kCenter = _mm_setr_ps(pkInfo->m_fVectorY, pkInfo->m_fVectorZ, pkInfo->m_fScalarPart, pkInfo->m_fVectorX);
@@ -726,7 +729,7 @@ struct Base_ca5360
 {
     void bhkShape_CopyCinfo(MassInfo_ca5360* pkInfo);
 };
-struct FUN_00ca5360_cls : Base_ca5360
+struct bhkPackedNiTriStripsShape : Base_ca5360
 {
     int unk00;
     int unk04;
@@ -735,7 +738,7 @@ struct FUN_00ca5360_cls : Base_ca5360
 };
 // @fnv 0x00ca5360
 // src: XBOX_PDB 0x00ca5360
-void FUN_00ca5360_cls::bhkPackedNiTriStripsShape_CopyCinfo(MassInfo_ca5360* pkInfo)
+void bhkPackedNiTriStripsShape::bhkPackedNiTriStripsShape_CopyCinfo(MassInfo_ca5360* pkInfo)
 {
     Base_ca5360::bhkShape_CopyCinfo(pkInfo);
     if (this != 0 && m_pShape != 0)
@@ -832,20 +835,21 @@ struct ConstraintCAB : BaseCAB0, BaseCAB1, BaseCAB2
     int m_10, m_14, m_18, m_1c, m_20, m_24, m_28, m_2c, m_30, m_34, m_38, m_3c;
     ConstraintCAB(int a);
 };
-struct FUN_00cabec0 : ConstraintCAB
+struct ahkpCharacterProxy : ConstraintCAB
 {
     __m128 m_40;
     int m_50, m_54, m_58, m_5c, m_60, m_64, m_68, m_6c, m_70, m_74, m_78, m_7c;
     int m_80, m_84, m_88, m_8c, m_90, m_94, m_98, m_9c, m_a0, m_a4, m_a8, m_ac;
     int m_b0, m_b4, m_b8, m_bc;
     int m_c0;
-    FUN_00cabec0(int a);
+    ahkpCharacterProxy(int a);
     virtual void v00();
     virtual void v10();
     virtual void v20();
 };
 // @fnv 0x00cabec0
-FUN_00cabec0::FUN_00cabec0(int a) : ConstraintCAB(a)
+// src: EXE 0x00cabec0
+ahkpCharacterProxy::ahkpCharacterProxy(int a) : ConstraintCAB(a)
 {
     m_c0 = 0;
     m_40 = _mm_setr_ps(0.0f, 0.0f, 1.0f, 0.0f);

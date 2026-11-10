@@ -221,7 +221,7 @@ struct Holder
 
 Holder* hkMemoryRouter_getInstance();
 
-class FUN_00d97850_cls
+class hkKdTree
 {
   public:
     void* m_pData00;
@@ -240,7 +240,7 @@ class FUN_00d97850_cls
 
 // Frees the two heap buffers through the global allocator when their flag's high bit is clear, then resets counts, pointers and flags.
 // @fnv 0x00d97850
-void FUN_00d97850_cls::ClearBuffers()
+void hkKdTree::ClearBuffers()
 {
     Holder* pAllocHolder = hkMemoryRouter_getInstance();
     Allocator* alloc = pAllocHolder->m_pAllocator;
@@ -270,7 +270,7 @@ void FUN_00d97850_cls::ClearBuffers()
 extern float DAT_0104da48;
 extern float DAT_0104e148;
 
-__declspec(align(16)) struct FUN_00d976d0_cls
+__declspec(align(16)) struct hkKdTreeCinfo
 {
     int m_00;
     unsigned char m_04;
@@ -288,7 +288,7 @@ extern "C" void _ReadWriteBarrier(void);
 // Sets m_00 to -1, m_04 to 2, and m_05 to 1, then broadcasts the two globals into m_10 and m_20.
 // @fnv 0x00d976d0
 // src: XBOX_PDB 0x00d976d0
-void FUN_00d976d0_cls::hkKdTreeCinfo_hkKdTreeCinfo()
+void hkKdTreeCinfo::hkKdTreeCinfo_hkKdTreeCinfo()
 {
     __m128 v = _mm_set1_ps(DAT_0104da48);
     *(volatile int*)&m_00 = -1;

@@ -3890,7 +3890,7 @@ struct FNVAnimObject {
     FNVExtra* extra;
     FNVBound* EnsureBound();
     FNVBound*& EnsureBoundRef();
-    void* GetCellChildAt(int) { typedef void* (__thiscall *Getter)(void*); return ((Getter)vtbl[3])(this); }
+    void* GetChildNode(int) { typedef void* (__thiscall *Getter)(void*); return ((Getter)vtbl[3])(this); }
     void AdoptBound(void* bound) { typedef void (__thiscall *Setter)(void*,void*); ((Setter)vtbl[30])(this,bound); }
 };
 struct FNVAllocator {
@@ -4173,7 +4173,7 @@ void FNVAnimationController::bhkRagdollController_UpdateDebugLines(int side) {
     float ratio = 1.0f / owner->primary->scale;
     if (!owner->root) return;
     FNVAnimObject* limb = owner->root->children[side];
-    FNVAnimObject* animation = (FNVAnimObject*)limb->GetCellChildAt(side);
+    FNVAnimObject* animation = (FNVAnimObject*)limb->GetChildNode(side);
     if (limb->flags & 1) return;
     FNVAnimObject* primary = owner->primary;
     primary->EnsureBound()->radius = 1.0f;

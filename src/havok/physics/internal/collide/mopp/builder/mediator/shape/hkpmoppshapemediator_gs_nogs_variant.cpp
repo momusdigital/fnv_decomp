@@ -40,7 +40,7 @@ struct SpawnedBase
     virtual ~SpawnedBase()
     {}
 };
-class FUN_00dd52a0_cls : public SpawnedBase
+class hkpMoppShapeMediator : public SpawnedBase
 {
   public:
     short unk04;
@@ -48,7 +48,7 @@ class FUN_00dd52a0_cls : public SpawnedBase
     hkpShapeContainer* m_src08;
     int m_result0c;
 
-    FUN_00dd52a0_cls* InitFromSource(hkpShapeContainer* src);
+    hkpMoppShapeMediator* InitFromSource(hkpShapeContainer* src);
 };
 struct CpuAllocator
 {

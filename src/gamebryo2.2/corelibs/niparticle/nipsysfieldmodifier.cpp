@@ -166,7 +166,8 @@ __forceinline void S_00c322b0_Add(S_00c322b0_Arr* a, char* s)
 // @fnv 0x00c322b0
 // A free fastcall helper preserves the thiscall register and stack arguments
 // until the shared class declares its viewer-string override.
-void __fastcall GetFieldModifierViewerStrings(NiPSysFieldModifier* self, void*, S_00c322b0_Arr* a)
+// src: EXE 0x00c322b0
+void __fastcall NiPSysFieldModifier_GetViewerStrings(NiPSysFieldModifier* self, void*, S_00c322b0_Arr* a)
 {
     reinterpret_cast<FieldModifierViewerBase*>(self)->GetViewerStrings(a);
     S_00c322b0_Add(a, NiViewerStrings_NiGetViewerString_Title(DAT_012027e0));

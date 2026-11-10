@@ -99,13 +99,13 @@ void hkpVehicleDefaultAerodynamics::vf03(const float fMoveElapsedTime,
     kUp._setRotatedDir(kRotationBasis, vehicle->m_data->m_kChassisOrientation.m_kColumn0);
 
     const float m_fGain = pkChassis->getLinearVelocity().dot3scalar(kForward);
-    const float fDragForce = calcDragForce(m_fGain);
-    const float fLiftForce = calcLiftForce(m_fGain);
+    const float fDragForce = calcAerodynamicDrag(m_fGain);
+    const float fLiftForce = calcAerodynamicLift(m_fGain);
 
     kDragInfoOut.m_kForce.setMul4(fDragForce, kForward);
     kDragInfoOut.m_kForce.addMul4(hkSimdReal(fLiftForce), kUp);
 
-    const float fMass = pkChassis->m_pMotionState.GetMassValue();
+    const float fMass = pkChassis->m_pMotionState.getMass();
     kDragInfoOut.m_kForce.addMul4(hkSimdReal(fMass), m_vExtraGravityWorldSpace);
     kDragInfoOut.m_kTorque.setZero4();
 }

@@ -30,13 +30,13 @@ public:
     void ReadTypedData(TESFile* file, void* buffer, unsigned short size);
     float GetUnsignedIntegerPointer(ReputationType type);
     static unsigned int* __cdecl GetUnsignedIntegerPointer(unsigned int* value);
-    int GetReputationRank(int type);
-    const char* GetReputationName();
-    const char* GetSelectedSettingString();
+    int TESReputation_GetReputationLevel(int type);
+    const char* GetReputationMainIcon();
+    const char* TESReputation_GetReputationDesc();
     const char* FUN_00616710();
     const char* TESReputation_GetThresholdIcon();
-    void ShowMessageBox();
-    void ApplyReputationChange(int type, int amount);
+    void DisplayReputationTitleChange();
+    void AddReputationValueByLevel(int type, int amount);
     void SetReputation_00615580(int type, float value);
     void AddReputationValue(int kind, float delta);
     void RemoveReputationExact(int kind, float amount);

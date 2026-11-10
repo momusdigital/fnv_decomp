@@ -373,7 +373,8 @@ typedef bool (__thiscall* EqualMorphTargetsFn)(NiMorphData::MorphTarget*, NiMorp
 
 // Compares counts, relative flags, and each morph target after the base comparison.
 // @fnv 0x00a418a0
-bool __fastcall EqualMorphData(NiMorphData* self, int, NiMorphData* other)
+// src: EXE 0x00a418a0
+bool __fastcall NiMorphData_IsEqual(NiMorphData* self, int, NiMorphData* other)
 {
     if (!self->NiObject::IsSameAs(other))
     {

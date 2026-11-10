@@ -357,10 +357,11 @@ void FUN_00ae8bf0_t::AddItem(const void* element)
 
 struct FUN_004edd20_shell
 {
-    void* __thiscall FUN_004edd20(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 // @fnv 0x004edd20
-void* FUN_004edd20_shell::FUN_004edd20(unsigned int flags)
+// src: EXE 0x004edd20
+void* FUN_004edd20_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     ((FUN_004eda30_t*)this)->SetVtableAndProcessState_004eda30();
     if (flags & 1)

@@ -2337,7 +2337,7 @@ class D3DPassObj
     {
         return m_uiNumberOfStages;
     }
-    unsigned int GetStageMask() const
+    unsigned int GetCurrentStage() const
     {
         return m_uiStageMask;
     }

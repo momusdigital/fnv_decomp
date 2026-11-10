@@ -218,11 +218,12 @@ void __fastcall Bgssaveloadfile_ReleaseStorage_00846690(void** pThis)
 
 struct FUN_008467b0_shell : public BGSSaveLoadFileEntry
 {
-    bool LoadSaveEntry();
+    bool BGSSaveLoadFileEntry_LoadGame();
 };
 
 // @fnv 0x008467b0
-bool FUN_008467b0_shell::LoadSaveEntry()
+// src: COMMUNITY 0x008467b0
+bool FUN_008467b0_shell::BGSSaveLoadFileEntry_LoadGame()
 {
     return DAT_011de134->LoadGame(*(const char**)this, *(int*)((char*)this + 0x34), false, false);
 }
@@ -326,12 +327,12 @@ FUN_008465b0_stub::FUN_008465b0_stub(const char* pcName, int p)
     strcpy_s(name, len + 1, pcName);
 }
 
-struct FUN_00846330_shell
+struct BGSSaveLoadFile
 {
     unsigned int WriteToFile(const void* apBuffer, unsigned int aiBytes);
 };
 // @fnv 0x00846330
-unsigned int FUN_00846330_shell::WriteToFile(const void* apBuffer, unsigned int aiBytes)
+unsigned int BGSSaveLoadFile::WriteToFile(const void* apBuffer, unsigned int aiBytes)
 {
     if (DAT_011de134->InterfaceManager_GetMenuMode())
     {

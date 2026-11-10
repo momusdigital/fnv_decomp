@@ -261,12 +261,12 @@ void BSSimpleArray<S009f9180, 1024>::Clear(bool freeStorage)
 
 struct FUN_009f8d60_Class
 {
-    void* __thiscall AllocateStorage_009f8d60(int size);
+    void* __thiscall BSSimpleArray_Allocate(int size);
 };
 
 // @fnv 0x009f8d60
-// src: GUESS 0x009f8d60 (confidence: medium)
-void* __thiscall FUN_009f8d60_Class::AllocateStorage_009f8d60(int size)
+// src: GUESS 0x009f8d60 (confidence: high)
+void* __thiscall FUN_009f8d60_Class::BSSimpleArray_Allocate(int size)
 {
     void* memory = operator new(size * 0x34);
     return memory;
@@ -288,11 +288,12 @@ void* __thiscall FUN_009f8d90::Reallocate(void* p, int n)
 struct FUN_009f8b10_class
 {
     void SetVtableAndProcessState_009f8b10();
-    void* FUN_009f8db0(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };
 
 // @fnv 0x009f8db0
-void* FUN_009f8b10_class::FUN_009f8db0(unsigned int flags)
+// src: EXE 0x009f8db0
+void* FUN_009f8b10_class::ScalarDeletingDestructor(unsigned int flags)
 {
     SetVtableAndProcessState_009f8b10();
     if (flags & 1)
@@ -603,7 +604,7 @@ void FUN_009f8900_class::SpectatorPackage_LoadGame_009f8900(BGSLoadFormBuffer* a
     apLoadGameBuffer->ReadTypedData(static_cast<void*>(field94), 12u);
 
     {
-        unsigned int isaveGameCount = apLoadGameBuffer->ReadElementCount();
+        unsigned int isaveGameCount = apLoadGameBuffer->LoadVariableSizedValue();
 
         reinterpret_cast<FUN_009f8b30_class*>(reinterpret_cast<unsigned char*>(this) + 0xA0)
             ->BSSimpleArray_SpectatorThreatInfo_1024_SetSize(isaveGameCount, 1);
@@ -756,14 +757,14 @@ class FUN_009f72f0 : public Base_9f72f0
     SubB0 m_b0;
     FUN_009f72f0();
     virtual ~FUN_009f72f0();
-    void SetPackageType(int a);
+    void SetPackType(int a);
     void FUN_00984f60(int a);
 };
 
 // @fnv 0x009f72f0
 FUN_009f72f0::FUN_009f72f0() : m_v94(DAT_011f426c), m_a0(0x20, 0), m_b0(0)
 {
-    SetPackageType(0x18);
+    SetPackType(0x18);
     m_i80 = 0;
     m_f88 = 0.0f;
     m_f8c = 0.0f;
@@ -1199,7 +1200,7 @@ struct ThreatList
 struct Package
 {
     void SpectatorPackage_AddThreatFromActorToCombatTarget(Parameter*);
-    void ProcessEntries_009f76e0();
+    void SpectatorPackage_ComputeCenterPoint();
 };
 // @fnv 0x009f8330
 // src: XBOX_PDB 0x009f8330
@@ -1224,7 +1225,7 @@ void Package::SpectatorPackage_AddThreatFromActorToCombatTarget(Parameter* actor
         match = ((ThreatList*)((char*)this + 0xA0))->BSSimpleArray_SpectatorThreatInfo_1024_GetAt(n);
     }
     match->SetSourceReference(actor);
-    ProcessEntries_009f76e0();
+    SpectatorPackage_ComputeCenterPoint();
 }
 
 struct ThreatArray
@@ -1544,11 +1545,11 @@ struct Package
     bool empty;
     NiPoint3 center;
     ThreatList threats;
-    void ProcessEntries_009f76e0();
+    void SpectatorPackage_ComputeCenterPoint();
 };
 // @fnv 0x009f76e0
-// src: GUESS 0x009f76e0 (confidence: low)
-void Package::ProcessEntries_009f76e0()
+// src: COMMUNITY 0x009f76e0
+void Package::SpectatorPackage_ComputeCenterPoint()
 {
     if (!threats.FUN_0044ddc0())
         return;
@@ -1936,7 +1937,7 @@ struct Package8020
     unsigned int unk9c;
     ThreatList8020 threats;
     void SpectatorPackage_AddThreatFromActorToCombatTarget(Actor*);
-    void ProcessEntries_009f76e0();
+    void SpectatorPackage_ComputeCenterPoint();
     void FUN_004534f0(Actor*);
     void SpectatorPackage_Update(Actor* actor);
 };
@@ -1996,7 +1997,7 @@ void Package8020::SpectatorPackage_Update(Actor* owner)
         entry->SpectatorThreatInfo_Update();
     }
     if (updated)
-        ProcessEntries_009f76e0();
+        SpectatorPackage_ComputeCenterPoint();
     FUN_004534f0(owner);
 }
 

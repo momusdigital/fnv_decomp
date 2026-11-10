@@ -85,10 +85,10 @@ struct FUN_00ca9840_Class
     void SetFieldValue(float v);
 };
 extern int DAT_010c8288;
-struct FUN_00ca9a80
+struct hkMalleableConstraintCinfo
 {
     int a, b, c, d, e;
-    FUN_00ca9a80();
+    hkMalleableConstraintCinfo();
 };
 extern "C" int __cdecl hkString_strLen(int);
 struct FUN_00cb0a80_class
@@ -118,16 +118,16 @@ struct GlobalObject_0045cfe0
     int m_usTrailingValue;
     int m_f;
 };
-struct FUN_00cbf400_class : GlobalObject_0045cfe0
+struct bhkMultithreadedSystem : GlobalObject_0045cfe0
 {
-    FUN_00cbf400_class();
+    bhkMultithreadedSystem();
 };
 extern int DAT_010c7310;
 struct FUN_00ca0d40_class
 {
     void __thiscall UpdateFields_00ca0d40();
 };
-void __cdecl FUN_00ca4490();
+void __cdecl hkNiTriStripsShape();
 extern MemoryManager _g_memoryManager;
 struct FUN_00ca4a90_Class
 {
@@ -239,7 +239,7 @@ struct S_00cb79d0_Base : public A51BF0Base
 
     S_00cb79d0_Base();
 };
-bhkPackedNiTriStripsShape* CreatePackedNiTriStripsShape();
+bhkPackedNiTriStripsShape* bhkPackedNiTriStripsShape_CreateObject();
 struct HC1Base
 {
     bool BSPackedAdditionalGeometryData_RegisterStreamables(NiStream*);
@@ -285,10 +285,10 @@ struct FUN_00cb99a0_class
 {
     void __thiscall FUN_00cb99a0(int a);
 };
-struct FUN_00cb9b30_class : FUN_00cb99a0_class
+struct bhkBallAndSocketConstraint : FUN_00cb99a0_class
 {
     int m_vtbl;
-    FUN_00cb9b30_class(int a);
+    bhkBallAndSocketConstraint(int a);
 };
 struct FUN_00cc66b0
 {
@@ -303,24 +303,24 @@ struct FUN_00cb9c10_class : FUN_00cc66b0
     FUN_00cb9c10_class* __thiscall FUN_00cb9c10(int flags);
 };
 extern int DAT_010c8cc8;
-struct FUN_00cb9c30_class
+struct hkBallAndSocketConstraintCinfo
 {
     int m_vtbl;
     int m_iWordAt04;
     int m_8;
     int m_iThirdValue;
     int m_10;
-    FUN_00cb9c30_class();
+    hkBallAndSocketConstraintCinfo();
 };
 extern int DAT_010c8ce4;
-struct FUN_00cb9c50_class
+struct hkRagdollConstraintCinfo
 {
     int m_vtbl;
     int m_iWordAt04;
     int m_8;
     int m_iThirdValue;
     int m_10;
-    FUN_00cb9c50_class();
+    hkRagdollConstraintCinfo();
 };
 struct MemoryManagerReallocateHelper
 {
@@ -730,7 +730,7 @@ struct FUN_00a5d3d0_class
 {
     void __thiscall FUN_00a5d3d0();
 };
-struct FUN_00ca3570_class : FUN_00a5d3d0_class
+struct hkPackedNiTriStripsData : FUN_00a5d3d0_class
 {
     void* m_vtbl;
     int unk04;
@@ -774,7 +774,7 @@ struct Owner
 
     int GetValueByIndex(unsigned int a1);
 };
-struct FUN_00ca3b10_cls
+struct hkpShapeContainer
 {
     int m_iWordAt00;
     unsigned char m_iWordAt04;
@@ -839,10 +839,10 @@ struct ResourceMember
     }
     void* data;
 };
-struct FUN_00ca4490 : CombinedBase
+struct hkNiTriStripsShape : CombinedBase
 {
     ResourceMember resource;
-    virtual ~FUN_00ca4490();
+    virtual ~hkNiTriStripsShape();
 };
 struct FUN_00ca4780_tableEntry
 {
@@ -2066,7 +2066,7 @@ struct FUN_00ca7310 : S_00ca7310_Root
 };
 struct MotionByte
 {
-    void FindFloatTableIndex(const float*);
+    void SetReal(const float*);
 };
 struct MotionInstance
 {
@@ -2133,11 +2133,11 @@ struct MotionInstance
 };
 struct MotionStorage
 {
-    MotionInstance* FUN_00ca9270(const void*, const void*);
+    MotionInstance* hkpSphereMotion(const void*, const void*);
     MotionInstance* FUN_00d1e690(const void*, const void*);
     MotionInstance* FUN_00d21930(const void*, const void*);
     MotionInstance* FUN_00d1dfa0(const void*, const void*);
-    MotionInstance* FUN_00ca9240(const void*, const void*);
+    MotionInstance* hkpCharacterMotion(const void*, const void*);
     MotionInstance* InitFixedRigidMotion(const void*, const void*);
 };
 float NiMin(float, float);
@@ -2168,14 +2168,14 @@ class FUN_00ca9860_base
   public:
     virtual ~FUN_00ca9860_base();
 };
-class FUN_00ca9860_cls : public FUN_00ca9860_base
+class bhkMalleableConstraint : public FUN_00ca9860_base
 {
   public:
-    virtual ~FUN_00ca9860_cls();
+    virtual ~bhkMalleableConstraint();
     void bhkSerializable_Kill();
 };
 extern int DAT_01268310;
-int __cdecl Runtime_EvaluateValue_00ca9910();
+int __cdecl bhkMalleableConstraint_GetRTTI();
 struct S_00ca9940_Child
 {
     virtual void vfn_00();
@@ -2198,7 +2198,7 @@ struct S_00ca9940_Obj
 void __cdecl hkBallAndSocketConstraintCinfo_ApplyScale(float f, S_00ca9940_Child* c);
 void __cdecl hkHingeConstraintCinfo_ApplyScale(float f, S_00ca9940_Child* c);
 void __cdecl hkMalleableConstraintCinfo_ApplyScale(float f, S_00ca9940_Obj* o);
-struct FUN_00ca9aa0;
+struct hkpMalleableConstraintData;
 struct State
 {
     unsigned int value;
@@ -2224,14 +2224,14 @@ struct InternalPart
     {}
     ~InternalPart();
 };
-void __fastcall hkpBridgeConstraintAtom_init(InternalPart* part, unsigned int command, FUN_00ca9aa0* parent);
-struct FUN_00ca9aa0 : BaseOwner
+void __fastcall hkpBridgeConstraintAtom_init(InternalPart* part, unsigned int command, hkpMalleableConstraintData* parent);
+struct hkpMalleableConstraintData : BaseOwner
 {
     virtual void Act();
     unsigned int unk0c;
     InternalPart part;
     float value;
-    FUN_00ca9aa0();
+    hkpMalleableConstraintData();
 };
 class BCA9D50BinaryStream
 {
@@ -2448,14 +2448,14 @@ class BCA9D50Wrapper : public BCA9D50Base
 };
 struct FUN_00ca9b40_Obj
 {
-    void __thiscall UpdateFields_00ca9b40(int value);
+    void __thiscall SetConstraintData(int value);
 };
 struct FUN_00ca9e50_Obj
 {
     int unk00;
     FUN_00ca9b40_Obj* unk04;
 
-    void __thiscall ProcessState_00ca9e50(int value);
+    void __thiscall hkMalleableConstraintCinfo_SetConstraintData(int value);
 };
 extern int DAT_01268318;
 class PolyBase
@@ -2515,7 +2515,7 @@ struct FUN_00cabff0_res
     int m_44;
     int m_48;
 };
-struct FUN_00cabff0_cls
+struct bhkCharacterProxy
 {
     virtual void v00();
     virtual void v04();
@@ -2605,7 +2605,7 @@ struct S_00cac0b0_cls
     void bhkCharacterProxy_SaveBinary(S_00cac0b0_Arg* a);
     void SaveSerializeData(S_00cac0b0_Arg* a);
 };
-struct FUN_00cac110_Class
+struct bhkCharacterController
 {
     virtual void vf00();
     virtual void vf04();
@@ -2621,7 +2621,7 @@ struct FUN_00cac110_Class
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40();
     virtual void vf44();
@@ -2735,7 +2735,7 @@ int __cdecl CompareCaseInsensitive(const char* pcA, const char* pcB, int n);
 // the class table pointer.  The constructor clears three trailing dword
 // members, sets a byte flag to 1 and installs the table pointer last.
 extern int DAT_010c88b8;
-struct FUN_00cb75d0_cls
+struct bhkWaterListener
 {
     void* m_pVTable;
     int m_iValue04;
@@ -2743,7 +2743,7 @@ struct FUN_00cb75d0_cls
     int m_iValue0c;
     int m_iValue10;
 
-    FUN_00cb75d0_cls();
+    bhkWaterListener();
 };
 static float DAT_010c8ae4 = 0.016f;
 extern double DAT_010241b0;
@@ -2888,11 +2888,11 @@ class CB9B80WorldObject : public CB9B80SerializableObject
 
     static unsigned int ms_uiCount;
 };
-class FUN_00cb9b80 : public CB9B80WorldObject
+class bhkRagdollConstraint : public CB9B80WorldObject
 {
   public:
-    FUN_00cb9b80(CB9B80Info* pkInfo);
-    virtual ~FUN_00cb9b80();
+    bhkRagdollConstraint(CB9B80Info* pkInfo);
+    virtual ~bhkRagdollConstraint();
 
     void Init(CB9B80BaseInfo* pkInfo);
 
@@ -2900,7 +2900,7 @@ class FUN_00cb9b80 : public CB9B80WorldObject
 };
 struct CpuOpaque;
 extern CpuOpaque DAT_01268610;
-CpuOpaque* __cdecl Object_GetGlobalObjectAddress_00cb9c00();
+CpuOpaque* __cdecl bhkRagdollConstraint_GetRTTI();
 class FUN_00cb9c70_item
 {
   public:
@@ -3267,10 +3267,10 @@ struct HolderBase
 {
     void Release();
 };
-struct FUN_00cbd970 : PrimaryBase
+struct bhkHingeConstraint : PrimaryBase
 {
     int unk04;
-    virtual ~FUN_00cbd970();
+    virtual ~bhkHingeConstraint();
 };
 struct WriteStream
 {
@@ -3307,7 +3307,7 @@ struct FUN_00cbe820_cls
 
     FUN_00cbe820_cls* hkpHingeConstraintData_Atoms_Atoms();
 };
-struct FUN_00cbe880_Class
+struct bhkCollisionBox
 {
     int m_iWordAt00;
     void __thiscall UpdateFields_00cbe880();
@@ -3634,10 +3634,10 @@ class BaseCA3 : public PrimaryCA3, public SecondaryCA3
     int unk54, unk58, unk5C, unk60, unk64, unk68, unk6C, unk70;
     int unk74, unk78, unk7C, unk80;
 };
-class FUN_00ca3b90 : public BaseCA3
+class hkPackedNiTriStripsShape : public BaseCA3
 {
   public:
-    virtual ~FUN_00ca3b90();
+    virtual ~hkPackedNiTriStripsShape();
 
     NiPointer<NiRefObject> m_pReferencedObject;
 };
@@ -4199,7 +4199,7 @@ class BA2D0Object
     int unk38;
     int unk3C;
 };
-BA2D0Object* CreateBA2D0Object();
+BA2D0Object* bhkRagdollTemplateData_CreateObject();
 // Prelude helper whose body the unit prelude omits.
 // NiTMap destructor: remove all entries, then the base map frees its hash table.
 void __cdecl CBC740NiFree(void* pvMem);
@@ -4530,14 +4530,14 @@ struct RagdollBase
     virtual ~RagdollBase();
     void ReadGroup(NiStream& kStream);
 };
-struct FUN_00ca0ca0_Class
+struct hkaRagdollRaycastInterface
 {
     void* m_vtbl;
-    FUN_00ca0ca0_Class* __thiscall FUN_00ca0ca0(int flags);
+    hkaRagdollRaycastInterface* __thiscall ScalarDeletingDestructor(int flags);
 };
 struct MemMgr_00aa4060
 {
-    void __thiscall MemoryManager_Deallocate(FUN_00ca0ca0_Class* p);
+    void __thiscall MemoryManager_Deallocate(hkaRagdollRaycastInterface* p);
 };
 extern int DAT_010c7304;
 struct WalkPlacement
@@ -4916,7 +4916,7 @@ struct FUN_00CAFEC0_This
     int unk9C;
     int unkA0;
 };
-struct FUN_00CAFEC0_Class
+struct hkBSHeightFieldShape
 {
     float __thiscall GetTableValue(int param_2, int param_3);
 };
@@ -4943,10 +4943,10 @@ struct FUN_00c86720
 {
     virtual ~FUN_00c86720();
 };
-struct FUN_00cb83f0 : FUN_00c86720
+struct bhkOrientHingedBodyAction : FUN_00c86720
 {
     void bhkSerializable_Kill();
-    virtual ~FUN_00cb83f0();
+    virtual ~bhkOrientHingedBodyAction();
 };
 struct CpuOpaque;
 extern CpuOpaque DAT_012683ec;
@@ -4956,7 +4956,7 @@ void __cdecl bhkOrientHingedBodyAction_CopyMembers();
 extern "C" void __cdecl FUN_00aa1460(void* self, int size);
 struct FUN_00cb8480_class
 {
-    void FUN_00cb83f0();
+    void bhkOrientHingedBodyAction();
     FUN_00cb8480_class* FUN_00cb8480(char flag);
 };
 struct FUN_00d2acf0
@@ -5019,7 +5019,7 @@ struct FUN_00cbb130_Class : FUN_00cbaf90_Obj
     unsigned int __thiscall FUN_00cbb130(unsigned char flag);
 };
 extern int DAT_010c9194;
-struct FUN_00cbc460
+struct hkpCharacterStateManager
 {
     void* m_ppVirtualMethodTable;
     unsigned short m_04;
@@ -5036,7 +5036,7 @@ struct FUN_00cbc460
     void* volatile m_p28;
     void* volatile m_p2c;
     void* volatile m_p30;
-    FUN_00cbc460();
+    hkpCharacterStateManager();
 };
 void __cdecl ClearLists();
 void __cdecl Runtime_ClearLists_Thunk();
@@ -5601,7 +5601,7 @@ struct FUN_00caff80 : CAFBase
 struct FNVTaskMemoryRouter;
 extern "C" int __cdecl hkString_strLen(int);
 extern "C" FNVTaskMemoryRouter* __cdecl hkMemoryRouter_getInstance();
-extern "C" void* __cdecl AllocateWithHeader(void* allocator, unsigned int count);
+extern "C" void* __cdecl hkMemoryRouter_easyAlloc(void* allocator, unsigned int count);
 extern "C" void __cdecl hkString_strCpy(void* block, int value);
 struct CbobRouter
 {
@@ -5754,7 +5754,7 @@ struct FUN_00cbaf20_class
     FUN_00cbaf20_class();
     void AssignFixedString(const NiFixedString& name);
 };
-FUN_00cbaf20_class* CreateNamedObject();
+FUN_00cbaf20_class* bhkRagdollTemplate_CreateObject();
 struct FUN_00cbf540_class
 {
     void __thiscall CreateObjects(int* a, int b);

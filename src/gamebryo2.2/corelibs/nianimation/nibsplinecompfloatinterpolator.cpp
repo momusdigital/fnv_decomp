@@ -150,7 +150,8 @@ inline void InitializeCompFloatInterpolator(NiBSplineCompFloatInterpolator* self
 void __fastcall CopyFloatInterpolator(NiBSplineFloatInterpolator* self, int, NiBSplineFloatInterpolator* object, CloningProcess& cloning);
 
 // @fnv 0x00a515c0
-NiBSplineCompFloatInterpolator* __fastcall CloneCompFloatInterpolator(NiBSplineCompFloatInterpolator* self, int, CloningProcess& cloning)
+// src: EXE 0x00a515c0
+NiBSplineCompFloatInterpolator* __fastcall NiBSplineCompFloatInterpolator_CreateClone(NiBSplineCompFloatInterpolator* self, int, CloningProcess& cloning)
 {
     NiBSplineCompFloatInterpolator* p = (NiBSplineCompFloatInterpolator*)Object_DispatchCommandFour(0x2c);
     if (p)

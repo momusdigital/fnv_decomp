@@ -222,7 +222,8 @@ struct CellRect
 bool __cdecl TES_LineVsRect(CellRect* pkRect, NiPoint3* pkStart, NiPoint3* pkEnd, NiPoint3* pkIntersect);
 
 // @fnv 0x00439940
-bool __cdecl BoundIntersectsCell(BoundRef* pRef, int m_iGridPositionX, int m_iGridCoordinateY)
+// src: COMMUNITY 0x00439940
+bool __cdecl MultiBoundMarkerData_MultiBoundIntersectsCell(BoundRef* pRef, int m_iGridPositionX, int m_iGridCoordinateY)
 {
     if (pRef && pRef->TESObjectREFR_IsMultiBoundRef())
     {

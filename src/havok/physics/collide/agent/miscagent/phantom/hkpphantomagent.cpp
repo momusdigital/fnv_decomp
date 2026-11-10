@@ -114,7 +114,7 @@ struct __declspec(novtable) S_00d42790_Agent : S_00d42790_RefObj
     {}
 };
 
-struct FUN_00d42790 : S_00d42790_Agent
+struct hkpPhantomAgent : S_00d42790_Agent
 {
     const S_00d42790_CdBody* m_pBodyA;
     const S_00d42790_CdBody* m_pBodyB;
@@ -123,13 +123,14 @@ struct FUN_00d42790 : S_00d42790_Agent
     int m_iAgentTypeA;
     int m_iAgentTypeB;
 
-    FUN_00d42790(const S_00d42790_CdBody& bodyA, const S_00d42790_CdBody& bodyB, void* mgr);
+    hkpPhantomAgent(const S_00d42790_CdBody& bodyA, const S_00d42790_CdBody& bodyB, void* mgr);
     virtual void v00();
 };
 
 // Stores the root bodies and shape types of two collision bodies in a new agent.
 // @fnv 0x00d42790
-FUN_00d42790::FUN_00d42790(const S_00d42790_CdBody& bodyA, const S_00d42790_CdBody& bodyB, void* mgr)
+// src: EXE 0x00d42790
+hkpPhantomAgent::hkpPhantomAgent(const S_00d42790_CdBody& bodyA, const S_00d42790_CdBody& bodyB, void* mgr)
     : S_00d42790_Agent(mgr)
 {
     m_pBodyA = bodyA.getRootCdBody();

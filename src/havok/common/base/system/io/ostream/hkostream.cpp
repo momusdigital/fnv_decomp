@@ -110,13 +110,13 @@ void DDCC60WorldStandIn::UpdateFields_00cc0480(hkReferencedObject* pNew)
     m_ref = pNew;
 }
 
-struct FUN_00cc0680
+struct hkMemoryTrackStreamWriter
 {
     int tell();
 };
 
 // @fnv 0x00cc0680
-int FUN_00cc0680::tell()
+int hkMemoryTrackStreamWriter::tell()
 {
     char* p = *(char**)(this + 8);
     int n = *(int*)(p + 0xc) - 1;
@@ -129,15 +129,16 @@ struct FUN_00cc07f0_StandIn
 {
     // Virtual destructor for the stand-in type; does nothing.
 // @fnv 0x00cc07f0
+// src: EXE 0x00cc07f0
     virtual ~FUN_00cc07f0_StandIn()
     {}
     void FUN_00cc0780();
     unsigned short m_nSize;
 
-    FUN_00cc07f0_StandIn* FUN_00cc07f0(unsigned int deletingFlag);
+    FUN_00cc07f0_StandIn* ScalarDeletingDestructor(unsigned int deletingFlag);
 };
 
-FUN_00cc07f0_StandIn* FUN_00cc07f0_StandIn::FUN_00cc07f0(unsigned int deletingFlag)
+FUN_00cc07f0_StandIn* FUN_00cc07f0_StandIn::ScalarDeletingDestructor(unsigned int deletingFlag)
 {
     FUN_00cc0780();
 
@@ -203,8 +204,8 @@ void __thiscall Own_00cc0470::ForwardCall_00cc0470(void* a)
 extern int g_unk01268560;
 
 // @fnv 0x00cc04c0
-// src: GUESS 0x00cc04c0 (confidence: low)
-int* __cdecl Object_GetGlobalObjectAddress_00cc04c0()
+// src: EXE 0x00cc04c0
+int* __cdecl hkOstream_getClassType()
 {
     return &g_unk01268560;
 }
@@ -212,8 +213,8 @@ int* __cdecl Object_GetGlobalObjectAddress_00cc04c0()
 extern int DAT_01268ad8;
 
 // @fnv 0x00cc0770
-// src: GUESS 0x00cc0770 (confidence: low)
-int __cdecl hkOstream_EvaluateValue_00cc0770()
+// src: EXE 0x00cc0770
+int __cdecl hkArrayStreamWriter_getClassType()
 {
     return reinterpret_cast<int>(&DAT_01268ad8);
 }
@@ -245,20 +246,20 @@ void FUN_00cc04a0_Cls::RegisterWriter(FUN_00cc04a0_Slots* apSlots, int unused)
     apSlots->slot0C("writer", unk08, 0);
 }
 
-class FUN_00cc06f0 : public hkReferencedObject
+class hkArrayStreamWriter : public hkReferencedObject
 {
   public:
     int unk08;
     int unk0C;
     int unk10;
 
-    FUN_00cc06f0(void* owner, int flag) throw();
+    hkArrayStreamWriter(void* owner, int flag) throw();
 };
 
 class FUN_00cc0630 : public hkReferencedObject
 {
   public:
-    FUN_00cc06f0* m_pChildAtom;
+    hkArrayStreamWriter* m_pChildAtom;
 
     FUN_00cc0630(void* owner);
     virtual ~FUN_00cc0630();
@@ -267,7 +268,7 @@ class FUN_00cc0630 : public hkReferencedObject
 // @fnv 0x00cc0630
 FUN_00cc0630::FUN_00cc0630(void* owner)
 {
-    m_pChildAtom = new FUN_00cc06f0(owner, 1);
+    m_pChildAtom = new hkArrayStreamWriter(owner, 1);
 }
 
 namespace fnv_00cc0690 {
@@ -319,20 +320,21 @@ hkStreamCC06* hkStreamCC06::DestroyStream(unsigned int uiFlags) throw()
 
 namespace fnv_00cc06f0 {
 
-class FUN_00cc06f0 : public hkReferencedObject
+class hkArrayStreamWriter : public hkReferencedObject
 {
   public:
     hkArray<char>* m_buffer;
     int m_kRayStart;
     int m_flags;
 
-    FUN_00cc06f0(hkArray<char>* buffer, int flags) throw();
-    virtual ~FUN_00cc06f0() throw();
+    hkArrayStreamWriter(hkArray<char>* buffer, int flags) throw();
+    virtual ~hkArrayStreamWriter() throw();
 };
 
 // Stores the buffer and its size, reserves one extra char, and appends a terminating null byte.
 // @fnv 0x00cc06f0
-FUN_00cc06f0::FUN_00cc06f0(hkArray<char>* buffer, int flags) throw()
+// src: EXE 0x00cc06f0
+hkArrayStreamWriter::hkArrayStreamWriter(hkArray<char>* buffer, int flags) throw()
     : m_buffer(buffer), m_kRayStart(buffer->m_iElementCount), m_flags(flags)
 {
     buffer->reserve(buffer->m_iElementCount + 1);
@@ -384,22 +386,23 @@ FUN_00cbf430::~FUN_00cbf430()
     bhkMultithreadedSystem_QuitMTSystem();
 }
 
-class FUN_00d60b40 : public hkReferencedObject
+class hkOArchive : public hkReferencedObject
 {
   public:
-    FUN_00cc06f0* m_pChildAtom;
+    hkArrayStreamWriter* m_pChildAtom;
     char m_flag;
 
-    FUN_00d60b40(void* owner, char flag) throw();
-    virtual ~FUN_00d60b40();
+    hkOArchive(void* owner, char flag) throw();
+    virtual ~hkOArchive();
 };
 
-// Sets m_flag and assigns m_pChildAtom to a new FUN_00cc06f0 constructed with owner and 1.
+// Sets m_flag and assigns m_pChildAtom to a new hkArrayStreamWriter constructed with owner and 1.
 // @fnv 0x00d60b40
-FUN_00d60b40::FUN_00d60b40(void* owner, char flag) throw()
+// src: EXE 0x00d60b40
+hkOArchive::hkOArchive(void* owner, char flag) throw()
 {
     m_flag = flag;
-    m_pChildAtom = new FUN_00cc06f0(owner, 1);
+    m_pChildAtom = new hkArrayStreamWriter(owner, 1);
 }
 
 

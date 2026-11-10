@@ -20,12 +20,12 @@ public:
     virtual void CopyFromBase(BaseFormComponent* component);
     virtual bool CompareWithBase(BaseFormComponent* component);
 
-    unsigned int GetAvailableIdles(Actor* actor, TESObjectREFR* target,
+    unsigned int GetIdlesForActor(Actor* actor, TESObjectREFR* target,
                                    BSSimpleArray<TESIdleForm*, 1024>* idles);
     void Load(TESFile* file);
     void InitializeComponent();
     void InitItem(TESForm* form);
-    void RemoveIdleEntry(unsigned int index);
+    void RemoveIdleAtIndex(unsigned int index);
     int GetPickType();
 
     unsigned char m_ucIdleCount;

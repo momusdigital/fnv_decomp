@@ -257,7 +257,7 @@ class S00ce0290_hkQuaternion
     }
     void hkQuaternion_setAxisAngle(const S00ce0290_hkVector4& axis, hkReal angle);
     void setMul(const S00ce0290_hkQuaternion& q0, const S00ce0290_hkQuaternion& q1);
-    void SetQuaternionProduct(const S00ce0290_hkQuaternion& q);  // mul
+    void hkQuaternion_mul(const S00ce0290_hkQuaternion& q);  // mul
     S00ce0290_hkVector4 m_vec;
 };
 
@@ -500,7 +500,7 @@ S00ce0290_hkBool __cdecl S00ce0290_LookAt::hkaLookAtIkSolver_solve(const Setup& 
 
             S00ce0290_hkQuaternion qCorrection;
             qCorrection.hkQuaternion_setAxisAngle(crossCorrection, -correctionAngle);
-            q.SetQuaternionProduct(qCorrection);
+            q.hkQuaternion_mul(qCorrection);
         }
 
         {

@@ -37,7 +37,7 @@ public:
     void __thiscall FUN_00c309d0();
     void __thiscall ResolveAddedParticles_00c30a90();
     void __thiscall LinkObject_00c30b70(NiStream& kStream);
-    void* __thiscall FUN_00c30bd0(unsigned int);
+    void* __thiscall ScalarDeletingDestructor(unsigned int);
     NiMeshPSysData* __thiscall FUN_00c30c00();
     NiObject* __thiscall CreateClone_00c30c50(CloningProcess& kCloning);
     void __thiscall RemoveParticle(unsigned short usParticleIndex);

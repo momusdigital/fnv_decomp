@@ -17,7 +17,8 @@ extern MemoryManager g_memoryManager;
 
 // Calls FUN_00aa24f0, then deallocates this via g_memoryManager._DeallocateAlias when flags has bit 1 set, and returns this.
 // @fnv 0x00b01480
-void* BSSearchPath::FUN_00b01480(unsigned int flags)
+// src: EXE 0x00b01480
+void* BSSearchPath::ScalarDeletingDestructor(unsigned int flags)
 {
     this->SetVptr00();
     if (flags & 1)

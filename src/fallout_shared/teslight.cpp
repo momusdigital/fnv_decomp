@@ -44,15 +44,15 @@ struct LightRecordAccess : TESObjectLIGH
     void TESForm_LoadData(TESFile*, void*, unsigned short);
     LightSourceData* GetLightData();
     unsigned short GetSize(unsigned int flags);
-    void MarkChanged(unsigned int flags);
-    void MarkUnchanged(unsigned int first, unsigned int second);
-    void SaveChanged(unsigned int flags);
+    void TESObjectLIGH_SaveGame(unsigned int flags);
+    void TESObjectLIGH_LoadGame2(unsigned int first, unsigned int second);
+    void TESObjectLIGH_AppendSaveLoadFormBuffer(unsigned int flags);
     void LoadLightGame(BGSLoadFormBuffer* buffer);
     void* DestroyIfFlagged(unsigned int flags);
     void CopyFromLight(TESForm* form);
-    void SaveLight();
+    void TESObjectLIGH_SaveForm();
     bool LoadLight(TESFile* file);
-    bool CompareLight(TESForm* form);
+    bool TESObjectLIGH_Compare(TESForm* form);
     void SetLightFlag(bool value);
     TESSound* GetSound();
     void SetFadeAmount(float value);
@@ -234,21 +234,24 @@ unsigned short __thiscall LightRecordAccess::GetSize(unsigned int aiFlags)
 
 // Forwards aiFlags to FUN_00484c20 on this and to FUN_0048e9e0 on the object at offset 0x8c.
 // @fnv 0x0050e550
-void LightRecordAccess::MarkChanged(unsigned int aiFlags)
+// src: EXE 0x0050e550
+void LightRecordAccess::TESObjectLIGH_SaveGame(unsigned int aiFlags)
 {
     reinterpret_cast<FormRecordAccess*>(this)->BeginRecordSave(aiFlags);
     reinterpret_cast<TESValueForm*>(reinterpret_cast<char*>(this) + 0x8c)->SaveGame_0048e9e0(aiFlags);
 }
 
 // @fnv 0x0050e580
-void LightRecordAccess::MarkUnchanged(unsigned int a1, unsigned int a2)
+// src: EXE 0x0050e580
+void LightRecordAccess::TESObjectLIGH_LoadGame2(unsigned int a1, unsigned int a2)
 {
     reinterpret_cast<FormRecordAccess*>(this)->LoadRecordArguments(a1, a2);
     ((TESValueForm*)((char*)this + 0x8c))->LoadGame_0048ea10(a1, a2);
 }
 
 // @fnv 0x0050e5c0
-void LightRecordAccess::SaveChanged(unsigned int aiFlags)
+// src: EXE 0x0050e5c0
+void LightRecordAccess::TESObjectLIGH_AppendSaveLoadFormBuffer(unsigned int aiFlags)
 {
     reinterpret_cast<FormRecordAccess*>(this)->SaveIfChanged(aiFlags);
     reinterpret_cast<TESValueForm*>(reinterpret_cast<char*>(this) + 0x8c)->SaveGameBGS_0048ea40(reinterpret_cast<BGSSaveFormBuffer*>(aiFlags));
@@ -348,9 +351,10 @@ void _FUN_00485910(unsigned int, unsigned int);
 void __fastcall SwapEndian(void*);
 
 // @fnv 0x0050cf20
-void LightRecordAccess::SaveLight()
+// src: EXE 0x0050cf20
+void LightRecordAccess::TESObjectLIGH_SaveForm()
 {
-    TESForm::BeginFormRecord();
+    TESForm::TESForm_StartForm();
 
     TESModelTextureSwap::ProcessAndFreeData(0x4c444f4d, 0x54444f4d, 0x53444f4d);
     TESScriptableForm::Save_0048cca0();
@@ -384,7 +388,7 @@ void LightRecordAccess::SaveLight()
         _FUN_00485910(0x4d414e53, formID);
     }
 
-    TESForm::FinishFormRecord();
+    TESForm::TESForm_CloseForm();
 }
 
 // @fnv 0x0050c870
@@ -766,7 +770,8 @@ extern const double DAT_0101e568;
 }  // namespace LightCreation
 
 // @fnv 0x0050d810
-NiLight* TESObjectLIGH::CreateLight(TESObjectREFR* reference, NiAVObject* pScene, bool force)
+// src: COMMUNITY 0x0050d810
+NiLight* TESObjectLIGH::GenDynamic(TESObjectREFR* reference, NiAVObject* pScene, bool force)
 {
     using namespace LightCreation;
     if (!reinterpret_cast<Scene*>(pScene))
@@ -923,7 +928,8 @@ extern float __fastcall GetFieldB4Float(char*);
 
 // Returns true if this light fails the component, sound, data, or computed-value comparisons.
 // @fnv 0x0050d120
-bool LightRecordAccess::CompareLight(TESForm* form)
+// src: EXE 0x0050d120
+bool LightRecordAccess::TESObjectLIGH_Compare(TESForm* form)
 {
     TESObjectLIGH* pOtherLight = dynamic_cast<TESObjectLIGH*>(form);
     if (!pOtherLight)

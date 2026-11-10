@@ -134,7 +134,7 @@ template <class T> __forceinline void hkArrayBase<T>::_pushBack(hkMemoryAllocato
     m_iElementCount++;
 }
 
-char* __cdecl AllocateWithHeader(hkMemoryAllocator* pkAlloc, int iNumBytes) throw();
+char* __cdecl hkMemoryRouter_easyAlloc(hkMemoryAllocator* pkAlloc, int iNumBytes) throw();
 
 // @fnv 0x00dc5d90
 char* hkBinaryTagfileReader::ReadString()
@@ -142,7 +142,7 @@ char* hkBinaryTagfileReader::ReadString()
     int iLen = ReadSignedVarInt32();
     if (iLen > 0)
     {
-        char* pcString = AllocateWithHeader(&readerHeap(hkMemoryRouter_getInstance()), iLen + 1);
+        char* pcString = hkMemoryRouter_easyAlloc(&readerHeap(hkMemoryRouter_getInstance()), iLen + 1);
         ForwardCall_00dd90d0(pcString, iLen);
         pcString[iLen] = 0;
         m_pStringFunctions.pushBack(pcString);
@@ -673,7 +673,7 @@ class hkDataClassTF
     }
     void SetField00(hkDataClassImpl* pkImpl);
     void Object_DoNothing_00dba660();
-    int ForwardCall_00dba730() const;
+    int hkDataClass_getNumMembers() const;
     void DispatchItems(hkArrayTFLocalForm<MemberInfoTF>& kInfo) const;
     hkDataClassImpl* m_pClassImpl;
 };
@@ -777,7 +777,7 @@ hkDataObjectTF hkBinaryTagfileReaderTF::ReadDataObject(int aiAllocationTag)
     if (iTagType == 6)
         return hkDataObjectTF(0);
     hkDataClassTF kClass(m_kLookupMap[ReadTag()]);
-    int iNumMembers = kClass.ForwardCall_00dba730();
+    int iNumMembers = kClass.hkDataClass_getNumMembers();
     hkDataObjectTF kObj(m_pOwningWorld->GetObject(kClass));
     switch (iTagType)
     {
@@ -930,7 +930,7 @@ struct TagMember
 struct TagClass
 {
     void* object;
-    int ForwardCall_00dba730();
+    int hkDataClass_getNumMembers();
     void DispatchItems(TagArray<TagMember>&);
     void Object_DoNothing_00dba660();
 };
@@ -1010,7 +1010,7 @@ void TagReader::ReadTypedArray(TagArrayRef* array, int count)
     case 9: {
         array->Get_Thunk(count);
         TagClass pClassInfo = array->ProcessAndReturnValue_00dbac20();
-        int membersCount = pClassInfo.ForwardCall_00dba730();
+        int membersCount = pClassInfo.hkDataClass_getNumMembers();
         TagLocalArray<char> presentBits;
         presentBits.allocateLocal(128);
         ReadBits(membersCount, presentBits);

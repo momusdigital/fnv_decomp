@@ -171,10 +171,11 @@ void _Deallocate(void*);
 struct Proxy_004f8b90
 {
     void FUN_004f8bc0();
-    void* FUN_004f8b90(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 // @fnv 0x004f8b90
-void* Proxy_004f8b90::FUN_004f8b90(unsigned int flags)
+// src: EXE 0x004f8b90
+void* Proxy_004f8b90::ScalarDeletingDestructor(unsigned int flags)
 {
     FUN_004f8bc0();
     if (flags & 1)
@@ -224,7 +225,7 @@ void* FUN_004fc940_cls::GetCastSoundOrEffect()
 }
 
 void TESForm_AddChunk_00485910(unsigned int, unsigned int);
-void AppendChunk(unsigned int, void*, unsigned int);
+void TESForm___AddChunkData(unsigned int, void*, unsigned int);
 bool TESForm_QEndianSwapOnSave();
 struct S_0048a520
 {
@@ -257,7 +258,7 @@ void FUN_004f8fe0_shell::BGSAddonNode_SaveAlt()
     }
     if (TESForm_QEndianSwapOnSave())
         reinterpret_cast<AddonNodeData*>(reinterpret_cast<char*>(this) + 0x58)->BSEndian_Thunk();
-    AppendChunk(0x4d414e44, reinterpret_cast<char*>(this) + 0x58, 4);
+    TESForm___AddChunkData(0x4d414e44, reinterpret_cast<char*>(this) + 0x58, 4);
     if (TESForm_QEndianSwapOnSave())
         reinterpret_cast<AddonNodeData*>(reinterpret_cast<char*>(this) + 0x58)->BSEndian_Thunk();
     reinterpret_cast<::FUN_00485680*>(this)->M();

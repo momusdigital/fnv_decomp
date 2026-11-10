@@ -35,7 +35,8 @@ void TESBipedModelForm::InitItem(TESForm* form)
 
 // Checks whether this form or a form in modelList fills the given biped slot, recursing into biped model forms found in the list.
 // @fnv 0x00480af0
-bool TESBipedModelForm::HasBipedModel(BIPED_OBJECT slot, bool hair, BGSBipedModelList* modelList)
+// src: COMMUNITY 0x00480af0
+bool TESBipedModelForm::FillsBipedSlot(BIPED_OBJECT slot, bool hair, BGSBipedModelList* modelList)
 {
     if (hair && slot == BIPED_OBJECT_BO_HAIR && (partMask & 1))
         return false;
@@ -57,7 +58,7 @@ bool TESBipedModelForm::HasBipedModel(BIPED_OBJECT slot, bool hair, BGSBipedMode
                 locals.form = itemList->GetItem();
                 locals.bipedForm = TESBipedModelForm::GetFormAsBipedModel(locals.form);
                 if (locals.bipedForm)
-                    fillsSlot = locals.bipedForm->HasBipedModel(slot, hair, 0);
+                    fillsSlot = locals.bipedForm->FillsBipedSlot(slot, hair, 0);
                 itemList = itemList->GetNext();
             }
         }
@@ -67,12 +68,13 @@ bool TESBipedModelForm::HasBipedModel(BIPED_OBJECT slot, bool hair, BGSBipedMode
 
 // Falls back to the male model when the female model is empty, applies the model to the biped anim, and loads face gen extra data if present.
 // @fnv 0x00480bd0
-void TESBipedModelForm::SetBipedModel(BipedAnim* anim, SEX sex, BIPED_OBJECT slot)
+// src: COMMUNITY 0x00480bd0
+void TESBipedModelForm::AddToBiped(BipedAnim* anim, SEX sex, BIPED_OBJECT slot)
 {
     if (sex == SEX_SEX_FEMALE && !bipedModel[sex].GetModelLength())
         sex = SEX_SEX_MALE;
 
-    anim->SetBipedObject(dynamic_cast<TESForm*>(this), &bipedModel[sex], slot);
+    anim->SetBipedPart(dynamic_cast<TESForm*>(this), &bipedModel[sex], slot);
 
     if (modelRDT.GetModelLength())
     {
@@ -259,11 +261,12 @@ void _FUN_00485990(int, void*, int);
 
 struct FUN_00480610_shell
 {
-    void InitBipedModel();
+    void TESBipedModelForm_Save();
 };
 
 // @fnv 0x00480610
-void FUN_00480610_shell::InitBipedModel()
+// src: COMMUNITY 0x00480610
+void FUN_00480610_shell::TESBipedModelForm_Save()
 {
     if (_FUN_00401500())
     {

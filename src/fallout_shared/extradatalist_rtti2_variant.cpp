@@ -50,7 +50,7 @@ class SForm
     virtual void vf2C();
     virtual void vf30();
     virtual void vf34();
-    virtual void vf38();
+    virtual void PrintInfo();
     virtual void vf3C();
     virtual void vf40();
     virtual void vf44();
@@ -800,7 +800,7 @@ class G
     virtual void g85();
     virtual void v86();
     int GetHavokWorldObjectCountInSceneGraph_0084e3a0();
-    void ComputePackageFlags(G*);
+    void TESPackage_CalculateProcedureType(G*);
     bool FUN_008256d0();
     G** FUN_006815c0();
     void FUN_0063f7b0();
@@ -1084,7 +1084,7 @@ void ThisQ::ExtraDataList_InitLoadGame(unsigned int a1, int a2, O* a3, void* a4)
                     G* f4 = e4->m14;
                     e4->m14 = (G*)dynamic_cast<TESObjectREFR*>(TESForm_GetFormByNumericID(f4));
                 }
-                e4->m0c->ComputePackageFlags(e4->m14);
+                e4->m0c->TESPackage_CalculateProcedureType(e4->m14);
             }
             if (a1 & 0)
             {

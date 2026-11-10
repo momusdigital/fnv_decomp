@@ -63,7 +63,8 @@ TESObject* TESFormList::InsertObjectAfter(TESObject* after, TESObject* object)
 }
 
 // @fnv 0x0050f9e0
-bool TESObject::HasLoaded3D()
+// src: COMMUNITY 0x0050f9e0
+bool TESObject::IsMarker()
 {
     if (!this)
         return false;
@@ -125,7 +126,7 @@ NiNode* TESCreature::Create3DModel(TESObjectREFR* reference)
 {
     if (GetUsesLeveledTemplate() && reference && !reference->HasLeveledCreatureCalced())
     {
-        SetTemplateReference(reference);
+        CalcTemplateForRef(reference);
         return reference->GetObjectReference()->Clone3DAlt(reference);
     }
     NiNode* node = 0;
@@ -137,7 +138,7 @@ NiNode* TESCreature::Create3DModel(TESObjectREFR* reference)
         {
             if (SceneObjectLookup::GetObjectByName(node, "Bip01"))
             {
-                biped->InitBoneSlots(node);
+                biped->BipedAnim_InitRoot(node);
                 node->UpdateSceneObject();
                 NiUpdateData update(0.0f, false, false);
                 node->Update(update);
@@ -223,7 +224,7 @@ NiNode* TESObjectLIGH::Create3DModel(TESObjectREFR* reference)
             {
                 node = new BSFadeNode;
             }
-            CreateLight(reference, node, false);
+            GenDynamic(reference, node, false);
             node->UpdateSceneObject();
             return node;
         }
@@ -615,10 +616,11 @@ int __cdecl TruncateFloatToInt(float);
 int __cdecl sprintf_s(char*, unsigned int, const char*, ...);
 struct FUN_0050fdf0_cls
 {
-    void FormatScaledName(PlayerCharacter* apPlayer, char* apBuffer);
+    void TESObject_GetScaledModelFileName(PlayerCharacter* apPlayer, char* apBuffer);
 };
 // @fnv 0x0050fdf0
-void FUN_0050fdf0_cls::FormatScaledName(PlayerCharacter* apPlayer, char* apBuffer)
+// src: COMMUNITY 0x0050fdf0
+void FUN_0050fdf0_cls::TESObject_GetScaledModelFileName(PlayerCharacter* apPlayer, char* apBuffer)
 {
     const char* name = ((FUN_0050fd90_stub*)this)->GetModelPathHook(apPlayer);
     sprintf_s(apBuffer, 260, "%s%i", name, TruncateFloatToInt((float)(apPlayer->GetScale() * g_d100)));
@@ -766,14 +768,15 @@ namespace fnv_0050f710 {
 struct FUN_0050f740_shell
 {
     void UpdateFields_0050f740(void);
-    void* FUN_0050f710(unsigned int flags);
+    void* ScalarDeletingDestructor(unsigned int flags);
 };
 
 void* _Deallocate(void* p);
 
 // Calls FUN_0050f740, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x0050f710
-void* FUN_0050f740_shell::FUN_0050f710(unsigned int flags)
+// src: EXE 0x0050f710
+void* FUN_0050f740_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     UpdateFields_0050f740();
     if (flags & 1)
@@ -869,7 +872,7 @@ void __thiscall S_4029f0::AlchemyItem_SetAutoCalc(bool b)
     AlchemyItem_SetFlag(1, !b);
 }
 
-struct FUN_00409aa0_shell
+struct IngredientItem
 {
     void IngredientItem_SetFlag(unsigned int, bool);
     void IngredientItem_SetAutoCalc_0(bool);
@@ -877,7 +880,7 @@ struct FUN_00409aa0_shell
 // Calls FUN_00409aa0 with 1 and the inverse of b.
 // @fnv 0x00409a70
 // src: COMMUNITY 0x00409a70
-void FUN_00409aa0_shell::IngredientItem_SetAutoCalc_0(bool b)
+void IngredientItem::IngredientItem_SetAutoCalc_0(bool b)
 {
     IngredientItem_SetFlag(1, !b);
 }
@@ -991,7 +994,7 @@ void Holder::TESBoundObject_ReplaceModel()
 
 struct FUN_0044a9d0_Class
 {
-    unsigned int GetAllocatorLimitMinusTerminator();
+    unsigned int basic_string_max_size();
 };
 extern void __cdecl FUN_00ec30b0();
 struct FUN_0044a8d0_Class : FUN_0044a9d0_Class
@@ -1005,7 +1008,7 @@ struct FUN_0044a8d0_Class : FUN_0044a9d0_Class
 // src: COMMUNITY 0x0044a8d0
 bool FUN_0044a8d0_Class::std_basic_string_char_std_char_traits_char_std_allocator_char_Grow(unsigned int uiNewSize, bool bTrim)
 {
-    if (GetAllocatorLimitMinusTerminator() < uiNewSize)
+    if (basic_string_max_size() < uiNewSize)
         FUN_00ec30b0();
     if (*(unsigned int*)((char*)this + 0x18) < uiNewSize)
         ResizeBuffer(uiNewSize, *(unsigned int*)((char*)this + 0x14));
@@ -1022,14 +1025,14 @@ template <int N> struct EndianSizeTag
 };
 void __cdecl BSEndian(unsigned char*, EndianSizeTag<10>);
 
-struct FUN_0050ed30_class
+struct TESBoundObject_BOUND_DATA
 {
     void TESBoundObject_BOUND_DATA_SwapEndian();
 };
 
 // @fnv 0x0050ed30
 // src: COMMUNITY 0x0050ed30
-void FUN_0050ed30_class::TESBoundObject_BOUND_DATA_SwapEndian()
+void TESBoundObject_BOUND_DATA::TESBoundObject_BOUND_DATA_SwapEndian()
 {
     BSEndian((unsigned char*)this + 6, EndianSizeTag<10>());
     BSEndian((unsigned char*)this + 8, EndianSizeTag<10>());
@@ -1070,15 +1073,15 @@ struct FUN_0050ece0_class
     void TESBoundObject_SaveObjectBound();
 };
 bool __cdecl TESForm_QEndianSwapOnSave();
-void __cdecl AppendChunk(char*, char*, int);
-// Calls FUN_00401500 twice around a AppendChunk call on the bound member with 0xc, invoking bound.FUN_0050ed30 when it returns true.
+void __cdecl TESForm___AddChunkData(char*, char*, int);
+// Calls FUN_00401500 twice around a TESForm___AddChunkData call on the bound member with 0xc, invoking bound.FUN_0050ed30 when it returns true.
 // @fnv 0x0050ece0
 // src: XBOX_PDB 0x0050ece0
 void FUN_0050ece0_class::TESBoundObject_SaveObjectBound()
 {
     if (TESForm_QEndianSwapOnSave())
         bound.TESBoundObject_BOUND_DATA_SwapEndian();
-    AppendChunk((char*)0x444e424f, (char*)&bound, 0xc);
+    TESForm___AddChunkData((char*)0x444e424f, (char*)&bound, 0xc);
     if (TESForm_QEndianSwapOnSave())
         bound.TESBoundObject_BOUND_DATA_SwapEndian();
 }
@@ -1123,7 +1126,7 @@ void* FUN_0050f7c0_Class::DestroyIfFlagged(unsigned int flags)
 }
 
 // 0x005e7f90 reads the form's name through TESForm vftable slot 0x130 (GetName).
-struct FUN_005e7f90_class : public TESForm
+struct BGSIdleMarker : public TESForm
 {
   public:
 
@@ -1132,7 +1135,7 @@ struct FUN_005e7f90_class : public TESForm
 
 // Creates a new BSFadeNode, sets its name from this object's model name, and returns it.
 // @fnv 0x005e7f90
-NiAVObject* FUN_005e7f90_class::CreateFadeNode(const char* pfilename)
+NiAVObject* BGSIdleMarker::CreateFadeNode(const char* pfilename)
 {
     NiAVObject* pData3D = 0;
     pData3D = new BSFadeNode;
@@ -1586,7 +1589,7 @@ struct Param
 };
 struct FUN_00664f50_class
 {
-    Record* CreateTreeInstance(Param*, Owner*);
+    Record* BSTreeManager_CreateTreeForReference(Param*, Owner*);
 };
 struct Owner
 {
@@ -1691,7 +1694,7 @@ struct Owner
     Record* CreateRecord(Param* target, int unused);
 };
 void* __cdecl BSTreeManager_GetInstance(unsigned int);
-// If FUN_00401170 returns 0x25, creates a Record via CreateTreeInstance, notifies it, and passes its secondary effect's FUN_008d6f30 result to target.
+// If FUN_00401170 returns 0x25, creates a Record via BSTreeManager_CreateTreeForReference, notifies it, and passes its secondary effect's FUN_008d6f30 result to target.
 // @fnv 0x0050f810
 Record* Owner::CreateRecord(Param* target, int unused)
 {
@@ -1700,7 +1703,7 @@ Record* Owner::CreateRecord(Param* target, int unused)
         return 0;
     if (BSTreeManager_GetInstance(1))
     {
-        created = static_cast<FUN_00664f50_class*>(BSTreeManager_GetInstance(1))->CreateTreeInstance(target, this);
+        created = static_cast<FUN_00664f50_class*>(BSTreeManager_GetInstance(1))->BSTreeManager_CreateTreeForReference(target, this);
     }
     Notify(created);
     if (created && created->GetSecondary() && target)
@@ -1770,7 +1773,7 @@ extern unsigned int DAT_011c90ac;
 struct ModelOwner
 {
     const char* GetModelPathHook(ModelReference*);
-    void FormatScaledName(ModelReference*, char*);
+    void TESObject_GetScaledModelFileName(ModelReference*, char*);
     NiNode* GetModelNode(ModelReference*);
 };
 unsigned int TES_GetLODMult(ModelOwner*);
@@ -1793,7 +1796,7 @@ NiNode* ModelOwner::GetModelNode(ModelReference* reference)
         if (reference && reference->TESObjectREFR_GetScale_00567400() != 1.0)
         {
             char scaledName[260];
-            FormatScaledName(reference, scaledName);
+            TESObject_GetScaledModelFileName(reference, scaledName);
             CachedModelPointer cachedScaled(0);
             DAT_011c3b3c->ModelLoader_FindModel(scaledName, &cachedScaled);
             if (cachedScaled.Modelloader_GetReferencedThis())
@@ -1974,7 +1977,7 @@ void FUN_005f8bf0_shell::CalcLeveledCreature(TESObjectREFR* pRef)
 {
     if (GetUsesLeveledTemplate() && pRef && !pRef->HasLeveledCreatureCalced())
     {
-        SetTemplateReference(pRef);
+        CalcTemplateForRef(pRef);
         reinterpret_cast<FUN_005f8bf0_form*>(reinterpret_cast<FUN_007af430_ref*>(pRef)->BGSSaveFormBuffer_GetForm())->slot94(pRef);
     }
     else
@@ -2167,7 +2170,7 @@ struct Scratch44
     unsigned int unk3c;
 };
 
-struct FUN_00ac5430_cls
+struct FutBinaryFileC
 {
     unsigned int unk00;
     FUN_0044a7f0_sub m_04;
@@ -2177,7 +2180,7 @@ struct FUN_00ac5430_cls
 
 // @fnv 0x00ac5430
 // src: XBOX_PDB 0x00ac5430
-void FUN_00ac5430_cls::FutBinaryFileC_close()
+void FutBinaryFileC::FutBinaryFileC_close()
 {
     if (m_3c != 0)
     {
@@ -2272,7 +2275,7 @@ struct ObjectOps
 {
     bool FUN_0050d4a0();
     unsigned int FUN_00401170();
-    void FormatScaledName(TESObjectREFR*, char*);
+    void TESObject_GetScaledModelFileName(TESObjectREFR*, char*);
 };
 struct NodeOps
 {
@@ -2550,7 +2553,7 @@ NiAVObject* CloneObject17::TESBoundObject_Clone3D_0050ee50(TESObjectREFR* refere
             {
                 ((NodeOps*)p)->NiAVObject_SetScale(scale);
                 char filename[260];
-                ((ObjectOps*)this)->FormatScaledName(reference, filename);
+                ((ObjectOps*)this)->TESObject_GetScaledModelFileName(reference, filename);
                 NiPointer<Model> model(0);
                 DAT_011c3b3c->ModelLoader_FindModel(filename, model);
                 if (!((ModelPointerOps*)&model)->Modelloader_GetReferencedThis())
@@ -2796,7 +2799,7 @@ struct InsertVector
     InsertValue* first;
     InsertValue* last;
     InsertValue* end;
-    unsigned int GetPointerSpanCount_0064e300();
+    unsigned int vector_capacity();
     unsigned int GetFieldAtOffset10();
     unsigned int max_size_0064de90();
     InsertValue* ForwardCall_0064e480(InsertValue*, InsertValue*, InsertValue*);
@@ -2808,7 +2811,7 @@ struct InsertVector
 // @fnv 0x0064df50
 void InsertVector::Insert(InsertIterator _Where, unsigned int _Count, const InsertValue& _Val)
 {
-    unsigned int _Capacity = GetPointerSpanCount_0064e300();
+    unsigned int _Capacity = vector_capacity();
     if (_Count == 0)
         ;
     else if (max_size_0064de90() - GetFieldAtOffset10() < _Count)
@@ -2877,7 +2880,7 @@ struct GrowString
     unsigned int unk10;
     unsigned int size;
     unsigned int capacity;
-    unsigned int GetAllocatorLimitMinusTerminator();
+    unsigned int basic_string_max_size();
     char* std_allocator_char_allocate(unsigned int);
     void fopen_0044a730(bool, unsigned int);
     char* std_string__Myptr();
@@ -2889,9 +2892,9 @@ struct GrowString
 void GrowString::ResizeBuffer(unsigned int requested, unsigned int oldSize)
 {
     unsigned int uiNewCapacity = requested | 15;
-    if (GetAllocatorLimitMinusTerminator() < uiNewCapacity)
+    if (basic_string_max_size() < uiNewCapacity)
         uiNewCapacity = requested;
-    else if (uiNewCapacity / 3 < capacity / 2 && capacity <= GetAllocatorLimitMinusTerminator() - capacity / 2)
+    else if (uiNewCapacity / 3 < capacity / 2 && capacity <= basic_string_max_size() - capacity / 2)
         uiNewCapacity = capacity + capacity / 2;
     char* pNewData = 0;
     try

@@ -159,7 +159,7 @@ float ScaleLimbWoundPercent(float afLimbWoundPercent)
 
 struct CombatDamageCalculator
 {
-    static float __cdecl GetActorValueMultiplier(ActorValueOwner*, ActorValue::Index, bool);
+    static float __cdecl CombatFormulas_GetBodyPartCondition(ActorValueOwner*, ActorValue::Index, bool);
 };
 extern double _gModifierZero;
 extern SettingT_GameSettingCollection_ originalRuntimeFloatSetting832;
@@ -180,7 +180,7 @@ float GamePlayFormulas_GetActorWalkSpeed(ActorValueOwner* pActor, TESObjectWEAP*
     float fMult = 0.0f;
     if (pArmor)
     {
-        unsigned char ucWeight = pArmor->GetArmorType();
+        unsigned char ucWeight = pArmor->GetArmorWeight();
         if (ucWeight == 1)
             fMult += originalRuntimeFloatSetting827.Float()->f;
         else if (ucWeight == 2)
@@ -194,8 +194,8 @@ float GamePlayFormulas_GetActorWalkSpeed(ActorValueOwner* pActor, TESObjectWEAP*
         else if (static_cast<const TESObjectWEAP*>(pWeapon)->GetWeaponType() != 2)
             fMult += originalRuntimeFloatSetting828.Float()->f;
     }
-    float fPenalty = (1.0f - CombatDamageCalculator::GetActorValueMultiplier(pActor, (ActorValue::Index)0x1d, false)) +
-                     (1.0f - CombatDamageCalculator::GetActorValueMultiplier(pActor, (ActorValue::Index)0x1e, false));
+    float fPenalty = (1.0f - CombatDamageCalculator::CombatFormulas_GetBodyPartCondition(pActor, (ActorValue::Index)0x1d, false)) +
+                     (1.0f - CombatDamageCalculator::CombatFormulas_GetBodyPartCondition(pActor, (ActorValue::Index)0x1e, false));
     float fBase = 1.0f;
     if (fPenalty == 1.0)
         fBase = originalRuntimeFloatSetting1087.Float()->f;

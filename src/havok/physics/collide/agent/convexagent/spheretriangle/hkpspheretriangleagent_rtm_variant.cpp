@@ -147,7 +147,7 @@ struct Functor_d3e110 {
     float m_fHitFraction;
     int m_uiFilterValue;
 };
-void __cdecl hkpCdBody_ProcessAndReturnValue_00d3d8c0(int a, int b, int c, Functor_d3e110* f);
+void __cdecl hkpSphereTriangleAgent_staticGetClosestPoints(int a, int b, int c, Functor_d3e110* f);
 void __cdecl Hkpspheretriangleagent_UpdateState_00d3e110(int a, int b, int aiArg3, int d);
 struct SpawnedInner
 {
@@ -158,7 +158,7 @@ struct SpawnedInner
     virtual void unk10();
     virtual void unk14(unsigned short flags, void* param);
 };
-class FUN_00d3d200_cls
+class hkpSphereTriangleAgent
 {
 public:
     virtual void unk00(int flags);

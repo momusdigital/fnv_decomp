@@ -34,7 +34,7 @@ struct xHasFilter
 struct xVec4
 {
     float m_q[4];
-    void SetFromScaledVector3(const xPoint3*);
+    void bhkVector4_NI2HK(const xPoint3*);
 };
 struct __declspec(align(16)) xCinfo
 {
@@ -839,7 +839,7 @@ void xController::HighProcess_SetupPhantom(xActor* apActor)
             xCinfo CINFO;
             CINFO.m_uiFilterInfo = FILTER.Modelloader_GetReferencedThis();
             CINFO.m_pCollisionShape = xFUN_004ae750(SHAPE);
-            CINFO.m_vContactPosition.SetFromScaledVector3(apActor->FUN_1f4());
+            CINFO.m_vContactPosition.bhkVector4_NI2HK(apActor->FUN_1f4());
             m_434.FUN_0066b0d0(new xBody(&CINFO));
             m_438 = *xg_setting_11e029c.Setting_Float_00403e20();
         }

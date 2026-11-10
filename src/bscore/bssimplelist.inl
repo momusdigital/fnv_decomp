@@ -112,7 +112,7 @@ QuantityData::QuantityData() { SetQuantity(0); }
 // @fnv 0x00519550
 void TESObjectDOOR::ClearRandomTeleportList() { reinterpret_cast<BSSimpleList<ActorCause*>*>(&m_kRandomTeleportTargets)->RemoveAll(); }
 // @fnv 0x00944460
-unsigned int GetRandomNumberInRange(int min, int max) { return MersenneTwister::GetRandomGenerator()->IntInRange(min,max); }
+unsigned int GetRandomNumberInRange(int min, int max) { return MersenneTwister::GetRandomGenerator()->BSRandom_Int(min,max); }
 // @fnv 0x005e7790
 void BGSHeadPart::AddExtraPart(BGSHeadPart* part) { reinterpret_cast<BSSimpleList<SpellItem*>*>(&m_kExtraParts)->AddHead(reinterpret_cast<SpellItem*&>(part)); }
 // @fnv 0x004b0680

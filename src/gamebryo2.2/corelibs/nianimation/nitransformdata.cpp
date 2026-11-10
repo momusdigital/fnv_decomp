@@ -36,10 +36,10 @@ public:
     void SetScaleKeyStorage(TimedAnimationKey*, unsigned int, NiAnimationKey::KeyType);
     void AppendTransformKeyCounts(void*);
     void RestrictKeyRange(float, float);
-    bool CompareTransformData(NiObject*);
+    bool NiTransformData_IsEqual(NiObject*);
     void ExtractKeyRange(float, float, NiPointer<NiTransformData>&);
-    void SaveTransformData(NiStream&);
-    void LoadTransformData(NiStream&);
+    void NiTransformData_SaveBinary(NiStream&);
+    void NiTransformData_LoadBinary(NiStream&);
 };
 
 inline void NiRefObject::IncRefCount()
@@ -376,7 +376,8 @@ extern NiAnimKeyEqualFunction DAT_011f3af8[NiAnimationKey::NUMKEYTYPES];
 extern NiAnimKeyEqualFunction DAT_011f3ae0[NiAnimationKey::NUMKEYTYPES];
 
 // @fnv 0x00a4e130
-bool TransformDataOperations::CompareTransformData(NiObject* pkObject)
+// src: EXE 0x00a4e130
+bool TransformDataOperations::NiTransformData_IsEqual(NiObject* pkObject)
 {
     if (!NiObject::IsSameAs(pkObject))
         return false;
@@ -427,7 +428,7 @@ void __cdecl NiAnimationKey_CopySequence(int iKind, NiAnimationKey::KeyType keyT
 void TransformDataOperations::ExtractKeyRange(float fA, float fB, NiPointer<NiTransformData>& spOut)
 {
     NiTransformData* pkData = 0;
-    NiObject::ResolveObjectPointer(reinterpret_cast<NiPointer<NiObject>&>(pkData));
+    NiObject::CreateDeepCopy(reinterpret_cast<NiPointer<NiObject>&>(pkData));
     NiTransformData* pkResult = pkData;
     if (pkResult)
         pkResult->IncRefCount();
@@ -498,7 +499,8 @@ extern ScaleSave g_011f3a50[];
 
 // Saves the transform data's rotation, position and scale key counts and key arrays to the stream via the per-type save function tables.
 // @fnv 0x00a4e810
-void TransformDataOperations::SaveTransformData(NiStream& stream)
+// src: EXE 0x00a4e810
+void TransformDataOperations::NiTransformData_SaveBinary(NiStream& stream)
 {
     NiObject::SaveBinary(stream);
     unsigned int count = m_usNumRotKeys;
@@ -600,7 +602,8 @@ void __cdecl Object_DoNothing(const char* message);
 
 // Reads rotation, position, and scale key data from a NiStream, creating and loading each key set via type-specific factory and load functions.
 // @fnv 0x00a4e5d0
-void TransformDataOperations::LoadTransformData(NiStream& stream)
+// src: EXE 0x00a4e5d0
+void TransformDataOperations::NiTransformData_LoadBinary(NiStream& stream)
 {
     NiObject::LoadBinary(stream);
     unsigned int numKeys;

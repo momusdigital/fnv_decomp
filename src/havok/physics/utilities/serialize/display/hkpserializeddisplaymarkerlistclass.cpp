@@ -26,7 +26,7 @@ struct RefBase_cls
     {}
 };
 
-class FUN_00dff010_cls : public RefBase_cls
+class hkpSerializedDisplayMarkerList : public RefBase_cls
 {
   public:
     int m_i04;
@@ -34,12 +34,13 @@ class FUN_00dff010_cls : public RefBase_cls
     int m_iArrayLength;
     unsigned int m_uCapacity;
 
-    ~FUN_00dff010_cls() throw();
+    ~hkpSerializedDisplayMarkerList() throw();
 };
 
 // Releases each element in m_ppData, frees the backing array through the allocator, and resets the count, pointer and capacity before destroying the base.
 // @fnv 0x00dff010
-FUN_00dff010_cls::~FUN_00dff010_cls() throw()
+// src: EXE 0x00dff010
+hkpSerializedDisplayMarkerList::~hkpSerializedDisplayMarkerList() throw()
 {
     for (int i = 0; i < m_iArrayLength; i++)
     {

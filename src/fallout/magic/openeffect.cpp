@@ -5,7 +5,7 @@
 // src/fallout/magic/openeffect.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/_fallout3/platforms/common/code/fallout/magic/openeffect.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
 
-struct FUN_008260b0
+struct OpenEffect
 {
     virtual void v00();
     virtual void v01();
@@ -24,7 +24,7 @@ struct FUN_008260b0
     virtual void v14();
     virtual void v15();
     virtual void v16();
-    virtual void Install(FUN_008260b0*);
+    virtual void Install(OpenEffect*);
     float value04;
     void* object08;
     void* object0c;
@@ -35,14 +35,14 @@ struct FUN_008260b0
     void* object28;
     int unk2c;
     int unk30, unk34, unk38, unk3c, unk40, unk44;
-    FUN_008260b0(void*, void*, void*);
-    FUN_008260b0* CloneAndInstall();
+    OpenEffect(void*, void*, void*);
+    OpenEffect* CloneAndInstall();
 };
-// Allocates a new FUN_008260b0 from object28, object08 and object0c, installs it, and returns it.
+// Allocates a new OpenEffect from object28, object08 and object0c, installs it, and returns it.
 // @fnv 0x008260e0
-FUN_008260b0* FUN_008260b0::CloneAndInstall()
+OpenEffect* OpenEffect::CloneAndInstall()
 {
-    FUN_008260b0* result = new FUN_008260b0(object28, object08, object0c);
+    OpenEffect* result = new OpenEffect(object28, object08, object0c);
     Install(result);
     return result;
 }

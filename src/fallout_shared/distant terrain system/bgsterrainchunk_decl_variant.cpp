@@ -18,7 +18,7 @@
 
 // src/fallout_shared/distant terrain system/bgsterrainchunk.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/_fallout3/platforms/common/code/fallout shared/distant terrain system/bgsterrainchunk.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
-struct FUN_006fa840_shell
+struct BGSTerrainNode
 {
     unsigned char GetByteAt5D();
 };
@@ -30,9 +30,9 @@ struct Flt
 {
     operator unsigned int() const;
 };
-struct FUN_006fb6e0_shell
+struct BGSTerrainChunk
 {
-    void SetAllAppCulled();
+    void BGSTerrainChunk_Hide();
 };
 struct FUN_006fb940_shell
 {
@@ -479,7 +479,7 @@ struct Target006fac
     void UpdateWaterReferences(int);
     void BGSTerrainChunk_InitializeShaderProperty();
     void AddSelfToList();
-    void SetAllAppCulled();
+    void BGSTerrainChunk_Hide();
 };
 struct B5D0Status
 {
@@ -489,7 +489,7 @@ struct B5D0Item
 {
     B5D0Status* Modelloader_GetReferencedThis();
     void BGSTerrainChunk_Show();
-    void SetAllAppCulled();
+    void BGSTerrainChunk_Hide();
 };
 struct B5D0List
 {

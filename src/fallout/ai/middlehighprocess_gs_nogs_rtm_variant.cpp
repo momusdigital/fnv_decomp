@@ -68,7 +68,7 @@ struct BGSSaveFormBuffer;
 struct TESForm;
 struct TESObjectREFR;
 typedef char _sizecheck_PackageTarget[sizeof(PackageTargetRecord) == 16 ? 1 : -1];
-struct FUN_006801a0_shell : public PackageTargetRecord
+struct PackageTarget : public PackageTargetRecord
 {
     void PackageTarget_Copy(PackageTargetRecord*);
 };
@@ -326,8 +326,8 @@ struct Animation
     void SetEquipModifier(float);
     float GetReloadModifier();
     float GetEquipModifier();
-    BSAnimGroupSequence* GetAnimationSequence(BSAnimGroupSequence*, unsigned short, int);
-    BSAnimGroupSequence* GetAnimationSequence(unsigned short, int);
+    BSAnimGroupSequence* StartGroup(BSAnimGroupSequence*, unsigned short, int);
+    BSAnimGroupSequence* StartGroup(unsigned short, int);
     void AssignControllerManager(void*);
     static void FindHighestPriorityCallback(NiAVObject*, FindData*);
     BSAnimGroupSequence* GetHighestPriority(NiAVObject*);
@@ -506,7 +506,7 @@ void _Deallocate(void*);
 struct S9145e0
 {
     void FUN_00914610();
-    void* FUN_009145e0(unsigned int);
+    void* ScalarDeletingDestructor(unsigned int);
 };
 void __cdecl _Deallocate(void*);
 struct Unk147
@@ -1149,7 +1149,7 @@ struct PackageCalls
 {
     int FUN_0041ca90();
     bool FUN_00678610();
-    bool HasFlag400000();
+    bool GetDefensive();
     unsigned int FUN_00676280(Actor*);
 };
 struct ControllerCalls
@@ -1871,7 +1871,7 @@ struct SSActor
     virtual void VB7();
     virtual void SetLookingTarget(float);
     float GetLooking() const;
-    void ClampLookAngle(float);
+    void MobileObject_SetLooking(float);
     char* FUN_009306d0();
     void MobileObject_SetChaseBip(bool);
     void SetCurrentSitSleepState(int state);
@@ -7746,7 +7746,7 @@ struct PackageAccess : TESForm
     virtual void PackageSlot78();
     virtual bool IsEffectValid(Actor*, int, float, int);
     bool TESPackage_GetWaiting();
-    void SetFlag10000(bool);
+    void TESPackage_SetWaiting(bool);
     float GetPackageResult(Actor*, bool);
     int FUN_0041ca90();
     PackageTargetAccess* FUN_0055b980();
@@ -7754,7 +7754,7 @@ struct PackageAccess : TESForm
 };
 struct PlayerPackageAccess
 {
-    bool HasExtraFollowerForm(Actor*);
+    bool PlayerCharacter_IsPlayerFollower(Actor*);
     int PlayerCharacter_GetNumberOfFollowers();
 };
 struct ReferenceAccess
@@ -8865,7 +8865,7 @@ struct RefView
     bool FUN_00440da0();
     TESBoundObject* BGSSaveFormBuffer_GetForm();
     int FUN_00931850();
-    int GetCellLoadState();
+    int MobileObject_GetDesiredProcessLevel();
 };
 struct AcquireView
 {
@@ -9899,7 +9899,7 @@ struct P130Actor
 struct P130Marker
 {
     int FUN_005094b0();
-    float GetFurnitureHeading(int);
+    float TESFurniture_GetMarkerHeadingOffset(int);
     NiPoint3* FUN_006815c0();
     float FUN_00568650();
     void FurnitureMark_SetHeading(float);
@@ -10526,7 +10526,7 @@ struct FormNode58
 struct SavedPart58
 {
     void SavePackage(SaveBuffer58*);
-    void SaveAnimData(SaveBuffer58*);
+    void Animation_Save(SaveBuffer58*);
     unsigned int FUN_0040a1e0();
     unsigned int RefreshItem();
     unsigned int FUN_00726070();
@@ -11245,7 +11245,7 @@ struct ObjA9
 struct Actor9 : Actor
 {
     bool IsPathing();
-    void PathToLocation(PathingRequest*, NiPoint3 const&, void*, void*, float, int);
+    void Actor_BuildRequest(PathingRequest*, NiPoint3 const&, void*, void*, float, int);
     void SetPathingRequestAvoidNodes(PathingRequest*);
     void ClearLookAtTarget();
 };
@@ -11430,7 +11430,7 @@ struct B570PackageCalls
 };
 struct B570PointCalls : NiPoint3
 {
-    float GetSquaredXYLength() const;
+    float NiPoint3_SqrXYLength() const;
 };
 struct B570TimeCalls
 {
@@ -11797,7 +11797,7 @@ struct ActActor
     virtual void FUN_vt418();
     bool FUN_008b3bb0();
     int FUN_00931850();
-    int GetCellLoadState();
+    int MobileObject_GetDesiredProcessLevel();
 };
 
 struct ActRef
@@ -12696,7 +12696,7 @@ bool ActProcess::MiddleHighProcess_ProcessActivate(ActActor* apActor, bool abAct
                     fNowCur = fNowCur + 24.0;
                 float fElapsedVal = fNowCur - FUN_007df1f0();
                 fElapsedVal = 3600.0 / pHourGlobal->BSMultiBoundCapsule_QMultiBoundRadius() * fElapsedVal;
-                if (apActor->FUN_00931850() != 1 || apActor->GetCellLoadState() != 1)
+                if (apActor->FUN_00931850() != 1 || apActor->MobileObject_GetDesiredProcessLevel() != 1)
                 {
                     return false;
                 }
@@ -14691,7 +14691,7 @@ class WeaponBaseAccess
     SoundAccess* TESObjectWEAP_GetAttackSound(bool);
     SoundAccess* GetValueByFlag(bool);
     SoundAccess* GetPointerByFlag(bool);
-    SoundAccess* GetField22C();
+    SoundAccess* TESObjectWEAP_GetAttackFailSound();
     void FUN_00525510(int, QueuedFileAccess*, bool);
 };
 class ItemChangeAccess
@@ -15193,7 +15193,7 @@ void MiddleHighProcessExt::MiddleHighProcess_LoadSitSleepIdle(Actor* a1, Animati
                 TESIdleForm* idle = DAT_011cb6a0->FUN_00600950(a1, m_pFurnitureReference);
                 if (idle)
                 {
-                    a2->Animation_SpecialIdleReplace(idle, a1, idle->GetFlagsMasked());
+                    a2->Animation_SpecialIdleReplace(idle, a1, idle->TESIdleForm_GetIdleAnimGroupSection());
                 }
                 if (a1 == g_thePlayer)
                 {
@@ -15286,12 +15286,12 @@ struct ItemLoadState913e80
     unsigned char unk0F;
     unsigned char unk10;
     unsigned char unk11;
-    void LoadInventoryEntryState(BufferView* buffer);
+    void QueuedItem_LoadGame(BufferView* buffer);
 };
 
 // @fnv 0x00913e80
-// src: GUESS 0x00913e80 (confidence: medium)
-void ItemLoadState913e80::LoadInventoryEntryState(BufferView* buffer)
+// src: COMMUNITY 0x00913e80
+void ItemLoadState913e80::QueuedItem_LoadGame(BufferView* buffer)
 {
     ReferenceView* ref = buffer->GetRef();
     object = dynamic_cast<TESBoundObject*>(reinterpret_cast<TESForm*>(::TESForm_GetFormByNumericID(buffer->FUN_008648a0())));

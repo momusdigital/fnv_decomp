@@ -37,7 +37,7 @@ int FUN_00d1f1e0_class::hkpShapeContainer_getNumChildShapes()
     return count;
 }
 
-struct FUN_00d1f210_cls
+struct hkpSingleShapeContainer
 {
     int unk00;
     int m_04;
@@ -46,7 +46,7 @@ struct FUN_00d1f210_cls
 
 // @fnv 0x00d1f210
 // src: COMMUNITY 0x00d1f210
-int FUN_00d1f210_cls::hkpShapeContainer_getChildShape(int a1, int a2)
+int hkpSingleShapeContainer::hkpShapeContainer_getChildShape(int a1, int a2)
 {
     return m_04;
 }

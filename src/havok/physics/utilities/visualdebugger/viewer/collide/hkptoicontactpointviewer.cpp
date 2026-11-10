@@ -94,7 +94,7 @@ extern char DAT_010d1ebc[];
 
 void __stdcall FUN_00ddccb0(int a1);
 
-struct FUN_00d682d0_cls {
+struct hkpToiContactPointViewer {
     int unk00;
     int unk04;
     int unk08;
@@ -113,7 +113,7 @@ struct FUN_00d682d0_cls {
 // Calls FUN_00ddccb0 with a1, then stores five DAT_ pointers into this at offsets 0x28, 0x00, 0x08, 0x20 and 0x28, and returns this.
 // @fnv 0x00d682d0
 // src: HAVOK_LIB 0x00d682d0
-void* FUN_00d682d0_cls::hkpToiContactPointViewer_hkpToiContactPointViewer(int aiArg)
+void* hkpToiContactPointViewer::hkpToiContactPointViewer_hkpToiContactPointViewer(int aiArg)
 {
     FUN_00ddccb0(aiArg);
     *(void* volatile*)((char*)this + 0x28) = (void*)&DAT_0104dd7c;

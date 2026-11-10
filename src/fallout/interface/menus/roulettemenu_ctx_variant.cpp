@@ -681,12 +681,12 @@ extern int DAT_011daf68;
 extern int DAT_011daf78;
 extern int DAT_011daf5c;
 extern int DAT_011daf70;
-struct FUN_007e6780 : Menu
+struct TraitMenu : Menu
 {
     Member08 member54;
     List08 list84;
-    FUN_007e6780();
-    virtual ~FUN_007e6780();
+    TraitMenu();
+    virtual ~TraitMenu();
 };
 int __fastcall NiAVObject_GetWorldTranslate(int);
 namespace bf {

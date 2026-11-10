@@ -12,12 +12,13 @@
 struct FUN_005ff560_shell
 {
     TESTopicInfo* GetChildByIndex(unsigned int index);
-    void RemoveChildAndRelinkNeighbors(unsigned int index);
+    void TESIdleForm_RemoveChildAtIndex(unsigned int index);
 };
 
 // If the child array exists, links the next child's region to the previous child, then removes the child at index and compacts the array.
 // @fnv 0x005ff560
-void FUN_005ff560_shell::RemoveChildAndRelinkNeighbors(unsigned int index)
+// src: COMMUNITY 0x005ff560
+void FUN_005ff560_shell::TESIdleForm_RemoveChildAtIndex(unsigned int index)
 {
     if (*(void**)(this + 0x40))
     {

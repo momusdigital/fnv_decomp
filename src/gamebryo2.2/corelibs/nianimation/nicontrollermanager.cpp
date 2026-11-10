@@ -872,14 +872,14 @@ template <class T> inline void SerializeValue(NiStream& stream, const T& value)
     WriteStreamValue(stream.GetBinaryStream(), &value);
 }
 
-extern "C" void SaveTimeController();
+extern "C" void NiTimeController_SaveBinary();
 
 // Calls FUN_00a6d730, writes m_bFlag and m_usArraySize, saves link IDs for each non-null m_ppArray entry and for m_pkLast.
 // @fnv 0x00a2e9f0
 // src: XBOX_PDB 0x00a2e9f0
 void __fastcall NiControllerManager_SaveBinary(NiControllerManager* self, int, NiStream& stream)
 {
-    ((void (__thiscall*)(NiTimeController*, NiStream&))&SaveTimeController)(self, stream);
+    ((void (__thiscall*)(NiTimeController*, NiStream&))&NiTimeController_SaveBinary)(self, stream);
     bool bFlag = self->m_bUseCumulativeAnimation;
     SerializeValue(stream, bFlag);
     unsigned int uiSize = self->m_kSequences.m_usSize;

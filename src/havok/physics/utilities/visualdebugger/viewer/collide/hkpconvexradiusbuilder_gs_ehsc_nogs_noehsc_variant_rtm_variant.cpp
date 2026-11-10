@@ -173,8 +173,8 @@ struct OutputShape
     unsigned short memorySize, references;
     int field08, field0c;
     Transform transform;
-    __declspec(noalias) OutputShape* FUN_00d58510(const __m128*, const __m128*, float, int, int);
-    __declspec(noalias) OutputShape* FUN_00de1f50(const __m128*);
+    __declspec(noalias) OutputShape* hkDisplayCylinder(const __m128*, const __m128*, float, int, int);
+    __declspec(noalias) OutputShape* hkDisplayBox(const __m128*);
 };
 struct OutputArray
 {
@@ -404,7 +404,7 @@ struct ConvexOutput
 {
     int field00;
     unsigned short memorySize, references;
-    OutputShape* FUN_00de1d20(Geometry*);
+    OutputShape* hkDisplayConvex(Geometry*);
 };
 // src: HAVOK_LIB 0x00de3360
 static __declspec(noinline) OutputShape* _createConvexDisplayFromPlanes(hkArrayBase<PlaneVector>* planes, const Transform* transform)
@@ -446,7 +446,7 @@ static __declspec(noinline) OutputShape* _createConvexDisplayFromPlanes(hkArrayB
     ConvexOutput* allocation =
         static_cast<ConvexOutput*>(reinterpret_cast<Allocator*>(hkMemoryRouter_getInstance()->sub)->allocate(0x60));
     allocation->memorySize = 0x60;
-    OutputShape* result = allocation->FUN_00de1d20(geometry);
+    OutputShape* result = allocation->hkDisplayConvex(geometry);
     PlaneArray_release(transformed);
     PlaneArray_release(vertices);
     return result;
@@ -564,7 +564,7 @@ void Processor::hkpConvexRadiusBuilder_buildShapeDisplay(Shape* shape, const Tra
         D31Tbl2* holder = hkMemoryRouter_getInstance();
         OutputShape* result = static_cast<OutputShape*>(reinterpret_cast<Allocator*>(holder->sub)->allocate(0x90));
         result->memorySize = 0x90;
-        result = result->FUN_00d58510(&end.value, &start.value, radius + additional, 9, 1);
+        result = result->hkDisplayCylinder(&end.value, &start.value, radius + additional, 9, 1);
         result->transform.FUN_00c6cd60(transform);
         output->append(result);
         return;
@@ -577,7 +577,7 @@ void Processor::hkpConvexRadiusBuilder_buildShapeDisplay(Shape* shape, const Tra
         D31Tbl2* holder = hkMemoryRouter_getInstance();
         OutputShape* result = static_cast<OutputShape*>(reinterpret_cast<Allocator*>(holder->sub)->allocate(0x70));
         result->memorySize = 0x70;
-        result = result->FUN_00de1f50(&dimensions);
+        result = result->hkDisplayBox(&dimensions);
         result->transform.FUN_00c6cd60(transform);
         output->append(result);
         return;

@@ -57,17 +57,18 @@ TESObjectREFR* RegionObjectEntry::GetReference(bool resolveDeleted)
 }
 
 #include "../../include/PathingPath.h"
-struct FUN_0060ff70
+struct TESQuestTarget
 {
     unsigned char cFlags;
     PerkEntryConditionSet m_kInfoConditions;
     void* m_pReference;
     PathingPath m_auiData;
-    FUN_0060ff70();
+    TESQuestTarget();
 };
 
 // @fnv 0x0060ff70
-FUN_0060ff70::FUN_0060ff70()
+// src: COMMUNITY 0x0060ff70
+TESQuestTarget::TESQuestTarget()
 {
     m_pReference = 0;
     cFlags = 0;

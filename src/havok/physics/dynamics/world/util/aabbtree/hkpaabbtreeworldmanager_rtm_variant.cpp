@@ -38,7 +38,7 @@ struct FUN_00d08350 {
     void* m_p;
     void* __thiscall Set(void* arg);
 };
-struct FUN_00d083a0_class {
+struct hkpAabbTreeWorldManager {
     void __thiscall hkpAabbTreeWorldManager_setWorkingBuffer(int a);
 };
 struct FUN_00d08ff0_t {
@@ -154,7 +154,7 @@ class hkpTreeCastCallbackD084 {
 public:
     virtual float processLeaf() throw();
 };
-class FUN_00d9a040 : public hkpRayCastCollectorBaseD084, public hkpTreeCastCallbackD084 {
+class hkpAabbTreeCollidableRaycaster : public hkpRayCastCollectorBaseD084, public hkpTreeCastCallbackD084 {
 public:
     const hkpWorldRayCastInput* m_pRayCastInput;
     const hkpRayCollidableFilter* m_iFilter;
@@ -163,7 +163,7 @@ public:
     hkpRayHitCollectorD084* m_kCollector;
     int m_1c;
 
-    FUN_00d9a040() throw();
+    hkpAabbTreeCollidableRaycaster() throw();
 };
 hkBool __cdecl hkKdTreeUtils_castRayIterative(void* pkBroadPhase, const hkVector4& kFrom, const hkVector4& kTo, hkpWorldRayCaster* pkCaster) throw();
 void __cdecl hkAabbTreeQueryUtils_hkAabbTreeData_hkAabbTreeAabb16_unsigned_short_castRay(void* pkTree, const hkVector4& kFrom, const hkVector4& kTo, hkpTreeCastCallbackD084* pkCaster, float fEarlyOut) throw();
@@ -361,7 +361,7 @@ struct FUN_00d0a1e0_class {
     int unk60;
     int unk64;
     char unk68;
-    char __thiscall GetUnk68_00d0a1e0();
+    char __thiscall hkpAabbTreeWorldManager_isUpToDate();
 };
 extern int DAT_010ccfcc;
 extern int DAT_010ccfe0;
@@ -736,7 +736,7 @@ struct S00d094a0_Job;
 struct S00d094a0_Queue { void hkJobQueue_addJob(S00d094a0_Job*, int); void hkJobQueue_processAllJobs(); };
 struct S00d094a0_Sync {
     virtual void f00(); virtual void f04(); virtual void f08();
-    virtual void signal(S00d094a0_Queue*, int); virtual void wait();
+    virtual void signal(S00d094a0_Queue*, int); virtual void hkSemaphore_release();
 };
 struct S00d094a0_Helper { int hkSemaphore_acquire(); };
 struct S00d094a0_JobHead {
@@ -978,7 +978,7 @@ static __forceinline void mark12(hkMonitorStream* buf, char* name, volatile unsi
 }
 namespace RaycasterRework {
 
-class FUN_00d9a040 : public hkpRayCastCollectorBaseD084,
+class hkpAabbTreeCollidableRaycaster : public hkpRayCastCollectorBaseD084,
                      public hkpTreeCastCallbackD084 {
 public:
     const hkpWorldRayCastInput* m_pRayCastInput;
@@ -988,11 +988,11 @@ public:
     hkpRayHitCollectorD084* m_kCollector;
     float m_fEarlyOutHitFraction;
 
-    FUN_00d9a040() throw();
+    hkpAabbTreeCollidableRaycaster() throw();
 };
 
 // @fnv 0x00d9a040
-FUN_00d9a040::FUN_00d9a040() throw()
+hkpAabbTreeCollidableRaycaster::hkpAabbTreeCollidableRaycaster() throw()
     : m_pRayCastInput(0), m_iFilter(0), m_shapeFilter(0), m_pRayCastOutput(0),
       m_kCollector(0), m_fEarlyOutHitFraction(1.0f)
 {

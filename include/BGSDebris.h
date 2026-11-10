@@ -24,7 +24,7 @@ public:
     BSSimpleList<DebrisModelEntry*>* GetData();
     bool Load(TESFile* file);
     void Preload(int priority, void* file);
-    DebrisModelEntry* AddDebrisModel(char chance, const char* path, char flags);
+    DebrisModelEntry* AddDebrisData(char chance, const char* path, char flags);
     void InsertDebrisIfValid(DebrisModelEntry* entry);
     void WriteDebrisEntries();
     void SpawnDebris(void* cell, NiPoint3* position, unsigned int count, float scale);

@@ -142,7 +142,7 @@ extern "C" void __cdecl hkQsTransform_UpdateState_00e41bf0(void* outTransform, f
 extern "C" hkMemoryRouter* __cdecl hkMemoryRouter_getInstance() throw();
 extern "C" void __cdecl hkArrayUtil__reserve(hkMemoryAllocator* mem, void* arr, int newCap, int elemSize) throw();
 
-class FUN_00e41830
+class hkaDefaultAnimatedReferenceFrame
 {
   public:
     int* m_ppVirtualMethodTable;
@@ -154,7 +154,7 @@ class FUN_00e41830
     hkVector4 m_vEnd;
     float m_fAnimationDuration;
     hkArray<hkVector4> m_kAnimationVectorSamples;
-    FUN_00e41830(const Config& config) throw();
+    hkaDefaultAnimatedReferenceFrame(const Config& config) throw();
 };
 static __forceinline float dot3(__m128 a, __m128 b)
 {
@@ -225,7 +225,8 @@ extern "C" __declspec(noinline) void __cdecl hkaDefaultAnimatedReferenceFrame_pr
 }
 
 // @fnv 0x00e41830
-FUN_00e41830::FUN_00e41830(const Config& config) throw() : m_ppVirtualMethodTable(&DAT_010e57a4), m_sReferenceCount(1)
+// src: EXE 0x00e41830
+hkaDefaultAnimatedReferenceFrame::hkaDefaultAnimatedReferenceFrame(const Config& config) throw() : m_ppVirtualMethodTable(&DAT_010e57a4), m_sReferenceCount(1)
 {
     int numSamples =
         config.m_iValueAfterAnimationDuration == -1 ? config.m_numQsTransforms : config.m_iValueAfterAnimationDuration;

@@ -20,14 +20,14 @@ struct FUN_00da07b0_class
 void __cdecl finishLoadedObjecthkSimpleLocalFrame(void* a, void* b);
 void __cdecl InitBlockPool(void*);
 void* __cdecl InitAndReturnTail(void* a, void* b, void* c);
-void __cdecl Object_InvokeVirtualMethod_00da08c0(void** a);
+void __cdecl cleanupLoadedObject_hkpMaxSizeMotion(void** a);
 extern int DAT_010c59f4;
 extern int DAT_010c6bec;
-void __cdecl Object_UpdateFields_00da08e0(void* a, int b);
+void __cdecl finishLoadedObject_hkpKeyframedRigidMotion(void* a, int b);
 extern int DAT_010c6fd0;
-void __cdecl Runtime_UpdateState_00da0b10(int* p);
+void __cdecl finishLoadedObject_hkpSingleShapeContainer(int* p);
 extern int DAT_010d6014;
-struct FUN_00db7ab0_class
+struct hkStaticClassNameRegistry
 {
     void* __thiscall SetVtableAndProcessState_00db7ab0(void* a, void* b, void* c);
 };
@@ -45,12 +45,12 @@ struct FUN_00da0740_vt
 {
     virtual void v0(int);
 };
-void __cdecl Object_InvokeVirtualMethod_00da0740(FUN_00da0740_vt* p);
+void __cdecl cleanupLoadedObject_hkSimpleLocalFrame(FUN_00da0740_vt* p);
 struct FUN_00cb0a70_class
 {
     void __thiscall ReturnSelf(int);
 };
-void __cdecl Object_UpdateFields_00da0760(void* a, void* b);
+void __cdecl finishLoadedObject_hkLocalFrameGroup(void* a, void* b);
 struct FUN_00db7cf0_class
 {
     int __thiscall hkVersionPatchManager_UidFromClassVersion_getName(int a, int b);
@@ -67,7 +67,7 @@ struct FUN_00da0720_Class
 {
     virtual void vf00(int value);
 };
-void __cdecl Object_InvokeVirtualMethod_00da0720(FUN_00da0720_Class* param_1);
+void __cdecl cleanupLoadedObject_hkLocalFrameGroup(FUN_00da0720_Class* param_1);
 struct CpuOpaque;
 extern CpuOpaque DAT_0126967c;
 CpuOpaque* __cdecl Runtime_GetDAT0126967cAddress();
@@ -85,7 +85,7 @@ struct FUN_00da08a0_cls
 {
     virtual int v00(int a);
 };
-int __cdecl Object_InvokeVirtualMethod_00da08a0(FUN_00da08a0_cls* pObj);
+int __cdecl cleanupLoadedObject_hkpKeyframedRigidMotion(FUN_00da08a0_cls* pObj);
 extern int DAT_0126970c;
 int* __cdecl Runtime_GetDAT0126970cAddress();
 extern int DAT_01269754;
@@ -272,7 +272,7 @@ class DA0920Object : public DA0920Base
     {}
     virtual void vfunc00();
 };
-void ConstructDA0920Object(void* p, int finishing);
+void finishLoadedObject_hkpMaxSizeMotion(void* p, int finishing);
 extern int g_unk010c6c64;
 void* __cdecl Runtime_GetUnk010c6c64Address();
 extern int DAT_0126979c;
@@ -308,7 +308,7 @@ struct FUN_00da0af0_Class
 {
     virtual void vf00(int value);
 };
-void __cdecl Runtime_ForwardCall_00da0af0(FUN_00da0af0_Class* param_1);
+void __cdecl cleanupLoadedObject_hkpSingleShapeContainer(FUN_00da0af0_Class* param_1);
 extern int DAT_01269a0c;
 void* __cdecl Object_GetGlobalObjectAddress_00da0b00();
 extern int DAT_010c6fd0;
@@ -791,7 +791,7 @@ struct FUN_00db7c00_obj
 {
     virtual void vslot00(int value);
 };
-void __cdecl Object_Vslot00_Thunk(FUN_00db7c00_obj* p);
+void __cdecl cleanupLoadedObject_hkpPhysicsSystem(FUN_00db7c00_obj* p);
 // 0x00db7c10  /MT /O2 /GS /EHsc /Gy   target: B8 28 9B 26 01 C3  (mov eax, offset DAT_01269b28; ret)
 extern int DAT_01269b28;
 int* Runtime_GetDAT01269b28Address();
@@ -814,7 +814,7 @@ struct hkLoadedObjectDB7C
     int unk34;
     FUN_00cb0a70_class m_name;
 };
-void __cdecl InitLoadedObject(void* pvObject, int iFinishing);
+void __cdecl finishLoadedObject_hkpPhysicsSystem(void* pvObject, int iFinishing);
 extern "C" void __cdecl FUN_00ec658f(const void*);
 extern unsigned char DAT_01269b80;
 extern void* DAT_010d6260;

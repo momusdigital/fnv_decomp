@@ -126,7 +126,8 @@ extern "C" void(__stdcall* DAT_00fdf1c0)(void*);
 extern "C" void(__stdcall* DAT_00fdf1c4)(void*);
 
 // @fnv 0x00a74300
-void* __fastcall NiStringExtraData_CreateCopy(NiStringExtraData* self, void*, int arg)
+// src: COMMUNITY 0x00a74300
+void* __fastcall NiStringExtraData_CreateClone(NiStringExtraData* self, void*, int arg)
 {
     NiStringExtraData* esi = (NiStringExtraData*)Object_DispatchCommandFour(0x10);
     if (esi != 0)

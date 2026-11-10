@@ -362,12 +362,12 @@ class FUN_00ce2000Owner
     int unk28;
     hkaSkeleton* m_pkSkeleton;
 
-    void ProcessAndReturnValue_00ce2000(int iBone, hkQsTransform& kOut);
+    void hkaRagdollInstance_getBoneTransformWorldSpace(int iBone, hkQsTransform& kOut);
 };
 
 // @fnv 0x00ce2000
-// src: GUESS 0x00ce2000 (confidence: low)
-void FUN_00ce2000Owner::ProcessAndReturnValue_00ce2000(int iBone, hkQsTransform& kOut)
+// src: GUESS 0x00ce2000 (confidence: medium)
+void FUN_00ce2000Owner::hkaRagdollInstance_getBoneTransformWorldSpace(int iBone, hkQsTransform& kOut)
 {
     int iBody = m_piBoneToBody[iBone];
     if (iBody >= 0)
@@ -384,7 +384,7 @@ void FUN_00ce2000Owner::ProcessAndReturnValue_00ce2000(int iBone, hkQsTransform&
     hkQsTransform kParent;
     int iParent = m_pkSkeleton->m_kParentIndices.m_data[iBone];
     if (iParent >= 0)
-        ProcessAndReturnValue_00ce2000(iParent, kParent);
+        hkaRagdollInstance_getBoneTransformWorldSpace(iParent, kParent);
     else
         kParent.setIdentity();
     ComposeReferenceTransform(kOut, kParent, m_pkSkeleton->m_kReferencePose.m_data[iBone]);

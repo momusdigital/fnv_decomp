@@ -27,7 +27,7 @@ unsigned int bhkCharacterListener::GetFlags(unsigned int aiFlags)
 
 extern float DAT_0104da4c;
 
-struct FUN_00621290_shell
+struct hkpLinearCastInput
 {
     void* InitFloats();
     void _ref_006815c0();
@@ -35,7 +35,7 @@ struct FUN_00621290_shell
 
 // Calls _ref_006815c0, then stores DAT_0104da4c into the floats at offsets 0x10 and 0x14 and returns this.
 // @fnv 0x00621290
-void* FUN_00621290_shell::InitFloats()
+void* hkpLinearCastInput::InitFloats()
 {
     _ref_006815c0();
     *(float*)((char*)this + 0x10) = DAT_0104da4c;
@@ -186,11 +186,12 @@ bool DummyFlagsShell::bhkCharacterController_QChaseBip()
 
 struct FUN_006210a0_shell : FUN_00621100_shell
 {
-    void* __thiscall FUN_006210a0(unsigned int flags);
+    void* __thiscall ScalarDeletingDestructor(unsigned int flags);
 };
 
 // @fnv 0x006210a0
-void* __thiscall FUN_006210a0_shell::FUN_006210a0(unsigned int flags)
+// src: EXE 0x006210a0
+void* __thiscall FUN_006210a0_shell::ScalarDeletingDestructor(unsigned int flags)
 {
     SetVtable();
     if (flags & 1)

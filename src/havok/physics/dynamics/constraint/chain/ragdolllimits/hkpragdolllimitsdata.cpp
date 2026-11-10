@@ -10,14 +10,14 @@ typedef unsigned int hkUint32;
 
 extern "C" void __cdecl hkpConstraintData_getConstraintInfoUtil(void* p, unsigned int x, unsigned int y);
 
-struct FUN_00d4f130_StandIn
+struct hkpRagdollLimitsData
 {
     void hkpRagdollLimitsData_getConstraintInfo(unsigned int a);
 };
 
 // @fnv 0x00d4f130
 // src: HAVOK_LIB 0x00d4f130
-void FUN_00d4f130_StandIn::hkpRagdollLimitsData_getConstraintInfo(unsigned int auiValue)
+void hkpRagdollLimitsData::hkpRagdollLimitsData_getConstraintInfo(unsigned int auiValue)
 {
     hkpConstraintData_getConstraintInfoUtil((char*)this + 0x10, 0xac, auiValue);
 }

@@ -60,7 +60,7 @@ class BSAudioSoundHandle
 };
 
 extern TESObjectREFR* _g_thePlayer;
-BGSOpenCloseForm* GetOpenCloseForm(TESForm*);
+BGSOpenCloseForm* BGSOpenCloseForm_GetAsOpenCloseForm(TESForm*);
 // Folded accessor at 0x00407840; the shared door has no secondary-sound getter.
 TESSound* __fastcall GetDoorSecondarySound(TESObjectDOOR*);
 // The original SetLinkedReference call passes the list in ECX and the reference
@@ -164,7 +164,7 @@ void BGSOpenCloseForm_HandleActivate(TESObjectREFR* apRefr, TESObjectREFR* apAct
                         apRefr->MarkAsModified(0x80000000u);
                         if (p2c == pSeqA && apActor == _g_thePlayer)
                         {
-                            BGSOpenCloseForm* pOCF = GetOpenCloseForm(apRefr->GetObjectReference());
+                            BGSOpenCloseForm* pOCF = BGSOpenCloseForm_GetAsOpenCloseForm(apRefr->GetObjectReference());
                             if (pOCF && pOCF->GetBlockActivatesWhileOpening())
                                 ((RefX*)_g_thePlayer)->SetQuickKeysEnabled(1);
                         }
@@ -187,7 +187,7 @@ void BGSOpenCloseForm_HandleActivate(TESObjectREFR* apRefr, TESObjectREFR* apAct
             apRefr->PerformAction(OBJECT_ACTION_OBJECT_ACTION_OPEN);
             break;
         }
-        BGSOpenCloseForm* pOCF2 = GetOpenCloseForm(apRefr->GetObjectReference());
+        BGSOpenCloseForm* pOCF2 = BGSOpenCloseForm_GetAsOpenCloseForm(apRefr->GetObjectReference());
         if (pOCF2)
         {
             if (bOpen)

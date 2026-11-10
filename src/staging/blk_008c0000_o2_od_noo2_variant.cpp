@@ -395,7 +395,7 @@ struct Ref8
     bool GetBlocked();
     void* FUN_008d8520();
     NiPoint3* FUN_00436aa0();
-    float GetActorHeight();
+    float Actor_GetHeight();
     void ArrowProjectile_Simulate(Ref8*);
     void ArrowProjectile_ApplyCollisionForce(NiPoint3, NiPoint3, Link8*);
     void ArrowProjectile_Bounce(const NiPoint3*, const NiPoint3*);
@@ -530,7 +530,7 @@ void Ref8::ArrowProjectile_CollideActor(const NiPoint3* start, const NiPoint3* e
         if (victim->GetBlocked() && victim->FUN_008d8520() && IsTargetInCone(victim, this, 0))
         {
             NiPoint3 position = *victim->FUN_00436aa0();
-            float top = victim->GetActorHeight() / DAT_01011590 + position.z;
+            float top = victim->Actor_GetHeight() / DAT_01011590 + position.z;
             if (top <= start->z)
                 overrideHit = true;
         }

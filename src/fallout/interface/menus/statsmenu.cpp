@@ -273,7 +273,7 @@ void StatsMenu::UpdatePrimaryActorValueTile(Tile* tile, ActorValue::Index value)
             int current;
             int permanent;
         } values;
-        values.current = g_thePlayer->GetActorValueAsInteger(value);
+        values.current = g_thePlayer->GetClampedActorValueI(value);
         values.permanent = g_thePlayer->GetPermanentActorValue(value);
         tile->Set(0x1005, values.current);
         if (values.permanent == values.current)
@@ -384,7 +384,7 @@ void __cdecl UpdateActorValueTile(Tile* apTile, ActorValue::Index aeIndex)
 {
     if (apTile)
     {
-        int ival = g_thePlayer->GetActorValueAsInteger(aeIndex);
+        int ival = g_thePlayer->GetClampedActorValueI(aeIndex);
         int ibase = g_thePlayer->GetPermanentActorValue(aeIndex);
         float fderivedVal = GetSkillValue((ActorValueOwner*)g_thePlayer, aeIndex, false);
         float fderivedBase = GetSkillValue((ActorValueOwner*)g_thePlayer, aeIndex, true);
@@ -560,7 +560,7 @@ struct StatsMenuActiveEffects : public StatsMenu
 struct AVH
 {
     static const char* __cdecl GetActorValueName(ActorValue::Index);
-    static ActorValue::Index __cdecl GetActorValueForSectionIndex(int, unsigned char);
+    static ActorValue::Index __cdecl ToActorValue(int, unsigned char);
     static unsigned int __cdecl GetCountForSection(int);
 };
 struct TutorialState
@@ -685,7 +685,7 @@ Tile* StatsMenu_Create()
             ->Initialize(StatsMenu::ms_pInventoryMenu->m_pTiles[6], (const char*)strtmp);
         for (int i = 0; i < AVH::GetCountForSection(0); i++)
         {
-            ActorValue::Index eindex = AVH::GetActorValueForSectionIndex(0, (unsigned char)i);
+            ActorValue::Index eindex = AVH::ToActorValue(0, (unsigned char)i);
             if (!P09AV::GetFlag(eindex, 0x2000) && eindex != 0x1f)
             {
                 Tile* ptmp =
@@ -698,7 +698,7 @@ Tile* StatsMenu_Create()
             ->Initialize(StatsMenu::ms_pInventoryMenu->m_pTiles[7], (const char*)strtmp);
         for (int i = 0; i < AVH::GetCountForSection(2); i++)
         {
-            ActorValue::Index eindex = AVH::GetActorValueForSectionIndex(2, (unsigned char)i);
+            ActorValue::Index eindex = AVH::ToActorValue(2, (unsigned char)i);
             if (!P09AV::GetFlag(eindex, 0x2000) && eindex != 0x1f)
             {
                 Tile* ptmp =
@@ -727,26 +727,26 @@ Tile* StatsMenu_Create()
         }
         StatsMenu::ms_pInventoryMenu->m_pTiles[47]->Set(0xfcc, "Interface\\shared\\solid_black.dds", true);
         StatsMenu::ms_pInventoryMenu->m_pTiles[47]->Set(0xfa3, 0);
-        TESForm* pform = BGSDefaultObjectManager::GetDefaultObjectByIndex(0);
+        TESForm* pform = BGSDefaultObjectManager::GetDefaultObject(0);
         StatsMenu::ms_pInventoryMenu->m_kHealingOptions[0].m_pHealingItem = dynamic_cast<AlchemyItem*>(pform);
         StatsMenu::ms_pInventoryMenu->m_kHealingOptions[0].pTile = StatsMenu::ms_pInventoryMenu->m_pTiles[10];
         StatsMenu::ms_pInventoryMenu->m_kHealingOptions[0].pTile->Set(
             0x1004, ((TESFullName*)dynamic_cast<TESFullName*>(pform))->GetFullName(), true);
         StatsMenu::ms_pInventoryMenu->m_kHealingOptions[0].m_pfnIsAvailable =
             (bool___cdecl__StatsMenu__HealingOption__*)IsActorValueBelowPermanent;
-        pform = BGSDefaultObjectManager::GetDefaultObjectByIndex(0x15);
+        pform = BGSDefaultObjectManager::GetDefaultObject(0x15);
         StatsMenu::ms_pInventoryMenu->m_kHealingOptions[3].m_pHealingItem = dynamic_cast<AlchemyItem*>(pform);
         StatsMenu::ms_pInventoryMenu->m_kHealingOptions[3].pTile = StatsMenu::ms_pInventoryMenu->m_pTiles[59];
         StatsMenu::ms_pInventoryMenu->m_kHealingOptions[3].pTile->Set(
             0x1004, ((TESFullName*)dynamic_cast<TESFullName*>(pform))->GetFullName(), true);
         StatsMenu::ms_pInventoryMenu->m_kHealingOptions[3].m_pfnIsAvailable =
             (bool___cdecl__StatsMenu__HealingOption__*)IsHealingOptionAvailable;
-        pform = BGSDefaultObjectManager::GetDefaultObjectByIndex(2);
+        pform = BGSDefaultObjectManager::GetDefaultObject(2);
         StatsMenu::ms_pInventoryMenu->m_kHealingOptions[1].m_pHealingItem = dynamic_cast<AlchemyItem*>(pform);
         StatsMenu::ms_pInventoryMenu->m_kHealingOptions[1].pTile = StatsMenu::ms_pInventoryMenu->m_pTiles[31];
         StatsMenu::ms_pInventoryMenu->m_kHealingOptions[1].pTile->Set(
             0x1004, ((TESFullName*)dynamic_cast<TESFullName*>(pform))->GetFullName(), true);
-        pform = BGSDefaultObjectManager::GetDefaultObjectByIndex(3);
+        pform = BGSDefaultObjectManager::GetDefaultObject(3);
         StatsMenu::ms_pInventoryMenu->m_kHealingOptions[2].m_pHealingItem = dynamic_cast<AlchemyItem*>(pform);
         StatsMenu::ms_pInventoryMenu->m_kHealingOptions[2].pTile = StatsMenu::ms_pInventoryMenu->m_pTiles[11];
         StatsMenu::ms_pInventoryMenu->m_kHealingOptions[2].pTile->Set(
@@ -869,7 +869,7 @@ struct StatsMenuImpl : public StatsMenu
 struct StatsMenuHelper : StatsMenu
 {
     Tile* FUN_00726070();
-    void UpdatePipboyNeedle();
+    void StatsMenu_UpdateRadLevel();
     void StatsMenu_UpdateActiveEffects();
     void UpdateOption(int mode);
     int StatsMenu_GetFaceFileNumber();
@@ -920,13 +920,13 @@ void StatsMenuImpl::UpdateStatEntry(int aeWhich)
         ((StatsMenuHelper*)this)->FUN_00726070()->Set(GetTraitForValue((ActorValue::Index)24), strtmp.String(), true);
         break;
     case 54:
-        ((StatsMenuHelper*)this)->UpdatePipboyNeedle();
+        ((StatsMenuHelper*)this)->StatsMenu_UpdateRadLevel();
         ((StatsMenuHelper*)this)->UpdateOption(2);
         ((StatsMenuHelper*)this)->StatsMenu_UpdateActiveEffects();
         break;
     case 20: {
         int iresist = MinInt((int)*originalRuntimeFloatSetting1017.Float(),
-                             g_thePlayer->GetActorValueAsInteger((ActorValue::Index)20));
+                             g_thePlayer->GetClampedActorValueI((ActorValue::Index)20));
         strtmp.PrintfString("%d%%", iresist);
         m_pTiles[38]->Set(0xfc4, strtmp.String(), true);
         ((StatsMenuHelper*)this)->StatsMenu_UpdateActiveEffects();
@@ -1098,7 +1098,7 @@ void StatsMenuEffectItemMethods::CopyFrom(EffectItem* apSource)
     SetMagnitude_004043d0(apSource->GetMagnitude());
     SetArea_00404470(apSource->GetArea());
     SetDuration_00404510(apSource->GetDuration());
-    SetOwner(apSource->GetAffectedActorValue());
+    SetOwner(apSource->GetActorValueIndex());
     EffectItem_SetConditions(apSource->GetConditions());
     m_fCost = -1.0f;
 }
@@ -1130,15 +1130,16 @@ const char* __cdecl GetReputationIcon();
 
 struct ReputationEntryMenuMethods : public StatsMenu
 {
-    void SetReputationEntry(TESReputation* pRep);
+    void StatsMenu_SetReputation(TESReputation* pRep);
 };
 
 // @fnv 0x007dcb40
-void ReputationEntryMenuMethods::SetReputationEntry(TESReputation* pRep)
+// src: COMMUNITY 0x007dcb40
+void ReputationEntryMenuMethods::StatsMenu_SetReputation(TESReputation* pRep)
 {
     if (!pRep)
         return;
-    m_pTiles[47]->Set(0xfcc, pRep->GetReputationName(), true);
+    m_pTiles[47]->Set(0xfcc, pRep->GetReputationMainIcon(), true);
     m_pTiles[47]->Set(0xfa3, 1);
     m_pTiles[48]->Set(0xfa3, 1);
     m_pTiles[51]->Set(0xfa3, 1);
@@ -1264,7 +1265,8 @@ int __cdecl CompareEntryNames(void* pEntryA, void* pEntryB)
 
 // Compares the effect names of two effects case-insensitively via _stricmp and returns the result.
 // @fnv 0x007e0540
-int __cdecl CompareEffectNames(EffectSetting* apEffectA, EffectSetting* apEffectB)
+// src: COMMUNITY 0x007e0540
+int __cdecl StatsMenu_NamedEffectSortFn(EffectSetting* apEffectA, EffectSetting* apEffectB)
 {
     return fnv_007e0510::_stricmp(apEffectA->GetEffectName(), apEffectB->GetEffectName());
 }
@@ -1410,15 +1412,15 @@ void _Deallocate(void*);
 
 struct FUN_0071f9c0_class
 {
-    void FUN_0071f9f0();
+    void StatsMenu_StatusEffect();
     void* FUN_0071f9c0(unsigned int flags);
 };
 
-// Calls FUN_0071f9f0, then deallocates this when flags has bit 0 set, and returns this.
+// Calls StatsMenu_StatusEffect, then deallocates this when flags has bit 0 set, and returns this.
 // @fnv 0x0071f9c0
 void* FUN_0071f9c0_class::FUN_0071f9c0(unsigned int flags)
 {
-    FUN_0071f9f0();
+    StatsMenu_StatusEffect();
     if (flags & 1)
         _Deallocate(this);
     return this;
@@ -1507,7 +1509,7 @@ struct G2
 {
     void AddHead(int*);
 };
-struct FUN_007e0b20_shell
+struct StatsMenu_StatusDataList
 {
     int pad00;
     G2 kList;  // +0x4
@@ -1516,11 +1518,11 @@ struct FUN_007e0b20_shell
 };
 
 // @fnv 0x007e0b20
-void FUN_007e0b20_shell::AddEffectItem(EffectItem* apEffect)
+void StatsMenu_StatusDataList::AddEffectItem(EffectItem* apEffect)
 {
     if (apEffect)
     {
-        FUN_00403ba0* pEntry = FindEntryByFormID(apEffect->GetAffectedActorValue());
+        FUN_00403ba0* pEntry = FindEntryByFormID(apEffect->GetActorValueIndex());
         if (pEntry)
         {
             pEntry->m_iMagnitude += apEffect->GetMagnitude();
@@ -1528,7 +1530,7 @@ void FUN_007e0b20_shell::AddEffectItem(EffectItem* apEffect)
         else
         {
             pEntry = new FUN_00403ba0;
-            pEntry->m_eAssociatedActorValue = apEffect->GetAffectedActorValue();
+            pEntry->m_eAssociatedActorValue = apEffect->GetActorValueIndex();
             pEntry->m_iMagnitude = apEffect->GetMagnitude();
             if (reinterpret_cast<EffectSetting*>(apEffect->GetEffectSetting())->IsFlagSet_00403e60(4))
                 pEntry->m_iMagnitude *= -1;
@@ -1640,12 +1642,13 @@ extern const StartMenu g_011d50b0;
 
 struct StatsMenuInitializationMethods : public StatsMenu
 {
-    void InitializeStatsMenu();
+    void StatsMenu_UpdateAll();
 };
 
 // Calls the base menu setup routines, then if the language is English, assigns localized text to the menu's tiles by index and by name.
 // @fnv 0x007dcc80
-void StatsMenuInitializationMethods::InitializeStatsMenu()
+// src: COMMUNITY 0x007dcc80
+void StatsMenuInitializationMethods::StatsMenu_UpdateAll()
 {
     this->UpdateActorValueTiles();
     reinterpret_cast<MiscStatMenuMethods*>(this)->TraverseListBox();
@@ -2200,7 +2203,7 @@ void S_007e0a20_Owner::ApplyParamToEntry(ActiveEffect* apParam)
 {
     if (apParam)
     {
-        S_007e0a20_Entry* pEntry = FindEntryByFormID(apParam->GetHavokWorldObjectCountInSceneGraph_0084e3a0()->GetAffectedActorValue());
+        S_007e0a20_Entry* pEntry = FindEntryByFormID(apParam->GetHavokWorldObjectCountInSceneGraph_0084e3a0()->GetActorValueIndex());
         if (pEntry)
         {
             pEntry->unk00 += (int)apParam->GetFloatAtOffset1C();
@@ -2208,7 +2211,7 @@ void S_007e0a20_Owner::ApplyParamToEntry(ActiveEffect* apParam)
         else
         {
             pEntry = new S_007e0a20_Entry;
-            pEntry->unk10 = apParam->GetHavokWorldObjectCountInSceneGraph_0084e3a0()->GetAffectedActorValue();
+            pEntry->unk10 = apParam->GetHavokWorldObjectCountInSceneGraph_0084e3a0()->GetActorValueIndex();
             pEntry->unk00 = (int)apParam->GetFloatAtOffset1C();
             m_kNode.AddHead(pEntry);
         }
@@ -2319,7 +2322,7 @@ void ClickMenu::StatsMenu_DoClick(int id, Tile* tile)
 {
     if (!tile && id >= 0 && id < 60)
         tile = m_pTiles[id];
-    if (InterfaceManager_Has360Controller() && !((Tile*)tile)->IsTraitNonZero(4015))
+    if (InterfaceManager_Has360Controller() && !((Tile*)tile)->Tile_IsTrue(4015))
         return;
     int skill;
     if (SetIndexFromType(id, &skill))
@@ -2358,7 +2361,7 @@ void ClickMenu::StatsMenu_DoClick(int id, Tile* tile)
             for (ClickNode* node = (ClickNode*)dynamic_cast<BSSimpleList<EffectItem*>*>(object);
                  node && node->FUN_006815c0(); node = node->FUN_00726070())
             {
-                UpdateStatEntry(((EffectItem*)node->FUN_006815c0())->GetAffectedActorValue());
+                UpdateStatEntry(((EffectItem*)node->FUN_006815c0())->GetActorValueIndex());
             }
             UpdateOption(i);
             m_bStatUpdatePending = false;
@@ -2385,7 +2388,7 @@ struct AcceptKeyMenuMethods : StatsMenu
 // src: XBOX_PDB 0x007dc0e0
 bool AcceptKeyMenuMethods::StatsMenu_DoGamepadUpEvent(int iKey, int iUnused)
 {
-    if (m_bUpdateOption && iKey == 10 && m_pTiles[9]->IsTraitNonZero(0xfaf))
+    if (m_bUpdateOption && iKey == 10 && m_pTiles[9]->Tile_IsTrue(0xfaf))
     {
         HandleSelection(9, 0);
         static_cast<StatsMenuAudioMethods*>(BSAudio::GetSingleton())
@@ -2409,7 +2412,7 @@ extern StatsMenu* DAT_011dace0;
 
 struct Host15 : StatsMenu
 {
-    void UpdatePipboyNeedle();
+    void StatsMenu_UpdateRadLevel();
     void StatsMenu_UpdateH20Level();
     void StatsMenu_UpdateFODLevel();
     void UpdateModifierTile();
@@ -2431,7 +2434,7 @@ void Host15::UpdateStatsMenu()
         {
             if (Cmd_GetSessionTime_Execute() >= DAT_011dad74)
             {
-                UpdatePipboyNeedle();
+                StatsMenu_UpdateRadLevel();
                 if (DAT_011dea3c && PlayerCharacter_IsHardcore(DAT_011dea3c))
                 {
                     StatsMenu_UpdateH20Level();
@@ -2622,11 +2625,12 @@ extern float g_fPipboyNeedleSpeed;
 struct NeedleMenuMethods : public Menu
 {
     Tile* GetMenuTile();
-    void UpdatePipboyNeedle();
+    void StatsMenu_UpdateRadLevel();
 };
 
 // @fnv 0x007ddb00
-void NeedleMenuMethods::UpdatePipboyNeedle()
+// src: COMMUNITY 0x007ddb00
+void NeedleMenuMethods::StatsMenu_UpdateRadLevel()
 {
     float fRange5 = GetMenuTile()->GetFloat(0x1008) * 1000.0;
     float fBase2 = -fRange5 / 2.0 + FUN_005c5420() * fRange5;
@@ -2827,7 +2831,7 @@ void NamedEffectListMethods::StatsMenu_NamedEffectsList_InsertActiveEffect(Activ
     EffectSetting* value = arg->FUN_007df1d0();
     if (!((FUN_007e09d0_sub*)&bSSimpleList_EffectSetting___Component)->BSSimpleList_TESLevSpell_IsInList(&value))
     {
-        ((FUN_007e09d0_sub*)&bSSimpleList_EffectSetting___Component)->BSSimpleList_ActiveEffect_Insert(arg->FUN_007df1d0(), CompareEffectNames);
+        ((FUN_007e09d0_sub*)&bSSimpleList_EffectSetting___Component)->BSSimpleList_ActiveEffect_Insert(arg->FUN_007df1d0(), StatsMenu_NamedEffectSortFn);
     }
 }
 
@@ -2956,7 +2960,7 @@ struct ListBoxInsert : ListBox_enum_ActorValue__Index_
     bool ListBox_unsigned_int_GetFlag(unsigned int);
     void ProcessSlots();
     void AccumulateTileHeight(Tile*);
-    void UpdateScrollTraits();
+    void ListBox_UpdateScrollBar();
     int GetRaceCount();
     Tile* StatsMenu_ReputationList_Append(ActorValue::Index value, const char* text,
                        int(__cdecl* comparator)(FUN_007a62e0*, FUN_007a62e0*), const char* templateName);
@@ -2989,7 +2993,7 @@ Tile* ListBoxInsert::StatsMenu_ReputationList_Append(ActorValue::Index value, co
             if (ListBox_unsigned_int_GetFlag(0))
             {
                 AccumulateTileHeight(tile);
-                UpdateScrollTraits();
+                ListBox_UpdateScrollBar();
             }
             tile->Set(0xFAC, m_usSelectedIndex++);
         }
@@ -3065,7 +3069,7 @@ struct ClickMenu : public StatsMenu
     void StatsMenu_MoveKnob(Tile*, int*);
     void UpdateStatsDisplay(void*);
     void UpdateScrollBar(void*);
-    void SetReputationEntry(void*);
+    void StatsMenu_SetReputation(void*);
     void FUN_007e0230();
     void OnTileClick(int id, Tile* tile);
 };
@@ -3123,7 +3127,7 @@ void ClickMenu::OnTileClick(int aiTileIndex, Tile* tile)
             StatsMenu_MoveKnob(tile, &DAT_011dad70);
         if (((ListClick*)&m_kReputationList)->ContainsKey(tile))
         {
-            SetReputationEntry(((ListClick*)&m_kReputationList)->FindItemData(tile));
+            StatsMenu_SetReputation(((ListClick*)&m_kReputationList)->FindItemData(tile));
             StatsMenu_MoveKnob(tile, &DAT_011dad70);
         }
         break;
@@ -3211,7 +3215,7 @@ void StatsMenuActiveEffects::StatsMenu_UpdateActiveEffects()
          pnode && (pactiveEffect = pnode->GetItem()); pnode = pnode->GetNext())
     {
         if (((ActiveEffect*)pactiveEffect)->ActiveEffect_IsActive() &&
-            !((EffectItem*)((ActiveEffect*)pactiveEffect)->GetHavokWorldObjectCountInSceneGraph_0084e3a0())->IsScriptBasedEffect() &&
+            !((EffectItem*)((ActiveEffect*)pactiveEffect)->GetHavokWorldObjectCountInSceneGraph_0084e3a0())->IsUsageMonitorEffect() &&
             (!pactiveEffect->GetEffectSetting()->IsScriptEffect() ||
              ((EffectSetting*)pactiveEffect->GetEffectSetting())->IsFlagSet(0x2000)))
         {
@@ -3246,7 +3250,7 @@ void StatsMenuActiveEffects::StatsMenu_UpdateActiveEffects()
             }
             if (((EffectItem*)((ActiveEffect*)pactiveEffect)->GetHavokWorldObjectCountInSceneGraph_0084e3a0())->IsActorValueUsed() &&
                 ActorValue_GetActorValueAbbreviation(
-                    ((EffectItem*)((ActiveEffect*)pactiveEffect)->GetHavokWorldObjectCountInSceneGraph_0084e3a0())->GetAffectedActorValue()) &&
+                    ((EffectItem*)((ActiveEffect*)pactiveEffect)->GetHavokWorldObjectCountInSceneGraph_0084e3a0())->GetActorValueIndex()) &&
                 (pactiveEffect->GetDuration() != 0.0 || ((int (__thiscall*)(ActiveEffect*))GetActiveEffectSpellType)(pactiveEffect) == 1 ||
                  ((int (__thiscall*)(ActiveEffect*))GetActiveEffectSpellType)(pactiveEffect) == 6 ||
                  ((int (__thiscall*)(ActiveEffect*))GetActiveEffectSpellType)(pactiveEffect) == 10 ||
@@ -3469,7 +3473,7 @@ InputInterface* __cdecl InterfaceManager_GetSingleton();
 bool __cdecl Interface_Has360Controller();
 struct InputControls
 {
-    int GetAxisState(int, int);
+    int OSInputGlobals_GetControllerValue(int, int);
 };
 struct InputOS
 {
@@ -3607,7 +3611,7 @@ bool InputStats::StatsMenu_DoGamepad(int code, float amount)
                 switch (StatsMenu_GetStatusPage())
                 {
                 case 0:
-                    if (!m_bUpdateOption && ((Tile*)m_pTiles[9])->IsTraitNonZero(0xfaf))
+                    if (!m_bUpdateOption && ((Tile*)m_pTiles[9])->Tile_IsTrue(0xfaf))
                     {
                         HandleSelection(9, 0);
                         static_cast<StatsMenuAudioMethods*>(BSAudio_QInstance())
@@ -3627,7 +3631,7 @@ bool InputStats::StatsMenu_DoGamepad(int code, float amount)
                 switch (StatsMenu_GetStatusPage())
                 {
                 case 0:
-                    if (((Tile*)m_pTiles[9])->IsTraitNonZero(0xfaf))
+                    if (((Tile*)m_pTiles[9])->Tile_IsTrue(0xfaf))
                     {
                         HandleSelection(59, 0);
                         static_cast<StatsMenuAudioMethods*>(BSAudio_QInstance())
@@ -3645,11 +3649,11 @@ bool InputStats::StatsMenu_DoGamepad(int code, float amount)
         }
         if (Interface_Has360Controller() &&
             (((InputList*)&m_kStatusEffectList)->FUN_00825c00()->IsAllChildrenFlag0() ||
-             ((Tile*)((InputChildren*)&m_pTiles[26]->m_kChildTileList)->FUN_007b5370())->IsTraitNonZero(0xfa3)))
+             ((Tile*)((InputChildren*)&m_pTiles[26]->m_kChildTileList)->FUN_007b5370())->Tile_IsTrue(0xfa3)))
         {
             int axisB = 0;
             int scrollStepVal4 = 0;
-            axisB = g_osGlobals->Main_GetControls()->GetAxisState(0, 10);
+            axisB = g_osGlobals->Main_GetControls()->OSInputGlobals_GetControllerValue(0, 10);
             if (NiAbs_00408820((float)axisB) <= 8689.0)
                 axisB = 0;
             if (axisB != 0)

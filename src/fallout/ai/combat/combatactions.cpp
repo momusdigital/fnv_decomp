@@ -93,12 +93,14 @@ void CombatAction::AddFirstSoundEntry(int state, int value)
 }
 // Forwards state and value to AddSoundEntry on the member object.
 // @fnv 0x0097bc60
-void CombatAction::AddSecondSoundEntry(int state, int value)
+// src: COMMUNITY 0x0097bc60
+void CombatAction::AddPossibleEffect(int state, int value)
 {
     m_kSecondSoundEntryNode.AddSoundEntry(state, value);
 }
 // @fnv 0x0097c070
-void CombatAction::RemoveActionWorldStateByOwner(int state)
+// src: COMMUNITY 0x0097c070
+void CombatAction::RemovePrecondition(int state)
 {
     m_kActionWorldStateNode.RemoveItemByOwner(state);
 }
@@ -108,7 +110,8 @@ void CombatAction::RemoveEffectByOwner(int state)
     Effects.RemoveItemByOwner(state);
 }
 // @fnv 0x0097c260
-void CombatAction::RemoveFirstSoundEntryByOwner(int state)
+// src: COMMUNITY 0x0097c260
+void CombatAction::RemoveExecutionCondition(int state)
 {
     m_kFirstSoundEntryNode.RemoveItemByOwner(state);
 }
@@ -219,59 +222,59 @@ CombatActionMove::CombatActionMove(COMBAT_ACTION action) : CombatAction(action)
     AddFirstSoundEntry(18, 17);
     AddActionWorldState(10, -65512);
     AddEffect(1, -1);
-    AddSecondSoundEntry(6, 0);
+    AddPossibleEffect(6, 0);
 }
 // @fnv 0x0097bfe0
 CombatActionMoveAndSwitchToMelee::CombatActionMoveAndSwitchToMelee(COMBAT_ACTION action) : CombatActionMove(action)
 {
-    RemoveActionWorldStateByOwner(10);
+    RemovePrecondition(10);
     AddFirstSoundEntry(12, 2);
-    AddSecondSoundEntry(11, 2);
-    AddSecondSoundEntry(10, 2);
+    AddPossibleEffect(11, 2);
+    AddPossibleEffect(10, 2);
 }
 // @fnv 0x0097c170
 CombatActionMoveAndAttackRanged::CombatActionMoveAndAttackRanged(COMBAT_ACTION action)
     : CombatActionAttackRanged(action)
 {
-    RemoveFirstSoundEntryByOwner(3);
-    RemoveFirstSoundEntryByOwner(18);
-    RemoveActionWorldStateByOwner(1);
-    RemoveActionWorldStateByOwner(6);
-    RemoveActionWorldStateByOwner(5);
+    RemoveExecutionCondition(3);
+    RemoveExecutionCondition(18);
+    RemovePrecondition(1);
+    RemovePrecondition(6);
+    RemovePrecondition(5);
     RemoveEffectByOwner(0);
     AddFirstSoundEntry(18, 17);
     AddFirstSoundEntry(15, 0);
     AddEffect(1, -1);
-    AddSecondSoundEntry(6, 0);
+    AddPossibleEffect(6, 0);
 }
 // @fnv 0x0097c3a0
 CombatActionMoveAndAttackRangedExplosive::CombatActionMoveAndAttackRangedExplosive(COMBAT_ACTION action)
     : CombatActionAttackRangedExplosive(action)
 {
-    RemoveFirstSoundEntryByOwner(3);
-    RemoveFirstSoundEntryByOwner(18);
-    RemoveActionWorldStateByOwner(1);
-    RemoveActionWorldStateByOwner(6);
-    RemoveActionWorldStateByOwner(5);
+    RemoveExecutionCondition(3);
+    RemoveExecutionCondition(18);
+    RemovePrecondition(1);
+    RemovePrecondition(6);
+    RemovePrecondition(5);
     RemoveEffectByOwner(0);
     AddFirstSoundEntry(18, 17);
     AddFirstSoundEntry(15, 0);
     AddEffect(1, -1);
-    AddSecondSoundEntry(6, 0);
+    AddPossibleEffect(6, 0);
 }
 // @fnv 0x0097c560
 CombatActionMoveAndAttackGrenade::CombatActionMoveAndAttackGrenade(COMBAT_ACTION action)
     : CombatActionAttackGrenade(action)
 {
-    RemoveFirstSoundEntryByOwner(3);
-    RemoveActionWorldStateByOwner(1);
-    RemoveActionWorldStateByOwner(6);
-    RemoveActionWorldStateByOwner(5);
+    RemoveExecutionCondition(3);
+    RemovePrecondition(1);
+    RemovePrecondition(6);
+    RemovePrecondition(5);
     RemoveEffectByOwner(0);
     AddFirstSoundEntry(18, 17);
     AddFirstSoundEntry(15, 0);
     AddEffect(1, -1);
-    AddSecondSoundEntry(6, 0);
+    AddPossibleEffect(6, 0);
 }
 // @fnv 0x0097c700
 CombatActionDrawWeapon::CombatActionDrawWeapon(COMBAT_ACTION action) : CombatAction(action)
@@ -1169,7 +1172,7 @@ void CombatActionMove_StartMovementProcedure(CombatController* apCombatControlle
 //
 // The original reads a 32-bit field at this+0x1C, masks it with the
 // stack argument and returns the (non-zero) result of that test.
-struct FUN_0097be60_cls
+struct CombatLocation
 {
     int unk00;
     int unk04;
@@ -1184,7 +1187,7 @@ struct FUN_0097be60_cls
 
 // @fnv 0x0097be60
 // src: COMMUNITY 0x0097be60
-unsigned char FUN_0097be60_cls::CombatLocation_GetFlag(unsigned int aValue)
+unsigned char CombatLocation::CombatLocation_GetFlag(unsigned int aValue)
 {
     return (m_1c & aValue) != 0;
 }
