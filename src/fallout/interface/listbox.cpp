@@ -2783,7 +2783,7 @@ struct FUN_007d8da0_cls
     void ListBox_BGSSaveLoadFileEntry_DeselectAll(bool bFlag);
 };
 
-// Iterates the list starting at this+4 and calls FUN_007d8d80 on each tile, skipping entries whose byte at offset 8 is set when bFlag is true.
+// Iterates the list starting at this+4 and calls SetSelection_Thunk on each tile, skipping entries whose byte at offset 8 is set when bFlag is true.
 // @fnv 0x007d8da0
 // src: COMMUNITY 0x007d8da0
 void FUN_007d8da0_cls::ListBox_BGSSaveLoadFileEntry_DeselectAll(bool abSkipFlagged)

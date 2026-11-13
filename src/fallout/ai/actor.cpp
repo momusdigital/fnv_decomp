@@ -2845,7 +2845,7 @@ struct blob12
 
 void __fastcall CachedValues_SetDirty(int, blob4);
 
-// If the pointer at pThis[11] is non-null, forwards the blob4 argument to FUN_00884970 along with that pointer.
+// If the pointer at pThis[11] is non-null, forwards the blob4 argument to CachedValues_SetDirty along with that pointer.
 // @fnv 0x00884940
 // src: XBOX_PDB 0x00884940
 void __fastcall BaseProcess_SetCachedValueDirty(int* pThis, blob4 aBlob)

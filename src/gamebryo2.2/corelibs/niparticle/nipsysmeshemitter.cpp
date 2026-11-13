@@ -2207,7 +2207,7 @@ struct NiSkinRaw790
 
 struct NiSkinSlot790
 {
-    void __thiscall FUN_00c1f360(NiGeometry** pp);
+    void __thiscall AddFirstEmpty(NiGeometry** pp);
     void __thiscall FUN_00c1f420(NiGeometry** pp);
 };
 
@@ -2227,7 +2227,7 @@ void __thiscall FUN_00c1f790_cls::SetSkinGeom(NiGeometry* pkGeom)
     {
         NiGeometry* temp = pSkinGeom;
         InterlockedIncrement(reinterpret_cast<volatile LONG*>(&pSkinGeom->m_uiRefCount));
-        reinterpret_cast<NiSkinSlot790*>(&m_54)->FUN_00c1f360(&temp);
+        reinterpret_cast<NiSkinSlot790*>(&m_54)->AddFirstEmpty(&temp);
         if (InterlockedDecrement(reinterpret_cast<volatile LONG*>(&pSkinGeom->m_uiRefCount)) == 0)
         {
             pSkinGeom->DeleteThis();

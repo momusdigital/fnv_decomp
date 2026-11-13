@@ -2362,7 +2362,7 @@ struct SomeClass
     bool RemoveEntryFromBothLists(unsigned int index);
 };
 
-// Looks up index via FUN_0086bb70; if found, removes that entry from the two lists at offsets 0xad4 and 0xae4 and returns true, else false.
+// Looks up index via FindIndexedValue; if found, removes that entry from the two lists at offsets 0xad4 and 0xae4 and returns true, else false.
 // @fnv 0x0086bb20
 // src: GUESS 0x0086bb20 (confidence: medium)
 bool SomeClass::RemoveEntryFromBothLists(unsigned int index)

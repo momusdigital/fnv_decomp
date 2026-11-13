@@ -45,7 +45,7 @@ void SaveLoadChangeHistory::Init()
     reinterpret_cast<BSSimpleList<ActorCause*>*>(reinterpret_cast<char*>(this) + 0x5fc)->RemoveAll();
 }
 
-// Calls FUN_0084c2a0 twice, with (0, 12) and (1000, 1001), passing flags through to each call.
+// Calls BGSSaveLoadGlobalData_RevertGlobalDataRange twice, with (0, 12) and (1000, 1001), passing flags through to each call.
 // @fnv 0x0084c270
 void BGSSaveLoadHistory_Destroy(unsigned char flags)
 {

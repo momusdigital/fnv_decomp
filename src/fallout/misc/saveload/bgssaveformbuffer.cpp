@@ -27,7 +27,7 @@ void __thiscall FUN_00865aa0_shell::SetFlags(unsigned int a)
 
 unsigned int __cdecl GetSizeTypeForSize(unsigned int);
 unsigned int __cdecl GetSizeTypeSize(unsigned int);
-// Calls FUN_0084e3a0, passes the result through FUN_00845d40 and FUN_00845d70, then returns that value plus 9.
+// Calls FUN_0084e3a0, passes the result through GetSizeTypeForSize and FUN_00845d70, then returns that value plus 9.
 // @fnv 0x00865b10
 unsigned int __thiscall BGSSaveFormBuffer::GetSize()
 {

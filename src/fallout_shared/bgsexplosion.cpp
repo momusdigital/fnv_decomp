@@ -6,7 +6,7 @@
 #include "bgsexplosion_types_BGSExplosion.h"
 #include "bgsexplosion_decls.h"
 
-// Clears the explosion's field to 0 and calls InitExplosionData on the object returned by FUN_004fadc0.
+// Clears the explosion's field to 0 and calls InitExplosionData on the object returned by GetData_004fadc0.
 // @fnv 0x004fade0
 void BGSExplosion::ResetFormData()
 {

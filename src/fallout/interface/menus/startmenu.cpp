@@ -5136,7 +5136,7 @@ struct LBInt
     int FindItemData(Tile*);
     bool ContainsKey(Tile*);
     bool ListBox_int_IsEnabled();
-    void FUN_007d7bd0(int);
+    void SetEnabled(int);
     char rest[0x2c];
 };
 struct LBSave
@@ -5214,7 +5214,7 @@ void ClickMenuOperations::StartMenu_DoClick(int reason, Tile* tile)
             if (reinterpret_cast<LBInt&>(DAT_011daac0->m_kOptionIndexList).ListBox_int_IsEnabled())
             {
                 ((ClickMenuOperations*)DAT_011daac0)->FadeTile(14, 0, 0x80000000, -1.0f);
-                reinterpret_cast<LBInt&>(DAT_011daac0->m_kOptionIndexList).FUN_007d7bd0(0);
+                reinterpret_cast<LBInt&>(DAT_011daac0->m_kOptionIndexList).SetEnabled(0);
             }
             FadeTile(1, 0, 0x80000000, -1.0f);
             reinterpret_cast<LBOpt&>(m_kSecondOptionListBox).ListBox_StartMenu_Option_SetEnabled(0);
@@ -8247,7 +8247,7 @@ struct ListBox4bc0
 {
     Tile_4bc0* AddItem(int aiValue, const char* apcText, int(__cdecl* apfnSort)(ListBoxItem_4bc0*, ListBoxItem_4bc0*),
                        const char* apcTileName);
-    void FUN_007d7bd0(bool abVal);
+    void SetEnabled(bool abVal);
 };
 
 // StartMenu.h lacks the file-list activation operation.
@@ -8266,7 +8266,7 @@ void FileListActivation::StartMenu_ShowDLCList()
 {
     if (!GetRaceCount(reinterpret_cast<ListBox4bc0*>(&m_kOptionIndexList)))
         reinterpret_cast<ListBox4bc0&>(m_kOptionIndexList).AddItem(-1, g_011d3ad4.GetMenuTitle(), 0, 0);
-    reinterpret_cast<ListBox4bc0&>(m_kOptionIndexList).FUN_007d7bd0(true);
+    reinterpret_cast<ListBox4bc0&>(m_kOptionIndexList).SetEnabled(true);
     FadeTile(14, 1, 0x80000000, -1.0f);
     FadeTile(5, 1, 0x80000000, -1.0f);
 }

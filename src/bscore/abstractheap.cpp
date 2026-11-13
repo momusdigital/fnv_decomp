@@ -276,7 +276,7 @@ void AbstractHeap::BaseFree(void* pointer)
     fnv_LeaveCriticalSection(&CriticalSectionO);
 }
 
-// Removes the given block from the free list corresponding to its size by calling FUN_00aa9e50.
+// Removes the given block from the free list corresponding to its size by calling RemoveBlockFromFreeList_00aa9e50.
 // @fnv 0x00aaa660
 inline void AbstractHeap::RemoveBlockFromFreeList(HeapFreeBlock* block)
 {

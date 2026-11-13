@@ -1845,7 +1845,7 @@ struct MapH
 
 struct Map6920
 {
-    void FUN_006c6920(unsigned int, NiPointer<ObstacleData>);
+    void SetAt(unsigned int, NiPointer<ObstacleData>);
 };
 struct List_009e03e0
 {
@@ -1893,7 +1893,7 @@ bool FUN_006c4fb0_shell::ProcessDoorObstacles()
                 }
             }
             ((MapH*)((char*)this + 0x110))->RemoveAt(doorId);
-            ((Map6920*)((char*)this + 0x100))->FUN_006c6920(doorId, *reinterpret_cast<NiPointer<ObstacleData>*>(&spArray));
+            ((Map6920*)((char*)this + 0x100))->SetAt(doorId, *reinterpret_cast<NiPointer<ObstacleData>*>(&spArray));
         }
     }
     ((List_009e03e0*)((char*)this + 0xf8))->RemoveAll();
@@ -3660,11 +3660,11 @@ struct Key_c1190
 struct HolderMap_c1190
 {
     bool NiTMapBase_DFALL_NiTMapItem_bhkRigidBody_NiPointer_ObstacleData_bhkRigidBody_NiPointer_ObstacleData_GetAt(unsigned int key, NiPointer<Holder_c1190>* out);
-    void FUN_006c6920(unsigned int key, NiPointer<Holder_c1190> val);
+    void SetAt(unsigned int key, NiPointer<Holder_c1190> val);
 };
 struct ObsMap_c1190
 {
-    void FUN_006c6920(Kind_c1190* key, NiPointer<Obs_c1190> val);
+    void SetAt(Kind_c1190* key, NiPointer<Obs_c1190> val);
 };
 void __cdecl NavMeshObstacleManager_AddObstaclesForReference(Key_c1190* key, NiPointer<Holder_c1190>& holder);
 void __cdecl NavMeshObstacleManager_UpdateObstacleActiveStatus(const NiPointer<Obs_c1190>& obst);
@@ -3685,12 +3685,12 @@ void Mgr_c1190::RegisterKey(Key_c1190* key)
     {
         spHolder = new Holder_c1190;
         NavMeshObstacleManager_AddObstaclesForReference(key, spHolder);
-        ((HolderMap_c1190*)((char*)this + 0x1c))->FUN_006c6920(key->GetHavokWorldObjectCountInSceneGraph_0084e3a0(), spHolder);
+        ((HolderMap_c1190*)((char*)this + 0x1c))->SetAt(key->GetHavokWorldObjectCountInSceneGraph_0084e3a0(), spHolder);
     }
     for (unsigned int i = 0; i < spHolder->kObstacles.FUN_0044ddc0(); i++)
     {
         NiPointer<Obs_c1190> spObst(spHolder->kObstacles.FUN_00877a30(i));
-        ((ObsMap_c1190*)((char*)this + 0xe0))->FUN_006c6920(spObst->m_spKind, spObst);
+        ((ObsMap_c1190*)((char*)this + 0xe0))->SetAt(spObst->m_spKind, spObst);
         NavMeshObstacleManager_AddListeners(spObst->m_spKind);
         if (spObst->m_spKind->IsActive_005609b0())
         {
@@ -5994,7 +5994,7 @@ struct M100
 };
 struct M110
 {
-    void FUN_006c6920(int k, NiPointer<ElemX> p);
+    void SetAt(int k, NiPointer<ElemX> p);
 };
 class SelfX
 {
@@ -6042,7 +6042,7 @@ bool SelfX::NavMeshObstacleManager_ProcessNewDoors()
                     }
                 }
                 m100.RemoveKey(pkObj->GetHavokWorldObjectCountInSceneGraph_0084e3a0());
-                m110.FUN_006c6920(pkObj->GetHavokWorldObjectCountInSceneGraph_0084e3a0(), spScreenData);
+                m110.SetAt(pkObj->GetHavokWorldObjectCountInSceneGraph_0084e3a0(), spScreenData);
                 bChanged = true;
             }
             m_kList.RemoveMatchingItem(&pkObj);

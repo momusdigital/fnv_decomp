@@ -1892,7 +1892,7 @@ void* FUN_00ec61c0(void* pvDest, int iValue, unsigned int uiSize);
 typedef void*(__thiscall* CtorStubEA0)(void*);
 extern "C" void __stdcall _vector_constructor_iterator(void* apvArray, unsigned int uiElemSize, int iCount,
                                                        CtorStubEA0 pfnCtor);
-void FUN_00a67aa0(NiStream& kStream, void* pvDest, int iCount);
+void ReadNiPoint2Array(NiStream& kStream, void* pvDest, int iCount);
 void Object_DoNothing(const char* pcFmt, const char* pcName, int iKBytes);
 
 class GeomEA0 : public ObjEA0
@@ -2093,7 +2093,7 @@ void GeomEA0::ReadBinary(NiStream& kStream)
             {
                 unsigned int uiExtraCount = ((unsigned short)uiTextureFlags - 1) * m_usVertices;
                 NiPoint2* pkTemp = new NiPoint2[uiExtraCount];
-                FUN_00a67aa0(kStream, pkTemp, uiExtraCount);
+                ReadNiPoint2Array(kStream, pkTemp, uiExtraCount);
                 g_memoryManager.Deallocate(pkTemp);
                 Object_DoNothing(&UNK_0109c040, kStream.m_acFileName, (uiExtraCount * 8) >> 10);
             }

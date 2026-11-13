@@ -561,7 +561,7 @@ void __fastcall BSAudio_PauseWorldVoices(BSAudio*);
 int __fastcall SPECIALBookMenu_GetTotalPointsUsed(void* object);
 void __cdecl SPECIALBookMenu_Close();
 
-// If DAT_011daa38 is set and FUN_00794d80 returns its element 22, calls FUN_007c6120; otherwise plays the "UIActivateNothing" sound via BSAudio.
+// If DAT_011daa38 is set and SPECIALBookMenu_GetTotalPointsUsed returns its element 22, calls FUN_007c6120; otherwise plays the "UIActivateNothing" sound via BSAudio.
 // @fnv 0x007cac30
 // src: GUESS 0x007cac30 (confidence: high)
 void __cdecl BSAudio_CloseBookMenuOrPlayInactiveSound()
@@ -746,7 +746,7 @@ struct FUN_007ca8e0_Params
     unsigned int m_unknown08;
     FUN_007ca530_CallbackBase* callback;
 };
-// Calls the callback with a value from one of two source objects on DAT_011daa38, chosen by comparing FUN_00794d80's result against the field at offset 0x58.
+// Calls the callback with a value from one of two source objects on DAT_011daa38, chosen by comparing SPECIALBookMenu_GetTotalPointsUsed's result against the field at offset 0x58.
 // @fnv 0x007ca8e0
 void __cdecl DispatchSourceCallback(FUN_007ca8e0_Params* params)
 {

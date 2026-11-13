@@ -59,7 +59,7 @@ public:
     virtual const char* GetShaderType();
     virtual bool LoadCacheFile();
     virtual bool CanCreateDirectory();
-    virtual bool vf28();
+    virtual bool ClearGPUProgramCache();
     virtual char IsLoaded_00ee8aa0();
     virtual unsigned char IsLocked_00ee8ab0();
     virtual bool RemoveMissingKeys(void* keys, void* entries);
@@ -80,7 +80,6 @@ public:
         return reinterpret_cast<ObjectMap&>(m_kObjectMap);
     }
 
-    bool FUN_00ee8e70();
     char* GetShaderProfile();
     bool Save_00ee9620();
     bool CanOpen();
