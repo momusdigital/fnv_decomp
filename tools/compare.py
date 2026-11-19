@@ -108,24 +108,51 @@ class Pe:
         raise ValueError('original range not backed by PE file bytes')
 
 
+# Literals: floating-point constants (__real@, __xmm@: the name spells the bytes) and string literals (??_C@, $SG).
 LITERAL = re.compile(r'^(\$SG\d+$|\?\?_C@|__real@[0-9a-f]+$|__xmm@[0-9a-f]+$)')
-def same_literal(coff, pe, symbol, expected, observed):
-    """A string or floating-point literal whose exact bytes the original holds at the address it uses: the same
-    literal in another pooled copy (which copy the linker keeps is not decided by the source)."""
+# RTTI type descriptors: a class written as a struct (or in another namespace) changes only their name
+RTTI_NAME = re.compile(r'^\?\?_R0')
+
+
+def own_data(coff, symbol):
+    """(bytes, masked offsets) that the object gives a data symbol, or None when it gives none (code, an external,
+    uninitialized data). A floating-point literal is the bytes its name spells; a string literal runs through its
+    terminator; any other symbol runs to the next symbol in its section, without trailing zero bytes (alignment
+    padding, or where the next object starts: the object does not say how long a variable is). Relocated fields are
+    masked: they hold link-time addresses, not the unit's data."""
     name = symbol['name']
-    if not LITERAL.match(name):
-        return False
     if name.startswith(('__real@', '__xmm@')):
-        data = bytes.fromhex(name.split('@', 1)[1])[::-1]
-    elif symbol['section'] > 0:
-        sec = coff.sections[symbol['section']]['data']; start = symbol['value']; end = sec.find(b'\0', start)
-        data = sec[start:end + 1 if end >= 0 else len(sec)]
-    else:
-        return False
+        return bytes.fromhex(name.split('@', 1)[1])[::-1], set()
+    if symbol['section'] <= 0:
+        return None
+    sec = coff.sections[symbol['section']]
+    if sec['flags'] & 0x20000020 or sec['flags'] & 0x80:   # code, or uninitialized data
+        return None
+    start = symbol['value']
+    starts = coff.__dict__.setdefault('_starts', {})
+    if symbol['section'] not in starts:
+        starts[symbol['section']] = sorted({s['value'] for s in coff.symbols.values() if s['section'] == symbol['section']})
+    later = [v for v in starts[symbol['section']] if v > start]
+    end = later[0] if later else len(sec['data'])
+    mask = {o - start + i for o, _, _ in sec['relocs'] if start <= o < end for i in range(4)}
+    data = bytes(0 if i in mask else b for i, b in enumerate(sec['data'][start:end]))
+    if LITERAL.match(name):   # a string: its characters and one terminator (two bytes for a wide ??_C@_1 literal)
+        core = data.rstrip(b'\0')
+        width = 2 if name.startswith('??_C@_1') else 1
+        core += b'\0' * (len(core) % width)
+        return core + b'\0' * width, set()
+    data = data.rstrip(b'\0')
+    return data, {i for i in mask if i < len(data)}
+
+
+def data_differs(pe, own, at):
+    """Bytes of `own` (from own_data) that the game does not hold at `at`; None when the range is not in the file."""
+    data, mask = own
     try:
-        return len(data) > 0 and pe.read(observed, len(data)) == data and pe.read(expected, len(data)) == data
-    except Exception:
-        return False
+        original = pe.read(at, len(data))
+    except ValueError:
+        return None
+    return [i for i in range(len(data)) if i not in mask and data[i] != original[i]]
 
 
 def compare(coff, pe, manifest, spans=None):
@@ -174,7 +201,7 @@ def compare(coff, pe, manifest, spans=None):
         start = symbol['value']
         compiled = section['data'][start:start+size]
         original = pe.read(address, size)
-        errors, relocation_reports, mask = [], [], set()
+        errors, relocation_reports, mask, warnings = [], [], set(), []
         # /Gy gives each function its own code COMDAT. For other objects, bound
         # it by the next function or section end, so trailing bytes cannot pass.
         # Catch funclets (__catch$...) sit inside the original function's span: they do not end the function.
@@ -197,31 +224,53 @@ def compare(coff, pe, manifest, spans=None):
                 if relative+4 > size:
                     raise ValueError('relocation crosses function end')
                 target_symbol = coff.symbols[index]
-                record['symbol'] = target_symbol['name']
+                name = target_symbol['name']
+                record['symbol'] = name
+                own = own_data(coff, target_symbol)
+                # A literal is placed by its bytes, never by a binding: the game keeps a copy of each value somewhere,
+                # and which copy is the linker's choice. Its bytes must be what the game holds where the original
+                # refers, so a literal written with another value never matches, whatever build/units.json says.
+                by_content = own is not None and LITERAL.match(name) is not None
                 addend, = struct.unpack_from('<I', compiled, relative)
                 if kind == 0x14: # IMAGE_REL_I386_REL32
-                    signed_addend, = struct.unpack_from('<i', compiled, relative)
+                    used, = struct.unpack_from('<i', compiled, relative)
                     displacement, = struct.unpack_from('<i', original, relative)
-                    expected = resolve(target_symbol, signed_addend) & 0xffffffff
                     observed = (address + relative + 4 + displacement) & 0xffffffff
                 elif kind == 0x06: # IMAGE_REL_I386_DIR32
-                    expected = resolve(target_symbol, addend) & 0xffffffff
+                    used = addend
                     observed, = struct.unpack_from('<I', original, relative)
                 elif kind == 0x07: # IMAGE_REL_I386_DIR32NB
-                    expected = resolve(target_symbol, addend) & 0xffffffff
+                    used = addend
                     observed = (struct.unpack_from('<I', original, relative)[0] + pe.base) & 0xffffffff
                 elif kind == 0x0B: # IMAGE_REL_I386_SECREL: thread-local variable offset inside .tls
-                    expected = pe.secrel(resolve(target_symbol, addend)) & 0xffffffff
+                    used = addend
                     observed, = struct.unpack_from('<I', original, relative)
                 else:
                     raise ValueError('unsupported relocation kind %d' % kind)
+                if kind == 0x0B:
+                    expected = pe.secrel(resolve(target_symbol, addend)) & 0xffffffff
+                elif by_content:
+                    expected = observed
+                    record['by_content'] = True
+                else:
+                    expected = resolve(target_symbol, used) & 0xffffffff
                 record.update(expected='0x%08x' % expected, observed='0x%08x' % observed)
-                if expected != observed and same_literal(coff, pe, target_symbol, expected, observed):
-                    expected = observed   # the same literal bytes in another pooled copy: the linker picks the copy, not the source
-                    record['duplicate_literal'] = True
                 if expected != observed:
                     raise ValueError('original relocation target differs at +0x%x (%s): yours resolves to 0x%08x, original 0x%08x'
                                      % (relative, target_symbol['name'], expected, observed))
+                if own is not None and kind != 0x0B:
+                    # data the unit defines itself (a literal, a global's initializer, an RTTI descriptor): the game
+                    # must hold the same bytes where the original refers
+                    at = (observed - used) & 0xffffffff
+                    bad = data_differs(pe, own, at)
+                    if bad is None or bad:
+                        what = ('%s %s at 0x%08x: the game holds other bytes there%s'
+                                % ('literal' if by_content else 'data', name, at,
+                                   '' if bad is None else ' (%d of %d bytes differ)' % (len(bad), len(own[0]))))
+                        if RTTI_NAME.match(name):
+                            warnings.append(what)   # a type's class-key or namespace: reported, not yet counted
+                        else:
+                            raise ValueError(what)
                 mask.update(range(relative, relative+4))
                 record['match'] = True
             except (ValueError, KeyError, struct.error) as error:
@@ -236,7 +285,7 @@ def compare(coff, pe, manifest, spans=None):
         reports.append(dict(address='0x%08x' % address, symbol=spec['symbol'],
             size=size, compiled_extent=actual_size, verdict='match' if not errors and not diffs else 'wip',
             errors=errors, byte_differences=diffs, relocations=relocation_reports,
-            fold_aliases=spec.get('fold_aliases', [])))
+            fold_aliases=spec.get('fold_aliases', []), warnings=warnings))
     return reports
 
 
